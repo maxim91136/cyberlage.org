@@ -1537,27 +1537,35 @@
       "lizenz": "CC0 1.0 (laut LICENSE-Datei von cisagov/kev-data)",
       "quelle_abruf": "cisa.gov",
       "veroeffentlicht_am": "2026-11-23T19:43:55.7979Z",
-      "abgerufen_am": "2026-11-23T21:57:51+00:00"
+      "abgerufen_am": "2026-11-23T21:57:51+00:00",
+      "name_en": "CISA Known Exploited Vulnerabilities",
+      "lizenz_en": "CC0 1.0 (per the LICENSE file of cisagov/kev-data)"
     },
     {
       "id": "enisa",
       "name": "ENISA Threat Landscape 2026",
       "link": "https://www.enisa.europa.eu/sites/default/files/2026-09/ENISA%20Threat%20Landscape%202026_Final.pdf",
-      "lizenz": "CC BY 4.0"
+      "lizenz": "CC BY 4.0",
+      "name_en": "ENISA Threat Landscape 2026",
+      "lizenz_en": "CC BY 4.0"
     },
     {
       "id": "cert_bund",
       "name": "CERT-Bund / BSI Warn- und Informationsdienst",
       "link": "https://wid.cert-bund.de/",
       "lizenz": "nur Titel und Links, Nutzungsbedingungen des BSI beachten",
-      "abgerufen_am": "2026-11-23T21:57:51+00:00"
+      "abgerufen_am": "2026-11-23T21:57:51+00:00",
+      "name_en": "CERT-Bund / BSI Warning and Information Service",
+      "lizenz_en": "titles and links only, observe the BSI terms of use"
     },
     {
       "id": "eu_kev",
       "name": "EU-KEV (EUVD von ENISA)",
       "link": "https://euvd.enisa.europa.eu/",
       "lizenz": "Lizenz nicht ausdrücklich geklärt",
-      "abgerufen_am": "2026-11-23T21:57:51+00:00"
+      "abgerufen_am": "2026-11-23T21:57:51+00:00",
+      "name_en": "EU-KEV (EUVD by ENISA)",
+      "lizenz_en": "licence not explicitly clarified"
     }
   ],
   "hinweise": [
@@ -1566,5 +1574,13 @@
     "Die Liste ist für den Abgleich mit dem eigenen Bestand gedacht: Wer verteidigt, weiß selbst, was im Einsatz ist.",
     "Die Stufe zeigt, wie viele Schwachstellen neu als ausgenutzt gelten, im Vergleich zu den letzten 12 Monaten. Sie gilt allgemein, nicht für einen bestimmten Sektor, und sagt nichts über einzelne Angriffe.",
     "ENISA-Werte gelten für die EU insgesamt, nicht für Deutschland."
-  ]
+  ],
+  "hinweise_en": [
+    "No substitute for warnings from the BSI or a CERT.",
+    "KEV is a worldwide list of exploited vulnerabilities and contains no information about sectors or affected parties.",
+    "The list is meant for matching against your own inventory: defenders know what they run.",
+    "The level shows how many vulnerabilities newly count as exploited compared with the last 12 months. It applies in general, not to any particular sector, and says nothing about individual attacks.",
+    "ENISA figures apply to the EU as a whole, not to Germany."
+  ],
+  "stufe_begruendung_en": "36 newly added exploited vulnerabilities in 30 days."
 }

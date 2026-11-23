@@ -141,3 +141,8 @@ section[id]{scroll-margin-top:60px}
 @media (max-width:420px){section[id]{scroll-margin-top:56px}.navin{gap:2px 14px}.navin>a,.dd>summary{font-size:15px}}
 .leiste{display:block}.leiste .wrap{width:100%}
 .akk,#p-kev,#neu .tabs{scroll-margin-top:56px}
+
+.beta{text-align:center;font-size:13px;color:var(--dim);padding:6px 12px;border-bottom:1px solid var(--line);background:#0a0e11}
+.beta b{color:var(--amber);letter-spacing:.08em}
+.spr{background:none;border:1px solid var(--line);color:var(--dim);font-size:13px;padding:6px 10px;cursor:pointer;margin-left:4px}
+.spr:hover{color:var(--green);border-color:var(--green)}

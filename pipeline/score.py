@@ -35,6 +35,31 @@ HINWEISE = [
 ]
 
 
+HINWEISE_EN = [
+    "No substitute for warnings from the BSI or a CERT.",
+    "KEV is a worldwide list of exploited vulnerabilities and contains no information about sectors or affected parties.",
+    "The list is meant for matching against your own inventory: defenders know what they run.",
+    "The level shows how many vulnerabilities newly count as exploited compared with the last 12 months. It applies in general, not to any particular sector, and says nothing about individual attacks.",
+    "ENISA figures apply to the EU as a whole, not to Germany.",
+]
+
+QUELLEN_EN = {
+    "cisa-kev": ("CISA Known Exploited Vulnerabilities", "CC0 1.0 (per the LICENSE file of cisagov/kev-data)"),
+    "enisa": ("ENISA Threat Landscape 2026", "CC BY 4.0"),
+    "cert_bund": ("CERT-Bund / BSI Warning and Information Service", "titles and links only, observe the BSI terms of use"),
+    "eu_kev": ("EU-KEV (EUVD by ENISA)", "licence not explicitly clarified"),
+}
+
+
+def begruendung_en(anzahl, anzahl_ransomware, regeln):
+    if regeln.get("status") != "freigegeben":
+        return "Thresholds are not yet approved (draft), so there is no rating."
+    text = f"{anzahl} newly added exploited vulnerabilities in {regeln['fenster_tage']} days"
+    if anzahl_ransomware >= regeln["ransomware_aufschlag_ab"]:
+        text += f", {anzahl_ransomware} of them with known ransomware use (one level higher)"
+    return text + "."
+
+
 def lese_csv(pfad):
     with open(pfad, encoding="utf-8", newline="") as f:
         return list(csv.DictReader(f))
@@ -194,6 +219,11 @@ def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None, telegram_link=None):
             ergebnis["quellen"].append({"id": schluessel, "name": name, "link": z["quelle_url"], "lizenz": lizenz,
                                         "abgerufen_am": z.get("abgerufen_am")})
     ergebnis["hinweise"] = HINWEISE
+    ergebnis["hinweise_en"] = HINWEISE_EN
+    ergebnis["stufe_begruendung_en"] = begruendung_en(len(fenster), ransom, regeln)
+    for q in ergebnis["quellen"]:
+        if q.get("id") in QUELLEN_EN:
+            q["name_en"], q["lizenz_en"] = QUELLEN_EN[q["id"]]
     return ergebnis
 
 

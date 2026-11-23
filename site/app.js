@@ -1,11 +1,13 @@
 (function () {
   "use strict";
   var $ = function (id) { return document.getElementById(id); };
-  var zahl = function (n) { return typeof n === "number" ? n.toLocaleString("de-DE") : "keine Daten"; };
+  var txt = function () { return window.I18N.t.apply(null, arguments); };
+  var pick = function (de, en) { return window.I18N.pick(de, en); };
+  var zahl = function (n) { return typeof n === "number" ? n.toLocaleString(window.I18N.locale) : txt("keine"); };
   var datum = function (iso) {
-    if (!iso) return "keine Daten";
+    if (!iso) return txt("keine");
     var d = new Date(iso);
-    return isNaN(d) ? "keine Daten" : d.toLocaleDateString("de-DE", { timeZone: "UTC", day: "2-digit", month: "2-digit", year: "numeric" });
+    return isNaN(d) ? txt("keine") : d.toLocaleDateString(window.I18N.locale, { timeZone: "UTC", day: "2-digit", month: "2-digit", year: "numeric" });
   };
   var el = function (tag, cls, text) {
     var e = document.createElement(tag);
@@ -35,22 +37,21 @@
   fetch("data/lage.json", { cache: "no-cache" })
     .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(render)
-    .catch(function () {
-      $("stand").textContent = "keine Daten";
-      $("stufe-wert").textContent = "keine Daten";
-      $("stufe-text").textContent = "Die Daten konnten nicht geladen werden.";
+    .catch(function (err) { if (window.console) console.error(err);
+      $("stand").textContent = txt("keine");
+      $("stufe-wert").textContent = txt("keine");
+      $("stufe-text").textContent = txt("laden_fehler");
     });
 
   function render(d) {
     $("stand").textContent = datum(d.stand);
 
     var hatStufe = d.stufe !== null && d.stufe !== undefined;
-    var NAMEN = { niedrig: "niedrig", erhoeht: "erhöht", hoch: "hoch" };
-    var name = hatStufe ? (NAMEN[d.stufe] || String(d.stufe)) : null;
+    var name = hatStufe ? txt(String(d.stufe)) : null;
     $("stufe-wert").textContent = hatStufe ? name : "null";
-    $("stufe-text").textContent = hatStufe ? "" : "Keine Bewertung";
+    $("stufe-text").textContent = hatStufe ? "" : txt("keine_bew");
     $("stufe-text").hidden = hatStufe;
-    $("stufe-begr").textContent = d.stufe_begruendung || "";
+    $("stufe-begr").textContent = pick(d.stufe_begruendung, d.stufe_begruendung_en) || "";
 
     var k = d.kev || {};
     $("k7").textContent = zahl(k.neu_7_tage);
@@ -59,20 +60,18 @@
     $("kr").textContent = zahl(k.ransomware_bekannt_30_tage);
 
     var kq = (d.quellen || []).filter(function (q) { return q.id === "cisa-kev"; })[0] || {};
-    $("kev-quelle").textContent = "quelle: CISA KEV · veröffentlicht " + datum(kq.veroeffentlicht_am) +
-      " · abgerufen " + datum(kq.abgerufen_am) + " · lizenz " + (kq.lizenz || "keine Daten") + " · geltungsbereich: weltweit";
+    $("kev-quelle").textContent = txt("kev_quelle", datum(kq.veroeffentlicht_am), datum(kq.abgerufen_am), pick(kq.lizenz, kq.lizenz_en) || txt("keine"));
 
     var s = $("sektor");
     (d.sektor || []).forEach(function (z) {
       var box = el("div", "panel sektor");
       box.appendChild(el("div", "zahl mono", String(z.wert).replace(".", ",") + " %"));
       var t = el("div", "txt");
-      t.appendChild(el("div", "", "der erfassten Ereignisse " + z.berichtsjahr + " betrafen die öffentliche Verwaltung. Zur Einordnung, nicht Teil der Stufe."));
+      t.appendChild(el("div", "", txt("sektor_txt", z.berichtsjahr)));
       var m = el("div", "mono dim fine");
-      m.appendChild(document.createTextNode("geltungsbereich: " + z.geltungsbereich + (z.geltungsbereich === "EU" ? ", nicht Deutschland" : "") +
-        " · " + z.quelle + ", Seite " + z.seite + " · " + z.lizenz + " · "));
+      m.appendChild(document.createTextNode(txt("sektor_meta", z.geltungsbereich, z.geltungsbereich === "EU", z.quelle, z.seite, z.lizenz)));
       if (/^https:\/\//.test(z.link || "")) {
-        var a = el("a", "", "Quelle");
+        var a = el("a", "", txt("quelle"));
         a.href = z.link; a.rel = "noopener"; m.appendChild(a);
       }
       t.appendChild(m); box.appendChild(t); s.appendChild(box);
@@ -82,9 +81,9 @@
     (d.quellen || []).forEach(function (q) {
       var r = el("div", "row");
       var n = el("strong"); 
-      if (/^https:\/\//.test(q.link || "")) { var a = el("a", "", q.name); a.href = q.link; a.rel = "noopener"; n.appendChild(a); } else { n.textContent = q.name; }
+      if (/^https:\/\//.test(q.link || "")) { var a = el("a", "", pick(q.name, q.name_en)); a.href = q.link; a.rel = "noopener"; n.appendChild(a); } else { n.textContent = pick(q.name, q.name_en); }
       r.appendChild(n);
-      r.appendChild(el("span", "", "verarbeitet · " + q.lizenz + (q.abgerufen_am ? " · abgerufen " + datum(q.abgerufen_am) : "")));
+      r.appendChild(el("span", "", txt("verarbeitet", pick(q.lizenz, q.lizenz_en), q.abgerufen_am ? datum(q.abgerufen_am) : "")));
       ql.appendChild(r);
     });
 
@@ -100,7 +99,7 @@
       if (/^https:\/\/nvd\.nist\.gov\//.test(e.link || "")) { var a = el("a", "", e.cve); a.href = e.link; a.rel = "noopener"; c.appendChild(a); } else { c.textContent = e.cve; }
       tr.appendChild(c);
       tr.appendChild(el("td", "mono", datum(e.frist)));
-      tr.appendChild(e.ransomware_bekannt ? el("td", "rw", "bekannt") : el("td", "dim", "nicht bekannt"));
+      tr.appendChild(e.ransomware_bekannt ? el("td", "rw", txt("bekannt")) : el("td", "dim", txt("nicht_bekannt")));
       tr._text = (e.hersteller + " " + e.produkt + " " + e.cve).toLowerCase();
       body.appendChild(tr);
       return tr;
@@ -108,7 +107,7 @@
     function filtern() {
       var q = $("filter").value.trim().toLowerCase(), n = 0;
       zeilen.forEach(function (tr) { var ok = !q || tr._text.indexOf(q) !== -1; tr.hidden = !ok; if (ok) n++; });
-      $("treffer").textContent = n + " von " + zeilen.length + " Einträgen";
+      $("treffer").textContent = txt("treffer", n, zeilen.length);
     }
     $("filter").addEventListener("input", filtern);
     filtern();
@@ -121,7 +120,8 @@
     zeigeEu(d.eu_kev);
 
     var h = $("hinweise");
-    (d.hinweise || []).forEach(function (t) { h.appendChild(el("li", "", t)); });
+    var hw = window.I18N.lang === "en" && d.hinweise_en ? d.hinweise_en : (d.hinweise || []);
+    hw.forEach(function (t) { h.appendChild(el("li", "", t)); });
   }
 
   function waehleTab(name) {
@@ -161,7 +161,7 @@
 
   function zeichneVerlauf(v, sw) {
     var svg = $("verlauf"), NS = "http://www.w3.org/2000/svg";
-    if (!v.length) { $("verlauf-legende").textContent = "keine Daten"; return; }
+    if (!v.length) { $("verlauf-legende").textContent = txt("keine"); return; }
     var B = Math.max(300, Math.round(svg.getBoundingClientRect().width)) || 1000, H = B < 600 ? 190 : 220, L = 30, R = 74, T = 14, U = 28;
     svg.setAttribute("viewBox", "0 0 " + B + " " + H);
     var max = Math.max.apply(null, v.map(function (p) { return p.neu; }).concat([sw.hoch_ab || 0])) + 4;
@@ -180,28 +180,27 @@
     });
     v.forEach(function (p, i) {
       var t = mk("rect", { x: L + i * w + 1, y: y(p.neu), width: Math.max(w - 2, 1), height: y(0) - y(p.neu), fill: farbe[p.stufe] || "#8a99a6" });
-      t.appendChild(document.createElementNS(NS, "title")).textContent = datum(p.stand) + ": " + p.neu + " neu in 30 Tagen" + (p.stufe ? ", Stufe " + p.stufe : "");
+      t.appendChild(document.createElementNS(NS, "title")).textContent = txt("v_tip", datum(p.stand), p.neu, p.stufe ? txt(p.stufe) : "");
     });
     [["erhoeht_ab", "erhöht ab", "#e3b341"], ["hoch_ab", "hoch ab", "#ff8a7a"]].forEach(function (c) {
       if (typeof sw[c[0]] !== "number") return;
       mk("line", { x1: L, x2: B - R + 2, y1: y(sw[c[0]]), y2: y(sw[c[0]]), stroke: c[2], "stroke-dasharray": "5 4" });
-      mk("text", { x: B - R + 6, y: y(sw[c[0]]) + 4, "text-anchor": "start", fill: c[2], "font-size": 11, "font-family": "ui-monospace,monospace" }, c[1].replace(" ab", "") + " " + sw[c[0]]);
+      mk("text", { x: B - R + 6, y: y(sw[c[0]]) + 4, "text-anchor": "start", fill: c[2], "font-size": 11, "font-family": "ui-monospace,monospace" }, txt(c[0] === "hoch_ab" ? "hoch" : "erhoeht") + " " + sw[c[0]]);
     });
     [0, Math.floor(v.length / 2), v.length - 1].forEach(function (i) {
       mk("text", { x: L + i * w + w / 2, y: H - 8, "text-anchor": i === 0 ? "start" : (i === v.length - 1 ? "end" : "middle"), fill: "#8a99a6", "font-size": 11, "font-family": "ui-monospace,monospace" }, datum(v[i].stand));
     });
     var zahlen = v.map(function (p) { return p.neu; });
     var s = $("verlauf-titel");
-    s.textContent = "Neu aufgenommene Schwachstellen pro 30 Tage, " + datum(v[0].stand) + " bis " + datum(v[v.length - 1].stand) +
-      ": niedrigster Wert " + Math.min.apply(null, zahlen) + ", höchster " + Math.max.apply(null, zahlen) + ", zuletzt " + zahlen[zahlen.length - 1] + ".";
-    $("verlauf-legende").textContent = "Balken: grün unter erhöht-Schwelle, gelb erhöht, rot hoch. Wochenstände, auch rückwirkend mit den heutigen Schwellen gemessen. Quelle: CISA KEV (CC0 1.0), eigene Auswertung.";
+    s.textContent = txt("v_titel", datum(v[0].stand), datum(v[v.length - 1].stand), Math.min.apply(null, zahlen), Math.max.apply(null, zahlen), zahlen[zahlen.length - 1]);
+    $("verlauf-legende").textContent = txt("v_leg");
   }
 
   function liste(boxId, zeilen, max) {
     var box = $(boxId); box.textContent = "";
     var rest = null;
     zeilen.forEach(function (z, i) {
-      if (i === max) { rest = el("details", "mehr"); rest.appendChild(el("summary", "", "Alle " + zeilen.length + " anzeigen")); box.appendChild(rest); }
+      if (i === max) { rest = el("details", "mehr"); rest.appendChild(el("summary", "", txt("alle", zeilen.length))); box.appendChild(rest); }
       (rest || box).appendChild(z);
     });
   }
@@ -212,24 +211,23 @@
   function luecke(q, stand) {
     if (!q.daten_seit || !stand) return "";
     var von = new Date(stand + "T00:00:00Z"); von.setUTCDate(von.getUTCDate() - q.fenster_tage);
-    return new Date(q.daten_seit + "T00:00:00Z") > von ? " Achtung: Wir sammeln erst seit dem " + datum(q.daten_seit) + ", die Zahlen decken noch nicht das ganze Fenster ab." : "";
+    return new Date(q.daten_seit + "T00:00:00Z") > von ? txt("luecke", datum(q.daten_seit)) : "";
   }
   var d_stand = null;
   function zeigeBsi(b) {
-    if (!b) { $("bsi-info").textContent = "keine Daten"; $("bsi-liste").textContent = "keine Daten"; return; }
-    $("bsi-info").textContent = "Letzte " + b.fenster_tage + " Tage: " + b.kritisch_30_tage + " kritisch, " + b.hoch_30_tage + " hoch (davon 7 Tage: " +
-      b.kritisch_7_tage + " kritisch, " + b.hoch_7_tage + " hoch). Abgerufen " + datum(b.abgerufen_am) + "." + luecke(b, d_stand);
+    if (!b) { $("bsi-info").textContent = txt("keine"); $("bsi-liste").textContent = txt("keine"); return; }
+    $("bsi-info").textContent = txt("bsi_info", b.fenster_tage, b.kritisch_30_tage, b.hoch_30_tage, b.kritisch_7_tage, b.hoch_7_tage, datum(b.abgerufen_am)) + luecke(b, d_stand);
     liste("bsi-liste", (b.liste || []).map(function (e) {
       var r = el("div", "row zeile");
       r.appendChild(el("span", "mono dim", datum(e.datum)));
-      r.appendChild(el("span", "mono " + (e.schwere === "kritisch" ? "rw" : ""), e.schwere));
+      r.appendChild(el("span", "mono " + (e.schwere === "kritisch" ? "rw" : ""), (window.I18N.t("schwere") || {})[e.schwere] || e.schwere));
       var t = el("span", "titel"); t.appendChild(link(e.link, e.titel)); r.appendChild(t);
       return r;
     }), 8);
   }
   function zeigeEu(u) {
-    if (!u) { $("eu-info").textContent = "keine Daten"; $("eu-liste").textContent = "keine Daten"; return; }
-    $("eu-info").textContent = u.neu_30_tage + " neu als ausgenutzt gemeldet in den letzten " + u.fenster_tage + " Tagen. Abgerufen " + datum(u.abgerufen_am) + "." + luecke(u, d_stand);
+    if (!u) { $("eu-info").textContent = txt("keine"); $("eu-liste").textContent = txt("keine"); return; }
+    $("eu-info").textContent = txt("eu_info", u.neu_30_tage, u.fenster_tage, datum(u.abgerufen_am)) + luecke(u, d_stand);
     liste("eu-liste", (u.liste || []).map(function (e) {
       var r = el("div", "row zeile");
       r.appendChild(el("span", "mono dim", datum(e.ausgenutzt_seit)));

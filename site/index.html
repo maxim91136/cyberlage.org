@@ -14,60 +14,62 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body id="oben">
-<a class="skip" href="#lage">Zum Inhalt</a>
+<a class="skip" href="#lage" data-t="skip">Zum Inhalt</a>
+<div class="beta mono" data-t="beta"><b>BETA</b> · mehr kommt bald</div>
 <header class="marke">
   <a class="brand" href="./" aria-label="cyberlage.org, Startseite"><img src="favicon.svg" width="30" height="30" alt="" aria-hidden="true"><span>cyberlage<span class="dim">.org</span></span></a>
 </header>
 <nav class="leiste" aria-label="Hauptnavigation">
   <div class="wrap navin">
     <a href="#lage" data-sec="lage">/lage</a>
-    <a href="#rueckblick" data-sec="rueckblick">/rückblick</a>
-    <details class="dd"><summary data-sec="neu">/neu</summary><div class="dd-box">
-      <a href="#neu" data-tab="kev">KEV-Katalog</a>
+    <a href="#rueckblick" data-sec="rueckblick" data-t="n_rueck">/rückblick</a>
+    <details class="dd"><summary data-sec="neu" data-t="n_neu">/neu</summary><div class="dd-box">
+      <a href="#neu" data-tab="kev" data-t="tab_kev">KEV-Katalog</a>
       <a href="#neu" data-tab="bsi">CERT-Bund</a>
       <a href="#neu" data-tab="eu">EU-KEV</a>
     </div></details>
     <details class="dd"><summary data-sec="info">/info</summary><div class="dd-box">
-      <a href="#info" data-offen="i-quellen">Quellen</a>
-      <a href="#info" data-offen="i-begriffe">Begriffe</a>
-      <a href="#info" data-offen="i-methode">Methode</a>
-      <a href="#info" data-offen="i-hinweise">Hinweise</a>
+      <a href="#info" data-offen="i-quellen" data-t="i_quellen">Quellen</a>
+      <a href="#info" data-offen="i-begriffe" data-t="i_begriffe">Begriffe</a>
+      <a href="#info" data-offen="i-methode" data-t="i_methode">Methode</a>
+      <a href="#info" data-offen="i-hinweise" data-t="i_hinweise">Hinweise</a>
     </div></details>
+    <button type="button" id="sprache" class="spr mono" aria-label="Sprache wechseln / Change language">EN</button>
   </div>
 </nav>
 
 <main>
   <section class="wrap hero">
-    <p class="lbl">stand <span id="stand">…</span> · lagebild aus offenen quellen</p>
-    <h1>Die globale Cyberlage, regelbasiert und offen belegt.</h1>
-    <p class="lead">Weltweit, über alle Hersteller: Wir zählen die Schwachstellen, die Stellen wie CISA als ausgenutzt melden, und rechnen sie nach offenen Regeln zu einer Stufe zusammen. Keine Aussage über ein Land oder einen Sektor. Für alle, die verteidigen.</p>
-    <p id="telegram" class="telegram" hidden><a id="telegram-link" href="#" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M21.5 3.5L2.8 10.7c-.9.4-.9 1.1-.2 1.3l4.8 1.5 1.8 5.6c.2.6.4.8.8.8.4 0 .6-.2.9-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.2-.4-1.8-1.4-1.3zM9 13.4l9.100-5.700c.4-.3.8-.1.5.2l-7.400 6.700-.3 3.100z" fill="currentColor"/></svg> Telegram-Kanal abonnieren</a><span class="dim"> neue Einträge, kritische Warnungen und Stufenwechsel, sobald sie erscheinen.</span></p>
+    <p class="lbl" data-t="h_lbl">stand <span id="stand">…</span> · lagebild aus offenen quellen</p>
+    <h1 data-t="h_titel">Die globale Cyberlage, regelbasiert und offen belegt.</h1>
+    <p class="lead" data-t="h_lead">Weltweit, über alle Hersteller: Wir zählen die Schwachstellen, die Stellen wie CISA als ausgenutzt melden, und rechnen sie nach offenen Regeln zu einer Stufe zusammen. Keine Aussage über ein Land oder einen Sektor. Für alle, die verteidigen.</p>
+    <p id="telegram" class="telegram" hidden><a id="telegram-link" href="#" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M21.5 3.5L2.8 10.7c-.9.4-.9 1.1-.2 1.3l4.8 1.5 1.8 5.6c.2.6.4.8.8.8.4 0 .6-.2.9-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.2-.4-1.8-1.4-1.3zM9 13.4l9.100-5.700c.4-.3.8-.1.5.2l-7.400 6.700-.3 3.100z" fill="currentColor"/></svg> <span data-t="tg_btn">Telegram-Kanal abonnieren</span></a><span class="dim" data-t="tg_txt"> neue Einträge, kritische Warnungen und Stufenwechsel, sobald sie erscheinen.</span></p>
   </section>
 
   <section id="lage" class="wrap" aria-labelledby="h-lage">
-    <h2 id="h-lage" class="sr">Aktuelle Lage</h2>
+    <h2 id="h-lage" class="sr" data-t="h_lage">Aktuelle Lage</h2>
     <div class="uebersicht">
       <div class="panel lage" id="lage-box">
-        <p class="lbl">lage.stufe · weltweit</p>
+        <p class="lbl" data-t="l_stufe">lage.stufe · weltweit</p>
         <div class="stufe mono" id="stufe-wert">…</div>
-        <div class="stufe-text" id="stufe-text">Daten werden geladen</div>
+        <div class="stufe-text" id="stufe-text" data-t="l_lade">Daten werden geladen</div>
         <p class="begr dim" id="stufe-begr"></p>
       </div>
       <div class="zahlen">
-        <div class="panel pad"><div class="lbl">neu · 7 Tage</div><div class="zahl mono" id="k7">…</div></div>
-        <div class="panel pad"><div class="lbl">neu · 30 Tage</div><div class="zahl mono" id="k30">…</div></div>
-        <div class="panel pad"><div class="lbl">Katalog gesamt</div><div class="zahl mono" id="kall">…</div></div>
+        <div class="panel pad"><div class="lbl" data-t="l_7">neu · 7 Tage</div><div class="zahl mono" id="k7">…</div></div>
+        <div class="panel pad"><div class="lbl" data-t="l_30">neu · 30 Tage</div><div class="zahl mono" id="k30">…</div></div>
+        <div class="panel pad"><div class="lbl" data-t="l_ges">Katalog gesamt</div><div class="zahl mono" id="kall">…</div></div>
         <div class="panel pad"><div class="lbl">Ransomware</div><div class="zahl mono" id="kr">…</div></div>
       </div>
     </div>
-    <p class="dim fine"><strong>KEV</strong> heißt <em>Known Exploited Vulnerabilities</em>, „bekannte, ausgenutzte Schwachstellen“: eine Liste der US-Cybersicherheitsbehörde <strong>CISA</strong> mit Lücken, für die belegt ist, dass Angreifer sie wirklich ausnutzen. Die Stufe zeigt, wie viele neu hinzukommen.</p>
+    <p class="dim fine" data-t="l_kev"><strong>KEV</strong> heißt <em>Known Exploited Vulnerabilities</em>, „bekannte, ausgenutzte Schwachstellen“: eine Liste der US-Cybersicherheitsbehörde <strong>CISA</strong> mit Lücken, für die belegt ist, dass Angreifer sie wirklich ausnutzen. Die Stufe zeigt, wie viele neu hinzukommen.</p>
     <p class="mono dim fine" id="kev-quelle"></p>
     <div id="sektor"></div>
     <noscript><p class="panel pad">Diese Seite lädt ihre Zahlen aus <a href="data/lage.json">data/lage.json</a>. Dafür wird JavaScript benötigt. Die Rohdaten sind direkt abrufbar.</p></noscript>
   </section>
 
   <section id="rueckblick" class="wrap" aria-labelledby="h-rueck">
-    <h2 id="h-rueck" class="mono">## rückblick</h2>
+    <h2 id="h-rueck" class="mono" data-t="r_h">## rückblick</h2>
     <div class="panel pad">
       <svg id="verlauf" role="img" aria-labelledby="verlauf-titel" viewBox="0 0 1000 220" width="100%" preserveAspectRatio="xMidYMid meet"><title id="verlauf-titel">Verlauf der neu aufgenommenen Schwachstellen</title></svg>
       <p class="mono dim fine" id="verlauf-legende"></p>
@@ -75,48 +77,48 @@
   </section>
 
   <section id="neu" class="wrap" aria-labelledby="h-neu">
-    <h2 id="h-neu" class="mono">## neu</h2>
+    <h2 id="h-neu" class="mono" data-t="n_h">## neu</h2>
     <div class="tabs mono" role="tablist" aria-label="Quelle wählen">
-      <button type="button" role="tab" id="t-kev" data-tab="kev" aria-selected="true" aria-controls="p-kev">KEV-Katalog</button>
+      <button type="button" role="tab" id="t-kev" data-tab="kev" aria-selected="true" aria-controls="p-kev" data-t="tab_kev">KEV-Katalog</button>
       <button type="button" role="tab" id="t-bsi" data-tab="bsi" aria-selected="false" aria-controls="p-bsi" tabindex="-1">CERT-Bund</button>
       <button type="button" role="tab" id="t-eu" data-tab="eu" aria-selected="false" aria-controls="p-eu" tabindex="-1">EU-KEV</button>
     </div>
 
     <div id="p-kev" role="tabpanel" aria-labelledby="t-kev">
-      <p class="dim sub">Ausgenutzte Schwachstellen der letzten <span id="fenster">30</span> Tage, neueste zuerst. Der Filter läuft nur in deinem Browser.</p>
-      <label class="lbl" for="filter">Hersteller, Produkt oder CVE filtern</label>
-      <input id="filter" class="filter mono" type="search" autocomplete="off" placeholder="z. B. microsoft, fortinet, CVE-2026">
+      <p class="dim sub" data-t="n_sub">Ausgenutzte Schwachstellen der letzten <span id="fenster">30</span> Tage, neueste zuerst. Der Filter läuft nur in deinem Browser.</p>
+      <label class="lbl" for="filter" data-t="n_filter">Hersteller, Produkt oder CVE filtern</label>
+      <input id="filter" class="filter mono" type="search" autocomplete="off" placeholder="z. B. microsoft, fortinet, CVE-2026" data-t-ph="n_ph">
       <p class="mono dim fine" id="treffer" aria-live="polite"></p>
       <div class="tabelle" role="region" aria-label="Neue Einträge im KEV-Katalog" tabindex="0">
         <table>
-          <thead><tr><th scope="col">Aufgenommen</th><th scope="col">Hersteller</th><th scope="col">Produkt</th><th scope="col">CVE</th><th scope="col">Frist (CISA)</th><th scope="col">Ransomware</th></tr></thead>
+          <thead><tr><th scope="col" data-t="th1">Aufgenommen</th><th scope="col" data-t="th2">Hersteller</th><th scope="col" data-t="th3">Produkt</th><th scope="col">CVE</th><th scope="col" data-t="th5">Frist (CISA)</th><th scope="col">Ransomware</th></tr></thead>
           <tbody id="neu-liste"></tbody>
         </table>
       </div>
-      <p class="dim fine">Quelle: CISA KEV (CC0 1.0). Die Frist gilt für US-Bundesbehörden und ist nur eine Orientierung. Die Links führen zur CVE-Seite des NIST (NVD). Keine Angriffsdetails.</p>
+      <p class="dim fine" data-t="n_q1">Quelle: CISA KEV (CC0 1.0). Die Frist gilt für US-Bundesbehörden und ist nur eine Orientierung. Die Links führen zur CVE-Seite des NIST (NVD). Keine Angriffsdetails.</p>
     </div>
 
     <div id="p-bsi" role="tabpanel" aria-labelledby="t-bsi" hidden>
       <p class="dim sub" id="bsi-info">…</p>
       <div class="panel pad"><div id="bsi-liste"></div></div>
-      <p class="dim fine">Quelle: CERT-Bund, das Computer-Notfallteam des <strong>BSI</strong> (Bundesamt für Sicherheit in der Informationstechnik), über wid.cert-bund.de. Übernommen werden nur Titel, Schweregrad, Datum und Link, die Texte stehen beim BSI. Kein Hinweis auf eine Zusammenarbeit mit dem BSI.</p>
+      <p class="dim fine" data-t="n_q2">Quelle: CERT-Bund, das Computer-Notfallteam des <strong>BSI</strong> (Bundesamt für Sicherheit in der Informationstechnik), über wid.cert-bund.de. Übernommen werden nur Titel, Schweregrad, Datum und Link, die Texte stehen beim BSI. Kein Hinweis auf eine Zusammenarbeit mit dem BSI.</p>
     </div>
 
     <div id="p-eu" role="tabpanel" aria-labelledby="t-eu" hidden>
       <p class="dim sub" id="eu-info">…</p>
       <div class="panel pad"><div id="eu-liste"></div></div>
-      <p class="dim fine">Quelle: EU-Schwachstellendatenbank (EUVD) der <strong>ENISA</strong>, der EU-Agentur für Cybersicherheit. Die Lizenz ist nicht ausdrücklich geklärt, deshalb nur Kennung, CVE, Hersteller und Link.</p>
+      <p class="dim fine" data-t="n_q3">Quelle: EU-Schwachstellendatenbank (EUVD) der <strong>ENISA</strong>, der EU-Agentur für Cybersicherheit. Die Lizenz ist nicht ausdrücklich geklärt, deshalb nur Kennung, CVE, Hersteller und Link.</p>
     </div>
   </section>
 
   <section id="info" class="wrap" aria-labelledby="h-info">
     <h2 id="h-info" class="mono">## info</h2>
-    <details class="akk" id="i-quellen"><summary class="mono">quellen</summary>
+    <details class="akk" id="i-quellen"><summary class="mono" data-t="i_quellen">quellen</summary>
       <div class="panel pad" id="quellenliste"></div>
-      <p class="dim fine">BSI und CERT-Bund werden bewusst nicht verarbeitet, nur verlinkt. Die Nutzungsbedingungen sind noch zu klären.</p>
+      <p class="dim fine" data-t="i_qtxt">BSI und CERT-Bund werden bewusst nicht verarbeitet, nur verlinkt. Die Nutzungsbedingungen sind noch zu klären.</p>
     </details>
-    <details class="akk" id="i-begriffe"><summary class="mono">begriffe</summary>
-      <dl class="begriffe">
+    <details class="akk" id="i-begriffe"><summary class="mono" data-t="i_begriffe">begriffe</summary>
+      <dl class="begriffe" data-t="i_dl">
         <dt>CISA</dt><dd>Cybersecurity and Infrastructure Security Agency, die Cybersicherheitsbehörde der USA. Führt die KEV-Liste.</dd>
         <dt>KEV</dt><dd>Known Exploited Vulnerabilities: Schwachstellen, die nachweislich in Angriffen ausgenutzt werden.</dd>
         <dt>CVE</dt><dd>Die weltweit einheitliche Kennung einer Schwachstelle, zum Beispiel CVE-2026-12345.</dd>
@@ -126,14 +128,14 @@
         <dt>Ransomware</dt><dd>Schadsoftware, die Daten verschlüsselt, um Lösegeld zu erpressen.</dd>
       </dl>
     </details>
-    <details class="akk" id="i-methode"><summary class="mono">methode</summary>
-      <div class="grid3">
+    <details class="akk" id="i-methode"><summary class="mono" data-t="i_methode">methode</summary>
+      <div class="grid3" data-t="i_grid">
         <div class="panel pad"><strong>Nur Veröffentlichtes</strong><p class="dim">Was bei wem im Einsatz ist, wissen wir nicht und behaupten es nicht.</p></div>
         <div class="panel pad"><strong>Keine Daten statt Schätzung</strong><p class="dim">Fehlt ein belegter Wert, steht dort „keine Daten“.</p></div>
         <div class="panel pad"><strong>Regeln offen</strong><p class="dim">Fenster, Schwellen und Herleitung stehen in <a href="https://github.com/maxim91136/cyberlage.org/blob/main/RULES.md">RULES.md</a>.</p></div>
       </div>
     </details>
-    <details class="akk" id="i-hinweise"><summary class="mono">hinweise</summary>
+    <details class="akk" id="i-hinweise"><summary class="mono" data-t="i_hinweise">hinweise</summary>
       <ul id="hinweise" class="hinw"></ul>
     </details>
   </section>
@@ -141,11 +143,12 @@
 
 <footer>
   <div class="wrap foot">
-    <p class="dim" id="fuss">Ein Projekt von <a href="https://dreierlabs.com">Dreier Labs</a>. Privates Projekt, keine amtliche Stelle, keine Verbindung zu BSI oder Behörden. Keine Gewähr.</p>
-    <p class="mono"><a href="https://dreierlabs.com/impressum.html">impressum</a> · <a href="hinweise.html">hinweise &amp; datenschutz</a></p>
+    <p class="dim" id="fuss" data-t="f_fuss">Ein Projekt von <a href="https://dreierlabs.com">Dreier Labs</a>. Privates Projekt, keine amtliche Stelle, keine Verbindung zu BSI oder Behörden. Keine Gewähr.</p>
+    <p class="mono" data-t="f_links"><a href="https://dreierlabs.com/impressum.html">impressum</a> · <a href="hinweise.html">hinweise &amp; datenschutz</a></p>
   </div>
 </footer>
-<button type="button" id="totop" class="totop" aria-label="Nach oben"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M6 10V2M2.5 5.5 6 2l3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></svg><span id="totopl">Nach oben</span></button>
+<button type="button" id="totop" class="totop" aria-label="Nach oben"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M6 10V2M2.5 5.5 6 2l3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></svg><span id="totopl" data-t="top">Nach oben</span></button>
+<script src="i18n.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
