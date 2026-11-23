@@ -155,3 +155,33 @@ section[id]{scroll-margin-top:60px}
 .lage.st-niedrig{border-left-color:var(--green)}.lage.st-niedrig .stufe{color:var(--green)}
 .lage.st-erhoeht{border-left-color:var(--amber)}.lage.st-erhoeht .stufe{color:var(--amber)}
 .lage.st-hoch{border-left-color:#ff8a7a}.lage.st-hoch .stufe{color:#ff8a7a}
+
+/* Cyberwar-Modus: nur Optik, die Daten bleiben unverändert */
+html.krieg{--bg:#0a0305;--panel:#12070a;--line:#3a1218;--dash:#4a1a22;--text:#f1dcdc;--dim:#b08a8e;--green:#ff3b3b;--amber:#ff9d3b}
+html.krieg body{background-image:linear-gradient(#1a0a0d 1px,transparent 1px),linear-gradient(90deg,#1a0a0d 1px,transparent 1px)}
+html.krieg a:hover{color:#ff8a8a}
+html.krieg body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;background:repeating-linear-gradient(0deg,rgba(0,0,0,.28) 0,rgba(0,0,0,.28) 1px,transparent 1px,transparent 3px);mix-blend-mode:multiply}
+html.krieg body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:49;background:radial-gradient(ellipse at center,transparent 55%,rgba(120,0,10,.38) 100%)}
+html.krieg .beta{background:#1a0509;color:#ff6b6b;border-bottom-color:#5a1a22}
+html.krieg .beta b{color:#ff3b3b}
+html.krieg .beta::after{content:" · CYBERWAR-MODUS AKTIV";color:#ff3b3b;letter-spacing:.06em}
+html[lang="en"].krieg .beta::after{content:" · CYBERWAR MODE ACTIVE"}
+html.krieg h1,html.krieg h2,html.krieg .lbl,html.krieg .stufe{text-transform:uppercase;letter-spacing:.04em}
+html.krieg h1{text-shadow:0 0 18px rgba(255,59,59,.45)}
+html.krieg h1::after{content:"_";color:#ff3b3b;animation:blink 1s steps(1) infinite}
+html.krieg .stufe{text-shadow:0 0 14px currentColor}
+html.krieg .panel,html.krieg .akk,html.krieg .tabelle{border-color:#5a1a22;box-shadow:inset 0 0 0 1px rgba(255,59,59,.06)}
+html.krieg .panel{position:relative}
+html.krieg .panel::before,html.krieg .panel::after{content:"";position:absolute;width:10px;height:10px;border:2px solid #ff3b3b;pointer-events:none}
+html.krieg .panel::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+html.krieg .panel::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+html.krieg .leiste{border-color:#5a1a22;background:rgba(10,3,5,.96)}
+html.krieg .brand img{filter:hue-rotate(-140deg) saturate(2.2) brightness(1.1)}
+html.krieg .spr{color:#ff6b6b;border-color:#5a1a22}
+html.krieg .dd-box{background:#12070a;border-color:#5a1a22}
+html.krieg .tabs button[aria-selected="true"]{background:#12070a;border-color:#5a1a22}
+html.krieg .zahl{text-shadow:0 0 10px rgba(255,59,59,.4)}
+@keyframes blink{50%{opacity:0}}
+@keyframes flackern{0%,97%,100%{opacity:1}98%{opacity:.86}99%{opacity:.95}}
+html.krieg .marke{animation:flackern 6s infinite}
+@media (prefers-reduced-motion:reduce){html.krieg h1::after{animation:none}html.krieg .marke{animation:none}}
