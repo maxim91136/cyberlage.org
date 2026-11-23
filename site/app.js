@@ -67,7 +67,7 @@
       var box = el("div", "panel sektor");
       box.appendChild(el("div", "zahl mono", String(z.wert).replace(".", ",") + " %"));
       var t = el("div", "txt");
-      t.appendChild(el("div", "", "der erfassten Ereignisse " + z.berichtsjahr + " betrafen die öffentliche Verwaltung."));
+      t.appendChild(el("div", "", "der erfassten Ereignisse " + z.berichtsjahr + " betrafen die öffentliche Verwaltung. Zur Einordnung, nicht Teil der Stufe."));
       var m = el("div", "mono dim fine");
       m.appendChild(document.createTextNode("geltungsbereich: " + z.geltungsbereich + (z.geltungsbereich === "EU" ? ", nicht Deutschland" : "") +
         " · " + z.quelle + ", Seite " + z.seite + " · " + z.lizenz + " · "));

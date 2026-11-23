@@ -7,7 +7,7 @@ Diese Regeln bestimmen, was auf der Seite als Zahl und als Warnstufe erscheint. 
 1. Die Stufe entsteht nur aus den Regeln unten, nie von Hand.
 2. Jeder Wert zeigt Quelle, Stand und Lizenz.
 3. Fehlen Daten oder Freigaben, steht in der Ausgabe `null` bzw. „keine Daten“. Es wird nichts geschätzt.
-4. Es werden nur Sektoren und Trends gezeigt, keine einzelnen Behörden.
+4. Es werden keine einzelnen Betroffenen genannt. Die Stufe gilt allgemein, nicht für einen bestimmten Sektor.
 5. Nur Quellen mit Status „grün“ gehen in die Berechnung ein. Alles andere wird nur verlinkt.
 
 ## Eingaben
@@ -16,7 +16,7 @@ Diese Regeln bestimmen, was auf der Seite als Zahl und als Warnstufe erscheint. 
 | --- | --- | --- | --- |
 | Neu aufgenommene ausgenutzte Schwachstellen | CISA KEV | täglich | weltweit |
 | Kennzeichen „in Ransomware-Kampagnen genutzt“ | CISA KEV | täglich | weltweit |
-| Anteil des Sektors an erfassten Ereignissen | ENISA Threat Landscape | jährlich, von Hand | EU |
+| Anteil der öffentlichen Verwaltung an erfassten Ereignissen (Einordnung, nicht Teil der Stufe) | ENISA Threat Landscape | jährlich, von Hand | EU |
 
 ENISA-Werte werden nur übernommen, wenn sie in `data/enisa.csv` den Status `geprueft` haben und Seitenangabe, Berichtsjahr und Geltungsbereich tragen. Sie werden nie als deutsche Werte dargestellt.
 

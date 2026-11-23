@@ -1,6 +1,6 @@
 # Cyberlage
 
-Frühwarnsystem für die Cyberlage im öffentlichen Sektor.
+Frühwarnsystem: die Cyberlage, abgeleitet aus ausgenutzten Schwachstellen und offenen Quellen. Für alle, die verteidigen.
 
 **Ein Projekt von [Dreier Labs](https://dreierlabs.com).** Ein privates Projekt, keine amtliche Stelle und keine Zusammenarbeit mit einer Behörde.
 
@@ -10,7 +10,7 @@ Status: im Aufbau, noch nicht veröffentlicht.
 
 - **Quelle, Stand und Lizenz an jedem Wert.** Nichts erscheint ohne Beleg.
 - **Regeln statt Bauchgefühl.** Die Bewertung folgt den offenen Regeln in [RULES.md](RULES.md).
-- **Sektoren statt Behörden.** Es werden keine einzelnen Stellen genannt.
+- **Keine einzelnen Betroffenen.** Es wird nur gezeigt, was die Quellen veröffentlichen.
 - **Nicht belegt heißt „keine Daten“.** Es wird nichts geschätzt.
 - **Lizenzen zuerst.** Eine Quelle wird nur genutzt, wenn ihre Bedingungen es erlauben. Sonst wird nur verlinkt. Siehe [data/sources.csv](data/sources.csv).
 
