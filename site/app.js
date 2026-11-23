@@ -112,6 +112,12 @@
     $("filter").addEventListener("input", filtern);
     filtern();
 
+    var sw = d.schwellen || {};
+    if (typeof sw.erhoeht_ab === "number" && typeof sw.hoch_ab === "number" && typeof sw.ransomware_aufschlag_ab === "number") {
+      $("rechnung").innerHTML = txt("rechnung", d.fenster_tage || 30, sw.erhoeht_ab, sw.hoch_ab, sw.ransomware_aufschlag_ab);
+    } else {
+      $("rechnung").textContent = txt("keine");
+    }
     zeichneVerlauf(d.verlauf || [], d.schwellen || {});
     var tl = d.telegram && d.telegram.link;
     if (/^https:\/\/t\.me\//.test(tl || "")) { $("telegram-link").href = tl; $("telegram").hidden = false; }

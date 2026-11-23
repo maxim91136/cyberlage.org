@@ -146,3 +146,8 @@ section[id]{scroll-margin-top:60px}
 .beta b{color:var(--amber);letter-spacing:.08em}
 .spr{background:none;border:1px solid var(--line);color:var(--dim);font-size:13px;padding:6px 10px;cursor:pointer;margin-left:4px}
 .spr:hover{color:var(--green);border-color:var(--green)}
+
+.rechnung{font-size:14px;max-width:820px}
+.rechnung p{margin:0 0 10px}
+.rechnung ul{margin:0 0 10px;padding-left:20px}
+#l-rechnung{margin:10px 0 0}
