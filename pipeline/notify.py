@@ -133,7 +133,7 @@ def sende(text, token, chat):
 
 def diagnose():
     token, chat = os.environ.get("TELEGRAM_BOT_TOKEN", ""), os.environ.get("TELEGRAM_CHAT_ID", "")
-    print(f"Token gesetzt: {bool(token)} (Länge {len(token)}), Chat-ID: {chat!r}")
+    print(f"Token gesetzt: {bool(token)} (Länge {len(token)}), Bot-Nummer: {' '.join(token.split(':')[0])}, Chat-ID: {chat!r}")
     try:
         urllib.request.urlopen("https://api.telegram.org/bot0:fantasie/getMe", timeout=20)
     except urllib.error.HTTPError as ex:
