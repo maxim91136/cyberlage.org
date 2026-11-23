@@ -142,7 +142,7 @@ section[id]{scroll-margin-top:60px}
 .leiste{display:block}.leiste .wrap{width:100%}
 .akk,#p-kev,#neu .tabs{scroll-margin-top:56px}
 
-.beta{text-align:center;font-size:13px;color:var(--dim);padding:6px 12px;border-bottom:1px solid var(--line);background:#0a0e11}
+.beta{display:none;text-align:center;font-size:13px;color:var(--dim);padding:6px 12px;border-bottom:1px solid var(--line);background:#0a0e11}
 .beta b{color:var(--amber);letter-spacing:.08em}
 .spr{background:none;border:1px solid var(--line);color:var(--dim);font-size:13px;padding:6px 10px;cursor:pointer;margin-left:4px}
 .spr:hover{color:var(--green);border-color:var(--green)}
@@ -162,10 +162,10 @@ html.alarm body{background-image:linear-gradient(#1a0a0d 1px,transparent 1px),li
 html.alarm a:hover{color:#ff8a8a}
 html.alarm body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;background:repeating-linear-gradient(0deg,rgba(0,0,0,.28) 0,rgba(0,0,0,.28) 1px,transparent 1px,transparent 3px);mix-blend-mode:multiply}
 html.alarm body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:49;background:radial-gradient(ellipse at center,transparent 55%,rgba(120,0,10,.38) 100%)}
-html.alarm .beta{background:#1a0509;color:#ff6b6b;border-bottom-color:#5a1a22}
+html.alarm .beta{display:block;background:#1a0509;color:#ff6b6b;border-bottom-color:#5a1a22}
 html.alarm .beta b{color:#ff3b3b}
-html.alarm .beta::after{content:" · ALARM-MODUS AKTIV";color:#ff3b3b;letter-spacing:.06em}
-html[lang="en"].alarm .beta::after{content:" · ALERT MODE ACTIVE"}
+html.alarm .beta::after{content:"ALARM-MODUS AKTIV";color:#ff3b3b;letter-spacing:.06em}
+html[lang="en"].alarm .beta::after{content:"ALERT MODE ACTIVE"}
 html.alarm h1,html.alarm h2,html.alarm .lbl,html.alarm .stufe{text-transform:uppercase;letter-spacing:.04em}
 html.alarm h1{text-shadow:0 0 18px rgba(255,59,59,.45)}
 html.alarm h1::after{content:"_";color:#ff3b3b;animation:blink 1s steps(1) infinite}

@@ -7,7 +7,7 @@
   // Englische Texte für Elemente mit data-t (Deutsch steht im HTML). Nur eigene, feste Texte.
   var EN = {
     skip: "Skip to content",
-    beta: "<b>BETA</b> · more coming soon",
+    beta: "",
     n_rueck: "/history", n_neu: "/new",
     tab_kev: "KEV catalog", i_quellen: "Sources", i_begriffe: "Terms", i_methode: "Method", i_hinweise: "Notes",
     h_lbl: 'as of <span id="stand">…</span> · situation picture from open sources',
