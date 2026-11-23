@@ -114,6 +114,7 @@
     filtern();
 
     zeichneVerlauf(d.verlauf || [], d.schwellen || {});
+    d_stand = d.stand;
     zeigeBsi(d.cert_bund);
     zeigeEu(d.eu_kev);
 
@@ -171,10 +172,16 @@
     if (/^https:\/\//.test(url || "")) { var a = el("a", "", text); a.href = url; a.rel = "noopener"; return a; }
     return el("span", "", text);
   }
+  function luecke(q, stand) {
+    if (!q.daten_seit || !stand) return "";
+    var von = new Date(stand + "T00:00:00Z"); von.setUTCDate(von.getUTCDate() - q.fenster_tage);
+    return new Date(q.daten_seit + "T00:00:00Z") > von ? " Achtung: Wir sammeln erst seit dem " + datum(q.daten_seit) + ", die Zahlen decken noch nicht das ganze Fenster ab." : "";
+  }
+  var d_stand = null;
   function zeigeBsi(b) {
     if (!b) { $("bsi-info").textContent = "keine Daten"; $("bsi-liste").textContent = "keine Daten"; return; }
     $("bsi-info").textContent = "Letzte " + b.fenster_tage + " Tage: " + b.kritisch_30_tage + " kritisch, " + b.hoch_30_tage + " hoch (davon 7 Tage: " +
-      b.kritisch_7_tage + " kritisch, " + b.hoch_7_tage + " hoch). Abgerufen " + datum(b.abgerufen_am) + ".";
+      b.kritisch_7_tage + " kritisch, " + b.hoch_7_tage + " hoch). Abgerufen " + datum(b.abgerufen_am) + "." + luecke(b, d_stand);
     liste("bsi-liste", (b.liste || []).map(function (e) {
       var r = el("div", "row zeile");
       r.appendChild(el("span", "mono dim", datum(e.datum)));
@@ -185,7 +192,7 @@
   }
   function zeigeEu(u) {
     if (!u) { $("eu-info").textContent = "keine Daten"; $("eu-liste").textContent = "keine Daten"; return; }
-    $("eu-info").textContent = u.neu_30_tage + " neu als ausgenutzt gemeldet in den letzten " + u.fenster_tage + " Tagen. Abgerufen " + datum(u.abgerufen_am) + ".";
+    $("eu-info").textContent = u.neu_30_tage + " neu als ausgenutzt gemeldet in den letzten " + u.fenster_tage + " Tagen. Abgerufen " + datum(u.abgerufen_am) + "." + luecke(u, d_stand);
     liste("eu-liste", (u.liste || []).map(function (e) {
       var r = el("div", "row zeile");
       r.appendChild(el("span", "mono dim", datum(e.ausgenutzt_seit)));

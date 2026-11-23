@@ -110,6 +110,7 @@ def zusatz_bsi(daten, stand, tage):
         "quelle": daten["meta"]["quelle"], "quelle_url": daten["meta"]["quelle_url"],
         "abgerufen_am": daten["meta"].get("abgerufen_am"),
         "fenster_tage": tage,
+        "daten_seit": min(e["datum"] for e in daten["eintraege"]),
         "kritisch_7_tage": sum(1 for e in im if e["schwere"] == "kritisch" and e["datum"] > sieben),
         "hoch_7_tage": sum(1 for e in im if e["schwere"] == "hoch" and e["datum"] > sieben),
         "kritisch_30_tage": sum(1 for e in im if e["schwere"] == "kritisch"),
@@ -127,6 +128,7 @@ def zusatz_eu(daten, stand, tage):
     return {
         "quelle": daten["meta"]["quelle"], "quelle_url": daten["meta"]["quelle_url"],
         "abgerufen_am": daten["meta"].get("abgerufen_am"), "fenster_tage": tage,
+        "daten_seit": min(e["ausgenutzt_seit"] for e in daten["eintraege"]),
         "neu_30_tage": len(im), "liste": im[:40],
     }
 

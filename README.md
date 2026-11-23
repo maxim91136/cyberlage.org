@@ -1,6 +1,6 @@
 # Cyberlage
 
-Frühwarnsystem: die Cyberlage, abgeleitet aus ausgenutzten Schwachstellen und offenen Quellen. Für alle, die verteidigen.
+Lagebild: die Cyberlage, abgeleitet aus ausgenutzten Schwachstellen und offenen Quellen. Für alle, die verteidigen.
 
 **Ein Projekt von [Dreier Labs](https://dreierlabs.com).** Ein privates Projekt, keine amtliche Stelle und keine Zusammenarbeit mit einer Behörde.
 

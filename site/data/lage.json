@@ -671,6 +671,7 @@
     "quelle_url": "https://wid.cert-bund.de/",
     "abgerufen_am": "2026-11-23T21:43:21+00:00",
     "fenster_tage": 30,
+    "daten_seit": "2026-11-23",
     "kritisch_7_tage": 5,
     "hoch_7_tage": 131,
     "kritisch_30_tage": 5,
@@ -1003,6 +1004,7 @@
     "quelle_url": "https://euvd.enisa.europa.eu/",
     "abgerufen_am": "2026-11-23T21:43:21+00:00",
     "fenster_tage": 30,
+    "daten_seit": "2026-08-07",
     "neu_30_tage": 36,
     "liste": [
       {
