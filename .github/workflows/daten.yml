@@ -5,6 +5,11 @@ on:
   schedule:
     - cron: "17 */2 * * *"
   workflow_dispatch:
+    inputs:
+      test:
+        description: "Telegram-Testmeldung senden"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -26,6 +31,12 @@ jobs:
         continue-on-error: true
       - name: Auswerten
         run: python pipeline/score.py
+      - name: Telegram Testmeldung
+        if: ${{ inputs.test }}
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python pipeline/notify.py --test
       - name: Telegram melden
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}

@@ -113,7 +113,23 @@ def sende(text, token, chat):
             raise RuntimeError("Telegram hat die Nachricht nicht angenommen")
 
 
+def test_senden():
+    token, chat = os.environ.get("TELEGRAM_BOT_TOKEN"), os.environ.get("TELEGRAM_CHAT_ID")
+    if not (token and chat):
+        print("FEHLER: TELEGRAM_BOT_TOKEN oder TELEGRAM_CHAT_ID fehlt", file=sys.stderr)
+        return 1
+    try:
+        sende(f"<b>Cyberlage</b>: Testmeldung. Der Kanal ist verbunden, ab jetzt kommen neue Einträge und kritische Warnungen hierher.\n{SEITE}", token, chat)
+    except Exception as ex:
+        print(f"FEHLER beim Senden: {ex}", file=sys.stderr)
+        return 1
+    print("OK: Testmeldung gesendet")
+    return 0
+
+
 def main():
+    if "--test" in sys.argv[1:]:
+        return test_senden()
     jetzt = datetime.now(timezone.utc)
     kev = lese(WURZEL / "data" / "kev" / "kev.json", None)
     lage = lese(WURZEL / "site" / "data" / "lage.json", None)
