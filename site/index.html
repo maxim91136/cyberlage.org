@@ -50,7 +50,7 @@
         <div class="panel pad"><div class="lbl">Ransomware</div><div class="zahl mono" id="kr">…</div></div>
       </div>
     </div>
-    <p class="dim fine"><strong>KEV</strong> heißt <em>Known Exploited Vulnerabilities</em>, „bekannte, ausgenutzte Schwachstellen“: eine Liste der US-Behörde CISA mit Lücken, für die belegt ist, dass Angreifer sie wirklich ausnutzen. Die Stufe zeigt, wie viele neu hinzukommen.</p>
+    <p class="dim fine"><strong>KEV</strong> heißt <em>Known Exploited Vulnerabilities</em>, „bekannte, ausgenutzte Schwachstellen“: eine Liste der US-Cybersicherheitsbehörde <strong>CISA</strong> mit Lücken, für die belegt ist, dass Angreifer sie wirklich ausnutzen. Die Stufe zeigt, wie viele neu hinzukommen.</p>
     <p class="mono dim fine" id="kev-quelle"></p>
     <div id="sektor"></div>
     <noscript><p class="panel pad">Diese Seite lädt ihre Zahlen aus <a href="data/lage.json">data/lage.json</a>. Dafür wird JavaScript benötigt. Die Rohdaten sind direkt abrufbar.</p></noscript>
@@ -81,12 +81,12 @@
     <h3 class="mono">### warnungen · cert-bund</h3>
     <p class="dim sub" id="bsi-info">…</p>
     <div class="panel pad"><div id="bsi-liste"></div></div>
-    <p class="dim fine">Quelle: CERT-Bund / BSI (wid.cert-bund.de). Übernommen werden nur Titel, Schweregrad, Datum und Link, die Texte stehen beim BSI. Kein Hinweis auf eine Zusammenarbeit mit dem BSI.</p>
+    <p class="dim fine">Quelle: CERT-Bund, das Computer-Notfallteam des <strong>BSI</strong> (Bundesamt für Sicherheit in der Informationstechnik), über wid.cert-bund.de. Übernommen werden nur Titel, Schweregrad, Datum und Link, die Texte stehen beim BSI. Kein Hinweis auf eine Zusammenarbeit mit dem BSI.</p>
 
     <h3 class="mono">### eu-kev · enisa</h3>
     <p class="dim sub" id="eu-info">…</p>
     <div class="panel pad"><div id="eu-liste"></div></div>
-    <p class="dim fine">Quelle: EU-Schwachstellendatenbank (EUVD) von ENISA. Die Lizenz ist nicht ausdrücklich geklärt, deshalb nur Kennung, CVE, Hersteller und Link.</p>
+    <p class="dim fine">Quelle: EU-Schwachstellendatenbank (EUVD) der <strong>ENISA</strong>, der EU-Agentur für Cybersicherheit. Die Lizenz ist nicht ausdrücklich geklärt, deshalb nur Kennung, CVE, Hersteller und Link.</p>
   </section>
 
   <section id="info" class="wrap" aria-labelledby="h-info">
@@ -94,6 +94,16 @@
     <h3 class="mono">### quellen</h3>
     <div class="panel pad" id="quellenliste"></div>
     <p class="dim fine">BSI und CERT-Bund werden bewusst nicht verarbeitet, nur verlinkt. Die Nutzungsbedingungen sind noch zu klären.</p>
+    <h3 class="mono">### begriffe</h3>
+    <dl class="begriffe">
+      <dt>CISA</dt><dd>Cybersecurity and Infrastructure Security Agency, die Cybersicherheitsbehörde der USA. Führt die KEV-Liste.</dd>
+      <dt>KEV</dt><dd>Known Exploited Vulnerabilities: Schwachstellen, die nachweislich in Angriffen ausgenutzt werden.</dd>
+      <dt>CVE</dt><dd>Die weltweit einheitliche Kennung einer Schwachstelle, zum Beispiel CVE-2026-12345.</dd>
+      <dt>BSI / CERT-Bund</dt><dd>Das Bundesamt für Sicherheit in der Informationstechnik und sein Computer-Notfallteam. Sie warnen vor Schwachstellen in Deutschland.</dd>
+      <dt>ENISA / EUVD</dt><dd>Die EU-Agentur für Cybersicherheit und ihre Schwachstellendatenbank (European Union Vulnerability Database).</dd>
+      <dt>NVD</dt><dd>National Vulnerability Database des US-Instituts NIST, Anlaufstelle für Details zu einer CVE.</dd>
+      <dt>Ransomware</dt><dd>Schadsoftware, die Daten verschlüsselt, um Lösegeld zu erpressen.</dd>
+    </dl>
     <h3 class="mono">### methode</h3>
     <div class="grid3">
       <div class="panel pad"><strong>Nur Veröffentlichtes</strong><p class="dim">Was bei wem im Einsatz ist, wissen wir nicht und behaupten es nicht.</p></div>
