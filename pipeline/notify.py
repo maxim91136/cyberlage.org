@@ -14,6 +14,7 @@ Schlägt das Senden fehl, bleibt der Zustand unverändert, der nächste Lauf ver
 """
 import html
 import json
+import time
 import os
 import sys
 import urllib.parse
@@ -108,9 +109,19 @@ def sende(text, token, chat):
     daten = urllib.parse.urlencode({"chat_id": chat, "text": text, "parse_mode": "HTML",
                                     "disable_web_page_preview": "true"}).encode()
     req = urllib.request.Request(f"https://api.telegram.org/bot{token}/sendMessage", data=daten)
-    with urllib.request.urlopen(req, timeout=30) as r:
-        if json.loads(r.read()).get("ok") is not True:
-            raise RuntimeError("Telegram hat die Nachricht nicht angenommen")
+    letzter = None
+    for versuch in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=45) as r:
+                if json.loads(r.read()).get("ok") is not True:
+                    raise RuntimeError("Telegram hat die Nachricht nicht angenommen")
+            return
+        except urllib.error.HTTPError as ex:
+            raise RuntimeError(f"Telegram antwortet mit {ex.code}: {ex.read().decode(errors='replace')[:200]}")
+        except (TimeoutError, OSError) as ex:
+            letzter = ex
+            time.sleep(5)
+    raise RuntimeError(f"Telegram nicht erreichbar: {letzter}")
 
 
 def test_senden():
