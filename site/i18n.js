@@ -11,7 +11,7 @@
     n_rueck: "/history", n_neu: "/new",
     tab_kev: "KEV catalog", i_quellen: "Sources", i_begriffe: "Terms", i_methode: "Method", i_hinweise: "Notes",
     h_lbl: 'as of <span id="stand">…</span> · situation picture from open sources',
-    h_titel: "The global cyber situation, rule-based and openly sourced.",
+    h_titel: "The global cyber situation.<br>Rule-based and openly sourced.",
     h_lead: "Worldwide, across all vendors: we count the vulnerabilities that bodies such as CISA report as exploited and combine them into one level using open rules. No statement about any one country or sector. For everyone who defends.",
     tg_btn: "Subscribe to the Telegram channel",
     tg_txt: " new entries, critical warnings and level changes as soon as they appear.",
