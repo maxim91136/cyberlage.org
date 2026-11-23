@@ -26,7 +26,7 @@
     n_q1: "Source: CISA KEV (CC0 1.0). The due date applies to US federal agencies and is only a guide. Links lead to the NIST CVE page (NVD). No attack details.",
     n_q2: "Source: CERT-Bund, the computer emergency team of the <strong>BSI</strong> (German Federal Office for Information Security), via wid.cert-bund.de. Only title, severity, date and link are reused; the texts are at the BSI. No indication of any cooperation with the BSI.",
     n_q3: "Source: EU Vulnerability Database (EUVD) of <strong>ENISA</strong>, the EU Agency for Cybersecurity. The licence is not explicitly clarified, so only ID, CVE, vendor and link are shown.",
-    i_qtxt: "BSI and CERT-Bund warnings are only listed and linked, not copied. Terms of use still to be clarified.",
+    i_qtxt: "From CERT-Bund (BSI) we show only title, severity, date and link, always with the source. The texts are at the BSI.",
     i_dl: "<dt>CISA</dt><dd>Cybersecurity and Infrastructure Security Agency, the US cybersecurity agency. Maintains the KEV list.</dd>" +
       "<dt>KEV</dt><dd>Known Exploited Vulnerabilities: flaws that are proven to be exploited in attacks.</dd>" +
       "<dt>CVE</dt><dd>The worldwide standard identifier of a vulnerability, for example CVE-2026-12345.</dd>" +
