@@ -1,9 +1,9 @@
 {
-  "status": "entwurf",
+  "status": "freigegeben",
   "fenster_tage": 30,
   "erhoeht_ab": 31,
   "hoch_ab": 37,
   "ransomware_aufschlag_ab": 5,
-  "hinweis": "Vorschlag, noch nicht freigegeben. Solange status nicht 'freigegeben' ist, wird keine Stufe berechnet.",
+  "hinweis": "Freigegeben am 23.11.2026 durch den Projektbetreiber. Änderungen sind im Verlauf des Repos sichtbar.",
   "grundlage": "Verteilung der neu aufgenommenen KEV-Einträge pro 30-Tage-Fenster, täglich gemessen vom 23.11.2025 bis 23.11.2026: Median 26, 75. Perzentil 31, 90. Perzentil 37; Ransomware-bekannt: 90. Perzentil 5."
 }

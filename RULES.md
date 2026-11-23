@@ -1,6 +1,6 @@
-# Bewertungsregeln (Entwurf)
+# Bewertungsregeln
 
-Diese Regeln bestimmen, was auf der Seite als Zahl und als Warnstufe erscheint. Sie sind ein Entwurf und werden öffentlich geführt. Jede Änderung ist im Verlauf des Repos sichtbar. Umgesetzt sind sie in `pipeline/score.py`, die Einstellungen stehen in `config/`.
+Diese Regeln bestimmen, was auf der Seite als Zahl und als Warnstufe erscheint. Sie werden öffentlich geführt. Jede Änderung ist im Verlauf des Repos sichtbar. Umgesetzt sind sie in `pipeline/score.py`, die Einstellungen stehen in `config/`.
 
 ## Grundsätze
 
@@ -42,7 +42,7 @@ Sind mindestens `ransomware_aufschlag_ab` der Einträge mit bekannter Ransomware
 
 ## Stand der Freigaben
 
-- Schwellen: **Entwurf**. Solange das so ist, gibt es keine Stufe, die Zahlen und die Liste erscheinen trotzdem.
+- Schwellen: **freigegeben** am 23.11.2026 (erhöht ab 31, hoch ab 37, Ransomware-Aufschlag ab 5, Fenster 30 Tage).
 
 ## Offene Fragen
 

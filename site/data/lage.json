@@ -13,8 +13,8 @@
     "ransomware_bekannt_30_tage": 0
   },
   "fenster_tage": 30,
-  "stufe": null,
-  "stufe_begruendung": "Schwellen sind noch nicht freigegeben (Entwurf), daher keine Bewertung.",
+  "stufe": "erhoeht",
+  "stufe_begruendung": "34 neu aufgenommene ausgenutzte Schwachstellen in 30 Tagen.",
   "neu": [
     {
       "cve": "CVE-2026-76466",
