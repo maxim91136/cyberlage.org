@@ -131,6 +131,28 @@ def sende(text, token, chat):
     raise RuntimeError(f"Telegram nicht erreichbar: {letzter}")
 
 
+def diagnose():
+    token, chat = os.environ.get("TELEGRAM_BOT_TOKEN", ""), os.environ.get("TELEGRAM_CHAT_ID", "")
+    print(f"Token gesetzt: {bool(token)} (Länge {len(token)}), Chat-ID: {chat!r}")
+    for name, extra in (("getMe", {}), ("getChat", {"chat_id": chat}), ("getChatMember", {"chat_id": chat})):
+        if name == "getChatMember":
+            try:
+                me = json.loads(urllib.request.urlopen(f"https://api.telegram.org/bot{token}/getMe", timeout=20).read())
+                extra["user_id"] = me["result"]["id"]
+            except Exception:
+                continue
+        url = f"https://api.telegram.org/bot{token}/{name}?" + urllib.parse.urlencode(extra)
+        try:
+            with urllib.request.urlopen(url, timeout=20) as r:
+                antwort = json.loads(r.read())
+        except urllib.error.HTTPError as ex:
+            antwort = ex.read().decode(errors="replace")[:300]
+        except Exception as ex:
+            antwort = f"{type(ex).__name__}: {ex}"
+        print(name, "->", antwort)
+    return 0
+
+
 def test_senden():
     token, chat = os.environ.get("TELEGRAM_BOT_TOKEN"), os.environ.get("TELEGRAM_CHAT_ID")
     if not (token and chat):
@@ -146,6 +168,8 @@ def test_senden():
 
 
 def main():
+    if "--diagnose" in sys.argv[1:]:
+        return diagnose()
     if "--test" in sys.argv[1:]:
         return test_senden()
     jetzt = datetime.now(timezone.utc)
