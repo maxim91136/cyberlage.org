@@ -14,6 +14,24 @@
     return e;
   };
 
+  var knopf = $("nach-oben");
+  if (knopf) {
+    var weich = !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    knopf.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: weich ? "smooth" : "auto" }); });
+    var navLinks = Array.prototype.slice.call(document.querySelectorAll("nav a[href^='#']"));
+    var abschnitte = navLinks.map(function (a) { return document.querySelector(a.getAttribute("href")); });
+    var ticks = false;
+    var pruefen = function () {
+      ticks = false;
+      knopf.hidden = window.scrollY < 500;
+      var aktiv = -1, grenze = window.scrollY + 120;
+      abschnitte.forEach(function (sec, i) { if (sec && sec.offsetTop <= grenze) aktiv = i; });
+      navLinks.forEach(function (a, i) { if (i === aktiv) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current"); a.classList.toggle("aktiv", i === aktiv); });
+    };
+    window.addEventListener("scroll", function () { if (!ticks) { ticks = true; requestAnimationFrame(pruefen); } }, { passive: true });
+    window.addEventListener("load", pruefen);
+  }
+
   fetch("data/lage.json", { cache: "no-cache" })
     .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(render)
