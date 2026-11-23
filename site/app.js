@@ -27,8 +27,10 @@
     $("stand").textContent = datum(d.stand);
 
     var hatStufe = d.stufe !== null && d.stufe !== undefined;
-    $("stufe-wert").textContent = hatStufe ? String(d.stufe) : "null";
-    $("stufe-text").textContent = hatStufe ? "Stufe " + d.stufe : "Keine Bewertung";
+    var NAMEN = { niedrig: "niedrig", erhoeht: "erhöht", hoch: "hoch" };
+    var name = hatStufe ? (NAMEN[d.stufe] || String(d.stufe)) : null;
+    $("stufe-wert").textContent = hatStufe ? name : "null";
+    $("stufe-text").textContent = hatStufe ? "Stufe: " + name : "Keine Bewertung";
     $("stufe-begr").textContent = d.stufe_begruendung || "";
 
     var k = d.kev || {};
