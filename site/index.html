@@ -1,19 +1,90 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Cyberlage</title>
-<style>
-  body { font-family: system-ui, sans-serif; max-width: 40rem; margin: 4rem auto; padding: 0 1rem; line-height: 1.6; }
-  small { color: #666; }
-</style>
+<meta name="color-scheme" content="dark">
+<title>Cyberlage – Frühwarnung für den öffentlichen Sektor</title>
+<meta name="description" content="Regelbasierte, nachvollziehbare Cyberlage für den öffentlichen Sektor aus freien Quellen. Ein Projekt von Dreier Labs.">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Cyberlage</h1>
-  <p>Frühwarnsystem für die Cyberlage im öffentlichen Sektor. Im Aufbau.</p>
-  <p>Ein Projekt von <a href="https://dreierlabs.com">Dreier Labs</a>.</p>
-  <p><small>Privates Projekt, keine amtliche Stelle. Platzhalter, nicht zur Veröffentlichung gedacht.</small></p>
+<a class="skip" href="#lage">Zum Inhalt</a>
+<header class="top">
+  <div class="wrap bar">
+    <div class="brand"><span class="prompt" aria-hidden="true">&gt;_</span>cyberlage<span class="dim">.org</span></div>
+    <nav aria-label="Hauptnavigation">
+      <a href="#lage">/lage</a>
+      <a href="#zahlen">/zahlen</a>
+      <a href="#quellen">/quellen</a>
+      <a href="#methode">/methode</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="wrap hero">
+    <p class="lbl">stand <span id="stand">…</span> · frühwarnung öffentlicher sektor</p>
+    <h1>Cyberlage im öffentlichen Sektor. Regelbasiert, offen belegt.</h1>
+    <p class="lead">Frühwarnsystem aus freien Quellen. Nur Sektor-Zahlen, keine einzelnen Behörden. Fehlt der Beleg, steht dort „keine Daten“.</p>
+  </section>
+
+  <section id="lage" class="wrap" aria-labelledby="h-lage">
+    <h2 id="h-lage" class="sr">Aktuelle Lage</h2>
+    <div class="panel lage" id="lage-box">
+      <div>
+        <p class="lbl">lage.stufe</p>
+        <div class="stufe mono" id="stufe-wert">…</div>
+        <div class="stufe-text" id="stufe-text">Daten werden geladen</div>
+      </div>
+      <div>
+        <p class="lbl">lage.stufe_begruendung</p>
+        <p class="begr" id="stufe-begr"></p>
+        <p class="dim">Stufen (niedrig, erhöht, hoch) gibt es erst, wenn Regeln und eine belegte Produktliste freigegeben sind.</p>
+      </div>
+    </div>
+    <noscript><p class="panel pad">Diese Seite lädt ihre Zahlen aus <a href="data/lage.json">data/lage.json</a>. Dafür wird JavaScript benötigt. Die Rohdaten sind direkt abrufbar.</p></noscript>
+  </section>
+
+  <section id="zahlen" class="wrap" aria-labelledby="h-zahlen">
+    <h2 id="h-zahlen" class="mono">## zahlen</h2>
+    <p class="dim sub">Jeder Wert mit Quelle, Stand und Lizenz.</p>
+    <div class="grid4">
+      <div class="panel pad"><div class="lbl">kev.neu_7_tage</div><div class="zahl mono" id="k7">…</div><div class="dim">neu im Katalog, 7 Tage</div></div>
+      <div class="panel pad"><div class="lbl">kev.neu_30_tage</div><div class="zahl mono" id="k30">…</div><div class="dim">neu im Katalog, 30 Tage</div></div>
+      <div class="panel pad"><div class="lbl">kev.gesamt</div><div class="zahl mono" id="kall">…</div><div class="dim">Einträge im Katalog</div></div>
+      <div class="panel pad"><div class="lbl">kev.ransomware_30_tage</div><div class="zahl mono" id="kr">…</div><div class="dim">mit bekannter Ransomware-Nutzung</div></div>
+    </div>
+    <p class="mono dim fine" id="kev-quelle"></p>
+
+    <div id="sektor"></div>
+  </section>
+
+  <section id="quellen" class="wrap" aria-labelledby="h-quellen">
+    <h2 id="h-quellen" class="mono">## quellen</h2>
+    <div class="panel pad" id="quellenliste"></div>
+    <p class="dim fine">BSI und CERT-Bund werden bewusst nicht verarbeitet, nur verlinkt. Die Nutzungsbedingungen sind noch zu klären.</p>
+  </section>
+
+  <section id="methode" class="wrap" aria-labelledby="h-methode">
+    <h2 id="h-methode" class="mono">## methode</h2>
+    <div class="grid3">
+      <div class="panel pad"><strong>Helfen statt anprangern</strong><p class="dim">Sektor-Aggregate, keine einzelnen Stellen.</p></div>
+      <div class="panel pad"><strong>Keine Daten statt Schätzung</strong><p class="dim">Ohne Beleg kein Wert.</p></div>
+      <div class="panel pad"><strong>Regeln offen</strong><p class="dim">Fenster 30 Tage, exakter Produktabgleich, dokumentierte Schwellen. Siehe <a href="https://github.com/maxim91136/cyberlage.org/blob/main/RULES.md">RULES.md</a>.</p></div>
+    </div>
+    <h3 class="mono">### hinweise</h3>
+    <ul id="hinweise" class="hinw"></ul>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <p class="dim" id="fuss">Ein Projekt von <a href="https://dreierlabs.com">Dreier Labs</a>. Privates Projekt, keine amtliche Stelle, keine Verbindung zu BSI oder Behörden. Keine Gewähr.</p>
+    <p class="mono"><a href="impressum.html">impressum</a></p>
+  </div>
+</footer>
+<script src="app.js"></script>
 </body>
 </html>
