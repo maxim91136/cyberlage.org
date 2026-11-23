@@ -30,7 +30,8 @@
     var NAMEN = { niedrig: "niedrig", erhoeht: "erhöht", hoch: "hoch" };
     var name = hatStufe ? (NAMEN[d.stufe] || String(d.stufe)) : null;
     $("stufe-wert").textContent = hatStufe ? name : "null";
-    $("stufe-text").textContent = hatStufe ? "Stufe: " + name : "Keine Bewertung";
+    $("stufe-text").textContent = hatStufe ? "" : "Keine Bewertung";
+    $("stufe-text").hidden = hatStufe;
     $("stufe-begr").textContent = d.stufe_begruendung || "";
 
     var k = d.kev || {};
@@ -103,7 +104,8 @@
   function zeichneVerlauf(v, sw) {
     var svg = $("verlauf"), NS = "http://www.w3.org/2000/svg";
     if (!v.length) { $("verlauf-legende").textContent = "keine Daten"; return; }
-    var B = 1000, H = 220, L = 44, R = 12, T = 14, U = 30;
+    var B = Math.max(300, Math.round(svg.getBoundingClientRect().width)) || 1000, H = B < 600 ? 190 : 220, L = 30, R = 74, T = 14, U = 28;
+    svg.setAttribute("viewBox", "0 0 " + B + " " + H);
     var max = Math.max.apply(null, v.map(function (p) { return p.neu; }).concat([sw.hoch_ab || 0])) + 4;
     var y = function (n) { return T + (H - T - U) * (1 - n / max); };
     var w = (B - L - R) / v.length;
@@ -124,8 +126,8 @@
     });
     [["erhoeht_ab", "erhöht ab", "#e3b341"], ["hoch_ab", "hoch ab", "#ff8a7a"]].forEach(function (c) {
       if (typeof sw[c[0]] !== "number") return;
-      mk("line", { x1: L, x2: B - R, y1: y(sw[c[0]]), y2: y(sw[c[0]]), stroke: c[2], "stroke-dasharray": "5 4" });
-      mk("text", { x: B - R - 4, y: y(sw[c[0]]) - 5, "text-anchor": "end", fill: c[2], "font-size": 11, "font-family": "ui-monospace,monospace" }, c[1] + " " + sw[c[0]]);
+      mk("line", { x1: L, x2: B - R + 2, y1: y(sw[c[0]]), y2: y(sw[c[0]]), stroke: c[2], "stroke-dasharray": "5 4" });
+      mk("text", { x: B - R + 6, y: y(sw[c[0]]) + 4, "text-anchor": "start", fill: c[2], "font-size": 11, "font-family": "ui-monospace,monospace" }, c[1].replace(" ab", "") + " " + sw[c[0]]);
     });
     [0, Math.floor(v.length / 2), v.length - 1].forEach(function (i) {
       mk("text", { x: L + i * w + w / 2, y: H - 8, "text-anchor": i === 0 ? "start" : (i === v.length - 1 ? "end" : "middle"), fill: "#8a99a6", "font-size": 11, "font-family": "ui-monospace,monospace" }, datum(v[i].stand));
