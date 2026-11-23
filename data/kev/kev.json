@@ -1,5 +1,5 @@
 {
-"meta": {"katalog_version": "2026.11.20", "veroeffentlicht_am": "2026-11-20T17:48:39.1516Z", "anzahl": 1790, "lizenz": "CC0 1.0 (laut LICENSE-Datei von cisagov/kev-data)", "quelle": "github-mirror cisagov/kev-data", "quelle_url": "https://raw.githubusercontent.com/cisagov/kev-data/main/known_exploited_vulnerabilities.json", "abgerufen_am": "2026-11-23T20:50:58+00:00"},
+"meta": {"katalog_version": "2026.11.23", "veroeffentlicht_am": "2026-11-23T19:43:55.7979Z", "anzahl": 1792, "lizenz": "CC0 1.0 (laut LICENSE-Datei von cisagov/kev-data)", "quelle": "cisa.gov", "quelle_url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json", "abgerufen_am": "2026-11-23T21:43:21+00:00"},
 "eintraege": [
 {"cve": "CVE-2010-5326", "hersteller": "SAP", "produkt": "NetWeaver", "hinzugefuegt": "2021-11-03", "frist": "2022-05-03", "ransomware_bekannt": false},
 {"cve": "CVE-2012-0158", "hersteller": "Microsoft", "produkt": "MSCOMCTL.OCX", "hinzugefuegt": "2021-11-03", "frist": "2022-05-03", "ransomware_bekannt": true},
@@ -1783,13 +1783,15 @@
 {"cve": "CVE-2026-114713", "hersteller": "UnrealIRCd", "produkt": "UnrealIRCd", "hinzugefuegt": "2026-11-13", "frist": "2026-11-16", "ransomware_bekannt": false},
 {"cve": "CVE-2026-123039", "hersteller": "Check Point", "produkt": "Multiple Products", "hinzugefuegt": "2026-11-13", "frist": "2026-11-16", "ransomware_bekannt": false},
 {"cve": "CVE-2026-115731", "hersteller": "Perforce", "produkt": "Puppet Enterprise", "hinzugefuegt": "2026-11-17", "frist": "2026-12-01", "ransomware_bekannt": false},
-{"cve": "CVE-2024-10441", "hersteller": "Synology", "produkt": "DiskStation Manager (DSM)", "hinzugefuegt": "2026-11-18", "frist": "2026-11-21", "ransomware_bekannt": false},
+{"cve": "CVE-2024-10441", "hersteller": "Synology", "produkt": "DiskStation Manager (DSM)", "hinzugefuegt": "2026-11-18", "frist": "2026-11-21", "ransomware_bekannt": true},
 {"cve": "CVE-2026-40217", "hersteller": "BerriAI", "produkt": "LiteLLM", "hinzugefuegt": "2026-11-18", "frist": "2026-12-02", "ransomware_bekannt": false},
 {"cve": "CVE-2026-90436", "hersteller": "Apache", "produkt": "Axis", "hinzugefuegt": "2026-11-18", "frist": "2026-11-21", "ransomware_bekannt": false},
 {"cve": "CVE-2026-90817", "hersteller": "Vanderbilt University", "produkt": "Research Electronic Data Capture (REDCap)", "hinzugefuegt": "2026-11-18", "frist": "2026-11-21", "ransomware_bekannt": false},
 {"cve": "CVE-2025-42884", "hersteller": "SAP", "produkt": "NetWeaver", "hinzugefuegt": "2026-11-20", "frist": "2026-11-23", "ransomware_bekannt": false},
 {"cve": "CVE-2026-123890", "hersteller": "Broadcom", "produkt": "VMware vCenter", "hinzugefuegt": "2026-11-20", "frist": "2026-11-23", "ransomware_bekannt": false},
 {"cve": "CVE-2026-129448", "hersteller": "Apache", "produkt": "Roller", "hinzugefuegt": "2026-11-20", "frist": "2026-11-23", "ransomware_bekannt": false},
-{"cve": "CVE-2026-76466", "hersteller": "Cisco", "produkt": "Expressway Series", "hinzugefuegt": "2026-11-20", "frist": "2026-11-23", "ransomware_bekannt": false}
+{"cve": "CVE-2026-76466", "hersteller": "Cisco", "produkt": "Expressway Series", "hinzugefuegt": "2026-11-20", "frist": "2026-11-23", "ransomware_bekannt": false},
+{"cve": "CVE-2026-133968", "hersteller": "Project MONAI", "produkt": "MONAI Label", "hinzugefuegt": "2026-11-23", "frist": "2026-11-26", "ransomware_bekannt": false},
+{"cve": "CVE-2026-134624", "hersteller": "N-able", "produkt": "MailAssure", "hinzugefuegt": "2026-11-23", "frist": "2026-11-26", "ransomware_bekannt": false}
 ]
 }

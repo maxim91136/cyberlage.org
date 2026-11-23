@@ -1,0 +1,1061 @@
+{
+ "meta": {
+  "quelle": "EU-KEV über die EU-Schwachstellendatenbank (EUVD) von ENISA",
+  "quelle_url": "https://euvd.enisa.europa.eu/",
+  "hinweis": "Lizenz nicht ausdrücklich geklärt. Nur Kennung, CVE, Hersteller, Werte, Datum und Link.",
+  "abgerufen_am": "2026-11-23T21:43:21+00:00",
+  "anzahl": 75
+ },
+ "eintraege": [
+  {
+   "id": "EUVD-2026-132805",
+   "cve": [
+    "CVE-2026-134624"
+   ],
+   "hersteller": [
+    "N-Able"
+   ],
+   "ausgenutzt_seit": "2026-11-23",
+   "veroeffentlicht": "2026-11-22",
+   "cvss": 9.3,
+   "epss": 0.0,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-132805"
+  },
+  {
+   "id": "EUVD-2026-131722",
+   "cve": [
+    "CVE-2026-133968"
+   ],
+   "hersteller": [
+    "Project-MONIA"
+   ],
+   "ausgenutzt_seit": "2026-11-23",
+   "veroeffentlicht": "2026-11-20",
+   "cvss": 9.8,
+   "epss": 3.76,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-131722"
+  },
+  {
+   "id": "EUVD-2026-130196",
+   "cve": [
+    "CVE-2026-123890"
+   ],
+   "hersteller": [
+    "VMware"
+   ],
+   "ausgenutzt_seit": "2026-11-20",
+   "veroeffentlicht": "2026-11-19",
+   "cvss": 9.8,
+   "epss": 3.53,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-130196"
+  },
+  {
+   "id": "EUVD-2026-126955",
+   "cve": [
+    "CVE-2026-129448"
+   ],
+   "hersteller": [
+    "Apache Software Foundation"
+   ],
+   "ausgenutzt_seit": "2026-11-20",
+   "veroeffentlicht": "2026-11-17",
+   "cvss": 9.8,
+   "epss": 5.46,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-126955"
+  },
+  {
+   "id": "EUVD-2026-107382",
+   "cve": [
+    "CVE-2026-76466"
+   ],
+   "hersteller": [
+    "Cisco"
+   ],
+   "ausgenutzt_seit": "2026-11-20",
+   "veroeffentlicht": "2026-10-21",
+   "cvss": 9.8,
+   "epss": 2.19,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-107382"
+  },
+  {
+   "id": "EUVD-2025-60994",
+   "cve": [
+    "CVE-2025-42884"
+   ],
+   "hersteller": [
+    "SAP_SE"
+   ],
+   "ausgenutzt_seit": "2026-11-20",
+   "veroeffentlicht": "2025-11-11",
+   "cvss": 6.5,
+   "epss": 0.71,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2025-60994"
+  },
+  {
+   "id": "EUVD-2026-83738",
+   "cve": [
+    "CVE-2026-90817"
+   ],
+   "hersteller": [
+    "Vanderbilt University"
+   ],
+   "ausgenutzt_seit": "2026-11-18",
+   "veroeffentlicht": "2026-09-20",
+   "cvss": 9.8,
+   "epss": 34.34,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-83738"
+  },
+  {
+   "id": "EUVD-2026-21376",
+   "cve": [
+    "CVE-2026-40217"
+   ],
+   "hersteller": [
+    "berriai"
+   ],
+   "ausgenutzt_seit": "2026-11-18",
+   "veroeffentlicht": "2026-04-10",
+   "cvss": 8.8,
+   "epss": 78.0,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-21376"
+  },
+  {
+   "id": "EUVD-2026-118323",
+   "cve": [
+    "CVE-2026-90436"
+   ],
+   "hersteller": [
+    "Apache Software Foundation"
+   ],
+   "ausgenutzt_seit": "2026-11-18",
+   "veroeffentlicht": "2026-11-06",
+   "cvss": 9.8,
+   "epss": 3.81,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-118323"
+  },
+  {
+   "id": "EUVD-2024-54098",
+   "cve": [
+    "CVE-2024-10441"
+   ],
+   "hersteller": [
+    "Synology"
+   ],
+   "ausgenutzt_seit": "2026-11-18",
+   "veroeffentlicht": "2025-03-19",
+   "cvss": 9.8,
+   "epss": 3.13,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2024-54098"
+  },
+  {
+   "id": "EUVD-2026-116495",
+   "cve": [
+    "CVE-2026-115731"
+   ],
+   "hersteller": [
+    "Perforce"
+   ],
+   "ausgenutzt_seit": "2026-11-17",
+   "veroeffentlicht": "2026-11-03",
+   "cvss": 9.4,
+   "epss": 1.23,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-116495"
+  },
+  {
+   "id": "EUVD-2026-124481",
+   "cve": [
+    "CVE-2026-123039"
+   ],
+   "hersteller": [
+    "checkpoint"
+   ],
+   "ausgenutzt_seit": "2026-11-13",
+   "veroeffentlicht": "2026-11-12",
+   "cvss": 7.8,
+   "epss": 3.27,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-124481"
+  },
+  {
+   "id": "EUVD-2026-119377",
+   "cve": [
+    "CVE-2026-114713"
+   ],
+   "hersteller": [
+    "UnrealIRCd"
+   ],
+   "ausgenutzt_seit": "2026-11-13",
+   "veroeffentlicht": "2026-11-08",
+   "cvss": 8.6,
+   "epss": 1.15,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-119377"
+  },
+  {
+   "id": "EUVD-2026-62586",
+   "cve": [
+    "CVE-2026-20320"
+   ],
+   "hersteller": [
+    "Cisco"
+   ],
+   "ausgenutzt_seit": "2026-11-10",
+   "veroeffentlicht": "2026-08-19",
+   "cvss": 7.5,
+   "epss": 1.68,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-62586"
+  },
+  {
+   "id": "EUVD-2026-122310",
+   "cve": [
+    "CVE-2026-124194"
+   ],
+   "hersteller": [
+    "Microsoft"
+   ],
+   "ausgenutzt_seit": "2026-11-10",
+   "veroeffentlicht": "2026-11-10",
+   "cvss": 6.5,
+   "epss": 1.94,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-122310"
+  },
+  {
+   "id": "EUVD-2026-121390",
+   "cve": [
+    "CVE-2026-125350"
+   ],
+   "hersteller": [
+    "Google"
+   ],
+   "ausgenutzt_seit": "2026-11-10",
+   "veroeffentlicht": "2026-11-10",
+   "cvss": 8.8,
+   "epss": 6.8,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-121390"
+  },
+  {
+   "id": "EUVD-2026-115149",
+   "cve": [
+    "CVE-2026-116606"
+   ],
+   "hersteller": [
+    "Barracuda Networks"
+   ],
+   "ausgenutzt_seit": "2026-11-10",
+   "veroeffentlicht": "2026-11-02",
+   "cvss": 9.3,
+   "epss": 74.52,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-115149"
+  },
+  {
+   "id": "EUVD-2026-115148",
+   "cve": [
+    "CVE-2026-111560"
+   ],
+   "hersteller": [
+    "Barracuda Networks"
+   ],
+   "ausgenutzt_seit": "2026-11-10",
+   "veroeffentlicht": "2026-11-02",
+   "cvss": 8.6,
+   "epss": 63.77,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-115148"
+  },
+  {
+   "id": "EUVD-2026-103135",
+   "cve": [
+    "CVE-2026-111793"
+   ],
+   "hersteller": [
+    "Openwave Messaging (Ireland) Limited"
+   ],
+   "ausgenutzt_seit": "2026-11-10",
+   "veroeffentlicht": "2026-10-16",
+   "cvss": 4.3,
+   "epss": 1.17,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-103135"
+  },
+  {
+   "id": "EUVD-2026-118902",
+   "cve": [
+    "CVE-2026-123218"
+   ],
+   "hersteller": [
+    "IBM"
+   ],
+   "ausgenutzt_seit": "2026-11-09",
+   "veroeffentlicht": "2026-11-07",
+   "cvss": 9.8,
+   "epss": 1.01,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-118902"
+  },
+  {
+   "id": "EUVD-2026-117752",
+   "cve": [
+    "CVE-2026-116779"
+   ],
+   "hersteller": [
+    "signalwire"
+   ],
+   "ausgenutzt_seit": "2026-11-09",
+   "veroeffentlicht": "2026-11-05",
+   "cvss": 9.8,
+   "epss": 44.11,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-117752"
+  },
+  {
+   "id": "EUVD-2026-117552",
+   "cve": [
+    "CVE-2026-123158"
+   ],
+   "hersteller": [
+    "OpenBSD"
+   ],
+   "ausgenutzt_seit": "2026-11-09",
+   "veroeffentlicht": "2026-11-05",
+   "cvss": 8.1,
+   "epss": 95.54,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-117552"
+  },
+  {
+   "id": "EUVD-2026-117124",
+   "cve": [
+    "CVE-2026-102895"
+   ],
+   "hersteller": [
+    "gpustack"
+   ],
+   "ausgenutzt_seit": "2026-11-09",
+   "veroeffentlicht": "2026-11-04",
+   "cvss": 9.8,
+   "epss": 18.79,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-117124"
+  },
+  {
+   "id": "EUVD-2026-118429",
+   "cve": [
+    "CVE-2026-19868"
+   ],
+   "hersteller": [
+    "SonicWall"
+   ],
+   "ausgenutzt_seit": "2026-11-06",
+   "veroeffentlicht": "2026-11-06",
+   "cvss": 7.5,
+   "epss": 8.04,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-118429"
+  },
+  {
+   "id": "EUVD-2024-25027",
+   "cve": [
+    "CVE-2024-27834"
+   ],
+   "hersteller": [
+    "Apple"
+   ],
+   "ausgenutzt_seit": "2026-11-04",
+   "veroeffentlicht": "2024-05-13",
+   "cvss": 5.5,
+   "epss": 1.56,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2024-25027"
+  },
+  {
+   "id": "EUVD-2026-114575",
+   "cve": [
+    "CVE-2026-119977"
+   ],
+   "hersteller": [
+    "WordPress Foundation"
+   ],
+   "ausgenutzt_seit": "2026-11-03",
+   "veroeffentlicht": "2026-10-31",
+   "cvss": 8.1,
+   "epss": 8.05,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-114575"
+  },
+  {
+   "id": "EUVD-2026-115872",
+   "cve": [
+    "CVE-2026-118527"
+   ],
+   "hersteller": [
+    "Ivanti"
+   ],
+   "ausgenutzt_seit": "2026-10-30",
+   "veroeffentlicht": "2026-11-03",
+   "cvss": 4.3,
+   "epss": 0.99,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-115872"
+  },
+  {
+   "id": "EUVD-2026-102437",
+   "cve": [
+    "CVE-2026-111357"
+   ],
+   "hersteller": [
+    "Ivanti"
+   ],
+   "ausgenutzt_seit": "2026-10-30",
+   "veroeffentlicht": "2026-10-15",
+   "cvss": 7.0,
+   "epss": 0.8,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-102437"
+  },
+  {
+   "id": "EUVD-2026-98214",
+   "cve": [
+    "CVE-2026-97229"
+   ],
+   "hersteller": [
+    "GitLab"
+   ],
+   "ausgenutzt_seit": "2026-10-29",
+   "veroeffentlicht": "2026-10-13",
+   "cvss": 10.0,
+   "epss": 74.32,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-98214"
+  },
+  {
+   "id": "EUVD-2026-112462",
+   "cve": [
+    "CVE-2026-76418"
+   ],
+   "hersteller": [
+    "Cisco"
+   ],
+   "ausgenutzt_seit": "2026-10-29",
+   "veroeffentlicht": "2026-10-28",
+   "cvss": 8.6,
+   "epss": 8.55,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-112462"
+  },
+  {
+   "id": "EUVD-2026-51107",
+   "cve": [
+    "CVE-2026-41709"
+   ],
+   "hersteller": [
+    "VMware"
+   ],
+   "ausgenutzt_seit": "2026-10-28",
+   "veroeffentlicht": "2026-07-30",
+   "cvss": 2.7,
+   "epss": 0.9,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-51107"
+  },
+  {
+   "id": "EUVD-2026-31535",
+   "cve": [
+    "CVE-2026-46300"
+   ],
+   "hersteller": [
+    "Linux"
+   ],
+   "ausgenutzt_seit": "2026-10-28",
+   "veroeffentlicht": "2026-05-23",
+   "cvss": 7.8,
+   "epss": 17.2,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-31535"
+  },
+  {
+   "id": "EUVD-2026-44420",
+   "cve": [
+    "CVE-2026-48356"
+   ],
+   "hersteller": [
+    "Adobe"
+   ],
+   "ausgenutzt_seit": "2026-10-27",
+   "veroeffentlicht": "2026-07-14",
+   "cvss": 9.3,
+   "epss": 81.62,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-44420"
+  },
+  {
+   "id": "EUVD-2026-108169",
+   "cve": [
+    "CVE-2026-111497"
+   ],
+   "hersteller": [
+    "Google"
+   ],
+   "ausgenutzt_seit": "2026-10-27",
+   "veroeffentlicht": "2026-10-22",
+   "cvss": 9.2,
+   "epss": 99.93,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-108169"
+  },
+  {
+   "id": "EUVD-2026-107265",
+   "cve": [
+    "CVE-2026-109619"
+   ],
+   "hersteller": [
+    "PHP Group"
+   ],
+   "ausgenutzt_seit": "2026-10-26",
+   "veroeffentlicht": "2026-10-21",
+   "cvss": 9.2,
+   "epss": 100.0,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-107265"
+  },
+  {
+   "id": "EUVD-2026-107260",
+   "cve": [
+    "CVE-2026-109618"
+   ],
+   "hersteller": [
+    "PHP Group"
+   ],
+   "ausgenutzt_seit": "2026-10-26",
+   "veroeffentlicht": "2026-10-21",
+   "cvss": 9.2,
+   "epss": 100.0,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-107260"
+  },
+  {
+   "id": "EUVD-2026-108511",
+   "cve": [
+    "CVE-2026-114625"
+   ],
+   "hersteller": [
+    "Arista Networks"
+   ],
+   "ausgenutzt_seit": "2026-10-23",
+   "veroeffentlicht": "2026-10-22",
+   "cvss": 9.4,
+   "epss": 7.67,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-108511"
+  },
+  {
+   "id": "EUVD-2026-100780",
+   "cve": [
+    "CVE-2026-110447"
+   ],
+   "hersteller": [
+    "Collabora"
+   ],
+   "ausgenutzt_seit": "2026-10-23",
+   "veroeffentlicht": "2026-10-14",
+   "cvss": 9.2,
+   "epss": 76.15,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-100780"
+  },
+  {
+   "id": "EUVD-2026-85370",
+   "cve": [
+    "CVE-2026-96656"
+   ],
+   "hersteller": [
+    "Plex"
+   ],
+   "ausgenutzt_seit": "2026-10-20",
+   "veroeffentlicht": "2026-09-23",
+   "cvss": 8.6,
+   "epss": 19.77,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-85370"
+  },
+  {
+   "id": "EUVD-2026-85369",
+   "cve": [
+    "CVE-2026-96655"
+   ],
+   "hersteller": [
+    "Plex"
+   ],
+   "ausgenutzt_seit": "2026-10-20",
+   "veroeffentlicht": "2026-09-23",
+   "cvss": 5.3,
+   "epss": 10.72,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-85369"
+  },
+  {
+   "id": "EUVD-2026-85368",
+   "cve": [
+    "CVE-2026-96654"
+   ],
+   "hersteller": [
+    "Plex"
+   ],
+   "ausgenutzt_seit": "2026-10-20",
+   "veroeffentlicht": "2026-09-23",
+   "cvss": 6.9,
+   "epss": 12.69,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-85368"
+  },
+  {
+   "id": "EUVD-2026-85367",
+   "cve": [
+    "CVE-2026-96652"
+   ],
+   "hersteller": [
+    "Plex"
+   ],
+   "ausgenutzt_seit": "2026-10-20",
+   "veroeffentlicht": "2026-09-23",
+   "cvss": 5.3,
+   "epss": 14.9,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-85367"
+  },
+  {
+   "id": "EUVD-2026-100814",
+   "cve": [
+    "CVE-2026-106931"
+   ],
+   "hersteller": [
+    "EG Secure Solutions Inc."
+   ],
+   "ausgenutzt_seit": "2026-10-20",
+   "veroeffentlicht": "2026-10-14",
+   "cvss": 8.5,
+   "epss": 2.53,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-100814"
+  },
+  {
+   "id": "EUVD-2026-102072",
+   "cve": [
+    "CVE-2026-110936"
+   ],
+   "hersteller": [
+    "Siemens"
+   ],
+   "ausgenutzt_seit": "2026-10-19",
+   "veroeffentlicht": "2026-10-15",
+   "cvss": 8.4,
+   "epss": 0.97,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-102072"
+  },
+  {
+   "id": "EUVD-2026-102427",
+   "cve": [
+    "CVE-2026-102764"
+   ],
+   "hersteller": [
+    "BeyondTrust"
+   ],
+   "ausgenutzt_seit": "2026-10-16",
+   "veroeffentlicht": "2026-10-15",
+   "cvss": 9.3,
+   "epss": 57.9,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-102427"
+  },
+  {
+   "id": "EUVD-2025-209452",
+   "cve": [
+    "CVE-2025-61624"
+   ],
+   "hersteller": [
+    "Fortinet"
+   ],
+   "ausgenutzt_seit": "2026-10-16",
+   "veroeffentlicht": "2026-04-14",
+   "cvss": 5.4,
+   "epss": 1.4,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2025-209452"
+  },
+  {
+   "id": "EUVD-2026-92807",
+   "cve": [
+    "CVE-2026-21589"
+   ],
+   "hersteller": [
+    "Atlassian"
+   ],
+   "ausgenutzt_seit": "2026-10-15",
+   "veroeffentlicht": "2026-10-05",
+   "cvss": 9.3,
+   "epss": 90.95,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-92807"
+  },
+  {
+   "id": "EUVD-2026-92079",
+   "cve": [
+    "CVE-2026-105133"
+   ],
+   "hersteller": [
+    "Ahsay"
+   ],
+   "ausgenutzt_seit": "2026-10-14",
+   "veroeffentlicht": "2026-10-04",
+   "cvss": 6.9,
+   "epss": 84.48,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-92079"
+  },
+  {
+   "id": "EUVD-2026-92078",
+   "cve": [
+    "CVE-2026-105134"
+   ],
+   "hersteller": [
+    "Ahsay"
+   ],
+   "ausgenutzt_seit": "2026-10-14",
+   "veroeffentlicht": "2026-10-04",
+   "cvss": 10.0,
+   "epss": 81.76,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-92078"
+  },
+  {
+   "id": "EUVD-2026-101495",
+   "cve": [
+    "CVE-2026-0322"
+   ],
+   "hersteller": [
+    "Palo Alto Networks"
+   ],
+   "ausgenutzt_seit": "2026-10-14",
+   "veroeffentlicht": "2026-10-14",
+   "cvss": 8.6,
+   "epss": 2.15,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-101495"
+  },
+  {
+   "id": "EUVD-2026-101420",
+   "cve": [
+    "CVE-2026-76519"
+   ],
+   "hersteller": [
+    "Cisco"
+   ],
+   "ausgenutzt_seit": "2026-10-14",
+   "veroeffentlicht": "2026-10-14",
+   "cvss": 9.8,
+   "epss": 5.71,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-101420"
+  },
+  {
+   "id": "EUVD-2026-98816",
+   "cve": [
+    "CVE-2026-104935"
+   ],
+   "hersteller": [
+    "Ivanti"
+   ],
+   "ausgenutzt_seit": "2026-10-13",
+   "veroeffentlicht": "2026-10-13",
+   "cvss": 8.6,
+   "epss": 93.1,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-98816"
+  },
+  {
+   "id": "EUVD-2023-1342",
+   "cve": [
+    "CVE-2023-22894"
+   ],
+   "hersteller": [
+    "n/a"
+   ],
+   "ausgenutzt_seit": "2026-10-08",
+   "veroeffentlicht": "2023-04-19",
+   "cvss": 7.2,
+   "epss": 4.11,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2023-1342"
+  },
+  {
+   "id": "EUVD-2022-3161",
+   "cve": [
+    "CVE-2016-3081"
+   ],
+   "hersteller": [
+    "n/a"
+   ],
+   "ausgenutzt_seit": "2026-10-08",
+   "veroeffentlicht": "2016-04-26",
+   "cvss": 8.1,
+   "epss": 96.92,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2022-3161"
+  },
+  {
+   "id": "EUVD-2021-26539",
+   "cve": [
+    "CVE-2021-3199"
+   ],
+   "hersteller": [
+    "n/a"
+   ],
+   "ausgenutzt_seit": "2026-10-08",
+   "veroeffentlicht": "2021-01-22",
+   "cvss": 9.8,
+   "epss": 88.14,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2021-26539"
+  },
+  {
+   "id": "EUVD-2015-5432",
+   "cve": [
+    "CVE-2015-5477"
+   ],
+   "hersteller": [
+    "n/a"
+   ],
+   "ausgenutzt_seit": "2026-10-08",
+   "veroeffentlicht": "2015-07-29",
+   "cvss": 7.5,
+   "epss": 99.58,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2015-5432"
+  },
+  {
+   "id": "EUVD-2015-3352",
+   "cve": [
+    "CVE-2015-3306"
+   ],
+   "hersteller": [
+    "n/a"
+   ],
+   "ausgenutzt_seit": "2026-10-08",
+   "veroeffentlicht": "2015-05-18",
+   "cvss": 10.0,
+   "epss": 99.5,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2015-3352"
+  },
+  {
+   "id": "EUVD-2026-91042",
+   "cve": [
+    "CVE-2026-104286"
+   ],
+   "hersteller": [
+    "Fortinet"
+   ],
+   "ausgenutzt_seit": "2026-10-01",
+   "veroeffentlicht": "2026-10-01",
+   "cvss": 9.8,
+   "epss": 4.57,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-91042"
+  },
+  {
+   "id": "EUVD-2026-90081",
+   "cve": [
+    "CVE-2026-102490"
+   ],
+   "hersteller": [
+    "Zammad GmbH"
+   ],
+   "ausgenutzt_seit": "2026-09-30",
+   "veroeffentlicht": "2026-09-30",
+   "cvss": 9.4,
+   "epss": 10.94,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-90081"
+  },
+  {
+   "id": "EUVD-2026-90080",
+   "cve": [
+    "CVE-2026-102489"
+   ],
+   "hersteller": [
+    "Zammad GmbH"
+   ],
+   "ausgenutzt_seit": "2026-09-30",
+   "veroeffentlicht": "2026-09-30",
+   "cvss": 9.4,
+   "epss": 49.92,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-90080"
+  },
+  {
+   "id": "EUVD-2026-88445",
+   "cve": [
+    "CVE-2026-86950"
+   ],
+   "hersteller": [
+    "Apple"
+   ],
+   "ausgenutzt_seit": "2026-09-29",
+   "veroeffentlicht": "2026-09-28",
+   "cvss": 8.8,
+   "epss": 27.37,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-88445"
+  },
+  {
+   "id": "EUVD-2026-56431",
+   "cve": [
+    "CVE-2026-65660"
+   ],
+   "hersteller": [
+    "Microsoft"
+   ],
+   "ausgenutzt_seit": "2026-09-25",
+   "veroeffentlicht": "2026-08-11",
+   "cvss": 8.8,
+   "epss": 9.85,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-56431"
+  },
+  {
+   "id": "EUVD-2026-100274",
+   "cve": [
+    "CVE-2026-96951"
+   ],
+   "hersteller": [
+    "Microsoft"
+   ],
+   "ausgenutzt_seit": "2026-09-25",
+   "veroeffentlicht": "2026-10-13",
+   "cvss": 8.8,
+   "epss": 9.81,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-100274"
+  },
+  {
+   "id": "EUVD-2025-34068",
+   "cve": [
+    "CVE-2025-39964"
+   ],
+   "hersteller": [
+    "Linux"
+   ],
+   "ausgenutzt_seit": "2026-09-18",
+   "veroeffentlicht": "2025-10-13",
+   "cvss": 7.8,
+   "epss": 1.61,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2025-34068"
+  },
+  {
+   "id": "EUVD-2026-2223",
+   "cve": [
+    "CVE-2025-25249"
+   ],
+   "hersteller": [
+    "Fortinet"
+   ],
+   "ausgenutzt_seit": "2026-09-09",
+   "veroeffentlicht": "2026-01-13",
+   "cvss": 7.4,
+   "epss": 3.74,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-2223"
+  },
+  {
+   "id": "EUVD-2026-73889",
+   "cve": [
+    "CVE-2026-81963"
+   ],
+   "hersteller": [
+    "Microsoft"
+   ],
+   "ausgenutzt_seit": "2026-09-08",
+   "veroeffentlicht": "2026-09-08",
+   "cvss": 7.8,
+   "epss": 7.12,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-73889"
+  },
+  {
+   "id": "EUVD-2026-73365",
+   "cve": [
+    "CVE-2026-85880"
+   ],
+   "hersteller": [
+    "Microsoft"
+   ],
+   "ausgenutzt_seit": "2026-09-08",
+   "veroeffentlicht": "2026-09-08",
+   "cvss": 7.8,
+   "epss": 0.39,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-73365"
+  },
+  {
+   "id": "EUVD-2026-41669",
+   "cve": [
+    "CVE-2026-53362"
+   ],
+   "hersteller": [
+    "Linux"
+   ],
+   "ausgenutzt_seit": "2026-08-27",
+   "veroeffentlicht": "2026-07-04",
+   "cvss": 7.8,
+   "epss": 1.34,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-41669"
+  },
+  {
+   "id": "EUVD-2026-63693",
+   "cve": [
+    "CVE-2026-69836"
+   ],
+   "hersteller": [
+    "Microsoft"
+   ],
+   "ausgenutzt_seit": "2026-08-21",
+   "veroeffentlicht": "2026-08-20",
+   "cvss": 10.0,
+   "epss": 1.84,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-63693"
+  },
+  {
+   "id": "EUVD-2026-60473",
+   "cve": [
+    "CVE-2026-64849"
+   ],
+   "hersteller": [
+    "mlflow"
+   ],
+   "ausgenutzt_seit": "2026-08-19",
+   "veroeffentlicht": "2026-08-17",
+   "cvss": 9.3,
+   "epss": 10.93,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-60473"
+  },
+  {
+   "id": "EUVD-2026-54216",
+   "cve": [
+    "CVE-2026-65400"
+   ],
+   "hersteller": [
+    "Apple"
+   ],
+   "ausgenutzt_seit": "2026-08-18",
+   "veroeffentlicht": "2026-08-06",
+   "cvss": 9.8,
+   "epss": 18.06,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-54216"
+  },
+  {
+   "id": "EUVD-2026-44211",
+   "cve": [
+    "CVE-2026-55040"
+   ],
+   "hersteller": [
+    "Microsoft"
+   ],
+   "ausgenutzt_seit": "2026-08-18",
+   "veroeffentlicht": "2026-07-14",
+   "cvss": 9.1,
+   "epss": 69.54,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-44211"
+  },
+  {
+   "id": "EUVD-2026-22641",
+   "cve": [
+    "CVE-2026-33824"
+   ],
+   "hersteller": [
+    "Microsoft"
+   ],
+   "ausgenutzt_seit": "2026-08-18",
+   "veroeffentlicht": "2026-04-14",
+   "cvss": 9.8,
+   "epss": 77.38,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-22641"
+  },
+  {
+   "id": "EUVD-2026-56468",
+   "cve": [
+    "CVE-2026-68820"
+   ],
+   "hersteller": [
+    "Microsoft"
+   ],
+   "ausgenutzt_seit": "2026-08-11",
+   "veroeffentlicht": "2026-08-11",
+   "cvss": 7.0,
+   "epss": 8.57,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-56468"
+  },
+  {
+   "id": "EUVD-2026-34260",
+   "cve": [
+    "CVE-2026-8037"
+   ],
+   "hersteller": [
+    "Progress Software"
+   ],
+   "ausgenutzt_seit": "2026-08-07",
+   "veroeffentlicht": "2026-06-04",
+   "cvss": 9.6,
+   "epss": 99.79,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-34260"
+  }
+ ]
+}

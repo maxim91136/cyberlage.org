@@ -1,0 +1,2011 @@
+{
+ "meta": {
+  "quelle": "CERT-Bund / BSI Warn- und Informationsdienst",
+  "quelle_url": "https://wid.cert-bund.de/",
+  "hinweis": "Nur Kennung, Schweregrad, Titel, Datum und Link. Beschreibungstexte werden nicht übernommen.",
+  "abgerufen_am": "2026-11-23T21:43:21+00:00",
+  "anzahl": 250
+ },
+ "eintraege": [
+  {
+   "id": "WID-SEC-2026-4745",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Red Hat JBoss Fuse: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4745"
+  },
+  {
+   "id": "WID-SEC-2026-4744",
+   "schwere": "mittel",
+   "status": "neu",
+   "titel": "Microsoft PowerPoint: Schwachstelle ermöglicht Ausführen von beliebigem Programmcode mit Benutzerrechten",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4744"
+  },
+  {
+   "id": "WID-SEC-2026-4743",
+   "schwere": "hoch",
+   "status": "neu",
+   "titel": "Microsoft Azure: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4743"
+  },
+  {
+   "id": "WID-SEC-2026-4742",
+   "schwere": "hoch",
+   "status": "neu",
+   "titel": "Microsoft SharePoint: Schwachstelle ermöglicht Codeausführung",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4742"
+  },
+  {
+   "id": "WID-SEC-2026-4741",
+   "schwere": "hoch",
+   "status": "neu",
+   "titel": "Microsoft 365 Copilot: Schwachstelle ermöglicht Privilegieneskalation",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4741"
+  },
+  {
+   "id": "WID-SEC-2026-4740",
+   "schwere": "mittel",
+   "status": "neu",
+   "titel": "OTRS: Schwachstelle ermöglicht Offenlegung von Informationen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4740"
+  },
+  {
+   "id": "WID-SEC-2026-4739",
+   "schwere": "hoch",
+   "status": "neu",
+   "titel": "Apache Solr: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4739"
+  },
+  {
+   "id": "WID-SEC-2026-4738",
+   "schwere": "hoch",
+   "status": "neu",
+   "titel": "IBM Concert: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4738"
+  },
+  {
+   "id": "WID-SEC-2026-4737",
+   "schwere": "niedrig",
+   "status": "neu",
+   "titel": "HCL BigFix MCM: Schwachstelle ermöglicht Offenlegung von Informationen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4737"
+  },
+  {
+   "id": "WID-SEC-2026-4736",
+   "schwere": "mittel",
+   "status": "neu",
+   "titel": "Laravel: Schwachstelle ermöglicht Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4736"
+  },
+  {
+   "id": "WID-SEC-2026-4735",
+   "schwere": "kritisch",
+   "status": "neu",
+   "titel": "Microsoft ASP.NET Idunno.AntiCsrf: Schwachstelle ermöglicht Ausführen von beliebigem Programmcode mit den Rechten des Dienstes",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4735"
+  },
+  {
+   "id": "WID-SEC-2026-4734",
+   "schwere": "hoch",
+   "status": "neu",
+   "titel": "PackageKit: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4734"
+  },
+  {
+   "id": "WID-SEC-2026-4733",
+   "schwere": "hoch",
+   "status": "neu",
+   "titel": "g10 Code GnuPG VS-Desktop: Schwachstelle ermöglicht Codeausführung und Offenlegung von Informationen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4733"
+  },
+  {
+   "id": "WID-SEC-2026-4732",
+   "schwere": "mittel",
+   "status": "neu",
+   "titel": "nginx-ui: Schwachstelle ermöglicht Umgehen von Sicherheitsvorkehrungen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4732"
+  },
+  {
+   "id": "WID-SEC-2026-4731",
+   "schwere": "hoch",
+   "status": "neu",
+   "titel": "Red Hat Enterprise Linux (lerc, librabbitmq, libgsf, xdg-desktop-portal, rapidjson): Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4731"
+  },
+  {
+   "id": "WID-SEC-2026-4730",
+   "schwere": "hoch",
+   "status": "neu",
+   "titel": "OpenSSL: Schwachstelle ermöglicht Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4730"
+  },
+  {
+   "id": "WID-SEC-2026-4729",
+   "schwere": "mittel",
+   "status": "neu",
+   "titel": "Gogs: Schwachstelle ermöglicht Codeausführung",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4729"
+  },
+  {
+   "id": "WID-SEC-2026-4728",
+   "schwere": "niedrig",
+   "status": "neu",
+   "titel": "Mattermost: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4728"
+  },
+  {
+   "id": "WID-SEC-2026-4727",
+   "schwere": "hoch",
+   "status": "neu",
+   "titel": "Snipe-IT: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4727"
+  },
+  {
+   "id": "WID-SEC-2026-4726",
+   "schwere": "mittel",
+   "status": "neu",
+   "titel": "Livewire: Schwachstelle ermöglicht Umgehen von Sicherheitsvorkehrungen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4726"
+  },
+  {
+   "id": "WID-SEC-2026-4725",
+   "schwere": "hoch",
+   "status": "neu",
+   "titel": "Langflow: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4725"
+  },
+  {
+   "id": "WID-SEC-2026-4724",
+   "schwere": "mittel",
+   "status": "neu",
+   "titel": "Meta WhatsApp: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4724"
+  },
+  {
+   "id": "WID-SEC-2026-4723",
+   "schwere": "hoch",
+   "status": "neu",
+   "titel": "F5 BIG-IP: Schwachstelle ermöglicht Codeausführung",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4723"
+  },
+  {
+   "id": "WID-SEC-2026-4722",
+   "schwere": "niedrig",
+   "status": "neu",
+   "titel": "expat: Schwachstelle ermöglicht Manipulation von Dateien",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4722"
+  },
+  {
+   "id": "WID-SEC-2026-4716",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Google Cloud Platform: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4716"
+  },
+  {
+   "id": "WID-SEC-2026-4715",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Red Hat JBoss Enterprise Application Platform: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4715"
+  },
+  {
+   "id": "WID-SEC-2026-4707",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Red Hat Enterprise Linux (cifs-utils,netpbm, gfs2-utils): Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4707"
+  },
+  {
+   "id": "WID-SEC-2026-4697",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "VMware Tanzu Spring Cloud: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4697"
+  },
+  {
+   "id": "WID-SEC-2026-4695",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen nicht spezifizierten Angriff",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4695"
+  },
+  {
+   "id": "WID-SEC-2026-4684",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "PHP: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4684"
+  },
+  {
+   "id": "WID-SEC-2026-4682",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "GnuTLS: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4682"
+  },
+  {
+   "id": "WID-SEC-2026-4680",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Synology DiskStation Manager: Schwachstelle ermöglicht Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4680"
+  },
+  {
+   "id": "WID-SEC-2026-4675",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "WebKitGTK: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4675"
+  },
+  {
+   "id": "WID-SEC-2026-4672",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Wireshark: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4672"
+  },
+  {
+   "id": "WID-SEC-2026-4668",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Ruby: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4668"
+  },
+  {
+   "id": "WID-SEC-2026-4662",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "ClamAV und Cisco Secure Endpoint Connector: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4662"
+  },
+  {
+   "id": "WID-SEC-2026-4658",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "NGINX: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4658"
+  },
+  {
+   "id": "WID-SEC-2026-4655",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4655"
+  },
+  {
+   "id": "WID-SEC-2026-4646",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "rsyslog: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4646"
+  },
+  {
+   "id": "WID-SEC-2026-4636",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Google Chrome und Microsoft Edge: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4636"
+  },
+  {
+   "id": "WID-SEC-2026-4634",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Atlassian Produkte (Bamboo, Bitbucket, Confluence, Crucible, Fisheye und Jira): Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4634"
+  },
+  {
+   "id": "WID-SEC-2026-4624",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Oracle Java und GraalVM: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4624"
+  },
+  {
+   "id": "WID-SEC-2026-4607",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "OpenSSL: Mehrere Schwachstellen ermöglichen Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4607"
+  },
+  {
+   "id": "WID-SEC-2026-4577",
+   "schwere": "niedrig",
+   "status": "update",
+   "titel": "Checkmk: Mehrere Schwachstellen ermöglichen Offenlegung von Informationen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4577"
+  },
+  {
+   "id": "WID-SEC-2026-4573",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4573"
+  },
+  {
+   "id": "WID-SEC-2026-4568",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Grafana: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4568"
+  },
+  {
+   "id": "WID-SEC-2026-4565",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Red Hat Quay: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4565"
+  },
+  {
+   "id": "WID-SEC-2026-4549",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Red Hat Enterprise Linux (crun, xfsprogs, glib-networking): Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4549"
+  },
+  {
+   "id": "WID-SEC-2026-4542",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Red Hat Enterprise Linux: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4542"
+  },
+  {
+   "id": "WID-SEC-2026-4532",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Red Hat Ansible Automation Platform (GitPython): Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4532"
+  },
+  {
+   "id": "WID-SEC-2026-4517",
+   "schwere": "kritisch",
+   "status": "update",
+   "titel": "Apache HTTP Server: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4517"
+  },
+  {
+   "id": "WID-SEC-2026-4515",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Mozilla Firefox und Thunderbird: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4515"
+  },
+  {
+   "id": "WID-SEC-2026-4514",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Intel PROSet Wireless WiFi Software: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4514"
+  },
+  {
+   "id": "WID-SEC-2026-4504",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Budibase: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4504"
+  },
+  {
+   "id": "WID-SEC-2026-4493",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Xen: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4493"
+  },
+  {
+   "id": "WID-SEC-2026-4481",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Microsoft Developer Tools: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4481"
+  },
+  {
+   "id": "WID-SEC-2026-4473",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "AMD Prozessor und AMD Radeon: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4473"
+  },
+  {
+   "id": "WID-SEC-2026-4472",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Red Hat Enterprise Linux (python-jwcrypto, sos, hickory-resolver, libimobiledevice, gcc, python-oauthlib): Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4472"
+  },
+  {
+   "id": "WID-SEC-2026-4461",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4461"
+  },
+  {
+   "id": "WID-SEC-2026-4460",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "CPython: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4460"
+  },
+  {
+   "id": "WID-SEC-2026-4452",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "AMD Prozessor Zen 5: Mehrere Schwachstellen ermöglichen Offenlegung von Informationen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4452"
+  },
+  {
+   "id": "WID-SEC-2026-4438",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Red Hat Enterprise Linux (nodejs-nodemon): Mehrere Schwachstellen ermöglichen Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4438"
+  },
+  {
+   "id": "WID-SEC-2026-4435",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "MIT Kerberos: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4435"
+  },
+  {
+   "id": "WID-SEC-2026-4424",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Ghostscript: Schwachstelle ermöglicht Codeausführung",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4424"
+  },
+  {
+   "id": "WID-SEC-2026-4421",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "GStreamer: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4421"
+  },
+  {
+   "id": "WID-SEC-2026-4414",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4414"
+  },
+  {
+   "id": "WID-SEC-2026-4412",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "rclone: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4412"
+  },
+  {
+   "id": "WID-SEC-2026-4376",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Red Hat Enterprise Linux (cockpit-files): Mehrere Schwachstellen ermöglichen Manipulation von Dateien",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4376"
+  },
+  {
+   "id": "WID-SEC-2026-4370",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Golang Go: Mehrere Schwachstellen ermöglichen nicht spezifizierten Angriff",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4370"
+  },
+  {
+   "id": "WID-SEC-2026-4342",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Schwachstelle ermöglicht nicht spezifizierten Angriff",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4342"
+  },
+  {
+   "id": "WID-SEC-2026-4333",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Django: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4333"
+  },
+  {
+   "id": "WID-SEC-2026-4324",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Rsync: Schwachstelle ermöglicht Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4324"
+  },
+  {
+   "id": "WID-SEC-2026-4305",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Red Hat Enterprise Linux (dpdk, raptor2, dnspython): Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4305"
+  },
+  {
+   "id": "WID-SEC-2026-4303",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Google Chrome / Microsoft Edge: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4303"
+  },
+  {
+   "id": "WID-SEC-2026-4302",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen nicht spezifizierten Angriff",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4302"
+  },
+  {
+   "id": "WID-SEC-2026-4301",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Red Hat Enterprise Linux (cockpit): Mehrere Schwachstellen ermöglichen Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4301"
+  },
+  {
+   "id": "WID-SEC-2026-4287",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "QT: Mehrere Schwachstellen ermöglichen Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4287"
+  },
+  {
+   "id": "WID-SEC-2026-4285",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Red Hat Enterprise Linux (perl-yaml, pillow): Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4285"
+  },
+  {
+   "id": "WID-SEC-2026-4265",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "FreeRDP: Mehrere Schwachstellen ermöglichen nicht spezifizierten Angriff",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4265"
+  },
+  {
+   "id": "WID-SEC-2026-4260",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "SQLite: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4260"
+  },
+  {
+   "id": "WID-SEC-2026-4243",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Red Hat Enterprise Linux (pillow and aspell): Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4243"
+  },
+  {
+   "id": "WID-SEC-2026-4237",
+   "schwere": "kritisch",
+   "status": "update",
+   "titel": "Grafana: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4237"
+  },
+  {
+   "id": "WID-SEC-2026-4224",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen nicht spezifizierten Angriff",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4224"
+  },
+  {
+   "id": "WID-SEC-2026-4216",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Mozilla Firefox, Firefox ESR, und Thunderbird: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4216"
+  },
+  {
+   "id": "WID-SEC-2026-4214",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "expat: Mehrere Schwachstellen ermöglichen Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4214"
+  },
+  {
+   "id": "WID-SEC-2026-4210",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Google Chrome: Mehrere Schwachstellen ermöglichen nicht spezifizierten Angriff",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4210"
+  },
+  {
+   "id": "WID-SEC-2026-4189",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Python: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4189"
+  },
+  {
+   "id": "WID-SEC-2026-4187",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Red Hat Enterprise Linux (libXi, libXrender, ansible-collection-redhat-leapp) und Red Hat Build of Apache Camel for Quarkus: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4187"
+  },
+  {
+   "id": "WID-SEC-2026-4183",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Red Hat Enterprise Linux Libreswan: Mehrere Schwachstellen ermöglichen Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4183"
+  },
+  {
+   "id": "WID-SEC-2026-4181",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen nicht spezifizierten Angriff",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4181"
+  },
+  {
+   "id": "WID-SEC-2026-4173",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "GNU patch: Schwachstelle ermöglicht Manipulation von Dateien",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4173"
+  },
+  {
+   "id": "WID-SEC-2026-4162",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Microsoft .NET und ASP.NET: Schwachstelle ermöglicht Privilegieneskalation",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4162"
+  },
+  {
+   "id": "WID-SEC-2026-4154",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Oracle Java SE: Schwachstelle ermöglicht Offenlegung von Informationen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4154"
+  },
+  {
+   "id": "WID-SEC-2026-4152",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4152"
+  },
+  {
+   "id": "WID-SEC-2026-4147",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Red Hat Enterprise Linux Flatpack: Mehrere Schwachstellen ermöglichen Manipulation von Dateien",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4147"
+  },
+  {
+   "id": "WID-SEC-2026-4145",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "PHP: Schwachstelle ermöglicht Codeausführung",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4145"
+  },
+  {
+   "id": "WID-SEC-2026-4139",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Oracle Java SE and GraalVM, und OpenJDK: Schwachstelle ermöglicht Umgehen von Sicherheitsvorkehrungen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4139"
+  },
+  {
+   "id": "WID-SEC-2026-4136",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "TianoCore EDK2 PXE Treiber: Schwachstelle ermöglicht Ausführen von beliebigem Programmcode und DoS",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4136"
+  },
+  {
+   "id": "WID-SEC-2026-4123",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "expat: Schwachstelle ermöglicht Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4123"
+  },
+  {
+   "id": "WID-SEC-2026-4122",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Qt Core QXmlStream parser: Schwachstelle ermöglicht Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4122"
+  },
+  {
+   "id": "WID-SEC-2026-4121",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Red Hat Enterprise Linux iperf3: Schwachstelle ermöglicht Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4121"
+  },
+  {
+   "id": "WID-SEC-2026-4118",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Red Hat Enterprise Linux cockpit-machines: Mehrere Schwachstellen ermöglichen Offenlegung von Informationen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4118"
+  },
+  {
+   "id": "WID-SEC-2026-4117",
+   "schwere": "kritisch",
+   "status": "update",
+   "titel": "Node.js: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4117"
+  },
+  {
+   "id": "WID-SEC-2026-4116",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Internet Systems Consortium BIND: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4116"
+  },
+  {
+   "id": "WID-SEC-2026-4111",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Red Hat Ansible Automation Platform: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4111"
+  },
+  {
+   "id": "WID-SEC-2026-4079",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Oracle Java SE: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4079"
+  },
+  {
+   "id": "WID-SEC-2026-4067",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Google Chrome / Microsoft Edge: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4067"
+  },
+  {
+   "id": "WID-SEC-2026-4064",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Mozilla Produkte (Thunderbird, Firefox ESR und Firefox): Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4064"
+  },
+  {
+   "id": "WID-SEC-2026-4055",
+   "schwere": "kritisch",
+   "status": "update",
+   "titel": "PHP: Mehrere Schwachstellen ermöglichen Codeausführung",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4055"
+  },
+  {
+   "id": "WID-SEC-2026-4054",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "expat: Schwachstelle ermöglicht Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4054"
+  },
+  {
+   "id": "WID-SEC-2026-4049",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Golang Go: Schwachstelle ermöglicht Umgehen von Sicherheitsvorkehrungen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4049"
+  },
+  {
+   "id": "WID-SEC-2026-4032",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "GIMP: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4032"
+  },
+  {
+   "id": "WID-SEC-2026-4024",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Red Hat Quay und Enterprise Linux (pypdf, urllib3, URI): Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4024"
+  },
+  {
+   "id": "WID-SEC-2026-4019",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4019"
+  },
+  {
+   "id": "WID-SEC-2026-4008",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4008"
+  },
+  {
+   "id": "WID-SEC-2026-4002",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Grafana: Schwachstelle ermöglicht Manipulation von Daten",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4002"
+  },
+  {
+   "id": "WID-SEC-2026-3992",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Eclipse Jetty: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3992"
+  },
+  {
+   "id": "WID-SEC-2026-3973",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Vercel Next.js: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3973"
+  },
+  {
+   "id": "WID-SEC-2026-3953",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "BusyBox: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3953"
+  },
+  {
+   "id": "WID-SEC-2026-3952",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Red Hat Enterprise Linux (libsoup): Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3952"
+  },
+  {
+   "id": "WID-SEC-2026-3951",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3951"
+  },
+  {
+   "id": "WID-SEC-2026-3948",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "NGINX: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3948"
+  },
+  {
+   "id": "WID-SEC-2026-3914",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "BusyBox: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3914"
+  },
+  {
+   "id": "WID-SEC-2026-3904",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "cURL: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3904"
+  },
+  {
+   "id": "WID-SEC-2026-3883",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Red Hat Enterprise Linux (goose, environment-modules, tornado): Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3883"
+  },
+  {
+   "id": "WID-SEC-2026-3867",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "ImageMagick: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3867"
+  },
+  {
+   "id": "WID-SEC-2026-3853",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "BusyBox: Schwachstelle ermöglicht Codeausführung",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3853"
+  },
+  {
+   "id": "WID-SEC-2026-3848",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Red Hat Enterprise Linux (sssd, tftp, ansible-collection-ansible-posix): Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3848"
+  },
+  {
+   "id": "WID-SEC-2026-3841",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Golang Go: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3841"
+  },
+  {
+   "id": "WID-SEC-2026-3836",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "MIT Kerberos: Mehrere Schwachstellen ermöglichen Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3836"
+  },
+  {
+   "id": "WID-SEC-2026-3822",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen nicht spezifizierten Angriff",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3822"
+  },
+  {
+   "id": "WID-SEC-2026-3804",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen nicht spezifizierten Angriff",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3804"
+  },
+  {
+   "id": "WID-SEC-2026-3796",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "expat: Schwachstelle ermöglicht Offenlegung von Informationen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3796"
+  },
+  {
+   "id": "WID-SEC-2026-3789",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "GIMP: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3789"
+  },
+  {
+   "id": "WID-SEC-2026-3785",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "OpenSSH: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3785"
+  },
+  {
+   "id": "WID-SEC-2026-3780",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Django: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3780"
+  },
+  {
+   "id": "WID-SEC-2026-3761",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Google Chrome / Microsoft Edge: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3761"
+  },
+  {
+   "id": "WID-SEC-2026-3743",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3743"
+  },
+  {
+   "id": "WID-SEC-2026-3736",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "RabbitMQ: Schwachstelle ermöglicht Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3736"
+  },
+  {
+   "id": "WID-SEC-2026-3726",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Bouncy Castle für Java: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3726"
+  },
+  {
+   "id": "WID-SEC-2026-3716",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "CPython: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3716"
+  },
+  {
+   "id": "WID-SEC-2026-3713",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Bouncy Castle: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3713"
+  },
+  {
+   "id": "WID-SEC-2026-3703",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Apache HTTP Server: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3703"
+  },
+  {
+   "id": "WID-SEC-2026-3692",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Red Hat Enterprise Linux (gvfs): Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3692"
+  },
+  {
+   "id": "WID-SEC-2026-3657",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Schwachstelle ermöglicht Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3657"
+  },
+  {
+   "id": "WID-SEC-2026-3656",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "CPython: Schwachstelle ermöglicht Umgehen von Sicherheitsvorkehrungen und Manipulation von Dateien",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3656"
+  },
+  {
+   "id": "WID-SEC-2026-3654",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Mozilla Firefox, Firefox ESR und Thunderbird: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3654"
+  },
+  {
+   "id": "WID-SEC-2026-3651",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Podman: Schwachstelle ermöglicht Privilegieneskalation",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3651"
+  },
+  {
+   "id": "WID-SEC-2026-3640",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Red Hat Enterprise Linux (undici-nodejs): Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3640"
+  },
+  {
+   "id": "WID-SEC-2026-3637",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "expat: Schwachstelle ermöglicht Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3637"
+  },
+  {
+   "id": "WID-SEC-2026-3627",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "FasterXML Jackson Databind: Schwachstelle ermöglicht Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3627"
+  },
+  {
+   "id": "WID-SEC-2026-3625",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "WebKitGTK: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3625"
+  },
+  {
+   "id": "WID-SEC-2026-3622",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "PCRE (Perl Compatible Regular Expressions): Schwachstelle ermöglicht Codeausführung",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3622"
+  },
+  {
+   "id": "WID-SEC-2026-3617",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "LiteLLM: Schwachstelle ermöglicht Umgehen von Sicherheitsvorkehrungen und potenziell Privilegieneskalation",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3617"
+  },
+  {
+   "id": "WID-SEC-2026-3599",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "LiteLLM: Schwachstelle ermöglicht Umgehen von Sicherheitsvorkehrungen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3599"
+  },
+  {
+   "id": "WID-SEC-2026-3588",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3588"
+  },
+  {
+   "id": "WID-SEC-2026-3585",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "PHP: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3585"
+  },
+  {
+   "id": "WID-SEC-2026-3579",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3579"
+  },
+  {
+   "id": "WID-SEC-2026-3570",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "GIMP: Schwachstelle ermöglicht Codeausführung und Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3570"
+  },
+  {
+   "id": "WID-SEC-2026-3555",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Red Hat Ansible Automation Platform (automation-controller): Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3555"
+  },
+  {
+   "id": "WID-SEC-2026-3547",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Wireshark: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3547"
+  },
+  {
+   "id": "WID-SEC-2026-3535",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "FreeRDP: Mehrere Schwachstellen ermöglichen nicht spezifizierten Angriff",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3535"
+  },
+  {
+   "id": "WID-SEC-2026-3532",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "FasterXML Jackson: Mehrere Schwachstellen ermöglichen Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3532"
+  },
+  {
+   "id": "WID-SEC-2026-3514",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Google Chrome / Microsoft Edge: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3514"
+  },
+  {
+   "id": "WID-SEC-2026-3503",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "X.Org X11: Schwachstelle ermöglicht Codeausführung",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3503"
+  },
+  {
+   "id": "WID-SEC-2026-3495",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "fetchmail: Schwachstelle ermöglicht Codeausführung",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3495"
+  },
+  {
+   "id": "WID-SEC-2026-3482",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "expat: Schwachstelle ermöglicht Manipulation von Daten",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3482"
+  },
+  {
+   "id": "WID-SEC-2026-3477",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Netty: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3477"
+  },
+  {
+   "id": "WID-SEC-2026-3474",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Grafana: Schwachstelle ermöglicht Cross-Site Scripting",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3474"
+  },
+  {
+   "id": "WID-SEC-2026-3450",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Grafana: Schwachstelle ermöglicht Codeausführung",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3450"
+  },
+  {
+   "id": "WID-SEC-2026-3444",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3444"
+  },
+  {
+   "id": "WID-SEC-2026-3438",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3438"
+  },
+  {
+   "id": "WID-SEC-2026-3434",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Eclipse Jetty: Schwachstelle ermöglicht Darstellen falscher Informationen und Offenlegung",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3434"
+  },
+  {
+   "id": "WID-SEC-2026-3420",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Internet Systems Consortium BIND: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3420"
+  },
+  {
+   "id": "WID-SEC-2026-3419",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Red Hat Enterprise Linux (corosync, libevent, libsoup): Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3419"
+  },
+  {
+   "id": "WID-SEC-2026-3412",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3412"
+  },
+  {
+   "id": "WID-SEC-2026-3406",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "GIMP: Schwachstelle ermöglicht Codeausführung und Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3406"
+  },
+  {
+   "id": "WID-SEC-2026-3378",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Podman: Schwachstelle ermöglicht Manipulation von Dateien",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3378"
+  },
+  {
+   "id": "WID-SEC-2026-3358",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "GIMP Plugins: Mehrere Schwachstellen ermöglichen Codeausführung und DoS",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3358"
+  },
+  {
+   "id": "WID-SEC-2026-3332",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "QT: Schwachstelle ermöglicht Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3332"
+  },
+  {
+   "id": "WID-SEC-2026-3294",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3294"
+  },
+  {
+   "id": "WID-SEC-2026-3291",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Netty: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3291"
+  },
+  {
+   "id": "WID-SEC-2026-3289",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Apache ActiveMQ Artemis: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3289"
+  },
+  {
+   "id": "WID-SEC-2026-3237",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "libxml2: Schwachstelle ermöglicht Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3237"
+  },
+  {
+   "id": "WID-SEC-2026-3229",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Red Hat Enterprise Linux: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3229"
+  },
+  {
+   "id": "WID-SEC-2026-3227",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "QT: Schwachstelle ermöglicht Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3227"
+  },
+  {
+   "id": "WID-SEC-2026-3215",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Red Hat Directory Server und Enterprise Linux (389-ds-base): Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3215"
+  },
+  {
+   "id": "WID-SEC-2026-3195",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "libxml2: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3195"
+  },
+  {
+   "id": "WID-SEC-2026-3148",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Jolokia: Schwachstelle ermöglicht Umgehen von Sicherheitsvorkehrungen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3148"
+  },
+  {
+   "id": "WID-SEC-2026-2970",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-2970"
+  },
+  {
+   "id": "WID-SEC-2026-2897",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Oracle Java SE: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-2897"
+  },
+  {
+   "id": "WID-SEC-2026-2816",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Red Hat Enterprise Linux (nodejs:24): Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-2816"
+  },
+  {
+   "id": "WID-SEC-2026-2725",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Red Hat Enterprise Linux (brace-expansion): Schwachstelle ermöglicht Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-2725"
+  },
+  {
+   "id": "WID-SEC-2026-2622",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Bouncy Castle: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-2622"
+  },
+  {
+   "id": "WID-SEC-2025-2868",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-2868"
+  },
+  {
+   "id": "WID-SEC-2025-2765",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-2765"
+  },
+  {
+   "id": "WID-SEC-2025-2579",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-2579"
+  },
+  {
+   "id": "WID-SEC-2025-2450",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-2450"
+  },
+  {
+   "id": "WID-SEC-2025-2431",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-2431"
+  },
+  {
+   "id": "WID-SEC-2025-2407",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-2407"
+  },
+  {
+   "id": "WID-SEC-2025-2298",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-2298"
+  },
+  {
+   "id": "WID-SEC-2025-2268",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-2268"
+  },
+  {
+   "id": "WID-SEC-2025-2246",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-2246"
+  },
+  {
+   "id": "WID-SEC-2025-2229",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-2229"
+  },
+  {
+   "id": "WID-SEC-2025-2194",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-2194"
+  },
+  {
+   "id": "WID-SEC-2025-2193",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "QEMU: Schwachstelle ermöglicht Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-2193"
+  },
+  {
+   "id": "WID-SEC-2025-2170",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-2170"
+  },
+  {
+   "id": "WID-SEC-2025-2166",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "OpenSSL und LibreSSL: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-2166"
+  },
+  {
+   "id": "WID-SEC-2025-2099",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-2099"
+  },
+  {
+   "id": "WID-SEC-2025-2077",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-2077"
+  },
+  {
+   "id": "WID-SEC-2025-2053",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-2053"
+  },
+  {
+   "id": "WID-SEC-2025-2040",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-2040"
+  },
+  {
+   "id": "WID-SEC-2025-1988",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-1988"
+  },
+  {
+   "id": "WID-SEC-2025-1976",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-1976"
+  },
+  {
+   "id": "WID-SEC-2025-1898",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen Denial of Service und Privilegieneskalation",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-1898"
+  },
+  {
+   "id": "WID-SEC-2025-1869",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-1869"
+  },
+  {
+   "id": "WID-SEC-2025-1858",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-1858"
+  },
+  {
+   "id": "WID-SEC-2025-1653",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-1653"
+  },
+  {
+   "id": "WID-SEC-2025-1522",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-1522"
+  },
+  {
+   "id": "WID-SEC-2025-1517",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-1517"
+  },
+  {
+   "id": "WID-SEC-2025-1502",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "AMD Prozessor: Mehrere Schwachstellen ermöglichen Offenlegung von Informationen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-1502"
+  },
+  {
+   "id": "WID-SEC-2025-1481",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-1481"
+  },
+  {
+   "id": "WID-SEC-2025-1465",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-1465"
+  },
+  {
+   "id": "WID-SEC-2025-1452",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-1452"
+  },
+  {
+   "id": "WID-SEC-2025-1350",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-1350"
+  },
+  {
+   "id": "WID-SEC-2025-1270",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-1270"
+  },
+  {
+   "id": "WID-SEC-2025-1114",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-1114"
+  },
+  {
+   "id": "WID-SEC-2025-0991",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-0991"
+  },
+  {
+   "id": "WID-SEC-2025-0975",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-0975"
+  },
+  {
+   "id": "WID-SEC-2025-0922",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-0922"
+  },
+  {
+   "id": "WID-SEC-2025-0879",
+   "schwere": "niedrig",
+   "status": "update",
+   "titel": "BusyBox: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-0879"
+  },
+  {
+   "id": "WID-SEC-2025-0844",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-0844"
+  },
+  {
+   "id": "WID-SEC-2025-0453",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-0453"
+  },
+  {
+   "id": "WID-SEC-2025-0362",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-0362"
+  },
+  {
+   "id": "WID-SEC-2025-0155",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-0155"
+  },
+  {
+   "id": "WID-SEC-2025-0105",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-0105"
+  },
+  {
+   "id": "WID-SEC-2025-0047",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-0047"
+  },
+  {
+   "id": "WID-SEC-2024-3762",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2024-3762"
+  },
+  {
+   "id": "WID-SEC-2024-3509",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen nicht spezifizierten Angriff",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2024-3509"
+  },
+  {
+   "id": "WID-SEC-2024-3251",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2024-3251"
+  },
+  {
+   "id": "WID-SEC-2024-2057",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen Denial of Service oder unspezifischer Angriff",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2024-2057"
+  },
+  {
+   "id": "WID-SEC-2024-1863",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "NGINX und NGINX Plus: Mehrere Schwachstellen ermöglichen Denial of Service",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2024-1863"
+  },
+  {
+   "id": "WID-SEC-2024-1722",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen nicht spezifizierten Angriff",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2024-1722"
+  },
+  {
+   "id": "WID-SEC-2024-1613",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Schwachstelle ermöglicht nicht spezifizierten Angriff",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2024-1613"
+  },
+  {
+   "id": "WID-SEC-2024-1607",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2024-1607"
+  },
+  {
+   "id": "WID-SEC-2024-1418",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen ermöglichen nicht spezifizierten Angriff",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2024-1418"
+  },
+  {
+   "id": "WID-SEC-2024-0851",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2024-0851"
+  },
+  {
+   "id": "WID-SEC-2024-0734",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "util-linux: Schwachstelle ermöglicht Umgehen von Sicherheitsvorkehrungen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2024-0734"
+  },
+  {
+   "id": "WID-SEC-2024-0534",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Linux Kernel: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2024-0534"
+  },
+  {
+   "id": "WID-SEC-2022-1243",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "RPM: Mehrere Schwachstellen",
+   "datum": "2026-11-23",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2022-1243"
+  }
+ ]
+}
