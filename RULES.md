@@ -38,11 +38,11 @@ ENISA-Werte werden nur übernommen, wenn sie in `data/enisa.csv` den Status `gep
 
 Sind mindestens `ransomware_aufschlag_ab` der Einträge mit bekannter Ransomware-Nutzung gekennzeichnet, steigt die Stufe um eine (höchstens bis „hoch“). Die Ausgabe nennt immer die Begründung in Worten.
 
-**Herleitung der Schwellen.** Aus der Verteilung der 30-Tage-Zählung über die letzten 12 Monate (täglich gemessen bis 23.11.2026): Median 26, 75. Perzentil 31, 90. Perzentil 37; Ransomware-bekannt 90. Perzentil 5. Vorschlag: erhöht ab 31, hoch ab 37, Aufschlag ab 5. Die Werte stehen mit Begründung in `config/regeln.json` und müssen gelegentlich neu geprüft werden.
+**Herleitung der Schwellen.** Aus der Verteilung der 30-Tage-Zählung über die letzten 36 Monate (täglich gemessen 23.11.2023 bis 23.11.2026, das Anlaufjahr 2022 ausgenommen): Median 19, 75. Perzentil 25, 90. Perzentil 32; Ransomware-bekannt 90. Perzentil 5. Festgelegt: erhöht ab 25, hoch ab 32, Aufschlag ab 5. Zum Vergleich ergaben 12 Monate 31/37 und 24 Monate 29/34; der Katalog wird aktiver, deshalb die längere Basis. Die Werte stehen mit Begründung in `config/regeln.json` und müssen gelegentlich neu geprüft werden.
 
 ## Stand der Freigaben
 
-- Schwellen: **freigegeben** am 23.11.2026 (erhöht ab 31, hoch ab 37, Ransomware-Aufschlag ab 5, Fenster 30 Tage).
+- Schwellen: **freigegeben** am 23.11.2026 (erhöht ab 25, hoch ab 32, Ransomware-Aufschlag ab 5, Fenster 30 Tage, Basis 36 Monate).
 
 ## Offene Fragen
 

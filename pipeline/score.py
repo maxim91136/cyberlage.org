@@ -176,7 +176,7 @@ def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None, telegram_link=None):
         "stufe": None,
         "stufe_begruendung": "",
         "neu": liste_neu(fenster),
-        "schwellen": {k: regeln.get(k) for k in ("erhoeht_ab", "hoch_ab", "ransomware_aufschlag_ab")},
+        "schwellen": {k: regeln.get(k) for k in ("erhoeht_ab", "hoch_ab", "ransomware_aufschlag_ab", "basis_monate", "median")},
         "verlauf": verlauf(alle, regeln, stand),
         "telegram": {"link": telegram_link},
         "cert_bund": zusatz_bsi(bsi, stand, tage),

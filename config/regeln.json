@@ -1,9 +1,11 @@
 {
   "status": "freigegeben",
   "fenster_tage": 30,
-  "erhoeht_ab": 31,
-  "hoch_ab": 37,
+  "erhoeht_ab": 25,
+  "hoch_ab": 32,
   "ransomware_aufschlag_ab": 5,
-  "hinweis": "Freigegeben am 23.11.2026 durch den Projektbetreiber. Änderungen sind im Verlauf des Repos sichtbar.",
-  "grundlage": "Verteilung der neu aufgenommenen KEV-Einträge pro 30-Tage-Fenster, täglich gemessen vom 23.11.2025 bis 23.11.2026: Median 26, 75. Perzentil 31, 90. Perzentil 37; Ransomware-bekannt: 90. Perzentil 5."
+  "hinweis": "Freigegeben am 23.11.2026 durch den Projektbetreiber, Basis 36 Monate (vorher 12 Monate: 31/37). Änderungen sind im Verlauf des Repos sichtbar.",
+  "grundlage": "Verteilung der neu aufgenommenen KEV-Einträge pro 30-Tage-Fenster, täglich gemessen vom 23.11.2023 bis 23.11.2026 (36 Monate; das Anlaufjahr 2022 ist bewusst nicht enthalten): Median 19, 75. Perzentil 25, 90. Perzentil 32; Ransomware-bekannt: 90. Perzentil 5.",
+  "basis_monate": 36,
+  "median": 19
 }

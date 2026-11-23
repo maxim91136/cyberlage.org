@@ -54,17 +54,17 @@
 
   // Dynamische Texte (Funktionen oder Strings je Sprache)
   var S = {
-    rechnung: { de: function (f, e, h, r, g) { return [
+    rechnung: { de: function (f, e, h, r, m, med) { return [
         "<p><strong>Gezählt wird:</strong> wie viele Schwachstellen in den letzten " + f + " Tagen neu in den CISA-KEV-Katalog aufgenommen wurden, weltweit und über alle Hersteller.</p>",
         "<ul><li><strong>niedrig:</strong> weniger als " + e + " neue Einträge</li><li><strong>erhöht:</strong> " + e + " bis " + (h - 1) + "</li><li><strong>hoch:</strong> " + h + " oder mehr</li></ul>",
         "<p><strong>Aufschlag:</strong> Sind unter den neuen Einträgen mindestens " + r + " mit bekannter Ransomware-Nutzung, steigt die Stufe um eine Ebene.</p>",
-        "<p><strong>Woher die Schwellen kommen:</strong> aus den letzten 12 Monaten des Katalogs. " + e + " ist das 75. Perzentil, " + h + " das 90. Perzentil der 30-Tage-Zählung (Median 26). Erhöht heißt also: mehr Neuzugänge als in drei von vier üblichen Zeiträumen.</p>",
+        "<p><strong>Woher die Schwellen kommen:</strong> aus den letzten " + m + " Monaten des Katalogs (das Anlaufjahr 2022 zählt nicht mit). " + e + " ist das 75. Perzentil, " + h + " das 90. Perzentil der 30-Tage-Zählung (Median " + med + "). Erhöht heißt also: mehr Neuzugänge als in drei von vier üblichen Zeiträumen.</p>",
         "<p class='dim'>Nicht Teil der Stufe: CERT-Bund, EU-KEV und die ENISA-Zahlen. Sie dienen nur zur Einordnung. Die Stufe misst Aktivität im Katalog, keine Zahl von Angriffen. Alle Regeln: <a href='https://github.com/maxim91136/cyberlage.org/blob/main/RULES.md'>RULES.md</a>.</p>"].join(""); },
-      en: function (f, e, h, r, g) { return [
+      en: function (f, e, h, r, m, med) { return [
         "<p><strong>What is counted:</strong> how many vulnerabilities were newly added to the CISA KEV catalog in the last " + f + " days, worldwide and across all vendors.</p>",
         "<ul><li><strong>low:</strong> fewer than " + e + " new entries</li><li><strong>elevated:</strong> " + e + " to " + (h - 1) + "</li><li><strong>high:</strong> " + h + " or more</li></ul>",
         "<p><strong>Surcharge:</strong> if at least " + r + " of the new entries have known ransomware use, the level goes up by one step.</p>",
-        "<p><strong>Where the thresholds come from:</strong> the last 12 months of the catalog. " + e + " is the 75th percentile and " + h + " the 90th percentile of the 30-day count (median 26). Elevated therefore means more additions than in three out of four typical periods.</p>",
+        "<p><strong>Where the thresholds come from:</strong> the last " + m + " months of the catalog (the 2022 start-up year is excluded). " + e + " is the 75th percentile and " + h + " the 90th percentile of the 30-day count (median " + med + "). Elevated therefore means more additions than in three out of four typical periods.</p>",
         "<p class='dim'>Not part of the level: CERT-Bund, EU-KEV and the ENISA figures. They are for context only. The level measures activity in the catalog, not a number of attacks. Full rules: <a href='https://github.com/maxim91136/cyberlage.org/blob/main/RULES.md'>RULES.md</a>.</p>"].join(""); } },
     keine: { de: "keine Daten", en: "no data" },
     niedrig: { de: "niedrig", en: "low" }, erhoeht: { de: "erhöht", en: "elevated" }, hoch: { de: "hoch", en: "high" },
