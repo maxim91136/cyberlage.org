@@ -111,3 +111,33 @@ details.mehr{margin-top:6px}details.mehr>summary{cursor:pointer;color:var(--gree
 .telegram a{display:inline-block;border:1px solid var(--green);padding:10px 14px;text-decoration:none;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px}
 .telegram a:hover{background:var(--green);color:#06090b}
 .telegram[hidden]{display:none}
+
+/* Kopf zentriert, Navigation mit Aufklappmenüs, Reiter, Akkordeon */
+.marke{display:flex;justify-content:center;padding:18px 18px 10px}
+.brand{justify-content:center}
+.leiste{position:sticky;top:0;z-index:20;background:rgba(6,9,11,.96);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.navin{display:flex;justify-content:center;align-items:center;gap:6px 24px;flex-wrap:wrap;padding-top:2px;padding-bottom:2px}
+.navin>a,.dd>summary{padding:10px 4px;display:inline-block;cursor:pointer;list-style:none;text-decoration:none;color:var(--green);font-size:16px}
+.dd>summary::-webkit-details-marker{display:none}
+.dd>summary::after{content:" ▾";font-size:12px;color:var(--dim)}
+.dd[open]>summary::after{content:" ▴"}
+.dd{position:relative}
+.dd-box{position:absolute;left:50%;transform:translateX(-50%);top:100%;min-width:170px;background:#0c1014;border:1px solid var(--line);padding:6px;display:flex;flex-direction:column;z-index:25}
+.dd-box a{padding:10px 12px;text-decoration:none;font-size:15px;color:var(--text)}
+.dd-box a:hover{background:var(--green);color:#06090b}
+.navin .aktiv{color:#fff;text-decoration:underline;text-underline-offset:6px;text-decoration-color:var(--green)}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:10px 0 14px;flex-wrap:wrap}
+.tabs button{background:none;border:1px solid transparent;border-bottom:none;color:var(--dim);font:inherit;font-size:15px;padding:10px 14px;cursor:pointer}
+.tabs button[aria-selected="true"]{color:var(--green);border-color:var(--line);background:#0c1014}
+.tabs button:focus-visible{outline:2px solid #fff;outline-offset:-2px}
+[role="tabpanel"][hidden]{display:none}
+.akk{border:1px solid var(--line);margin:0 0 8px;background:#0c1014}
+.akk>summary{cursor:pointer;padding:14px 16px;color:var(--green);font-size:15px;list-style:none}
+.akk>summary::-webkit-details-marker{display:none}
+.akk>summary::before{content:"+ ";color:var(--dim)}
+.akk[open]>summary::before{content:"– "}
+.akk>*:not(summary){margin:0 16px 14px}
+section[id]{scroll-margin-top:60px}
+@media (max-width:420px){section[id]{scroll-margin-top:56px}.navin{gap:2px 14px}.navin>a,.dd>summary{font-size:15px}}
+.leiste{display:block}.leiste .wrap{width:100%}
+.akk,#p-kev,#neu .tabs{scroll-margin-top:56px}

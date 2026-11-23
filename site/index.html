@@ -15,17 +15,26 @@
 </head>
 <body id="oben">
 <a class="skip" href="#lage">Zum Inhalt</a>
-<header class="kopf">
-  <div class="wrap bar">
-    <a class="brand" href="./" aria-label="cyberlage.org, Startseite"><img src="favicon.svg" width="30" height="30" alt="" aria-hidden="true"><span>cyberlage<span class="dim">.org</span></span></a>
-    <nav aria-label="Hauptnavigation">
-      <a href="#lage">/lage</a>
-      <a href="#rueckblick">/rückblick</a>
-      <a href="#neu">/neu</a>
-      <a href="#info">/info</a>
-    </nav>
-  </div>
+<header class="marke">
+  <a class="brand" href="./" aria-label="cyberlage.org, Startseite"><img src="favicon.svg" width="30" height="30" alt="" aria-hidden="true"><span>cyberlage<span class="dim">.org</span></span></a>
 </header>
+<nav class="leiste" aria-label="Hauptnavigation">
+  <div class="wrap navin">
+    <a href="#lage" data-sec="lage">/lage</a>
+    <a href="#rueckblick" data-sec="rueckblick">/rückblick</a>
+    <details class="dd"><summary data-sec="neu">/neu</summary><div class="dd-box">
+      <a href="#neu" data-tab="kev">KEV-Katalog</a>
+      <a href="#neu" data-tab="bsi">CERT-Bund</a>
+      <a href="#neu" data-tab="eu">EU-KEV</a>
+    </div></details>
+    <details class="dd"><summary data-sec="info">/info</summary><div class="dd-box">
+      <a href="#info" data-offen="i-quellen">Quellen</a>
+      <a href="#info" data-offen="i-begriffe">Begriffe</a>
+      <a href="#info" data-offen="i-methode">Methode</a>
+      <a href="#info" data-offen="i-hinweise">Hinweise</a>
+    </div></details>
+  </div>
+</nav>
 
 <main>
   <section class="wrap hero">
@@ -66,53 +75,67 @@
   </section>
 
   <section id="neu" class="wrap" aria-labelledby="h-neu">
-    <h2 id="h-neu" class="mono">## neu im katalog</h2>
-    <p class="dim sub">Ausgenutzte Schwachstellen der letzten <span id="fenster">30</span> Tage, neueste zuerst. Der Filter läuft nur in deinem Browser.</p>
-    <label class="lbl" for="filter">Hersteller, Produkt oder CVE filtern</label>
-    <input id="filter" class="filter mono" type="search" autocomplete="off" placeholder="z. B. microsoft, fortinet, CVE-2026">
-    <p class="mono dim fine" id="treffer" aria-live="polite"></p>
-    <div class="tabelle" role="region" aria-label="Neue Einträge im KEV-Katalog" tabindex="0">
-      <table>
-        <thead><tr><th scope="col">Aufgenommen</th><th scope="col">Hersteller</th><th scope="col">Produkt</th><th scope="col">CVE</th><th scope="col">Frist (CISA)</th><th scope="col">Ransomware</th></tr></thead>
-        <tbody id="neu-liste"></tbody>
-      </table>
+    <h2 id="h-neu" class="mono">## neu</h2>
+    <div class="tabs mono" role="tablist" aria-label="Quelle wählen">
+      <button type="button" role="tab" id="t-kev" data-tab="kev" aria-selected="true" aria-controls="p-kev">KEV-Katalog</button>
+      <button type="button" role="tab" id="t-bsi" data-tab="bsi" aria-selected="false" aria-controls="p-bsi" tabindex="-1">CERT-Bund</button>
+      <button type="button" role="tab" id="t-eu" data-tab="eu" aria-selected="false" aria-controls="p-eu" tabindex="-1">EU-KEV</button>
     </div>
-    <p class="dim fine">Quelle: CISA KEV (CC0 1.0). Die Frist gilt für US-Bundesbehörden und ist nur eine Orientierung. Die Links führen zur CVE-Seite des NIST (NVD). Keine Angriffsdetails.</p>
 
-    <h3 class="mono">### warnungen · cert-bund</h3>
-    <p class="dim sub" id="bsi-info">…</p>
-    <div class="panel pad"><div id="bsi-liste"></div></div>
-    <p class="dim fine">Quelle: CERT-Bund, das Computer-Notfallteam des <strong>BSI</strong> (Bundesamt für Sicherheit in der Informationstechnik), über wid.cert-bund.de. Übernommen werden nur Titel, Schweregrad, Datum und Link, die Texte stehen beim BSI. Kein Hinweis auf eine Zusammenarbeit mit dem BSI.</p>
+    <div id="p-kev" role="tabpanel" aria-labelledby="t-kev">
+      <p class="dim sub">Ausgenutzte Schwachstellen der letzten <span id="fenster">30</span> Tage, neueste zuerst. Der Filter läuft nur in deinem Browser.</p>
+      <label class="lbl" for="filter">Hersteller, Produkt oder CVE filtern</label>
+      <input id="filter" class="filter mono" type="search" autocomplete="off" placeholder="z. B. microsoft, fortinet, CVE-2026">
+      <p class="mono dim fine" id="treffer" aria-live="polite"></p>
+      <div class="tabelle" role="region" aria-label="Neue Einträge im KEV-Katalog" tabindex="0">
+        <table>
+          <thead><tr><th scope="col">Aufgenommen</th><th scope="col">Hersteller</th><th scope="col">Produkt</th><th scope="col">CVE</th><th scope="col">Frist (CISA)</th><th scope="col">Ransomware</th></tr></thead>
+          <tbody id="neu-liste"></tbody>
+        </table>
+      </div>
+      <p class="dim fine">Quelle: CISA KEV (CC0 1.0). Die Frist gilt für US-Bundesbehörden und ist nur eine Orientierung. Die Links führen zur CVE-Seite des NIST (NVD). Keine Angriffsdetails.</p>
+    </div>
 
-    <h3 class="mono">### eu-kev · enisa</h3>
-    <p class="dim sub" id="eu-info">…</p>
-    <div class="panel pad"><div id="eu-liste"></div></div>
-    <p class="dim fine">Quelle: EU-Schwachstellendatenbank (EUVD) der <strong>ENISA</strong>, der EU-Agentur für Cybersicherheit. Die Lizenz ist nicht ausdrücklich geklärt, deshalb nur Kennung, CVE, Hersteller und Link.</p>
+    <div id="p-bsi" role="tabpanel" aria-labelledby="t-bsi" hidden>
+      <p class="dim sub" id="bsi-info">…</p>
+      <div class="panel pad"><div id="bsi-liste"></div></div>
+      <p class="dim fine">Quelle: CERT-Bund, das Computer-Notfallteam des <strong>BSI</strong> (Bundesamt für Sicherheit in der Informationstechnik), über wid.cert-bund.de. Übernommen werden nur Titel, Schweregrad, Datum und Link, die Texte stehen beim BSI. Kein Hinweis auf eine Zusammenarbeit mit dem BSI.</p>
+    </div>
+
+    <div id="p-eu" role="tabpanel" aria-labelledby="t-eu" hidden>
+      <p class="dim sub" id="eu-info">…</p>
+      <div class="panel pad"><div id="eu-liste"></div></div>
+      <p class="dim fine">Quelle: EU-Schwachstellendatenbank (EUVD) der <strong>ENISA</strong>, der EU-Agentur für Cybersicherheit. Die Lizenz ist nicht ausdrücklich geklärt, deshalb nur Kennung, CVE, Hersteller und Link.</p>
+    </div>
   </section>
 
   <section id="info" class="wrap" aria-labelledby="h-info">
     <h2 id="h-info" class="mono">## info</h2>
-    <h3 class="mono">### quellen</h3>
-    <div class="panel pad" id="quellenliste"></div>
-    <p class="dim fine">BSI und CERT-Bund werden bewusst nicht verarbeitet, nur verlinkt. Die Nutzungsbedingungen sind noch zu klären.</p>
-    <h3 class="mono">### begriffe</h3>
-    <dl class="begriffe">
-      <dt>CISA</dt><dd>Cybersecurity and Infrastructure Security Agency, die Cybersicherheitsbehörde der USA. Führt die KEV-Liste.</dd>
-      <dt>KEV</dt><dd>Known Exploited Vulnerabilities: Schwachstellen, die nachweislich in Angriffen ausgenutzt werden.</dd>
-      <dt>CVE</dt><dd>Die weltweit einheitliche Kennung einer Schwachstelle, zum Beispiel CVE-2026-12345.</dd>
-      <dt>BSI / CERT-Bund</dt><dd>Das Bundesamt für Sicherheit in der Informationstechnik und sein Computer-Notfallteam. Sie warnen vor Schwachstellen in Deutschland.</dd>
-      <dt>ENISA / EUVD</dt><dd>Die EU-Agentur für Cybersicherheit und ihre Schwachstellendatenbank (European Union Vulnerability Database).</dd>
-      <dt>NVD</dt><dd>National Vulnerability Database des US-Instituts NIST, Anlaufstelle für Details zu einer CVE.</dd>
-      <dt>Ransomware</dt><dd>Schadsoftware, die Daten verschlüsselt, um Lösegeld zu erpressen.</dd>
-    </dl>
-    <h3 class="mono">### methode</h3>
-    <div class="grid3">
-      <div class="panel pad"><strong>Nur Veröffentlichtes</strong><p class="dim">Was bei wem im Einsatz ist, wissen wir nicht und behaupten es nicht.</p></div>
-      <div class="panel pad"><strong>Keine Daten statt Schätzung</strong><p class="dim">Fehlt ein belegter Wert, steht dort „keine Daten“.</p></div>
-      <div class="panel pad"><strong>Regeln offen</strong><p class="dim">Fenster, Schwellen und Herleitung stehen in <a href="https://github.com/maxim91136/cyberlage.org/blob/main/RULES.md">RULES.md</a>.</p></div>
-    </div>
-    <h3 class="mono">### hinweise</h3>
-    <ul id="hinweise" class="hinw"></ul>
+    <details class="akk" id="i-quellen"><summary class="mono">quellen</summary>
+      <div class="panel pad" id="quellenliste"></div>
+      <p class="dim fine">BSI und CERT-Bund werden bewusst nicht verarbeitet, nur verlinkt. Die Nutzungsbedingungen sind noch zu klären.</p>
+    </details>
+    <details class="akk" id="i-begriffe"><summary class="mono">begriffe</summary>
+      <dl class="begriffe">
+        <dt>CISA</dt><dd>Cybersecurity and Infrastructure Security Agency, die Cybersicherheitsbehörde der USA. Führt die KEV-Liste.</dd>
+        <dt>KEV</dt><dd>Known Exploited Vulnerabilities: Schwachstellen, die nachweislich in Angriffen ausgenutzt werden.</dd>
+        <dt>CVE</dt><dd>Die weltweit einheitliche Kennung einer Schwachstelle, zum Beispiel CVE-2026-12345.</dd>
+        <dt>BSI / CERT-Bund</dt><dd>Das Bundesamt für Sicherheit in der Informationstechnik und sein Computer-Notfallteam. Sie warnen vor Schwachstellen in Deutschland.</dd>
+        <dt>ENISA / EUVD</dt><dd>Die EU-Agentur für Cybersicherheit und ihre Schwachstellendatenbank (European Union Vulnerability Database).</dd>
+        <dt>NVD</dt><dd>National Vulnerability Database des US-Instituts NIST, Anlaufstelle für Details zu einer CVE.</dd>
+        <dt>Ransomware</dt><dd>Schadsoftware, die Daten verschlüsselt, um Lösegeld zu erpressen.</dd>
+      </dl>
+    </details>
+    <details class="akk" id="i-methode"><summary class="mono">methode</summary>
+      <div class="grid3">
+        <div class="panel pad"><strong>Nur Veröffentlichtes</strong><p class="dim">Was bei wem im Einsatz ist, wissen wir nicht und behaupten es nicht.</p></div>
+        <div class="panel pad"><strong>Keine Daten statt Schätzung</strong><p class="dim">Fehlt ein belegter Wert, steht dort „keine Daten“.</p></div>
+        <div class="panel pad"><strong>Regeln offen</strong><p class="dim">Fenster, Schwellen und Herleitung stehen in <a href="https://github.com/maxim91136/cyberlage.org/blob/main/RULES.md">RULES.md</a>.</p></div>
+      </div>
+    </details>
+    <details class="akk" id="i-hinweise"><summary class="mono">hinweise</summary>
+      <ul id="hinweise" class="hinw"></ul>
+    </details>
   </section>
 </main>
 

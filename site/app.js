@@ -18,8 +18,8 @@
   if (knopf) {
     var weich = !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
     knopf.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: weich ? "smooth" : "auto" }); });
-    var navLinks = Array.prototype.slice.call(document.querySelectorAll("nav a[href^='#']"));
-    var abschnitte = navLinks.map(function (a) { return document.querySelector(a.getAttribute("href")); });
+    var navLinks = Array.prototype.slice.call(document.querySelectorAll(".navin > a[data-sec], .navin summary[data-sec]"));
+    var abschnitte = navLinks.map(function (a) { return document.getElementById(a.getAttribute("data-sec")); });
     var ticks = false;
     var pruefen = function () {
       ticks = false;
@@ -123,6 +123,41 @@
     var h = $("hinweise");
     (d.hinweise || []).forEach(function (t) { h.appendChild(el("li", "", t)); });
   }
+
+  function waehleTab(name) {
+    ["kev", "bsi", "eu"].forEach(function (n) {
+      var t = $("t-" + n), an = n === name;
+      t.setAttribute("aria-selected", an ? "true" : "false"); t.tabIndex = an ? 0 : -1;
+      $("p-" + n).hidden = !an;
+    });
+  }
+  function bedienung() {
+    Array.prototype.forEach.call(document.querySelectorAll(".tabs button"), function (b) {
+      b.addEventListener("click", function () { waehleTab(b.getAttribute("data-tab")); });
+      b.addEventListener("keydown", function (e) {
+        var ids = ["kev", "bsi", "eu"], i = ids.indexOf(b.getAttribute("data-tab"));
+        if (e.key === "ArrowRight") i = (i + 1) % 3; else if (e.key === "ArrowLeft") i = (i + 2) % 3; else return;
+        waehleTab(ids[i]); $("t-" + ids[i]).focus(); e.preventDefault();
+      });
+    });
+    var menues = Array.prototype.slice.call(document.querySelectorAll(".dd"));
+    menues.forEach(function (m) {
+      m.addEventListener("toggle", function () { if (m.open) menues.forEach(function (o) { if (o !== m) o.open = false; }); });
+    });
+    document.addEventListener("click", function (e) { menues.forEach(function (m) { if (!m.contains(e.target)) m.open = false; }); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") menues.forEach(function (m) { m.open = false; }); });
+    Array.prototype.forEach.call(document.querySelectorAll(".dd-box a"), function (a) {
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        var tab = a.getAttribute("data-tab"), offen = a.getAttribute("data-offen"), ziel = document.querySelector(a.getAttribute("href"));
+        if (tab) waehleTab(tab);
+        if (offen) { var d = $(offen); if (d) d.open = true; ziel = d || ziel; }
+        menues.forEach(function (m) { m.open = false; });
+        if (ziel) ziel.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+      });
+    });
+  }
+  bedienung();
 
   function zeichneVerlauf(v, sw) {
     var svg = $("verlauf"), NS = "http://www.w3.org/2000/svg";
