@@ -14,7 +14,7 @@
     return e;
   };
 
-  var knopf = $("nach-oben");
+  var knopf = $("totop");
   if (knopf) {
     var weich = !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
     knopf.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: weich ? "smooth" : "auto" }); });
@@ -23,7 +23,7 @@
     var ticks = false;
     var pruefen = function () {
       ticks = false;
-      knopf.classList.toggle("an", window.scrollY > window.innerHeight * 1.2);
+      knopf.classList.toggle("on", window.scrollY > window.innerHeight * 1.2);
       var aktiv = -1, grenze = window.scrollY + 120;
       abschnitte.forEach(function (sec, i) { if (sec && sec.offsetTop <= grenze) aktiv = i; });
       navLinks.forEach(function (a, i) { if (i === aktiv) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current"); a.classList.toggle("aktiv", i === aktiv); });
