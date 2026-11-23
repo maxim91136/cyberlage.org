@@ -110,19 +110,19 @@ def sende(text, token, chat):
                                     "disable_web_page_preview": "true"}).encode()
     req = urllib.request.Request(f"https://api.telegram.org/bot{token}/sendMessage", data=daten)
     letzter = None
-    for versuch in range(3):
+    for versuch in range(8):
         try:
             with urllib.request.urlopen(req, timeout=45) as r:
                 if json.loads(r.read()).get("ok") is not True:
                     raise RuntimeError("Telegram hat die Nachricht nicht angenommen")
             return
         except urllib.error.HTTPError as ex:
-            if ex.code == 429 and versuch < 2:
+            if ex.code == 429 and versuch < 7:
                 try:
                     warte = int(json.loads(ex.read()).get("parameters", {}).get("retry_after", 30))
                 except Exception:
                     warte = 30
-                time.sleep(min(warte, 60) + 1)
+                time.sleep(min(warte, 60) + 2 + versuch)
                 continue
             raise RuntimeError(f"Telegram antwortet mit {ex.code}: {ex.read().decode(errors='replace')[:200]}")
         except (TimeoutError, OSError) as ex:
