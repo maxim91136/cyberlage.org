@@ -1,6 +1,6 @@
 hersteller,produkt,status,begruendung,beleg_url
 Microsoft,Windows,entwurf,offen: Beleg zur Verbreitung in der Verwaltung fehlt,
-Microsoft,Exchange Server,entwurf,offen: Beleg zur Verbreitung in der Verwaltung fehlt,
+Microsoft,Exchange Server,freigegeben,BSI-Warnung 2025-287772 vom 28.10.2025 nennt Kommunalverwaltungen unter den betroffenen Betreibern von Exchange-Servern,https://www.bsi.bund.de/SharedDocs/Cybersicherheitswarnungen/DE/2025/2025-287772-1032.pdf
 Microsoft,Exchange,entwurf,offen: Namensvariante im KEV und Beleg fehlt,
 Microsoft,SharePoint,entwurf,offen: Beleg zur Verbreitung in der Verwaltung fehlt,
 Citrix,NetScaler,entwurf,offen: Beleg zur Verbreitung in der Verwaltung fehlt,

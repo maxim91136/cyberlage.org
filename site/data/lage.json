@@ -13,13 +13,13 @@
     "ransomware_bekannt_30_tage": 0
   },
   "verwaltungsbezug": {
-    "freigegebene_produkte": 0,
+    "freigegebene_produkte": 1,
     "fenster_tage": 30,
-    "neu": null,
-    "davon_ransomware_bekannt": null
+    "neu": 0,
+    "davon_ransomware_bekannt": 0
   },
   "stufe": null,
-  "stufe_begruendung": "Keine freigegebene Produktliste, daher kein Bezug zur Verwaltung und keine Bewertung.",
+  "stufe_begruendung": "Schwellen sind noch nicht freigegeben (Entwurf), daher keine Bewertung.",
   "sektor": [
     {
       "kennzahl": "sektoranteil_oeffentliche_verwaltung",
