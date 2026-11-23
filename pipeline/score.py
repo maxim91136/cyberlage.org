@@ -133,7 +133,7 @@ def zusatz_eu(daten, stand, tage):
     }
 
 
-def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None):
+def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None, telegram_link=None):
     tage = regeln["fenster_tage"]
     alle = kev["eintraege"]
     fenster = im_fenster(alle, stand, tage)
@@ -153,6 +153,7 @@ def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None):
         "neu": liste_neu(fenster),
         "schwellen": {k: regeln.get(k) for k in ("erhoeht_ab", "hoch_ab", "ransomware_aufschlag_ab")},
         "verlauf": verlauf(alle, regeln, stand),
+        "telegram": {"link": telegram_link},
         "cert_bund": zusatz_bsi(bsi, stand, tage),
         "eu_kev": zusatz_eu(eu, stand, tage),
     }
@@ -205,7 +206,8 @@ def main(argv):
     enisa = lese_csv(WURZEL / "data" / "enisa.csv")
     ergebnis = werte_aus(kev, regeln, enisa, stand,
                          lese_optional(WURZEL / "data" / "bsi" / "warnungen.json"),
-                         lese_optional(WURZEL / "data" / "eu" / "kev.json"))
+                         lese_optional(WURZEL / "data" / "eu" / "kev.json"),
+                         (lese_optional(WURZEL / "config" / "telegram.json") or {}).get("kanal_link"))
     ziel = WURZEL / "site" / "data" / "lage.json"
     ziel.parent.mkdir(parents=True, exist_ok=True)
     ziel.write_text(json.dumps(ergebnis, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

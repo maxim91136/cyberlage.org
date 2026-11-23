@@ -666,6 +666,9 @@
       "stufe": "erhoeht"
     }
   ],
+  "telegram": {
+    "link": null
+  },
   "cert_bund": {
     "quelle": "CERT-Bund / BSI Warn- und Informationsdienst",
     "quelle_url": "https://wid.cert-bund.de/",

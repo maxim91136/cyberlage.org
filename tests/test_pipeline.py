@@ -8,6 +8,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "pipeline"))
 
 import fetch_extra  # noqa: E402
+import notify  # noqa: E402
 import fetch_kev  # noqa: E402
 import score  # noqa: E402
 
@@ -215,6 +216,60 @@ class ZusatzQuellenTests(unittest.TestCase):
         self.assertEqual(r["cert_bund"]["kritisch_7_tage"], 1)
         self.assertEqual(len(r["cert_bund"]["liste"]), 1)  # nur kritisch/hoch im Fenster
         self.assertEqual(r["eu_kev"]["neu_30_tage"], 1)
+
+
+class MeldeTests(unittest.TestCase):
+    def setUp(self):
+        from datetime import datetime, timezone
+        self.jetzt = datetime(2026, 11, 23, 9, 0, tzinfo=timezone.utc)
+        self.kev = {"meta": {}, "eintraege": [kev_klein("CVE-1", "Cisco", "X & Y", "2026-11-20"),
+                                              kev_klein("CVE-2", "Apache", "Roller", "2026-11-20", ransom=True)]}
+        self.bsi = {"eintraege": [{"id": "W1", "schwere": "kritisch", "titel": "Foo <b>", "link": "https://w/1", "datum": "2026-11-23"},
+                                  {"id": "W2", "schwere": "hoch", "titel": "Bar", "link": "https://w/2", "datum": "2026-11-23"}]}
+        self.lage = {"stufe": "erhoeht", "stufe_begruendung": "34 neu.", "kev": {"neu_7_tage": 9, "neu_30_tage": 34}}
+
+    def test_erster_lauf_merkt_nur(self):
+        n, z = notify.ermittle(self.kev, self.bsi, None, self.lage, None, self.jetzt)
+        self.assertEqual(n, [])
+        self.assertEqual(z["gesehen"]["kev"], ["CVE-1", "CVE-2"])
+
+    def test_meldet_nur_neues_und_nur_kritisches_von_bsi(self):
+        _, z = notify.ermittle(self.kev, self.bsi, None, self.lage, None, self.jetzt)
+        z["zusammenfassung"] = "2026-11-23"
+        kev2 = {"meta": {}, "eintraege": self.kev["eintraege"] + [kev_klein("CVE-3", "Fortinet", "FortiOS", "2026-11-23", ransom=True)]}
+        bsi2 = {"eintraege": self.bsi["eintraege"] + [
+            {"id": "W3", "schwere": "kritisch", "titel": "Neu", "link": "https://w/3", "datum": "2026-11-23"},
+            {"id": "W4", "schwere": "hoch", "titel": "Egal", "link": "https://w/4", "datum": "2026-11-23"}]}
+        n, z2 = notify.ermittle(kev2, bsi2, None, self.lage, z, self.jetzt)
+        self.assertEqual(len(n), 2)
+        self.assertIn("CVE-3", n[0]); self.assertIn("Ransomware bekannt", n[0]); self.assertNotIn("CVE-1", n[0])
+        self.assertIn("Neu", n[1]); self.assertNotIn("Egal", n[1])
+        n3, _ = notify.ermittle(kev2, bsi2, None, self.lage, z2, self.jetzt)
+        self.assertEqual(n3, [])  # nichts doppelt
+
+    def test_html_wird_maskiert(self):
+        _, z = notify.ermittle(self.kev, self.bsi, None, self.lage, None, self.jetzt)
+        z["gesehen"]["bsi"] = []; z["zusammenfassung"] = "2026-11-23"
+        n, _ = notify.ermittle(self.kev, self.bsi, None, self.lage, z, self.jetzt)
+        self.assertIn("Foo &lt;b&gt;", n[0])
+
+    def test_stufenwechsel_und_tageslage_einmal(self):
+        _, z = notify.ermittle(self.kev, self.bsi, None, self.lage, None, self.jetzt)
+        z["zusammenfassung"] = None
+        lage2 = dict(self.lage, stufe="hoch")
+        n, z2 = notify.ermittle(self.kev, self.bsi, None, lage2, z, self.jetzt)
+        self.assertTrue(any("Stufe geändert" in x and "hoch" in x for x in n))
+        self.assertTrue(any("Tageslage" in x for x in n))
+        n2, _ = notify.ermittle(self.kev, self.bsi, None, lage2, z2, self.jetzt)
+        self.assertEqual(n2, [])
+
+    def test_lange_liste_wird_gekuerzt(self):
+        _, z = notify.ermittle({"meta": {}, "eintraege": []}, None, None, self.lage, None, self.jetzt)
+        z["zusammenfassung"] = "2026-11-23"
+        viele = {"meta": {}, "eintraege": [kev_klein(f"CVE-{i}", "H", "P", "2026-11-23") for i in range(25)]}
+        n, _ = notify.ermittle(viele, None, None, self.lage, z, self.jetzt)
+        self.assertIn("15 weitere", n[0])
+        self.assertLessEqual(len(n[0]), notify.MAX_ZEICHEN)
 
 
 if __name__ == "__main__":

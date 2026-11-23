@@ -114,6 +114,8 @@
     filtern();
 
     zeichneVerlauf(d.verlauf || [], d.schwellen || {});
+    var tl = d.telegram && d.telegram.link;
+    if (/^https:\/\/t\.me\//.test(tl || "")) { $("telegram-link").href = tl; $("telegram").hidden = false; }
     d_stand = d.stand;
     zeigeBsi(d.cert_bund);
     zeigeEu(d.eu_kev);
