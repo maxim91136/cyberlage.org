@@ -41,7 +41,10 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python pipeline/notify.py --diagnose
+        run: |
+          python pipeline/notify.py --diagnose
+          echo "curl getMe:"; curl -sS -m 25 -w "  http=%{http_code} zeit=%{time_total}s ip=%{remote_ip}\n" "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getMe" | sed 's/"first_name":"[^"]*"//' || true
+          echo "curl getMe IPv4:"; curl -4 -sS -m 25 -w "  http=%{http_code} zeit=%{time_total}s\n" "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getMe" -o /dev/null || true
       - name: Telegram Testmeldung
         if: ${{ inputs.senden }}
         env:
