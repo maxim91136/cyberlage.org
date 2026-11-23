@@ -137,7 +137,7 @@ class AuswertungTests(unittest.TestCase):
     def test_projektangabe_und_hinweise(self):
         r = score.werte_aus(self.kev, REGELN_FREI, [], STAND)
         self.assertEqual(r["projekt"]["von"], "Dreier Labs")
-        self.assertTrue(any("Dreier Labs" in h for h in r["hinweise"]))
+        self.assertIn("keine amtliche Stelle", r["projekt"]["art"])
 
     def test_echte_konfiguration_ist_lesbar(self):
         wurzel = Path(__file__).resolve().parent.parent

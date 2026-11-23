@@ -103,7 +103,7 @@
   function zeichneVerlauf(v, sw) {
     var svg = $("verlauf"), NS = "http://www.w3.org/2000/svg";
     if (!v.length) { $("verlauf-legende").textContent = "keine Daten"; return; }
-    var B = 1000, H = 300, L = 44, R = 12, T = 14, U = 30;
+    var B = 1000, H = 220, L = 44, R = 12, T = 14, U = 30;
     var max = Math.max.apply(null, v.map(function (p) { return p.neu; }).concat([sw.hoch_ab || 0])) + 4;
     var y = function (n) { return T + (H - T - U) * (1 - n / max); };
     var w = (B - L - R) / v.length;
@@ -134,6 +134,6 @@
     var s = $("verlauf-titel");
     s.textContent = "Neu aufgenommene Schwachstellen pro 30 Tage, " + datum(v[0].stand) + " bis " + datum(v[v.length - 1].stand) +
       ": niedrigster Wert " + Math.min.apply(null, zahlen) + ", höchster " + Math.max.apply(null, zahlen) + ", zuletzt " + zahlen[zahlen.length - 1] + ".";
-    $("verlauf-legende").textContent = "Balken: grün unter erhöht-Schwelle, gelb erhöht, rot hoch. Quelle: CISA KEV (CC0 1.0), eigene Auswertung.";
+    $("verlauf-legende").textContent = "Balken: grün unter erhöht-Schwelle, gelb erhöht, rot hoch. Wochenstände, auch rückwirkend mit den heutigen Schwellen gemessen. Quelle: CISA KEV (CC0 1.0), eigene Auswertung.";
   }
 })();

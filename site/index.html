@@ -20,11 +20,9 @@
     <a class="brand" href="./" aria-label="cyberlage.org, Startseite"><img src="favicon.svg" width="30" height="30" alt="" aria-hidden="true"><span>cyberlage<span class="dim">.org</span></span></a>
     <nav aria-label="Hauptnavigation">
       <a href="#lage">/lage</a>
-      <a href="#zahlen">/zahlen</a>
       <a href="#rueckblick">/rückblick</a>
       <a href="#neu">/neu</a>
-      <a href="#quellen">/quellen</a>
-      <a href="#methode">/methode</a>
+      <a href="#info">/info</a>
     </nav>
   </div>
 </header>
@@ -33,52 +31,41 @@
   <section class="wrap hero">
     <p class="lbl">stand <span id="stand">…</span> · frühwarnung öffentlicher sektor</p>
     <h1>Cyberlage im öffentlichen Sektor. Regelbasiert, offen belegt.</h1>
-    <p class="lead">Frühwarnsystem für Verteidiger, aus freien Quellen. Keine Angriffsdetails, keine Nennung einzelner Behörden. Fehlt der Beleg, steht dort „keine Daten“.</p>
+    <p class="lead">Wir listen, was Stellen wie CISA und ENISA veröffentlichen, und rechnen es nach offenen Regeln zu einer Stufe zusammen.</p>
   </section>
 
   <section id="lage" class="wrap" aria-labelledby="h-lage">
     <h2 id="h-lage" class="sr">Aktuelle Lage</h2>
-    <div class="panel lage" id="lage-box">
-      <div>
+    <div class="uebersicht">
+      <div class="panel lage" id="lage-box">
         <p class="lbl">lage.stufe</p>
         <div class="stufe mono" id="stufe-wert">…</div>
         <div class="stufe-text" id="stufe-text">Daten werden geladen</div>
+        <p class="begr dim" id="stufe-begr"></p>
       </div>
-      <div>
-        <p class="lbl">lage.stufe_begruendung</p>
-        <p class="begr" id="stufe-begr"></p>
-        <p class="dim">Stufen (niedrig, erhöht, hoch) gibt es erst, wenn Regeln und eine belegte Produktliste freigegeben sind.</p>
+      <div class="zahlen">
+        <div class="panel pad"><div class="lbl">neu · 7 Tage</div><div class="zahl mono" id="k7">…</div></div>
+        <div class="panel pad"><div class="lbl">neu · 30 Tage</div><div class="zahl mono" id="k30">…</div></div>
+        <div class="panel pad"><div class="lbl">Katalog gesamt</div><div class="zahl mono" id="kall">…</div></div>
+        <div class="panel pad"><div class="lbl">Ransomware · 30 T.</div><div class="zahl mono" id="kr">…</div></div>
       </div>
-    </div>
-    <noscript><p class="panel pad">Diese Seite lädt ihre Zahlen aus <a href="data/lage.json">data/lage.json</a>. Dafür wird JavaScript benötigt. Die Rohdaten sind direkt abrufbar.</p></noscript>
-  </section>
-
-  <section id="zahlen" class="wrap" aria-labelledby="h-zahlen">
-    <h2 id="h-zahlen" class="mono">## zahlen</h2>
-    <p class="dim sub">Jeder Wert mit Quelle, Stand und Lizenz.</p>
-    <div class="grid4">
-      <div class="panel pad"><div class="lbl">kev.neu_7_tage</div><div class="zahl mono" id="k7">…</div><div class="dim">neu im Katalog, 7 Tage</div></div>
-      <div class="panel pad"><div class="lbl">kev.neu_30_tage</div><div class="zahl mono" id="k30">…</div><div class="dim">neu im Katalog, 30 Tage</div></div>
-      <div class="panel pad"><div class="lbl">kev.gesamt</div><div class="zahl mono" id="kall">…</div><div class="dim">Einträge im Katalog</div></div>
-      <div class="panel pad"><div class="lbl">kev.ransomware_30_tage</div><div class="zahl mono" id="kr">…</div><div class="dim">mit bekannter Ransomware-Nutzung</div></div>
     </div>
     <p class="mono dim fine" id="kev-quelle"></p>
-
     <div id="sektor"></div>
+    <noscript><p class="panel pad">Diese Seite lädt ihre Zahlen aus <a href="data/lage.json">data/lage.json</a>. Dafür wird JavaScript benötigt. Die Rohdaten sind direkt abrufbar.</p></noscript>
   </section>
 
   <section id="rueckblick" class="wrap" aria-labelledby="h-rueck">
     <h2 id="h-rueck" class="mono">## rückblick</h2>
-    <p class="dim sub">Neu aufgenommene Schwachstellen pro 30-Tage-Fenster, Wochenstände der letzten 12 Monate. Gemessen mit den heutigen Schwellen, damit „erhöht“ einen Maßstab hat.</p>
     <div class="panel pad">
-      <svg id="verlauf" role="img" aria-labelledby="verlauf-titel" viewBox="0 0 1000 300" width="100%" preserveAspectRatio="xMidYMid meet"><title id="verlauf-titel">Verlauf der neu aufgenommenen Schwachstellen</title></svg>
+      <svg id="verlauf" role="img" aria-labelledby="verlauf-titel" viewBox="0 0 1000 220" width="100%" preserveAspectRatio="xMidYMid meet"><title id="verlauf-titel">Verlauf der neu aufgenommenen Schwachstellen</title></svg>
       <p class="mono dim fine" id="verlauf-legende"></p>
     </div>
   </section>
 
   <section id="neu" class="wrap" aria-labelledby="h-neu">
     <h2 id="h-neu" class="mono">## neu im katalog</h2>
-    <p class="dim sub">Ausgenutzte Schwachstellen der letzten <span id="fenster">30</span> Tage, neueste zuerst. Zum Abgleich mit dem eigenen Bestand. Der Filter läuft nur in deinem Browser.</p>
+    <p class="dim sub">Ausgenutzte Schwachstellen der letzten <span id="fenster">30</span> Tage, neueste zuerst. Der Filter läuft nur in deinem Browser.</p>
     <label class="lbl" for="filter">Hersteller, Produkt oder CVE filtern</label>
     <input id="filter" class="filter mono" type="search" autocomplete="off" placeholder="z. B. microsoft, fortinet, CVE-2026">
     <p class="mono dim fine" id="treffer" aria-live="polite"></p>
@@ -88,21 +75,19 @@
         <tbody id="neu-liste"></tbody>
       </table>
     </div>
-    <p class="dim fine">Quelle: CISA KEV (CC0 1.0). Die Frist gilt für US-Bundesbehörden und ist hier nur eine Orientierung. Die Links führen zur CVE-Seite des NIST (NVD). Hier stehen keine Angriffsdetails.</p>
+    <p class="dim fine">Quelle: CISA KEV (CC0 1.0). Die Frist gilt für US-Bundesbehörden und ist nur eine Orientierung. Die Links führen zur CVE-Seite des NIST (NVD). Keine Angriffsdetails.</p>
   </section>
 
-  <section id="quellen" class="wrap" aria-labelledby="h-quellen">
-    <h2 id="h-quellen" class="mono">## quellen</h2>
+  <section id="info" class="wrap" aria-labelledby="h-info">
+    <h2 id="h-info" class="mono">## info</h2>
+    <h3 class="mono">### quellen</h3>
     <div class="panel pad" id="quellenliste"></div>
     <p class="dim fine">BSI und CERT-Bund werden bewusst nicht verarbeitet, nur verlinkt. Die Nutzungsbedingungen sind noch zu klären.</p>
-  </section>
-
-  <section id="methode" class="wrap" aria-labelledby="h-methode">
-    <h2 id="h-methode" class="mono">## methode</h2>
+    <h3 class="mono">### methode</h3>
     <div class="grid3">
-      <div class="panel pad"><strong>Helfen statt anprangern</strong><p class="dim">Sektor-Aggregate, keine einzelnen Stellen.</p></div>
-      <div class="panel pad"><strong>Keine Daten statt Schätzung</strong><p class="dim">Ohne Beleg kein Wert.</p></div>
-      <div class="panel pad"><strong>Regeln offen</strong><p class="dim">Fenster 30 Tage, exakter Produktabgleich, dokumentierte Schwellen. Siehe <a href="https://github.com/maxim91136/cyberlage.org/blob/main/RULES.md">RULES.md</a>.</p></div>
+      <div class="panel pad"><strong>Nur Veröffentlichtes</strong><p class="dim">Was bei wem im Einsatz ist, wissen wir nicht und behaupten es nicht.</p></div>
+      <div class="panel pad"><strong>Keine Daten statt Schätzung</strong><p class="dim">Fehlt ein belegter Wert, steht dort „keine Daten“.</p></div>
+      <div class="panel pad"><strong>Regeln offen</strong><p class="dim">Fenster, Schwellen und Herleitung stehen in <a href="https://github.com/maxim91136/cyberlage.org/blob/main/RULES.md">RULES.md</a>.</p></div>
     </div>
     <h3 class="mono">### hinweise</h3>
     <ul id="hinweise" class="hinw"></ul>

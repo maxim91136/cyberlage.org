@@ -55,3 +55,26 @@ th,td{text-align:left;padding:10px 14px;border-top:1px solid var(--line);vertica
 thead th{border-top:none;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);font-weight:500}
 td.mono{font-family:ui-monospace,Menlo,Consolas,monospace}
 .rw{color:var(--amber);font-weight:600}
+
+/* kompakter Überblick */
+.hero{padding-top:28px;padding-bottom:20px}
+h1{font-size:clamp(24px,4vw,32px);margin-bottom:10px}
+.lead{font-size:16px}
+section.wrap{padding-bottom:20px}
+.uebersicht{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:12px}
+.lage{display:block;padding:18px 20px;gap:0}
+.lage .stufe{font-size:28px;line-height:1.1}
+.lage .stufe-text{font-size:16px;margin-top:4px}
+.begr{margin:8px 0 0;font-size:14px}
+.zahlen{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pad{padding:14px 16px}
+.zahl{font-size:28px;margin:2px 0 0}
+.lbl{margin-bottom:4px}
+.sektor{margin-top:10px;padding:12px 16px;gap:16px}
+.sektor .zahl{min-width:0;font-size:26px}
+.sektor .txt{font-size:14px}
+nav{gap:16px}
+.tabelle{max-height:420px;overflow:auto}
+thead th{position:sticky;top:0;background:var(--panel)}
+@media (max-width:760px){.uebersicht{grid-template-columns:1fr}}
+@media (max-width:420px){nav{gap:12px;font-size:13px}.brand{font-size:16px}}
