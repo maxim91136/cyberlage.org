@@ -151,3 +151,7 @@ section[id]{scroll-margin-top:60px}
 .rechnung p{margin:0 0 10px}
 .rechnung ul{margin:0 0 10px;padding-left:20px}
 #l-rechnung{margin:10px 0 0}
+
+.lage.st-niedrig{border-left-color:var(--green)}.lage.st-niedrig .stufe{color:var(--green)}
+.lage.st-erhoeht{border-left-color:var(--amber)}.lage.st-erhoeht .stufe{color:var(--amber)}
+.lage.st-hoch{border-left-color:#ff8a7a}.lage.st-hoch .stufe{color:#ff8a7a}

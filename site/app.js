@@ -49,6 +49,7 @@
     var hatStufe = d.stufe !== null && d.stufe !== undefined;
     var name = hatStufe ? txt(String(d.stufe)) : null;
     $("stufe-wert").textContent = hatStufe ? name : "null";
+    if (hatStufe) $("lage-box").classList.add("st-" + d.stufe);
     $("stufe-text").textContent = hatStufe ? "" : txt("keine_bew");
     $("stufe-text").hidden = hatStufe;
     $("stufe-begr").textContent = pick(d.stufe_begruendung, d.stufe_begruendung_en) || "";
