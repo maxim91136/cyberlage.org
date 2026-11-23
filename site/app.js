@@ -114,6 +114,8 @@
     filtern();
 
     zeichneVerlauf(d.verlauf || [], d.schwellen || {});
+    zeigeBsi(d.cert_bund);
+    zeigeEu(d.eu_kev);
 
     var h = $("hinweise");
     (d.hinweise || []).forEach(function (t) { h.appendChild(el("li", "", t)); });
@@ -155,5 +157,41 @@
     s.textContent = "Neu aufgenommene Schwachstellen pro 30 Tage, " + datum(v[0].stand) + " bis " + datum(v[v.length - 1].stand) +
       ": niedrigster Wert " + Math.min.apply(null, zahlen) + ", höchster " + Math.max.apply(null, zahlen) + ", zuletzt " + zahlen[zahlen.length - 1] + ".";
     $("verlauf-legende").textContent = "Balken: grün unter erhöht-Schwelle, gelb erhöht, rot hoch. Wochenstände, auch rückwirkend mit den heutigen Schwellen gemessen. Quelle: CISA KEV (CC0 1.0), eigene Auswertung.";
+  }
+
+  function liste(boxId, zeilen, max) {
+    var box = $(boxId); box.textContent = "";
+    var rest = null;
+    zeilen.forEach(function (z, i) {
+      if (i === max) { rest = el("details", "mehr"); rest.appendChild(el("summary", "", "Alle " + zeilen.length + " anzeigen")); box.appendChild(rest); }
+      (rest || box).appendChild(z);
+    });
+  }
+  function link(url, text) {
+    if (/^https:\/\//.test(url || "")) { var a = el("a", "", text); a.href = url; a.rel = "noopener"; return a; }
+    return el("span", "", text);
+  }
+  function zeigeBsi(b) {
+    if (!b) { $("bsi-info").textContent = "keine Daten"; $("bsi-liste").textContent = "keine Daten"; return; }
+    $("bsi-info").textContent = "Letzte " + b.fenster_tage + " Tage: " + b.kritisch_30_tage + " kritisch, " + b.hoch_30_tage + " hoch (davon 7 Tage: " +
+      b.kritisch_7_tage + " kritisch, " + b.hoch_7_tage + " hoch). Abgerufen " + datum(b.abgerufen_am) + ".";
+    liste("bsi-liste", (b.liste || []).map(function (e) {
+      var r = el("div", "row zeile");
+      r.appendChild(el("span", "mono dim", datum(e.datum)));
+      r.appendChild(el("span", "mono " + (e.schwere === "kritisch" ? "rw" : ""), e.schwere));
+      var t = el("span", "titel"); t.appendChild(link(e.link, e.titel)); r.appendChild(t);
+      return r;
+    }), 8);
+  }
+  function zeigeEu(u) {
+    if (!u) { $("eu-info").textContent = "keine Daten"; $("eu-liste").textContent = "keine Daten"; return; }
+    $("eu-info").textContent = u.neu_30_tage + " neu als ausgenutzt gemeldet in den letzten " + u.fenster_tage + " Tagen. Abgerufen " + datum(u.abgerufen_am) + ".";
+    liste("eu-liste", (u.liste || []).map(function (e) {
+      var r = el("div", "row zeile");
+      r.appendChild(el("span", "mono dim", datum(e.ausgenutzt_seit)));
+      r.appendChild(el("span", "mono", (e.hersteller || []).join(", ") || "–"));
+      var t = el("span", "titel"); t.appendChild(link(e.link, (e.cve && e.cve[0]) || e.id)); r.appendChild(t);
+      return r;
+    }), 8);
   }
 })();

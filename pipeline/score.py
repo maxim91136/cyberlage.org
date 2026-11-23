@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Wertet die Daten nach den offenen Regeln aus (siehe RULES.md).
 
-Liest:   data/kev/kev.json, data/enisa.csv, config/regeln.json
+Liest:   data/kev/kev.json, data/enisa.csv, config/regeln.json, optional data/bsi/warnungen.json und data/eu/kev.json
 Schreibt: site/data/lage.json
 
 Grundsätze: Es gehen nur geprüfte ENISA-Werte und der KEV-Katalog ein. Die Stufe misst die
@@ -91,7 +91,47 @@ def verlauf(alle, regeln, stand, wochen=52):
     return punkte
 
 
-def werte_aus(kev, regeln, enisa, stand):
+def lese_optional(pfad):
+    try:
+        return json.loads(Path(pfad).read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+
+
+def zusatz_bsi(daten, stand, tage):
+    """CERT-Bund-Warnungen im Fenster. Ohne Datei: None ('keine Daten')."""
+    if not daten:
+        return None
+    von = (stand - timedelta(days=tage)).isoformat()
+    bis = stand.isoformat()
+    im = [e for e in daten["eintraege"] if von < e["datum"] <= bis]
+    sieben = (stand - timedelta(days=7)).isoformat()
+    return {
+        "quelle": daten["meta"]["quelle"], "quelle_url": daten["meta"]["quelle_url"],
+        "abgerufen_am": daten["meta"].get("abgerufen_am"),
+        "fenster_tage": tage,
+        "kritisch_7_tage": sum(1 for e in im if e["schwere"] == "kritisch" and e["datum"] > sieben),
+        "hoch_7_tage": sum(1 for e in im if e["schwere"] == "hoch" and e["datum"] > sieben),
+        "kritisch_30_tage": sum(1 for e in im if e["schwere"] == "kritisch"),
+        "hoch_30_tage": sum(1 for e in im if e["schwere"] == "hoch"),
+        "liste": [e for e in im if e["schwere"] in ("kritisch", "hoch")][:40],
+    }
+
+
+def zusatz_eu(daten, stand, tage):
+    if not daten:
+        return None
+    von = (stand - timedelta(days=tage)).isoformat()
+    bis = stand.isoformat()
+    im = [e for e in daten["eintraege"] if von < e["ausgenutzt_seit"] <= bis]
+    return {
+        "quelle": daten["meta"]["quelle"], "quelle_url": daten["meta"]["quelle_url"],
+        "abgerufen_am": daten["meta"].get("abgerufen_am"), "fenster_tage": tage,
+        "neu_30_tage": len(im), "liste": im[:40],
+    }
+
+
+def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None):
     tage = regeln["fenster_tage"]
     alle = kev["eintraege"]
     fenster = im_fenster(alle, stand, tage)
@@ -111,6 +151,8 @@ def werte_aus(kev, regeln, enisa, stand):
         "neu": liste_neu(fenster),
         "schwellen": {k: regeln.get(k) for k in ("erhoeht_ab", "hoch_ab", "ransomware_aufschlag_ab")},
         "verlauf": verlauf(alle, regeln, stand),
+        "cert_bund": zusatz_bsi(bsi, stand, tage),
+        "eu_kev": zusatz_eu(eu, stand, tage),
     }
     ergebnis["stufe"], ergebnis["stufe_begruendung"] = bestimme_stufe(len(fenster), ransom, regeln)
 
@@ -142,6 +184,12 @@ def werte_aus(kev, regeln, enisa, stand):
         {"id": "enisa", "name": q, "link": link, "lizenz": lizenz}
         for q, link, lizenz in sorted({(z["quelle"], z["link"], z["lizenz"]) for z in ergebnis["sektor"]})
     ]
+    for schluessel, name, lizenz in (("cert_bund", "CERT-Bund / BSI Warn- und Informationsdienst", "nur Titel und Links, Nutzungsbedingungen des BSI beachten"),
+                                      ("eu_kev", "EU-KEV (EUVD von ENISA)", "Lizenz nicht ausdrücklich geklärt")):
+        z = ergebnis.get(schluessel)
+        if z:
+            ergebnis["quellen"].append({"id": schluessel, "name": name, "link": z["quelle_url"], "lizenz": lizenz,
+                                        "abgerufen_am": z.get("abgerufen_am")})
     ergebnis["hinweise"] = HINWEISE
     return ergebnis
 
@@ -153,7 +201,9 @@ def main(argv):
     kev = json.loads((WURZEL / "data" / "kev" / "kev.json").read_text(encoding="utf-8"))
     regeln = json.loads((WURZEL / "config" / "regeln.json").read_text(encoding="utf-8"))
     enisa = lese_csv(WURZEL / "data" / "enisa.csv")
-    ergebnis = werte_aus(kev, regeln, enisa, stand)
+    ergebnis = werte_aus(kev, regeln, enisa, stand,
+                         lese_optional(WURZEL / "data" / "bsi" / "warnungen.json"),
+                         lese_optional(WURZEL / "data" / "eu" / "kev.json"))
     ziel = WURZEL / "site" / "data" / "lage.json"
     ziel.parent.mkdir(parents=True, exist_ok=True)
     ziel.write_text(json.dumps(ergebnis, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

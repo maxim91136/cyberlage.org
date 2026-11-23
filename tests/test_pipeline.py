@@ -7,6 +7,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "pipeline"))
 
+import fetch_extra  # noqa: E402
 import fetch_kev  # noqa: E402
 import score  # noqa: E402
 
@@ -147,6 +148,73 @@ class AuswertungTests(unittest.TestCase):
         for z in score.lese_csv(wurzel / "data" / "enisa.csv"):
             float(z["wert"])
             self.assertIsNone(z.get(None))
+
+
+BSI_XML = b"""<?xml version="1.0"?><rss version="2.0"><channel><title>t</title>
+<item><title>[NEU] [kritisch] Foo Server: Schwachstelle</title><link>https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-1111</link>
+<description>langer Text</description><category>kritisch</category><pubDate>Mon, 23 Nov 2026 12:37:03 GMT</pubDate></item>
+<item><title>[UPDATE] [hoch] Bar: Mehrere Schwachstellen</title><link>https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-2222</link>
+<description>x</description><category>hoch</category><pubDate>Sun, 22 Nov 2026 08:00:00 GMT</pubDate></item>
+<item><title>kaputt</title><link>https://x/y</link><category>hoch</category><pubDate>Sun, 22 Nov 2026 08:00:00 GMT</pubDate></item>
+</channel></rss>"""
+
+EU_JSON = json.dumps([
+    {"id": "EUVD-2026-1", "aliases": "CVE-2026-1\nGHSA-x\n", "baseScore": 9.3, "epss": 1.2,
+     "datePublished": "Oct 15, 2026, 8:30:32 PM", "exploitedSince": "Nov 16, 2026, 12:00:00 AM",
+     "enisaIdVendor": [{"vendor": {"name": "BeyondTrust"}}]},
+    {"id": "EUVD-2026-2", "aliases": "CVE-2026-2", "exploitedSince": None},
+]).encode()
+
+
+class ZusatzQuellenTests(unittest.TestCase):
+    def test_bsi_parser_nimmt_nur_kennzahlen_und_keine_beschreibung(self):
+        r = fetch_extra.parse_bsi(BSI_XML)
+        self.assertEqual(set(r), {"WID-SEC-2026-1111", "WID-SEC-2026-2222"})  # unvollstaendiger Eintrag fehlt
+        e = r["WID-SEC-2026-1111"]
+        self.assertEqual((e["schwere"], e["status"], e["datum"]), ("kritisch", "neu", "2026-11-23"))
+        self.assertEqual(e["titel"], "Foo Server: Schwachstelle")
+        self.assertNotIn("beschreibung", e)
+        self.assertNotIn("langer Text", json.dumps(e))
+        self.assertEqual(r["WID-SEC-2026-2222"]["status"], "update")
+
+    def test_bsi_parser_lehnt_kaputtes_ab(self):
+        for roh in (b"nicht xml", b"<rss><channel></channel></rss>"):
+            with self.assertRaises(fetch_extra.QuellFehler):
+                fetch_extra.parse_bsi(roh)
+
+    def test_eu_parser(self):
+        r = fetch_extra.parse_eu(EU_JSON)
+        self.assertEqual(list(r), ["EUVD-2026-1"])  # Eintrag ohne exploitedSince wird nicht geraten
+        e = r["EUVD-2026-1"]
+        self.assertEqual((e["cve"], e["hersteller"], e["ausgenutzt_seit"]), (["CVE-2026-1"], ["BeyondTrust"], "2026-11-16"))
+        self.assertEqual(e["veroeffentlicht"], "2026-10-15")
+        with self.assertRaises(fetch_extra.QuellFehler):
+            fetch_extra.parse_eu(b"[]")
+
+    def test_zusammenfuehren_behaelt_und_kuerzt(self):
+        from datetime import datetime, timezone
+        with tempfile.TemporaryDirectory() as t:
+            d = Path(t) / "x.json"
+            d.write_text(json.dumps({"meta": {}, "eintraege": [
+                {"id": "alt", "datum": "2026-01-01"}, {"id": "mittel", "datum": "2026-10-01"}]}), encoding="utf-8")
+            jetzt = datetime(2026, 11, 23, tzinfo=timezone.utc)
+            r = fetch_extra.zusammenfuehren(d, {"neu": {"id": "neu", "datum": "2026-11-22"}}, "datum", jetzt)
+            self.assertEqual([e["id"] for e in r], ["neu", "mittel"])  # 'alt' ist aelter als 120 Tage
+
+    def test_score_nimmt_zusatzquellen_oder_null(self):
+        kev = {"meta": {}, "eintraege": []}
+        leer = score.werte_aus(kev, REGELN_FREI, [], STAND)
+        self.assertIsNone(leer["cert_bund"])
+        self.assertIsNone(leer["eu_kev"])
+        bsi = {"meta": {"quelle": "q", "quelle_url": "u"}, "eintraege": [
+            {"id": "A", "schwere": "kritisch", "datum": "2026-11-22", "titel": "t", "link": "l"},
+            {"id": "B", "schwere": "mittel", "datum": "2026-11-22", "titel": "t", "link": "l"},
+            {"id": "C", "schwere": "hoch", "datum": "2026-09-01", "titel": "t", "link": "l"}]}
+        eu = {"meta": {"quelle": "q", "quelle_url": "u"}, "eintraege": [{"id": "E", "ausgenutzt_seit": "2026-11-16"}]}
+        r = score.werte_aus(kev, REGELN_FREI, [], STAND, bsi, eu)
+        self.assertEqual(r["cert_bund"]["kritisch_7_tage"], 1)
+        self.assertEqual(len(r["cert_bund"]["liste"]), 1)  # nur kritisch/hoch im Fenster
+        self.assertEqual(r["eu_kev"]["neu_30_tage"], 1)
 
 
 if __name__ == "__main__":

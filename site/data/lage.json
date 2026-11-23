@@ -648,6 +648,8 @@
       "stufe": "erhoeht"
     }
   ],
+  "cert_bund": null,
+  "eu_kev": null,
   "sektor": [
     {
       "kennzahl": "sektoranteil_oeffentliche_verwaltung",

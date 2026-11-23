@@ -21,6 +21,9 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: KEV holen
         run: python pipeline/fetch_kev.py
+      - name: CERT-Bund und EU-KEV holen
+        run: python pipeline/fetch_extra.py
+        continue-on-error: true
       - name: Auswerten
         run: python pipeline/score.py
       - name: Änderungen speichern
