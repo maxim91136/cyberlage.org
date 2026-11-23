@@ -134,6 +134,16 @@ def sende(text, token, chat):
 def diagnose():
     token, chat = os.environ.get("TELEGRAM_BOT_TOKEN", ""), os.environ.get("TELEGRAM_CHAT_ID", "")
     print(f"Token gesetzt: {bool(token)} (Länge {len(token)}), Chat-ID: {chat!r}")
+    try:
+        urllib.request.urlopen("https://api.telegram.org/bot0:fantasie/getMe", timeout=20)
+    except urllib.error.HTTPError as ex:
+        print("Fantasie-Token ->", ex.code, ex.read().decode(errors="replace")[:200])
+    except Exception as ex:
+        print("Fantasie-Token ->", type(ex).__name__, ex)
+    try:
+        print("Adresse:", urllib.request.urlopen("https://api.ipify.org", timeout=15).read().decode())
+    except Exception as ex:
+        print("Adresse: nicht ermittelbar", ex)
     for name, extra in (("getMe", {}), ("getChat", {"chat_id": chat}), ("getChatMember", {"chat_id": chat})):
         if name == "getChatMember":
             try:

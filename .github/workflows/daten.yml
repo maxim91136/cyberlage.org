@@ -7,6 +7,10 @@ on:
   workflow_dispatch:
     inputs:
       test:
+        description: "Telegram prüfen (ohne Senden)"
+        type: boolean
+        default: false
+      senden:
         description: "Telegram-Testmeldung senden"
         type: boolean
         default: false
@@ -39,7 +43,7 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python pipeline/notify.py --diagnose
       - name: Telegram Testmeldung
-        if: ${{ inputs.test }}
+        if: ${{ inputs.senden }}
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
