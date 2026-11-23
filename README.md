@@ -1,6 +1,8 @@
 # Cyberlage
 
-Frühwarnsystem für die Cyberlage im öffentlichen Sektor. Ein **privates Projekt**, keine amtliche Stelle und keine Zusammenarbeit mit einer Behörde.
+Frühwarnsystem für die Cyberlage im öffentlichen Sektor.
+
+**Ein Projekt von [Dreier Labs](https://dreierlabs.com).** Ein privates Projekt, keine amtliche Stelle und keine Zusammenarbeit mit einer Behörde.
 
 Status: im Aufbau, noch nicht veröffentlicht.
 
@@ -12,13 +14,30 @@ Status: im Aufbau, noch nicht veröffentlicht.
 - **Nicht belegt heißt „keine Daten“.** Es wird nichts geschätzt.
 - **Lizenzen zuerst.** Eine Quelle wird nur genutzt, wenn ihre Bedingungen es erlauben. Sonst wird nur verlinkt. Siehe [data/sources.csv](data/sources.csv).
 
-## Inhalt
+## Aufbau
 
 | Pfad | Zweck |
 | --- | --- |
 | `data/sources.csv` | Quellenregister mit Lizenz und Status (grün, gelb, rot, offen) |
-| `RULES.md` | Bewertungsregeln (Entwurf) |
-| `site/` | Platzhalter für die Seite |
+| `data/kev/kev.json` | Kompakte, geprüfte Fassung des CISA-KEV-Katalogs mit Abrufzeit |
+| `data/enisa.csv` | ENISA-Kennzahlen von Hand erfasst, mit Seitenangabe und Prüfstatus |
+| `config/produkte.csv` | Produktliste für den Verwaltungsbezug, jeder Eintrag einzeln freigegeben |
+| `config/regeln.json` | Schwellen der Bewertung, mit Status (Entwurf oder freigegeben) |
+| `pipeline/fetch_kev.py` | Holt und prüft den KEV-Katalog |
+| `pipeline/score.py` | Wertet nach den Regeln aus und schreibt `site/data/lage.json` |
+| `tests/` | Tests für Abruf und Auswertung |
+| `site/` | Platzhalterseite und Ausgabedaten |
+| `.github/workflows/daten.yml` | Aktualisierung, vorerst nur von Hand startbar |
+
+## Lokal ausführen
+
+Nur Python 3, keine weiteren Pakete:
+
+```
+python3 -m unittest discover -s tests
+python3 pipeline/fetch_kev.py
+python3 pipeline/score.py
+```
 
 ## Hinweis
 

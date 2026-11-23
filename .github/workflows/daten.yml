@@ -1,0 +1,32 @@
+name: daten
+
+# Vorerst nur von Hand startbar. Den täglichen Lauf aktivieren wir, wenn die Regeln freigegeben sind.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  aktualisieren:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Tests
+        run: python -m unittest discover -s tests -v
+      - name: KEV holen
+        run: python pipeline/fetch_kev.py
+      - name: Auswerten
+        run: python pipeline/score.py
+      - name: Änderungen speichern
+        run: |
+          git config user.name "cyberlage-bot"
+          git config user.email "cyberlage-bot@users.noreply.github.com"
+          git add data site/data
+          if ! git diff --cached --quiet; then
+            git commit -m "Daten aktualisiert"
+            git push
+          fi

@@ -1,0 +1,7 @@
+{
+  "status": "entwurf",
+  "fenster_tage": 30,
+  "erhoeht_ab": 1,
+  "hoch_ab": 3,
+  "hinweis": "Die Schwellen sind ein Vorschlag und noch nicht freigegeben. Solange status nicht 'freigegeben' ist, wird keine Stufe berechnet."
+}

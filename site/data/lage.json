@@ -1,0 +1,59 @@
+{
+  "projekt": {
+    "name": "Cyberlage",
+    "von": "Dreier Labs",
+    "link": "https://dreierlabs.com",
+    "art": "Privates Projekt, keine amtliche Stelle"
+  },
+  "stand": "2026-11-23",
+  "kev": {
+    "gesamt": 1790,
+    "neu_7_tage": 9,
+    "neu_30_tage": 34,
+    "ransomware_bekannt_30_tage": 0
+  },
+  "verwaltungsbezug": {
+    "freigegebene_produkte": 0,
+    "fenster_tage": 30,
+    "neu": null,
+    "davon_ransomware_bekannt": null
+  },
+  "stufe": null,
+  "stufe_begruendung": "Keine freigegebene Produktliste, daher kein Bezug zur Verwaltung und keine Bewertung.",
+  "sektor": [
+    {
+      "kennzahl": "sektoranteil_oeffentliche_verwaltung",
+      "wert": 31.8,
+      "einheit": "Prozent aller erfassten Ereignisse",
+      "berichtsjahr": "2025",
+      "seite": "20",
+      "geltungsbereich": "EU",
+      "quelle": "ENISA Threat Landscape 2026",
+      "link": "https://www.enisa.europa.eu/sites/default/files/2026-09/ENISA%20Threat%20Landscape%202026_Final.pdf",
+      "lizenz": "CC BY 4.0"
+    }
+  ],
+  "quellen": [
+    {
+      "id": "cisa-kev",
+      "name": "CISA Known Exploited Vulnerabilities",
+      "link": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "lizenz": "CC0 1.0 (laut LICENSE-Datei von cisagov/kev-data)",
+      "quelle_abruf": "github-mirror cisagov/kev-data",
+      "veroeffentlicht_am": "2026-11-20T17:48:39.1516Z",
+      "abgerufen_am": "2026-11-23T20:50:58+00:00"
+    },
+    {
+      "id": "enisa",
+      "name": "ENISA Threat Landscape 2026",
+      "link": "https://www.enisa.europa.eu/sites/default/files/2026-09/ENISA%20Threat%20Landscape%202026_Final.pdf",
+      "lizenz": "CC BY 4.0"
+    }
+  ],
+  "hinweise": [
+    "Ein Projekt von Dreier Labs. Privates Projekt, keine amtliche Stelle. Kein Ersatz für Warnungen des BSI oder eines CERT.",
+    "KEV ist eine weltweite Liste ausgenutzter Schwachstellen und enthält keine Angaben zu Sektoren.",
+    "ENISA-Werte gelten für die EU insgesamt, nicht für Deutschland.",
+    "Der Bezug zur Verwaltung beruht auf einer öffentlich geführten Produktliste. Sie ist eine Einschätzung."
+  ]
+}

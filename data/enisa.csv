@@ -1,0 +1,2 @@
+kennzahl,wert,einheit,berichtsjahr,seite,geltungsbereich,quelle,quelle_url,lizenz,status,hinweis
+sektoranteil_oeffentliche_verwaltung,31.8,Prozent aller erfassten Ereignisse,2025,20,EU,ENISA Threat Landscape 2026,https://www.enisa.europa.eu/sites/default/files/2026-09/ENISA%20Threat%20Landscape%202026_Final.pdf,CC BY 4.0,geprueft,"Abschnitt 2.1 Public administration. Berichtszeitraum 1.1.2025 bis 31.12.2025 laut Methodik (S. 9). Am 23.11.2026 aus dem Original-PDF gelesen. Vor Livegang Seitenzahl am PDF gegenprüfen."
