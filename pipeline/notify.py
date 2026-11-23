@@ -117,6 +117,13 @@ def sende(text, token, chat):
                     raise RuntimeError("Telegram hat die Nachricht nicht angenommen")
             return
         except urllib.error.HTTPError as ex:
+            if ex.code == 429 and versuch < 2:
+                try:
+                    warte = int(json.loads(ex.read()).get("parameters", {}).get("retry_after", 30))
+                except Exception:
+                    warte = 30
+                time.sleep(min(warte, 60) + 1)
+                continue
             raise RuntimeError(f"Telegram antwortet mit {ex.code}: {ex.read().decode(errors='replace')[:200]}")
         except (TimeoutError, OSError) as ex:
             letzter = ex
