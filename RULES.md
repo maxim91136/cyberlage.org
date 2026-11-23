@@ -26,26 +26,26 @@ ENISA-Werte werden nur übernommen, wenn sie in `data/enisa.csv` den Status `gep
 
 **Kennzahlen aus KEV (immer, ohne Produktliste):** Gesamtzahl, neu in 7 Tagen, neu im Fenster, davon mit bekannter Ransomware-Nutzung.
 
-**Verwaltungsbezug.** Ein Eintrag zählt als verwaltungsrelevant, wenn Hersteller und Produktname **genau** (Groß-/Kleinschreibung egal) mit einer freigegebenen Zeile in `config/produkte.csv` übereinstimmen. Es gibt bewusst keinen Teiltreffer, weil „Exchange“ sonst auch „Internet Key Exchange“ träfe. Namensvarianten im KEV stehen als eigene Zeilen in der Liste. Eine Zeile gilt nur mit Status `freigegeben`, Begründung und Beleg.
+**Keine Produktliste.** Die Seite zeigt alle neu aufgenommenen Einträge mit Hersteller und Produkt. Wer verteidigt, weiß selbst, was im Einsatz ist, und gleicht die Liste mit dem eigenen Bestand ab (Filter im Browser, nichts wird übertragen). Es gibt keine Annahmen darüber, was in der Verwaltung läuft.
 
-**Stufe.** Nur wenn die Schwellen in `config/regeln.json` den Status `freigegeben` haben **und** mindestens ein Produkt freigegeben ist:
+**Stufe.** Sie misst die Aktivität im KEV-Katalog, nicht die Zahl der Angriffe. Nur wenn die Schwellen in `config/regeln.json` den Status `freigegeben` haben:
 
-| Neue verwaltungsrelevante Einträge im Fenster | Stufe |
+| Neu aufgenommene Einträge im Fenster | Stufe |
 | --- | --- |
 | weniger als `erhoeht_ab` | niedrig |
 | ab `erhoeht_ab` | erhöht |
 | ab `hoch_ab` | hoch |
 
-Ist unter den verwaltungsrelevanten Einträgen mindestens einer mit bekannter Ransomware-Nutzung, steigt die Stufe um eine (höchstens bis „hoch“). Die Ausgabe nennt immer die Begründung in Worten.
+Sind mindestens `ransomware_aufschlag_ab` der Einträge mit bekannter Ransomware-Nutzung gekennzeichnet, steigt die Stufe um eine (höchstens bis „hoch“). Die Ausgabe nennt immer die Begründung in Worten.
+
+**Herleitung der Schwellen.** Aus der Verteilung der 30-Tage-Zählung über die letzten 12 Monate (täglich gemessen bis 23.11.2026): Median 26, 75. Perzentil 31, 90. Perzentil 37; Ransomware-bekannt 90. Perzentil 5. Vorschlag: erhöht ab 31, hoch ab 37, Aufschlag ab 5. Die Werte stehen mit Begründung in `config/regeln.json` und müssen gelegentlich neu geprüft werden.
 
 ## Stand der Freigaben
 
-- Schwellen: **Entwurf** (Vorschlag: erhöht ab 1, hoch ab 3, Fenster 30 Tage). Solange das so ist, gibt es keine Stufe.
-- Produktliste: **keine Freigaben**. Die Zeilen sind Entwürfe ohne Beleg. Solange das so ist, gibt es keinen Verwaltungsbezug.
+- Schwellen: **Entwurf**. Solange das so ist, gibt es keine Stufe, die Zahlen und die Liste erscheinen trotzdem.
 
 ## Offene Fragen
 
-- Welche Produkte gehören auf die Liste, und womit wird jedes belegt (Verbreitung in der Verwaltung)?
-- Passen die Schwellen? Dafür sollten wir sie an einigen vergangenen Monaten testen.
+- Passen die Schwellen? Zum Beispiel Rückblick auf Monate mit bekannten Großlagen.
 - Wie wird die EU-weite ENISA-Zahl neben den Tageswerten dargestellt, ohne sie als deutschen Wert auszugeben?
 - Soll die Rückstufung nach einer Ruhephase eigens geregelt werden, oder reicht das gleitende Fenster?

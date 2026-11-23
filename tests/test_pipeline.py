@@ -28,9 +28,8 @@ def kev_klein(cve, hersteller, produkt, datum, ransom=False):
             "hinzugefuegt": datum, "frist": None, "ransomware_bekannt": ransom}
 
 
-REGELN_OFFEN = {"status": "entwurf", "fenster_tage": 30, "erhoeht_ab": 1, "hoch_ab": 3}
+REGELN_OFFEN = {"status": "entwurf", "fenster_tage": 30, "erhoeht_ab": 1, "hoch_ab": 3, "ransomware_aufschlag_ab": 1}
 REGELN_FREI = dict(REGELN_OFFEN, status="freigegeben")
-EXCH = {"hersteller": "Microsoft", "produkt": "Exchange Server", "status": "freigegeben"}
 STAND = date(2026, 11, 23)
 
 
@@ -90,57 +89,52 @@ class AuswertungTests(unittest.TestCase):
              kev_klein("Z", "a", "b", "2026-11-24")]  # Zukunft zählt nicht
         self.assertEqual([x["cve"] for x in score.im_fenster(e, STAND, 30)], ["X"])
 
-    def test_ohne_freigegebene_produkte_keine_bewertung(self):
-        r = score.werte_aus(self.kev, [], REGELN_FREI, [], STAND)
+    def test_entwurf_der_regeln_ergibt_keine_stufe_aber_zahlen_und_liste(self):
+        r = score.werte_aus(self.kev, REGELN_OFFEN, [], STAND)
         self.assertIsNone(r["stufe"])
-        self.assertIsNone(r["verwaltungsbezug"]["neu"])
         self.assertEqual(r["kev"]["neu_30_tage"], 3)
+        self.assertEqual(len(r["neu"]), 3)
 
-    def test_entwurf_der_regeln_ergibt_keine_stufe_aber_zahlen(self):
-        r = score.werte_aus(self.kev, [EXCH], REGELN_OFFEN, [], STAND)
-        self.assertIsNone(r["stufe"])
-        self.assertEqual(r["verwaltungsbezug"]["neu"], 1)
+    def test_liste_neueste_zuerst_mit_link_und_ohne_technikdetails(self):
+        r = score.werte_aus(self.kev, REGELN_OFFEN, [], STAND)
+        daten = [x["hinzugefuegt"] for x in r["neu"]]
+        self.assertEqual(daten, sorted(daten, reverse=True))
+        self.assertTrue(all(x["link"].startswith("https://nvd.nist.gov/vuln/detail/CVE") or x["link"].endswith(x["cve"])
+                            for x in r["neu"]))
+        self.assertEqual(set(r["neu"][0]), {"cve", "hersteller", "produkt", "hinzugefuegt", "frist",
+                                            "ransomware_bekannt", "link"})
 
-    def test_exakte_zuordnung_kein_teiltreffer(self):
-        p = {"hersteller": "Microsoft", "produkt": "Exchange", "status": "freigegeben"}
-        r = score.werte_aus(self.kev, [p], REGELN_FREI, [], STAND)
-        self.assertEqual(r["verwaltungsbezug"]["neu"], 0)  # weder 'Exchange Server' noch 'IKE'
-
-    def test_stufe_und_ransomware_aufschlag(self):
-        r = score.werte_aus(self.kev, [EXCH], REGELN_FREI, [], STAND)
-        # 1 relevanter Eintrag -> erhoeht, Ransomware bekannt -> eine Stufe hoeher
-        self.assertEqual(r["stufe"], "hoch")
-        ohne = {"meta": self.kev["meta"], "eintraege": [kev_klein("A", "Microsoft", "Exchange Server", "2026-11-20")]}
-        self.assertEqual(score.werte_aus(ohne, [EXCH], REGELN_FREI, [], STAND)["stufe"], "erhoeht")
-        keiner = {"meta": self.kev["meta"], "eintraege": []}
-        self.assertEqual(score.werte_aus(keiner, [EXCH], REGELN_FREI, [], STAND)["stufe"], "niedrig")
+    def test_stufen_nach_schwellen(self):
+        def kev_mit(n, ransom=0):
+            return {"meta": self.kev["meta"], "eintraege": [
+                kev_klein(f"C{i}", "h", "p", "2026-11-20", ransom=i < ransom) for i in range(n)]}
+        regeln = dict(REGELN_FREI, erhoeht_ab=5, hoch_ab=8, ransomware_aufschlag_ab=3)
+        stufe = lambda n, r=0: score.werte_aus(kev_mit(n, r), regeln, [], STAND)["stufe"]
+        self.assertEqual(stufe(4), "niedrig")
+        self.assertEqual(stufe(5), "erhoeht")
+        self.assertEqual(stufe(8), "hoch")
+        self.assertEqual(stufe(4, 3), "erhoeht")   # Ransomware-Aufschlag
+        self.assertEqual(stufe(9, 3), "hoch")      # nie ueber 'hoch'
+        self.assertEqual(stufe(4, 2), "niedrig")   # unter dem Aufschlag-Schwellwert
 
     def test_nur_geprueft_wird_uebernommen(self):
         zeile = {"kennzahl": "k", "wert": "31.8", "einheit": "%", "berichtsjahr": "2025", "seite": "20",
                  "geltungsbereich": "EU", "quelle": "ENISA", "quelle_url": "u", "lizenz": "CC BY 4.0"}
-        r = score.werte_aus(self.kev, [], REGELN_FREI,
+        r = score.werte_aus(self.kev, REGELN_FREI,
                             [dict(zeile, status="geprueft"), dict(zeile, kennzahl="x", status="ungeprueft")], STAND)
         self.assertEqual([s["kennzahl"] for s in r["sektor"]], ["k"])
         self.assertEqual(r["sektor"][0]["geltungsbereich"], "EU")
 
     def test_projektangabe_und_hinweise(self):
-        r = score.werte_aus(self.kev, [], REGELN_FREI, [], STAND)
+        r = score.werte_aus(self.kev, REGELN_FREI, [], STAND)
         self.assertEqual(r["projekt"]["von"], "Dreier Labs")
         self.assertTrue(any("Dreier Labs" in h for h in r["hinweise"]))
 
-    def test_produktliste_wird_gefiltert(self):
-        with tempfile.TemporaryDirectory() as t:
-            p = Path(t) / "p.csv"
-            p.write_text("hersteller,produkt,status,begruendung,beleg_url\n"
-                         "A,B,freigegeben,Grund,http://x\nC,D,entwurf,offen,\n", encoding="utf-8")
-            self.assertEqual([x["hersteller"] for x in score.lade_produkte(p)], ["A"])
-
     def test_echte_konfiguration_ist_lesbar(self):
         wurzel = Path(__file__).resolve().parent.parent
-        for z in score.lese_csv(wurzel / "config" / "produkte.csv"):
-            self.assertEqual(len(z), 5)
-            self.assertIsNone(z.get(None), "Zeile hat zu viele Spalten (Komma im Text?)")
-        json.loads((wurzel / "config" / "regeln.json").read_text(encoding="utf-8"))
+        regeln = json.loads((wurzel / "config" / "regeln.json").read_text(encoding="utf-8"))
+        self.assertLess(regeln["erhoeht_ab"], regeln["hoch_ab"])
+        self.assertIn(regeln["status"], ("entwurf", "freigegeben"))
         for z in score.lese_csv(wurzel / "data" / "enisa.csv"):
             float(z["wert"])
             self.assertIsNone(z.get(None))

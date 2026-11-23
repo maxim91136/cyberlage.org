@@ -67,6 +67,31 @@
       ql.appendChild(r);
     });
 
+    var liste = d.neu || [];
+    $("fenster").textContent = String(d.fenster_tage || 30);
+    var body = $("neu-liste");
+    var zeilen = liste.map(function (e) {
+      var tr = el("tr");
+      tr.appendChild(el("td", "mono", datum(e.hinzugefuegt)));
+      tr.appendChild(el("td", "", e.hersteller));
+      tr.appendChild(el("td", "", e.produkt));
+      var c = el("td", "mono");
+      if (/^https:\/\/nvd\.nist\.gov\//.test(e.link || "")) { var a = el("a", "", e.cve); a.href = e.link; a.rel = "noopener"; c.appendChild(a); } else { c.textContent = e.cve; }
+      tr.appendChild(c);
+      tr.appendChild(el("td", "mono", datum(e.frist)));
+      tr.appendChild(e.ransomware_bekannt ? el("td", "rw", "bekannt") : el("td", "dim", "nicht bekannt"));
+      tr._text = (e.hersteller + " " + e.produkt + " " + e.cve).toLowerCase();
+      body.appendChild(tr);
+      return tr;
+    });
+    function filtern() {
+      var q = $("filter").value.trim().toLowerCase(), n = 0;
+      zeilen.forEach(function (tr) { var ok = !q || tr._text.indexOf(q) !== -1; tr.hidden = !ok; if (ok) n++; });
+      $("treffer").textContent = n + " von " + zeilen.length + " Einträgen";
+    }
+    $("filter").addEventListener("input", filtern);
+    filtern();
+
     var h = $("hinweise");
     (d.hinweise || []).forEach(function (t) { h.appendChild(el("li", "", t)); });
   }

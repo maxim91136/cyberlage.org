@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """Wertet die Daten nach den offenen Regeln aus (siehe RULES.md).
 
-Liest:   data/kev/kev.json, data/enisa.csv, config/produkte.csv, config/regeln.json
+Liest:   data/kev/kev.json, data/enisa.csv, config/regeln.json
 Schreibt: site/data/lage.json
 
-Grundsätze: Es gehen nur freigegebene Produkte und nur geprüfte ENISA-Werte ein.
-Fehlt die Grundlage, steht null in der Ausgabe und es wird nichts geschätzt.
+Grundsätze: Es gehen nur geprüfte ENISA-Werte und der KEV-Katalog ein. Die Stufe misst die
+Aktivität im Katalog (neu aufgenommene, ausgenutzte Schwachstellen), nicht die Zahl der Angriffe.
+Ohne freigegebene Schwellen steht null in der Ausgabe und es wird nichts geschätzt.
 
 Nur Standardbibliothek. Aufruf: python pipeline/score.py [--stand JJJJ-MM-TT]
 """
@@ -27,9 +28,10 @@ PROJEKT = {
 
 HINWEISE = [
     "Ein Projekt von Dreier Labs. Privates Projekt, keine amtliche Stelle. Kein Ersatz für Warnungen des BSI oder eines CERT.",
-    "KEV ist eine weltweite Liste ausgenutzter Schwachstellen und enthält keine Angaben zu Sektoren.",
+    "KEV ist eine weltweite Liste ausgenutzter Schwachstellen und enthält keine Angaben zu Sektoren oder Betroffenen.",
+    "Die Liste ist für den Abgleich mit dem eigenen Bestand gedacht: Wer verteidigt, weiß selbst, was im Einsatz ist.",
+    "Die Stufe zeigt, wie viele Schwachstellen neu als ausgenutzt gelten, im Vergleich zu den letzten 12 Monaten. Sie sagt nichts über einzelne Angriffe.",
     "ENISA-Werte gelten für die EU insgesamt, nicht für Deutschland.",
-    "Der Bezug zur Verwaltung beruht auf einer öffentlich geführten Produktliste. Sie ist eine Einschätzung.",
 ]
 
 
@@ -38,47 +40,49 @@ def lese_csv(pfad):
         return list(csv.DictReader(f))
 
 
-def lade_produkte(pfad):
-    """Nur Einträge mit Status 'freigegeben' zählen."""
-    return [p for p in lese_csv(pfad) if p["status"].strip().casefold() == "freigegeben"]
-
-
-def passt(eintrag, produkt):
-    """Hersteller und Produktname müssen übereinstimmen (Groß-/Kleinschreibung egal).
-
-    Bewusst kein Teiltreffer: 'Exchange' würde sonst auch 'Internet Key Exchange' treffen.
-    Namensvarianten im KEV werden als eigene Zeilen in produkte.csv geführt.
-    """
-    return (eintrag["hersteller"].casefold() == produkt["hersteller"].strip().casefold()
-            and eintrag["produkt"].casefold() == produkt["produkt"].strip().casefold())
-
-
 def im_fenster(eintraege, stand, tage):
     """Einträge der letzten `tage` Tage bis einschließlich `stand`."""
     von = stand - timedelta(days=tage)
     return [e for e in eintraege if von < date.fromisoformat(e["hinzugefuegt"]) <= stand]
 
 
-def bestimme_stufe(anzahl_relevant, anzahl_ransomware, regeln):
+def bestimme_stufe(anzahl, anzahl_ransomware, regeln):
     """Gibt (stufe, begruendung) zurück. Ohne freigegebene Schwellen gibt es keine Stufe."""
     if regeln.get("status") != "freigegeben":
         return None, "Schwellen sind noch nicht freigegeben (Entwurf), daher keine Bewertung."
     ebene = 0
-    if anzahl_relevant >= regeln["erhoeht_ab"]:
+    if anzahl >= regeln["erhoeht_ab"]:
         ebene = 1
-    if anzahl_relevant >= regeln["hoch_ab"]:
+    if anzahl >= regeln["hoch_ab"]:
         ebene = 2
-    text = f"{anzahl_relevant} neue Einträge zu freigegebenen Produkten in {regeln['fenster_tage']} Tagen"
-    if anzahl_ransomware > 0:
+    text = f"{anzahl} neu aufgenommene ausgenutzte Schwachstellen in {regeln['fenster_tage']} Tagen"
+    if anzahl_ransomware >= regeln["ransomware_aufschlag_ab"]:
         ebene = min(ebene + 1, len(STUFEN) - 1)
         text += f", davon {anzahl_ransomware} mit bekannter Ransomware-Nutzung (eine Stufe höher)"
     return STUFEN[ebene], text + "."
 
 
-def werte_aus(kev, produkte, regeln, enisa, stand):
+def liste_neu(fenster):
+    """Neueste zuerst. Nur Angaben aus dem KEV plus ein Link zur CVE-Seite, keine Technikdetails."""
+    return [
+        {
+            "cve": e["cve"],
+            "hersteller": e["hersteller"],
+            "produkt": e["produkt"],
+            "hinzugefuegt": e["hinzugefuegt"],
+            "frist": e["frist"],
+            "ransomware_bekannt": e["ransomware_bekannt"],
+            "link": f"https://nvd.nist.gov/vuln/detail/{e['cve']}",
+        }
+        for e in sorted(fenster, key=lambda e: (e["hinzugefuegt"], e["cve"]), reverse=True)
+    ]
+
+
+def werte_aus(kev, regeln, enisa, stand):
     tage = regeln["fenster_tage"]
     alle = kev["eintraege"]
     fenster = im_fenster(alle, stand, tage)
+    ransom = sum(e["ransomware_bekannt"] for e in fenster)
     ergebnis = {
         "projekt": PROJEKT,
         "stand": stand.isoformat(),
@@ -86,26 +90,14 @@ def werte_aus(kev, produkte, regeln, enisa, stand):
             "gesamt": len(alle),
             "neu_7_tage": len(im_fenster(alle, stand, 7)),
             f"neu_{tage}_tage": len(fenster),
-            f"ransomware_bekannt_{tage}_tage": sum(e["ransomware_bekannt"] for e in fenster),
+            f"ransomware_bekannt_{tage}_tage": ransom,
         },
-        "verwaltungsbezug": {
-            "freigegebene_produkte": len(produkte),
-            "fenster_tage": tage,
-            "neu": None,
-            "davon_ransomware_bekannt": None,
-        },
+        "fenster_tage": tage,
         "stufe": None,
         "stufe_begruendung": "",
+        "neu": liste_neu(fenster),
     }
-    if not produkte:
-        ergebnis["stufe_begruendung"] = (
-            "Keine freigegebene Produktliste, daher kein Bezug zur Verwaltung und keine Bewertung.")
-    else:
-        relevant = [e for e in fenster if any(passt(e, p) for p in produkte)]
-        ransom = sum(e["ransomware_bekannt"] for e in relevant)
-        ergebnis["verwaltungsbezug"]["neu"] = len(relevant)
-        ergebnis["verwaltungsbezug"]["davon_ransomware_bekannt"] = ransom
-        ergebnis["stufe"], ergebnis["stufe_begruendung"] = bestimme_stufe(len(relevant), ransom, regeln)
+    ergebnis["stufe"], ergebnis["stufe_begruendung"] = bestimme_stufe(len(fenster), ransom, regeln)
 
     ergebnis["sektor"] = [
         {
@@ -145,9 +137,8 @@ def main(argv):
         stand = date.fromisoformat(argv[argv.index("--stand") + 1])
     kev = json.loads((WURZEL / "data" / "kev" / "kev.json").read_text(encoding="utf-8"))
     regeln = json.loads((WURZEL / "config" / "regeln.json").read_text(encoding="utf-8"))
-    produkte = lade_produkte(WURZEL / "config" / "produkte.csv")
     enisa = lese_csv(WURZEL / "data" / "enisa.csv")
-    ergebnis = werte_aus(kev, produkte, regeln, enisa, stand)
+    ergebnis = werte_aus(kev, regeln, enisa, stand)
     ziel = WURZEL / "site" / "data" / "lage.json"
     ziel.parent.mkdir(parents=True, exist_ok=True)
     ziel.write_text(json.dumps(ergebnis, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

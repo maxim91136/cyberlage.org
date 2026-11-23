@@ -17,6 +17,7 @@
     <nav aria-label="Hauptnavigation">
       <a href="#lage">/lage</a>
       <a href="#zahlen">/zahlen</a>
+      <a href="#neu">/neu</a>
       <a href="#quellen">/quellen</a>
       <a href="#methode">/methode</a>
     </nav>
@@ -27,7 +28,7 @@
   <section class="wrap hero">
     <p class="lbl">stand <span id="stand">…</span> · frühwarnung öffentlicher sektor</p>
     <h1>Cyberlage im öffentlichen Sektor. Regelbasiert, offen belegt.</h1>
-    <p class="lead">Frühwarnsystem aus freien Quellen. Nur Sektor-Zahlen, keine einzelnen Behörden. Fehlt der Beleg, steht dort „keine Daten“.</p>
+    <p class="lead">Frühwarnsystem für Verteidiger, aus freien Quellen. Keine Angriffsdetails, keine Nennung einzelner Behörden. Fehlt der Beleg, steht dort „keine Daten“.</p>
   </section>
 
   <section id="lage" class="wrap" aria-labelledby="h-lage">
@@ -59,6 +60,21 @@
     <p class="mono dim fine" id="kev-quelle"></p>
 
     <div id="sektor"></div>
+  </section>
+
+  <section id="neu" class="wrap" aria-labelledby="h-neu">
+    <h2 id="h-neu" class="mono">## neu im katalog</h2>
+    <p class="dim sub">Ausgenutzte Schwachstellen der letzten <span id="fenster">30</span> Tage, neueste zuerst. Zum Abgleich mit dem eigenen Bestand. Der Filter läuft nur in deinem Browser.</p>
+    <label class="lbl" for="filter">Hersteller, Produkt oder CVE filtern</label>
+    <input id="filter" class="filter mono" type="search" autocomplete="off" placeholder="z. B. microsoft, fortinet, CVE-2026">
+    <p class="mono dim fine" id="treffer" aria-live="polite"></p>
+    <div class="tabelle" role="region" aria-label="Neue Einträge im KEV-Katalog" tabindex="0">
+      <table>
+        <thead><tr><th scope="col">Aufgenommen</th><th scope="col">Hersteller</th><th scope="col">Produkt</th><th scope="col">CVE</th><th scope="col">Frist (CISA)</th><th scope="col">Ransomware</th></tr></thead>
+        <tbody id="neu-liste"></tbody>
+      </table>
+    </div>
+    <p class="dim fine">Quelle: CISA KEV (CC0 1.0). Die Frist gilt für US-Bundesbehörden und ist hier nur eine Orientierung. Die Links führen zur CVE-Seite des NIST (NVD). Hier stehen keine Angriffsdetails.</p>
   </section>
 
   <section id="quellen" class="wrap" aria-labelledby="h-quellen">

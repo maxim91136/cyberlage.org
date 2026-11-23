@@ -21,7 +21,6 @@ Status: im Aufbau, noch nicht veröffentlicht.
 | `data/sources.csv` | Quellenregister mit Lizenz und Status (grün, gelb, rot, offen) |
 | `data/kev/kev.json` | Kompakte, geprüfte Fassung des CISA-KEV-Katalogs mit Abrufzeit |
 | `data/enisa.csv` | ENISA-Kennzahlen von Hand erfasst, mit Seitenangabe und Prüfstatus |
-| `config/produkte.csv` | Produktliste für den Verwaltungsbezug, jeder Eintrag einzeln freigegeben |
 | `config/regeln.json` | Schwellen der Bewertung, mit Status (Entwurf oder freigegeben) |
 | `pipeline/fetch_kev.py` | Holt und prüft den KEV-Katalog |
 | `pipeline/score.py` | Wertet nach den Regeln aus und schreibt `site/data/lage.json` |
