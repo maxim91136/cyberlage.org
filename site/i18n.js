@@ -94,8 +94,8 @@
                en: function (a, b, mn, mx, z) { return "Newly added vulnerabilities per 30 days, " + a + " to " + b + ": lowest " + mn + ", highest " + mx + ", latest " + z + "."; } },
     v_tip: { de: function (d, n, st) { return d + ": " + n + " neu in 30 Tagen" + (st ? ", Stufe " + st : ""); },
              en: function (d, n, st) { return d + ": " + n + " new in 30 days" + (st ? ", level " + st : ""); } },
-    v_leg: { de: "Balken: grün unter erhöht-Schwelle, gelb erhöht, rot hoch. Wochenstände, auch rückwirkend mit den heutigen Schwellen gemessen. Quelle: CISA KEV (CC0 1.0), eigene Auswertung.",
-             en: "Bars: green below the elevated threshold, yellow elevated, red high. Weekly values, also measured retroactively with today’s thresholds. Source: CISA KEV (CC0 1.0), own analysis." }
+    v_leg: { de: function (m) { return "Zeitraum: letzte " + m + " Monate, die Basis der Schwellen. Balken: grün unter erhöht-Schwelle, gelb erhöht, rot hoch. Wochenstände, rückwirkend mit den heutigen Schwellen gemessen. Quelle: CISA KEV (CC0 1.0), eigene Auswertung."; },
+             en: function (m) { return "Period: last " + m + " months, the basis of the thresholds. Bars: green below the elevated threshold, yellow elevated, red high. Weekly values, measured retroactively with today’s thresholds. Source: CISA KEV (CC0 1.0), own analysis."; } }
   };
 
   var api = {

@@ -199,7 +199,7 @@
     var zahlen = v.map(function (p) { return p.neu; });
     var s = $("verlauf-titel");
     s.textContent = txt("v_titel", datum(v[0].stand), datum(v[v.length - 1].stand), Math.min.apply(null, zahlen), Math.max.apply(null, zahlen), zahlen[zahlen.length - 1]);
-    $("verlauf-legende").textContent = txt("v_leg");
+    $("verlauf-legende").textContent = txt("v_leg", sw.basis_monate || 12);
   }
 
   function liste(boxId, zeilen, max) {
