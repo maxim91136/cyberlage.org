@@ -94,7 +94,46 @@
     $("filter").addEventListener("input", filtern);
     filtern();
 
+    zeichneVerlauf(d.verlauf || [], d.schwellen || {});
+
     var h = $("hinweise");
     (d.hinweise || []).forEach(function (t) { h.appendChild(el("li", "", t)); });
+  }
+
+  function zeichneVerlauf(v, sw) {
+    var svg = $("verlauf"), NS = "http://www.w3.org/2000/svg";
+    if (!v.length) { $("verlauf-legende").textContent = "keine Daten"; return; }
+    var B = 1000, H = 300, L = 44, R = 12, T = 14, U = 30;
+    var max = Math.max.apply(null, v.map(function (p) { return p.neu; }).concat([sw.hoch_ab || 0])) + 4;
+    var y = function (n) { return T + (H - T - U) * (1 - n / max); };
+    var w = (B - L - R) / v.length;
+    var farbe = { niedrig: "#6fe0a0", erhoeht: "#e3b341", hoch: "#ff8a7a" };
+    var mk = function (tag, a, txt) {
+      var e = document.createElementNS(NS, tag);
+      for (var k in a) e.setAttribute(k, a[k]);
+      if (txt !== undefined) e.textContent = txt;
+      svg.appendChild(e); return e;
+    };
+    [0, Math.round(max / 2), max].forEach(function (n) {
+      mk("line", { x1: L, x2: B - R, y1: y(n), y2: y(n), stroke: "#1d262e" });
+      mk("text", { x: L - 6, y: y(n) + 4, "text-anchor": "end", fill: "#8a99a6", "font-size": 11, "font-family": "ui-monospace,monospace" }, String(n));
+    });
+    v.forEach(function (p, i) {
+      var t = mk("rect", { x: L + i * w + 1, y: y(p.neu), width: Math.max(w - 2, 1), height: y(0) - y(p.neu), fill: farbe[p.stufe] || "#8a99a6" });
+      t.appendChild(document.createElementNS(NS, "title")).textContent = datum(p.stand) + ": " + p.neu + " neu in 30 Tagen" + (p.stufe ? ", Stufe " + p.stufe : "");
+    });
+    [["erhoeht_ab", "erhöht ab", "#e3b341"], ["hoch_ab", "hoch ab", "#ff8a7a"]].forEach(function (c) {
+      if (typeof sw[c[0]] !== "number") return;
+      mk("line", { x1: L, x2: B - R, y1: y(sw[c[0]]), y2: y(sw[c[0]]), stroke: c[2], "stroke-dasharray": "5 4" });
+      mk("text", { x: B - R - 4, y: y(sw[c[0]]) - 5, "text-anchor": "end", fill: c[2], "font-size": 11, "font-family": "ui-monospace,monospace" }, c[1] + " " + sw[c[0]]);
+    });
+    [0, Math.floor(v.length / 2), v.length - 1].forEach(function (i) {
+      mk("text", { x: L + i * w + w / 2, y: H - 8, "text-anchor": i === 0 ? "start" : (i === v.length - 1 ? "end" : "middle"), fill: "#8a99a6", "font-size": 11, "font-family": "ui-monospace,monospace" }, datum(v[i].stand));
+    });
+    var zahlen = v.map(function (p) { return p.neu; });
+    var s = $("verlauf-titel");
+    s.textContent = "Neu aufgenommene Schwachstellen pro 30 Tage, " + datum(v[0].stand) + " bis " + datum(v[v.length - 1].stand) +
+      ": niedrigster Wert " + Math.min.apply(null, zahlen) + ", höchster " + Math.max.apply(null, zahlen) + ", zuletzt " + zahlen[zahlen.length - 1] + ".";
+    $("verlauf-legende").textContent = "Balken: grün unter erhöht-Schwelle, gelb erhöht, rot hoch. Quelle: CISA KEV (CC0 1.0), eigene Auswertung.";
   }
 })();

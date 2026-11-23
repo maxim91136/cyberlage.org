@@ -78,6 +78,19 @@ def liste_neu(fenster):
     ]
 
 
+def verlauf(alle, regeln, stand, wochen=52):
+    """Rückblick: dieselbe Rechnung für jeden Wochenstand der letzten `wochen` Wochen (mit den heutigen Schwellen)."""
+    tage = regeln["fenster_tage"]
+    punkte = []
+    for i in range(wochen, -1, -1):
+        d = stand - timedelta(days=7 * i)
+        fenster = im_fenster(alle, d, tage)
+        ransom = sum(e["ransomware_bekannt"] for e in fenster)
+        stufe, _ = bestimme_stufe(len(fenster), ransom, regeln)
+        punkte.append({"stand": d.isoformat(), "neu": len(fenster), "ransomware_bekannt": ransom, "stufe": stufe})
+    return punkte
+
+
 def werte_aus(kev, regeln, enisa, stand):
     tage = regeln["fenster_tage"]
     alle = kev["eintraege"]
@@ -96,6 +109,8 @@ def werte_aus(kev, regeln, enisa, stand):
         "stufe": None,
         "stufe_begruendung": "",
         "neu": liste_neu(fenster),
+        "schwellen": {k: regeln.get(k) for k in ("erhoeht_ab", "hoch_ab", "ransomware_aufschlag_ab")},
+        "verlauf": verlauf(alle, regeln, stand),
     }
     ergebnis["stufe"], ergebnis["stufe_begruendung"] = bestimme_stufe(len(fenster), ransom, regeln)
 

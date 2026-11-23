@@ -1,7 +1,9 @@
 name: daten
 
-# Vorerst nur von Hand startbar. Den täglichen Lauf aktivieren wir, wenn die Regeln freigegeben sind.
+# Täglich um 06:17 UTC (KEV wird an Werktagen ergänzt) und auf Knopfdruck.
 on:
+  schedule:
+    - cron: "17 6 * * *"
   workflow_dispatch:
 
 permissions:

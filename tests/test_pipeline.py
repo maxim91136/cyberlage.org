@@ -117,6 +117,15 @@ class AuswertungTests(unittest.TestCase):
         self.assertEqual(stufe(9, 3), "hoch")      # nie ueber 'hoch'
         self.assertEqual(stufe(4, 2), "niedrig")   # unter dem Aufschlag-Schwellwert
 
+    def test_verlauf_wochenweise_mit_schwellen(self):
+        r = score.werte_aus(self.kev, REGELN_FREI, [], STAND)
+        v = r["verlauf"]
+        self.assertEqual(len(v), 53)
+        self.assertEqual(v[-1]["stand"], STAND.isoformat())
+        self.assertEqual(v[-1]["neu"], r["kev"]["neu_30_tage"])
+        self.assertEqual(v[0]["stand"], "2025-11-24")
+        self.assertEqual(r["schwellen"]["erhoeht_ab"], REGELN_FREI["erhoeht_ab"])
+
     def test_nur_geprueft_wird_uebernommen(self):
         zeile = {"kennzahl": "k", "wert": "31.8", "einheit": "%", "berichtsjahr": "2025", "seite": "20",
                  "geltungsbereich": "EU", "quelle": "ENISA", "quelle_url": "u", "lizenz": "CC BY 4.0"}

@@ -323,6 +323,331 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-109618"
     }
   ],
+  "schwellen": {
+    "erhoeht_ab": 31,
+    "hoch_ab": 37,
+    "ransomware_aufschlag_ab": 5
+  },
+  "verlauf": [
+    {
+      "stand": "2025-11-24",
+      "neu": 14,
+      "ransomware_bekannt": 0,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2025-12-01",
+      "neu": 11,
+      "ransomware_bekannt": 0,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2025-12-08",
+      "neu": 15,
+      "ransomware_bekannt": 1,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2025-12-15",
+      "neu": 17,
+      "ransomware_bekannt": 1,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2025-12-22",
+      "neu": 20,
+      "ransomware_bekannt": 2,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2025-12-29",
+      "neu": 20,
+      "ransomware_bekannt": 2,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-01-05",
+      "neu": 16,
+      "ransomware_bekannt": 1,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-01-12",
+      "neu": 12,
+      "ransomware_bekannt": 1,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-01-19",
+      "neu": 6,
+      "ransomware_bekannt": 0,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-01-26",
+      "neu": 16,
+      "ransomware_bekannt": 2,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-02-02",
+      "neu": 17,
+      "ransomware_bekannt": 2,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-02-09",
+      "neu": 21,
+      "ransomware_bekannt": 3,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-02-16",
+      "neu": 30,
+      "ransomware_bekannt": 4,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-02-23",
+      "neu": 32,
+      "ransomware_bekannt": 4,
+      "stufe": "erhoeht"
+    },
+    {
+      "stand": "2026-03-02",
+      "neu": 28,
+      "ransomware_bekannt": 2,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-03-09",
+      "neu": 32,
+      "ransomware_bekannt": 2,
+      "stufe": "erhoeht"
+    },
+    {
+      "stand": "2026-03-16",
+      "neu": 25,
+      "ransomware_bekannt": 1,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-03-23",
+      "neu": 25,
+      "ransomware_bekannt": 2,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-03-30",
+      "neu": 26,
+      "ransomware_bekannt": 2,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-04-06",
+      "neu": 22,
+      "ransomware_bekannt": 2,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-04-13",
+      "neu": 24,
+      "ransomware_bekannt": 3,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-04-20",
+      "neu": 26,
+      "ransomware_bekannt": 4,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-04-27",
+      "neu": 29,
+      "ransomware_bekannt": 7,
+      "stufe": "erhoeht"
+    },
+    {
+      "stand": "2026-05-04",
+      "neu": 30,
+      "ransomware_bekannt": 9,
+      "stufe": "erhoeht"
+    },
+    {
+      "stand": "2026-05-11",
+      "neu": 31,
+      "ransomware_bekannt": 9,
+      "stufe": "hoch"
+    },
+    {
+      "stand": "2026-05-18",
+      "neu": 23,
+      "ransomware_bekannt": 7,
+      "stufe": "erhoeht"
+    },
+    {
+      "stand": "2026-05-25",
+      "neu": 19,
+      "ransomware_bekannt": 2,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-06-01",
+      "neu": 21,
+      "ransomware_bekannt": 3,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-06-08",
+      "neu": 24,
+      "ransomware_bekannt": 4,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-06-15",
+      "neu": 29,
+      "ransomware_bekannt": 5,
+      "stufe": "erhoeht"
+    },
+    {
+      "stand": "2026-06-22",
+      "neu": 21,
+      "ransomware_bekannt": 5,
+      "stufe": "erhoeht"
+    },
+    {
+      "stand": "2026-06-29",
+      "neu": 23,
+      "ransomware_bekannt": 3,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-07-06",
+      "neu": 19,
+      "ransomware_bekannt": 4,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-07-13",
+      "neu": 19,
+      "ransomware_bekannt": 2,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-07-20",
+      "neu": 24,
+      "ransomware_bekannt": 4,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-07-27",
+      "neu": 26,
+      "ransomware_bekannt": 3,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-08-03",
+      "neu": 26,
+      "ransomware_bekannt": 3,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-08-10",
+      "neu": 25,
+      "ransomware_bekannt": 4,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-08-17",
+      "neu": 19,
+      "ransomware_bekannt": 2,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-08-24",
+      "neu": 22,
+      "ransomware_bekannt": 3,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-08-31",
+      "neu": 31,
+      "ransomware_bekannt": 2,
+      "stufe": "erhoeht"
+    },
+    {
+      "stand": "2026-09-07",
+      "neu": 33,
+      "ransomware_bekannt": 1,
+      "stufe": "erhoeht"
+    },
+    {
+      "stand": "2026-09-14",
+      "neu": 45,
+      "ransomware_bekannt": 1,
+      "stufe": "hoch"
+    },
+    {
+      "stand": "2026-09-21",
+      "neu": 43,
+      "ransomware_bekannt": 0,
+      "stufe": "hoch"
+    },
+    {
+      "stand": "2026-09-28",
+      "neu": 43,
+      "ransomware_bekannt": 0,
+      "stufe": "hoch"
+    },
+    {
+      "stand": "2026-10-05",
+      "neu": 39,
+      "ransomware_bekannt": 0,
+      "stufe": "hoch"
+    },
+    {
+      "stand": "2026-10-12",
+      "neu": 30,
+      "ransomware_bekannt": 0,
+      "stufe": "niedrig"
+    },
+    {
+      "stand": "2026-10-19",
+      "neu": 32,
+      "ransomware_bekannt": 0,
+      "stufe": "erhoeht"
+    },
+    {
+      "stand": "2026-10-26",
+      "neu": 32,
+      "ransomware_bekannt": 0,
+      "stufe": "erhoeht"
+    },
+    {
+      "stand": "2026-11-02",
+      "neu": 33,
+      "ransomware_bekannt": 0,
+      "stufe": "erhoeht"
+    },
+    {
+      "stand": "2026-11-09",
+      "neu": 34,
+      "ransomware_bekannt": 0,
+      "stufe": "erhoeht"
+    },
+    {
+      "stand": "2026-11-16",
+      "neu": 33,
+      "ransomware_bekannt": 0,
+      "stufe": "erhoeht"
+    },
+    {
+      "stand": "2026-11-23",
+      "neu": 34,
+      "ransomware_bekannt": 0,
+      "stufe": "erhoeht"
+    }
+  ],
   "sektor": [
     {
       "kennzahl": "sektoranteil_oeffentliche_verwaltung",
