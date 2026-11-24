@@ -103,14 +103,14 @@ def ermittle(kev, bsi, eu, lage, zustand, jetzt):
                     for x in (eu or {}).get("eintraege", []) if x["id"] not in alt_eu]
 
     if zustand.get("stufe") != stufe:
-        nachrichten.append(f"<b>Stufe geändert:</b> {STUFENNAME.get(zustand.get('stufe'), e(zustand.get('stufe')))} → "
+        nachrichten.append(f"<b>Dreier-Pegel geändert:</b> {STUFENNAME.get(zustand.get('stufe'), e(zustand.get('stufe')))} → "
                            f"<b>{STUFENNAME.get(stufe, e(stufe))}</b>\n{e(lage.get('stufe_begruendung', ''))}\n{SEITE}")
 
     lokal = jetzt.astimezone(ZoneInfo("Europe/Berlin"))  # Tageslage ab 06:00 deutscher Zeit, damit sie vor 07:00 da ist
     heute = lokal.date().isoformat()
     if zustand.get("zusammenfassung") != heute and lokal.hour >= TAGESLAGE_AB:
         k = lage["kev"]
-        zeilen = [f"Stufe: <b>{STUFENNAME.get(stufe, e(stufe))}</b>",
+        zeilen = [f"Dreier-Pegel: <b>{STUFENNAME.get(stufe, e(stufe))}</b>",
                   f"CISA-KEV: {k['neu_7_tage']} neu in 7 Tagen, {k['neu_30_tage']} in 30 Tagen"]
         if lage.get("cert_bund"):
             c = lage["cert_bund"]

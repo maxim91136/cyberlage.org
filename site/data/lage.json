@@ -2621,8 +2621,8 @@
     "konsens": {
       "signale": [
         {
-          "name": "Cyberlage",
-          "name_en": "Cyberlage",
+          "name": "Dreier-Pegel",
+          "name_en": "Dreier Gauge",
           "erhoeht": true,
           "grund": "Stufe hoch",
           "grund_en": "level high",

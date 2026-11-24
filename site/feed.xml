@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>
 <title>Cyberlage</title>
 <link>https://cyberlage.org/</link>
-<description>Aktuelle Stufe: hoch. 36 neu aufgenommene ausgenutzte Schwachstellen in 30 Tagen. Regelbasiertes Lagebild aus offenen Quellen. Ein Projekt von Dreier Labs.</description>
+<description>Dreier-Pegel: hoch. 36 neu aufgenommene ausgenutzte Schwachstellen in 30 Tagen. Regelbasiertes Lagebild aus offenen Quellen. Ein Projekt von Dreier Labs.</description>
 <language>de</language>
 <atom:link href="https://cyberlage.org/feed.xml" rel="self" type="application/rss+xml"/>
 <lastBuildDate>Tue, 24 Nov 2026 12:00:00 +0000</lastBuildDate>

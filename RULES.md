@@ -2,6 +2,10 @@
 
 Diese Regeln bestimmen, was auf der Seite als Zahl und als Warnstufe erscheint. Sie werden öffentlich geführt. Jede Änderung ist im Verlauf des Repos sichtbar. Umgesetzt sind sie in `pipeline/score.py`, die Einstellungen stehen in `config/`.
 
+## Der Dreier-Pegel
+
+Die Stufe unten heißt **Dreier-Pegel** (englisch: *Dreier Gauge*). Das ist der eigene Score von Cyberlage und Dreier Labs, keine Norm und kein Branchenstandard. Wer Fragen oder Einwände zur Methode hat, kann auf GitHub ein Issue öffnen.
+
 ## Grundsätze
 
 1. Die Stufe entsteht nur aus den Regeln unten, nie von Hand.

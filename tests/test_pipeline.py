@@ -269,7 +269,7 @@ class MeldeTests(unittest.TestCase):
         z["zusammenfassung"] = None
         lage2 = dict(self.lage, stufe="hoch")
         n, z2 = notify.ermittle(self.kev, self.bsi, None, lage2, z, self.jetzt)
-        self.assertTrue(any("Stufe geändert" in x and "hoch" in x for x in n))
+        self.assertTrue(any("Dreier-Pegel geändert" in x and "hoch" in x for x in n))
         self.assertTrue(any("Tageslage" in x for x in n))
         n2, _ = notify.ermittle(self.kev, self.bsi, None, lage2, z2, self.jetzt)
         self.assertEqual(n2, [])
@@ -394,7 +394,7 @@ class KonsensTests(unittest.TestCase):
         k = fetch_radar.konsens("hoch", self.ZEIT, self.BSI, {"status": "green"}, {})
         self.assertEqual((k["erhoeht"], k["bewertet"]), (1, 2))  # nur externe zählen: BSI ja, SANS nein, Feodo ohne 30 Messtage
         namen = {s["name"]: s["erhoeht"] for s in k["signale"]}
-        self.assertTrue(namen["Cyberlage"] and namen["Tempo bis KEV"] and namen["BSI Cyber Index"])
+        self.assertTrue(namen["Dreier-Pegel"] and namen["Tempo bis KEV"] and namen["BSI Cyber Index"])
         self.assertFalse(namen["SANS Infocon"])
         self.assertIsNone(namen["Botnetz-Server (Feodo)"])
 
@@ -404,7 +404,7 @@ class KonsensTests(unittest.TestCase):
         k = fetch_radar.konsens("niedrig", {}, [], None, serie)
         namen = {s["name"]: s["erhoeht"] for s in k["signale"]}
         self.assertTrue(namen["Botnetz-Server (Feodo)"])
-        self.assertFalse(namen["Cyberlage"])
+        self.assertFalse(namen["Dreier-Pegel"])
         self.assertIsNone(namen["Tempo bis KEV"]); self.assertIsNone(namen["BSI Cyber Index"]); self.assertIsNone(namen["SANS Infocon"])
         self.assertEqual((k["erhoeht"], k["bewertet"]), (1, 1))  # nur Feodo ist extern und bewertbar
 
@@ -441,8 +441,8 @@ class AusschlagTests(unittest.TestCase):
         import fetch_radar
         k = fetch_radar.konsens("hoch", {}, [{"wert": "170", "basis": "100"}], {"status": "yellow"}, {}, 36, 25)
         d = {x["name_en"]: x for x in k["signale"]}
-        self.assertEqual(d["Cyberlage"]["ausschlag"], 1.44)
-        self.assertEqual(d["Cyberlage"]["grund_en"], "level high")
+        self.assertEqual(d["Dreier Gauge"]["ausschlag"], 1.44)
+        self.assertEqual(d["Dreier Gauge"]["grund_en"], "level high")
         self.assertEqual(d["BSI Cyber Index"]["ausschlag"], 1.42)
         self.assertEqual(d["SANS Infocon"]["ausschlag"], 1.1)
         self.assertIsNone(d["Botnet servers (Feodo)"]["ausschlag"])

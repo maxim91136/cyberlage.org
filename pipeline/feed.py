@@ -50,7 +50,7 @@ def eintraege(lage):
 def baue(lage):
     items = eintraege(lage)
     stand = tag(lage["stand"])
-    kopf = f"Aktuelle Stufe: {NAME.get(lage.get('stufe'), 'keine Bewertung')}. {lage.get('stufe_begruendung') or ''}".strip()
+    kopf = f"Dreier-Pegel: {NAME.get(lage.get('stufe'), 'keine Bewertung')}. {lage.get('stufe_begruendung') or ''}".strip()
     teile = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>',

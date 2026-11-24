@@ -6,6 +6,10 @@ Lagebild: die Cyberlage, abgeleitet aus ausgenutzten Schwachstellen und offenen 
 
 Status: öffentlich unter https://cyberlage.org (Beta). Neues gibt es auch im [Telegram-Kanal](https://t.me/cyberlage_org) und als [RSS-Feed](https://cyberlage.org/feed.xml).
 
+## Der Dreier-Pegel
+
+Der **Dreier-Pegel** (englisch: *Dreier Gauge*) ist der eigene Score von Cyberlage: eine Stufe (niedrig, erhöht, hoch), die allein aus den neu aufgenommenen Einträgen des CISA-KEV-Katalogs in 30 Tagen abgeleitet wird, mit Schwellen aus der 36-Monats-Verteilung und einem Aufschlag bei Ransomware. Der Name steht für Dreier Labs. Es ist unsere eigene Methode, die Regeln stehen offen in [RULES.md](RULES.md). Daneben zeigt der **Radar** andere Messungen und Einschätzungen, ohne sie mit dem Pegel zu vermischen.
+
 ## Grundregeln
 
 - **Quelle, Stand und Lizenz an jedem Wert.** Nichts erscheint ohne Beleg.

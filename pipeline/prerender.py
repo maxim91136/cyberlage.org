@@ -15,7 +15,7 @@ def baustein(lage):
     e = lambda t: html.escape(str(t))
     k = lage["kev"]
     zeilen = [
-        f'<p class="panel pad"><b>Die globale Cyberlage, Stand {e(lage["stand"])}: Stufe {e(NAME.get(lage.get("stufe"), "keine Bewertung"))}.</b> '
+        f'<p class="panel pad"><b>Die globale Cyberlage, Stand {e(lage["stand"])}, Dreier-Pegel: {e(NAME.get(lage.get("stufe"), "keine Bewertung"))}.</b> '
         f'{e(lage.get("stufe_begruendung") or "")} Neu im CISA-Katalog ausgenutzter Schwachstellen: {e(k["neu_7_tage"])} in 7 Tagen, {e(k["neu_30_tage"])} in 30 Tagen. '
         'Regelbasiert und offen belegt. Ein privates Projekt von Dreier Labs, keine amtliche Stelle.</p>',
         '<p class="panel pad">Die Zahlen stehen als Rohdaten unter <a href="data/lage.json">data/lage.json</a>, die Regeln auf <a href="https://github.com/maxim91136/cyberlage.org/blob/main/RULES.md">GitHub</a>. Für die Ansicht mit Verlauf und Listen wird JavaScript benötigt.</p>',

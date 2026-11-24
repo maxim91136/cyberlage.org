@@ -247,7 +247,7 @@ def konsens(lage_stufe, zeit, einschaetzungen, sans, verlauf, neu30=None, erhoeh
         signale.append({"name": name, "name_en": name_en, "erhoeht": wert, "grund": grund, "grund_en": grund_en, "art": art,
                         "ausschlag": None if ausschlag is None else round(ausschlag, 2)})
 
-    add("Cyberlage", "Cyberlage", None if lage_stufe is None else lage_stufe in ("erhoeht", "hoch"),
+    add("Dreier-Pegel", "Dreier Gauge", None if lage_stufe is None else lage_stufe in ("erhoeht", "hoch"),
         f"Stufe {lage_stufe}" if lage_stufe else "keine Bewertung", f"level {_STUFE_EN.get(lage_stufe, lage_stufe)}" if lage_stufe else "no rating", "eigen",
         (neu30 / erhoeht_ab) if neu30 is not None and erhoeht_ab else {"niedrig": 0.5, "erhoeht": 1.0, "hoch": 1.5}.get(lage_stufe))
     j, v = (zeit or {}).get("jetzt") or {}, (zeit or {}).get("vor_12_monaten") or {}

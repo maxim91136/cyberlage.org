@@ -20,7 +20,7 @@
     tg_txt: "one daily report; instant messages only for a level change or a ransomware alert.",
     h_lage: "Current situation",
     l_wie: "how the level is calculated",
-    l_stufe: "lage.level · worldwide", l_lade: "Loading data",
+    l_stufe: "dreier gauge · worldwide", l_lade: "Loading data",
     l_7: "new · 7 days", l_30: "new · 30 days", l_ges: "catalog total",
     l_kev: "<strong>KEV</strong> stands for <em>Known Exploited Vulnerabilities</em>: a list by the US cybersecurity agency <strong>CISA</strong> of flaws that are proven to be exploited by attackers. The level shows how many are newly added.",
     r_h: "## history", n_h: "## new",
