@@ -28,7 +28,7 @@
     rd_kon_h: "Radar score", rd_kon_n: "Each signal follows a fixed rule (RULES.md). Only external sources count as confirmation. The dashed ring is the rule threshold, the further out a point lies, the stronger the reading. Only the radar score above forms a mean.",
     rd_zeit_h: "How fast is a vulnerability reported as exploited?", rd_tr_h: "Hit rate of the outlook", rd_eu_h: "EU-KEV and CISA KEV",
     rd_sig_h: "## signals", rd_sig_intro: "Each signal once, with value, rule and period. Measurements are counts from open raw data, assessments are judgements by other bodies.", rd_g_score: "In the radar score: signals with a rule threshold", rd_g_ktx: "For orientation only: no threshold, not in the score", l_verk: "Axis “Dreier Gauge” in the radar", rd_det: "Explanations: hit rate and EU comparison", rd_vgl_n: "The sources measure different things. When several point the same way, that is a stronger signal than one alone.",
-    rd_warum_h: "Why is it rising? Documented reasons", rd_warum_n: "We do not measure geopolitical tension. It appears only where a source documents it.",
+    rd_warum_h: "Documented reasons for the pace", rd_warum_n: "This is the long-term background, not today's level. Maintained by hand, each with a source and check date. We do not measure geopolitical tension.",
     n_sub: 'Exploited vulnerabilities of the last <span id="fenster">30</span> days, newest first. The filter runs only in your browser.',
     n_filter: "Filter by vendor, product or CVE", n_ph: "e.g. microsoft, fortinet, CVE-2026",
     th1: "Added", th2: "Vendor", th3: "Product", th5: "Due date (CISA)",

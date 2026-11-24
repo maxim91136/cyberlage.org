@@ -286,3 +286,4 @@ html.alarm .marke{animation:flackern 6s infinite}
 
 .kc-k{flex-wrap:wrap}.rd-kacheln{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
 @media (max-width:480px){.navin{gap:0 10px;padding-left:8px;padding-right:8px}.navin>a,.dd>summary{font-size:13.5px;padding:9px 2px}.dd>summary::after{font-size:10px}.navin button,.navin .sprache{font-size:12px;padding:4px 8px}}
+.totop{width:42px;min-height:42px;padding:0;justify-content:center;opacity:0}.totop #totopl{display:none}.totop.on{opacity:.85}.totop.on:hover,.totop.on:focus-visible{opacity:1}
