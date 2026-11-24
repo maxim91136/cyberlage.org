@@ -43,6 +43,9 @@ jobs:
       - name: Radar rechnen (CVE-Liste, SANS, Trefferquote)
         run: python pipeline/fetch_radar.py
         continue-on-error: true
+      - name: Patch-Berichte (Microsoft MSRC)
+        continue-on-error: true
+        run: python pipeline/fetch_patches.py
       - name: Prüfkalender (Fristen und Links der Handangaben)
         continue-on-error: true
         env:

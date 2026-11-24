@@ -362,6 +362,10 @@ def main(argv):
         ergebnis["fazit"] = fazit(rsc, ergebnis["stufe"], stufen_cfg)
         ergebnis["radar_skala"] = {"status": stufen_cfg.get("status"),
                                    "stufen": [{"bis": x["bis"], "name": x["name"], "name_en": x["name_en"], "ampel": x.get("ampel")} for x in stufen_cfg["stufen"]]}
+    ms = lese_optional(WURZEL / "data" / "patches" / "microsoft.json")
+    if ms and ms.get("monate"):
+        kompakt = {k: {f: w for f, w in m.items() if f != "cve_liste"} for k, m in ms["monate"].items()}
+        ergebnis["patches"] = {"microsoft": {"meta": ms.get("meta"), "monate": kompakt}}
     ergebnis["pegel"] = {"wert": reihe[-1]["wert"], "marken": {"erhoeht_ab": regeln.get("erhoeht_ab"), "hoch_ab": regeln.get("hoch_ab")},
                          "live_seit": next((p["stand"] for p in reihe if p["quelle"] == "live"), None), "reihe": reihe[-400:]}
     ziel = WURZEL / "site" / "data" / "lage.json"

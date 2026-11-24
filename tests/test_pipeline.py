@@ -12,6 +12,7 @@ import fetch_radar  # noqa: E402
 import fetch_extra  # noqa: E402
 import notify  # noqa: E402
 import pruefen  # noqa: E402
+import fetch_patches  # noqa: E402
 import fetch_kev  # noqa: E402
 import score  # noqa: E402
 
@@ -561,3 +562,96 @@ class RadarStufenTests(unittest.TestCase):
             for f in ("satz", "satz_en", "hinweis", "hinweis_en"):
                 self.assertTrue(self.cfg["pegel"][k][f])
         self.assertEqual([st["bis"] for st in self.cfg["stufen"]], sorted(st["bis"] for st in self.cfg["stufen"]))
+
+
+def _ms_dok(monat="2026-Nov", cves=None, aktuell="2026-11-10T08:00:00Z"):
+    """Kleines CVRF-Beispiel in der Form der MSRC-Schnittstelle."""
+    cves = cves if cves is not None else [
+        ("CVE-2026-0001", "Windows Kernel Elevation of Privilege Vulnerability", "Critical", "Elevation of Privilege", "Publicly Disclosed:No;Exploited:Yes;Latest Software Release:Exploitation Detected", ["1", "2"]),
+        ("CVE-2026-0002", "Microsoft Word Remote Code Execution Vulnerability", "Important", "Remote Code Execution", "Publicly Disclosed:Yes;Exploited:No;", ["3"]),
+        ("CVE-2026-0003", "Chromium: CVE-2026-0003 Use after free in Blink", "Important", "Remote Code Execution", "Publicly Disclosed:No;Exploited:No;", ["4"]),
+        ("CVE-2026-0004", "Azure Service Information Disclosure Vulnerability", "Moderate", "Information Disclosure", "Publicly Disclosed:No;Exploited:No;", ["5"]),
+    ]
+    return {
+        "DocumentTracking": {"Identification": {"ID": {"Value": monat}}, "InitialReleaseDate": "2026-11-10T08:00:00Z", "CurrentReleaseDate": aktuell},
+        "ProductTree": {"Branch": [{"Items": [{"Items": [
+            {"ProductID": "1", "Value": "Windows 11 Version 24H2 for x64-based Systems"},
+            {"ProductID": "2", "Value": "Windows Server 2025"},
+            {"ProductID": "3", "Value": "Microsoft Word 2021"},
+            {"ProductID": "4", "Value": "Microsoft Edge (Chromium-based)"},
+            {"ProductID": "5", "Value": "Azure Stack HCI"}]}]}]},
+        "Vulnerability": [{"CVE": c, "Title": {"Value": t},
+                           "Threats": [{"Type": 3, "Description": {"Value": sv}}, {"Type": 0, "Description": {"Value": imp}}, {"Type": 1, "Description": {"Value": ex}}],
+                           "ProductStatuses": [{"Type": 3, "ProductID": ids}]} for c, t, sv, imp, ex, ids in cves],
+    }
+
+
+class PatchTests(unittest.TestCase):
+    def test_verdichten(self):
+        m = fetch_patches.verdichte_dokument(_ms_dok(), kev_cves=["CVE-2026-0001"])
+        self.assertEqual(m["cves"], 3)                      # Chromium nicht mitgezählt
+        self.assertEqual(m["davon_chromium_ausgenommen"], 1)
+        self.assertEqual(m["schwere"]["Critical"], 1)
+        self.assertEqual(m["schwere"]["Important"], 1)
+        self.assertEqual(m["ausgenutzt"], 1)
+        self.assertEqual(m["oeffentlich_bekannt"], 1)
+        self.assertEqual(m["im_kev"], 1)
+        self.assertEqual(m["familien"]["Windows 11"], 1)
+        self.assertEqual(m["familien"]["Windows Server"], 1)
+        self.assertEqual(m["familien"]["Office und SharePoint"], 1)
+        self.assertEqual(m["familien"]["Cloud und Dienste"], 1)
+        self.assertEqual(m["auswirkung"]["Elevation of Privilege"], 1)
+
+    def test_bewertung(self):
+        monat = {"cves": 80, "ausgenutzt": 2, "schwere": {"Critical": 5}}
+        vor = [{"cves": 60}] * 6
+        b = fetch_patches.bewerte(monat, vor)
+        self.assertEqual(b["groesse"], "größer als üblich")
+        self.assertEqual(b["dringlichkeit"], "dringend")
+        self.assertIn("2 bereits ausgenutzten", b["empfehlung"])
+        b2 = fetch_patches.bewerte({"cves": 60, "ausgenutzt": 0, "schwere": {"Critical": 0}}, vor)
+        self.assertEqual((b2["groesse"], b2["dringlichkeit"]), ("üblicher Umfang", "normal"))
+        b3 = fetch_patches.bewerte({"cves": 60, "ausgenutzt": 0, "schwere": {"Critical": 1}}, [{"cves": 60}])
+        self.assertIn("noch kein Vergleich", b3["groesse"])  # unter 3 Vormonaten kein Vergleich
+
+    def test_monatsliste_filtert(self):
+        liste = {"value": [{"ID": "1999-Sep"}, {"ID": "2026-Oct"}, {"ID": "2026-Nov"}, {"ID": "2026-Sep"}, {"ID": "2026-Nov-Mariner"}]}
+        self.assertEqual([e["ID"] for e in fetch_patches.monatsliste(liste, 2)], ["2026-Oct", "2026-Nov"])
+
+    def test_nachtrag_und_nicht_neu_holen(self):
+        from datetime import datetime, timezone
+        jetzt = datetime(2026, 11, 20, tzinfo=timezone.utc)
+        liste = {"value": [{"ID": "2026-Nov", "CurrentReleaseDate": "2026-11-10T08:00:00Z", "CvrfUrl": "u"}]}
+        geholt = []
+        def hole(url):
+            geholt.append(url)
+            return _ms_dok()
+        a = fetch_patches.aktualisiere(None, liste, hole, [], jetzt)
+        self.assertEqual(len(geholt), 1)
+        b = fetch_patches.aktualisiere(a, liste, hole, [], jetzt)
+        self.assertEqual(len(geholt), 1)  # unverändert: nicht erneut geholt
+        # Out-of-Band: Dokument wurde später um eine Lücke ergänzt
+        liste2 = {"value": [{"ID": "2026-Nov", "CurrentReleaseDate": "2026-11-18T08:00:00Z", "CvrfUrl": "u"}]}
+        mehr = _ms_dok(aktuell="2026-11-18T08:00:00Z")
+        mehr["Vulnerability"].append({"CVE": "CVE-2026-0009", "Title": {"Value": "Windows OOB Remote Code Execution Vulnerability"},
+                                      "Threats": [{"Type": 3, "Description": {"Value": "Critical"}}, {"Type": 1, "Description": {"Value": "Exploited:Yes"}}],
+                                      "ProductStatuses": [{"Type": 3, "ProductID": ["1"]}]})
+        c = fetch_patches.aktualisiere(b, liste2, lambda u: mehr, [], jetzt)
+        m = c["monate"]["2026-Nov"]
+        self.assertEqual(m["cves"], 4)
+        self.assertEqual(m["nachtraege"][0]["neue_cves"], 1)
+        self.assertEqual(m["nachtraege"][0]["ausgenutzt_neu"], 1)
+
+    def test_fehler_je_monat_ist_nicht_fatal(self):
+        from datetime import datetime, timezone
+        jetzt = datetime(2026, 11, 20, tzinfo=timezone.utc)
+        liste = {"value": [{"ID": "2026-Oct", "CurrentReleaseDate": "x", "CvrfUrl": "u1"}, {"ID": "2026-Nov", "CurrentReleaseDate": "y", "CvrfUrl": "u2"}]}
+        def hole(url):
+            if url == "u1":
+                raise OSError("Zeitüberschreitung")
+            return _ms_dok()
+        r = fetch_patches.aktualisiere(None, liste, hole, [], jetzt)
+        self.assertEqual(list(r["monate"]), ["2026-Nov"])
+        self.assertEqual(len(r["meta"]["fehler"]), 1)
+        with self.assertRaises(fetch_patches.QuellFehler):
+            fetch_patches.aktualisiere(None, liste, lambda u: (_ for _ in ()).throw(OSError("x")), [], jetzt)
