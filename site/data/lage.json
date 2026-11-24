@@ -1325,7 +1325,7 @@
   "cert_bund": {
     "quelle": "CERT-Bund / BSI Warn- und Informationsdienst",
     "quelle_url": "https://wid.cert-bund.de/",
-    "abgerufen_am": "2026-11-24T23:20:57+00:00",
+    "abgerufen_am": "2026-11-24T23:47:05+00:00",
     "fenster_tage": 30,
     "daten_seit": "2026-11-23",
     "kritisch_7_tage": 7,
@@ -1658,7 +1658,7 @@
   "eu_kev": {
     "quelle": "EU-KEV über die EU-Schwachstellendatenbank (EUVD) von ENISA",
     "quelle_url": "https://euvd.enisa.europa.eu/",
-    "abgerufen_am": "2026-11-24T23:20:57+00:00",
+    "abgerufen_am": "2026-11-24T23:47:05+00:00",
     "fenster_tage": 30,
     "daten_seit": "2026-08-07",
     "neu_30_tage": 38,
@@ -2198,7 +2198,7 @@
     ]
   },
   "ausblick": {
-    "abgerufen_am": "2026-11-24T23:20:59+00:00",
+    "abgerufen_am": "2026-11-24T23:47:07+00:00",
     "fenster_tage": 14,
     "geprueft": 7198,
     "schwelle_hoch": 0.1,
@@ -2211,6 +2211,8 @@
         "perzentil": 0.99462,
         "veroeffentlicht": "2026-11-19",
         "cvss": 9.2,
+        "beschreibung": "Session serializer mismatch can lead to remote code execution.",
+        "produkt": "",
         "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-115560"
       },
       {
@@ -2219,6 +2221,8 @@
         "perzentil": 0.99133,
         "veroeffentlicht": "2026-11-17",
         "cvss": 8.1,
+        "beschreibung": "Vulnerability in the Oracle Java SE, Oracle GraalVM for JDK, Oracle GraalVM Enterprise Edition product of Oracle Java SE (component: Compiler).",
+        "produkt": "oracle jdk",
         "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-114938"
       },
       {
@@ -2227,6 +2231,8 @@
         "perzentil": 0.98792,
         "veroeffentlicht": "2026-11-18",
         "cvss": 9.2,
+        "beschreibung": "This issue affects NGINX Plus or NGINX Open Source configurations that use HTTP/2.",
+        "produkt": "f5 dos",
         "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-123007"
       },
       {
@@ -2235,6 +2241,8 @@
         "perzentil": 0.98178,
         "veroeffentlicht": "2026-11-18",
         "cvss": 9.1,
+        "beschreibung": "Zohocorp Manageengine DDI Central build below 6500 are affected by a authenticated command injection vulnerability in the Windows DDI Agent's clear_blocked_domains funct…",
+        "produkt": "",
         "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-95645"
       },
       {
@@ -2243,6 +2251,8 @@
         "perzentil": 0.97901,
         "veroeffentlicht": "2026-11-18",
         "cvss": 9.1,
+        "beschreibung": "Zohocorp Manageengine DDI Central build below 6500 are affected by a authenticated PowerShell command injection vulnerability in the Telnet connectivity feature, allowin…",
+        "produkt": "",
         "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-95643"
       },
       {
@@ -2251,6 +2261,8 @@
         "perzentil": 0.9771,
         "veroeffentlicht": "2026-11-18",
         "cvss": 9.2,
+        "beschreibung": "When NGINX Plus or NGINX Open Source is configured to use HTTP/2 for client connections and proxy client requests to a backend, a specially crafted request can result in…",
+        "produkt": "f5 dos",
         "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-123633"
       },
       {
@@ -2259,6 +2271,8 @@
         "perzentil": 0.97529,
         "veroeffentlicht": "2026-11-12",
         "cvss": 8.8,
+        "beschreibung": "Zohocorp ManageEngine DDI Central versions below 6301 is affected by an authorization bypass and PowerShell command injection vulnerability that allowed authenticated no…",
+        "produkt": "",
         "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-75869"
       },
       {
@@ -2267,6 +2281,8 @@
         "perzentil": 0.97341,
         "veroeffentlicht": "2026-11-18",
         "cvss": 9.2,
+        "beschreibung": "This issue occurs when NGINX Plus or NGINX Open Source is configured as a proxy, the proxied server name includes variables, and a Server Side Includes (SSI) or mirror d…",
+        "produkt": "f5 dos",
         "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-123634"
       },
       {
@@ -2275,6 +2291,8 @@
         "perzentil": 0.9725,
         "veroeffentlicht": "2026-11-18",
         "cvss": 9.2,
+        "beschreibung": "Description: This issue affects NGINX Plus and NGINX Open Source configurations that use HTTP/3.",
+        "produkt": "f5 dos",
         "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-121810"
       },
       {
@@ -2283,6 +2301,8 @@
         "perzentil": 0.96993,
         "veroeffentlicht": "2026-11-19",
         "cvss": 9.2,
+        "beschreibung": "PHP-FPM request smuggling through an unread HTTP request body.",
+        "produkt": "",
         "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-129289"
       }
     ]
@@ -2292,7 +2312,7 @@
       "online": 1,
       "gelistet": 5
     },
-    "abgerufen_am": "2026-11-24T23:22:52+00:00",
+    "abgerufen_am": "2026-11-24T23:48:57+00:00",
     "zeit_bis_kev": {
       "verlauf": [
         {
@@ -4600,7 +4620,7 @@
     },
     "sans": {
       "status": "green",
-      "abgerufen_am": "2026-11-24T23:22:51+00:00"
+      "abgerufen_am": "2026-11-24T23:48:56+00:00"
     },
     "ncsc": {
       "advisories_30": 25,
@@ -4871,9 +4891,9 @@
           "geprueft_am": "2026-11-23",
           "erreichbar": false,
           "status": 404,
-          "fehler_in_folge": 12,
+          "fehler_in_folge": 13,
           "erster_fehler_um": "2026-11-24T16:15:10+00:00",
-          "link_geprueft_um": "2026-11-24T23:29:23+00:00",
+          "link_geprueft_um": "2026-11-24T23:49:18+00:00",
           "faellig_am": "2027-05-25",
           "faellig": false,
           "link_tot": false
@@ -4886,9 +4906,9 @@
           "geprueft_am": "2026-11-24",
           "erreichbar": false,
           "status": 404,
-          "fehler_in_folge": 8,
+          "fehler_in_folge": 9,
           "erster_fehler_um": "2026-11-24T22:03:12+00:00",
-          "link_geprueft_um": "2026-11-24T23:29:23+00:00",
+          "link_geprueft_um": "2026-11-24T23:49:18+00:00",
           "faellig_am": "2027-02-22",
           "faellig": false,
           "link_tot": false
@@ -4918,7 +4938,7 @@
       "lizenz": "CC0 1.0 (laut LICENSE-Datei von cisagov/kev-data)",
       "quelle_abruf": "cisa.gov",
       "veroeffentlicht_am": "2026-11-24T17:47:46.199Z",
-      "abgerufen_am": "2026-11-24T23:20:57+00:00",
+      "abgerufen_am": "2026-11-24T23:47:05+00:00",
       "name_en": "CISA Known Exploited Vulnerabilities",
       "lizenz_en": "CC0 1.0 (per the LICENSE file of cisagov/kev-data)"
     },
@@ -4935,7 +4955,7 @@
       "name": "CERT-Bund / BSI Warn- und Informationsdienst",
       "link": "https://wid.cert-bund.de/",
       "lizenz": "nur Titel und Links, Nutzungsbedingungen des BSI beachten",
-      "abgerufen_am": "2026-11-24T23:20:57+00:00",
+      "abgerufen_am": "2026-11-24T23:47:05+00:00",
       "name_en": "CERT-Bund / BSI Warning and Information Service",
       "lizenz_en": "titles and links only, observe the BSI terms of use"
     },
@@ -4944,7 +4964,7 @@
       "name": "EU-KEV (EUVD von ENISA)",
       "link": "https://euvd.enisa.europa.eu/",
       "lizenz": "Lizenz nicht ausdrücklich geklärt",
-      "abgerufen_am": "2026-11-24T23:20:57+00:00",
+      "abgerufen_am": "2026-11-24T23:47:05+00:00",
       "name_en": "EU-KEV (EUVD by ENISA)",
       "lizenz_en": "licence not explicitly clarified"
     },
@@ -4953,7 +4973,7 @@
       "name": "EPSS (FIRST)",
       "link": "https://www.first.org/epss/",
       "lizenz": "kostenlos mit Quellenangabe",
-      "abgerufen_am": "2026-11-24T23:20:59+00:00",
+      "abgerufen_am": "2026-11-24T23:47:07+00:00",
       "name_en": "EPSS (FIRST)",
       "lizenz_en": "free to use with attribution"
     },
@@ -4962,7 +4982,7 @@
       "name": "NVD (NIST)",
       "link": "https://nvd.nist.gov/",
       "lizenz": "gemeinfrei, nur Veröffentlichungsdatum und CVSS-Wert",
-      "abgerufen_am": "2026-11-24T23:20:59+00:00",
+      "abgerufen_am": "2026-11-24T23:47:07+00:00",
       "name_en": "NVD (NIST)",
       "lizenz_en": "public domain, only publication date and CVSS score"
     },
@@ -4971,7 +4991,7 @@
       "name": "CVE-Liste (CVE Program, MITRE)",
       "link": "https://github.com/CVEProject/cvelistV5",
       "lizenz": "CVE Terms of Use: frei nutzbar mit Quellenangabe, nur Veröffentlichungsdatum",
-      "abgerufen_am": "2026-11-24T23:22:52+00:00",
+      "abgerufen_am": "2026-11-24T23:48:57+00:00",
       "name_en": "CVE List (CVE Program, MITRE)",
       "lizenz_en": "CVE Terms of Use: free to use with attribution, only publication date"
     },
@@ -4980,7 +5000,7 @@
       "name": "Feodo Tracker (abuse.ch)",
       "link": "https://feodotracker.abuse.ch/",
       "lizenz": "CC0, nur die Zahl aktiver Steuerserver",
-      "abgerufen_am": "2026-11-24T23:22:52+00:00",
+      "abgerufen_am": "2026-11-24T23:48:57+00:00",
       "name_en": "Feodo Tracker (abuse.ch)",
       "lizenz_en": "CC0, only the number of active command servers"
     },
@@ -4989,14 +5009,14 @@
       "name": "NCSC-NL Beveiligingsadviezen",
       "link": "https://advisories.ncsc.nl/",
       "lizenz": "Lizenz nicht geprüft, nur Zahl der Advisories mit Quellenangabe",
-      "abgerufen_am": "2026-11-24T23:22:52+00:00"
+      "abgerufen_am": "2026-11-24T23:48:57+00:00"
     },
     {
       "id": "sans",
       "name": "SANS Internet Storm Center (Infocon)",
       "link": "https://isc.sans.edu/",
       "lizenz": "Creative Commons laut Fußzeile des ISC, nur Ampelstatus mit Quellenangabe",
-      "abgerufen_am": "2026-11-24T23:22:51+00:00",
+      "abgerufen_am": "2026-11-24T23:48:56+00:00",
       "name_en": "SANS Internet Storm Center (Infocon)",
       "lizenz_en": "Creative Commons per the ISC footer, only the traffic-light status with attribution"
     }
@@ -7085,7 +7105,7 @@
         "quelle": "Microsoft Security Response Center (CVRF 3.0)",
         "quelle_url": "https://msrc.microsoft.com/update-guide",
         "listen_url": "https://api.msrc.microsoft.com/cvrf/v3.0/updates",
-        "abgerufen_am": "2026-11-24T23:22:52+00:00",
+        "abgerufen_am": "2026-11-24T23:48:57+00:00",
         "hinweis": "Zählung je CVE; Chromium-Lücken im Edge und Linux-Paketlücken von Azure Linux sind ausgenommen und getrennt ausgewiesen. Schweregrad, Ausnutzung und Bekanntheit stammen vom Hersteller.",
         "fehler": []
       },
@@ -7094,7 +7114,7 @@
           "id": "2025-Nov",
           "erste_veroeffentlichung": "2025-11-11T08:00:00",
           "aktuell": "2026-11-21T01:14:05",
-          "schema": 2,
+          "schema": 3,
           "cves": 75,
           "davon_chromium_ausgenommen": 8,
           "davon_azure_linux_ausgenommen": 106,
@@ -7126,8 +7146,8 @@
           },
           "familien": {
             "Windows 11": 39,
-            "Windows 10": 36,
             "Windows Server": 36,
+            "Windows 10": 36,
             "Cloud und Dienste": 21,
             "Office und SharePoint": 14,
             "Entwicklung und Server": 6,
@@ -7142,15 +7162,15 @@
             "verhaeltnis_median": null,
             "median_vormonate": null,
             "dringlichkeit": "dringend",
-            "empfehlung": "Die 1 bereits ausgenutzten Lücken zuerst einspielen, danach die kritischen (11).",
-            "empfehlung_en": "Apply the 1 already exploited flaws first, then the critical ones (11)."
+            "empfehlung": "Zuerst die bereits ausgenutzte Lücke einspielen, danach die 11 als kritisch eingestuften.",
+            "empfehlung_en": "Apply the already exploited flaw first, then the 11 rated critical."
           }
         },
         "2025-Dec": {
           "id": "2025-Dec",
           "erste_veroeffentlichung": "2025-12-09T00:00:00",
           "aktuell": "2026-11-21T01:14:39",
-          "schema": 2,
+          "schema": 3,
           "cves": 72,
           "davon_chromium_ausgenommen": 18,
           "davon_azure_linux_ausgenommen": 265,
@@ -7199,15 +7219,15 @@
             "verhaeltnis_median": null,
             "median_vormonate": null,
             "dringlichkeit": "dringend",
-            "empfehlung": "Die 1 bereits ausgenutzten Lücken zuerst einspielen, danach die kritischen (9).",
-            "empfehlung_en": "Apply the 1 already exploited flaws first, then the critical ones (9)."
+            "empfehlung": "Zuerst die bereits ausgenutzte Lücke einspielen, danach die 9 als kritisch eingestuften.",
+            "empfehlung_en": "Apply the already exploited flaw first, then the 9 rated critical."
           }
         },
         "2026-Jan": {
           "id": "2026-Jan",
           "erste_veroeffentlichung": "2026-01-13T08:00:00",
           "aktuell": "2026-11-21T01:15:28",
-          "schema": 2,
+          "schema": 3,
           "cves": 133,
           "davon_chromium_ausgenommen": 13,
           "davon_azure_linux_ausgenommen": 200,
@@ -7262,15 +7282,15 @@
             "verhaeltnis_median": null,
             "median_vormonate": null,
             "dringlichkeit": "dringend",
-            "empfehlung": "Die 2 bereits ausgenutzten Lücken zuerst einspielen, danach die kritischen (17).",
-            "empfehlung_en": "Apply the 2 already exploited flaws first, then the critical ones (17)."
+            "empfehlung": "Zuerst die 2 bereits ausgenutzten Lücken einspielen, danach die 17 als kritisch eingestuften.",
+            "empfehlung_en": "Apply the 2 already exploited flaws first, then the 17 rated critical."
           }
         },
         "2026-Feb": {
           "id": "2026-Feb",
           "erste_veroeffentlichung": "2026-02-10T08:00:00",
           "aktuell": "2026-11-21T01:11:37",
-          "schema": 2,
+          "schema": 3,
           "cves": 64,
           "davon_chromium_ausgenommen": 17,
           "davon_azure_linux_ausgenommen": 136,
@@ -7334,15 +7354,15 @@
             "verhaeltnis_median": 0.85,
             "median_vormonate": 75,
             "dringlichkeit": "dringend",
-            "empfehlung": "Die 6 bereits ausgenutzten Lücken zuerst einspielen, danach die kritischen (7).",
-            "empfehlung_en": "Apply the 6 already exploited flaws first, then the critical ones (7)."
+            "empfehlung": "Zuerst die 6 bereits ausgenutzten Lücken einspielen, danach die 7 als kritisch eingestuften.",
+            "empfehlung_en": "Apply the 6 already exploited flaws first, then the 7 rated critical."
           }
         },
         "2026-Mar": {
           "id": "2026-Mar",
           "erste_veroeffentlichung": "2026-03-10T07:00:00",
           "aktuell": "2026-11-21T01:20:27",
-          "schema": 2,
+          "schema": 3,
           "cves": 116,
           "davon_chromium_ausgenommen": 74,
           "davon_azure_linux_ausgenommen": 349,
@@ -7392,15 +7412,15 @@
             "verhaeltnis_median": 1.58,
             "median_vormonate": 73.5,
             "dringlichkeit": "zeitnah",
-            "empfehlung": "Kritische Lücken (19) zeitnah einspielen, den Rest im normalen Zyklus.",
-            "empfehlung_en": "Apply critical flaws (19) promptly, the rest in the normal cycle."
+            "empfehlung": "Die 19 als kritisch eingestuften Lücken zeitnah einspielen, den Rest im normalen Zyklus.",
+            "empfehlung_en": "The 19 flaws rated critical should be applied promptly, the rest in the normal cycle."
           }
         },
         "2026-Apr": {
           "id": "2026-Apr",
           "erste_veroeffentlichung": "2026-04-14T07:00:00",
           "aktuell": "2026-11-21T01:15:37",
-          "schema": 2,
+          "schema": 3,
           "cves": 202,
           "davon_chromium_ausgenommen": 109,
           "davon_azure_linux_ausgenommen": 470,
@@ -7456,15 +7476,15 @@
             "verhaeltnis_median": 2.69,
             "median_vormonate": 75,
             "dringlichkeit": "dringend",
-            "empfehlung": "Die 2 bereits ausgenutzten Lücken zuerst einspielen, danach die kritischen (23).",
-            "empfehlung_en": "Apply the 2 already exploited flaws first, then the critical ones (23)."
+            "empfehlung": "Zuerst die 2 bereits ausgenutzten Lücken einspielen, danach die 23 als kritisch eingestuften.",
+            "empfehlung_en": "Apply the 2 already exploited flaws first, then the 23 rated critical."
           }
         },
         "2026-May": {
           "id": "2026-May",
           "erste_veroeffentlichung": "2026-05-12T07:00:00",
           "aktuell": "2026-11-23T19:04:10",
-          "schema": 2,
+          "schema": 3,
           "cves": 163,
           "davon_chromium_ausgenommen": 368,
           "davon_azure_linux_ausgenommen": 671,
@@ -7522,15 +7542,15 @@
             "verhaeltnis_median": 1.71,
             "median_vormonate": 95.5,
             "dringlichkeit": "dringend",
-            "empfehlung": "Die 3 bereits ausgenutzten Lücken zuerst einspielen, danach die kritischen (46).",
-            "empfehlung_en": "Apply the 3 already exploited flaws first, then the critical ones (46)."
+            "empfehlung": "Zuerst die 3 bereits ausgenutzten Lücken einspielen, danach die 46 als kritisch eingestuften.",
+            "empfehlung_en": "Apply the 3 already exploited flaws first, then the 46 rated critical."
           }
         },
         "2026-Jun": {
           "id": "2026-Jun",
           "erste_veroeffentlichung": "2026-06-09T07:00:00",
           "aktuell": "2026-11-21T01:20:45",
-          "schema": 2,
+          "schema": 3,
           "cves": 222,
           "davon_chromium_ausgenommen": 543,
           "davon_azure_linux_ausgenommen": 625,
@@ -7580,15 +7600,15 @@
             "verhaeltnis_median": 1.91,
             "median_vormonate": 116,
             "dringlichkeit": "zeitnah",
-            "empfehlung": "Kritische Lücken (49) zeitnah einspielen, den Rest im normalen Zyklus.",
-            "empfehlung_en": "Apply critical flaws (49) promptly, the rest in the normal cycle."
+            "empfehlung": "Die 49 als kritisch eingestuften Lücken zeitnah einspielen, den Rest im normalen Zyklus.",
+            "empfehlung_en": "The 49 flaws rated critical should be applied promptly, the rest in the normal cycle."
           }
         },
         "2026-Jul": {
           "id": "2026-Jul",
           "erste_veroeffentlichung": "2026-07-14T07:00:00",
           "aktuell": "2026-11-23T14:05:47",
-          "schema": 2,
+          "schema": 3,
           "cves": 664,
           "davon_chromium_ausgenommen": 868,
           "davon_azure_linux_ausgenommen": 633,
@@ -7645,15 +7665,15 @@
             "verhaeltnis_median": 5.33,
             "median_vormonate": 124.5,
             "dringlichkeit": "dringend",
-            "empfehlung": "Die 3 bereits ausgenutzten Lücken zuerst einspielen, danach die kritischen (78).",
-            "empfehlung_en": "Apply the 3 already exploited flaws first, then the critical ones (78)."
+            "empfehlung": "Zuerst die 3 bereits ausgenutzten Lücken einspielen, danach die 78 als kritisch eingestuften.",
+            "empfehlung_en": "Apply the 3 already exploited flaws first, then the 78 rated critical."
           }
         },
         "2026-Aug": {
           "id": "2026-Aug",
           "erste_veroeffentlichung": "2026-08-11T07:00:00",
           "aktuell": "2026-11-21T14:03:39",
-          "schema": 2,
+          "schema": 3,
           "cves": 497,
           "davon_chromium_ausgenommen": 312,
           "davon_azure_linux_ausgenommen": 1030,
@@ -7707,15 +7727,15 @@
             "verhaeltnis_median": 3.74,
             "median_vormonate": 133,
             "dringlichkeit": "dringend",
-            "empfehlung": "Die 1 bereits ausgenutzten Lücken zuerst einspielen, danach die kritischen (84).",
-            "empfehlung_en": "Apply the 1 already exploited flaws first, then the critical ones (84)."
+            "empfehlung": "Zuerst die bereits ausgenutzte Lücke einspielen, danach die 84 als kritisch eingestuften.",
+            "empfehlung_en": "Apply the already exploited flaw first, then the 84 rated critical."
           }
         },
         "2026-Sep": {
           "id": "2026-Sep",
           "erste_veroeffentlichung": "2026-09-08T07:00:00",
           "aktuell": "2026-11-23T19:04:44",
-          "schema": 2,
+          "schema": 3,
           "cves": 1008,
           "davon_chromium_ausgenommen": 432,
           "davon_azure_linux_ausgenommen": 1929,
@@ -7767,15 +7787,15 @@
             "verhaeltnis_median": 6.81,
             "median_vormonate": 148.0,
             "dringlichkeit": "dringend",
-            "empfehlung": "Die 2 bereits ausgenutzten Lücken zuerst einspielen, danach die kritischen (132).",
-            "empfehlung_en": "Apply the 2 already exploited flaws first, then the critical ones (132)."
+            "empfehlung": "Zuerst die 2 bereits ausgenutzten Lücken einspielen, danach die 132 als kritisch eingestuften.",
+            "empfehlung_en": "Apply the 2 already exploited flaws first, then the 132 rated critical."
           }
         },
         "2026-Oct": {
           "id": "2026-Oct",
           "erste_veroeffentlichung": "2026-10-13T07:00:00",
           "aktuell": "2026-11-24T01:27:08",
-          "schema": 2,
+          "schema": 3,
           "cves": 1487,
           "davon_chromium_ausgenommen": 739,
           "davon_azure_linux_ausgenommen": 1683,
@@ -7824,6 +7844,497 @@
             "Exchange": 8,
             "Azure Linux": 1
           },
+          "kandidaten": [
+            {
+              "cve": "CVE-2026-96951",
+              "titel": "Windows Shell Security Feature Bypass Vulnerability",
+              "schwere": "Important",
+              "ausgenutzt": true,
+              "oeffentlich": false,
+              "kev": true,
+              "familien": [
+                "Edge",
+                "Office und SharePoint",
+                "Windows 10"
+              ]
+            },
+            {
+              "cve": "CVE-2026-111497",
+              "titel": "Google: CVE-2026-111497 Buffer overflow vulnerability in the Brotli decoder",
+              "schwere": "Important",
+              "ausgenutzt": false,
+              "oeffentlich": true,
+              "kev": true,
+              "familien": [
+                "Azure Linux",
+                "Entwicklung und Server",
+                "Windows (andere)"
+              ]
+            },
+            {
+              "cve": "CVE-2026-108398",
+              "titel": ".NET Framework Security Feature Bypass Vulnerability",
+              "schwere": "Important",
+              "ausgenutzt": false,
+              "oeffentlich": true,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-92707",
+              "titel": "MessagePack-CSharp Denial of Service Vulnerability",
+              "schwere": "",
+              "ausgenutzt": false,
+              "oeffentlich": true,
+              "kev": false,
+              "familien": [
+                "Entwicklung und Server",
+                "Windows (andere)"
+              ]
+            },
+            {
+              "cve": "CVE-2026-100202",
+              "titel": "Windows Message Queuing Queue Manager Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-100209",
+              "titel": "Microsoft Office Excel Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste",
+                "Office und SharePoint"
+              ]
+            },
+            {
+              "cve": "CVE-2026-100210",
+              "titel": "Microsoft Office Excel Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste",
+                "Office und SharePoint"
+              ]
+            },
+            {
+              "cve": "CVE-2026-100211",
+              "titel": "Microsoft Office Excel Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste",
+                "Office und SharePoint"
+              ]
+            },
+            {
+              "cve": "CVE-2026-100215",
+              "titel": "Microsoft Graphics Component Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-100219",
+              "titel": "Microsoft QUIC Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-100220",
+              "titel": "Windows Media Video Decoder Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-102211",
+              "titel": "Windows Virtualization-Based Security (VBS) Enclave Elevation of Privilege Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-102214",
+              "titel": "Windows Hyper-V Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-102225",
+              "titel": "Windows Text Shaping Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-102855",
+              "titel": "Microsoft Office Visio Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste",
+                "Office und SharePoint"
+              ]
+            },
+            {
+              "cve": "CVE-2026-102856",
+              "titel": "Microsoft Office Visio Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste",
+                "Office und SharePoint"
+              ]
+            },
+            {
+              "cve": "CVE-2026-102857",
+              "titel": "Microsoft Office Visio Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste",
+                "Office und SharePoint"
+              ]
+            },
+            {
+              "cve": "CVE-2026-102866",
+              "titel": "Microsoft Office SharePoint Elevation of Privilege Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Office und SharePoint"
+              ]
+            },
+            {
+              "cve": "CVE-2026-105014",
+              "titel": "Azure Pipelines Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste"
+              ]
+            },
+            {
+              "cve": "CVE-2026-105016",
+              "titel": "Microsoft QUIC Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Entwicklung und Server",
+                "Windows (andere)",
+                "Windows 11"
+              ]
+            },
+            {
+              "cve": "CVE-2026-105718",
+              "titel": "Microsoft Excel Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste",
+                "Office und SharePoint"
+              ]
+            },
+            {
+              "cve": "CVE-2026-105733",
+              "titel": "Windows Hyper-V Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-108130",
+              "titel": "Windows Virtualization-Based Security (VBS) Enclave Elevation of Privilege Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-108131",
+              "titel": "Active Directory Federation Services (AD FS) Spoofing Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-108399",
+              "titel": "Windows Hyper-V Elevation of Privilege Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-108400",
+              "titel": "HEVC Video Extensions Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-108439",
+              "titel": "Microsoft Office Word Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste",
+                "Office und SharePoint"
+              ]
+            },
+            {
+              "cve": "CVE-2026-108440",
+              "titel": "Microsoft Office Word Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste",
+                "Office und SharePoint"
+              ]
+            },
+            {
+              "cve": "CVE-2026-108448",
+              "titel": "Microsoft Office Outlook Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste",
+                "Office und SharePoint"
+              ]
+            },
+            {
+              "cve": "CVE-2026-108456",
+              "titel": "Azure AI Foundry Elevation of Privilege Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste"
+              ]
+            },
+            {
+              "cve": "CVE-2026-108457",
+              "titel": "Microsoft Windows PDF Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-108460",
+              "titel": "Windows Message Queuing Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-108467",
+              "titel": "Microsoft PostScript Printer Driver Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-108471",
+              "titel": "Windows Virtualization-Based Security (VBS) Enclave Elevation of Privilege Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-110063",
+              "titel": "VM Inspector for Azure Virtual Machines Elevation of Privilege Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste"
+              ]
+            },
+            {
+              "cve": "CVE-2026-21413",
+              "titel": "Raw Image Extension Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11"
+              ]
+            },
+            {
+              "cve": "CVE-2026-62840",
+              "titel": "Linux Kernel Elevation of Privilege Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": []
+            },
+            {
+              "cve": "CVE-2026-69435",
+              "titel": "Azure SRE Agent Elevation of Privilege Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste"
+              ]
+            },
+            {
+              "cve": "CVE-2026-69789",
+              "titel": "Windows Reliable Multicast Transport Driver (RMCAST) Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-69802",
+              "titel": "Network Device Enrollment Service (NDES) Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows Server"
+              ]
+            }
+          ],
           "nachtraege": [],
           "bewertung": {
             "groesse": "größer als üblich",
@@ -7831,15 +8342,15 @@
             "verhaeltnis_median": 9.12,
             "median_vormonate": 163,
             "dringlichkeit": "dringend",
-            "empfehlung": "Die 1 bereits ausgenutzten Lücken zuerst einspielen, danach die kritischen (95).",
-            "empfehlung_en": "Apply the 1 already exploited flaws first, then the critical ones (95)."
+            "empfehlung": "Zuerst die bereits ausgenutzte Lücke einspielen, danach die 95 als kritisch eingestuften.",
+            "empfehlung_en": "Apply the already exploited flaw first, then the 95 rated critical."
           }
         },
         "2026-Nov": {
           "id": "2026-Nov",
           "erste_veroeffentlichung": "2026-11-10T08:00:00",
           "aktuell": "2026-11-24T08:00:00",
-          "schema": 2,
+          "schema": 3,
           "cves": 1114,
           "davon_chromium_ausgenommen": 402,
           "davon_azure_linux_ausgenommen": 934,
@@ -7883,6 +8394,489 @@
             "Edge": 2,
             "Azure Linux": 1
           },
+          "kandidaten": [
+            {
+              "cve": "CVE-2026-124194",
+              "titel": "Microsoft Outlook Spoofing Vulnerability",
+              "schwere": "Moderate",
+              "ausgenutzt": true,
+              "oeffentlich": false,
+              "kev": true,
+              "familien": [
+                "Cloud und Dienste",
+                "Office und SharePoint"
+              ]
+            },
+            {
+              "cve": "CVE-2026-125350",
+              "titel": "Use after free in XML in Google Chrome prior to 157.0.8103.50 allowed a remote attacker to execute arbitrary code inside",
+              "schwere": "Important",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": true,
+              "familien": [
+                "Azure Linux",
+                "Edge"
+              ]
+            },
+            {
+              "cve": "CVE-2026-109459",
+              "titel": "Windows Message Queuing Queue Manager Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-109469",
+              "titel": "Entra Device Registration Elevation of Privilege Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste"
+              ]
+            },
+            {
+              "cve": "CVE-2026-109480",
+              "titel": "Profile Data Roaming Service (PDRS) Elevation of Privilege Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": []
+            },
+            {
+              "cve": "CVE-2026-109484",
+              "titel": "Azure App Service for Linux Elevation of Privilege Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste"
+              ]
+            },
+            {
+              "cve": "CVE-2026-109490",
+              "titel": "Authentication Methods Portal Extension Elevation of Privilege Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste"
+              ]
+            },
+            {
+              "cve": "CVE-2026-110043",
+              "titel": "Microsoft Office Outlook Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste",
+                "Office und SharePoint"
+              ]
+            },
+            {
+              "cve": "CVE-2026-110047",
+              "titel": "Microsoft Office Word Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste",
+                "Office und SharePoint"
+              ]
+            },
+            {
+              "cve": "CVE-2026-110067",
+              "titel": "Microsoft Office Word Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste",
+                "Office und SharePoint"
+              ]
+            },
+            {
+              "cve": "CVE-2026-110068",
+              "titel": "Microsoft Office Outlook Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste",
+                "Office und SharePoint"
+              ]
+            },
+            {
+              "cve": "CVE-2026-111285",
+              "titel": "Microsoft Office Word Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste",
+                "Office und SharePoint"
+              ]
+            },
+            {
+              "cve": "CVE-2026-111289",
+              "titel": "Microsoft Office Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste",
+                "Office und SharePoint"
+              ]
+            },
+            {
+              "cve": "CVE-2026-111309",
+              "titel": "Microsoft Office Outlook Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste",
+                "Office und SharePoint"
+              ]
+            },
+            {
+              "cve": "CVE-2026-112732",
+              "titel": "Microsoft Office Visio Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste",
+                "Office und SharePoint"
+              ]
+            },
+            {
+              "cve": "CVE-2026-112967",
+              "titel": "Windows Xbox Live Networking Service Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11"
+              ]
+            },
+            {
+              "cve": "CVE-2026-113749",
+              "titel": "Microsoft Windows Codecs Library Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Office und SharePoint",
+                "Windows 10",
+                "Windows 11"
+              ]
+            },
+            {
+              "cve": "CVE-2026-113752",
+              "titel": "Windows Print Spooler Components Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-113753",
+              "titel": "Windows Hyper-V Elevation of Privilege Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 11"
+              ]
+            },
+            {
+              "cve": "CVE-2026-113824",
+              "titel": "Microsoft Clarity Elevation of Privilege Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": []
+            },
+            {
+              "cve": "CVE-2026-113825",
+              "titel": "Windows SMB Server Network Transport Driver (srvnet.sys) Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-113856",
+              "titel": "Windows Hyper-V Elevation of Privilege Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-113859",
+              "titel": "Windows TCP/IP Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-113860",
+              "titel": "Windows Hyper-V Elevation of Privilege Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-113861",
+              "titel": "Windows Hyper-V Elevation of Privilege Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-113862",
+              "titel": "Windows Network Address Translation (NAT) Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-113864",
+              "titel": "Windows Hyper-V Elevation of Privilege Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-113865",
+              "titel": "Windows Hyper-V Elevation of Privilege Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-114160",
+              "titel": "Azure Managed Grafana Elevation of Privilege Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste"
+              ]
+            },
+            {
+              "cve": "CVE-2026-114169",
+              "titel": "Windows Raw Image Extension Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11"
+              ]
+            },
+            {
+              "cve": "CVE-2026-116710",
+              "titel": "Windows Message Queuing Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-116928",
+              "titel": "Windows Search Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-118145",
+              "titel": "Windows Function Discovery SSDP Provider Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-118146",
+              "titel": "Windows Active Directory Domain Services Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-118148",
+              "titel": "Active Directory Domain Services Elevation of Privilege Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Windows 10",
+                "Windows 11",
+                "Windows Server"
+              ]
+            },
+            {
+              "cve": "CVE-2026-118207",
+              "titel": "Microsoft Exchange Server Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Exchange"
+              ]
+            },
+            {
+              "cve": "CVE-2026-118285",
+              "titel": "Azure Machine Learning Elevation of Privilege Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste"
+              ]
+            },
+            {
+              "cve": "CVE-2026-118286",
+              "titel": "Azure Site Recovery Elevation of Privilege Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste"
+              ]
+            },
+            {
+              "cve": "CVE-2026-118292",
+              "titel": "Microsoft Office Excel Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste",
+                "Office und SharePoint"
+              ]
+            },
+            {
+              "cve": "CVE-2026-118296",
+              "titel": "Microsoft Office Excel Remote Code Execution Vulnerability",
+              "schwere": "Critical",
+              "ausgenutzt": false,
+              "oeffentlich": false,
+              "kev": false,
+              "familien": [
+                "Cloud und Dienste",
+                "Office und SharePoint"
+              ]
+            }
+          ],
           "nachtraege": [],
           "bewertung": {
             "groesse": "größer als üblich",
@@ -7890,9 +8884,715 @@
             "verhaeltnis_median": 6.1,
             "median_vormonate": 182.5,
             "dringlichkeit": "dringend",
-            "empfehlung": "Die 1 bereits ausgenutzten Lücken zuerst einspielen, danach die kritischen (80).",
-            "empfehlung_en": "Apply the 1 already exploited flaws first, then the critical ones (80)."
+            "empfehlung": "Zuerst die bereits ausgenutzte Lücke einspielen, danach die 80 als kritisch eingestuften.",
+            "empfehlung_en": "Apply the already exploited flaw first, then the 80 rated critical."
           }
+        }
+      }
+    },
+    "prioritaet": {
+      "stand": "2026-11-24",
+      "regeln": "1 im CISA-KEV, 2 vom Hersteller als ausgenutzt gemeldet, 3 EPSS ab 10 %, 4 vom Hersteller als kritisch eingestuft",
+      "gesamt": 49,
+      "liste": [
+        {
+          "stufe": 1,
+          "epss": 0.24894,
+          "quelle": "Microsoft",
+          "titel": "Microsoft Outlook Spoofing Vulnerability",
+          "cves": [
+            "CVE-2026-124194"
+          ],
+          "grund": "Steht im CISA-KEV: Die Lücke wird nachweislich angegriffen.",
+          "grund_en": "Listed in the CISA KEV: the flaw is proven to be attacked.",
+          "betrifft": "Cloud und Dienste, Office und SharePoint",
+          "datum": "2026-11-10",
+          "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-124194",
+          "rang": 1
+        },
+        {
+          "stufe": 1,
+          "epss": 0.068,
+          "quelle": "Microsoft",
+          "titel": "Use after free in XML in Google Chrome prior to 157.0.8103.50 allowed a remote attacker to execute arbitrary code inside",
+          "cves": [
+            "CVE-2026-125350"
+          ],
+          "grund": "Steht im CISA-KEV: Die Lücke wird nachweislich angegriffen.",
+          "grund_en": "Listed in the CISA KEV: the flaw is proven to be attacked.",
+          "betrifft": "Azure Linux, Edge",
+          "datum": "2026-11-10",
+          "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-125350",
+          "rang": 2
+        },
+        {
+          "stufe": 1,
+          "epss": null,
+          "quelle": "Ubuntu Security Notices",
+          "titel": "Tomcat vulnerabilities",
+          "cves": [
+            "CVE-2025-24813"
+          ],
+          "grund": "Schließt 1 Lücke(n) aus dem CISA-KEV: nachweislich angegriffen.",
+          "grund_en": "Closes 1 flaw(s) from the CISA KEV: proven to be attacked.",
+          "betrifft": "Ubuntu Security Notices",
+          "datum": "2026-11-23",
+          "link": "https://ubuntu.com/security/notices/USN-9186-1",
+          "rang": 3
+        },
+        {
+          "stufe": 1,
+          "epss": null,
+          "quelle": "Red Hat Security Advisories",
+          "titel": "RHSA-2026:98609",
+          "cves": [
+            "CVE-2026-109618",
+            "CVE-2026-109619"
+          ],
+          "grund": "Schließt 2 Lücke(n) aus dem CISA-KEV: nachweislich angegriffen.",
+          "grund_en": "Closes 2 flaw(s) from the CISA KEV: proven to be attacked.",
+          "betrifft": "Red Hat Security Advisories",
+          "datum": "2026-11-11",
+          "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:98609.json",
+          "rang": 4
+        },
+        {
+          "stufe": 1,
+          "epss": null,
+          "quelle": "Red Hat Security Advisories",
+          "titel": "RHSA-2026:102223",
+          "cves": [
+            "CVE-2026-111497"
+          ],
+          "grund": "Schließt 1 Lücke(n) aus dem CISA-KEV: nachweislich angegriffen.",
+          "grund_en": "Closes 1 flaw(s) from the CISA KEV: proven to be attacked.",
+          "betrifft": "Red Hat Security Advisories",
+          "datum": "2026-11-23",
+          "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102223.json",
+          "rang": 5
+        },
+        {
+          "stufe": 1,
+          "epss": null,
+          "quelle": "Cisco Security Advisories",
+          "titel": "Cisco BroadWorks Out-of-Band Blind XML External Entity Injection Vulnerability",
+          "cves": [
+            "CVE-2026-20320"
+          ],
+          "grund": "Schließt 1 Lücke(n) aus dem CISA-KEV: nachweislich angegriffen.",
+          "grund_en": "Closes 1 flaw(s) from the CISA KEV: proven to be attacked.",
+          "betrifft": "Cisco Security Advisories",
+          "datum": "2026-11-13",
+          "link": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-bworks-xxe-uwUd7CEt",
+          "rang": 6
+        },
+        {
+          "stufe": 1,
+          "epss": null,
+          "quelle": "Ubuntu Security Notices",
+          "titel": "Linux kernel (HWE) vulnerabilities",
+          "cves": [
+            "CVE-2026-53266"
+          ],
+          "grund": "Schließt 1 Lücke(n) aus dem CISA-KEV: nachweislich angegriffen.",
+          "grund_en": "Closes 1 flaw(s) from the CISA KEV: proven to be attacked.",
+          "betrifft": "Ubuntu Security Notices",
+          "datum": "2026-11-12",
+          "link": "https://ubuntu.com/security/notices/USN-9066-1",
+          "rang": 7
+        },
+        {
+          "stufe": 1,
+          "epss": null,
+          "quelle": "Ubuntu Security Notices",
+          "titel": "Linux kernel (NVIDIA) vulnerabilities",
+          "cves": [
+            "CVE-2026-53362"
+          ],
+          "grund": "Schließt 1 Lücke(n) aus dem CISA-KEV: nachweislich angegriffen.",
+          "grund_en": "Closes 1 flaw(s) from the CISA KEV: proven to be attacked.",
+          "betrifft": "Ubuntu Security Notices",
+          "datum": "2026-11-24",
+          "link": "https://ubuntu.com/security/notices/USN-9192-1",
+          "rang": 8
+        }
+      ]
+    },
+    "hersteller": {
+      "meta": {
+        "hinweis": "Nur Zählung und Verweise auf die Meldungen der Hersteller. Schweregrade stammen von den Herstellern und fehlen, wo sie nicht geliefert werden.",
+        "abgerufen_am": "2026-11-24T23:48:57+00:00"
+      },
+      "quellen": {
+        "ubuntu": {
+          "id": "ubuntu",
+          "name": "Ubuntu Security Notices",
+          "typ": "distribution",
+          "url": "https://ubuntu.com/security/notices",
+          "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link",
+          "im_kev_30": 13,
+          "im_kev_meldungen": [
+            {
+              "id": "USN-9192-1",
+              "datum": "2026-11-24",
+              "titel": "Linux kernel (NVIDIA) vulnerabilities",
+              "link": "https://ubuntu.com/security/notices/USN-9192-1",
+              "cves_kev": [
+                "CVE-2026-53362"
+              ]
+            },
+            {
+              "id": "USN-9186-1",
+              "datum": "2026-11-23",
+              "titel": "Tomcat vulnerabilities",
+              "link": "https://ubuntu.com/security/notices/USN-9186-1",
+              "cves_kev": [
+                "CVE-2025-24813"
+              ]
+            },
+            {
+              "id": "USN-9066-1",
+              "datum": "2026-11-12",
+              "titel": "Linux kernel (HWE) vulnerabilities",
+              "link": "https://ubuntu.com/security/notices/USN-9066-1",
+              "cves_kev": [
+                "CVE-2026-53266",
+                "CVE-2026-53362"
+              ]
+            },
+            {
+              "id": "USN-9040-1",
+              "datum": "2026-11-11",
+              "titel": "Linux kernel (Low Latency NVIDIA) vulnerabilities",
+              "link": "https://ubuntu.com/security/notices/USN-9040-1",
+              "cves_kev": [
+                "CVE-2026-53362"
+              ]
+            },
+            {
+              "id": "USN-9029-1",
+              "datum": "2026-11-10",
+              "titel": "Linux kernel (Raspberry Pi) vulnerabilities",
+              "link": "https://ubuntu.com/security/notices/USN-9029-1",
+              "cves_kev": [
+                "CVE-2026-53266"
+              ]
+            },
+            {
+              "id": "USN-9026-1",
+              "datum": "2026-11-10",
+              "titel": "Linux kernel (Azure) vulnerabilities",
+              "link": "https://ubuntu.com/security/notices/USN-9026-1",
+              "cves_kev": [
+                "CVE-2026-53362"
+              ]
+            },
+            {
+              "id": "USN-9025-1",
+              "datum": "2026-11-10",
+              "titel": "Linux kernel vulnerabilities",
+              "link": "https://ubuntu.com/security/notices/USN-9025-1",
+              "cves_kev": [
+                "CVE-2026-53266",
+                "CVE-2026-53362"
+              ]
+            },
+            {
+              "id": "USN-9024-1",
+              "datum": "2026-11-10",
+              "titel": "Linux kernel vulnerabilities",
+              "link": "https://ubuntu.com/security/notices/USN-9024-1",
+              "cves_kev": [
+                "CVE-2026-53362"
+              ]
+            }
+          ],
+          "neu_7": 57,
+          "neu_30": 272,
+          "kritisch_30": null,
+          "hoch_30": null,
+          "cves_30": 6295,
+          "schwere_bekannt": false,
+          "letzte": [
+            {
+              "id": "USN-9192-1",
+              "datum": "2026-11-24",
+              "titel": "Linux kernel (NVIDIA) vulnerabilities",
+              "link": "https://ubuntu.com/security/notices/USN-9192-1",
+              "schwere": null
+            },
+            {
+              "id": "USN-9191-1",
+              "datum": "2026-11-24",
+              "titel": "Linux kernel (Azure) vulnerabilities",
+              "link": "https://ubuntu.com/security/notices/USN-9191-1",
+              "schwere": null
+            },
+            {
+              "id": "USN-9190-1",
+              "datum": "2026-11-24",
+              "titel": "Linux kernel vulnerabilities",
+              "link": "https://ubuntu.com/security/notices/USN-9190-1",
+              "schwere": null
+            },
+            {
+              "id": "USN-9174-2",
+              "datum": "2026-11-24",
+              "titel": "Linux kernel (Low Latency NVIDIA) vulnerabilities",
+              "link": "https://ubuntu.com/security/notices/USN-9174-2",
+              "schwere": null
+            },
+            {
+              "id": "USN-9173-3",
+              "datum": "2026-11-24",
+              "titel": "Linux kernel (NVIDIA) vulnerabilities",
+              "link": "https://ubuntu.com/security/notices/USN-9173-3",
+              "schwere": null
+            },
+            {
+              "id": "USN-9170-4",
+              "datum": "2026-11-24",
+              "titel": "Linux kernel (Azure) vulnerabilities",
+              "link": "https://ubuntu.com/security/notices/USN-9170-4",
+              "schwere": null
+            },
+            {
+              "id": "USN-9168-4",
+              "datum": "2026-11-24",
+              "titel": "Linux kernel (Azure) vulnerabilities",
+              "link": "https://ubuntu.com/security/notices/USN-9168-4",
+              "schwere": null
+            },
+            {
+              "id": "USN-9167-3",
+              "datum": "2026-11-24",
+              "titel": "Linux kernel vulnerabilities",
+              "link": "https://ubuntu.com/security/notices/USN-9167-3",
+              "schwere": null
+            },
+            {
+              "id": "USN-9165-2",
+              "datum": "2026-11-24",
+              "titel": "Linux kernel vulnerabilities",
+              "link": "https://ubuntu.com/security/notices/USN-9165-2",
+              "schwere": null
+            },
+            {
+              "id": "USN-9189-1",
+              "datum": "2026-11-23",
+              "titel": "Qt5Compat vulnerability",
+              "link": "https://ubuntu.com/security/notices/USN-9189-1",
+              "schwere": null
+            }
+          ],
+          "abgerufen_am": "2026-11-24T23:48:57+00:00",
+          "status": "ok"
+        },
+        "debian": {
+          "id": "debian",
+          "name": "Debian Security Advisories",
+          "typ": "distribution",
+          "url": "https://www.debian.org/security/",
+          "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link",
+          "im_kev_30": 0,
+          "im_kev_meldungen": [],
+          "neu_7": 23,
+          "neu_30": 29,
+          "kritisch_30": null,
+          "hoch_30": null,
+          "cves_30": 26,
+          "schwere_bekannt": false,
+          "letzte": [
+            {
+              "id": "DSA-6657-1",
+              "datum": "2026-11-24",
+              "titel": "DSA-6657-1 libzstd - security update",
+              "link": "https://lists.debian.org/debian-security-announce/2026/msg00579.html",
+              "schwere": null
+            },
+            {
+              "id": "DSA-6655-1",
+              "datum": "2026-11-24",
+              "titel": "DSA-6655-1 flatpak - security update",
+              "link": "https://lists.debian.org/debian-security-announce/2026/msg00577.html",
+              "schwere": null
+            },
+            {
+              "id": "DSA-6654-1",
+              "datum": "2026-11-23",
+              "titel": "DSA-6654-1 mediawiki - security update",
+              "link": "https://lists.debian.org/debian-security-announce/2026/msg00576.html",
+              "schwere": null
+            },
+            {
+              "id": "DSA-6653-1",
+              "datum": "2026-11-23",
+              "titel": "DSA-6653-1 chromium - security update",
+              "link": "https://lists.debian.org/debian-security-announce/2026/msg00575.html",
+              "schwere": null
+            },
+            {
+              "id": "DSA-6652-1",
+              "datum": "2026-11-22",
+              "titel": "DSA-6652-1 linux - security update",
+              "link": "https://lists.debian.org/debian-security-announce/2026/msg00574.html",
+              "schwere": null
+            },
+            {
+              "id": "DSA-6651-1",
+              "datum": "2026-11-22",
+              "titel": "DSA-6651-1 libeot - security update",
+              "link": "https://lists.debian.org/debian-security-announce/2026/msg00573.html",
+              "schwere": null
+            },
+            {
+              "id": "DSA-6650-1",
+              "datum": "2026-11-22",
+              "titel": "DSA-6650-1 krb5 - security update",
+              "link": "https://lists.debian.org/debian-security-announce/2026/msg00572.html",
+              "schwere": null
+            },
+            {
+              "id": "DSA-6649-1",
+              "datum": "2026-11-22",
+              "titel": "DSA-6649-1 anope - security update",
+              "link": "https://lists.debian.org/debian-security-announce/2026/msg00571.html",
+              "schwere": null
+            },
+            {
+              "id": "DSA-6648-1",
+              "datum": "2026-11-22",
+              "titel": "DSA-6648-1 python-django - security update",
+              "link": "https://lists.debian.org/debian-security-announce/2026/msg00570.html",
+              "schwere": null
+            },
+            {
+              "id": "DSA-6647-1",
+              "datum": "2026-11-22",
+              "titel": "DSA-6647-1 webkit2gtk - security update",
+              "link": "https://lists.debian.org/debian-security-announce/2026/msg00569.html",
+              "schwere": null
+            }
+          ],
+          "abgerufen_am": "2026-11-24T23:48:57+00:00",
+          "status": "ok"
+        },
+        "redhat": {
+          "id": "redhat",
+          "name": "Red Hat Security Advisories",
+          "typ": "distribution",
+          "url": "https://access.redhat.com/security/security-updates/",
+          "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link",
+          "im_kev_30": 17,
+          "im_kev_meldungen": [
+            {
+              "id": "RHSA-2026:102223",
+              "datum": "2026-11-23",
+              "titel": "RHSA-2026:102223",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102223.json",
+              "cves_kev": [
+                "CVE-2026-111497"
+              ]
+            },
+            {
+              "id": "RHSA-2026:100634",
+              "datum": "2026-11-19",
+              "titel": "RHSA-2026:100634",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:100634.json",
+              "cves_kev": [
+                "CVE-2026-111497"
+              ]
+            },
+            {
+              "id": "RHSA-2026:100552",
+              "datum": "2026-11-17",
+              "titel": "RHSA-2026:100552",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:100552.json",
+              "cves_kev": [
+                "CVE-2026-111497"
+              ]
+            },
+            {
+              "id": "RHSA-2026:99044",
+              "datum": "2026-11-11",
+              "titel": "RHSA-2026:99044",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:99044.json",
+              "cves_kev": [
+                "CVE-2026-111497"
+              ]
+            },
+            {
+              "id": "RHSA-2026:98609",
+              "datum": "2026-11-11",
+              "titel": "RHSA-2026:98609",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:98609.json",
+              "cves_kev": [
+                "CVE-2026-109618",
+                "CVE-2026-109619"
+              ]
+            },
+            {
+              "id": "RHSA-2026:98522",
+              "datum": "2026-11-11",
+              "titel": "RHSA-2026:98522",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:98522.json",
+              "cves_kev": [
+                "CVE-2026-111497"
+              ]
+            },
+            {
+              "id": "RHSA-2026:96282",
+              "datum": "2026-11-11",
+              "titel": "RHSA-2026:96282",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:96282.json",
+              "cves_kev": [
+                "CVE-2026-111497"
+              ]
+            },
+            {
+              "id": "RHSA-2026:95755",
+              "datum": "2026-11-11",
+              "titel": "RHSA-2026:95755",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:95755.json",
+              "cves_kev": [
+                "CVE-2026-111497"
+              ]
+            }
+          ],
+          "neu_7": 301,
+          "neu_30": 1000,
+          "kritisch_30": 141,
+          "hoch_30": 706,
+          "cves_30": 1944,
+          "schwere_bekannt": true,
+          "letzte": [
+            {
+              "id": "RHSA-2026:102823",
+              "datum": "2026-11-24",
+              "titel": "RHSA-2026:102823",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102823.json",
+              "schwere": "kritisch"
+            },
+            {
+              "id": "RHSA-2026:102713",
+              "datum": "2026-11-24",
+              "titel": "RHSA-2026:102713",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102713.json",
+              "schwere": "kritisch"
+            },
+            {
+              "id": "RHSA-2026:102696",
+              "datum": "2026-11-23",
+              "titel": "RHSA-2026:102696",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102696.json",
+              "schwere": "kritisch"
+            },
+            {
+              "id": "RHSA-2026:102695",
+              "datum": "2026-11-23",
+              "titel": "RHSA-2026:102695",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102695.json",
+              "schwere": "kritisch"
+            },
+            {
+              "id": "RHSA-2026:102684",
+              "datum": "2026-11-23",
+              "titel": "RHSA-2026:102684",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102684.json",
+              "schwere": "kritisch"
+            },
+            {
+              "id": "RHSA-2026:102300",
+              "datum": "2026-11-23",
+              "titel": "RHSA-2026:102300",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102300.json",
+              "schwere": "kritisch"
+            },
+            {
+              "id": "RHSA-2026:102294",
+              "datum": "2026-11-23",
+              "titel": "RHSA-2026:102294",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102294.json",
+              "schwere": "hoch"
+            },
+            {
+              "id": "RHSA-2026:102293",
+              "datum": "2026-11-23",
+              "titel": "RHSA-2026:102293",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102293.json",
+              "schwere": "hoch"
+            },
+            {
+              "id": "RHSA-2026:102288",
+              "datum": "2026-11-23",
+              "titel": "RHSA-2026:102288",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102288.json",
+              "schwere": "hoch"
+            },
+            {
+              "id": "RHSA-2026:102286",
+              "datum": "2026-11-23",
+              "titel": "RHSA-2026:102286",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102286.json",
+              "schwere": "hoch"
+            }
+          ],
+          "abgerufen_am": "2026-11-24T23:48:57+00:00",
+          "status": "ok"
+        },
+        "cisco": {
+          "id": "cisco",
+          "name": "Cisco Security Advisories",
+          "typ": "hersteller",
+          "url": "https://sec.cloudapps.cisco.com/security/center/publicationListing.x",
+          "lizenz": "Feed nennt nur ein Urheberrecht, keine Nutzungsbedingungen; nur Zählung, Kennung, Titel, Datum, Link",
+          "im_kev_30": 7,
+          "im_kev_meldungen": [
+            {
+              "id": "cisco-sa-oct2026-node-js-Jj3SQ19u",
+              "datum": "2026-11-24",
+              "titel": "Vulnerabilities in Node.js and Brotli Affecting Cisco Products: October 2026",
+              "link": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-oct2026-node-js-Jj3SQ19u",
+              "cves_kev": [
+                "CVE-2026-111497"
+              ]
+            },
+            {
+              "id": "cisco-sa-vcs-static-cred-hr7EWZ8t",
+              "datum": "2026-11-23",
+              "titel": "Cisco Expressway Series Remote Code Execution Vulnerability",
+              "link": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-vcs-static-cred-hr7EWZ8t",
+              "cves_kev": [
+                "CVE-2026-76466"
+              ]
+            },
+            {
+              "id": "cisco-sa-bworks-xxe-uwUd7CEt",
+              "datum": "2026-11-13",
+              "titel": "Cisco BroadWorks Out-of-Band Blind XML External Entity Injection Vulnerability",
+              "link": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-bworks-xxe-uwUd7CEt",
+              "cves_kev": [
+                "CVE-2026-20320"
+              ]
+            },
+            {
+              "id": "cisco-sa-php-october26-Jj384Daq",
+              "datum": "2026-11-06",
+              "titel": "Vulnerabilities in PHP Affecting Cisco Products: October 2026",
+              "link": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-php-october26-Jj384Daq",
+              "cves_kev": [
+                "CVE-2026-109618",
+                "CVE-2026-109619"
+              ]
+            },
+            {
+              "id": "cisco-sa-esa-inj-2bLVGmhX",
+              "datum": "2026-11-03",
+              "titel": "Cisco Secure Email Gateway SQL Injection Vulnerability",
+              "link": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-esa-inj-2bLVGmhX",
+              "cves_kev": [
+                "CVE-2026-76461"
+              ]
+            },
+            {
+              "id": "cisco-sa-sdwan-rpa-EHchtZk",
+              "datum": "2026-10-28",
+              "titel": "Cisco Catalyst SD-WAN Controller Authentication Bypass Vulnerability",
+              "link": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-sdwan-rpa-EHchtZk",
+              "cves_kev": [
+                "CVE-2026-20127"
+              ]
+            },
+            {
+              "id": "cisco-sa-asaftd-tunnel-dos-s6mgkb75",
+              "datum": "2026-10-28",
+              "titel": "Cisco Secure Firewall Adaptive Security Appliance and Secure Firewall Threat Defense Software Remote Access SSL VPN Tunnel Denial of Service",
+              "link": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-asaftd-tunnel-dos-s6mgkb75",
+              "cves_kev": [
+                "CVE-2026-76418"
+              ]
+            }
+          ],
+          "neu_7": 7,
+          "neu_30": 21,
+          "kritisch_30": 7,
+          "hoch_30": 9,
+          "cves_30": 58,
+          "schwere_bekannt": true,
+          "letzte": [
+            {
+              "id": "cisco-sa-phpaftershell-nov-2026-kT9pL4Xe",
+              "datum": "2026-11-24",
+              "titel": "Vulnerability in PHP Affecting Cisco Products: November 2026",
+              "link": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-phpaftershell-nov-2026-kT9pL4Xe",
+              "schwere": "kritisch"
+            },
+            {
+              "id": "cisco-sa-oct2026-node-js-Jj3SQ19u",
+              "datum": "2026-11-24",
+              "titel": "Vulnerabilities in Node.js and Brotli Affecting Cisco Products: October 2026",
+              "link": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-oct2026-node-js-Jj3SQ19u",
+              "schwere": "hoch"
+            },
+            {
+              "id": "cisco-sa-nginx-nov-2026-e8jska2s",
+              "datum": "2026-11-24",
+              "titel": "Vulnerabilities in nginx Affecting Cisco Products: November 2026",
+              "link": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-nginx-nov-2026-e8jska2s",
+              "schwere": "hoch"
+            },
+            {
+              "id": "cisco-sa-clamav-multi-e93M3vdA",
+              "datum": "2026-11-24",
+              "titel": "ClamAV Vulnerabilities Affecting Cisco Products: November 2026",
+              "link": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-clamav-multi-e93M3vdA",
+              "schwere": "hoch"
+            },
+            {
+              "id": "cisco-sa-vcs-static-cred-hr7EWZ8t",
+              "datum": "2026-11-23",
+              "titel": "Cisco Expressway Series Remote Code Execution Vulnerability",
+              "link": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-vcs-static-cred-hr7EWZ8t",
+              "schwere": "kritisch"
+            },
+            {
+              "id": "cisco-sa-nov2026-java-rce-eCa6ss9z",
+              "datum": "2026-11-23",
+              "titel": "Vulnerability in Oracle OpenJDK (Java4Shell) Affecting Cisco Products: November 2026",
+              "link": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-nov2026-java-rce-eCa6ss9z",
+              "schwere": "hoch"
+            },
+            {
+              "id": "cisco-sa-emudhra-info-ScS22A1r",
+              "datum": "2026-11-20",
+              "titel": "Cisco Informational for Emergency Distrust of eMudhra Root and Intermediate Certificate Authorities",
+              "link": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-emudhra-info-ScS22A1r",
+              "schwere": null
+            },
+            {
+              "id": "cisco-sa-bworks-xxe-uwUd7CEt",
+              "datum": "2026-11-13",
+              "titel": "Cisco BroadWorks Out-of-Band Blind XML External Entity Injection Vulnerability",
+              "link": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-bworks-xxe-uwUd7CEt",
+              "schwere": "hoch"
+            },
+            {
+              "id": "cisco-sa-ise-auth-bypass-1-MxcTNgwx",
+              "datum": "2026-11-10",
+              "titel": "Cisco Identity Services Engine Authorization Bypass Vulnerabilities",
+              "link": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-ise-auth-bypass-1-MxcTNgwx",
+              "schwere": "mittel"
+            },
+            {
+              "id": "cisco-sa-hardening-meraki-os-drbEX9GH",
+              "datum": "2026-11-09",
+              "titel": "Cisco Meraki Security Hardening Release: October 2026",
+              "link": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-hardening-meraki-os-drbEX9GH",
+              "schwere": "kritisch"
+            }
+          ],
+          "abgerufen_am": "2026-11-24T23:48:57+00:00",
+          "status": "ok"
         }
       }
     }

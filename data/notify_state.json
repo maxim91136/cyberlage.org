@@ -2323,5 +2323,62 @@
    "• Idunno – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-129432\">CVE-2026-131914</a>",
    "• Optimizely – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-129010\">CVE-2026-132224</a>"
   ]
- }
+ },
+ "patches": {
+  "ms": {
+   "2025-Nov": {
+    "aktuell": "2026-11-21T01:14:05",
+    "nachtraege": 0
+   },
+   "2025-Dec": {
+    "aktuell": "2026-11-21T01:14:39",
+    "nachtraege": 0
+   },
+   "2026-Jan": {
+    "aktuell": "2026-11-21T01:15:28",
+    "nachtraege": 0
+   },
+   "2026-Feb": {
+    "aktuell": "2026-11-21T01:11:37",
+    "nachtraege": 0
+   },
+   "2026-Mar": {
+    "aktuell": "2026-11-21T01:20:27",
+    "nachtraege": 0
+   },
+   "2026-Apr": {
+    "aktuell": "2026-11-21T01:15:37",
+    "nachtraege": 0
+   },
+   "2026-May": {
+    "aktuell": "2026-11-23T19:04:10",
+    "nachtraege": 0
+   },
+   "2026-Jun": {
+    "aktuell": "2026-11-21T01:20:45",
+    "nachtraege": 0
+   },
+   "2026-Jul": {
+    "aktuell": "2026-11-23T14:05:47",
+    "nachtraege": 0
+   },
+   "2026-Aug": {
+    "aktuell": "2026-11-21T14:03:39",
+    "nachtraege": 0
+   },
+   "2026-Sep": {
+    "aktuell": "2026-11-23T19:04:44",
+    "nachtraege": 0
+   },
+   "2026-Oct": {
+    "aktuell": "2026-11-24T01:27:08",
+    "nachtraege": 0
+   },
+   "2026-Nov": {
+    "aktuell": "2026-11-24T08:00:00",
+    "nachtraege": 0
+   }
+  }
+ },
+ "fazit_gesendet": null
 }
