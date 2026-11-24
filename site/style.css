@@ -319,3 +319,5 @@ html.alarm .marke{animation:flackern 6s infinite}
 .tempo-s{margin:0;font-size:16px;line-height:1.35;color:var(--text);max-width:34em}.tempo .kern{margin-top:14px;padding-top:12px;grid-template-columns:repeat(2,minmax(0,1fr));border-top:0}
 .lage.st-hoch .tempo .kern .kk:first-child .w,.lage.st-erhoeht .tempo .kern .kk:first-child .w,.lage.st-niedrig .tempo .kern .kk:first-child .w{color:var(--text)}
 @media (max-width:420px){.tempo .kern{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tempo-st{font-weight:600}.tempo-st.st-niedrig{color:var(--green)}.tempo-st.st-erhoeht{color:var(--amber)}.tempo-st.st-hoch{color:#ff8a7a}
+.tempo-k{font-size:15px;color:var(--text)}.tempo-k b{color:var(--green)}.tempo-d{margin:8px 0 0;max-width:46em}

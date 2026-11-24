@@ -63,5 +63,19 @@
       "hinweis_en": "Compare the KEV list daily, patch internet-facing systems first and shorten patch deadlines."
     }
   },
-  "grundlage": "Der Radar-Score ist 50, wenn die Signale im Schnitt ihre Regelschwelle erreichen, und 100 bei im Schnitt doppelter Schwelle. Die Stufen hängen am Dreier-Pegel, gemessen an seiner Verteilung der letzten 36 Monate (30-Tage-Zählung, 1098 Tage, Höchstwert 47): 28 entspricht dem 25. Perzentil (14 Einträge), 38 dem Median (19), 50 dem 75. Perzentil (25, Schwelle erhöht), 64 dem 90. Perzentil (32, Schwelle hoch), 80 etwa dem 98. Perzentil (40 Einträge). Gerundet auf 30, 50, 64 und 80. Vorläufig, weil der Radar-Score selbst noch keine eigene Verteilung hat; nach etwa 90 Tagen Tagesstand werden die Stufen aus seiner eigenen Verteilung neu abgeleitet."
+  "grundlage": "Der Radar-Score ist 50, wenn die Signale im Schnitt ihre Regelschwelle erreichen, und 100 bei im Schnitt doppelter Schwelle. Die Stufen hängen am Dreier-Pegel, gemessen an seiner Verteilung der letzten 36 Monate (30-Tage-Zählung, 1098 Tage, Höchstwert 47): 28 entspricht dem 25. Perzentil (14 Einträge), 38 dem Median (19), 50 dem 75. Perzentil (25, Schwelle erhöht), 64 dem 90. Perzentil (32, Schwelle hoch), 80 etwa dem 98. Perzentil (40 Einträge). Gerundet auf 30, 50, 64 und 80. Vorläufig, weil der Radar-Score selbst noch keine eigene Verteilung hat; nach etwa 90 Tagen Tagesstand werden die Stufen aus seiner eigenen Verteilung neu abgeleitet.",
+  "tempo": {
+    "niedrig": {
+      "satz": "Das Dreier-Tempo ist niedrig: Neue Lücken kommen nicht schneller in den KEV als üblich.",
+      "satz_en": "The Dreier Pace is low: new flaws are not reaching the KEV faster than usual."
+    },
+    "erhoeht": {
+      "satz": "Das Dreier-Tempo ist erhöht: Neue Lücken kommen schneller in den KEV als in drei Vierteln der letzten 36 Monate.",
+      "satz_en": "The Dreier Pace is elevated: new flaws reach the KEV faster than in three quarters of the last 36 months."
+    },
+    "hoch": {
+      "satz": "Das Dreier-Tempo ist hoch: Neue Lücken kommen so schnell in den KEV wie nur in jedem zehnten der letzten 36 Monate.",
+      "satz_en": "The Dreier Pace is high: new flaws reach the KEV as fast as in only one in ten of the last 36 months."
+    }
+  }
 }

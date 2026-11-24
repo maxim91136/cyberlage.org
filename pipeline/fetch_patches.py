@@ -244,9 +244,10 @@ def aktualisiere(alt, liste_json, hole_dok, kev_cves, jetzt):
 
 
 # ---------- Stufe 2 und 3: Distributionen und Hersteller ----------
-UBUNTU_URL = "https://ubuntu.com/security/notices.json?limit=100&order=newest"
-REDHAT_URL = "https://access.redhat.com/hydra/rest/securitydata/cvrf.json?after=%s&per_page=500"
-DEBIAN_URLS = ["https://www.debian.org/security/dsa-long.en.rdf", "https://www.debian.org/security/dsa.en.rdf"]
+UBUNTU_URL = "https://ubuntu.com/security/notices.json?limit=20&offset=%d"
+UBUNTU_SEITEN = 20  # höchstens 400 Meldungen, genug für 30 Tage
+REDHAT_URLS = ["https://access.redhat.com/hydra/rest/securitydata/cvrf.json?after=%s", "https://access.redhat.com/hydra/rest/securitydata/cvrf.json?after=%s&per_page=500"]
+DEBIAN_URLS = ["https://www.debian.org/security/dsa-long.rdf", "https://www.debian.org/security/dsa.rdf", "https://www.debian.org/security/dsa-long.en.rdf", "https://www.debian.org/security/dsa.en.rdf"]
 CISCO_URL = "https://sec.cloudapps.cisco.com/security/center/psirtrss20/CiscoSecurityAdvisory.xml"
 HERSTELLER_DATEI = WURZEL / "data" / "patches" / "hersteller.json"
 CVE_RE = re.compile(r"CVE-\d{4}-\d{4,7}")
@@ -366,9 +367,24 @@ QUELLEN = [
 
 def hole_quelle(qid, heute, lade=lade_roh):
     if qid == "ubuntu":
-        return parse_ubuntu(json.loads(lade(UBUNTU_URL).decode("utf-8")))
+        alle = []
+        for seite in range(UBUNTU_SEITEN):
+            teil = parse_ubuntu(json.loads(lade(UBUNTU_URL % (seite * 20)).decode("utf-8")))
+            if not teil:
+                break
+            alle += teil
+            if min(i["datum"] for i in teil) < heute - timedelta(days=FENSTER):
+                break
+        return list({i["id"]: i for i in alle}.values())  # doppelte Kennungen (Seitenüberlappung) nur einmal
     if qid == "redhat":
-        return parse_redhat(json.loads(lade(REDHAT_URL % (heute - timedelta(days=FENSTER + 2)).isoformat()).decode("utf-8")))
+        ab = (heute - timedelta(days=FENSTER + 2)).isoformat()
+        letzter = None
+        for u in REDHAT_URLS:
+            try:
+                return parse_redhat(json.loads(lade(u % ab).decode("utf-8")))
+            except Exception as e:
+                letzter = e
+        raise QuellFehler("Red Hat: %s" % letzter)
     if qid == "debian":
         letzter = None
         for u in DEBIAN_URLS:

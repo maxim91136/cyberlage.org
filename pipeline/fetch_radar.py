@@ -121,6 +121,42 @@ def zeit_bis_aufnahme(kev_eintraege, veroeff, heute):
             "ohne_datum": sum(1 for x in kev_eintraege if x["hinzugefuegt"][:7] >= ANFANG and not veroeff.get(x["cve"]))}
 
 
+def tempo_median(kev_eintraege, veroeff, ende, fenster_tage=90):
+    """Median der Tage von der Veröffentlichung bis zur KEV-Aufnahme (nur "frische" Lücken) der im Fenster aufgenommenen Einträge."""
+    a = ende - timedelta(days=fenster_tage)
+    t = []
+    for x in kev_eintraege:
+        v = veroeff.get(x["cve"])
+        d = tag(x["hinzugefuegt"])
+        if v and a < d <= ende:
+            t.append(max((d - tag(v)).days, 0))
+    frisch = [d for d in t if d <= FRISCH_TAGE]
+    return (statistics.median(frisch) if frisch else None), len(frisch)
+
+
+def tempo_reihe(kev_eintraege, veroeff, heute, tage=400, fenster_tage=90, mindest_n=10):
+    """Tagesreihe des Dreier-Tempos: gleitender 90-Tage-Median der Tage bis zur KEV-Aufnahme. Aus festen Daten berechnet,
+    deshalb jederzeit neu ableitbar. Tage mit weniger als mindest_n frischen Lücken bleiben ohne Wert."""
+    out = []
+    for i in range(tage, -1, -1):
+        d = heute - timedelta(days=i)
+        med, n = tempo_median(kev_eintraege, veroeff, d, fenster_tage)
+        if med is not None and n >= mindest_n:
+            out.append({"stand": d.isoformat(), "wert": med, "n": n})
+    return out
+
+
+def tempo_stufe(median, n, cfg):
+    """Dreier-Tempo: je kleiner der Median, desto schneller werden Lücken ausgenutzt gemeldet. Stufen nach festen Marken (Tage)."""
+    if not cfg or median is None or n is None or n < cfg.get("mindest_n", 10):
+        return None
+    if median <= cfg["hoch_bis"]:
+        return "hoch"
+    if median <= cfg["erhoeht_bis"]:
+        return "erhoeht"
+    return "niedrig"
+
+
 def trefferquote(prognosen, kev_eintraege, ausblick, heute):
     """prognosen: {cve: {"erstmals": datum, "epss": wert}} wird fortgeschrieben."""
     kev = {x["cve"]: x["hinzugefuegt"] for x in kev_eintraege}
@@ -237,6 +273,7 @@ _STUFE_EN = {"niedrig": "low", "erhoeht": "elevated", "hoch": "high"}
 
 
 ZEITRAUM = {
+    "Dreier Pace": ("90 Tage, gleitender Median", "90 days, rolling median"),
     "Dreier Gauge": ("letzte 30 Tage", "last 30 days"),
     "Speed to KEV": ("letzte 90 Tage gegen vor 12 Monaten", "last 90 days vs 12 months ago"),
     "BSI Cyber Index": ("Jahr 2026 gegen Basisjahr 2024", "year 2026 vs base year 2024"),
@@ -255,7 +292,7 @@ def radar_score(signale, obergrenze=2.0):
     return {"wert": round(sum(werte) / len(werte) / obergrenze * 100), "signale": len(werte), "von": len(signale)}
 
 
-def konsens(lage_stufe, zeit, einschaetzungen, sans, verlauf, neu30=None, erhoeht_ab=None):
+def konsens(lage_stufe, zeit, einschaetzungen, sans, verlauf, neu30=None, erhoeht_ab=None, tempo_cfg=None):
     """Signale: jedes steht für sich auf erhöht (True), normal (False) oder keine Aussage (None).
     Eigene Signale (Stufe und Tempo, beide aus dem KEV) zählen nicht als Bestätigung, nur externe.
     Regeln stehen in RULES.md. Es wird nichts gemittelt."""
@@ -273,8 +310,16 @@ def konsens(lage_stufe, zeit, einschaetzungen, sans, verlauf, neu30=None, erhoeh
     t = None
     if j.get("n_frisch", 0) >= 10 and v.get("n_frisch", 0) >= 10 and j.get("median_frisch") is not None and v.get("median_frisch") is not None:
         t = v["median_frisch"] / max(j["median_frisch"], 0.5) >= 1.5
-    add("Tempo bis KEV", "Speed to KEV", t, "Median mindestens 1,5-mal schneller als vor 12 Monaten", "median at least 1.5x faster than 12 months ago", "eigen",
-        None if t is None else v["median_frisch"] / max(j["median_frisch"], 0.5) / 1.5)
+    if tempo_cfg:
+        med, n = j.get("median_frisch"), j.get("n_frisch", 0)
+        st = tempo_stufe(med, n, tempo_cfg)
+        add("Dreier-Tempo", "Dreier Pace", None if st is None else st in ("erhoeht", "hoch"),
+            "Median höchstens %s Tage bis zur KEV-Aufnahme (schnellstes Viertel der letzten 36 Monate)" % tempo_cfg["erhoeht_bis"],
+            "median at most %s days to KEV listing (fastest quarter of the last 36 months)" % tempo_cfg["erhoeht_bis"], "eigen",
+            None if st is None else tempo_cfg["erhoeht_bis"] / max(med, 1.0))
+    else:
+        add("Tempo bis KEV", "Speed to KEV", t, "Median mindestens 1,5-mal schneller als vor 12 Monaten", "median at least 1.5x faster than 12 months ago", "eigen",
+            None if t is None else v["median_frisch"] / max(j["median_frisch"], 0.5) / 1.5)
     bsi = next((e for e in einschaetzungen if e.get("wert") and e.get("basis")), None)
     add("BSI Cyber Index", "BSI Cyber Index", None if not bsi else float(bsi["wert"]) >= 1.2 * float(bsi["basis"]),
         "mindestens 20 % über dem Basisjahr 2024", "at least 20% above the 2024 base year",
@@ -302,6 +347,7 @@ def konsens(lage_stufe, zeit, einschaetzungen, sans, verlauf, neu30=None, erhoeh
 def baue(kev, eu, ausblick, cache, prognosen, heute, sans=None, feodo=None, serie=None, ncsc=None):
     eintraege = kev["eintraege"]
     zeit = zeit_bis_aufnahme(eintraege, cache, heute)
+    zeit["tempo_reihe"] = tempo_reihe(eintraege, cache, heute)
     return {
         "abgerufen_am": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "zeit_bis_kev": zeit,

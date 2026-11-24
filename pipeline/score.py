@@ -153,16 +153,20 @@ def radar_stufe(wert, cfg):
     return None
 
 
-def fazit(score, pegel_stufe, cfg):
-    """Fester Text aus Radar-Stufe und Dreier-Pegel, keine Berechnung und keine Vorhersage."""
+def fazit(score, pegel_stufe, cfg, tempo_stufe=None):
+    """Fester Text aus Dreier-Pegel (Menge, Hauptaussage), Dreier-Tempo und Radar-Stufe (Gegenprobe), keine Berechnung und keine Vorhersage."""
     st = radar_stufe((score or {}).get("wert"), cfg)
     pg = (cfg or {}).get("pegel", {}).get(pegel_stufe)
     if not st or not pg:
         return None
+    tp = (cfg or {}).get("tempo", {}).get(tempo_stufe) if tempo_stufe else None
+    rang = {"niedrig": 0, "erhoeht": 1, "hoch": 2}
+    wirksam = pegel_stufe if rang.get(pegel_stufe, 0) >= rang.get(tempo_stufe, 0) else tempo_stufe
+    hint = (cfg or {}).get("pegel", {}).get(wirksam) or pg
+    text = pg["satz"] + (" " + tp["satz"] if tp else "") + " Gegenprobe Radar-Score: " + st["name"] + ". " + st["satz"]
+    text_en = pg["satz_en"] + (" " + tp["satz_en"] if tp else "") + " Cross-check radar score: " + st["name_en"] + ". " + st["satz_en"]
     return {"status": cfg.get("status"), "radar_stufe": st["name"], "radar_stufe_en": st["name_en"], "ampel": st.get("ampel"), "pegel_stufe": pegel_stufe,
-            "text": pg["satz"] + " Gegenprobe Radar-Score: " + st["name"] + ". " + st["satz"],
-            "text_en": pg["satz_en"] + " Cross-check radar score: " + st["name_en"] + ". " + st["satz_en"],
-            "hinweis": pg["hinweis"], "hinweis_en": pg["hinweis_en"], "stand": cfg.get("geprueft_am")}
+            "tempo_stufe": tempo_stufe, "text": text, "text_en": text_en, "hinweis": hint["hinweis"], "hinweis_en": hint["hinweis_en"], "stand": cfg.get("geprueft_am")}
 
 
 def lese_optional(pfad):
@@ -257,7 +261,7 @@ def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None, telegram_link=None, 
         import fetch_radar
         r = ergebnis["radar"]
         r["konsens"] = fetch_radar.konsens(ergebnis["stufe"], r["zeit_bis_kev"], r["einschaetzungen"], r.get("sans"), r.pop("feodo_serie", {}),
-                                       len(fenster), regeln.get("erhoeht_ab"))
+                                       len(fenster), regeln.get("erhoeht_ab"), tempo_cfg=regeln.get("tempo"))
         r["pruefung"] = lese_optional(WURZEL / "data" / "radar" / "pruefung.json")
 
     ergebnis["sektor"] = [
@@ -353,13 +357,22 @@ def main(argv):
                                   "reihe": sr}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
         rs["live_seit"] = sr[0]["stand"]
         rs["reihe"] = sr[-90:]
+    import fetch_radar
+    tcfg = regeln.get("tempo")
+    zk = (ergebnis.get("radar") or {}).get("zeit_bis_kev") or {}
+    tj = zk.get("jetzt") or {}
+    if tcfg and tj:
+        ergebnis["tempo"] = {"wert": tj.get("median_frisch"), "n": tj.get("n_frisch"), "fenster_tage": tcfg.get("fenster_tage", 90),
+                             "stufe": fetch_radar.tempo_stufe(tj.get("median_frisch"), tj.get("n_frisch"), tcfg),
+                             "marken": {"erhoeht_bis": tcfg["erhoeht_bis"], "hoch_bis": tcfg["hoch_bis"]},
+                             "stand": stand.isoformat(), "reihe": zk.get("tempo_reihe", [])[-400:]}
     stufen_cfg = lese_optional(WURZEL / "config" / "radar_stufen.json")
     rsc = ((ergebnis.get("radar") or {}).get("konsens") or {}).get("score")
     if rsc and stufen_cfg:
         st = radar_stufe(rsc["wert"], stufen_cfg)
         if st:
             rsc["stufe"] = {"name": st["name"], "name_en": st["name_en"], "ampel": st.get("ampel"), "satz": st["satz"], "satz_en": st["satz_en"], "status": stufen_cfg.get("status")}
-        ergebnis["fazit"] = fazit(rsc, ergebnis["stufe"], stufen_cfg)
+        ergebnis["fazit"] = fazit(rsc, ergebnis["stufe"], stufen_cfg, (ergebnis.get("tempo") or {}).get("stufe"))
         ergebnis["radar_skala"] = {"status": stufen_cfg.get("status"),
                                    "stufen": [{"bis": x["bis"], "name": x["name"], "name_en": x["name_en"], "ampel": x.get("ampel")} for x in stufen_cfg["stufen"]]}
     ms = lese_optional(WURZEL / "data" / "patches" / "microsoft.json")

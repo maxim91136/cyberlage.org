@@ -8,5 +8,13 @@
   "grundlage": "Verteilung der neu aufgenommenen KEV-Einträge pro 30-Tage-Fenster, täglich gemessen vom 23.11.2023 bis 23.11.2026 (36 Monate; das Anlaufjahr 2022 ist bewusst nicht enthalten): Median 19, 75. Perzentil 25, 90. Perzentil 32; Ransomware-bekannt: 90. Perzentil 5.",
   "basis_monate": 36,
   "geprueft_am": "2026-11-23",
-  "median": 19
+  "median": 19,
+  "tempo": {
+    "fenster_tage": 90,
+    "mindest_n": 10,
+    "erhoeht_bis": 5,
+    "hoch_bis": 3,
+    "grundlage": "Gleitender 90-Tage-Median der Tage von der Veröffentlichung bis zur KEV-Aufnahme (nur Lücken, die bei Aufnahme höchstens 365 Tage alt waren), täglich gemessen vom 23.11.2023 bis 24.11.2026 (1098 Tage): 10. Perzentil 3 Tage, 25. Perzentil 5, Median 6,5, 75. Perzentil 8, 90. Perzentil 10,5, Höchstwert 23. Festgelegt: erhöht bis 5 Tage (schnellstes Viertel), hoch bis 3 Tage (schnellstes Zehntel). Kleiner Median heißt schneller. Mindestens 10 frische Lücken im Fenster, sonst keine Bewertung.",
+    "geprueft_am": "2026-11-25"
+  }
 }

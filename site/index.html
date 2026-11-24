@@ -74,8 +74,9 @@
       <p class="schlag" id="stufe-begr"></p>
       <p class="mono dim fine pegeldef" id="pegel-def"></p>
       <div class="tempo" id="tempo-box" hidden>
-        <p class="mono tempo-k"><span data-t="l_tempo">Zum Vergleich: das Tempo</span> <span class="dim" data-t="l_tempo2">· eigenes Signal im Radar, nicht Teil des Pegels</span></p>
-        <p class="tempo-s" id="schlagzeile" hidden></p>
+        <p class="mono tempo-k" id="tempo-kopf"></p>
+        <p class="tempo-s" id="tempo-s"></p>
+        <p class="mono dim fine tempo-d" id="tempo-def"></p>
         <div class="kern" id="kern"></div>
       </div>
       <p class="mono dim fine kernq" id="kern-quelle"></p>
@@ -215,6 +216,8 @@
     <details class="akk" id="i-faq"><summary class="mono" data-t="i_faq">faq</summary>
       <h4 class="mono faq-q" data-t="f1q">Was ist der Dreier-Pegel?</h4>
       <p class="dim faq-a" data-t="f1a">Unser eigener Score, kein Standard und keine Norm. Er zählt, wie viele Schwachstellen in den letzten 30 Tagen neu in den CISA-KEV-Katalog aufgenommen wurden (der Pegelstand), und leitet daraus eine Stufe ab: niedrig, erhöht oder hoch. Er misst die Aktivität im Katalog, nicht die Zahl der Angriffe.</p>
+      <h4 class="mono faq-q" data-t="f1bq">Was ist das Dreier-Tempo?</h4>
+      <p class="dim faq-a" data-t="f1ba">Unser zweites Signal neben der Menge: Es misst die Geschwindigkeit. Dazu nehmen wir die Lücken, die in den letzten 90 Tagen in den KEV kamen, und bilden den Median der Tage von ihrer Veröffentlichung bis zur Aufnahme. Je kleiner die Zahl, desto schneller werden Lücken ausgenutzt gemeldet. Die Stufen stammen aus 36 Monaten Daten: erhöht ab dem schnellsten Viertel (bis 5 Tage), hoch ab dem schnellsten Zehntel (bis 3 Tage). Menge und Tempo kommen aus derselben Quelle, sind aber verschiedene Achsen; deshalb stehen sie getrennt nebeneinander.</p>
       <h4 class="mono faq-q" data-t="f2q">Woher kommen die Daten?</h4>
       <p class="dim faq-a" data-t="f2a">Der Pegel entsteht allein aus dem öffentlichen KEV-Katalog der CISA, täglich abgerufen. Weitere Quellen (BSI, SANS, abuse.ch, NCSC-NL, ENISA, EU-KEV) laufen im Radar daneben und fließen nicht in den Pegel ein. Jeder Wert nennt Quelle und Stand.</p>
       <h4 class="mono faq-q" data-t="f3q">Was sind KEV und CISA?</h4>
@@ -226,7 +229,7 @@
       <h4 class="mono faq-q" data-t="f6q">Was ist die Schwäche dieser Methode?</h4>
       <p class="dim faq-a" data-t="f6a">Die Skala ist relativ und folgt dem Katalog: Wird die CISA insgesamt aktiver, erreicht der Zähler häufiger die Marken, ohne dass sich die Lage im absoluten Sinn ändert. Darum die lange Basis von 36 Monaten und die Prüfung von Hand. Außerdem zählt der Pegel nur, was in den KEV kommt, nicht, was unentdeckt ausgenutzt wird.</p>
       <h4 class="mono faq-q" data-t="f7q">Was ist der Radar-Score?</h4>
-      <p class="dim faq-a" data-t="f7a">Ein Experiment. Er bildet den Mittelwert der Ausschläge aller verfügbaren Signale (Dreier-Pegel, Tempo bis KEV, BSI Cyber Index, SANS, Feodo), jeweils gegen die eigene Regelschwelle. Er ist nicht objektiv, nicht Teil des Dreier-Pegels und sagt erst nach einigen Wochen Verlauf etwas aus. Seine Stufen (ruhig, unauffällig, angespannt, hoch, außergewöhnlich) sind vorläufig und am Dreier-Pegel ausgerichtet; nach etwa 90 Tagen leiten wir sie aus seiner eigenen Verteilung neu ab.</p>
+      <p class="dim faq-a" data-t="f7a">Ein Experiment. Er bildet den Mittelwert der Ausschläge aller verfügbaren Signale (Dreier-Pegel, Dreier-Tempo, BSI Cyber Index, SANS, Feodo), jeweils gegen die eigene Regelschwelle. Er ist nicht objektiv, nicht Teil des Dreier-Pegels und sagt erst nach einigen Wochen Verlauf etwas aus. Seine Stufen (ruhig, unauffällig, angespannt, hoch, außergewöhnlich) sind vorläufig und am Dreier-Pegel ausgerichtet; nach etwa 90 Tagen leiten wir sie aus seiner eigenen Verteilung neu ab.</p>
       <h4 class="mono faq-q" data-t="f8q">Was bedeuten Ausblick und EPSS?</h4>
       <p class="dim faq-a" data-t="f8a">Der Ausblick zeigt Schwachstellen, die noch nicht im KEV stehen, aber laut EPSS (FIRST) wahrscheinlich bald ausgenutzt werden. Er beeinflusst die Stufe nicht. Ob er stimmt, prüft die Seite selbst: Die Trefferquote erscheint, sobald genug Prognosen 30 Tage alt sind.</p>
     </details>

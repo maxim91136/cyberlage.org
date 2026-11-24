@@ -702,3 +702,42 @@ class HerstellerPatchTests(unittest.TestCase):
         r2 = fetch_patches.aktualisiere_hersteller(r, date(2026, 11, 25), jetzt, lambda u: (_ for _ in ()).throw(OSError("x")))
         self.assertEqual(r2["quellen"]["ubuntu"]["neu_30"], 1)
         self.assertEqual(r2["quellen"]["ubuntu"]["status"], "fehler")
+
+
+class TempoTests(unittest.TestCase):
+    CFG = {"mindest_n": 10, "erhoeht_bis": 5, "hoch_bis": 3, "fenster_tage": 90}
+
+    def test_stufe(self):
+        st = fetch_radar.tempo_stufe
+        self.assertEqual(st(6.5, 40, self.CFG), "niedrig")
+        self.assertEqual(st(5.0, 40, self.CFG), "erhoeht")
+        self.assertEqual(st(3.0, 40, self.CFG), "hoch")
+        self.assertEqual(st(2.0, 40, self.CFG), "hoch")
+        self.assertIsNone(st(2.0, 9, self.CFG))      # zu wenige frische Lücken
+        self.assertIsNone(st(None, 40, self.CFG))
+        self.assertIsNone(st(5.0, 40, None))
+
+    def test_reihe_und_median(self):
+        from datetime import date
+        kev = [{"cve": "CVE-%d" % i, "hinzugefuegt": "2026-11-%02d" % (10 + i % 10)} for i in range(12)]
+        veroeff = {"CVE-%d" % i: "2026-11-%02d" % (10 + i % 10 - 4) for i in range(12)}  # immer 4 Tage vorher
+        med, n = fetch_radar.tempo_median(kev, veroeff, date(2026, 11, 24))
+        self.assertEqual((med, n), (4, 12))
+        reihe = fetch_radar.tempo_reihe(kev, veroeff, date(2026, 11, 24), tage=5)
+        self.assertTrue(reihe and reihe[-1]["wert"] == 4 and reihe[-1]["stand"] == "2026-11-24")
+
+    def test_konsens_mit_tempo(self):
+        zeit = {"jetzt": {"n_frisch": 50, "median_frisch": 4.0}, "vor_12_monaten": {"n_frisch": 50, "median_frisch": 11.0}}
+        k = fetch_radar.konsens("hoch", zeit, [], None, {}, 39, 25, tempo_cfg=self.CFG)
+        namen = {x["name_en"]: x for x in k["signale"]}
+        self.assertIn("Dreier Pace", namen)
+        self.assertTrue(namen["Dreier Pace"]["erhoeht"])
+        self.assertEqual(namen["Dreier Pace"]["ausschlag"], 1.25)  # 5 / 4
+        self.assertEqual(namen["Dreier Pace"]["art"], "eigen")     # zählt nicht als Bestätigung
+
+    def test_fazit_mit_tempo(self):
+        import score
+        cfg = json.loads((Path(__file__).resolve().parent.parent / "config" / "radar_stufen.json").read_text(encoding="utf-8"))
+        f = score.fazit({"wert": 61}, "niedrig", cfg, "hoch")
+        self.assertIn("Dreier-Tempo ist hoch", f["text"])
+        self.assertEqual(f["hinweis"], cfg["pegel"]["hoch"]["hinweis"])  # die höhere der beiden Stufen bestimmt den Hinweis

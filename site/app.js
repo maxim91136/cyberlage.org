@@ -380,14 +380,22 @@
     if (pd) pd.textContent = pick("Der Dreier-Pegel misst die Menge: wie viele ausgenutzte Schwachstellen in den letzten 30 Tagen neu in den KEV-Katalog kamen", "The Dreier Gauge measures the amount: how many exploited vulnerabilities were newly added to the KEV catalog in the last 30 days") +
       (typeof sw.hoch_ab === "number" ? pick(". Erhöht ab ", ". Elevated from ") + sw.erhoeht_ab + pick(", hoch ab ", ", high from ") + sw.hoch_ab + "." : ".");
     var ok = j && v && j.n_frisch >= 10 && v.n_frisch >= 10 && typeof j.median_frisch === "number" && typeof v.median_frisch === "number";
-    if (ok) {
-      karte(tg(j.median_frisch), pick(" Tage", " days"), pick("Median bis zur KEV-Aufnahme", "median time to KEV listing"), pick("vor 12 Monaten: ", "12 months ago: ") + tg(v.median_frisch), "#radar");
-      karte(proz(j.anteil_30), "", pick("binnen 30 Tagen im KEV", "listed within 30 days"), pick("vor 12 Monaten: ", "12 months ago: ") + proz(v.anteil_30), "#radar");
-      var q = v.median_frisch / Math.max(j.median_frisch, 0.5), s = $("schlagzeile"), n = (Math.round(q * 10) / 10).toLocaleString(window.I18N.locale);
-      s.textContent = q >= 1.5 ? pick("Lücken kommen rund " + n + "-mal schneller in den KEV als vor einem Jahr.", "Vulnerabilities reach KEV about " + n + " times faster than a year ago.")
-        : (q <= 0.67 ? pick("Lücken kommen langsamer in den KEV als vor einem Jahr.", "Vulnerabilities reach KEV more slowly than a year ago.")
-        : pick("Lücken kommen ungefähr so schnell in den KEV wie vor einem Jahr.", "Vulnerabilities reach KEV about as fast as a year ago."));
-      s.hidden = false; $("tempo-box").hidden = false;
+    var tp = d.tempo, tbox = $("tempo-box");
+    if (tp && typeof tp.wert === "number" && tbox) {
+      var ts = tp.stufe, tn = { niedrig: pick("niedrig", "low"), erhoeht: pick("erhöht", "elevated"), hoch: pick("hoch", "high") }[ts] || "";
+      var kopf = $("tempo-kopf"); kopf.textContent = "";
+      kopf.appendChild(el("b", "", pick("Dreier-Tempo", "Dreier Pace")));
+      if (tn) kopf.appendChild(el("span", "tempo-st st-" + ts, " · " + tn));
+      $("tempo-s").textContent = ts === "hoch" ? pick("Neue Lücken kommen so schnell in den KEV wie nur in jedem zehnten der letzten 36 Monate.", "New flaws reach the KEV as fast as in only one in ten of the last 36 months.")
+        : (ts === "erhoeht" ? pick("Neue Lücken kommen schneller in den KEV als in drei Vierteln der letzten 36 Monate.", "New flaws reach the KEV faster than in three quarters of the last 36 months.")
+        : pick("Neue Lücken kommen nicht schneller in den KEV als üblich.", "New flaws are not reaching the KEV faster than usual."));
+      $("tempo-def").textContent = pick("Das Dreier-Tempo misst die Geschwindigkeit: wie viele Tage von der Veröffentlichung einer Lücke bis zur KEV-Aufnahme vergehen (gleitender 90-Tage-Median, heute ", "The Dreier Pace measures speed: how many days pass from a flaw's publication to its KEV listing (rolling 90-day median, today ") +
+        tp.wert.toLocaleString(window.I18N.locale, { maximumFractionDigits: 1 }) + pick(" Tage). Erhöht bis ", " days). Elevated up to ") + tp.marken.erhoeht_bis + pick(" Tage, hoch bis ", " days, high up to ") + tp.marken.hoch_bis + pick(" Tage.", " days.");
+      tbox.hidden = false;
+      if (ok) {
+        karte(tg(j.median_frisch), pick(" Tage", " days"), pick("Median bis zur KEV-Aufnahme", "median time to KEV listing"), pick("vor 12 Monaten: ", "12 months ago: ") + tg(v.median_frisch), "#radar");
+        karte(proz(j.anteil_30), "", pick("binnen 30 Tagen im KEV", "listed within 30 days"), pick("vor 12 Monaten: ", "12 months ago: ") + proz(v.anteil_30), "#radar");
+      }
     }
   }
 
@@ -436,7 +444,7 @@
     };
     var tg = pick("Stand ", "as of ");
     var jz = z.jetzt || {}, v12 = z.vor_12_monaten || {};
-    if (typeof jz.median_frisch === "number") kachel({ gr: "score", nat: "mess", quelle: "eigen", sig: "Speed to KEV", name: pick("Tempo bis KEV", "Speed to KEV"), wert: tage(jz.median_frisch), einheit: pick(" Tage Median", " days median"), misst: pick("Veröffentlichung bis KEV-Aufnahme, vor 12 Monaten: ", "publication to KEV listing, 12 months ago: ") + tage(v12.median_frisch) + pick(" Tage", " days"), stand: pick("Quelle CISA KEV · abgerufen ", "source CISA KEV · retrieved ") + datum(((d.quellen || []).filter(function (x) { return x.id === "cisa-kev"; })[0] || {}).abgerufen_am || d.stand) });
+    if (typeof jz.median_frisch === "number") kachel({ gr: "score", nat: "mess", quelle: "eigen", sig: "Dreier Pace", name: pick("Dreier-Tempo", "Dreier Pace"), wert: tage(jz.median_frisch), einheit: pick(" Tage Median", " days median"), misst: pick("Veröffentlichung bis KEV-Aufnahme, vor 12 Monaten: ", "publication to KEV listing, 12 months ago: ") + tage(v12.median_frisch) + pick(" Tage", " days"), stand: pick("Quelle CISA KEV · abgerufen ", "source CISA KEV · retrieved ") + datum(((d.quellen || []).filter(function (x) { return x.id === "cisa-kev"; })[0] || {}).abgerufen_am || d.stand) });
     (r.einschaetzungen || []).forEach(function (q) {
       var pfeil = q.richtung === "steigend" ? " ↑" : (q.richtung === "fallend" ? " ↓" : ""), idx = q.wert && q.basis;
       if (!idx) return; // Lagebericht-Urteil steht schon bei den Gründen
