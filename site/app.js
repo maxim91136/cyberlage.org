@@ -270,7 +270,7 @@
         var q = pos(i, 0.25); sv("circle", { cx: q[0], cy: q[1], r: 5, "class": "sc-blip kn" });
       }
     });
-    var sl = sv("text", { x: C + 4, y: C - R / 2 - 3, "class": "sc-tx" }); sl.textContent = pick("Schwelle", "threshold");
+    var sl = sv("text", { x: C - R / 2 - 5, y: C - 5, "class": "sc-tx", "text-anchor": "end" }); sl.textContent = pick("Schwelle", "threshold");
   }
 
   function zeigeKonsens(r) {

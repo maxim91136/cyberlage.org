@@ -245,7 +245,7 @@ html.alarm .marke{animation:flackern 6s infinite}
 .sc-poly{fill:rgba(61,220,132,.10);stroke:var(--green);stroke-width:1.5;stroke-linejoin:round}
 .sc-blip{stroke:#0d1117;stroke-width:2}.sc-blip.an{fill:#ff8a7a}.sc-blip.aus{fill:#3ddc84}.sc-blip.kn{fill:none;stroke:var(--dim);stroke-dasharray:2 2}
 .sc-blip.eigen{stroke:var(--text);stroke-width:1.5}
-.sc-lab{fill:var(--text);font:12px ui-monospace,Menlo,Consolas,monospace}.sc-tx{fill:var(--dim);font:10px ui-monospace,Menlo,monospace}
+.sc-tx{paint-order:stroke;stroke:#0d1117;stroke-width:4px;stroke-linejoin:round}.sc-lab{fill:var(--text);font:12px ui-monospace,Menlo,Consolas,monospace}.sc-tx{fill:var(--dim);font:10px ui-monospace,Menlo,monospace}
 @media (max-width:700px){.rd-scopewrap{grid-template-columns:1fr}.rd-scope{margin:0 auto}}
 .rd-sub{margin:22px 0 10px}
 .rd-kacheln{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
