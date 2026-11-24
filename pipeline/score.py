@@ -143,6 +143,27 @@ def verlauf(alle, regeln, stand, wochen=52):
     return punkte
 
 
+def radar_stufe(wert, cfg):
+    """Ordnet den Radar-Score (0 bis 100) einer Stufe aus config/radar_stufen.json zu (obere Grenze ausgeschlossen)."""
+    if not isinstance(wert, (int, float)) or not cfg:
+        return None
+    for st in cfg.get("stufen", []):
+        if wert < st["bis"]:
+            return st
+    return None
+
+
+def fazit(score, pegel_stufe, cfg):
+    """Fester Text aus Radar-Stufe und Dreier-Pegel, keine Berechnung und keine Vorhersage."""
+    st = radar_stufe((score or {}).get("wert"), cfg)
+    pg = (cfg or {}).get("pegel", {}).get(pegel_stufe)
+    if not st or not pg:
+        return None
+    return {"status": cfg.get("status"), "radar_stufe": st["name"], "radar_stufe_en": st["name_en"], "pegel_stufe": pegel_stufe,
+            "text": "Radar: " + st["name"] + ". " + st["satz"] + " " + pg["satz"], "text_en": "Radar: " + st["name_en"] + ". " + st["satz_en"] + " " + pg["satz_en"],
+            "hinweis": pg["hinweis"], "hinweis_en": pg["hinweis_en"], "stand": cfg.get("geprueft_am")}
+
+
 def lese_optional(pfad):
     try:
         return json.loads(Path(pfad).read_text(encoding="utf-8"))
@@ -331,6 +352,13 @@ def main(argv):
                                   "reihe": sr}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
         rs["live_seit"] = sr[0]["stand"]
         rs["reihe"] = sr[-90:]
+    stufen_cfg = lese_optional(WURZEL / "config" / "radar_stufen.json")
+    rsc = ((ergebnis.get("radar") or {}).get("konsens") or {}).get("score")
+    if rsc and stufen_cfg:
+        st = radar_stufe(rsc["wert"], stufen_cfg)
+        if st:
+            rsc["stufe"] = {"name": st["name"], "name_en": st["name_en"], "satz": st["satz"], "satz_en": st["satz_en"], "status": stufen_cfg.get("status")}
+        ergebnis["fazit"] = fazit(rsc, ergebnis["stufe"], stufen_cfg)
     ergebnis["pegel"] = {"wert": reihe[-1]["wert"], "marken": {"erhoeht_ab": regeln.get("erhoeht_ab"), "hoch_ab": regeln.get("hoch_ab")},
                          "live_seit": next((p["stand"] for p in reihe if p["quelle"] == "live"), None), "reihe": reihe[-400:]}
     ziel = WURZEL / "site" / "data" / "lage.json"

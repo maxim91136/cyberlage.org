@@ -296,3 +296,6 @@ html.alarm .marke{animation:flackern 6s infinite}
 .faqlink{margin:10px 0 0}.faqlink a{color:var(--green)}
 .navin a.faq-nav{color:var(--green);font-weight:700}
 .kernq{margin:8px 0 0}
+.fazit{margin:14px 0 0;padding:12px 14px;border:1px solid var(--line);border-left:3px solid var(--green);background:#0c1014}
+.fazit .ft{margin:6px 0 4px;color:var(--text)}.fazit .fh{margin:0 0 6px;color:var(--green)}.fazit .fine{margin:0}
+.rd-score .sw small.sst{font-size:16px;color:var(--green);font-weight:600}

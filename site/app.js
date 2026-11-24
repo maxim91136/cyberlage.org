@@ -49,6 +49,16 @@
   function render(d) {
     var kq0 = (d.quellen || []).filter(function (q) { return q.id === "cisa-kev"; })[0] || {};
     $("stand").textContent = datum(kq0.abgerufen_am || d.stand);
+    var fz = $("fazit"), f = d.fazit;
+    if (fz && f) {
+      fz.textContent = "";
+      var fk = el("b", "mono", pick("Fazit", "Conclusion")); fz.appendChild(fk);
+      if (f.status === "vorlaeufig") fz.appendChild(el("span", "mono dim", pick(" · vorläufig", " · provisional")));
+      fz.appendChild(el("p", "ft", pick(f.text, f.text_en)));
+      fz.appendChild(el("p", "fh", pick("Für Verteidiger: ", "For defenders: ") + pick(f.hinweis, f.hinweis_en)));
+      fz.appendChild(el("p", "mono dim fine", pick("Feste Sätze nach Regeln, keine Vorhersage. Stufen des Radar-Scores geprüft am ", "Fixed sentences by rule, no forecast. Radar score levels checked on ") + datum(f.stand) + "."));
+      fz.hidden = false;
+    }
     var kqz = $("kern-quelle"); if (kqz) kqz.textContent = pick("Quelle aller vier Zahlen: CISA-KEV-Katalog, abgerufen ", "Source of all four figures: CISA KEV catalog, retrieved ") + datum(kq0.abgerufen_am || d.stand) + pick(" (Katalog veröffentlicht ", " (catalog published ") + datum(kq0.veroeffentlicht_am) + ")";
 
     var hatStufe = d.stufe !== null && d.stufe !== undefined;
@@ -320,7 +330,7 @@
     z.textContent = ""; z.appendChild(el("b", "", k.erhoeht + "/" + k.bewertet)); z.appendChild(document.createTextNode(pick(" externe Signale zeigen ebenfalls erhöht", " external signals also show elevated"))); z.appendChild(el("span", "zr", " · " + pick("Stand ", "as of ") + datum(r.abgerufen_am))); z.hidden = false;
     var sc = k.score, sb = $("rd-score"); sb.textContent = "";
     if (sc) {
-      var gr = el("div", "sw mono", String(sc.wert)); gr.appendChild(el("small", "", " / 100")); sb.appendChild(gr);
+      var gr = el("div", "sw mono", String(sc.wert)); gr.appendChild(el("small", "", " / 100")); if (sc.stufe) gr.appendChild(el("small", "sst", " · " + pick(sc.stufe.name, sc.stufe.name_en))); sb.appendChild(gr);
       var tx = el("div", "st");
       tx.appendChild(el("b", "mono", pick("Radar-Score · Experiment", "Radar score · experiment")));
       tx.appendChild(el("span", "", pick(

@@ -4,7 +4,7 @@ Liest data/radar/gruende.csv und einschaetzungen.csv, prüft die Links (erreichb
 und schreibt data/radar/pruefung.json. Dazu einen Text für ein GitHub-Issue (Pfad aus PRUEFUNG_MD,
 nur wenn etwas offen ist). Prüft nur Erreichbarkeit und Frist, nicht den Inhalt: Ob eine Zahl noch
 stimmt, entscheidet ein Mensch; das Datum geprueft_am wird nur von Hand gesetzt.
-Fristen (Tage seit geprueft_am): jährliche Angaben 330, Gründe 90, Schwellen des Dreier-Pegels 183 (halbjährlich).
+Fristen (Tage seit geprueft_am): jährliche Angaben 330, Gründe 90, Schwellen des Dreier-Pegels 183 (halbjährlich), Stufen des Radar-Scores 90 (vorläufig, danach aus eigener Verteilung ableiten).
 """
 import csv
 import json
@@ -19,7 +19,7 @@ from pathlib import Path
 WURZEL = Path(__file__).resolve().parent.parent
 RADAR = WURZEL / "data" / "radar"
 UA = "cyberlage.org (privates Projekt von Dreier Labs, https://cyberlage.org)"
-FRIST = {"jaehrlich": 330, "grund": 90, "schwellen": 183}
+FRIST = {"jaehrlich": 330, "grund": 90, "schwellen": 183, "radar_stufen": 90}
 NEU_NACH_STUNDEN = 24
 
 
@@ -43,6 +43,12 @@ def eintraege():
         regeln = json.loads((WURZEL / "config" / "regeln.json").read_text(encoding="utf-8"))
         out.append({"id": "schwellen", "bereich": "schwellen", "name": "Schwellen des Dreier-Pegels",
                     "link": "https://github.com/maxim91136/cyberlage.org/blob/main/config/regeln.json", "geprueft_am": regeln.get("geprueft_am", "")})
+    except (OSError, ValueError):
+        pass
+    try:
+        stufen = json.loads((WURZEL / "config" / "radar_stufen.json").read_text(encoding="utf-8"))
+        out.append({"id": "radar_stufen", "bereich": "radar_stufen", "name": "Stufen des Radar-Scores (%s)" % stufen.get("status", ""),
+                    "link": "https://github.com/maxim91136/cyberlage.org/blob/main/config/radar_stufen.json", "geprueft_am": stufen.get("geprueft_am", "")})
     except (OSError, ValueError):
         pass
     return out

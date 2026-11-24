@@ -503,6 +503,7 @@ class PruefkalenderTests(unittest.TestCase):
         self.assertNotIn("schwellen", namen)  # 183 Tage ab 23.11.2026, am 1.3.2027 noch nicht fällig
         spaeter = pruefen.pruefen(date(2027, 6, 1), None, pruefer=ok, jetzt=jetzt)
         self.assertIn("schwellen", [e["id"] for e in spaeter["eintraege"] if e["faellig"]])
+        self.assertIn("radar_stufen", [e["id"] for e in r1["eintraege"] if e["faellig"]])  # 90 Tage ab 24.11.2026, am 1.3.2027 fällig
         # ein Fehlschlag allein ist noch kein toter Link; erst wenn es 24 Stunden lang bei jedem Versuch scheitert
         r2 = pruefen.pruefen(date(2026, 11, 24), None, pruefer=fehl, jetzt=jetzt)
         self.assertFalse(any(e["link_tot"] for e in r2["eintraege"]))
@@ -526,3 +527,35 @@ class PruefkalenderTests(unittest.TestCase):
         erste = len(n)
         pruefen.pruefen(date(2026, 11, 24), r, pruefer=zaehl, jetzt=jetzt.replace(hour=10))
         self.assertEqual(len(n), erste)
+
+
+class RadarStufenTests(unittest.TestCase):
+    def setUp(self):
+        import json
+        self.cfg = json.loads((Path(__file__).resolve().parent.parent / "config" / "radar_stufen.json").read_text(encoding="utf-8"))
+
+    def test_grenzen(self):
+        import score
+        namen = {w: score.radar_stufe(w, self.cfg)["name"] for w in (0, 29, 30, 49, 50, 63, 64, 79, 80, 100)}
+        self.assertEqual(namen[0], "ruhig"); self.assertEqual(namen[29], "ruhig"); self.assertEqual(namen[30], "unauffällig")
+        self.assertEqual(namen[49], "unauffällig"); self.assertEqual(namen[50], "erhöht"); self.assertEqual(namen[63], "erhöht")
+        self.assertEqual(namen[64], "hoch"); self.assertEqual(namen[79], "hoch"); self.assertEqual(namen[80], "außergewöhnlich")
+        self.assertEqual(namen[100], "außergewöhnlich")
+
+    def test_fazit(self):
+        import score
+        f = score.fazit({"wert": 61}, "hoch", self.cfg)
+        self.assertEqual(f["radar_stufe"], "erhöht")
+        self.assertIn("Dreier-Pegel steht auf hoch", f["text"])
+        self.assertEqual(f["status"], "vorlaeufig")
+        self.assertIsNone(score.fazit(None, "hoch", self.cfg))
+        self.assertIsNone(score.fazit({"wert": 61}, "unbekannt", self.cfg))
+
+    def test_alle_stufen_haben_texte(self):
+        for st in self.cfg["stufen"]:
+            for k in ("name", "name_en", "satz", "satz_en"):
+                self.assertTrue(st[k])
+        for k in ("niedrig", "erhöht", "hoch"):
+            for f in ("satz", "satz_en", "hinweis", "hinweis_en"):
+                self.assertTrue(self.cfg["pegel"][k][f])
+        self.assertEqual([st["bis"] for st in self.cfg["stufen"]], sorted(st["bis"] for st in self.cfg["stufen"]))
