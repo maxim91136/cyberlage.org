@@ -127,6 +127,7 @@
     zeigeEu(d.eu_kev);
     zeigeAusblick(d.ausblick);
     zeigeRadar(d.radar, d);
+    zeigeKern(d);
 
     var h = $("hinweise");
     var hw = window.I18N.lang === "en" && d.hinweise_en ? d.hinweise_en : (d.hinweise || []);
@@ -244,6 +245,30 @@
       var t = el("span", "titel"); t.appendChild(link(e.link, (e.cve && e.cve[0]) || e.id)); r.appendChild(t);
       return r;
     }), 8);
+  }
+
+  function zeigeKern(d) {
+    var r = d.radar && d.radar.zeit_bis_kev, j = r && r.jetzt, v = r && r.vor_12_monaten;
+    var proz = function (x) { return typeof x === "number" ? Math.round(x * 100) + " %" : "–"; };
+    var tg = function (x) { return typeof x === "number" ? x.toLocaleString(window.I18N.locale, { maximumFractionDigits: 1 }) : "–"; };
+    var sw = d.schwellen || {}, box = $("kern"); box.textContent = "";
+    var karte = function (wert, einheit, label, unter, ziel) {
+      var a = el(ziel ? "a" : "div", "kk"); if (ziel) a.href = ziel;
+      var w = el("div", "w mono", wert); if (einheit) w.appendChild(el("small", "", einheit)); a.appendChild(w);
+      a.appendChild(el("div", "l", label)); if (unter) a.appendChild(el("div", "u", unter)); box.appendChild(a);
+    };
+    if (d.kev && typeof d.kev.neu_30_tage === "number")
+      karte(zahl(d.kev.neu_30_tage), "", pick("neu im KEV, 30 Tage", "new in KEV, 30 days"), typeof sw.hoch_ab === "number" ? pick("hoch ab ", "high from ") + sw.hoch_ab : "", "#rueckblick");
+    var ok = j && v && j.n_frisch >= 10 && v.n_frisch >= 10 && typeof j.median_frisch === "number" && typeof v.median_frisch === "number";
+    if (ok) {
+      karte(tg(j.median_frisch), pick(" Tage", " days"), pick("Median bis zur KEV-Aufnahme", "median time to KEV listing"), pick("vor 12 Monaten: ", "12 months ago: ") + tg(v.median_frisch), "#radar");
+      karte(proz(j.anteil_30), "", pick("binnen 30 Tagen im KEV", "listed within 30 days"), pick("vor 12 Monaten: ", "12 months ago: ") + proz(v.anteil_30), "#radar");
+      var q = v.median_frisch / Math.max(j.median_frisch, 0.5), s = $("schlagzeile"), n = (Math.round(q * 10) / 10).toLocaleString(window.I18N.locale);
+      s.textContent = q >= 1.5 ? pick("Lücken kommen rund " + n + "-mal schneller in den KEV als vor einem Jahr.", "Vulnerabilities reach KEV about " + n + " times faster than a year ago.")
+        : (q <= 0.67 ? pick("Lücken kommen langsamer in den KEV als vor einem Jahr.", "Vulnerabilities reach KEV more slowly than a year ago.")
+        : pick("Lücken kommen ungefähr so schnell in den KEV wie vor einem Jahr.", "Vulnerabilities reach KEV about as fast as a year ago."));
+      s.hidden = false;
+    }
   }
 
   function zeigeRadar(r, d) {

@@ -60,20 +60,20 @@
 
   <section id="lage" class="wrap" aria-labelledby="h-lage">
     <h2 id="h-lage" class="sr" data-t="h_lage">Aktuelle Lage</h2>
-    <div class="uebersicht">
-      <div class="panel lage" id="lage-box">
-        <p class="lbl" data-t="l_stufe">lage.stufe · weltweit</p>
-        <div class="stufe mono" id="stufe-wert">…</div>
-        <div class="stufe-text" id="stufe-text" data-t="l_lade">Daten werden geladen</div>
-        <p class="begr dim" id="stufe-begr"></p>
-      </div>
-      <div class="zahlen">
-        <div class="panel pad"><div class="lbl" data-t="l_7">neu · 7 Tage</div><div class="zahl mono" id="k7">…</div></div>
-        <div class="panel pad"><div class="lbl" data-t="l_30">neu · 30 Tage</div><div class="zahl mono" id="k30">…</div></div>
-        <div class="panel pad"><div class="lbl" data-t="l_ges">Katalog gesamt</div><div class="zahl mono" id="kall">…</div></div>
-        <div class="panel pad"><div class="lbl">Ransomware</div><div class="zahl mono" id="kr">…</div></div>
-      </div>
+    <div class="panel lage" id="lage-box">
+      <p class="lbl" data-t="l_stufe">lage.stufe · weltweit</p>
+      <div class="stufe mono" id="stufe-wert">…</div>
+      <div class="stufe-text" id="stufe-text" data-t="l_lade">Daten werden geladen</div>
+      <p class="schlag" id="schlagzeile" hidden></p>
+      <p class="begr dim" id="stufe-begr"></p>
+      <div class="kern" id="kern"></div>
     </div>
+    <p class="mono dim klein">
+      <span><span data-t="l_7">neu · 7 Tage</span> <b id="k7">…</b></span>
+      <span><span data-t="l_30">neu · 30 Tage</span> <b id="k30">…</b></span>
+      <span><span data-t="l_ges">Katalog gesamt</span> <b id="kall">…</b></span>
+      <span>Ransomware <b id="kr">…</b></span>
+    </p>
     <details class="akk" id="l-rechnung"><summary class="mono" data-t="l_wie">so entsteht die stufe</summary>
       <div id="rechnung" class="rechnung"></div>
     </details>
