@@ -299,3 +299,14 @@ html.alarm .marke{animation:flackern 6s infinite}
 .fazit{margin:14px 0 0;padding:12px 14px;border:1px solid var(--line);border-left:3px solid var(--green);background:#0c1014}
 .fazit .ft{margin:6px 0 4px;color:var(--text)}.fazit .fh{margin:0 0 6px;color:var(--green)}.fazit .fine{margin:0}
 .rd-score .sw small.sst{font-size:16px;color:var(--green);font-weight:600}
+/* Ampel des Radar-Scores: gleiche Farben wie beim Dreier-Pegel, dazu eine fünfte Stufe */
+:root{--ra-ruhig:#6fe0a0;--ra-unauffaellig:#a6f0c4;--ra-angespannt:#e3b341;--ra-hoch:#ff8a7a;--ra-ausserordentlich:#ff4d6d}
+.sg.ra-ruhig{background:var(--ra-ruhig)}.sg.ra-unauffaellig{background:var(--ra-unauffaellig)}.sg.ra-angespannt{background:var(--ra-angespannt)}.sg.ra-hoch{background:var(--ra-hoch)}.sg.ra-ausserordentlich{background:var(--ra-ausserordentlich)}
+.rd-score.ra-ruhig{--ra:var(--ra-ruhig)}.rd-score.ra-unauffaellig{--ra:var(--ra-unauffaellig)}.rd-score.ra-angespannt{--ra:var(--ra-angespannt)}.rd-score.ra-hoch{--ra:var(--ra-hoch)}.rd-score.ra-ausserordentlich{--ra:var(--ra-ausserordentlich)}
+.rd-score[class*="ra-"]{border-color:var(--ra);background:color-mix(in srgb,var(--ra) 7%,transparent)}
+.rd-score[class*="ra-"] .sw,.rd-score[class*="ra-"] .sw small.sst{color:var(--ra)}
+.verbund .radar-box.ra-ruhig{border-color:var(--ra-ruhig)}.verbund .radar-box.ra-unauffaellig{border-color:var(--ra-unauffaellig)}.verbund .radar-box.ra-angespannt{border-color:var(--ra-angespannt)}.verbund .radar-box.ra-hoch{border-color:var(--ra-hoch)}.verbund .radar-box.ra-ausserordentlich{border-color:var(--ra-ausserordentlich)}
+.fazit.ra-ruhig{border-left-color:var(--ra-ruhig)}.fazit.ra-unauffaellig{border-left-color:var(--ra-unauffaellig)}.fazit.ra-angespannt{border-left-color:var(--ra-angespannt)}.fazit.ra-hoch{border-left-color:var(--ra-hoch)}.fazit.ra-ausserordentlich{border-left-color:var(--ra-ausserordentlich)}
+.rd-skala{margin:0 0 14px}.ska{position:relative;display:flex;height:12px;border:1px solid var(--line)}.ska .sg{display:block;height:100%;opacity:.85}
+.ska .mk{position:absolute;top:-5px;width:3px;height:20px;margin-left:-1px;background:#fff;box-shadow:0 0 0 1px #000}
+.skz{position:relative;height:16px;margin-top:4px;font-size:11px;color:var(--dim)}.skz span{position:absolute;transform:translateX(-50%)}.skz span:first-child{transform:none}.skz span:last-child{transform:translateX(-100%)}

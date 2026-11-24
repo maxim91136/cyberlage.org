@@ -159,7 +159,7 @@ def fazit(score, pegel_stufe, cfg):
     pg = (cfg or {}).get("pegel", {}).get(pegel_stufe)
     if not st or not pg:
         return None
-    return {"status": cfg.get("status"), "radar_stufe": st["name"], "radar_stufe_en": st["name_en"], "pegel_stufe": pegel_stufe,
+    return {"status": cfg.get("status"), "radar_stufe": st["name"], "radar_stufe_en": st["name_en"], "ampel": st.get("ampel"), "pegel_stufe": pegel_stufe,
             "text": "Radar: " + st["name"] + ". " + st["satz"] + " " + pg["satz"], "text_en": "Radar: " + st["name_en"] + ". " + st["satz_en"] + " " + pg["satz_en"],
             "hinweis": pg["hinweis"], "hinweis_en": pg["hinweis_en"], "stand": cfg.get("geprueft_am")}
 
@@ -357,8 +357,10 @@ def main(argv):
     if rsc and stufen_cfg:
         st = radar_stufe(rsc["wert"], stufen_cfg)
         if st:
-            rsc["stufe"] = {"name": st["name"], "name_en": st["name_en"], "satz": st["satz"], "satz_en": st["satz_en"], "status": stufen_cfg.get("status")}
+            rsc["stufe"] = {"name": st["name"], "name_en": st["name_en"], "ampel": st.get("ampel"), "satz": st["satz"], "satz_en": st["satz_en"], "status": stufen_cfg.get("status")}
         ergebnis["fazit"] = fazit(rsc, ergebnis["stufe"], stufen_cfg)
+        ergebnis["radar_skala"] = {"status": stufen_cfg.get("status"),
+                                   "stufen": [{"bis": x["bis"], "name": x["name"], "name_en": x["name_en"], "ampel": x.get("ampel")} for x in stufen_cfg["stufen"]]}
     ergebnis["pegel"] = {"wert": reihe[-1]["wert"], "marken": {"erhoeht_ab": regeln.get("erhoeht_ab"), "hoch_ab": regeln.get("hoch_ab")},
                          "live_seit": next((p["stand"] for p in reihe if p["quelle"] == "live"), None), "reihe": reihe[-400:]}
     ziel = WURZEL / "site" / "data" / "lage.json"

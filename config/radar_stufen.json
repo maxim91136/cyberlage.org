@@ -2,35 +2,66 @@
   "status": "vorlaeufig",
   "geprueft_am": "2026-11-24",
   "stufen": [
-    {"bis": 30, "name": "ruhig", "name_en": "calm",
-     "satz": "Die Signale liegen im Schnitt klar unter ihren Regelschwellen.",
-     "satz_en": "On average the signals are clearly below their rule thresholds."},
-    {"bis": 50, "name": "unauffällig", "name_en": "unremarkable",
-     "satz": "Die Signale liegen im Schnitt im üblichen Bereich, unter ihren Regelschwellen.",
-     "satz_en": "On average the signals are in the usual range, below their rule thresholds."},
-    {"bis": 64, "name": "erhöht", "name_en": "elevated",
-     "satz": "Die Signale liegen im Schnitt über ihren Regelschwellen, aber nicht klar darüber.",
-     "satz_en": "On average the signals are above their rule thresholds, but not by a wide margin."},
-    {"bis": 80, "name": "hoch", "name_en": "high",
-     "satz": "Die Signale liegen im Schnitt deutlich über ihren Regelschwellen.",
-     "satz_en": "On average the signals are well above their rule thresholds."},
-    {"bis": 101, "name": "außergewöhnlich", "name_en": "exceptional",
-     "satz": "Die Signale liegen im Schnitt weit über ihren Regelschwellen. Der Dreier-Pegel erreichte so hohe Werte in den letzten 36 Monaten nur an wenigen Tagen.",
-     "satz_en": "On average the signals are far above their rule thresholds. The Dreier Gauge reached such values on only a few days in the last 36 months."}
+    {
+      "bis": 30,
+      "name": "ruhig",
+      "name_en": "calm",
+      "satz": "Die Signale liegen im Schnitt klar unter ihren Regelschwellen.",
+      "satz_en": "On average the signals are clearly below their rule thresholds.",
+      "ampel": "ruhig"
+    },
+    {
+      "bis": 50,
+      "name": "unauffällig",
+      "name_en": "unremarkable",
+      "satz": "Die Signale liegen im Schnitt im üblichen Bereich, unter ihren Regelschwellen.",
+      "satz_en": "On average the signals are in the usual range, below their rule thresholds.",
+      "ampel": "unauffaellig"
+    },
+    {
+      "bis": 64,
+      "name": "angespannt",
+      "name_en": "tense",
+      "satz": "Die Signale liegen im Schnitt über ihren Regelschwellen, aber nicht klar darüber.",
+      "satz_en": "On average the signals are above their rule thresholds, but not by a wide margin.",
+      "ampel": "angespannt"
+    },
+    {
+      "bis": 80,
+      "name": "hoch",
+      "name_en": "high",
+      "satz": "Die Signale liegen im Schnitt deutlich über ihren Regelschwellen.",
+      "satz_en": "On average the signals are well above their rule thresholds.",
+      "ampel": "hoch"
+    },
+    {
+      "bis": 101,
+      "name": "außergewöhnlich",
+      "name_en": "exceptional",
+      "satz": "Die Signale liegen im Schnitt weit über ihren Regelschwellen. Der Dreier-Pegel erreichte so hohe Werte in den letzten 36 Monaten nur an wenigen Tagen.",
+      "satz_en": "On average the signals are far above their rule thresholds. The Dreier Gauge reached such values on only a few days in the last 36 months.",
+      "ampel": "ausserordentlich"
+    }
   ],
   "pegel": {
-    "niedrig": {"satz": "Der Dreier-Pegel steht auf niedrig: Es kommt weniger Neues in den KEV-Katalog als üblich.",
-                "satz_en": "The Dreier Gauge is low: less new in the KEV catalog than usual.",
-                "hinweis": "Routine genügt: KEV-Liste regelmäßig mit dem eigenen Bestand abgleichen.",
-                "hinweis_en": "Routine is enough: compare the KEV list with your own inventory regularly."},
-    "erhöht": {"satz": "Der Dreier-Pegel steht auf erhöht: Es kommt mehr Neues in den KEV-Katalog als üblich.",
-               "satz_en": "The Dreier Gauge is elevated: more new in the KEV catalog than usual.",
-               "hinweis": "Die KEV-Liste täglich mit dem eigenen Bestand abgleichen und aus dem Internet erreichbare Systeme zuerst patchen.",
-               "hinweis_en": "Compare the KEV list with your own inventory daily and patch internet-facing systems first."},
-    "hoch": {"satz": "Der Dreier-Pegel steht auf hoch: Es kommt deutlich mehr Neues in den KEV-Katalog als üblich.",
-             "satz_en": "The Dreier Gauge is high: clearly more new in the KEV catalog than usual.",
-             "hinweis": "Die KEV-Liste täglich abgleichen, aus dem Internet erreichbare Systeme zuerst patchen und Patchfristen verkürzen.",
-             "hinweis_en": "Compare the KEV list daily, patch internet-facing systems first and shorten patch deadlines."}
+    "niedrig": {
+      "satz": "Der Dreier-Pegel steht auf niedrig: Es kommt weniger Neues in den KEV-Katalog als üblich.",
+      "satz_en": "The Dreier Gauge is low: less new in the KEV catalog than usual.",
+      "hinweis": "Routine genügt: KEV-Liste regelmäßig mit dem eigenen Bestand abgleichen.",
+      "hinweis_en": "Routine is enough: compare the KEV list with your own inventory regularly."
+    },
+    "erhöht": {
+      "satz": "Der Dreier-Pegel steht auf erhöht: Es kommt mehr Neues in den KEV-Katalog als üblich.",
+      "satz_en": "The Dreier Gauge is elevated: more new in the KEV catalog than usual.",
+      "hinweis": "Die KEV-Liste täglich mit dem eigenen Bestand abgleichen und aus dem Internet erreichbare Systeme zuerst patchen.",
+      "hinweis_en": "Compare the KEV list with your own inventory daily and patch internet-facing systems first."
+    },
+    "hoch": {
+      "satz": "Der Dreier-Pegel steht auf hoch: Es kommt deutlich mehr Neues in den KEV-Katalog als üblich.",
+      "satz_en": "The Dreier Gauge is high: clearly more new in the KEV catalog than usual.",
+      "hinweis": "Die KEV-Liste täglich abgleichen, aus dem Internet erreichbare Systeme zuerst patchen und Patchfristen verkürzen.",
+      "hinweis_en": "Compare the KEV list daily, patch internet-facing systems first and shorten patch deadlines."
+    }
   },
   "grundlage": "Der Radar-Score ist 50, wenn die Signale im Schnitt ihre Regelschwelle erreichen, und 100 bei im Schnitt doppelter Schwelle. Die Stufen hängen am Dreier-Pegel, gemessen an seiner Verteilung der letzten 36 Monate (30-Tage-Zählung, 1098 Tage, Höchstwert 47): 28 entspricht dem 25. Perzentil (14 Einträge), 38 dem Median (19), 50 dem 75. Perzentil (25, Schwelle erhöht), 64 dem 90. Perzentil (32, Schwelle hoch), 80 etwa dem 98. Perzentil (40 Einträge). Gerundet auf 30, 50, 64 und 80. Vorläufig, weil der Radar-Score selbst noch keine eigene Verteilung hat; nach etwa 90 Tagen Tagesstand werden die Stufen aus seiner eigenen Verteilung neu abgeleitet."
 }

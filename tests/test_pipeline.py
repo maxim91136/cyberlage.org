@@ -538,14 +538,14 @@ class RadarStufenTests(unittest.TestCase):
         import score
         namen = {w: score.radar_stufe(w, self.cfg)["name"] for w in (0, 29, 30, 49, 50, 63, 64, 79, 80, 100)}
         self.assertEqual(namen[0], "ruhig"); self.assertEqual(namen[29], "ruhig"); self.assertEqual(namen[30], "unauffällig")
-        self.assertEqual(namen[49], "unauffällig"); self.assertEqual(namen[50], "erhöht"); self.assertEqual(namen[63], "erhöht")
+        self.assertEqual(namen[49], "unauffällig"); self.assertEqual(namen[50], "angespannt"); self.assertEqual(namen[63], "angespannt")
         self.assertEqual(namen[64], "hoch"); self.assertEqual(namen[79], "hoch"); self.assertEqual(namen[80], "außergewöhnlich")
         self.assertEqual(namen[100], "außergewöhnlich")
 
     def test_fazit(self):
         import score
         f = score.fazit({"wert": 61}, "hoch", self.cfg)
-        self.assertEqual(f["radar_stufe"], "erhöht")
+        self.assertEqual(f["radar_stufe"], "angespannt")
         self.assertIn("Dreier-Pegel steht auf hoch", f["text"])
         self.assertEqual(f["status"], "vorlaeufig")
         self.assertIsNone(score.fazit(None, "hoch", self.cfg))

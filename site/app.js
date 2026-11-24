@@ -124,7 +124,7 @@
     zeichneScoreVerlauf(((((d.radar || {}).konsens) || {}).score) || null);
     var tl = d.telegram && d.telegram.link;
     if (/^https:\/\/t\.me\//.test(tl || "")) { $("telegram-link").href = tl; $("telegram").hidden = false; }
-    d_stand = d.stand;
+    d_stand = d.stand; d_skala = d.radar_skala || null;
     zeigeBsi(d.cert_bund);
     zeigeEu(d.eu_kev);
     zeigeAusblick(d.ausblick);
@@ -257,7 +257,7 @@
     var von = new Date(stand + "T00:00:00Z"); von.setUTCDate(von.getUTCDate() - q.fenster_tage);
     return new Date(q.daten_seit + "T00:00:00Z") > von ? txt("luecke", datum(q.daten_seit)) : "";
   }
-  var d_stand = null;
+  var d_stand = null, d_skala = null;
   function zeigeBsi(b) {
     if (!b) { $("bsi-info").textContent = txt("keine"); $("bsi-liste").textContent = txt("keine"); return; }
     $("bsi-info").textContent = txt("bsi_info", b.fenster_tage, b.kritisch_30_tage, b.hoch_30_tage, b.kritisch_7_tage, b.hoch_7_tage, datum(b.abgerufen_am)) + luecke(b, d_stand);
@@ -329,6 +329,9 @@
     $("rd-kon").textContent = satz + " " + pick("Stand ", "As of ") + datum(r.abgerufen_am) + ".";
     z.textContent = ""; z.appendChild(el("b", "", k.erhoeht + "/" + k.bewertet)); z.appendChild(document.createTextNode(pick(" externe Signale zeigen ebenfalls erhöht", " external signals also show elevated"))); z.appendChild(el("span", "zr", " · " + pick("Stand ", "as of ") + datum(r.abgerufen_am))); z.hidden = false;
     var sc = k.score, sb = $("rd-score"); sb.textContent = "";
+    var ampel = (sc.stufe && sc.stufe.ampel) || "", rb = $("radar"), fzb = $("fazit");
+    ["ruhig", "unauffaellig", "angespannt", "hoch", "ausserordentlich"].forEach(function (a) { [sb, rb, fzb].forEach(function (n) { if (n) n.classList.remove("ra-" + a); }); });
+    if (ampel) [sb, rb, fzb].forEach(function (n) { if (n) n.classList.add("ra-" + ampel); });
     if (sc) {
       var gr = el("div", "sw mono", String(sc.wert)); gr.appendChild(el("small", "", " / 100")); if (sc.stufe) gr.appendChild(el("small", "sst", " · " + pick(sc.stufe.name, sc.stufe.name_en))); sb.appendChild(gr);
       var tx = el("div", "st");
@@ -338,6 +341,20 @@
         "Equally weighted mean of the readings of " + sc.signale + " of " + sc.von + " signals. 50 means the rule thresholds are reached on average, 100 twice as far. The signals cover different periods, measurements and assessments are mixed. Not an objective measure, it does not feed into the Dreier Gauge. The daily value is stored from " + datum(sc.live_seit) + ".")));
       tx.appendChild(el("span", "mono dim", pick("Stand: ", "as of: ") + datum(r.abgerufen_am)));
       sb.appendChild(tx); sb.hidden = false;
+      var sk = $("rd-skala"), kal = d_skala;
+      if (sk && kal && kal.stufen) {
+        sk.textContent = "";
+        var bar = el("div", "ska"); var von = 0;
+        kal.stufen.forEach(function (x) {
+          var bis = Math.min(x.bis, 100), seg = el("span", "sg ra-" + x.ampel); seg.style.width = (bis - von) + "%";
+          seg.title = pick(x.name, x.name_en) + " (" + von + "–" + (bis === 100 ? 100 : bis - 1) + ")"; bar.appendChild(seg); von = bis;
+        });
+        var mk = el("i", "mk"); mk.style.left = Math.max(0, Math.min(100, sc.wert)) + "%"; bar.appendChild(mk);
+        var zt = el("div", "skz mono"); [0, 30, 50, 64, 80, 100].forEach(function (n) { var t = el("span", "", String(n)); t.style.left = n + "%"; zt.appendChild(t); });
+        sk.appendChild(bar); sk.appendChild(zt);
+        sk.appendChild(el("p", "mono dim fine", pick("Stufen: ruhig, unauffällig, angespannt, hoch, außergewöhnlich. Grenzen vorläufig, am Dreier-Pegel ausgerichtet.", "Levels: calm, unremarkable, tense, high, exceptional. Limits provisional, aligned with the Dreier Gauge.")));
+        sk.hidden = false;
+      }
     }
     zeichneScope(k.signale || []);
     (k.signale || []).forEach(function (s) {
