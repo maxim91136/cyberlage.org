@@ -57,7 +57,7 @@
       fz.appendChild(el("p", "ft", pick(f.text, f.text_en)));
       fz.appendChild(el("p", "fh", pick("Für Verteidiger: ", "For defenders: ") + pick(f.hinweis, f.hinweis_en)));
       fz.appendChild(el("p", "mono dim fine", pick("Feste Sätze nach Regeln, keine Vorhersage. Stufen des Radar-Scores geprüft am ", "Fixed sentences by rule, no forecast. Radar score levels checked on ") + datum(f.stand) + "."));
-      fz.hidden = false;
+      fz.hidden = false; var fv = $("fazit-verk"); if (fv) fv.hidden = false;
     }
     var kqz = $("kern-quelle"); if (kqz) kqz.textContent = pick("Quelle aller vier Zahlen: CISA-KEV-Katalog, abgerufen ", "Source of all four figures: CISA KEV catalog, retrieved ") + datum(kq0.abgerufen_am || d.stand) + pick(" (Katalog veröffentlicht ", " (catalog published ") + datum(kq0.veroeffentlicht_am) + ")";
 

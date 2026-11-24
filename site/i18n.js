@@ -23,7 +23,7 @@
     l_stufe: "dreier gauge · worldwide", l_lade: "Loading data",
     l_7: "new · 7 days", l_30: "new · 30 days", l_ges: "catalog total",
     l_kev: "<strong>KEV</strong> stands for <em>Known Exploited Vulnerabilities</em>: a list by the US cybersecurity agency <strong>CISA</strong> of flaws that are proven to be exploited by attackers. The level shows how many are newly added.",
-    r_h: "## history", i_faq: "faq", l_faq: "▸ New here? Questions and answers (FAQ)",
+    r_h: "## history", i_faq: "faq", l_verk2: "Combined from gauge and radar", l_faq: "▸ New here? Questions and answers (FAQ)",
     f1q: "What is the Dreier Gauge?", f1a: "Our own score, not a standard or norm. It counts how many vulnerabilities were newly added to the CISA KEV catalog in the last 30 days (the gauge reading) and derives a level from it: low, elevated or high. It measures activity in the catalog, not the number of attacks.",
     f2q: "Where does the data come from?", f2a: "The gauge is built solely from CISA's public KEV catalog, fetched daily. Other sources (BSI, SANS, abuse.ch, NCSC-NL, ENISA, EU KEV) run alongside in the radar and do not feed the gauge. Every value names its source and date.",
     f3q: "What are KEV and CISA?", f3a: "CISA is the US cybersecurity agency. KEV (Known Exploited Vulnerabilities) is its catalog of vulnerabilities with proven exploitation in the wild. Being listed means exploited in practice, not just theoretically dangerous (unlike a CVSS severity or an EPSS probability). Limitation: it is the US view, and only what CISA adds counts.",

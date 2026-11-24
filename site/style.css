@@ -310,3 +310,7 @@ html.alarm .marke{animation:flackern 6s infinite}
 .rd-skala{margin:0 0 14px}.ska{position:relative;display:flex;height:12px;border:1px solid var(--line)}.ska .sg{display:block;height:100%;opacity:.85}
 .ska .mk{position:absolute;top:-5px;width:3px;height:20px;margin-left:-1px;background:#fff;box-shadow:0 0 0 1px #000}
 .skz{position:relative;height:16px;margin-top:4px;font-size:11px;color:var(--dim)}.skz span{position:absolute;transform:translateX(-50%)}.skz span:first-child{transform:none}.skz span:last-child{transform:translateX(-100%)}
+.verbund .fazit{margin:0;padding:16px 18px;border:1px solid var(--line);border-left:3px solid var(--green)}
+.verbund .fazit.ra-ruhig{border-color:var(--ra-ruhig)}.verbund .fazit.ra-unauffaellig{border-color:var(--ra-unauffaellig)}.verbund .fazit.ra-angespannt{border-color:var(--ra-angespannt)}.verbund .fazit.ra-hoch{border-color:var(--ra-hoch)}.verbund .fazit.ra-ausserordentlich{border-color:var(--ra-ausserordentlich)}
+.verbund .fazit .ft{font-size:17px}
+.rd-score .sw{flex:0 0 auto;white-space:nowrap}@media (min-width:701px){.rd-score .sw{min-width:230px}}
