@@ -1,6 +1,6 @@
 """Prüfkalender: Welche von Hand gepflegten Angaben sind fällig, welche Quellen sind nicht mehr erreichbar?
 
-Liest data/radar/gruende.csv und einschaetzungen.csv, prüft die Links (höchstens einmal je 24 Stunden)
+Liest data/radar/gruende.csv und einschaetzungen.csv, prüft die Links (erreichbare höchstens einmal je 24 Stunden, fehlgeschlagene bei jedem Lauf erneut)
 und schreibt data/radar/pruefung.json. Dazu einen Text für ein GitHub-Issue (Pfad aus PRUEFUNG_MD,
 nur wenn etwas offen ist). Prüft nur Erreichbarkeit und Frist, nicht den Inhalt: Ob eine Zahl noch
 stimmt, entscheidet ein Mensch; das Datum geprueft_am wird nur von Hand gesetzt.
@@ -43,7 +43,7 @@ def eintraege():
 
 
 def erreichbar(url):
-    """(ok, status). Nur https; ein Fehler ist kein Beweis, darum zählt erst der zweite Fehlschlag in Folge."""
+    """(ok, status). Nur https; ein einzelner Fehler ist kein Beweis (siehe tot)."""
     if not url.startswith("https://"):
         return False, "kein https-Link"
     for methode in ("HEAD", "GET"):
@@ -60,6 +60,16 @@ def erreichbar(url):
     return False, "unbekannt"
 
 
+def tot(e, jetzt):
+    """Ein Link gilt als tot, wenn jeder Versuch seit mindestens 24 Stunden fehlschlägt (und es mehrere waren)."""
+    if int(e.get("fehler_in_folge", 0)) < 2 or not e.get("erster_fehler_um"):
+        return False
+    try:
+        return jetzt - datetime.fromisoformat(e["erster_fehler_um"]) >= timedelta(hours=NEU_NACH_STUNDEN)
+    except ValueError:
+        return False
+
+
 def pruefen(heute, alt, pruefer=erreichbar, jetzt=None):
     jetzt = jetzt or datetime.now(timezone.utc)
     alt_nach_id = {e["id"]: e for e in (alt or {}).get("eintraege", [])}
@@ -68,7 +78,7 @@ def pruefen(heute, alt, pruefer=erreichbar, jetzt=None):
     def eins(e):
         frueher = alt_nach_id.get(e["id"], {})
         seit = frueher.get("link_geprueft_um")
-        if seit and frueher.get("link") == e["link"]:
+        if seit and frueher.get("link") == e["link"] and frueher.get("erreichbar"):
             try:
                 if jetzt - datetime.fromisoformat(seit) < timedelta(hours=NEU_NACH_STUNDEN):
                     return dict(frueher, **{k: e[k] for k in ("bereich", "name", "geprueft_am")})
@@ -76,7 +86,8 @@ def pruefen(heute, alt, pruefer=erreichbar, jetzt=None):
                 pass
         ok, status = pruefer(e["link"])
         fehler = 0 if ok else int(frueher.get("fehler_in_folge", 0)) + 1
-        return dict(e, erreichbar=ok, status=status, fehler_in_folge=fehler, link_geprueft_um=jetzt.isoformat(timespec="seconds"))
+        erster = None if ok else (frueher.get("erster_fehler_um") if frueher.get("fehler_in_folge") else None) or jetzt.isoformat(timespec="seconds")
+        return dict(e, erreichbar=ok, status=status, fehler_in_folge=fehler, erster_fehler_um=erster, link_geprueft_um=jetzt.isoformat(timespec="seconds"))
 
     with ThreadPoolExecutor(max_workers=4) as pool:
         ergebnis = list(pool.map(eins, liste))
@@ -88,7 +99,7 @@ def pruefen(heute, alt, pruefer=erreichbar, jetzt=None):
             faellig_am = heute
         e["faellig_am"] = faellig_am.isoformat()
         e["faellig"] = heute >= faellig_am
-        e["link_tot"] = int(e.get("fehler_in_folge", 0)) >= 2
+        e["link_tot"] = tot(e, jetzt)
         if e["faellig"]:
             offen.append("%s: Prüfung fällig seit %s (zuletzt geprüft %s)" % (e["name"], e["faellig_am"], e["geprueft_am"] or "nie"))
         if e["link_tot"]:

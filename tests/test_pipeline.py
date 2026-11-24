@@ -500,12 +500,17 @@ class PruefkalenderTests(unittest.TestCase):
         namen = [e["id"] for e in r1["eintraege"] if e["faellig"]]
         self.assertIn("r7q3", namen)
         self.assertNotIn("BSI Cyber Index 2026", namen)
-        # ein einzelner Fehlschlag ist noch kein toter Link, der zweite in Folge schon
+        # ein Fehlschlag allein ist noch kein toter Link; erst wenn es 24 Stunden lang bei jedem Versuch scheitert
         r2 = pruefen.pruefen(date(2026, 11, 24), None, pruefer=fehl, jetzt=jetzt)
         self.assertFalse(any(e["link_tot"] for e in r2["eintraege"]))
-        r3 = pruefen.pruefen(date(2026, 11, 25), r2, pruefer=fehl, jetzt=datetime(2026, 11, 26, tzinfo=timezone.utc))
+        r2b = pruefen.pruefen(date(2026, 11, 24), r2, pruefer=fehl, jetzt=datetime(2026, 11, 24, 6, tzinfo=timezone.utc))
+        self.assertFalse(any(e["link_tot"] for e in r2b["eintraege"]))
+        r3 = pruefen.pruefen(date(2026, 11, 25), r2b, pruefer=fehl, jetzt=datetime(2026, 11, 25, 1, tzinfo=timezone.utc))
         self.assertTrue(all(e["link_tot"] for e in r3["eintraege"]))
         self.assertEqual(len(r3["offen"]), len(r3["eintraege"]))
+        # eine Erholung setzt den Zähler zurück
+        r4 = pruefen.pruefen(date(2026, 11, 25), r3, pruefer=ok, jetzt=datetime(2026, 11, 25, 3, tzinfo=timezone.utc))
+        self.assertFalse(any(e["link_tot"] for e in r4["eintraege"]))
 
     def test_nicht_oefter_als_taeglich(self):
         from datetime import datetime, timezone
