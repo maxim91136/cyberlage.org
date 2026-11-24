@@ -59,7 +59,7 @@
       fz.appendChild(el("p", "mono dim fine", pick("Feste Sätze nach Regeln, keine Vorhersage. Stufen des Radar-Scores geprüft am ", "Fixed sentences by rule, no forecast. Radar score levels checked on ") + datum(f.stand) + "."));
       fz.hidden = false; var fv = $("fazit-verk"); if (fv) fv.hidden = false;
     }
-    var kqz = $("kern-quelle"); if (kqz) kqz.textContent = pick("Quelle aller vier Zahlen: CISA-KEV-Katalog, abgerufen ", "Source of all four figures: CISA KEV catalog, retrieved ") + datum(kq0.abgerufen_am || d.stand) + pick(" (Katalog veröffentlicht ", " (catalog published ") + datum(kq0.veroeffentlicht_am) + ")";
+    var kqz = $("kern-quelle"); if (kqz) kqz.textContent = pick("Quelle aller Zahlen in diesem Kasten: CISA-KEV-Katalog, abgerufen ", "Source of all figures in this box: CISA KEV catalog, retrieved ") + datum(kq0.abgerufen_am || d.stand) + pick(" (Katalog veröffentlicht ", " (catalog published ") + datum(kq0.veroeffentlicht_am) + ")";
 
     var hatStufe = d.stufe !== null && d.stufe !== undefined;
     var name = hatStufe ? txt(String(d.stufe)) : null;
@@ -376,8 +376,9 @@
       var w = el("div", "w mono", wert); if (einheit) w.appendChild(el("small", "", einheit)); a.appendChild(w);
       a.appendChild(el("div", "l", label)); if (unter) a.appendChild(el("div", "u", unter)); box.appendChild(a);
     };
-    if (d.kev && typeof d.kev.neu_30_tage === "number")
-      karte(zahl(d.kev.neu_30_tage), "", pick("Pegelstand · neu im KEV, 30 Tage", "gauge reading · new in KEV, 30 days"), typeof sw.hoch_ab === "number" ? pick("erhöht ab ", "elevated from ") + sw.erhoeht_ab + pick(" · hoch ab ", " · high from ") + sw.hoch_ab : "", "#rueckblick");
+    var pd = $("pegel-def");
+    if (pd) pd.textContent = pick("Der Dreier-Pegel misst die Menge: wie viele ausgenutzte Schwachstellen in den letzten 30 Tagen neu in den KEV-Katalog kamen", "The Dreier Gauge measures the amount: how many exploited vulnerabilities were newly added to the KEV catalog in the last 30 days") +
+      (typeof sw.hoch_ab === "number" ? pick(". Erhöht ab ", ". Elevated from ") + sw.erhoeht_ab + pick(", hoch ab ", ", high from ") + sw.hoch_ab + "." : ".");
     var ok = j && v && j.n_frisch >= 10 && v.n_frisch >= 10 && typeof j.median_frisch === "number" && typeof v.median_frisch === "number";
     if (ok) {
       karte(tg(j.median_frisch), pick(" Tage", " days"), pick("Median bis zur KEV-Aufnahme", "median time to KEV listing"), pick("vor 12 Monaten: ", "12 months ago: ") + tg(v.median_frisch), "#radar");
@@ -386,7 +387,7 @@
       s.textContent = q >= 1.5 ? pick("Lücken kommen rund " + n + "-mal schneller in den KEV als vor einem Jahr.", "Vulnerabilities reach KEV about " + n + " times faster than a year ago.")
         : (q <= 0.67 ? pick("Lücken kommen langsamer in den KEV als vor einem Jahr.", "Vulnerabilities reach KEV more slowly than a year ago.")
         : pick("Lücken kommen ungefähr so schnell in den KEV wie vor einem Jahr.", "Vulnerabilities reach KEV about as fast as a year ago."));
-      s.hidden = false;
+      s.hidden = false; $("tempo-box").hidden = false;
     }
   }
 

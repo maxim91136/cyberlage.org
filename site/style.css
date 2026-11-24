@@ -314,3 +314,8 @@ html.alarm .marke{animation:flackern 6s infinite}
 .verbund .fazit.ra-ruhig{border-color:var(--ra-ruhig)}.verbund .fazit.ra-unauffaellig{border-color:var(--ra-unauffaellig)}.verbund .fazit.ra-angespannt{border-color:var(--ra-angespannt)}.verbund .fazit.ra-hoch{border-color:var(--ra-hoch)}.verbund .fazit.ra-ausserordentlich{border-color:var(--ra-ausserordentlich)}
 .verbund .fazit .ft{font-size:17px}
 .rd-score .sw{flex:0 0 auto;white-space:nowrap}@media (min-width:701px){.rd-score .sw{min-width:230px}}
+.lage #stufe-begr{margin:10px 0 0;font-weight:600}.pegeldef{margin:8px 0 0;max-width:46em}
+.tempo{margin-top:22px;padding-top:14px;border-top:1px dashed var(--line)}.tempo-k{margin:0 0 6px;font-size:12px;color:var(--green)}
+.tempo-s{margin:0;font-size:16px;line-height:1.35;color:var(--text);max-width:34em}.tempo .kern{margin-top:14px;padding-top:12px;grid-template-columns:repeat(2,minmax(0,1fr));border-top:0}
+.lage.st-hoch .tempo .kern .kk:first-child .w,.lage.st-erhoeht .tempo .kern .kk:first-child .w,.lage.st-niedrig .tempo .kern .kk:first-child .w{color:var(--text)}
+@media (max-width:420px){.tempo .kern{grid-template-columns:repeat(2,minmax(0,1fr))}}
