@@ -4,7 +4,7 @@ Ein Seismograph für die Cyberlage: Lagebild aus ausgenutzten Schwachstellen und
 
 **Ein Projekt von [Dreier Labs](https://dreierlabs.com).** Ein privates Projekt, keine amtliche Stelle und keine Zusammenarbeit mit einer Behörde.
 
-Status: öffentlich unter https://cyberlage.org (Beta). Neues gibt es auch im [Telegram-Kanal](https://t.me/cyberlage_org) und als [RSS-Feed](https://cyberlage.org/feed.xml).
+Status: öffentlich unter https://cyberlage.org. Neues gibt es auch im [Telegram-Kanal](https://t.me/cyberlage_org) und als [RSS-Feed](https://cyberlage.org/feed.xml).
 
 ## Der Dreier-Pegel
 
