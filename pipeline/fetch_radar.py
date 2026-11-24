@@ -222,9 +222,10 @@ def konsens(lage_stufe, zeit, einschaetzungen, sans, verlauf):
     f = None
     if len(werte) >= 31:
         alt = sorted(werte[:-1][-90:])
-        f = werte[-1] >= 1.25 * statistics.median(alt)
-    add("Botnetz-Server (Feodo)", "Botnet servers (Feodo)", f, "aktive Steuerserver mindestens 25 % über dem Median der letzten 90 Tage (ab 30 Messtagen)",
-        "active command servers at least 25% above the 90-day median (from 30 days of data)")
+        med = statistics.median(alt)
+        f = werte[-1] >= 1.25 * med and werte[-1] - med >= 3  # bei kleinen Zahlen sonst Zufallsrauschen
+    add("Botnetz-Server (Feodo)", "Botnet servers (Feodo)", f, "aktive Steuerserver mindestens 25 % und mindestens 3 über dem Median der letzten 90 Tage (ab 30 Messtagen)",
+        "active command servers at least 25% and at least 3 above the 90-day median (from 30 days of data)")
     extern = [x for x in signale if x["art"] == "extern" and x["erhoeht"] is not None]
     return {"signale": signale, "erhoeht": sum(1 for x in extern if x["erhoeht"]), "bewertet": len(extern), "messtage_feodo": len(werte)}
 

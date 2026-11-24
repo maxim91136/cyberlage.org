@@ -2652,8 +2652,8 @@
           "name": "Botnetz-Server (Feodo)",
           "name_en": "Botnet servers (Feodo)",
           "erhoeht": null,
-          "grund": "aktive Steuerserver mindestens 25 % über dem Median der letzten 90 Tage (ab 30 Messtagen)",
-          "grund_en": "active command servers at least 25% above the 90-day median (from 30 days of data)",
+          "grund": "aktive Steuerserver mindestens 25 % und mindestens 3 über dem Median der letzten 90 Tage (ab 30 Messtagen)",
+          "grund_en": "active command servers at least 25% and at least 3 above the 90-day median (from 30 days of data)",
           "art": "extern"
         }
       ],
