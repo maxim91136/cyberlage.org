@@ -6,12 +6,18 @@ Stufe 1: Microsoft Security Response Center, CVRF v3.0 (JSON). Je Monat ein Beri
 Ausgenommen und getrennt gezählt: Chromium-Lücken im Edge und Paketlücken von Azure Linux (frühere Bezeichnung Mariner), weil sie den Patch Day sonst um ein Vielfaches aufblähen. Gezählt wird nur: Lücken je Schweregrad, ausgenutzt, öffentlich bekannt, Auswirkungsart, betroffene Produktfamilie,
 Überschneidung mit dem CISA-KEV. Keine Beschreibungstexte, keine Eigenbewertung der Schwere.
 
-Schreibt data/patches/microsoft.json. Schlägt die Quelle fehl, bleibt die alte Datei bestehen und der Lauf meldet es.
+Stufe 2 und 3: Sicherheitsmeldungen von Linux-Distributionen (Ubuntu, Debian, Red Hat) und von Cisco, nur als Zählung
+(neu in 7 und 30 Tagen, davon kritisch, genannte CVEs) mit Kennung, Titel, Datum und Link der letzten Meldungen. Keine Texte.
+Schreibt data/patches/microsoft.json und data/patches/hersteller.json. Schlägt die Quelle fehl, bleibt die alte Datei bestehen und der Lauf meldet es.
 """
+import html
 import json
 import re
 import sys
 import urllib.request
+import xml.etree.ElementTree as ET
+from datetime import timedelta
+from email.utils import parsedate_to_datetime
 from datetime import datetime, timezone
 from pathlib import Path
 from statistics import median
@@ -237,6 +243,167 @@ def aktualisiere(alt, liste_json, hole_dok, kev_cves, jetzt):
             "monate": {m["id"]: m for m in reihe}}
 
 
+# ---------- Stufe 2 und 3: Distributionen und Hersteller ----------
+UBUNTU_URL = "https://ubuntu.com/security/notices.json?limit=100&order=newest"
+REDHAT_URL = "https://access.redhat.com/hydra/rest/securitydata/cvrf.json?after=%s&per_page=500"
+DEBIAN_URLS = ["https://www.debian.org/security/dsa-long.en.rdf", "https://www.debian.org/security/dsa.en.rdf"]
+CISCO_URL = "https://sec.cloudapps.cisco.com/security/center/psirtrss20/CiscoSecurityAdvisory.xml"
+HERSTELLER_DATEI = WURZEL / "data" / "patches" / "hersteller.json"
+CVE_RE = re.compile(r"CVE-\d{4}-\d{4,7}")
+FENSTER = 30
+
+
+def lade_roh(url):
+    req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "*/*"})
+    with urllib.request.urlopen(req, timeout=120) as r:
+        return r.read()
+
+
+def _tag(e):
+    return e.tag.rsplit("}", 1)[-1]
+
+
+def _kind(e, name):
+    for k in e:
+        if _tag(k) == name:
+            return (k.text or "").strip()
+    return ""
+
+
+def _datum(text):
+    """ISO oder RFC 822 oder 'YYYY-MM-DD hh:mm:ss.0' -> date, sonst None."""
+    t = (text or "").strip()
+    m = re.match(r"(\d{4})-(\d{2})-(\d{2})", t)
+    if m:
+        return datetime(int(m.group(1)), int(m.group(2)), int(m.group(3))).date()
+    try:
+        return parsedate_to_datetime(t).date()
+    except (TypeError, ValueError):
+        return None
+
+
+def parse_ubuntu(daten):
+    out = []
+    for n in (daten or {}).get("notices", []):
+        d = _datum(n.get("published"))
+        if not d or n.get("is_hidden"):
+            continue
+        out.append({"id": n.get("id", ""), "datum": d, "titel": n.get("title") or n.get("summary") or "", "link": "https://ubuntu.com/security/notices/" + n.get("id", ""),
+                    "schwere": None, "cves": [c for c in (n.get("cves_ids") or []) if CVE_RE.fullmatch(str(c))]})
+    return out
+
+
+def parse_redhat(daten):
+    out = []
+    for n in daten if isinstance(daten, list) else []:
+        d = _datum(n.get("released_on"))
+        rid = n.get("RHSA") or ""
+        if not d or not rid:
+            continue
+        sev = (n.get("severity") or "").strip().lower() or None
+        out.append({"id": rid, "datum": d, "titel": rid, "link": n.get("resource_url") or "https://access.redhat.com/errata/" + rid.replace(":", "-"),
+                    "schwere": {"critical": "kritisch", "important": "hoch", "moderate": "mittel", "low": "niedrig"}.get(sev, sev),
+                    "cves": [c for c in (n.get("CVEs") or []) if CVE_RE.fullmatch(str(c))]})
+    return out
+
+
+def parse_debian(xml_bytes):
+    try:
+        wurzel = ET.fromstring(xml_bytes)
+    except ET.ParseError as e:
+        raise QuellFehler("Debian-Feed kein gültiges XML: %s" % e)
+    out = []
+    for it in wurzel.iter():
+        if _tag(it) != "item":
+            continue
+        titel, link, datum = _kind(it, "title"), _kind(it, "link"), _datum(_kind(it, "date") or _kind(it, "pubDate"))
+        m = re.match(r"(DSA-\d+-\d+)", titel)
+        if not datum or not m:
+            continue
+        out.append({"id": m.group(1), "datum": datum, "titel": titel, "link": link, "schwere": None,
+                    "cves": sorted(set(CVE_RE.findall(" ".join((k.text or "") for k in it.iter()))))})
+    return out
+
+
+def parse_cisco(xml_bytes):
+    try:
+        wurzel = ET.fromstring(xml_bytes)
+    except ET.ParseError as e:
+        raise QuellFehler("Cisco-Feed kein gültiges XML: %s" % e)
+    out = []
+    for it in wurzel.iter("item"):
+        titel, link = _kind(it, "title"), _kind(it, "link").split("?")[0]
+        datum = _datum(_kind(it, "pubDate"))
+        text = re.sub(r"<[^>]+>", " ", html.unescape(_kind(it, "description")))  # Beschreibung ist HTML, das selbst maskiert geliefert wird
+        m = re.search(r"Security Impact Rating:?\s*(Critical|High|Medium|Low|Informational)", text, re.I)
+        sev = {"critical": "kritisch", "high": "hoch", "medium": "mittel", "low": "niedrig"}.get(m.group(1).lower()) if m else None
+        if not datum or not titel:
+            continue
+        out.append({"id": link.rsplit("/", 1)[-1] or titel, "datum": datum, "titel": titel, "link": link, "schwere": sev, "cves": sorted(set(CVE_RE.findall(text)))})
+    return out
+
+
+def verdichte_quelle(items, heute):
+    """Zählung der Meldungen der letzten 7 und 30 Tage. Fehlt eine Angabe (z. B. Schweregrad), wird sie nicht geraten."""
+    inner = [i for i in items if 0 <= (heute - i["datum"]).days < FENSTER]
+    sieben = [i for i in inner if (heute - i["datum"]).days < 7]
+    mit_sev = [i for i in inner if i["schwere"]]
+    cves = set(c for i in inner for c in i["cves"])
+    letzte = sorted(inner, key=lambda i: (i["datum"], i["id"]), reverse=True)[:10]
+    return {"neu_7": len(sieben), "neu_30": len(inner), "kritisch_30": len([i for i in inner if i["schwere"] == "kritisch"]) if mit_sev else None,
+            "hoch_30": len([i for i in inner if i["schwere"] == "hoch"]) if mit_sev else None, "cves_30": len(cves),
+            "schwere_bekannt": bool(mit_sev),
+            "letzte": [{"id": i["id"], "datum": i["datum"].isoformat(), "titel": i["titel"][:140], "link": i["link"], "schwere": i["schwere"]} for i in letzte]}
+
+
+QUELLEN = [
+    {"id": "ubuntu", "name": "Ubuntu Security Notices", "typ": "distribution", "url": "https://ubuntu.com/security/notices", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
+    {"id": "debian", "name": "Debian Security Advisories", "typ": "distribution", "url": "https://www.debian.org/security/", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
+    {"id": "redhat", "name": "Red Hat Security Advisories", "typ": "distribution", "url": "https://access.redhat.com/security/security-updates/", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
+    {"id": "cisco", "name": "Cisco Security Advisories", "typ": "hersteller", "url": "https://sec.cloudapps.cisco.com/security/center/publicationListing.x", "lizenz": "Feed nennt nur ein Urheberrecht, keine Nutzungsbedingungen; nur Zählung, Kennung, Titel, Datum, Link"},
+]
+
+
+def hole_quelle(qid, heute, lade=lade_roh):
+    if qid == "ubuntu":
+        return parse_ubuntu(json.loads(lade(UBUNTU_URL).decode("utf-8")))
+    if qid == "redhat":
+        return parse_redhat(json.loads(lade(REDHAT_URL % (heute - timedelta(days=FENSTER + 2)).isoformat()).decode("utf-8")))
+    if qid == "debian":
+        letzter = None
+        for u in DEBIAN_URLS:
+            try:
+                return parse_debian(lade(u))
+            except Exception as e:
+                letzter = e
+        raise QuellFehler("Debian: %s" % letzter)
+    if qid == "cisco":
+        return parse_cisco(lade(CISCO_URL))
+    raise QuellFehler("unbekannte Quelle " + qid)
+
+
+def aktualisiere_hersteller(alt, heute, jetzt, lade=lade_roh):
+    alt = alt or {}
+    quellen = dict(alt.get("quellen", {}))
+    for q in QUELLEN:
+        vorher = quellen.get(q["id"], {})
+        try:
+            items = hole_quelle(q["id"], heute, lade)
+            if not items:
+                raise QuellFehler("keine Einträge erkannt")
+            z = verdichte_quelle(items, heute)
+            reihe = [p for p in vorher.get("reihe", []) if p["stand"] != heute.isoformat()]
+            reihe.append({"stand": heute.isoformat(), "neu_30": z["neu_30"]})
+            quellen[q["id"]] = dict(q, **z, abgerufen_am=jetzt.isoformat(timespec="seconds"), status="ok", reihe=reihe[-400:])
+        except Exception as e:  # fail-soft je Quelle: alter Stand bleibt, Fehler wird vermerkt
+            if vorher:
+                quellen[q["id"]] = dict(vorher, status="fehler", fehler=str(e)[:200])
+            else:
+                quellen[q["id"]] = dict(q, status="fehler", fehler=str(e)[:200], neu_7=None, neu_30=None, letzte=[])
+    return {"meta": {"hinweis": "Nur Zählung und Verweise auf die Meldungen der Hersteller. Schweregrade stammen von den Herstellern und fehlen, wo sie nicht geliefert werden.",
+                     "abgerufen_am": jetzt.isoformat(timespec="seconds")}, "quellen": quellen}
+
+
 def kev_cves():
     try:
         kev = json.loads((WURZEL / "data" / "kev" / "kev.json").read_text(encoding="utf-8"))
@@ -251,15 +418,22 @@ def main():
     try:
         liste = lade_json(MS_LISTE)
         neu = aktualisiere(alt, liste, lade_json, kev_cves(), jetzt)
+        MS_DATEI.parent.mkdir(parents=True, exist_ok=True)
+        MS_DATEI.write_text(json.dumps(neu, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+        letzter = list(neu["monate"].values())[-1]
+        print("Microsoft-Patches: %d Monate, zuletzt %s mit %d CVEs (%d ausgenutzt)" % (len(neu["monate"]), letzter["id"], letzter["cves"], letzter["ausgenutzt"]))
+        for f in neu["meta"]["fehler"]:
+            print("  Fehler:", f)
     except Exception as e:
         print("Microsoft-Patches: Abruf fehlgeschlagen, alter Stand bleibt (%s)" % e)
-        return 0
-    MS_DATEI.parent.mkdir(parents=True, exist_ok=True)
-    MS_DATEI.write_text(json.dumps(neu, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
-    letzter = list(neu["monate"].values())[-1]
-    print("Microsoft-Patches: %d Monate, zuletzt %s mit %d CVEs (%d ausgenutzt)" % (len(neu["monate"]), letzter["id"], letzter["cves"], letzter["ausgenutzt"]))
-    for f in neu["meta"]["fehler"]:
-        print("  Fehler:", f)
+    try:
+        hs = aktualisiere_hersteller(lese_datei(HERSTELLER_DATEI), jetzt.date(), jetzt)
+        HERSTELLER_DATEI.parent.mkdir(parents=True, exist_ok=True)
+        HERSTELLER_DATEI.write_text(json.dumps(hs, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+        for k, q in hs["quellen"].items():
+            print("  %s: %s, neu 7 Tage %s, 30 Tage %s%s" % (k, q["status"], q.get("neu_7"), q.get("neu_30"), (" (%s)" % q["fehler"]) if q.get("fehler") else ""))
+    except Exception as e:
+        print("Hersteller-Patches: Fehler (%s)" % e)
     return 0
 
 

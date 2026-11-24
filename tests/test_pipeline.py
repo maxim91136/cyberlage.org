@@ -658,3 +658,47 @@ class PatchTests(unittest.TestCase):
         self.assertEqual(len(r["meta"]["fehler"]), 1)
         with self.assertRaises(fetch_patches.QuellFehler):
             fetch_patches.aktualisiere(None, liste, lambda u: (_ for _ in ()).throw(OSError("x")), [], jetzt)
+
+
+class HerstellerPatchTests(unittest.TestCase):
+    def test_ubuntu_redhat(self):
+        u = fetch_patches.parse_ubuntu({"notices": [
+            {"id": "USN-1-1", "published": "2026-11-20T16:08:41.2", "title": "Kernel vulnerabilities", "cves_ids": ["CVE-2026-1111", "CVE-2026-2222"]},
+            {"id": "USN-2-1", "published": "2026-10-01T10:00:00", "title": "alt", "cves_ids": []},
+            {"id": "USN-3-1", "published": "kaputt", "title": "x"}]})
+        self.assertEqual([x["id"] for x in u], ["USN-1-1", "USN-2-1"])
+        z = fetch_patches.verdichte_quelle(u, date(2026, 11, 24))
+        self.assertEqual((z["neu_7"], z["neu_30"], z["cves_30"], z["schwere_bekannt"], z["kritisch_30"]), (1, 1, 2, False, None))
+        r = fetch_patches.parse_redhat([{"RHSA": "RHSA-2026:1", "severity": "Critical", "released_on": "2026-11-22T00:00:00Z", "CVEs": ["CVE-2026-3333"]},
+                                         {"RHSA": "RHSA-2026:2", "severity": "Important", "released_on": "2026-11-23T00:00:00Z", "CVEs": []}])
+        z = fetch_patches.verdichte_quelle(r, date(2026, 11, 24))
+        self.assertEqual((z["neu_30"], z["kritisch_30"], z["hoch_30"]), (2, 1, 1))
+
+    def test_debian_cisco(self):
+        rdf = b"""<?xml version="1.0"?><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://purl.org/rss/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <item><title>DSA-6012-1 libfoo -- security update</title><link>https://www.debian.org/security/2026/dsa-6012</link><dc:date>2026-11-21</dc:date><description>CVE-2026-4444</description></item></rdf:RDF>"""
+        d = fetch_patches.parse_debian(rdf)
+        self.assertEqual((d[0]["id"], d[0]["cves"]), ("DSA-6012-1", ["CVE-2026-4444"]))
+        rss = b"""<?xml version="1.0"?><rss version="2.0"><channel><item><title>PHP Affecting Cisco Products</title>
+        <link>https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-php?vs_f=x</link><pubDate>2026-11-23 20:20:00.0</pubDate>
+        <description>&lt;b&gt;Security Impact Rating:&lt;/b&gt; Critical CVE-2026-5555</description></item></channel></rss>"""
+        c = fetch_patches.parse_cisco(rss)
+        self.assertEqual((c[0]["schwere"], c[0]["cves"], c[0]["link"].endswith("cisco-sa-php")), ("kritisch", ["CVE-2026-5555"], True))
+        with self.assertRaises(fetch_patches.QuellFehler):
+            fetch_patches.parse_cisco(b"kein xml")
+
+    def test_aktualisieren_fail_soft(self):
+        from datetime import datetime, timezone
+        jetzt = datetime(2026, 11, 24, 6, tzinfo=timezone.utc)
+        def lade(url):
+            if "ubuntu" in url:
+                return json.dumps({"notices": [{"id": "USN-9-1", "published": "2026-11-23T10:00:00", "title": "t", "cves_ids": []}]}).encode()
+            raise OSError("gesperrt")
+        r = fetch_patches.aktualisiere_hersteller(None, date(2026, 11, 24), jetzt, lade)
+        self.assertEqual(r["quellen"]["ubuntu"]["status"], "ok")
+        self.assertEqual(r["quellen"]["ubuntu"]["neu_30"], 1)
+        self.assertEqual(r["quellen"]["cisco"]["status"], "fehler")
+        # ein früher gültiger Stand bleibt bei einem Fehler erhalten
+        r2 = fetch_patches.aktualisiere_hersteller(r, date(2026, 11, 25), jetzt, lambda u: (_ for _ in ()).throw(OSError("x")))
+        self.assertEqual(r2["quellen"]["ubuntu"]["neu_30"], 1)
+        self.assertEqual(r2["quellen"]["ubuntu"]["status"], "fehler")
