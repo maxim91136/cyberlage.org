@@ -321,3 +321,12 @@ html.alarm .marke{animation:flackern 6s infinite}
 @media (max-width:420px){.tempo .kern{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .tempo-st{font-weight:600}.tempo-st.st-niedrig{color:var(--green)}.tempo-st.st-erhoeht{color:var(--amber)}.tempo-st.st-hoch{color:#ff8a7a}
 .tempo-k{font-size:15px;color:var(--text)}.tempo-k b{color:var(--green)}.tempo-d{margin:8px 0 0;max-width:46em}
+/* Patches */
+#patches{margin-top:36px}.pt{margin-top:14px}.p-bew{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:12px 0}
+.p-badge{padding:3px 10px;font:600 13px ui-monospace,monospace;border:1px solid var(--line);text-transform:uppercase;letter-spacing:.04em}
+.p-badge.pr-rot{color:#ff8a7a;border-color:#ff8a7a}.p-badge.pr-gelb{color:var(--amber);border-color:var(--amber)}.p-badge.pr-gruen{color:var(--green);border-color:var(--green)}
+.p-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin:8px 0}
+.pk{border:1px solid var(--line);padding:10px 12px}.pk b{display:block;font-size:26px;color:var(--text)}.pk span{font-size:12px;color:var(--dim)}.pk.warn b{color:var(--amber)}
+.p-emp{margin:10px 0;color:var(--green)}.p-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin:12px 0}
+.p-cols h4{margin:0 0 6px;font-size:13px;color:var(--dim);font-weight:400}.p-z{font-size:13px;line-height:1.7}
+.p-chart{width:100%;height:auto;margin-top:14px;max-height:180px}.p-liste{list-style:none;margin:6px 0 10px;padding:0 0 0 4px;font-size:13px;line-height:1.7}

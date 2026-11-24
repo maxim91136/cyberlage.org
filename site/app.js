@@ -131,6 +131,8 @@
     zeigeRadar(d.radar, d);
     zeigeKern(d);
     zeigeKonsens(d.radar);
+    zeigeMicrosoft(d.patches && d.patches.microsoft);
+    zeigeHersteller(d.patches && d.patches.hersteller);
 
     var h = $("hinweise");
     var hw = window.I18N.lang === "en" && d.hinweise_en ? d.hinweise_en : (d.hinweise || []);
@@ -320,6 +322,105 @@
       }
     });
     var sl = sv("text", { x: C - R / 2 - 5, y: C - 5, "class": "sc-tx", "text-anchor": "end" }); sl.textContent = pick("Schwelle", "threshold");
+  }
+
+  // ---------- Patches ----------
+  function monatName(id) {
+    var m = /^(\d{4})-(\w{3})$/.exec(id || ""), M = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], i = m ? M.indexOf(m[2]) : -1;
+    return i < 0 ? (id || "") : new Date(Date.UTC(+m[1], i, 1)).toLocaleDateString(window.I18N.locale, { timeZone: "UTC", month: "long", year: "numeric" });
+  }
+  function kpi(wert, label, klasse) {
+    var k = el("div", "pk" + (klasse ? " " + klasse : "")); k.appendChild(el("b", "mono", String(wert))); k.appendChild(el("span", "", label)); return k;
+  }
+  function zeichneMonate(host, monate) {
+    var NS = "http://www.w3.org/2000/svg", B = 600, H = 130, L = 8, U = 26, T = 14, mx = Math.max.apply(null, monate.map(function (m) { return m.cves; })) || 1;
+    var svg = document.createElementNS(NS, "svg"); svg.setAttribute("viewBox", "0 0 " + B + " " + H); svg.setAttribute("class", "p-chart"); svg.setAttribute("role", "img");
+    var t = document.createElementNS(NS, "title"); t.textContent = pick("CVEs je Patch Day, ohne Chromium und Azure Linux", "CVEs per patch day, excluding Chromium and Azure Linux"); svg.appendChild(t);
+    var w = (B - 2 * L) / monate.length;
+    monate.forEach(function (m, i) {
+      var h = (H - U - T) * m.cves / mx, x = L + i * w + w * 0.15, y = H - U - h;
+      var r = document.createElementNS(NS, "rect"); r.setAttribute("x", x); r.setAttribute("y", y); r.setAttribute("width", w * 0.7); r.setAttribute("height", Math.max(h, 1));
+      r.setAttribute("fill", m.ausgenutzt > 0 ? "#e3b341" : "#3a6b52"); svg.appendChild(r);
+      var tt = document.createElementNS(NS, "title"); tt.textContent = monatName(m.id) + ": " + m.cves + " CVEs, " + m.ausgenutzt + pick(" ausgenutzt", " exploited"); r.appendChild(tt);
+      [["" + m.cves, y - 3, "#dfe6ec"], [m.id.slice(5) + (i === 0 || m.id.slice(5) === "Jan" ? " '" + m.id.slice(2, 4) : ""), H - 8, "#8a99a6"]].forEach(function (tx) {
+        var te = document.createElementNS(NS, "text"); te.setAttribute("x", x + w * 0.35); te.setAttribute("y", tx[1]); te.setAttribute("text-anchor", "middle");
+        te.setAttribute("fill", tx[2]); te.setAttribute("font-size", 10); te.setAttribute("font-family", "ui-monospace,monospace"); te.textContent = tx[0]; svg.appendChild(te);
+      });
+    });
+    host.appendChild(svg);
+  }
+  function zeigeMicrosoft(ms) {
+    var box = $("p-ms"); if (!box) return;
+    var monate = ms && ms.monate ? Object.keys(ms.monate).map(function (k) { return ms.monate[k]; }) : [];
+    if (!monate.length) { box.hidden = true; return; }
+    monate.sort(function (a, c) { return String(a.erste_veroeffentlichung).localeCompare(String(c.erste_veroeffentlichung)); });
+    var m = monate[monate.length - 1], b = m.bewertung || {};
+    box.textContent = "";
+    var kopf = el("h3", "mono rd-t", pick("Microsoft Patch Day · ", "Microsoft patch day · ") + monatName(m.id)); box.appendChild(kopf);
+    var sub = el("p", "mono dim fine", pick("veröffentlicht ", "released ") + datum(m.erste_veroeffentlichung) + pick(" · Stand der Daten ", " · data as of ") + datum(m.aktuell) + pick(" · abgerufen ", " · retrieved ") + datum(ms.meta && ms.meta.abgerufen_am) + pick(" · Quelle: ", " · source: "));
+    sub.appendChild(link((ms.meta && ms.meta.quelle_url) || "https://msrc.microsoft.com/update-guide", "Microsoft Security Response Center")); box.appendChild(sub);
+    var dr = { dringend: ["pr-rot", pick("dringend", "urgent")], zeitnah: ["pr-gelb", pick("zeitnah", "prompt")], normal: ["pr-gruen", pick("normal", "normal")] }[b.dringlichkeit] || ["", ""];
+    var bw = el("div", "p-bew"); bw.appendChild(el("span", "p-badge " + dr[0], dr[1]));
+    bw.appendChild(el("span", "", pick(b.groesse, b.groesse_en) + (b.verhaeltnis_median ? " · " + b.verhaeltnis_median.toLocaleString(window.I18N.locale) + pick("-fach des Medians der Vormonate (", "x the median of earlier months (") + zahl(b.median_vormonate) + ")" : "")));
+    box.appendChild(bw);
+    var g = el("div", "p-kpis");
+    g.appendChild(kpi(zahl(m.cves), "CVEs")); g.appendChild(kpi(zahl(m.schwere.Critical), pick("kritisch", "critical")));
+    g.appendChild(kpi(zahl(m.ausgenutzt), pick("ausgenutzt", "exploited"), m.ausgenutzt > 0 ? "warn" : ""));
+    g.appendChild(kpi(zahl(m.oeffentlich_bekannt), pick("öffentlich bekannt", "publicly disclosed")));
+    g.appendChild(kpi(zahl(m.im_kev), pick("davon im KEV", "of them in KEV"), m.im_kev > 0 ? "warn" : ""));
+    box.appendChild(g);
+    box.appendChild(el("p", "p-emp", pick("Empfehlung: ", "Recommendation: ") + pick(b.empfehlung, b.empfehlung_en)));
+    if (m.ausgenutzt_cves && m.ausgenutzt_cves.length) {
+      var ex = el("p", "mono fine", pick("Ausgenutzt: ", "Exploited: "));
+      m.ausgenutzt_cves.forEach(function (c, i) { if (i) ex.appendChild(document.createTextNode(", ")); ex.appendChild(link("https://msrc.microsoft.com/update-guide/vulnerability/" + c, c)); });
+      box.appendChild(ex);
+    }
+    var kv = el("div", "p-cols");
+    var fam = el("div", ""); fam.appendChild(el("h4", "mono", pick("Betroffene Produkte (Anzahl CVEs)", "Affected products (CVE count)")));
+    Object.keys(m.familien || {}).slice(0, 6).forEach(function (k) { fam.appendChild(el("div", "p-z mono", k + ": " + m.familien[k])); });
+    var au = el("div", ""); au.appendChild(el("h4", "mono", pick("Art der Auswirkung", "Impact type")));
+    Object.keys(m.auswirkung || {}).slice(0, 6).forEach(function (k) { au.appendChild(el("div", "p-z mono", k + ": " + m.auswirkung[k])); });
+    kv.appendChild(fam); kv.appendChild(au); box.appendChild(kv);
+    if (m.nachtraege && m.nachtraege.length) {
+      var n = el("p", "mono fine", pick("Nachträge (Out-of-Band): ", "Later additions (out of band): ") + m.nachtraege.map(function (x) { return datum(x.am) + ": " + x.neue_cves + pick(" neue Lücken", " new flaws") + (x.ausgenutzt_neu ? " (" + x.ausgenutzt_neu + pick(" ausgenutzt", " exploited") + ")" : ""); }).join("; "));
+      box.appendChild(n);
+    }
+    box.appendChild(el("p", "mono dim fine", pick("Nicht mitgezählt: ", "Not counted: ") + zahl(m.davon_chromium_ausgenommen) + pick(" Chromium-Lücken im Edge und ", " Chromium flaws in Edge and ") + zahl(m.davon_azure_linux_ausgenommen) + pick(" Paketlücken von Azure Linux. Schweregrad, Ausnutzung und Bekanntheit stammen von Microsoft.", " package flaws of Azure Linux. Severity, exploitation and disclosure come from Microsoft.")));
+    zeichneMonate(box, monate);
+    box.appendChild(el("p", "mono dim fine", pick("CVEs je Patch Day, letzte ", "CVEs per patch day, last ") + monate.length + pick(" Monate. Gelb: mindestens eine ausgenutzte Lücke.", " months. Yellow: at least one exploited flaw.")));
+    box.hidden = false;
+  }
+  function zeigeHersteller(hs) {
+    var box = $("p-hs"); if (!box) return;
+    var qs = hs && hs.quellen ? Object.keys(hs.quellen).map(function (k) { return hs.quellen[k]; }) : [];
+    if (!qs.length) { box.hidden = true; return; }
+    box.textContent = "";
+    box.appendChild(el("h3", "mono rd-t", pick("Linux-Distributionen und Hersteller", "Linux distributions and vendors")));
+    var tw = el("div", "tabelle"); tw.setAttribute("role", "region"); tw.tabIndex = 0;
+    var t = el("table", ""); var th = el("tr", "");
+    [pick("Quelle", "Source"), pick("neu 7 Tage", "new 7 days"), pick("neu 30 Tage", "new 30 days"), pick("davon kritisch", "of them critical"), pick("CVEs 30 Tage", "CVEs 30 days"), pick("Stand", "as of")].forEach(function (h) { th.appendChild(el("th", "", h)); });
+    t.appendChild(el("thead", "")).appendChild(th);
+    var tb = el("tbody", ""); t.appendChild(tb);
+    qs.forEach(function (q) {
+      var tr = el("tr", ""); tb.appendChild(tr);
+      var c0 = el("td", ""); c0.appendChild(link(q.url, q.name)); tr.appendChild(c0);
+      if (q.status !== "ok" || typeof q.neu_30 !== "number") {
+        var c = el("td", "mono dim", pick("keine Daten (Quelle nicht erreichbar)", "no data (source unreachable)")); c.colSpan = 5; tr.appendChild(c); return;
+      }
+      [zahl(q.neu_7), zahl(q.neu_30), q.schwere_bekannt ? zahl(q.kritisch_30) : "–", zahl(q.cves_30), datum(q.abgerufen_am)].forEach(function (x) { tr.appendChild(el("td", "mono", x)); });
+    });
+    tw.appendChild(t); box.appendChild(tw);
+    qs.forEach(function (q) {
+      if (!q.letzte || !q.letzte.length) return;
+      var d = el("details", "rd-det"); d.appendChild(el("summary", "mono", q.name + pick(": letzte Meldungen", ": latest advisories")));
+      var ul = el("ul", "p-liste");
+      q.letzte.slice(0, 6).forEach(function (x) {
+        var li = el("li", ""); li.appendChild(el("span", "mono dim", datum(x.datum) + " ")); li.appendChild(link(x.link, x.titel + (x.schwere ? " (" + x.schwere + ")" : ""))); ul.appendChild(li);
+      });
+      d.appendChild(ul); box.appendChild(d);
+    });
+    box.appendChild(el("p", "mono dim fine", pick("Nur Zählung und Verweise auf die Meldungen der Hersteller, keine Texte. Schweregrade stammen von den Herstellern und fehlen, wo sie nicht geliefert werden (zum Beispiel bei Ubuntu und Debian).", "Counts and links to the vendors' advisories only, no texts. Severity comes from the vendors and is missing where they do not provide it (for example Ubuntu and Debian).")));
+    box.hidden = false;
   }
 
   function zeigeKonsens(r) {

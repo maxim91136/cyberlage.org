@@ -246,7 +246,8 @@ def aktualisiere(alt, liste_json, hole_dok, kev_cves, jetzt):
 # ---------- Stufe 2 und 3: Distributionen und Hersteller ----------
 UBUNTU_URL = "https://ubuntu.com/security/notices.json?limit=20&offset=%d"
 UBUNTU_SEITEN = 20  # höchstens 400 Meldungen, genug für 30 Tage
-REDHAT_URLS = ["https://access.redhat.com/hydra/rest/securitydata/cvrf.json?after=%s", "https://access.redhat.com/hydra/rest/securitydata/cvrf.json?after=%s&per_page=500"]
+REDHAT_URLS = ["https://access.redhat.com/hydra/rest/securitydata/csaf.json?after=%s", "https://access.redhat.com/hydra/rest/securitydata/cvrf.json?after=%s"]
+REDHAT_CSV = "https://security.access.redhat.com/data/csaf/v2/advisories/changes.csv"
 DEBIAN_URLS = ["https://www.debian.org/security/dsa-long.rdf", "https://www.debian.org/security/dsa.rdf", "https://www.debian.org/security/dsa-long.en.rdf", "https://www.debian.org/security/dsa.en.rdf"]
 CISCO_URL = "https://sec.cloudapps.cisco.com/security/center/psirtrss20/CiscoSecurityAdvisory.xml"
 HERSTELLER_DATEI = WURZEL / "data" / "patches" / "hersteller.json"
@@ -305,6 +306,22 @@ def parse_redhat(daten):
         out.append({"id": rid, "datum": d, "titel": rid, "link": n.get("resource_url") or "https://access.redhat.com/errata/" + rid.replace(":", "-"),
                     "schwere": {"critical": "kritisch", "important": "hoch", "moderate": "mittel", "low": "niedrig"}.get(sev, sev),
                     "cves": [c for c in (n.get("CVEs") or []) if CVE_RE.fullmatch(str(c))]})
+    return out
+
+
+def parse_redhat_csv(text):
+    """changes.csv der Red-Hat-CSAF-Ablage: Zeilen wie "2026/rhsa-2026_1234.json","2026-11-10T12:00:00+00:00". Nur RHSA (Sicherheitsmeldungen), ohne Schweregrad."""
+    out, gesehen = [], set()
+    for zeile in text.splitlines():
+        m = re.match(r'"?\d{4}/rhsa-(\d{4})_(\d+)\.json"?,"?([^",]+)"?', zeile, re.I)
+        if not m:
+            continue
+        d = _datum(m.group(3))
+        rid = "RHSA-%s:%s" % (m.group(1), m.group(2))
+        if not d or rid in gesehen:
+            continue
+        gesehen.add(rid)
+        out.append({"id": rid, "datum": d, "titel": rid, "link": "https://access.redhat.com/errata/RHSA-%s:%s" % (m.group(1), m.group(2)), "schwere": None, "cves": []})
     return out
 
 
@@ -384,7 +401,10 @@ def hole_quelle(qid, heute, lade=lade_roh):
                 return parse_redhat(json.loads(lade(u % ab).decode("utf-8")))
             except Exception as e:
                 letzter = e
-        raise QuellFehler("Red Hat: %s" % letzter)
+        try:
+            return parse_redhat_csv(lade(REDHAT_CSV).decode("utf-8", "replace"))
+        except Exception as e:
+            raise QuellFehler("Red Hat: %s; Ausweichquelle: %s" % (letzter, e))
     if qid == "debian":
         letzter = None
         for u in DEBIAN_URLS:

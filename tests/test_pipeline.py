@@ -674,6 +674,11 @@ class HerstellerPatchTests(unittest.TestCase):
         z = fetch_patches.verdichte_quelle(r, date(2026, 11, 24))
         self.assertEqual((z["neu_30"], z["kritisch_30"], z["hoch_30"]), (2, 1, 1))
 
+    def test_redhat_csv(self):
+        csv = '"2026/rhsa-2026_1234.json","2026-11-20T12:00:00+00:00"\n"2026/rhba-2026_9.json","2026-11-20T12:00:00+00:00"\n"2026/rhsa-2026_1234.json","2026-11-21T01:00:00+00:00"\n'
+        r = fetch_patches.parse_redhat_csv(csv)
+        self.assertEqual([(x["id"], str(x["datum"])) for x in r], [("RHSA-2026:1234", "2026-11-20")])  # RHBA ignoriert, Duplikat einmal
+
     def test_debian_cisco(self):
         rdf = b"""<?xml version="1.0"?><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://purl.org/rss/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/">
         <item><title>DSA-6012-1 libfoo -- security update</title><link>https://www.debian.org/security/2026/dsa-6012</link><dc:date>2026-11-21</dc:date><description>CVE-2026-4444</description></item></rdf:RDF>"""
