@@ -217,7 +217,7 @@ html.alarm .marke{animation:flackern 6s infinite}
 
 /* Abo-Menü und kompaktes Hero */
 .hero{padding-bottom:6px}
-.hero h1{font-size:clamp(20px,3.6vw,28px);margin-bottom:6px}
+.hero h1{font-size:clamp(18px,3.6vw,28px);margin-bottom:6px}
 #lage{padding-top:10px}
 #lage>.lead{margin:16px 0 0}
 .dd-abo{width:min(320px,88vw);align-items:stretch}

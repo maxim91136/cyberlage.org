@@ -12,7 +12,7 @@
     tab_ausblick: "Outlook",
     tab_kev: "KEV catalog", i_quellen: "Sources", i_begriffe: "Terms", i_methode: "Method", i_hinweise: "Notes",
     h_lbl: 'as of <span id="stand">…</span>',
-    h_titel: "A seismograph for the global cyber situation.<br>Rule-based and openly sourced.",
+    h_titel: "Global cyber situation seismograph.<br>Rule-based, openly sourced.",
     h_lead: "Worldwide, across all vendors: we count the vulnerabilities that bodies such as CISA report as exploited and combine them into one level using open rules. Like a seismograph, the Dreier Gauge and the radar show the readings, they predict nothing. No statement about any one country or sector. For everyone who defends.",
     tg_btn: "Subscribe to the Telegram channel",
     rss_btn: "Copy the RSS feed address",
