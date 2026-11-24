@@ -13,7 +13,7 @@
     tab_kev: "KEV catalog", i_quellen: "Sources", i_begriffe: "Terms", i_methode: "Method", i_hinweise: "Notes",
     h_lbl: 'as of <span id="stand">…</span> · experiment',
     h_titel: "A cyber threat seismograph.<br>Worldwide, rule-based, openly sourced.",
-    h_lead: "Worldwide, across all vendors: we count the vulnerabilities that bodies such as CISA report as exploited and combine them into one level using open rules. Like a seismograph, the Dreier Gauge and the radar show the readings, they predict nothing. The whole thing is an open experiment by Dreier Labs: the level follows fixed rules, the radar score is an attempt. No statement about any one country or sector. A tool for defense: for blue teams, SOCs and everyone who protects their systems. For everyone who defends.",
+    h_lead: "Worldwide, across all vendors: we count the vulnerabilities that bodies such as CISA report as exploited and combine them into one level using open rules. Like a seismograph, the Dreier Gauge and the radar show the readings, they predict nothing. The whole thing is an open experiment by Dreier Labs: the level follows fixed rules, the radar score is an attempt. No statement about any one country or sector. A tool for defense: for blue teams, SOCs and everyone who protects their systems.",
     tg_btn: "Subscribe to the Telegram channel",
     rss_btn: "Copy the RSS feed address",
     rss_txt: "paste it into your feed reader (Feedly, Inoreader, NetNewsWire), no account needed.", rss_roh: "raw file",
