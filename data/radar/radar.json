@@ -1,5 +1,5 @@
 {
- "abgerufen_am": "2026-11-24T08:47:50+00:00",
+ "abgerufen_am": "2026-11-24T08:51:27+00:00",
  "zeit_bis_kev": {
   "verlauf": [
    {
@@ -459,9 +459,17 @@
   "median_abstand_tage": 0.0,
   "eu_datum_frueher": 4
  },
- "sans": null,
- "feodo": null,
- "feodo_serie": {},
+ "sans": {
+  "status": "green",
+  "abgerufen_am": "2026-11-24T08:51:27+00:00"
+ },
+ "feodo": {
+  "online": 1,
+  "gelistet": 5
+ },
+ "feodo_serie": {
+  "2026-11-24": 1
+ },
  "einschaetzungen": [
   {
    "name": "BSI Cyber Index 2026",
