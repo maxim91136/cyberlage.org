@@ -332,6 +332,21 @@ class AusblickTests(unittest.TestCase):
         self.assertTrue(any(q["id"] == "nvd" for q in r["quellen"]))
 
 
+class TageslageZeitTests(unittest.TestCase):
+    def test_ab_sechs_uhr_deutscher_zeit(self):
+        from datetime import datetime, timezone
+        kev = {"meta": {}, "eintraege": []}
+        lage = {"stufe": "hoch", "stufe_begruendung": "x", "kev": {"neu_7_tage": 1, "neu_30_tage": 2}}
+        _, z = notify.ermittle(kev, None, None, lage, None, datetime(2026, 11, 23, 12, 0, tzinfo=timezone.utc))
+        fruh = datetime(2026, 11, 24, 4, 50, tzinfo=timezone.utc)   # 05:50 Winterzeit: noch nicht
+        spaet = datetime(2026, 11, 24, 5, 20, tzinfo=timezone.utc)  # 06:20 Winterzeit: jetzt
+        self.assertEqual(notify.ermittle(kev, None, None, lage, z, fruh)[0], [])
+        self.assertEqual(len(notify.ermittle(kev, None, None, lage, z, spaet)[0]), 1)
+        sommer = datetime(2026, 7, 1, 4, 50, tzinfo=timezone.utc)   # 06:50 Sommerzeit
+        _, zs = notify.ermittle(kev, None, None, lage, None, datetime(2026, 6, 30, 12, 0, tzinfo=timezone.utc))
+        self.assertEqual(len(notify.ermittle(kev, None, None, lage, zs, sommer)[0]), 1)
+
+
 class RadarTests(unittest.TestCase):
     def test_zeit_bis_aufnahme(self):
         from datetime import date

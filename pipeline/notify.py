@@ -5,7 +5,7 @@ Wenig Rauschen: sofort gesendet wird nur
   - ein Wechsel der Stufe
   - ein neuer KEV-Eintrag mit bekannter Ransomware-Nutzung
 Alles andere Neue (KEV, kritische CERT-Bund-Warnungen, EU-KEV) wird gesammelt und einmal
-täglich in einer Tageslage gesendet (ab 07:00 UTC).
+täglich in einer Tageslage gesendet (ab 06:00 deutscher Zeit, also vor 07:00).
 
 Zustand: data/notify_state.json. Beim ersten Lauf wird nur der Stand gemerkt, nichts gesendet.
 Ohne TELEGRAM_BOT_TOKEN und TELEGRAM_CHAT_ID wird nur angezeigt, was gesendet würde, und der Zustand bleibt unverändert.
@@ -19,12 +19,14 @@ import sys
 import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 from pathlib import Path
 
 WURZEL = Path(__file__).resolve().parent.parent
 ZUSTAND = WURZEL / "data" / "notify_state.json"
 SEITE = "https://cyberlage.org"
 STUFENNAME = {"niedrig": "niedrig", "erhoeht": "erhöht", "hoch": "hoch", None: "keine Bewertung"}
+TAGESLAGE_AB = 6  # volle Stunde, deutsche Zeit
 MAX_ZEILEN = 10
 MAX_ZEICHEN = 3800  # Telegram erlaubt 4096
 
@@ -104,8 +106,9 @@ def ermittle(kev, bsi, eu, lage, zustand, jetzt):
         nachrichten.append(f"<b>Stufe geändert:</b> {STUFENNAME.get(zustand.get('stufe'), e(zustand.get('stufe')))} → "
                            f"<b>{STUFENNAME.get(stufe, e(stufe))}</b>\n{e(lage.get('stufe_begruendung', ''))}\n{SEITE}")
 
-    heute = jetzt.date().isoformat()
-    if zustand.get("zusammenfassung") != heute and jetzt.hour >= 7:
+    lokal = jetzt.astimezone(ZoneInfo("Europe/Berlin"))  # Tageslage ab 06:00 deutscher Zeit, damit sie vor 07:00 da ist
+    heute = lokal.date().isoformat()
+    if zustand.get("zusammenfassung") != heute and lokal.hour >= TAGESLAGE_AB:
         k = lage["kev"]
         zeilen = [f"Stufe: <b>{STUFENNAME.get(stufe, e(stufe))}</b>",
                   f"CISA-KEV: {k['neu_7_tage']} neu in 7 Tagen, {k['neu_30_tage']} in 30 Tagen"]

@@ -1,9 +1,12 @@
 name: daten
 
-# Alle 2 Stunden (GitHub kann Läufe verzögern) und auf Knopfdruck.
+# Alle 2 Stunden (GitHub kann Läufe verzögern) und auf Knopfdruck. Dazu zwei Läufe am frühen Morgen,
+# damit die Tageslage in Sommer- und Winterzeit vor 07:00 deutscher Zeit im Kanal ist.
 on:
   schedule:
     - cron: "17 */2 * * *"
+    - cron: "50 4 * * *"
+    - cron: "20 5 * * *"
   workflow_dispatch:
     inputs:
       test:
