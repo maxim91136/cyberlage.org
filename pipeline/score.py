@@ -52,6 +52,7 @@ QUELLEN_EN = {
     "eu_kev": ("EU-KEV (EUVD by ENISA)", "licence not explicitly clarified"),
     "epss": ("EPSS (FIRST)", "free to use with attribution"),
     "nvd": ("NVD (NIST)", "public domain, only publication date and CVSS score"),
+    "feodo": ("Feodo Tracker (abuse.ch)", "CC0, only the number of active command servers"),
     "cvelist": ("CVE List (CVE Program, MITRE)", "CVE Terms of Use: free to use with attribution, only publication date"),
     "sans": ("SANS Internet Storm Center (Infocon)", "Creative Commons per the ISC footer, only the traffic-light status with attribution"),
 }
@@ -178,7 +179,7 @@ def zusatz_radar(daten):
         return None
     z = dict(daten["zeit_bis_kev"])
     z["verlauf"] = z.get("verlauf", [])[-36:]
-    return {"abgerufen_am": daten.get("abgerufen_am"), "zeit_bis_kev": z, "trefferquote": daten.get("trefferquote"),
+    return {"feodo": daten.get("feodo"), "feodo_serie": daten.get("feodo_serie") or {}, "abgerufen_am": daten.get("abgerufen_am"), "zeit_bis_kev": z, "trefferquote": daten.get("trefferquote"),
             "europa": daten.get("europa"), "sans": daten.get("sans"),
             "einschaetzungen": daten.get("einschaetzungen") or [], "gruende": daten.get("gruende") or []}
 
@@ -210,6 +211,10 @@ def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None, telegram_link=None, 
         "radar": zusatz_radar(radar),
     }
     ergebnis["stufe"], ergebnis["stufe_begruendung"] = bestimme_stufe(len(fenster), ransom, regeln)
+    if ergebnis.get("radar"):
+        import fetch_radar
+        r = ergebnis["radar"]
+        r["konsens"] = fetch_radar.konsens(ergebnis["stufe"], r["zeit_bis_kev"], r["einschaetzungen"], r.get("sans"), r.pop("feodo_serie", {}))
 
     ergebnis["sektor"] = [
         {
@@ -257,6 +262,9 @@ def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None, telegram_link=None, 
         ab = ergebnis["radar"]["abgerufen_am"]
         ergebnis["quellen"].append({"id": "cvelist", "name": "CVE-Liste (CVE Program, MITRE)", "link": "https://github.com/CVEProject/cvelistV5",
                                     "lizenz": "CVE Terms of Use: frei nutzbar mit Quellenangabe, nur Veröffentlichungsdatum", "abgerufen_am": ab})
+        if ergebnis["radar"].get("feodo"):
+            ergebnis["quellen"].append({"id": "feodo", "name": "Feodo Tracker (abuse.ch)", "link": "https://feodotracker.abuse.ch/",
+                                        "lizenz": "CC0, nur die Zahl aktiver Steuerserver", "abgerufen_am": ab})
         if ergebnis["radar"].get("sans"):
             ergebnis["quellen"].append({"id": "sans", "name": "SANS Internet Storm Center (Infocon)", "link": "https://isc.sans.edu/",
                                         "lizenz": "Creative Commons laut Fußzeile des ISC, nur Ampelstatus mit Quellenangabe", "abgerufen_am": ergebnis["radar"]["sans"]["abgerufen_am"]})

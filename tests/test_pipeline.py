@@ -386,6 +386,29 @@ class RadarTests(unittest.TestCase):
         self.assertTrue(any(q["id"] == "cvelist" for q in r["quellen"]))
 
 
+class KonsensTests(unittest.TestCase):
+    ZEIT = {"jetzt": {"n_frisch": 20, "median_frisch": 5}, "vor_12_monaten": {"n_frisch": 20, "median_frisch": 11}}
+    BSI = [{"wert": "170", "basis": "100"}]
+
+    def test_zaehlt_unabhaengige_signale(self):
+        k = fetch_radar.konsens("hoch", self.ZEIT, self.BSI, {"status": "green"}, {})
+        self.assertEqual((k["erhoeht"], k["bewertet"]), (1, 2))  # nur externe zählen: BSI ja, SANS nein, Feodo ohne 30 Messtage
+        namen = {s["name"]: s["erhoeht"] for s in k["signale"]}
+        self.assertTrue(namen["Cyberlage"] and namen["Tempo bis KEV"] and namen["BSI Cyber Index"])
+        self.assertFalse(namen["SANS Infocon"])
+        self.assertIsNone(namen["Botnetz-Server (Feodo)"])
+
+    def test_feodo_ab_30_tagen_und_luecken_bleiben_offen(self):
+        serie = {f"2026-10-{i:02d}": 100 for i in range(1, 31)}
+        serie["2026-11-01"] = 150
+        k = fetch_radar.konsens("niedrig", {}, [], None, serie)
+        namen = {s["name"]: s["erhoeht"] for s in k["signale"]}
+        self.assertTrue(namen["Botnetz-Server (Feodo)"])
+        self.assertFalse(namen["Cyberlage"])
+        self.assertIsNone(namen["Tempo bis KEV"]); self.assertIsNone(namen["BSI Cyber Index"]); self.assertIsNone(namen["SANS Infocon"])
+        self.assertEqual((k["erhoeht"], k["bewertet"]), (1, 1))  # nur Feodo ist extern und bewertbar
+
+
 class FeedTests(unittest.TestCase):
     def test_feed(self):
         import sys, xml.dom.minidom

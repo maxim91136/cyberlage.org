@@ -7,7 +7,8 @@
 2. Trefferquote des Ausblicks: Prognosen (EPSS >= 10 %) werden beim ersten Auftreten gespeichert und später
    gegen den KEV geprüft.
 3. Abgleich EU-KEV und CISA-KEV (Überschneidung und Abstand der Daten).
-4. SANS Internet Storm Center Infocon (Ampel, nur Anzeige).
+4. SANS Internet Storm Center Infocon (Ampel).
+5. Feodo Tracker (abuse.ch, CC0): Zahl aktiver Botnetz-Steuerserver, als eigene Tageszeitreihe (data/radar/feodo.json).
 Außerdem werden die von Hand geführten Einschätzungen und Gründe (CSV) eingelesen.
 
 Veröffentlichungsdaten ändern sich nicht, sie werden in data/radar/veroeffentlicht.json zwischengespeichert.
@@ -28,6 +29,7 @@ RADAR = WURZEL / "data" / "radar"
 UA = "cyberlage.org (privates Projekt von Dreier Labs, https://cyberlage.org)"
 CVE_URL = "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/{y}/{g}xxx/{c}.json"
 SANS_URL = "https://isc.sans.edu/api/infocon?json"
+FEODO_URL = "https://feodotracker.abuse.ch/downloads/ipblocklist.json"
 ANFANG = "2022-01"      # früheste Monate im Verlauf
 FRISCH_TAGE = 365
 REIF_TAGE = 30          # so lange gilt eine Prognose als noch offen
@@ -176,14 +178,68 @@ def hole_sans():
     return None
 
 
-def baue(kev, eu, ausblick, cache, prognosen, heute, sans=None):
+def hole_feodo():
+    """Zahl der derzeit aktiven Botnetz-Steuerserver (Feodo Tracker, abuse.ch, CC0). None, wenn nicht erreichbar."""
+    try:
+        req = urllib.request.Request(FEODO_URL, headers={"User-Agent": UA})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            daten = json.loads(r.read())
+        if isinstance(daten, list):
+            return {"online": sum(1 for x in daten if str(x.get("status", "")).lower() == "online"), "gelistet": len(daten)}
+    except (urllib.error.URLError, TimeoutError, ValueError, AttributeError):
+        pass
+    return None
+
+
+def feodo_verlauf(verlauf, messung, heute):
+    """Schreibt den Tageswert fort (data/radar/feodo.json). Eigene Zeitreihe, Quelle liefert keine Historie."""
+    if messung:
+        verlauf[heute.isoformat()] = messung["online"]
+    return verlauf
+
+
+def konsens(lage_stufe, zeit, einschaetzungen, sans, verlauf):
+    """Signale: jedes steht für sich auf erhöht (True), normal (False) oder keine Aussage (None).
+    Eigene Signale (Stufe und Tempo, beide aus dem KEV) zählen nicht als Bestätigung, nur externe.
+    Regeln stehen in RULES.md. Es wird nichts gemittelt."""
+    signale = []
+
+    def add(name, name_en, wert, grund, grund_en, art="extern"):
+        signale.append({"name": name, "name_en": name_en, "erhoeht": wert, "grund": grund, "grund_en": grund_en, "art": art})
+
+    add("Cyberlage", "Cyberlage", None if lage_stufe is None else lage_stufe in ("erhoeht", "hoch"),
+        f"Stufe {lage_stufe}" if lage_stufe else "keine Bewertung", f"level {lage_stufe}" if lage_stufe else "no rating", "eigen")
+    j, v = (zeit or {}).get("jetzt") or {}, (zeit or {}).get("vor_12_monaten") or {}
+    t = None
+    if j.get("n_frisch", 0) >= 10 and v.get("n_frisch", 0) >= 10 and j.get("median_frisch") is not None and v.get("median_frisch") is not None:
+        t = v["median_frisch"] / max(j["median_frisch"], 0.5) >= 1.5
+    add("Tempo bis KEV", "Speed to KEV", t, "Median mindestens 1,5-mal schneller als vor 12 Monaten", "median at least 1.5x faster than 12 months ago", "eigen")
+    bsi = next((e for e in einschaetzungen if e.get("wert") and e.get("basis")), None)
+    add("BSI Cyber Index", "BSI Cyber Index", None if not bsi else float(bsi["wert"]) >= 1.2 * float(bsi["basis"]),
+        "mindestens 20 % über dem Basisjahr 2024", "at least 20% above the 2024 base year")
+    add("SANS Infocon", "SANS Infocon", None if not sans else sans["status"] != "green", "nicht grün", "not green")
+    werte = [verlauf[k] for k in sorted(verlauf)]
+    f = None
+    if len(werte) >= 31:
+        alt = sorted(werte[:-1][-90:])
+        f = werte[-1] >= 1.25 * statistics.median(alt)
+    add("Botnetz-Server (Feodo)", "Botnet servers (Feodo)", f, "aktive Steuerserver mindestens 25 % über dem Median der letzten 90 Tage (ab 30 Messtagen)",
+        "active command servers at least 25% above the 90-day median (from 30 days of data)")
+    extern = [x for x in signale if x["art"] == "extern" and x["erhoeht"] is not None]
+    return {"signale": signale, "erhoeht": sum(1 for x in extern if x["erhoeht"]), "bewertet": len(extern), "messtage_feodo": len(werte)}
+
+
+def baue(kev, eu, ausblick, cache, prognosen, heute, sans=None, feodo=None, serie=None):
     eintraege = kev["eintraege"]
+    zeit = zeit_bis_aufnahme(eintraege, cache, heute)
     return {
         "abgerufen_am": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "zeit_bis_kev": zeit_bis_aufnahme(eintraege, cache, heute),
+        "zeit_bis_kev": zeit,
         "trefferquote": trefferquote(prognosen, eintraege, ausblick, heute),
         "europa": abgleich_eu(eintraege, eu),
         "sans": sans,
+        "feodo": feodo,
+        "feodo_serie": serie or {},
         "einschaetzungen": lese_csv(RADAR / "einschaetzungen.csv"),
         "gruende": lese_csv(RADAR / "gruende.csv"),
     }
@@ -196,15 +252,19 @@ def main():
         return 1
     cache = lese(RADAR / "veroeffentlicht.json", {})
     prognosen = lese(RADAR / "prognosen.json", {})
+    serie = lese(RADAR / "feodo.json", {})
     try:
         cache = veroeffentlichungen(kev["eintraege"], cache)
     except Exception as ex:  # Netz kaputt: mit dem Stand im Cache weiterrechnen
         print("WARNUNG: CVE-Liste nicht vollständig erreichbar:", ex)
     heute = datetime.now(timezone.utc).date()
+    feodo = hole_feodo()
+    serie = feodo_verlauf(serie, feodo, heute)
     ergebnis = baue(kev, lese(WURZEL / "data" / "eu" / "kev.json"), lese(WURZEL / "data" / "ausblick" / "ausblick.json"),
-                    cache, prognosen, heute, hole_sans())
+                    cache, prognosen, heute, hole_sans(), feodo, serie)
     RADAR.mkdir(parents=True, exist_ok=True)
     (RADAR / "veroeffentlicht.json").write_text(json.dumps(cache, sort_keys=True, indent=0) + "\n", encoding="utf-8")
+    (RADAR / "feodo.json").write_text(json.dumps(serie, sort_keys=True, indent=0) + "\n", encoding="utf-8")
     (RADAR / "prognosen.json").write_text(json.dumps(prognosen, sort_keys=True, indent=0) + "\n", encoding="utf-8")
     (RADAR / "radar.json").write_text(json.dumps(ergebnis, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     z = ergebnis["zeit_bis_kev"]["jetzt"]

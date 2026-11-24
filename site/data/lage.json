@@ -2233,7 +2233,8 @@
     ]
   },
   "radar": {
-    "abgerufen_am": "2026-11-24T07:49:42+00:00",
+    "feodo": null,
+    "abgerufen_am": "2026-11-24T08:47:50+00:00",
     "zeit_bis_kev": {
       "verlauf": [
         {
@@ -2532,11 +2533,25 @@
       "median_abstand_tage": 0.0,
       "eu_datum_frueher": 4
     },
-    "sans": {
-      "status": "green",
-      "abgerufen_am": "2026-11-24T07:49:42+00:00"
-    },
+    "sans": null,
     "einschaetzungen": [
+      {
+        "name": "BSI Cyber Index 2026",
+        "art": "jaehrlich",
+        "urteil": "170 Punkte (2024 = 100)",
+        "urteil_en": "170 points (2024 = 100)",
+        "richtung": "steigend",
+        "vorher": "+50 %",
+        "vorher_en": "+50 %",
+        "stand": "2026-11-19",
+        "misst": "Angriffsfläche, Gefährdung und Schaden in einer Zahl, Deutschland. Teilwerte: Angriffsfläche 349 (2. Quartal, +117 %), Gefährdung 123 (+9 %), Schaden 168 (+33 %)",
+        "misst_en": "Attack surface, threat and damage in one number, Germany. Sub-scores: attack surface 349 (Q2, +117%), threat 123 (+9%), impact 168 (+33%)",
+        "link": "https://www.bsi-lagebericht.de/node/3",
+        "beleg": "https://www.bsi-lagebericht.de/node/3",
+        "geprueft_am": "2026-11-24",
+        "wert": "170",
+        "basis": "100"
+      },
       {
         "name": "BSI Lagebericht 2026",
         "art": "jaehrlich",
@@ -2550,7 +2565,9 @@
         "misst_en": "Overall IT security situation in Germany, mid-2025 to mid-2026",
         "link": "https://www.bsi.bund.de/DE/Service-Navi/Publikationen/Lagebericht/lagebericht_node.html",
         "beleg": "https://www.zdfheute.de/politik/deutschland/bsi-lagebericht-warnung-cyberangriff-ki-100.html",
-        "geprueft_am": "2026-11-24"
+        "geprueft_am": "2026-11-24",
+        "wert": "",
+        "basis": ""
       }
     ],
     "gruende": [
@@ -2590,7 +2607,54 @@
         "stand": "2026-11-19",
         "geprueft_am": "2026-11-24"
       }
-    ]
+    ],
+    "konsens": {
+      "signale": [
+        {
+          "name": "Cyberlage",
+          "name_en": "Cyberlage",
+          "erhoeht": true,
+          "grund": "Stufe hoch",
+          "grund_en": "level hoch",
+          "art": "eigen"
+        },
+        {
+          "name": "Tempo bis KEV",
+          "name_en": "Speed to KEV",
+          "erhoeht": true,
+          "grund": "Median mindestens 1,5-mal schneller als vor 12 Monaten",
+          "grund_en": "median at least 1.5x faster than 12 months ago",
+          "art": "eigen"
+        },
+        {
+          "name": "BSI Cyber Index",
+          "name_en": "BSI Cyber Index",
+          "erhoeht": true,
+          "grund": "mindestens 20 % über dem Basisjahr 2024",
+          "grund_en": "at least 20% above the 2024 base year",
+          "art": "extern"
+        },
+        {
+          "name": "SANS Infocon",
+          "name_en": "SANS Infocon",
+          "erhoeht": null,
+          "grund": "nicht grün",
+          "grund_en": "not green",
+          "art": "extern"
+        },
+        {
+          "name": "Botnetz-Server (Feodo)",
+          "name_en": "Botnet servers (Feodo)",
+          "erhoeht": null,
+          "grund": "aktive Steuerserver mindestens 25 % über dem Median der letzten 90 Tage (ab 30 Messtagen)",
+          "grund_en": "active command servers at least 25% above the 90-day median (from 30 days of data)",
+          "art": "extern"
+        }
+      ],
+      "erhoeht": 1,
+      "bewertet": 1,
+      "messtage_feodo": 0
+    }
   },
   "sektor": [
     {
@@ -2666,18 +2730,9 @@
       "name": "CVE-Liste (CVE Program, MITRE)",
       "link": "https://github.com/CVEProject/cvelistV5",
       "lizenz": "CVE Terms of Use: frei nutzbar mit Quellenangabe, nur Veröffentlichungsdatum",
-      "abgerufen_am": "2026-11-24T07:49:42+00:00",
+      "abgerufen_am": "2026-11-24T08:47:50+00:00",
       "name_en": "CVE List (CVE Program, MITRE)",
       "lizenz_en": "CVE Terms of Use: free to use with attribution, only publication date"
-    },
-    {
-      "id": "sans",
-      "name": "SANS Internet Storm Center (Infocon)",
-      "link": "https://isc.sans.edu/",
-      "lizenz": "Creative Commons laut Fußzeile des ISC, nur Ampelstatus mit Quellenangabe",
-      "abgerufen_am": "2026-11-24T07:49:42+00:00",
-      "name_en": "SANS Internet Storm Center (Infocon)",
-      "lizenz_en": "Creative Commons per the ISC footer, only the traffic-light status with attribution"
     }
   ],
   "hinweise": [

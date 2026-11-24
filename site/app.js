@@ -128,6 +128,7 @@
     zeigeAusblick(d.ausblick);
     zeigeRadar(d.radar, d);
     zeigeKern(d);
+    zeigeKonsens(d.radar);
 
     var h = $("hinweise");
     var hw = window.I18N.lang === "en" && d.hinweise_en ? d.hinweise_en : (d.hinweise || []);
@@ -256,6 +257,21 @@
     });
   })();
 
+  function zeigeKonsens(r) {
+    var k = r && r.konsens, z = $("konsens-zeile"), box = $("rd-signale"); box.textContent = "";
+    if (!k || !k.bewertet) { $("rd-kon").textContent = txt("keine"); return; }
+    var satz = pick(k.erhoeht + " von " + k.bewertet + " externen Signalen zeigen erhöht. Stufe und Tempo sind unsere eigenen, beide aus dem KEV, sie zählen nicht als Bestätigung.", k.erhoeht + " of " + k.bewertet + " external signals show elevated. Level and speed are our own, both from KEV, so they do not count as confirmation.");
+    $("rd-kon").textContent = satz;
+    z.textContent = ""; z.appendChild(el("b", "", k.erhoeht + "/" + k.bewertet)); z.appendChild(document.createTextNode(pick(" externe Signale zeigen ebenfalls erhöht · zum Radar", " external signals also show elevated · to the radar"))); z.hidden = false;
+    (k.signale || []).forEach(function (s) {
+      var b = el("div", "sg"), st = s.erhoeht === true ? ["●", "an"] : (s.erhoeht === false ? ["○", "aus"] : ["–", "kn"]);
+      b.appendChild(el("span", "p mono " + st[1], st[0]));
+      b.appendChild(el("span", "n", pick(s.name, s.name_en) + (s.art === "eigen" ? pick(" (eigen)", " (own)") : "") + " · " + (s.erhoeht === true ? pick("erhöht", "elevated") : (s.erhoeht === false ? pick("normal", "normal") : pick("noch keine Aussage", "no rating yet")))));
+      b.appendChild(el("span", "g", pick("Regel: ", "rule: ") + pick(s.grund, s.grund_en)));
+      box.appendChild(b);
+    });
+  }
+
   function zeigeKern(d) {
     var r = d.radar && d.radar.zeit_bis_kev, j = r && r.jetzt, v = r && r.vor_12_monaten;
     var proz = function (x) { return typeof x === "number" ? Math.round(x * 100) + " %" : "–"; };
@@ -320,6 +336,10 @@
       zeile(q.name, q.link, pick(q.urteil, q.urteil_en) + pfeil, pick(q.misst, q.misst_en),
         pick("Stand ", "as of ") + datum(q.stand) + pick(" · jährlich", " · yearly") + (q.vorher ? pick(" · Vorjahr: ", " · year before: ") + pick(q.vorher, q.vorher_en) : ""));
     });
+    if (r.feodo) {
+      var mt = (r.konsens && r.konsens.messtage_feodo) || 0;
+      zeile("Feodo Tracker (abuse.ch)", "https://feodotracker.abuse.ch/", zahl(r.feodo.online) + pick(" aktive Steuerserver", " active command servers"), pick("Botnetz-Infrastruktur, ein weiterer Blickwinkel", "botnet infrastructure, another angle"), pick("täglich · Verlauf seit ", "daily · series since ") + mt + pick(" Messtagen", " days of data"));
+    }
     if (r.sans) {
       var sn = { green: ["ruhig (grün)", "calm (green)"], yellow: ["erhöht (gelb)", "raised (yellow)"], orange: ["hoch (orange)", "high (orange)"], red: ["kritisch (rot)", "critical (red)"] }[r.sans.status];
       zeile("SANS Internet Storm Center", "https://isc.sans.edu/", pick(sn[0], sn[1]), pick("beobachtet Scans und Ausbrüche im Netz, ein anderer Blickwinkel", "watches scans and outbreaks across the internet, a different angle"), pick("Stand ", "as of ") + datum(r.sans.abgerufen_am) + pick(" · live", " · live"));
