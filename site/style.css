@@ -289,3 +289,6 @@ html.alarm .marke{animation:flackern 6s infinite}
 .totop{width:42px;min-height:42px;padding:0;justify-content:center;opacity:0}.totop #totopl{display:none}.totop.on{opacity:.85}.totop.on:hover,.totop.on:focus-visible{opacity:1}
 .hinw .pr{font-size:12px;color:var(--dim);white-space:nowrap}.hinw .pr.warn{color:var(--amber)}
 #pruef-tabelle .warn{color:var(--amber)}
+.blau{display:inline-flex;align-items:stretch;margin:12px 0 0;font-size:12px;letter-spacing:.06em;border:1px solid #3d7dd8;color:#8fc0ff;background:rgba(61,125,216,.10)}
+.blau .bl-k{padding:6px 10px;background:#3d7dd8;color:#06090b;font-weight:700}
+.blau .bl-m{padding:6px 12px;text-transform:none;letter-spacing:.02em;font-size:13px}
