@@ -272,3 +272,5 @@ html.alarm .marke{animation:flackern 6s infinite}
 .tabelle td a{white-space:nowrap}
 .tabelle td:last-child{white-space:nowrap}
 #rueckblick .panel+.panel{margin-top:14px}
+
+#signale{scroll-margin-top:56px}

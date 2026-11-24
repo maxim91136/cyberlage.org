@@ -8,7 +8,7 @@
   var EN = {
     skip: "Skip to content",
     beta: "",
-    n_rueck: "/history", n_neu: "/new", n_radar: "/radar", n_abo: "/subscribe",
+    n_rueck: "/history", n_neu: "/new", n_radar: "/radar", n_signale: "/signals", n_abo: "/subscribe",
     tab_ausblick: "Outlook",
     tab_kev: "KEV catalog", i_quellen: "Sources", i_begriffe: "Terms", i_methode: "Method", i_hinweise: "Notes",
     h_lbl: 'as of <span id="stand">…</span> · situation picture from open sources',
