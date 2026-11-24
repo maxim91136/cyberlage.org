@@ -1,6 +1,6 @@
 # Cyberlage
 
-Ein Seismograph der Cyber-Bedrohungslage: Lagebild aus ausgenutzten Schwachstellen und offenen Quellen, mit dem eigenen Score (Dreier-Pegel) und einem Radar daneben. Für alle, die verteidigen.
+Ein Seismograph der Cyber-Bedrohungslage: Lagebild aus ausgenutzten Schwachstellen und offenen Quellen, mit dem eigenen Score (Dreier-Pegel) und einem Radar daneben. Ein Werkzeug für die Verteidigung: für Blue Teams, SOCs und alle, die ihre Systeme schützen.
 
 **Ein Projekt von [Dreier Labs](https://dreierlabs.com).** Ein privates Projekt, keine amtliche Stelle und keine Zusammenarbeit mit einer Behörde.
 
