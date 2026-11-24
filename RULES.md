@@ -6,6 +6,10 @@ Diese Regeln bestimmen, was auf der Seite als Zahl und als Warnstufe erscheint. 
 
 Die Stufe unten heißt **Dreier-Pegel** (englisch: *Dreier Gauge*). Das ist der eigene Score von Cyberlage und Dreier Labs, keine Norm und kein Branchenstandard. Wer Fragen oder Einwände zur Methode hat, kann auf GitHub ein Issue öffnen.
 
+### Pegelstand (Zahl)
+
+Der Dreier-Pegel hat auch einen Zahlenwert, den **Pegelstand**: die Zahl der in den letzten 30 Tagen neu in den CISA-KEV aufgenommenen Einträge. Aus ihm folgt die Stufe mit den Marken unten (erhöht ab 25, hoch ab 32, bei mindestens 5 Ransomware-Einträgen eine Stufe höher). Es wird nichts gewichtet oder umgerechnet. Der Stand wird jeden Tag in `data/pegel.json` fortgeschrieben. Einträge mit `quelle: live` sind am Stichtag berechnet und werden danach nicht mehr geändert. Frühere Tage sind einmalig mit den heutigen Schwellen rückgerechnet und als `rueckgerechnet` gekennzeichnet.
+
 ## Grundsätze
 
 1. Die Stufe entsteht nur aus den Regeln unten, nie von Hand.

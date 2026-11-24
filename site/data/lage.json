@@ -2791,5 +2791,2815 @@
     "ENISA figures apply to the EU as a whole, not to Germany.",
     "The outlook gives an estimate (EPSS) for new flaws. It is not part of the level and not a finding."
   ],
-  "stufe_begruendung_en": "36 newly added exploited vulnerabilities in 30 days."
+  "stufe_begruendung_en": "36 newly added exploited vulnerabilities in 30 days.",
+  "pegel": {
+    "wert": 36,
+    "marken": {
+      "erhoeht_ab": 25,
+      "hoch_ab": 32
+    },
+    "live_seit": "2026-11-24",
+    "reihe": [
+      {
+        "stand": "2025-10-21",
+        "wert": 32,
+        "ransomware_bekannt": 4,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-10-22",
+        "wert": 33,
+        "ransomware_bekannt": 4,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-10-23",
+        "wert": 32,
+        "ransomware_bekannt": 4,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-10-24",
+        "wert": 34,
+        "ransomware_bekannt": 4,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-10-25",
+        "wert": 32,
+        "ransomware_bekannt": 4,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-10-26",
+        "wert": 32,
+        "ransomware_bekannt": 4,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-10-27",
+        "wert": 32,
+        "ransomware_bekannt": 4,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-10-28",
+        "wert": 34,
+        "ransomware_bekannt": 4,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-10-29",
+        "wert": 29,
+        "ransomware_bekannt": 3,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-10-30",
+        "wert": 31,
+        "ransomware_bekannt": 3,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-10-31",
+        "wert": 31,
+        "ransomware_bekannt": 3,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-01",
+        "wert": 26,
+        "ransomware_bekannt": 3,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-02",
+        "wert": 26,
+        "ransomware_bekannt": 3,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-03",
+        "wert": 26,
+        "ransomware_bekannt": 3,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-04",
+        "wert": 28,
+        "ransomware_bekannt": 3,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-05",
+        "wert": 21,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-06",
+        "wert": 20,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-07",
+        "wert": 20,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-08",
+        "wert": 19,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-09",
+        "wert": 19,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-10",
+        "wert": 20,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-11",
+        "wert": 20,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-12",
+        "wert": 23,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-13",
+        "wert": 19,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-14",
+        "wert": 19,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-15",
+        "wert": 19,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-16",
+        "wert": 19,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-17",
+        "wert": 19,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-18",
+        "wert": 20,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-19",
+        "wert": 16,
+        "ransomware_bekannt": 0,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-20",
+        "wert": 16,
+        "ransomware_bekannt": 0,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-21",
+        "wert": 16,
+        "ransomware_bekannt": 0,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-22",
+        "wert": 16,
+        "ransomware_bekannt": 0,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-23",
+        "wert": 14,
+        "ransomware_bekannt": 0,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-24",
+        "wert": 14,
+        "ransomware_bekannt": 0,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-25",
+        "wert": 14,
+        "ransomware_bekannt": 0,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-26",
+        "wert": 14,
+        "ransomware_bekannt": 0,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-27",
+        "wert": 12,
+        "ransomware_bekannt": 0,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-28",
+        "wert": 13,
+        "ransomware_bekannt": 0,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-29",
+        "wert": 11,
+        "ransomware_bekannt": 0,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-11-30",
+        "wert": 11,
+        "ransomware_bekannt": 0,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-01",
+        "wert": 11,
+        "ransomware_bekannt": 0,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-02",
+        "wert": 13,
+        "ransomware_bekannt": 0,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-03",
+        "wert": 14,
+        "ransomware_bekannt": 0,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-04",
+        "wert": 12,
+        "ransomware_bekannt": 0,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-05",
+        "wert": 13,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-06",
+        "wert": 13,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-07",
+        "wert": 13,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-08",
+        "wert": 15,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-09",
+        "wert": 17,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-10",
+        "wert": 16,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-11",
+        "wert": 17,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-12",
+        "wert": 16,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-13",
+        "wert": 16,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-14",
+        "wert": 15,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-15",
+        "wert": 17,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-16",
+        "wert": 18,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-17",
+        "wert": 21,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-18",
+        "wert": 20,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-19",
+        "wert": 20,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-20",
+        "wert": 20,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-21",
+        "wert": 19,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-22",
+        "wert": 20,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-23",
+        "wert": 20,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-24",
+        "wert": 20,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-25",
+        "wert": 20,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-26",
+        "wert": 20,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-27",
+        "wert": 20,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-28",
+        "wert": 19,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-29",
+        "wert": 20,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-30",
+        "wert": 20,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2025-12-31",
+        "wert": 20,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-01",
+        "wert": 18,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-02",
+        "wert": 17,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-03",
+        "wert": 17,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-04",
+        "wert": 16,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-05",
+        "wert": 16,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-06",
+        "wert": 16,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-07",
+        "wert": 16,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-08",
+        "wert": 14,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-09",
+        "wert": 14,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-10",
+        "wert": 13,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-11",
+        "wert": 11,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-12",
+        "wert": 12,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-13",
+        "wert": 13,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-14",
+        "wert": 11,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-15",
+        "wert": 10,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-16",
+        "wert": 7,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-17",
+        "wert": 7,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-18",
+        "wert": 6,
+        "ransomware_bekannt": 0,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-19",
+        "wert": 6,
+        "ransomware_bekannt": 0,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-20",
+        "wert": 6,
+        "ransomware_bekannt": 0,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-21",
+        "wert": 6,
+        "ransomware_bekannt": 0,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-22",
+        "wert": 10,
+        "ransomware_bekannt": 0,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-23",
+        "wert": 11,
+        "ransomware_bekannt": 0,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-24",
+        "wert": 11,
+        "ransomware_bekannt": 0,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-25",
+        "wert": 11,
+        "ransomware_bekannt": 0,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-26",
+        "wert": 16,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-27",
+        "wert": 17,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-28",
+        "wert": 16,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-29",
+        "wert": 17,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-30",
+        "wert": 17,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-01-31",
+        "wert": 17,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-01",
+        "wert": 17,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-02",
+        "wert": 17,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-03",
+        "wert": 21,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-04",
+        "wert": 21,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-05",
+        "wert": 23,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-06",
+        "wert": 21,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-07",
+        "wert": 21,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-08",
+        "wert": 21,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-09",
+        "wert": 21,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-10",
+        "wert": 27,
+        "ransomware_bekannt": 3,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-11",
+        "wert": 26,
+        "ransomware_bekannt": 3,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-12",
+        "wert": 29,
+        "ransomware_bekannt": 3,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-13",
+        "wert": 30,
+        "ransomware_bekannt": 4,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-14",
+        "wert": 30,
+        "ransomware_bekannt": 4,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-15",
+        "wert": 30,
+        "ransomware_bekannt": 4,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-16",
+        "wert": 30,
+        "ransomware_bekannt": 4,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-17",
+        "wert": 34,
+        "ransomware_bekannt": 4,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-18",
+        "wert": 36,
+        "ransomware_bekannt": 4,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-19",
+        "wert": 36,
+        "ransomware_bekannt": 4,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-20",
+        "wert": 37,
+        "ransomware_bekannt": 4,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-21",
+        "wert": 33,
+        "ransomware_bekannt": 4,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-22",
+        "wert": 32,
+        "ransomware_bekannt": 4,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-23",
+        "wert": 32,
+        "ransomware_bekannt": 4,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-24",
+        "wert": 33,
+        "ransomware_bekannt": 4,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-25",
+        "wert": 30,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-26",
+        "wert": 29,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-27",
+        "wert": 29,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-02-28",
+        "wert": 28,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-01",
+        "wert": 28,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-02",
+        "wert": 28,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-03",
+        "wert": 30,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-04",
+        "wert": 30,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-05",
+        "wert": 31,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-06",
+        "wert": 31,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-07",
+        "wert": 29,
+        "ransomware_bekannt": 1,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-08",
+        "wert": 29,
+        "ransomware_bekannt": 1,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-09",
+        "wert": 32,
+        "ransomware_bekannt": 2,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-10",
+        "wert": 32,
+        "ransomware_bekannt": 2,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-11",
+        "wert": 33,
+        "ransomware_bekannt": 2,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-12",
+        "wert": 27,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-13",
+        "wert": 29,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-14",
+        "wert": 25,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-15",
+        "wert": 24,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-16",
+        "wert": 25,
+        "ransomware_bekannt": 1,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-17",
+        "wert": 25,
+        "ransomware_bekannt": 1,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-18",
+        "wert": 27,
+        "ransomware_bekannt": 1,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-19",
+        "wert": 24,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-20",
+        "wert": 27,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-21",
+        "wert": 27,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-22",
+        "wert": 25,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-23",
+        "wert": 25,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-24",
+        "wert": 25,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-25",
+        "wert": 26,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-26",
+        "wert": 26,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-27",
+        "wert": 25,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-28",
+        "wert": 25,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-29",
+        "wert": 25,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-30",
+        "wert": 26,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-03-31",
+        "wert": 26,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-01",
+        "wert": 27,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-02",
+        "wert": 26,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-03",
+        "wert": 26,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-04",
+        "wert": 21,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-05",
+        "wert": 21,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-06",
+        "wert": 22,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-07",
+        "wert": 22,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-08",
+        "wert": 20,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-09",
+        "wert": 20,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-10",
+        "wert": 19,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-11",
+        "wert": 19,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-12",
+        "wert": 17,
+        "ransomware_bekannt": 1,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-13",
+        "wert": 24,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-14",
+        "wert": 26,
+        "ransomware_bekannt": 3,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-15",
+        "wert": 25,
+        "ransomware_bekannt": 3,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-16",
+        "wert": 26,
+        "ransomware_bekannt": 3,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-17",
+        "wert": 24,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-18",
+        "wert": 23,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-19",
+        "wert": 18,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-20",
+        "wert": 26,
+        "ransomware_bekannt": 4,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-21",
+        "wert": 26,
+        "ransomware_bekannt": 4,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-22",
+        "wert": 27,
+        "ransomware_bekannt": 5,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-23",
+        "wert": 28,
+        "ransomware_bekannt": 5,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-24",
+        "wert": 31,
+        "ransomware_bekannt": 7,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-25",
+        "wert": 30,
+        "ransomware_bekannt": 7,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-26",
+        "wert": 29,
+        "ransomware_bekannt": 7,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-27",
+        "wert": 29,
+        "ransomware_bekannt": 7,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-28",
+        "wert": 31,
+        "ransomware_bekannt": 8,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-29",
+        "wert": 30,
+        "ransomware_bekannt": 8,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-04-30",
+        "wert": 31,
+        "ransomware_bekannt": 9,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-01",
+        "wert": 31,
+        "ransomware_bekannt": 9,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-02",
+        "wert": 30,
+        "ransomware_bekannt": 9,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-03",
+        "wert": 30,
+        "ransomware_bekannt": 9,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-04",
+        "wert": 30,
+        "ransomware_bekannt": 9,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-05",
+        "wert": 30,
+        "ransomware_bekannt": 9,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-06",
+        "wert": 30,
+        "ransomware_bekannt": 9,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-07",
+        "wert": 31,
+        "ransomware_bekannt": 9,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-08",
+        "wert": 31,
+        "ransomware_bekannt": 9,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-09",
+        "wert": 31,
+        "ransomware_bekannt": 9,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-10",
+        "wert": 31,
+        "ransomware_bekannt": 9,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-11",
+        "wert": 31,
+        "ransomware_bekannt": 9,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-12",
+        "wert": 31,
+        "ransomware_bekannt": 9,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-13",
+        "wert": 24,
+        "ransomware_bekannt": 7,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-14",
+        "wert": 23,
+        "ransomware_bekannt": 7,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-15",
+        "wert": 24,
+        "ransomware_bekannt": 7,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-16",
+        "wert": 23,
+        "ransomware_bekannt": 7,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-17",
+        "wert": 23,
+        "ransomware_bekannt": 7,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-18",
+        "wert": 23,
+        "ransomware_bekannt": 7,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-19",
+        "wert": 23,
+        "ransomware_bekannt": 7,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-20",
+        "wert": 22,
+        "ransomware_bekannt": 5,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-21",
+        "wert": 24,
+        "ransomware_bekannt": 5,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-22",
+        "wert": 24,
+        "ransomware_bekannt": 4,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-23",
+        "wert": 23,
+        "ransomware_bekannt": 4,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-24",
+        "wert": 19,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-25",
+        "wert": 19,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-26",
+        "wert": 20,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-27",
+        "wert": 23,
+        "ransomware_bekannt": 4,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-28",
+        "wert": 21,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-29",
+        "wert": 22,
+        "ransomware_bekannt": 4,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-30",
+        "wert": 21,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-05-31",
+        "wert": 20,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-01",
+        "wert": 21,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-02",
+        "wert": 23,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-03",
+        "wert": 24,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-04",
+        "wert": 24,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-05",
+        "wert": 24,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-06",
+        "wert": 23,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-07",
+        "wert": 22,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-08",
+        "wert": 24,
+        "ransomware_bekannt": 4,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-09",
+        "wert": 27,
+        "ransomware_bekannt": 4,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-10",
+        "wert": 27,
+        "ransomware_bekannt": 4,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-11",
+        "wert": 28,
+        "ransomware_bekannt": 4,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-12",
+        "wert": 29,
+        "ransomware_bekannt": 5,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-13",
+        "wert": 28,
+        "ransomware_bekannt": 5,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-14",
+        "wert": 27,
+        "ransomware_bekannt": 5,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-15",
+        "wert": 29,
+        "ransomware_bekannt": 5,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-16",
+        "wert": 30,
+        "ransomware_bekannt": 5,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-17",
+        "wert": 30,
+        "ransomware_bekannt": 5,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-18",
+        "wert": 31,
+        "ransomware_bekannt": 5,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-19",
+        "wert": 24,
+        "ransomware_bekannt": 5,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-20",
+        "wert": 22,
+        "ransomware_bekannt": 5,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-21",
+        "wert": 21,
+        "ransomware_bekannt": 5,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-22",
+        "wert": 21,
+        "ransomware_bekannt": 5,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-23",
+        "wert": 25,
+        "ransomware_bekannt": 5,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-24",
+        "wert": 25,
+        "ransomware_bekannt": 5,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-25",
+        "wert": 26,
+        "ransomware_bekannt": 6,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-26",
+        "wert": 23,
+        "ransomware_bekannt": 4,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-27",
+        "wert": 23,
+        "ransomware_bekannt": 4,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-28",
+        "wert": 22,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-29",
+        "wert": 23,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-06-30",
+        "wert": 23,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-01",
+        "wert": 23,
+        "ransomware_bekannt": 4,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-02",
+        "wert": 21,
+        "ransomware_bekannt": 4,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-03",
+        "wert": 20,
+        "ransomware_bekannt": 4,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-04",
+        "wert": 20,
+        "ransomware_bekannt": 4,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-05",
+        "wert": 19,
+        "ransomware_bekannt": 4,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-06",
+        "wert": 19,
+        "ransomware_bekannt": 4,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-07",
+        "wert": 23,
+        "ransomware_bekannt": 4,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-08",
+        "wert": 21,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-09",
+        "wert": 18,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-10",
+        "wert": 20,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-11",
+        "wert": 19,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-12",
+        "wert": 18,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-13",
+        "wert": 19,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-14",
+        "wert": 23,
+        "ransomware_bekannt": 4,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-15",
+        "wert": 23,
+        "ransomware_bekannt": 4,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-16",
+        "wert": 25,
+        "ransomware_bekannt": 4,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-17",
+        "wert": 25,
+        "ransomware_bekannt": 4,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-18",
+        "wert": 24,
+        "ransomware_bekannt": 4,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-19",
+        "wert": 24,
+        "ransomware_bekannt": 4,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-20",
+        "wert": 24,
+        "ransomware_bekannt": 4,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-21",
+        "wert": 28,
+        "ransomware_bekannt": 4,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-22",
+        "wert": 30,
+        "ransomware_bekannt": 4,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-23",
+        "wert": 26,
+        "ransomware_bekannt": 4,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-24",
+        "wert": 26,
+        "ransomware_bekannt": 4,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-25",
+        "wert": 24,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-26",
+        "wert": 24,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-27",
+        "wert": 26,
+        "ransomware_bekannt": 3,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-28",
+        "wert": 26,
+        "ransomware_bekannt": 3,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-29",
+        "wert": 26,
+        "ransomware_bekannt": 4,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-30",
+        "wert": 26,
+        "ransomware_bekannt": 4,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-07-31",
+        "wert": 25,
+        "ransomware_bekannt": 3,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-01",
+        "wert": 25,
+        "ransomware_bekannt": 3,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-02",
+        "wert": 25,
+        "ransomware_bekannt": 3,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-03",
+        "wert": 26,
+        "ransomware_bekannt": 3,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-04",
+        "wert": 29,
+        "ransomware_bekannt": 3,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-05",
+        "wert": 30,
+        "ransomware_bekannt": 4,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-06",
+        "wert": 26,
+        "ransomware_bekannt": 4,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-07",
+        "wert": 27,
+        "ransomware_bekannt": 4,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-08",
+        "wert": 27,
+        "ransomware_bekannt": 4,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-09",
+        "wert": 25,
+        "ransomware_bekannt": 4,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-10",
+        "wert": 25,
+        "ransomware_bekannt": 4,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-11",
+        "wert": 28,
+        "ransomware_bekannt": 4,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-12",
+        "wert": 27,
+        "ransomware_bekannt": 4,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-13",
+        "wert": 23,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-14",
+        "wert": 21,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-15",
+        "wert": 18,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-16",
+        "wert": 18,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-17",
+        "wert": 19,
+        "ransomware_bekannt": 2,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-18",
+        "wert": 23,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-19",
+        "wert": 24,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-20",
+        "wert": 22,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-21",
+        "wert": 21,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-22",
+        "wert": 21,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-23",
+        "wert": 21,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-24",
+        "wert": 22,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-25",
+        "wert": 23,
+        "ransomware_bekannt": 3,
+        "stufe": "niedrig",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-26",
+        "wert": 27,
+        "ransomware_bekannt": 3,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-27",
+        "wert": 30,
+        "ransomware_bekannt": 3,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-28",
+        "wert": 29,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-29",
+        "wert": 29,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-30",
+        "wert": 29,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-08-31",
+        "wert": 31,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-01",
+        "wert": 31,
+        "ransomware_bekannt": 2,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-02",
+        "wert": 37,
+        "ransomware_bekannt": 2,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-03",
+        "wert": 34,
+        "ransomware_bekannt": 2,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-04",
+        "wert": 34,
+        "ransomware_bekannt": 1,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-05",
+        "wert": 34,
+        "ransomware_bekannt": 1,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-06",
+        "wert": 33,
+        "ransomware_bekannt": 1,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-07",
+        "wert": 33,
+        "ransomware_bekannt": 1,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-08",
+        "wert": 37,
+        "ransomware_bekannt": 1,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-09",
+        "wert": 41,
+        "ransomware_bekannt": 1,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-10",
+        "wert": 40,
+        "ransomware_bekannt": 1,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-11",
+        "wert": 44,
+        "ransomware_bekannt": 1,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-12",
+        "wert": 44,
+        "ransomware_bekannt": 1,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-13",
+        "wert": 44,
+        "ransomware_bekannt": 1,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-14",
+        "wert": 45,
+        "ransomware_bekannt": 1,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-15",
+        "wert": 45,
+        "ransomware_bekannt": 1,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-16",
+        "wert": 47,
+        "ransomware_bekannt": 1,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-17",
+        "wert": 43,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-18",
+        "wert": 45,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-19",
+        "wert": 43,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-20",
+        "wert": 42,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-21",
+        "wert": 43,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-22",
+        "wert": 47,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-23",
+        "wert": 46,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-24",
+        "wert": 47,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-25",
+        "wert": 44,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-26",
+        "wert": 41,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-27",
+        "wert": 43,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-28",
+        "wert": 43,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-29",
+        "wert": 44,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-09-30",
+        "wert": 43,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-01",
+        "wert": 44,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-02",
+        "wert": 39,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-03",
+        "wert": 39,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-04",
+        "wert": 39,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-05",
+        "wert": 39,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-06",
+        "wert": 39,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-07",
+        "wert": 39,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-08",
+        "wert": 40,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-09",
+        "wert": 36,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-10",
+        "wert": 34,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-11",
+        "wert": 30,
+        "ransomware_bekannt": 0,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-12",
+        "wert": 30,
+        "ransomware_bekannt": 0,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-13",
+        "wert": 32,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-14",
+        "wert": 35,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-15",
+        "wert": 36,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-16",
+        "wert": 35,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-17",
+        "wert": 35,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-18",
+        "wert": 32,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-19",
+        "wert": 32,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-20",
+        "wert": 38,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-21",
+        "wert": 37,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-22",
+        "wert": 33,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-23",
+        "wert": 35,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-24",
+        "wert": 33,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-25",
+        "wert": 30,
+        "ransomware_bekannt": 0,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-26",
+        "wert": 32,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-27",
+        "wert": 32,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-28",
+        "wert": 34,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-29",
+        "wert": 35,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-30",
+        "wert": 36,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-10-31",
+        "wert": 35,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-11-01",
+        "wert": 33,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-11-02",
+        "wert": 33,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-11-03",
+        "wert": 33,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-11-04",
+        "wert": 34,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-11-05",
+        "wert": 34,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-11-06",
+        "wert": 35,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-11-07",
+        "wert": 30,
+        "ransomware_bekannt": 0,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-11-08",
+        "wert": 30,
+        "ransomware_bekannt": 0,
+        "stufe": "erhoeht",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-11-09",
+        "wert": 34,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-11-10",
+        "wert": 40,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-11-11",
+        "wert": 40,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-11-12",
+        "wert": 38,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-11-13",
+        "wert": 36,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-11-14",
+        "wert": 35,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-11-15",
+        "wert": 33,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-11-16",
+        "wert": 33,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-11-17",
+        "wert": 34,
+        "ransomware_bekannt": 0,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-11-18",
+        "wert": 38,
+        "ransomware_bekannt": 1,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-11-19",
+        "wert": 32,
+        "ransomware_bekannt": 1,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-11-20",
+        "wert": 36,
+        "ransomware_bekannt": 1,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-11-21",
+        "wert": 36,
+        "ransomware_bekannt": 1,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-11-22",
+        "wert": 34,
+        "ransomware_bekannt": 1,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-11-23",
+        "wert": 36,
+        "ransomware_bekannt": 1,
+        "stufe": "hoch",
+        "quelle": "rueckgerechnet"
+      },
+      {
+        "stand": "2026-11-24",
+        "wert": 36,
+        "ransomware_bekannt": 1,
+        "stufe": "hoch",
+        "quelle": "live"
+      }
+    ]
+  }
 }

@@ -110,6 +110,26 @@ def liste_neu(fenster):
     ]
 
 
+def pegel_fortschreiben(reihe, alle, regeln, stand, monate=36):
+    """Dreier-Pegel als Zahl: neu aufgenommene KEV-Einträge in den letzten 30 Tagen (der Wert, aus dem die Stufe folgt).
+    `reihe` ist die gespeicherte Tagesreihe (Liste von Einträgen). Fehlende frühere Tage werden einmalig rückgerechnet
+    (quelle 'rueckgerechnet', mit den heutigen Schwellen). Der Wert des Stichtags wird live eingetragen (quelle 'live').
+    Frühere Live-Einträge bleiben unverändert, so ist der Verlauf so, wie er veröffentlicht war."""
+    tage = regeln["fenster_tage"]
+    vorhanden = {p["stand"]: p for p in reihe}
+    tag = stand - timedelta(days=round(monate * 365 / 12))
+    while tag <= stand:
+        iso = tag.isoformat()
+        if iso not in vorhanden or tag == stand:
+            f = im_fenster(alle, tag, tage)
+            r = sum(e["ransomware_bekannt"] for e in f)
+            st, _ = bestimme_stufe(len(f), r, regeln)
+            vorhanden[iso] = {"stand": iso, "wert": len(f), "ransomware_bekannt": r, "stufe": st,
+                              "quelle": "live" if tag == stand else "rueckgerechnet"}
+        tag += timedelta(days=1)
+    return [vorhanden[k] for k in sorted(vorhanden)]
+
+
 def verlauf(alle, regeln, stand, wochen=52):
     """Rückblick: dieselbe Rechnung für jeden Wochenstand der letzten `wochen` Wochen (mit den heutigen Schwellen)."""
     tage = regeln["fenster_tage"]
@@ -294,6 +314,15 @@ def main(argv):
                          (lese_optional(WURZEL / "config" / "telegram.json") or {}).get("kanal_link"),
                          lese_optional(WURZEL / "data" / "ausblick" / "ausblick.json"),
                          lese_optional(WURZEL / "data" / "radar" / "radar.json"))
+    pfad = WURZEL / "data" / "pegel.json"
+    gespeichert = (lese_optional(pfad) or {}).get("reihe", [])
+    reihe = pegel_fortschreiben(gespeichert, kev["eintraege"], regeln, stand)
+    pfad.write_text(json.dumps({"meta": {"name": "Dreier-Pegel", "wert": "neu aufgenommene KEV-Einträge in den letzten 30 Tagen",
+                                          "marken": {"erhoeht_ab": regeln.get("erhoeht_ab"), "hoch_ab": regeln.get("hoch_ab")},
+                                          "hinweis": "live = am Stichtag berechnet und nicht mehr verändert; rueckgerechnet = nachträglich mit den heutigen Schwellen"},
+                                  "reihe": reihe}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+    ergebnis["pegel"] = {"wert": reihe[-1]["wert"], "marken": {"erhoeht_ab": regeln.get("erhoeht_ab"), "hoch_ab": regeln.get("hoch_ab")},
+                         "live_seit": next((p["stand"] for p in reihe if p["quelle"] == "live"), None), "reihe": reihe[-400:]}
     ziel = WURZEL / "site" / "data" / "lage.json"
     ziel.parent.mkdir(parents=True, exist_ok=True)
     ziel.write_text(json.dumps(ergebnis, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

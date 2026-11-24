@@ -257,3 +257,5 @@ html.alarm .marke{animation:flackern 6s infinite}
 .kc.an .kc-w{color:#ff8a7a}.kc.aus .kc-w{color:var(--green)}
 .kc-m{font-size:13px;color:var(--dim)}.kc-s{font-size:11px;color:var(--dim);margin-top:auto}
 .rd-det{margin-top:14px}.rd-det summary{cursor:pointer;color:var(--green);font-size:14px}.rd-det h4{margin:14px 0 6px}
+
+.pegelstand{font-size:14px;color:var(--green);margin:2px 0 10px;letter-spacing:.02em}

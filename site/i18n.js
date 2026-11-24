@@ -23,7 +23,7 @@
     l_stufe: "dreier gauge · worldwide", l_lade: "Loading data",
     l_7: "new · 7 days", l_30: "new · 30 days", l_ges: "catalog total",
     l_kev: "<strong>KEV</strong> stands for <em>Known Exploited Vulnerabilities</em>: a list by the US cybersecurity agency <strong>CISA</strong> of flaws that are proven to be exploited by attackers. The level shows how many are newly added.",
-    r_h: "## history", n_h: "## new",
+    r_h: "## history", r_pegel: "Dreier Gauge over time", n_h: "## new",
     rd_h: "## radar", rd_intro: "Our own measurements from open data, next to the assessments of other bodies. None of it feeds into the level.",
     rd_kon_h: "Do others confirm our assessment?", rd_kon_n: "Each signal stands on its own and follows a fixed rule (RULES.md). Only external sources count as confirmation. The further out a point lies, the stronger the reading; the dashed ring is the rule threshold. Nothing is averaged, and what cannot be measured does not count.",
     rd_zeit_h: "How fast is a vulnerability reported as exploited?", rd_tr_h: "Hit rate of the outlook", rd_eu_h: "EU-KEV and CISA KEV",
@@ -106,8 +106,8 @@
                en: function (a, b, mn, mx, z) { return "Newly added vulnerabilities per 30 days, " + a + " to " + b + ": lowest " + mn + ", highest " + mx + ", latest " + z + "."; } },
     v_tip: { de: function (d, n, st) { return d + ": " + n + " neu in 30 Tagen" + (st ? ", Stufe " + st : ""); },
              en: function (d, n, st) { return d + ": " + n + " new in 30 days" + (st ? ", level " + st : ""); } },
-    v_leg: { de: function (m) { return "Zeitraum: letzte " + m + " Monate, die Basis der Schwellen. Balken: grün unter erhöht-Schwelle, gelb erhöht, rot hoch. Wochenstände, rückwirkend mit den heutigen Schwellen gemessen. Quelle: CISA KEV (CC0 1.0), eigene Auswertung."; },
-             en: function (m) { return "Period: last " + m + " months, the basis of the thresholds. Bars: green below the elevated threshold, yellow elevated, red high. Weekly values, measured retroactively with today’s thresholds. Source: CISA KEV (CC0 1.0), own analysis."; } }
+    v_leg: { de: function (m) { return "Zeitraum: letzte " + m + " Monate, die Basis der Schwellen. Balken: grün unter erhöht-Schwelle, gelb erhöht, rot hoch. Wochenstände, rückwirkend mit den heutigen Schwellen gemessen. Der Pegelstand wird täglich fortgeschrieben (data/pegel.json), ab heute als live gespeicherter Wert. Quelle: CISA KEV (CC0 1.0), eigene Auswertung."; },
+             en: function (m) { return "Period: last " + m + " months, the basis of the thresholds. Bars: green below the elevated threshold, yellow elevated, red high. Weekly values, measured retroactively with today’s thresholds. The gauge reading is recorded daily (data/pegel.json), from today as a live stored value. Source: CISA KEV (CC0 1.0), own analysis."; } }
   };
 
   var api = {

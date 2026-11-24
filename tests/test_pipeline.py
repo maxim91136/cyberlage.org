@@ -447,5 +447,20 @@ class AusschlagTests(unittest.TestCase):
         self.assertEqual(d["SANS Infocon"]["ausschlag"], 1.1)
         self.assertIsNone(d["Botnet servers (Feodo)"]["ausschlag"])
 
+
+class PegelTests(unittest.TestCase):
+    def test_reihe_live_bleibt_und_rueckrechnung_fuellt(self):
+        import datetime, score
+        alle = [{"hinzugefuegt": "2026-11-20", "ransomware_bekannt": 0}, {"hinzugefuegt": "2026-11-23", "ransomware_bekannt": 1}]
+        regeln = {"status": "freigegeben", "fenster_tage": 30, "erhoeht_ab": 25, "hoch_ab": 32, "ransomware_aufschlag_ab": 5}
+        heute = datetime.date(2026, 11, 24)
+        alt = [{"stand": "2026-11-22", "wert": 99, "ransomware_bekannt": 0, "stufe": "hoch", "quelle": "live"}]
+        r = score.pegel_fortschreiben(alt, alle, regeln, heute, monate=1)
+        d = {p["stand"]: p for p in r}
+        self.assertEqual(d["2026-11-22"]["wert"], 99)  # Live-Eintrag bleibt unverändert
+        self.assertEqual(d["2026-11-24"]["wert"], 2)
+        self.assertEqual(d["2026-11-24"]["quelle"], "live")
+        self.assertEqual(d["2026-11-23"]["quelle"], "rueckgerechnet")
+
 if __name__ == "__main__":
     unittest.main()

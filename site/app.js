@@ -300,7 +300,7 @@
       a.appendChild(el("div", "l", label)); if (unter) a.appendChild(el("div", "u", unter)); box.appendChild(a);
     };
     if (d.kev && typeof d.kev.neu_30_tage === "number")
-      karte(zahl(d.kev.neu_30_tage), "", pick("neu im KEV, 30 Tage", "new in KEV, 30 days"), typeof sw.hoch_ab === "number" ? pick("hoch ab ", "high from ") + sw.hoch_ab : "", "#rueckblick");
+      karte(zahl(d.kev.neu_30_tage), "", pick("Pegelstand · neu im KEV, 30 Tage", "gauge reading · new in KEV, 30 days"), typeof sw.hoch_ab === "number" ? pick("erhöht ab ", "elevated from ") + sw.erhoeht_ab + pick(" · hoch ab ", " · high from ") + sw.hoch_ab : "", "#rueckblick");
     var ok = j && v && j.n_frisch >= 10 && v.n_frisch >= 10 && typeof j.median_frisch === "number" && typeof v.median_frisch === "number";
     if (ok) {
       karte(tg(j.median_frisch), pick(" Tage", " days"), pick("Median bis zur KEV-Aufnahme", "median time to KEV listing"), pick("vor 12 Monaten: ", "12 months ago: ") + tg(v.median_frisch), "#radar");
