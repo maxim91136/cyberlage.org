@@ -49,6 +49,7 @@
     var hatStufe = d.stufe !== null && d.stufe !== undefined;
     var name = hatStufe ? txt(String(d.stufe)) : null;
     $("stufe-wert").textContent = hatStufe ? name : "null";
+    window.DP = hatStufe ? name + (d.pegel && typeof d.pegel.wert === "number" ? " " + d.pegel.wert : "") : "";
     if (hatStufe) $("lage-box").classList.add("st-" + d.stufe);
     $("stufe-text").textContent = hatStufe ? "" : txt("keine_bew");
     $("stufe-text").hidden = hatStufe;
@@ -261,12 +262,13 @@
     sig.forEach(function (s, i) { if (typeof s.ausschlag === "number") { var p = pos(i, Math.min(s.ausschlag, MAX)); pts.push(p[0].toFixed(1) + "," + p[1].toFixed(1)); } });
     if (pts.length > 2) sv("polygon", { points: pts.join(" "), "class": "sc-poly" });
     sig.forEach(function (s, i) {
-      var l = pos(i, MAX + 0.34), nm = pick(s.name, s.name_en).split(" (")[0];
-      var tx = sv("text", { x: l[0], y: l[1], "class": "sc-lab", "text-anchor": Math.abs(Math.cos(l[2])) < 0.3 ? "middle" : (Math.cos(l[2]) > 0 ? "start" : "end"), "dominant-baseline": "middle" });
+      var l = pos(i, MAX + 0.34), nm = pick(s.name, s.name_en).split(" (")[0], dp = s.name_en === "Dreier Gauge"; if (dp && window.DP) nm += " · " + window.DP;
+      var tx = sv("text", { x: l[0], y: l[1], "class": "sc-lab" + (dp ? " dp" : ""), "text-anchor": Math.abs(Math.cos(l[2])) < 0.3 ? "middle" : (Math.cos(l[2]) > 0 ? "start" : "end"), "dominant-baseline": "middle" });
       tx.textContent = nm;
       if (typeof s.ausschlag === "number") {
         var p = pos(i, Math.min(s.ausschlag, MAX));
-        sv("circle", { cx: p[0], cy: p[1], r: 6, "class": "sc-blip " + (s.erhoeht ? "an" : "aus") + (s.art === "eigen" ? " eigen" : "") });
+        if (dp) sv("circle", { cx: p[0], cy: p[1], r: 13, "class": "sc-dpring" });
+        sv("circle", { cx: p[0], cy: p[1], r: dp ? 8 : 6, "class": "sc-blip " + (s.erhoeht ? "an" : "aus") + (s.art === "eigen" ? " eigen" : "") });
       } else {
         var q = pos(i, 0.25); sv("circle", { cx: q[0], cy: q[1], r: 5, "class": "sc-blip kn" });
       }
@@ -295,7 +297,7 @@
       var b = el("div", "sg"), st = s.erhoeht === true ? ["●", "an"] : (s.erhoeht === false ? ["○", "aus"] : ["–", "kn"]);
       b.appendChild(el("span", "p mono " + st[1], st[0]));
       b.appendChild(el("span", "n", pick(s.name, s.name_en) + (s.art === "eigen" ? pick(" (eigen)", " (own)") : "") + " · " + (s.erhoeht === true ? pick("erhöht", "elevated") : (s.erhoeht === false ? pick("normal", "normal") : pick("noch keine Aussage", "no rating yet")))));
-      b.appendChild(el("span", "g", pick("Regel: ", "rule: ") + pick(s.grund, s.grund_en) + (s.zeitraum ? " · " + pick("Zeitraum: ", "period: ") + pick(s.zeitraum, s.zeitraum_en) : "")));
+      b.appendChild(el("span", "g", typeof s.ausschlag === "number" ? pick("Ausschlag ", "reading ") + s.ausschlag.toLocaleString(window.I18N.locale, { minimumFractionDigits: 1, maximumFractionDigits: 2 }) + pick("-fache der Schwelle", "x the threshold") : pick("noch kein Messwert", "no reading yet")));
       box.appendChild(b);
     });
   }
@@ -327,7 +329,7 @@
   function zeigeRadar(r, d) {
     var proz = function (x) { return typeof x === "number" ? Math.round(x * 100) + " %" : "–"; };
     var tage = function (x) { return typeof x === "number" ? x.toLocaleString(window.I18N.locale, { maximumFractionDigits: 1 }) : "–"; };
-    if (!r) { ["rd-zahlen", "rd-treffer", "rd-eu", "rd-k-mess", "rd-gruende"].forEach(function (id) { $(id).textContent = txt("keine"); }); return; }
+    if (!r) { ["rd-zahlen", "rd-treffer", "rd-eu", "rd-k-score", "rd-gruende"].forEach(function (id) { $(id).textContent = txt("keine"); }); return; }
     var z = r.zeit_bis_kev || {};
     var zahlenBox = $("rd-zahlen"); zahlenBox.textContent = "";
     [["jetzt", pick("letzte 90 Tage", "last 90 days"), true], ["vor_12_monaten", pick("vor 12 Monaten", "12 months ago")], ["vor_24_monaten", pick("vor 24 Monaten", "24 months ago")]].forEach(function (k) {
@@ -352,35 +354,40 @@
     $("rd-eu").textContent = !e ? txt("keine") : pick(
       e.auch_im_cisa + " von " + e.eu_eintraege + " Einträgen im EU-KEV stehen auch im CISA-KEV, " + e.nur_eu + " nur in der EU. Bei " + e.eu_datum_frueher + " nennt die EU ein früheres Ausnutzungsdatum als die Aufnahme bei der CISA (Median-Abstand " + tage(e.median_abstand_tage) + " Tage). Der EU-Katalog bildet den US-Katalog also fast vollständig ab.",
       e.auch_im_cisa + " of " + e.eu_eintraege + " entries in EU-KEV are also in CISA KEV, " + e.nur_eu + " only in the EU. For " + e.eu_datum_frueher + " the EU names an earlier exploitation date than the CISA listing (median gap " + tage(e.median_abstand_tage) + " days). The EU catalogue thus mirrors the US catalogue almost completely.");
-    ["rd-k-mess", "rd-k-eins", "rd-k-ktx"].forEach(function (id) { $(id).textContent = ""; });
-    var sig = {}; ((r.konsens && r.konsens.signale) || []).forEach(function (x) { sig[x.name_en] = x.erhoeht; });
+    ["rd-k-score", "rd-k-ktx"].forEach(function (id) { $(id).textContent = ""; });
+    var sigO = {}; ((r.konsens && r.konsens.signale) || []).forEach(function (x) { sigO[x.name_en] = x; });
     var kachel = function (o) {
-      var b = el("div", "kc " + (o.art || "ext") + (o.an === true ? " an" : (o.an === false ? " aus" : "")));
+      var sg = o.sig ? sigO[o.sig] : null;
+      var b = el("div", "kc " + (o.gr === "ktx" ? "ktx" : "") + (sg && sg.erhoeht === true ? " an" : (sg && sg.erhoeht === false ? " aus" : "")));
       var kopf = el("div", "kc-k mono"); kopf.appendChild(o.url ? link(o.url, o.name) : document.createTextNode(o.name));
-      kopf.appendChild(el("span", "kc-a", o.art === "eigen" ? pick("eigen", "own") : (o.art === "kontext" ? pick("Kontext", "context") : pick("extern", "external"))));
+      var nat = o.nat === "eins" ? pick("Einschätzung", "Assessment") : (o.nat === "ktx" ? pick("Kontext", "Context") : pick("Messung", "Measurement"));
+      kopf.appendChild(el("span", "kc-a", nat + (o.quelle === "eigen" ? pick(" · eigen", " · own") : (o.quelle === "extern" ? pick(" · extern", " · external") : ""))));
       b.appendChild(kopf);
       var w = el("div", "kc-w mono", o.wert); if (o.einheit) w.appendChild(el("small", "", o.einheit)); b.appendChild(w);
       b.appendChild(el("div", "kc-m", o.misst));
+      if (sg) b.appendChild(el("div", "kc-r", pick("Regel: ", "rule: ") + pick(sg.grund, sg.grund_en) + " · " + pick("Zeitraum: ", "period: ") + pick(sg.zeitraum, sg.zeitraum_en)));
       b.appendChild(el("div", "kc-s mono", o.stand));
-      $({ mess: "rd-k-mess", eins: "rd-k-eins", ktx: "rd-k-ktx" }[o.gr]).appendChild(b);
+      $(o.gr === "ktx" ? "rd-k-ktx" : "rd-k-score").appendChild(b);
     };
     var tg = pick("Stand ", "as of ");
     var jz = z.jetzt || {}, v12 = z.vor_12_monaten || {};
-    if (typeof jz.median_frisch === "number") kachel({ gr: "mess", art: "eigen", name: pick("Tempo bis KEV", "Speed to KEV"), wert: tage(jz.median_frisch), einheit: pick(" Tage Median", " days median"), misst: pick("Veröffentlichung bis KEV-Aufnahme, vor 12 Monaten: ", "publication to KEV listing, 12 months ago: ") + tage(v12.median_frisch) + pick(" Tage", " days"), stand: pick("letzte 90 Tage", "last 90 days"), an: sig["Speed to KEV"] });
-    if (typeof t.prognosen === "number") kachel({ gr: "mess", art: "eigen", name: pick("Trefferquote Ausblick", "Outlook hit rate"), wert: typeof t.quote_reif === "number" ? proz(t.quote_reif) : "–", misst: pick("Prognosen: ", "forecasts: ") + t.prognosen + pick(", eingetreten: ", ", occurred: ") + t.eingetreten, stand: typeof t.quote_reif === "number" ? "" : pick("erste Quote nach 30 Tagen", "first rate after 30 days") });
-    if (e) kachel({ gr: "ktx", art: "kontext", name: "EU-KEV", wert: e.auch_im_cisa + "/" + e.eu_eintraege, misst: pick("EU-Einträge, die auch im CISA-KEV stehen", "EU entries also in CISA KEV"), stand: pick("Eigenabgleich", "own comparison") });
+    var pg = d.pegel;
+    if (pg && typeof pg.wert === "number") kachel({ gr: "score", nat: "mess", quelle: "eigen", sig: "Dreier Gauge", name: "Dreier-Pegel", wert: String(pg.wert), einheit: pick(" neu in 30 Tagen", " new in 30 days"), misst: pick("Neu aufgenommene Einträge im CISA-KEV. Stufe ", "Newly added CISA KEV entries. Level ") + (d.stufe ? txt(d.stufe) : "–") + pick(" (erhöht ab ", " (elevated from ") + pg.marken.erhoeht_ab + pick(", hoch ab ", ", high from ") + pg.marken.hoch_ab + ")", stand: tg + datum(d.stand) + pick(" · täglich", " · daily") });
+    if (typeof jz.median_frisch === "number") kachel({ gr: "score", nat: "mess", quelle: "eigen", sig: "Speed to KEV", name: pick("Tempo bis KEV", "Speed to KEV"), wert: tage(jz.median_frisch), einheit: pick(" Tage Median", " days median"), misst: pick("Veröffentlichung bis KEV-Aufnahme, vor 12 Monaten: ", "publication to KEV listing, 12 months ago: ") + tage(v12.median_frisch) + pick(" Tage", " days"), stand: tg + datum(d.stand) });
     (r.einschaetzungen || []).forEach(function (q) {
       var pfeil = q.richtung === "steigend" ? " ↑" : (q.richtung === "fallend" ? " ↓" : ""), idx = q.wert && q.basis;
-      kachel({ gr: "eins", art: "ext", name: q.name, url: q.link, wert: idx ? String(Math.round(q.wert / q.basis * 100)) : pick(q.urteil, q.urteil_en) + pfeil, einheit: idx ? pick(" % von 2024", " % of 2024") : "", misst: pick(q.misst, q.misst_en), stand: tg + datum(q.stand) + pick(" · jährlich", " · yearly") + (q.vorher ? pick(" · Vorjahr: ", " · year before: ") + pick(q.vorher, q.vorher_en) : ""), an: idx ? sig["BSI Cyber Index"] : undefined });
+      kachel({ gr: idx ? "score" : "ktx", nat: "eins", quelle: "extern", sig: idx ? "BSI Cyber Index" : null, name: q.name, url: q.link, wert: idx ? String(Math.round(q.wert / q.basis * 100)) : pick(q.urteil, q.urteil_en) + pfeil, einheit: idx ? pick(" % von 2024", " % of 2024") : "", misst: pick(q.misst, q.misst_en), stand: tg + datum(q.stand) + pick(" · jährlich", " · yearly") + (q.vorher ? pick(" · Vorjahr: ", " · year before: ") + pick(q.vorher, q.vorher_en) : "") });
     });
     if (r.sans) {
       var sn = { green: ["ruhig (grün)", "calm (green)"], yellow: ["erhöht (gelb)", "raised (yellow)"], orange: ["hoch (orange)", "high (orange)"], red: ["kritisch (rot)", "critical (red)"] }[r.sans.status] || ["–", "–"];
-      kachel({ gr: "eins", art: "ext", name: "SANS Infocon", url: "https://isc.sans.edu/", wert: pick(sn[0], sn[1]), misst: pick("Scans und Ausbrüche im Netz", "scans and outbreaks across the internet"), stand: tg + datum(r.sans.abgerufen_am) + " · live", an: sig["SANS Infocon"] });
+      kachel({ gr: "score", nat: "eins", quelle: "extern", sig: "SANS Infocon", name: "SANS Infocon", url: "https://isc.sans.edu/", wert: pick(sn[0], sn[1]), misst: pick("Scans und Ausbrüche im Netz", "scans and outbreaks across the internet"), stand: tg + datum(r.sans.abgerufen_am) + " · live" });
     }
-    if (r.feodo) kachel({ gr: "mess", art: "ext", name: pick("Botnetz-Server (Feodo)", "Botnet servers (Feodo)"), url: "https://feodotracker.abuse.ch/", wert: zahl(r.feodo.online), einheit: pick(" aktiv", " active"), misst: pick("aktive Steuerserver, abuse.ch", "active command servers, abuse.ch"), stand: pick("täglich · ", "daily · ") + ((r.konsens && r.konsens.messtage_feodo) || 0) + pick(" Messtage", " days of data"), an: sig["Botnet servers (Feodo)"] });
-    if (r.ncsc) kachel({ gr: "mess", art: "kontext", name: "NCSC-NL", url: "https://advisories.ncsc.nl/", wert: zahl(r.ncsc.advisories_30), einheit: pick(" Advisories", " advisories"), misst: zahl(r.ncsc.hoch_hoch_30) + pick(" davon mit Kans und Schade hoch", " rated likelihood and damage high"), stand: pick("30 Tage · ", "30 days · ") + tg + datum(r.abgerufen_am) });
+    if (r.feodo) kachel({ gr: "score", nat: "mess", quelle: "extern", sig: "Botnet servers (Feodo)", name: pick("Botnetz-Server (Feodo)", "Botnet servers (Feodo)"), url: "https://feodotracker.abuse.ch/", wert: zahl(r.feodo.online), einheit: pick(" aktiv", " active"), misst: pick("aktive Steuerserver, abuse.ch", "active command servers, abuse.ch"), stand: pick("täglich · ", "daily · ") + ((r.konsens && r.konsens.messtage_feodo) || 0) + pick(" Messtage", " days of data") });
+    if (typeof t.prognosen === "number") kachel({ gr: "ktx", nat: "mess", quelle: "eigen", name: pick("Trefferquote Ausblick", "Outlook hit rate"), wert: typeof t.quote_reif === "number" ? proz(t.quote_reif) : "–", misst: pick("Prognosen: ", "forecasts: ") + t.prognosen + pick(", eingetreten: ", ", occurred: ") + t.eingetreten, stand: typeof t.quote_reif === "number" ? "" : pick("erste Quote nach 30 Tagen", "first rate after 30 days") });
+    if (e) kachel({ gr: "ktx", nat: "mess", quelle: "eigen", name: "EU-KEV", wert: e.auch_im_cisa + "/" + e.eu_eintraege, misst: pick("EU-Einträge, die auch im CISA-KEV stehen", "EU entries also in CISA KEV"), stand: pick("Eigenabgleich", "own comparison") });
+    if (r.ncsc) kachel({ gr: "ktx", nat: "mess", quelle: "extern", name: "NCSC-NL", url: "https://advisories.ncsc.nl/", wert: zahl(r.ncsc.advisories_30), einheit: pick(" Advisories", " advisories"), misst: zahl(r.ncsc.hoch_hoch_30) + pick(" davon mit Kans und Schade hoch", " rated likelihood and damage high"), stand: pick("30 Tage · ", "30 days · ") + tg + datum(r.abgerufen_am) });
     (d.sektor || []).forEach(function (x) {
-      kachel({ gr: "ktx", art: "kontext", name: "ENISA", url: /^https:\/\//.test(x.link || "") ? x.link : null, wert: x.wert.toLocaleString(window.I18N.locale, { maximumFractionDigits: 1 }), einheit: " %", misst: pick("der Ereignisse " + x.berichtsjahr + " betrafen die öffentliche Verwaltung (EU)", "of events in " + x.berichtsjahr + " affected public administration (EU)"), stand: "Threat Landscape 2026, S. " + x.seite + " · " + x.lizenz });
+      kachel({ gr: "ktx", nat: "ktx", quelle: "extern", name: "ENISA", url: /^https:\/\//.test(x.link || "") ? x.link : null, wert: x.wert.toLocaleString(window.I18N.locale, { maximumFractionDigits: 1 }), einheit: " %", misst: pick("der Ereignisse " + x.berichtsjahr + " betrafen die öffentliche Verwaltung (EU)", "of events in " + x.berichtsjahr + " affected public administration (EU)"), stand: "Threat Landscape 2026, S. " + x.seite + " · " + x.lizenz });
     });
     var ul = $("rd-gruende"); ul.textContent = "";
     (r.gruende || []).forEach(function (g) {
