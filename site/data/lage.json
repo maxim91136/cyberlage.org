@@ -1298,7 +1298,7 @@
   "cert_bund": {
     "quelle": "CERT-Bund / BSI Warn- und Informationsdienst",
     "quelle_url": "https://wid.cert-bund.de/",
-    "abgerufen_am": "2026-11-24T11:47:12+00:00",
+    "abgerufen_am": "2026-11-24T11:50:58+00:00",
     "fenster_tage": 30,
     "daten_seit": "2026-11-23",
     "kritisch_7_tage": 5,
@@ -1631,7 +1631,7 @@
   "eu_kev": {
     "quelle": "EU-KEV über die EU-Schwachstellendatenbank (EUVD) von ENISA",
     "quelle_url": "https://euvd.enisa.europa.eu/",
-    "abgerufen_am": "2026-11-24T11:47:12+00:00",
+    "abgerufen_am": "2026-11-24T11:50:58+00:00",
     "fenster_tage": 30,
     "daten_seit": "2026-08-07",
     "neu_30_tage": 36,
@@ -2143,7 +2143,7 @@
     ]
   },
   "ausblick": {
-    "abgerufen_am": "2026-11-24T11:47:14+00:00",
+    "abgerufen_am": "2026-11-24T11:51:00+00:00",
     "fenster_tage": 14,
     "geprueft": 8610,
     "schwelle_hoch": 0.1,
@@ -2237,7 +2237,7 @@
       "online": 1,
       "gelistet": 5
     },
-    "abgerufen_am": "2026-11-24T11:49:41+00:00",
+    "abgerufen_am": "2026-11-24T11:53:10+00:00",
     "zeit_bis_kev": {
       "verlauf": [
         {
@@ -2538,7 +2538,7 @@
     },
     "sans": {
       "status": "green",
-      "abgerufen_am": "2026-11-24T11:49:40+00:00"
+      "abgerufen_am": "2026-11-24T11:53:09+00:00"
     },
     "ncsc": {
       "advisories_30": 25,
@@ -2737,11 +2737,11 @@
           "name": "Cogent Research über Dark Reading",
           "link": "https://www.darkreading.com/threat-intelligence/ai-assisted-exploit-development-scanner-detection",
           "geprueft_am": "2026-11-24",
-          "erreichbar": false,
+          "erreichbar": true,
           "status": 403,
-          "fehler_in_folge": 1,
-          "erster_fehler_um": "2026-11-24T11:49:41+00:00",
-          "link_geprueft_um": "2026-11-24T11:49:41+00:00",
+          "fehler_in_folge": 0,
+          "erster_fehler_um": null,
+          "link_geprueft_um": "2026-11-24T11:53:10+00:00",
           "faellig_am": "2027-02-22",
           "faellig": false,
           "link_tot": false
@@ -2782,11 +2782,11 @@
           "name": "BSI Lagebericht 2026",
           "link": "https://www.bsi.bund.de/DE/Service-Navi/Publikationen/Lagebericht/lagebericht_node.html",
           "geprueft_am": "2026-11-24",
-          "erreichbar": false,
-          "status": 400,
-          "fehler_in_folge": 1,
-          "erster_fehler_um": "2026-11-24T11:49:41+00:00",
-          "link_geprueft_um": "2026-11-24T11:49:41+00:00",
+          "erreichbar": true,
+          "status": 200,
+          "fehler_in_folge": 0,
+          "erster_fehler_um": null,
+          "link_geprueft_um": "2026-11-24T11:53:10+00:00",
           "faellig_am": "2027-10-20",
           "faellig": false,
           "link_tot": false
@@ -2816,7 +2816,7 @@
       "lizenz": "CC0 1.0 (laut LICENSE-Datei von cisagov/kev-data)",
       "quelle_abruf": "cisa.gov",
       "veroeffentlicht_am": "2026-11-23T19:43:55.7979Z",
-      "abgerufen_am": "2026-11-24T11:47:11+00:00",
+      "abgerufen_am": "2026-11-24T11:50:58+00:00",
       "name_en": "CISA Known Exploited Vulnerabilities",
       "lizenz_en": "CC0 1.0 (per the LICENSE file of cisagov/kev-data)"
     },
@@ -2833,7 +2833,7 @@
       "name": "CERT-Bund / BSI Warn- und Informationsdienst",
       "link": "https://wid.cert-bund.de/",
       "lizenz": "nur Titel und Links, Nutzungsbedingungen des BSI beachten",
-      "abgerufen_am": "2026-11-24T11:47:12+00:00",
+      "abgerufen_am": "2026-11-24T11:50:58+00:00",
       "name_en": "CERT-Bund / BSI Warning and Information Service",
       "lizenz_en": "titles and links only, observe the BSI terms of use"
     },
@@ -2842,7 +2842,7 @@
       "name": "EU-KEV (EUVD von ENISA)",
       "link": "https://euvd.enisa.europa.eu/",
       "lizenz": "Lizenz nicht ausdrücklich geklärt",
-      "abgerufen_am": "2026-11-24T11:47:12+00:00",
+      "abgerufen_am": "2026-11-24T11:50:58+00:00",
       "name_en": "EU-KEV (EUVD by ENISA)",
       "lizenz_en": "licence not explicitly clarified"
     },
@@ -2851,7 +2851,7 @@
       "name": "EPSS (FIRST)",
       "link": "https://www.first.org/epss/",
       "lizenz": "kostenlos mit Quellenangabe",
-      "abgerufen_am": "2026-11-24T11:47:14+00:00",
+      "abgerufen_am": "2026-11-24T11:51:00+00:00",
       "name_en": "EPSS (FIRST)",
       "lizenz_en": "free to use with attribution"
     },
@@ -2860,7 +2860,7 @@
       "name": "NVD (NIST)",
       "link": "https://nvd.nist.gov/",
       "lizenz": "gemeinfrei, nur Veröffentlichungsdatum und CVSS-Wert",
-      "abgerufen_am": "2026-11-24T11:47:14+00:00",
+      "abgerufen_am": "2026-11-24T11:51:00+00:00",
       "name_en": "NVD (NIST)",
       "lizenz_en": "public domain, only publication date and CVSS score"
     },
@@ -2869,7 +2869,7 @@
       "name": "CVE-Liste (CVE Program, MITRE)",
       "link": "https://github.com/CVEProject/cvelistV5",
       "lizenz": "CVE Terms of Use: frei nutzbar mit Quellenangabe, nur Veröffentlichungsdatum",
-      "abgerufen_am": "2026-11-24T11:49:41+00:00",
+      "abgerufen_am": "2026-11-24T11:53:10+00:00",
       "name_en": "CVE List (CVE Program, MITRE)",
       "lizenz_en": "CVE Terms of Use: free to use with attribution, only publication date"
     },
@@ -2878,7 +2878,7 @@
       "name": "Feodo Tracker (abuse.ch)",
       "link": "https://feodotracker.abuse.ch/",
       "lizenz": "CC0, nur die Zahl aktiver Steuerserver",
-      "abgerufen_am": "2026-11-24T11:49:41+00:00",
+      "abgerufen_am": "2026-11-24T11:53:10+00:00",
       "name_en": "Feodo Tracker (abuse.ch)",
       "lizenz_en": "CC0, only the number of active command servers"
     },
@@ -2887,14 +2887,14 @@
       "name": "NCSC-NL Beveiligingsadviezen",
       "link": "https://advisories.ncsc.nl/",
       "lizenz": "Lizenz nicht geprüft, nur Zahl der Advisories mit Quellenangabe",
-      "abgerufen_am": "2026-11-24T11:49:41+00:00"
+      "abgerufen_am": "2026-11-24T11:53:10+00:00"
     },
     {
       "id": "sans",
       "name": "SANS Internet Storm Center (Infocon)",
       "link": "https://isc.sans.edu/",
       "lizenz": "Creative Commons laut Fußzeile des ISC, nur Ampelstatus mit Quellenangabe",
-      "abgerufen_am": "2026-11-24T11:49:40+00:00",
+      "abgerufen_am": "2026-11-24T11:53:09+00:00",
       "name_en": "SANS Internet Storm Center (Infocon)",
       "lizenz_en": "Creative Commons per the ISC footer, only the traffic-light status with attribution"
     }
