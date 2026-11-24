@@ -111,6 +111,7 @@ details.mehr{margin-top:6px}details.mehr>summary{cursor:pointer;color:var(--gree
 .telegram a{display:inline-block;border:1px solid var(--green);padding:10px 14px;text-decoration:none;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px}
 .telegram a:hover{background:var(--green);color:#06090b}
 .telegram[hidden]{display:none}
+.telegram.rss{margin-top:10px}
 
 /* Kopf zentriert, Navigation mit Aufklappmenüs, Reiter, Akkordeon */
 .marke{display:flex;justify-content:center;padding:18px 18px 10px}

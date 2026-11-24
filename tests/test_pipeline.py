@@ -322,5 +322,22 @@ class AusblickTests(unittest.TestCase):
         self.assertTrue(any(q["id"] == "nvd" for q in r["quellen"]))
 
 
+class FeedTests(unittest.TestCase):
+    def test_feed(self):
+        import sys, xml.dom.minidom
+        sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "pipeline"))
+        import feed
+        lage = {"stand": "2026-11-24", "stufe": "hoch", "stufe_begruendung": "36 & mehr.",
+                "neu": [{"cve": "CVE-1-1", "hersteller": "A<b>", "produkt": "P", "hinzugefuegt": "2026-11-23", "frist": None, "ransomware_bekannt": True, "link": "https://x/y?a=1&b=2"}],
+                "cert_bund": {"liste": [{"id": "WID-1", "schwere": "kritisch", "titel": "T", "datum": "2026-11-22", "link": "https://w"},
+                                        {"id": "WID-2", "schwere": "hoch", "titel": "U", "datum": "2026-11-22", "link": "https://w"}]}}
+        x = feed.baue(lage)
+        xml.dom.minidom.parseString(x.encode())
+        self.assertEqual(x.count("<item>"), 2)
+        self.assertIn("kev-CVE-1-1", x)
+        self.assertNotIn("wid-WID-2", x)
+        self.assertIn("Ransomware", x)
+
+
 if __name__ == "__main__":
     unittest.main()

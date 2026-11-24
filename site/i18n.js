@@ -15,6 +15,8 @@
     h_titel: "The global cyber situation.<br>Rule-based and openly sourced.",
     h_lead: "Worldwide, across all vendors: we count the vulnerabilities that bodies such as CISA report as exploited and combine them into one level using open rules. No statement about any one country or sector. For everyone who defends.",
     tg_btn: "Subscribe to the Telegram channel",
+    rss_btn: "Subscribe to the RSS feed",
+    rss_txt: " the same for any feed reader, no account needed.",
     tg_txt: " new entries, critical warnings and level changes as soon as they appear.",
     h_lage: "Current situation",
     l_wie: "how the level is calculated",

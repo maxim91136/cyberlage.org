@@ -4,7 +4,7 @@ Lagebild: die Cyberlage, abgeleitet aus ausgenutzten Schwachstellen und offenen 
 
 **Ein Projekt von [Dreier Labs](https://dreierlabs.com).** Ein privates Projekt, keine amtliche Stelle und keine Zusammenarbeit mit einer Behörde.
 
-Status: im Aufbau, noch nicht veröffentlicht.
+Status: öffentlich unter https://cyberlage.org (Beta). Neues gibt es auch im [Telegram-Kanal](https://t.me/cyberlage_org) und als [RSS-Feed](https://cyberlage.org/feed.xml).
 
 ## Grundregeln
 
@@ -23,10 +23,14 @@ Status: im Aufbau, noch nicht veröffentlicht.
 | `data/enisa.csv` | ENISA-Kennzahlen von Hand erfasst, mit Seitenangabe und Prüfstatus |
 | `config/regeln.json` | Schwellen der Bewertung, mit Status (Entwurf oder freigegeben) |
 | `pipeline/fetch_kev.py` | Holt und prüft den KEV-Katalog |
+| `pipeline/fetch_extra.py` | Holt CERT-Bund-Warnungen und EU-KEV (Kontext, nicht Teil der Stufe) |
+| `pipeline/fetch_ausblick.py` | Holt neue CVEs der letzten 14 Tage (NVD) und ihre EPSS-Wahrscheinlichkeit (FIRST), schreibt `data/ausblick/ausblick.json` |
+| `pipeline/feed.py` | Schreibt `site/feed.xml` (RSS) aus `site/data/lage.json` |
+| `pipeline/notify.py` | Meldet Neues in den Telegram-Kanal |
 | `pipeline/score.py` | Wertet nach den Regeln aus und schreibt `site/data/lage.json` |
 | `tests/` | Tests für Abruf und Auswertung |
-| `site/` | Platzhalterseite und Ausgabedaten |
-| `.github/workflows/daten.yml` | Aktualisierung, vorerst nur von Hand startbar |
+| `site/` | Die Seite (Deutsch und Englisch), Ausgabedaten und Feed |
+| `.github/workflows/daten.yml` | Aktualisierung, alle zwei Stunden und von Hand startbar |
 
 ## Lokal ausführen
 
@@ -35,7 +39,9 @@ Nur Python 3, keine weiteren Pakete:
 ```
 python3 -m unittest discover -s tests
 python3 pipeline/fetch_kev.py
+python3 pipeline/fetch_ausblick.py   # nur mit Internetzugang zu NVD und FIRST
 python3 pipeline/score.py
+python3 pipeline/feed.py
 ```
 
 ## Hinweis
