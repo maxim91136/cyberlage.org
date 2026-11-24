@@ -23,7 +23,7 @@
     l_stufe: "dreier gauge · worldwide", l_lade: "Loading data",
     l_7: "new · 7 days", l_30: "new · 30 days", l_ges: "catalog total",
     l_kev: "<strong>KEV</strong> stands for <em>Known Exploited Vulnerabilities</em>: a list by the US cybersecurity agency <strong>CISA</strong> of flaws that are proven to be exploited by attackers. The level shows how many are newly added.",
-    r_h: "## history", r_pegel: "Dreier Gauge over time", r_rscore: "Radar score over time · experiment", n_h: "## new",
+    r_h: "## history", r_pegel: "Dreier Gauge over time", i_pruef: "check calendar", i_pruef_t: "Hand-maintained entries (reasons, assessments by others such as the BSI report) can go stale, so each carries a check date. On every run a script checks whether the link is reachable (a dead link counts only after a second failure in a row) and whether the deadline has passed: 330 days for annual entries, 90 days for reasons. If something is due it is marked yellow and an issue opens automatically in the project. The script checks only deadline and reachability, not content: the check date is set by a person who has read the source. Rules in RULES.md.", r_rscore: "Radar score over time · experiment", n_h: "## new",
     rd_h: "## radar", rd_intro: "Our own measurements from open data, next to the assessments of other bodies. None of it feeds into the level.",
     rd_kon_h: "Radar score", rd_kon_n: "Each signal follows a fixed rule (RULES.md). Only external sources count as confirmation. The dashed ring is the rule threshold, the further out a point lies, the stronger the reading. Only the radar score above forms a mean.",
     rd_zeit_h: "How fast is a vulnerability reported as exploited?", rd_tr_h: "Hit rate of the outlook", rd_eu_h: "EU-KEV and CISA KEV",

@@ -429,7 +429,21 @@
         " " + pick("geprüft ", "checked ") + datum(g.geprueft_am) + (pe && pe.faellig ? pick(" · Prüfung fällig", " · check due") : "") + (pe && pe.link_tot ? pick(" · Link prüfen", " · check link") : ""));
       li.appendChild(st); ul.appendChild(li);
     });
-    var pz = $("rd-pruef"), pr = r.pruefung;
+    var pt = $("pruef-tabelle"), pr = r.pruefung;
+    if (pt && pr) {
+      pt.textContent = "";
+      var kopf = el("tr", ""); [pick("Angabe", "Entry"), pick("geprüft", "checked"), pick("fällig am", "due"), pick("Quelle", "source")].forEach(function (h) { kopf.appendChild(el("th", "", h)); });
+      pt.appendChild(el("thead", "")).appendChild(kopf);
+      var tb = el("tbody", ""); pt.appendChild(tb);
+      pr.eintraege.forEach(function (e) {
+        var tr = el("tr", ""); tb.appendChild(tr);
+        tr.appendChild(el("td", "", e.name)); tr.appendChild(el("td", "mono", datum(e.geprueft_am)));
+        tr.appendChild(el("td", "mono" + (e.faellig ? " warn" : ""), datum(e.faellig_am) + (e.faellig ? pick(" · fällig", " · due") : "")));
+        var td = el("td", "mono" + (e.link_tot ? " warn" : ""), e.link_tot ? pick("nicht erreichbar", "unreachable") : (e.erreichbar ? pick("erreichbar", "reachable") : pick("Fehlschlag, wird wiederholt", "failed, will retry")));
+        tr.appendChild(td);
+      });
+    }
+    var pz = $("rd-pruef");
     if (pz) pz.textContent = pr ? pick("Prüfstand: ", "Check status: ") + (pr.offen.length ? pr.offen.length + pick(" Angaben brauchen eine Prüfung.", " items need a check.") : pick("alle Angaben innerhalb der Frist, alle Quellen erreichbar", "all items within their deadline, all sources reachable")) + " (" + datum(pr.stand) + ")" : "";
   }
 
