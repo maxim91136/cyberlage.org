@@ -110,6 +110,9 @@ details.mehr{margin-top:6px}details.mehr>summary{cursor:pointer;color:var(--gree
 .telegram svg{vertical-align:-3px;margin-right:4px}
 .telegram a{display:inline-block;border:1px solid var(--green);padding:10px 14px;text-decoration:none;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px}
 .telegram a:hover{background:var(--green);color:#06090b}
+.telegram button{background:none;color:inherit;border:1px solid var(--green);padding:10px 14px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px;cursor:pointer}
+.telegram button:hover{background:var(--green);color:#06090b}
+.telegram.rss .dim a{color:inherit}
 .telegram[hidden]{display:none}
 .telegram.rss{margin-top:10px}
 

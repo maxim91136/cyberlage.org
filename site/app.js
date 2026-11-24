@@ -247,6 +247,15 @@
     }), 8);
   }
 
+  (function () {
+    var b = $("rss-kopieren"); if (!b) return;
+    b.addEventListener("click", function () {
+      var u = b.getAttribute("data-feed"), t = $("rss-btn"), ok = function () { t.textContent = pick("Kopiert – jetzt im Reader einfügen", "Copied – now paste it into your reader"); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(u).then(ok, function () { window.location.href = "feed.xml"; });
+      else window.location.href = "feed.xml";
+    });
+  })();
+
   function zeigeKern(d) {
     var r = d.radar && d.radar.zeit_bis_kev, j = r && r.jetzt, v = r && r.vor_12_monaten;
     var proz = function (x) { return typeof x === "number" ? Math.round(x * 100) + " %" : "–"; };
