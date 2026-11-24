@@ -38,6 +38,10 @@
       <a href="#neu" data-tab="eu">EU-KEV</a>
       <a href="#neu" data-tab="ausblick" data-t="tab_ausblick">Ausblick</a>
     </div></details>
+    <details class="dd" id="abo"><summary data-t="n_abo">/abo</summary><div class="dd-box dd-abo">
+      <span id="telegram" class="abo-z" hidden><a id="telegram-link" href="#" rel="noopener" data-t="tg_btn">Telegram-Kanal abonnieren</a><small class="dim" data-t="tg_txt">einmal täglich die Tageslage, sofort nur bei Stufenwechsel und Ransomware-Alarm.</small></span>
+      <span class="abo-z"><button type="button" id="rss-kopieren" data-feed="https://cyberlage.org/feed.xml"><span id="rss-btn" data-t="rss_btn">RSS-Feed-Adresse kopieren</span></button><small class="dim"><span data-t="rss_txt">in deinen Feed-Reader einfügen (Feedly, Inoreader, NetNewsWire), ohne Konto.</span> <a href="feed.xml" data-t="rss_roh">Rohdatei</a></small></span>
+    </div></details>
     <details class="dd"><summary data-sec="info">/info</summary><div class="dd-box">
       <a href="#info" data-offen="i-quellen" data-t="i_quellen">Quellen</a>
       <a href="#info" data-offen="i-begriffe" data-t="i_begriffe">Begriffe</a>
@@ -53,9 +57,6 @@
   <section class="wrap hero">
     <p class="lbl" data-t="h_lbl">stand <span id="stand">…</span> · lagebild aus offenen quellen</p>
     <h1 data-t="h_titel">Die globale Cyberlage.<br>Regelbasiert und offen belegt.</h1>
-    <p class="lead" data-t="h_lead">Weltweit, über alle Hersteller: Wir zählen die Schwachstellen, die Stellen wie CISA als ausgenutzt melden, und rechnen sie nach offenen Regeln zu einer Stufe zusammen. Keine Aussage über ein Land oder einen Sektor. Für alle, die verteidigen.</p>
-    <p id="telegram" class="telegram" hidden><a id="telegram-link" href="#" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M21.5 3.5L2.8 10.7c-.9.4-.9 1.1-.2 1.3l4.8 1.5 1.8 5.6c.2.6.4.8.8.8.4 0 .6-.2.9-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.2-.4-1.8-1.4-1.3zM9 13.4l9.100-5.700c.4-.3.8-.1.5.2l-7.400 6.700-.3 3.100z" fill="currentColor"/></svg> <span data-t="tg_btn">Telegram-Kanal abonnieren</span></a><span class="dim" data-t="tg_txt"> einmal täglich die Tageslage, sofort nur bei Stufenwechsel und Ransomware-Alarm.</span></p>
-<p class="telegram rss"><button type="button" id="rss-kopieren" data-feed="https://cyberlage.org/feed.xml"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="5" cy="19" r="2" fill="currentColor"/><path d="M4 10a10 10 0 0 1 10 10M4 4a16 16 0 0 1 16 16" fill="none" stroke="currentColor" stroke-width="2.4"/></svg> <span id="rss-btn" data-t="rss_btn">RSS-Feed-Adresse kopieren</span></button><span class="dim"><span data-t="rss_txt"> in deinen Feed-Reader einfügen (Feedly, Inoreader, NetNewsWire), ohne Konto.</span> <a href="feed.xml" data-t="rss_roh">Rohdatei</a></span></p>
   </section>
 
   <section id="lage" class="wrap" aria-labelledby="h-lage">
@@ -74,6 +75,7 @@
       <span><span data-t="l_ges">Katalog gesamt</span> <b id="kall">…</b></span>
       <span>Ransomware <b id="kr">…</b></span>
     </p>
+    <p class="lead" data-t="h_lead">Weltweit, über alle Hersteller: Wir zählen die Schwachstellen, die Stellen wie CISA als ausgenutzt melden, und rechnen sie nach offenen Regeln zu einer Stufe zusammen. Keine Aussage über ein Land oder einen Sektor. Für alle, die verteidigen.</p>
     <details class="akk" id="l-rechnung"><summary class="mono" data-t="l_wie">so entsteht die stufe</summary>
       <div id="rechnung" class="rechnung"></div>
     </details>
