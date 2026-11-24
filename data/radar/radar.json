@@ -1,5 +1,5 @@
 {
- "abgerufen_am": "2026-11-24T08:51:27+00:00",
+ "abgerufen_am": "2026-11-24T09:06:19+00:00",
  "zeit_bis_kev": {
   "verlauf": [
    {
@@ -461,7 +461,11 @@
  },
  "sans": {
   "status": "green",
-  "abgerufen_am": "2026-11-24T08:51:27+00:00"
+  "abgerufen_am": "2026-11-24T09:06:18+00:00"
+ },
+ "ncsc": {
+  "advisories_30": 25,
+  "hoch_hoch_30": 0
  },
  "feodo": {
   "online": 1,
