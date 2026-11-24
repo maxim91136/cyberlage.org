@@ -52,8 +52,9 @@ def erreichbar(url):
             with urllib.request.urlopen(req, timeout=20) as a:
                 return True, a.status
         except urllib.error.HTTPError as e:
-            if methode == "GET" or e.code not in (403, 405, 501):
-                return e.code < 400, e.code
+            if methode == "GET":
+                # 401/403/429: Der Server antwortet, lässt aber keine Automaten lesen. Das zählt als erreichbar.
+                return e.code < 400 or e.code in (401, 403, 429), e.code
         except (urllib.error.URLError, TimeoutError, OSError) as e:
             if methode == "GET":
                 return False, type(e).__name__
