@@ -1,6 +1,6 @@
 # Cyberlage
 
-Lagebild: die Cyberlage, abgeleitet aus ausgenutzten Schwachstellen und offenen Quellen. Für alle, die verteidigen.
+Ein Seismograph für die Cyberlage: Lagebild aus ausgenutzten Schwachstellen und offenen Quellen, mit dem eigenen Score (Dreier-Pegel) und einem Radar daneben. Für alle, die verteidigen.
 
 **Ein Projekt von [Dreier Labs](https://dreierlabs.com).** Ein privates Projekt, keine amtliche Stelle und keine Zusammenarbeit mit einer Behörde.
 
