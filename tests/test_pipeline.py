@@ -547,6 +547,8 @@ class RadarStufenTests(unittest.TestCase):
         f = score.fazit({"wert": 61}, "hoch", self.cfg)
         self.assertEqual(f["radar_stufe"], "angespannt")
         self.assertIn("Dreier-Pegel steht auf hoch", f["text"])
+        self.assertTrue(f["text"].startswith("Der Dreier-Pegel steht auf hoch"))  # Hauptaussage zuerst, dann die Gegenprobe
+        self.assertIn("Gegenprobe Radar-Score: angespannt", f["text"])
         self.assertEqual(f["status"], "vorlaeufig")
         self.assertIsNone(score.fazit(None, "hoch", self.cfg))
         self.assertIsNone(score.fazit({"wert": 61}, "unbekannt", self.cfg))

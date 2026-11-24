@@ -160,7 +160,8 @@ def fazit(score, pegel_stufe, cfg):
     if not st or not pg:
         return None
     return {"status": cfg.get("status"), "radar_stufe": st["name"], "radar_stufe_en": st["name_en"], "ampel": st.get("ampel"), "pegel_stufe": pegel_stufe,
-            "text": "Radar: " + st["name"] + ". " + st["satz"] + " " + pg["satz"], "text_en": "Radar: " + st["name_en"] + ". " + st["satz_en"] + " " + pg["satz_en"],
+            "text": pg["satz"] + " Gegenprobe Radar-Score: " + st["name"] + ". " + st["satz"],
+            "text_en": pg["satz_en"] + " Cross-check radar score: " + st["name_en"] + ". " + st["satz_en"],
             "hinweis": pg["hinweis"], "hinweis_en": pg["hinweis_en"], "stand": cfg.get("geprueft_am")}
 
 
