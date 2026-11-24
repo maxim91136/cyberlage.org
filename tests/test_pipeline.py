@@ -571,6 +571,7 @@ def _ms_dok(monat="2026-Nov", cves=None, aktuell="2026-11-10T08:00:00Z"):
         ("CVE-2026-0002", "Microsoft Word Remote Code Execution Vulnerability", "Important", "Remote Code Execution", "Publicly Disclosed:Yes;Exploited:No;", ["3"]),
         ("CVE-2026-0003", "Chromium: CVE-2026-0003 Use after free in Blink", "Important", "Remote Code Execution", "Publicly Disclosed:No;Exploited:No;", ["4"]),
         ("CVE-2026-0004", "Azure Service Information Disclosure Vulnerability", "Moderate", "Information Disclosure", "Publicly Disclosed:No;Exploited:No;", ["5"]),
+        ("CVE-2026-0005", "kernel: some Linux flaw", "", "", "", ["6"]),
     ]
     return {
         "DocumentTracking": {"Identification": {"ID": {"Value": monat}}, "InitialReleaseDate": "2026-11-10T08:00:00Z", "CurrentReleaseDate": aktuell},
@@ -579,7 +580,8 @@ def _ms_dok(monat="2026-Nov", cves=None, aktuell="2026-11-10T08:00:00Z"):
             {"ProductID": "2", "Value": "Windows Server 2025"},
             {"ProductID": "3", "Value": "Microsoft Word 2021"},
             {"ProductID": "4", "Value": "Microsoft Edge (Chromium-based)"},
-            {"ProductID": "5", "Value": "Azure Stack HCI"}]}]}]},
+            {"ProductID": "5", "Value": "Azure Stack HCI"},
+            {"ProductID": "6", "Value": "Azure Linux 3.0 x64 kernel 6.6"}]}]}]},
         "Vulnerability": [{"CVE": c, "Title": {"Value": t},
                            "Threats": [{"Type": 3, "Description": {"Value": sv}}, {"Type": 0, "Description": {"Value": imp}}, {"Type": 1, "Description": {"Value": ex}}],
                            "ProductStatuses": [{"Type": 3, "ProductID": ids}]} for c, t, sv, imp, ex, ids in cves],
@@ -591,6 +593,7 @@ class PatchTests(unittest.TestCase):
         m = fetch_patches.verdichte_dokument(_ms_dok(), kev_cves=["CVE-2026-0001"])
         self.assertEqual(m["cves"], 3)                      # Chromium nicht mitgezählt
         self.assertEqual(m["davon_chromium_ausgenommen"], 1)
+        self.assertEqual(m["davon_azure_linux_ausgenommen"], 1)
         self.assertEqual(m["schwere"]["Critical"], 1)
         self.assertEqual(m["schwere"]["Important"], 1)
         self.assertEqual(m["ausgenutzt"], 1)

@@ -3,7 +3,7 @@
 
 Stufe 1: Microsoft Security Response Center, CVRF v3.0 (JSON). Je Monat ein Bericht (Patch Day), spätere
 Änderungen am Monatsdokument (Out-of-Band, Nachträge) werden als Nachtrag mit der Zahl neuer Lücken festgehalten.
-Gezählt wird nur: Lücken je Schweregrad, ausgenutzt, öffentlich bekannt, Auswirkungsart, betroffene Produktfamilie,
+Ausgenommen und getrennt gezählt: Chromium-Lücken im Edge und Paketlücken von Azure Linux (frühere Bezeichnung Mariner), weil sie den Patch Day sonst um ein Vielfaches aufblähen. Gezählt wird nur: Lücken je Schweregrad, ausgenutzt, öffentlich bekannt, Auswirkungsart, betroffene Produktfamilie,
 Überschneidung mit dem CISA-KEV. Keine Beschreibungstexte, keine Eigenbewertung der Schwere.
 
 Schreibt data/patches/microsoft.json. Schlägt die Quelle fehl, bleibt die alte Datei bestehen und der Lauf meldet es.
@@ -27,6 +27,7 @@ MONAT_ID = re.compile(r"^(\d{4})-(" + "|".join(MONATE) + r")$")
 SCHWEREN = ("Critical", "Important", "Moderate", "Low")
 BEHALTEN_MONATE = 36
 HISTORIE_MONATE = 12  # Vergleichsbasis für die Bewertung
+SCHEMA = 2  # erhöhen, wenn sich die Zählweise ändert: dann werden alle Monate neu geholt
 
 
 class QuellFehler(Exception):
@@ -59,6 +60,8 @@ def sammle_produkte(knoten, out=None):
 
 def familie(name):
     n = name or ""
+    if re.search(r"Azure Linux|Mariner", n):
+        return "Azure Linux"
     if re.search(r"Windows 11", n):
         return "Windows 11"
     if re.search(r"Windows 10", n):
@@ -90,7 +93,7 @@ def verdichte_dokument(doc, kev_cves=()):
     schwere = {k: 0 for k in SCHWEREN}
     schwere["unbekannt"] = 0
     auswirkung, fam = {}, {}
-    ausgenutzt, oeffentlich, in_kev, cves, chromium = [], [], [], [], 0
+    ausgenutzt, oeffentlich, in_kev, cves, chromium, azure_linux = [], [], [], [], 0, 0
     gesehen = set()
     for v in doc.get("Vulnerability") or []:
         cve = v.get("CVE")
@@ -100,6 +103,13 @@ def verdichte_dokument(doc, kev_cves=()):
         titel = _wert(v.get("Title"))
         if titel.lower().startswith("chromium"):
             chromium += 1  # Edge übernimmt Chromium-Lücken; getrennt gezählt, damit sie die Monatszahl nicht verzerren
+            continue
+        betroffen = set()
+        for st in v.get("ProductStatuses") or []:
+            for pid in st.get("ProductID") or []:
+                betroffen.add(familie(produkte.get(str(pid), "")))
+        if betroffen and betroffen <= {"Azure Linux"}:
+            azure_linux += 1  # Linux-Paketlücken von Azure Linux (frühere Bezeichnung Mariner) sind kein Patch Day, getrennt gezählt
             continue
         cves.append(cve)
         sev, imp, ex_text = None, None, ""
@@ -121,17 +131,13 @@ def verdichte_dokument(doc, kev_cves=()):
             oeffentlich.append(cve)
         if cve in kev:
             in_kev.append(cve)
-        betroffen = set()
-        for st in v.get("ProductStatuses") or []:
-            for pid in st.get("ProductID") or []:
-                betroffen.add(familie(produkte.get(str(pid), "")))
         for f in betroffen:
             fam[f] = fam.get(f, 0) + 1
     return {
         "id": dok_id,
         "erste_veroeffentlichung": verfolgung.get("InitialReleaseDate"),
         "aktuell": verfolgung.get("CurrentReleaseDate"),
-        "cves": len(cves), "davon_chromium_ausgenommen": chromium,
+        "schema": SCHEMA, "cves": len(cves), "davon_chromium_ausgenommen": chromium, "davon_azure_linux_ausgenommen": azure_linux,
         "schwere": schwere,
         "ausgenutzt": len(ausgenutzt), "ausgenutzt_cves": sorted(ausgenutzt)[:25],
         "oeffentlich_bekannt": len(oeffentlich), "oeffentlich_cves": sorted(oeffentlich)[:25],
@@ -196,6 +202,8 @@ def aktualisiere(alt, liste_json, hole_dok, kev_cves, jetzt):
     for e in ziel:
         mid = e["ID"]
         vorher = monate.get(mid)
+        if vorher and vorher.get("schema") != SCHEMA:
+            vorher = None  # alte Zählweise: neu holen, keine Nachträge daraus ableiten
         if vorher and vorher.get("aktuell") == e.get("CurrentReleaseDate"):
             continue
         try:
@@ -224,7 +232,7 @@ def aktualisiere(alt, liste_json, hole_dok, kev_cves, jetzt):
         raise QuellFehler("keine Monatsberichte")
     return {"meta": {"quelle": "Microsoft Security Response Center (CVRF 3.0)", "quelle_url": MS_QUELLE, "listen_url": MS_LISTE,
                      "abgerufen_am": jetzt.isoformat(timespec="seconds"),
-                     "hinweis": "Zählung je CVE; Chromium-Lücken im Edge sind ausgenommen und getrennt ausgewiesen. Schweregrad, Ausnutzung und Bekanntheit stammen vom Hersteller.",
+                     "hinweis": "Zählung je CVE; Chromium-Lücken im Edge und Linux-Paketlücken von Azure Linux sind ausgenommen und getrennt ausgewiesen. Schweregrad, Ausnutzung und Bekanntheit stammen vom Hersteller.",
                      "fehler": fehler},
             "monate": {m["id"]: m for m in reihe}}
 
