@@ -89,24 +89,23 @@
     <h2 id="h-radar" class="mono" data-t="rd_h">## radar</h2>
     <p class="dim" data-t="rd_intro">Eigene Messungen aus offenen Daten, daneben die Einschätzungen anderer Stellen. Nichts davon fließt in die Stufe.</p>
     <div class="panel pad rd">
-      <h3 class="mono rd-t" data-t="rd_kon_h">Bestätigen andere unsere Lage?</h3>
-      <p class="rd-kon" id="rd-kon"></p>
+      <h3 class="mono rd-t" data-t="rd_kon_h">Radar-Score</h3>
       <div class="rd-score" id="rd-score" hidden></div>
+      <p class="rd-kon" id="rd-kon"></p>
       <div class="rd-scopewrap">
         <svg id="rd-scope" class="rd-scope" role="img" aria-labelledby="rd-scope-t" viewBox="-70 34 540 300" width="100%"><title id="rd-scope-t">Radar</title></svg>
         <div id="rd-signale"></div>
       </div>
-      <p class="mono dim fine" data-t="rd_kon_n">Jedes Signal steht für sich und folgt einer festen Regel (RULES.md). Nur externe Quellen zählen als Bestätigung. Je weiter außen ein Punkt liegt, desto stärker schlägt die Messung aus; der gestrichelte Ring ist die Regelschwelle. Die Bestätigung oben wird nicht gemittelt. Nur der Radar-Score, ein Experiment, bildet einen Mittelwert. Was nicht messbar ist, zählt nicht mit.</p>
+      <p class="mono dim fine" data-t="rd_kon_n">Jedes Signal folgt einer festen Regel (RULES.md). Nur externe Quellen zählen als Bestätigung. Der gestrichelte Ring ist die Regelschwelle, je weiter außen ein Punkt liegt, desto stärker der Ausschlag. Nur der Radar-Score oben bildet einen Mittelwert.</p>
     </div>
-    <h3 class="mono rd-t rd-sub" data-t="rd_vgl_h">Alle Messungen auf einen Blick</h3>
-    <div class="rd-kacheln" id="rd-kacheln"></div>
+    <h3 class="mono rd-t rd-sub" data-t="rd_vgl_h">Alle Signale auf einen Blick</h3>
+    <h4 class="mono rd-gr" data-t="rd_g_mess">Messungen: Zählungen aus offenen Rohdaten</h4>
+    <div class="rd-kacheln" id="rd-k-mess"></div>
+    <h4 class="mono rd-gr" data-t="rd_g_eins">Einschätzungen: Urteile anderer Stellen</h4>
+    <div class="rd-kacheln" id="rd-k-eins"></div>
+    <h4 class="mono rd-gr" data-t="rd_g_ktx">Kontext: ohne Schwelle, zur Einordnung</h4>
+    <div class="rd-kacheln" id="rd-k-ktx"></div>
     <p class="mono dim fine" data-t="rd_vgl_n">Die Quellen messen Verschiedenes. Zeigen mehrere in dieselbe Richtung, ist das ein stärkeres Signal als eine allein.</p>
-    <div class="panel pad rd">
-      <h3 class="mono rd-t" data-t="rd_zeit_h">Wie schnell wird eine Lücke ausgenutzt gemeldet?</h3>
-      <div class="rd-zahlen" id="rd-zahlen"></div>
-      <svg id="rd-chart" role="img" aria-labelledby="rd-chart-titel" viewBox="0 0 1000 200" width="100%" preserveAspectRatio="xMidYMid meet"><title id="rd-chart-titel">Anteil der KEV-Aufnahmen binnen 30 Tagen nach Veröffentlichung, je Monat</title></svg>
-      <p class="mono dim fine" id="rd-zeit-fine"></p>
-    </div>
     <details class="panel pad rd rd-det">
       <summary class="mono" data-t="rd_det">Erklärungen zu Trefferquote und EU-Abgleich</summary>
       <h4 class="mono rd-t" data-t="rd_tr_h">Trefferquote des Ausblicks</h4><p id="rd-treffer"></p>
@@ -125,6 +124,12 @@
       <h3 class="mono rd-t" data-t="r_pegel">Dreier-Pegel im Verlauf</h3>
       <svg id="verlauf" role="img" aria-labelledby="verlauf-titel" viewBox="0 0 1000 220" width="100%" preserveAspectRatio="xMidYMid meet"><title id="verlauf-titel">Verlauf der neu aufgenommenen Schwachstellen</title></svg>
       <p class="mono dim fine" id="verlauf-legende"></p>
+    </div>
+    <div class="panel pad rd">
+      <h3 class="mono rd-t" data-t="rd_zeit_h">Wie schnell wird eine Lücke ausgenutzt gemeldet?</h3>
+      <div class="rd-zahlen" id="rd-zahlen"></div>
+      <svg id="rd-chart" role="img" aria-labelledby="rd-chart-titel" viewBox="0 0 1000 200" width="100%" preserveAspectRatio="xMidYMid meet"><title id="rd-chart-titel">Anteil der KEV-Aufnahmen binnen 30 Tagen nach Veröffentlichung, je Monat</title></svg>
+      <p class="mono dim fine" id="rd-zeit-fine"></p>
     </div>
   </section>
 

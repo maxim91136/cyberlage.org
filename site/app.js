@@ -327,7 +327,7 @@
   function zeigeRadar(r, d) {
     var proz = function (x) { return typeof x === "number" ? Math.round(x * 100) + " %" : "–"; };
     var tage = function (x) { return typeof x === "number" ? x.toLocaleString(window.I18N.locale, { maximumFractionDigits: 1 }) : "–"; };
-    if (!r) { ["rd-zahlen", "rd-treffer", "rd-eu", "rd-kacheln", "rd-gruende"].forEach(function (id) { $(id).textContent = txt("keine"); }); return; }
+    if (!r) { ["rd-zahlen", "rd-treffer", "rd-eu", "rd-k-mess", "rd-gruende"].forEach(function (id) { $(id).textContent = txt("keine"); }); return; }
     var z = r.zeit_bis_kev || {};
     var zahlenBox = $("rd-zahlen"); zahlenBox.textContent = "";
     [["jetzt", pick("letzte 90 Tage", "last 90 days"), true], ["vor_12_monaten", pick("vor 12 Monaten", "12 months ago")], ["vor_24_monaten", pick("vor 24 Monaten", "24 months ago")]].forEach(function (k) {
@@ -352,7 +352,7 @@
     $("rd-eu").textContent = !e ? txt("keine") : pick(
       e.auch_im_cisa + " von " + e.eu_eintraege + " Einträgen im EU-KEV stehen auch im CISA-KEV, " + e.nur_eu + " nur in der EU. Bei " + e.eu_datum_frueher + " nennt die EU ein früheres Ausnutzungsdatum als die Aufnahme bei der CISA (Median-Abstand " + tage(e.median_abstand_tage) + " Tage). Der EU-Katalog bildet den US-Katalog also fast vollständig ab.",
       e.auch_im_cisa + " of " + e.eu_eintraege + " entries in EU-KEV are also in CISA KEV, " + e.nur_eu + " only in the EU. For " + e.eu_datum_frueher + " the EU names an earlier exploitation date than the CISA listing (median gap " + tage(e.median_abstand_tage) + " days). The EU catalogue thus mirrors the US catalogue almost completely.");
-    var vg = $("rd-kacheln"); vg.textContent = "";
+    ["rd-k-mess", "rd-k-eins", "rd-k-ktx"].forEach(function (id) { $(id).textContent = ""; });
     var sig = {}; ((r.konsens && r.konsens.signale) || []).forEach(function (x) { sig[x.name_en] = x.erhoeht; });
     var kachel = function (o) {
       var b = el("div", "kc " + (o.art || "ext") + (o.an === true ? " an" : (o.an === false ? " aus" : "")));
@@ -362,25 +362,25 @@
       var w = el("div", "kc-w mono", o.wert); if (o.einheit) w.appendChild(el("small", "", o.einheit)); b.appendChild(w);
       b.appendChild(el("div", "kc-m", o.misst));
       b.appendChild(el("div", "kc-s mono", o.stand));
-      vg.appendChild(b);
+      $({ mess: "rd-k-mess", eins: "rd-k-eins", ktx: "rd-k-ktx" }[o.gr]).appendChild(b);
     };
     var tg = pick("Stand ", "as of ");
     var jz = z.jetzt || {}, v12 = z.vor_12_monaten || {};
-    if (typeof jz.median_frisch === "number") kachel({ art: "eigen", name: pick("Tempo bis KEV", "Speed to KEV"), wert: tage(jz.median_frisch), einheit: pick(" Tage Median", " days median"), misst: pick("Veröffentlichung bis KEV-Aufnahme, vor 12 Monaten: ", "publication to KEV listing, 12 months ago: ") + tage(v12.median_frisch) + pick(" Tage", " days"), stand: pick("letzte 90 Tage", "last 90 days"), an: sig["Speed to KEV"] });
-    if (typeof t.prognosen === "number") kachel({ art: "eigen", name: pick("Trefferquote Ausblick", "Outlook hit rate"), wert: typeof t.quote_reif === "number" ? proz(t.quote_reif) : "–", misst: pick("Prognosen: ", "forecasts: ") + t.prognosen + pick(", eingetreten: ", ", occurred: ") + t.eingetreten, stand: typeof t.quote_reif === "number" ? "" : pick("erste Quote nach 30 Tagen", "first rate after 30 days") });
-    if (e) kachel({ art: "kontext", name: "EU-KEV", wert: e.auch_im_cisa + "/" + e.eu_eintraege, misst: pick("EU-Einträge, die auch im CISA-KEV stehen", "EU entries also in CISA KEV"), stand: pick("Eigenabgleich", "own comparison") });
+    if (typeof jz.median_frisch === "number") kachel({ gr: "mess", art: "eigen", name: pick("Tempo bis KEV", "Speed to KEV"), wert: tage(jz.median_frisch), einheit: pick(" Tage Median", " days median"), misst: pick("Veröffentlichung bis KEV-Aufnahme, vor 12 Monaten: ", "publication to KEV listing, 12 months ago: ") + tage(v12.median_frisch) + pick(" Tage", " days"), stand: pick("letzte 90 Tage", "last 90 days"), an: sig["Speed to KEV"] });
+    if (typeof t.prognosen === "number") kachel({ gr: "mess", art: "eigen", name: pick("Trefferquote Ausblick", "Outlook hit rate"), wert: typeof t.quote_reif === "number" ? proz(t.quote_reif) : "–", misst: pick("Prognosen: ", "forecasts: ") + t.prognosen + pick(", eingetreten: ", ", occurred: ") + t.eingetreten, stand: typeof t.quote_reif === "number" ? "" : pick("erste Quote nach 30 Tagen", "first rate after 30 days") });
+    if (e) kachel({ gr: "ktx", art: "kontext", name: "EU-KEV", wert: e.auch_im_cisa + "/" + e.eu_eintraege, misst: pick("EU-Einträge, die auch im CISA-KEV stehen", "EU entries also in CISA KEV"), stand: pick("Eigenabgleich", "own comparison") });
     (r.einschaetzungen || []).forEach(function (q) {
       var pfeil = q.richtung === "steigend" ? " ↑" : (q.richtung === "fallend" ? " ↓" : ""), idx = q.wert && q.basis;
-      kachel({ art: "ext", name: q.name, url: q.link, wert: idx ? String(Math.round(q.wert / q.basis * 100)) : pick(q.urteil, q.urteil_en) + pfeil, einheit: idx ? pick(" % von 2024", " % of 2024") : "", misst: pick(q.misst, q.misst_en), stand: tg + datum(q.stand) + pick(" · jährlich", " · yearly") + (q.vorher ? pick(" · Vorjahr: ", " · year before: ") + pick(q.vorher, q.vorher_en) : ""), an: idx ? sig["BSI Cyber Index"] : undefined });
+      kachel({ gr: "eins", art: "ext", name: q.name, url: q.link, wert: idx ? String(Math.round(q.wert / q.basis * 100)) : pick(q.urteil, q.urteil_en) + pfeil, einheit: idx ? pick(" % von 2024", " % of 2024") : "", misst: pick(q.misst, q.misst_en), stand: tg + datum(q.stand) + pick(" · jährlich", " · yearly") + (q.vorher ? pick(" · Vorjahr: ", " · year before: ") + pick(q.vorher, q.vorher_en) : ""), an: idx ? sig["BSI Cyber Index"] : undefined });
     });
     if (r.sans) {
       var sn = { green: ["ruhig (grün)", "calm (green)"], yellow: ["erhöht (gelb)", "raised (yellow)"], orange: ["hoch (orange)", "high (orange)"], red: ["kritisch (rot)", "critical (red)"] }[r.sans.status] || ["–", "–"];
-      kachel({ art: "ext", name: "SANS Infocon", url: "https://isc.sans.edu/", wert: pick(sn[0], sn[1]), misst: pick("Scans und Ausbrüche im Netz", "scans and outbreaks across the internet"), stand: tg + datum(r.sans.abgerufen_am) + " · live", an: sig["SANS Infocon"] });
+      kachel({ gr: "eins", art: "ext", name: "SANS Infocon", url: "https://isc.sans.edu/", wert: pick(sn[0], sn[1]), misst: pick("Scans und Ausbrüche im Netz", "scans and outbreaks across the internet"), stand: tg + datum(r.sans.abgerufen_am) + " · live", an: sig["SANS Infocon"] });
     }
-    if (r.feodo) kachel({ art: "ext", name: pick("Botnetz-Server (Feodo)", "Botnet servers (Feodo)"), url: "https://feodotracker.abuse.ch/", wert: zahl(r.feodo.online), einheit: pick(" aktiv", " active"), misst: pick("aktive Steuerserver, abuse.ch", "active command servers, abuse.ch"), stand: pick("täglich · ", "daily · ") + ((r.konsens && r.konsens.messtage_feodo) || 0) + pick(" Messtage", " days of data"), an: sig["Botnet servers (Feodo)"] });
-    if (r.ncsc) kachel({ art: "kontext", name: "NCSC-NL", url: "https://advisories.ncsc.nl/", wert: zahl(r.ncsc.advisories_30), einheit: pick(" Advisories", " advisories"), misst: zahl(r.ncsc.hoch_hoch_30) + pick(" davon mit Kans und Schade hoch", " rated likelihood and damage high"), stand: pick("30 Tage · ", "30 days · ") + tg + datum(r.abgerufen_am) });
+    if (r.feodo) kachel({ gr: "mess", art: "ext", name: pick("Botnetz-Server (Feodo)", "Botnet servers (Feodo)"), url: "https://feodotracker.abuse.ch/", wert: zahl(r.feodo.online), einheit: pick(" aktiv", " active"), misst: pick("aktive Steuerserver, abuse.ch", "active command servers, abuse.ch"), stand: pick("täglich · ", "daily · ") + ((r.konsens && r.konsens.messtage_feodo) || 0) + pick(" Messtage", " days of data"), an: sig["Botnet servers (Feodo)"] });
+    if (r.ncsc) kachel({ gr: "mess", art: "kontext", name: "NCSC-NL", url: "https://advisories.ncsc.nl/", wert: zahl(r.ncsc.advisories_30), einheit: pick(" Advisories", " advisories"), misst: zahl(r.ncsc.hoch_hoch_30) + pick(" davon mit Kans und Schade hoch", " rated likelihood and damage high"), stand: pick("30 Tage · ", "30 days · ") + tg + datum(r.abgerufen_am) });
     (d.sektor || []).forEach(function (x) {
-      kachel({ art: "kontext", name: "ENISA", url: /^https:\/\//.test(x.link || "") ? x.link : null, wert: x.wert.toLocaleString(window.I18N.locale, { maximumFractionDigits: 1 }), einheit: " %", misst: pick("der Ereignisse " + x.berichtsjahr + " betrafen die öffentliche Verwaltung (EU)", "of events in " + x.berichtsjahr + " affected public administration (EU)"), stand: "Threat Landscape 2026, S. " + x.seite + " · " + x.lizenz });
+      kachel({ gr: "ktx", art: "kontext", name: "ENISA", url: /^https:\/\//.test(x.link || "") ? x.link : null, wert: x.wert.toLocaleString(window.I18N.locale, { maximumFractionDigits: 1 }), einheit: " %", misst: pick("der Ereignisse " + x.berichtsjahr + " betrafen die öffentliche Verwaltung (EU)", "of events in " + x.berichtsjahr + " affected public administration (EU)"), stand: "Threat Landscape 2026, S. " + x.seite + " · " + x.lizenz });
     });
     var ul = $("rd-gruende"); ul.textContent = "";
     (r.gruende || []).forEach(function (g) {

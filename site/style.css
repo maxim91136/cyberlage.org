@@ -264,3 +264,11 @@ html.alarm .marke{animation:flackern 6s infinite}
 .rd-score .sw{font-size:44px;font-weight:600;color:var(--green);line-height:1}.rd-score .sw small{font-size:16px;color:var(--dim);font-weight:400}
 .rd-score .st{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--dim)}.rd-score .st b{color:var(--text);font-size:14px}
 @media (max-width:700px){.rd-score{flex-direction:column;align-items:flex-start}}
+
+.rd-gr{font-size:13px;font-weight:500;color:var(--dim);margin:18px 0 8px}
+.rd-sub+.rd-gr{margin-top:6px}
+.kc.kontext{opacity:.92}
+.rd-kon{font-size:15px!important;margin:0 0 10px!important}
+.tabelle td a{white-space:nowrap}
+.tabelle td:last-child{white-space:nowrap}
+#rueckblick .panel+.panel{margin-top:14px}
