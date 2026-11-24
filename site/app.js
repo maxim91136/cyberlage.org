@@ -7,7 +7,10 @@
   var datum = function (iso) {
     if (!iso) return txt("keine");
     var d = new Date(iso);
-    return isNaN(d) ? txt("keine") : d.toLocaleDateString(window.I18N.locale, { timeZone: "UTC", day: "2-digit", month: "2-digit", year: "numeric" });
+    if (isNaN(d)) return txt("keine");
+    var t = d.toLocaleDateString(window.I18N.locale, { timeZone: "UTC", day: "2-digit", month: "2-digit", year: "numeric" });
+    // Mit Uhrzeit nur, wenn die Quelle eine liefert (ISO mit "T"); Tageswerte bleiben Datum
+    return /T\d\d:\d\d/.test(String(iso)) ? t + ", " + d.toLocaleTimeString(window.I18N.locale, { timeZone: "UTC", hour: "2-digit", minute: "2-digit", hour12: false }) + " UTC" : t;
   };
   var el = function (tag, cls, text) {
     var e = document.createElement(tag);
@@ -44,7 +47,8 @@
     });
 
   function render(d) {
-    $("stand").textContent = datum(d.stand);
+    var kq0 = (d.quellen || []).filter(function (q) { return q.id === "cisa-kev"; })[0] || {};
+    $("stand").textContent = datum(kq0.abgerufen_am || d.stand);
 
     var hatStufe = d.stufe !== null && d.stufe !== undefined;
     var name = hatStufe ? txt(String(d.stufe)) : null;
@@ -321,6 +325,7 @@
       tx.appendChild(el("span", "", pick(
         "Gleich gewichteter Mittelwert der Ausschläge von " + sc.signale + " von " + sc.von + " Signalen. 50 heißt: die Regelschwellen sind im Schnitt erreicht, 100: im Schnitt doppelt so weit. Die Zeiträume der Signale sind verschieden, Messungen und Einschätzungen gemischt. Kein objektives Maß, es fließt nicht in den Dreier-Pegel ein. Tagesstand wird ab " + datum(sc.live_seit) + " gespeichert.",
         "Equally weighted mean of the readings of " + sc.signale + " of " + sc.von + " signals. 50 means the rule thresholds are reached on average, 100 twice as far. The signals cover different periods, measurements and assessments are mixed. Not an objective measure, it does not feed into the Dreier Gauge. The daily value is stored from " + datum(sc.live_seit) + ".")));
+      tx.appendChild(el("span", "mono dim", pick("Stand: ", "as of: ") + datum(r.abgerufen_am)));
       sb.appendChild(tx); sb.hidden = false;
     }
     zeichneScope(k.signale || []);
@@ -412,7 +417,7 @@
       var sn = { green: ["ruhig (grün)", "calm (green)"], yellow: ["erhöht (gelb)", "raised (yellow)"], orange: ["hoch (orange)", "high (orange)"], red: ["kritisch (rot)", "critical (red)"] }[r.sans.status] || ["–", "–"];
       kachel({ gr: "score", nat: "eins", quelle: "extern", sig: "SANS Infocon", name: "SANS Infocon", url: "https://isc.sans.edu/", wert: pick(sn[0], sn[1]), misst: pick("Scans und Ausbrüche im Netz", "scans and outbreaks across the internet"), stand: tg + datum(r.sans.abgerufen_am) + " · live" });
     }
-    if (r.feodo) kachel({ gr: "score", nat: "mess", quelle: "extern", sig: "Botnet servers (Feodo)", name: pick("Botnetz-Server (Feodo)", "Botnet servers (Feodo)"), url: "https://feodotracker.abuse.ch/", wert: zahl(r.feodo.online), einheit: pick(" aktiv", " active"), misst: pick("aktive Steuerserver, abuse.ch", "active command servers, abuse.ch"), stand: pick("täglich · ", "daily · ") + ((r.konsens && r.konsens.messtage_feodo) || 0) + pick(" Messtage", " days of data") });
+    if (r.feodo) kachel({ gr: "score", nat: "mess", quelle: "extern", sig: "Botnet servers (Feodo)", name: pick("Botnetz-Server (Feodo)", "Botnet servers (Feodo)"), url: "https://feodotracker.abuse.ch/", wert: zahl(r.feodo.online), einheit: pick(" aktiv", " active"), misst: pick("aktive Steuerserver, abuse.ch", "active command servers, abuse.ch"), stand: pick("täglich · ", "daily · ") + ((r.konsens && r.konsens.messtage_feodo) || 0) + pick(" Messtage · abgerufen ", " days of data · fetched ") + datum(r.abgerufen_am) });
     if (typeof t.prognosen === "number") kachel({ gr: "ktx", nat: "mess", quelle: "eigen", name: pick("Trefferquote Ausblick", "Outlook hit rate"), wert: typeof t.quote_reif === "number" ? proz(t.quote_reif) : "–", misst: pick("Prognosen: ", "forecasts: ") + t.prognosen + pick(", eingetreten: ", ", occurred: ") + t.eingetreten, stand: typeof t.quote_reif === "number" ? "" : pick("erste Quote nach 30 Tagen", "first rate after 30 days") });
     if (e) kachel({ gr: "ktx", nat: "mess", quelle: "eigen", name: "EU-KEV", wert: e.auch_im_cisa + "/" + e.eu_eintraege, misst: pick("EU-Einträge, die auch im CISA-KEV stehen", "EU entries also in CISA KEV"), stand: pick("Eigenabgleich", "own comparison") });
     if (r.ncsc) kachel({ gr: "ktx", nat: "mess", quelle: "extern", name: "NCSC-NL", url: "https://advisories.ncsc.nl/", wert: zahl(r.ncsc.advisories_30), einheit: pick(" Advisories", " advisories"), misst: zahl(r.ncsc.hoch_hoch_30) + pick(" davon mit Kans und Schade hoch", " rated likelihood and damage high"), stand: pick("30 Tage · ", "30 days · ") + tg + datum(r.abgerufen_am) });
