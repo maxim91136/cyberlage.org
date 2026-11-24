@@ -2619,6 +2619,20 @@
       }
     ],
     "konsens": {
+      "score": {
+        "wert": 59,
+        "signale": 4,
+        "von": 5,
+        "live_seit": "2026-11-24",
+        "reihe": [
+          {
+            "stand": "2026-11-24",
+            "wert": 59,
+            "signale": 4,
+            "von": 5
+          }
+        ]
+      },
       "signale": [
         {
           "name": "Dreier-Pegel",
@@ -2627,7 +2641,9 @@
           "grund": "Stufe hoch",
           "grund_en": "level high",
           "art": "eigen",
-          "ausschlag": 1.44
+          "ausschlag": 1.44,
+          "zeitraum": "letzte 30 Tage",
+          "zeitraum_en": "last 30 days"
         },
         {
           "name": "Tempo bis KEV",
@@ -2636,7 +2652,9 @@
           "grund": "Median mindestens 1,5-mal schneller als vor 12 Monaten",
           "grund_en": "median at least 1.5x faster than 12 months ago",
           "art": "eigen",
-          "ausschlag": 1.47
+          "ausschlag": 1.47,
+          "zeitraum": "letzte 90 Tage gegen vor 12 Monaten",
+          "zeitraum_en": "last 90 days vs 12 months ago"
         },
         {
           "name": "BSI Cyber Index",
@@ -2645,7 +2663,9 @@
           "grund": "mindestens 20 % über dem Basisjahr 2024",
           "grund_en": "at least 20% above the 2024 base year",
           "art": "extern",
-          "ausschlag": 1.42
+          "ausschlag": 1.42,
+          "zeitraum": "Jahr 2026 gegen Basisjahr 2024",
+          "zeitraum_en": "year 2026 vs base year 2024"
         },
         {
           "name": "SANS Infocon",
@@ -2654,7 +2674,9 @@
           "grund": "nicht grün",
           "grund_en": "not green",
           "art": "extern",
-          "ausschlag": 0.4
+          "ausschlag": 0.4,
+          "zeitraum": "aktueller Stand",
+          "zeitraum_en": "current reading"
         },
         {
           "name": "Botnetz-Server (Feodo)",
@@ -2663,7 +2685,9 @@
           "grund": "aktive Steuerserver mindestens 25 % und mindestens 3 über dem Median der letzten 90 Tage (ab 30 Messtagen)",
           "grund_en": "active command servers at least 25% and at least 3 above the 90-day median (from 30 days of data)",
           "art": "extern",
-          "ausschlag": null
+          "ausschlag": null,
+          "zeitraum": "heute gegen Median der letzten 90 Tage",
+          "zeitraum_en": "today vs median of the last 90 days"
         }
       ],
       "erhoeht": 1,

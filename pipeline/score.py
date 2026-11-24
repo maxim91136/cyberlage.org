@@ -321,6 +321,15 @@ def main(argv):
                                           "marken": {"erhoeht_ab": regeln.get("erhoeht_ab"), "hoch_ab": regeln.get("hoch_ab")},
                                           "hinweis": "live = am Stichtag berechnet und nicht mehr verändert; rueckgerechnet = nachträglich mit den heutigen Schwellen"},
                                   "reihe": reihe}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+    if ergebnis.get("radar") and (ergebnis["radar"].get("konsens") or {}).get("score"):
+        sp = WURZEL / "data" / "radar" / "score.json"
+        rs = ergebnis["radar"]["konsens"]["score"]
+        sr = [p for p in (lese_optional(sp) or {}).get("reihe", []) if p["stand"] != stand.isoformat()]
+        sr.append({"stand": stand.isoformat(), "wert": rs["wert"], "signale": rs["signale"], "von": rs["von"]})
+        sp.write_text(json.dumps({"meta": {"name": "Radar-Score (Experiment)", "hinweis": "Tagesstand live gespeichert, keine Rückrechnung möglich, weil die externen Signale keine Historie haben"},
+                                  "reihe": sr}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+        rs["live_seit"] = sr[0]["stand"]
+        rs["reihe"] = sr[-90:]
     ergebnis["pegel"] = {"wert": reihe[-1]["wert"], "marken": {"erhoeht_ab": regeln.get("erhoeht_ab"), "hoch_ab": regeln.get("hoch_ab")},
                          "live_seit": next((p["stand"] for p in reihe if p["quelle"] == "live"), None), "reihe": reihe[-400:]}
     ziel = WURZEL / "site" / "data" / "lage.json"

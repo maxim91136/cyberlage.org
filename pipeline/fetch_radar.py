@@ -236,6 +236,25 @@ def feodo_verlauf(verlauf, messung, heute):
 _STUFE_EN = {"niedrig": "low", "erhoeht": "elevated", "hoch": "high"}
 
 
+ZEITRAUM = {
+    "Dreier Gauge": ("letzte 30 Tage", "last 30 days"),
+    "Speed to KEV": ("letzte 90 Tage gegen vor 12 Monaten", "last 90 days vs 12 months ago"),
+    "BSI Cyber Index": ("Jahr 2026 gegen Basisjahr 2024", "year 2026 vs base year 2024"),
+    "SANS Infocon": ("aktueller Stand", "current reading"),
+    "Botnet servers (Feodo)": ("heute gegen Median der letzten 90 Tage", "today vs median of the last 90 days"),
+}
+
+
+def radar_score(signale, obergrenze=2.0):
+    """Experimentell: gleich gewichteter Mittelwert der Ausschläge (Messwert im Verhältnis zur Regelschwelle) aller Signale,
+    die einen Wert haben, umgerechnet auf 0 bis 100 (50 = Schwelle im Schnitt erreicht, 100 = im Schnitt doppelt so weit).
+    Die Zeiträume der Signale sind verschieden. Kein objektives Maß, fließt in keine Stufe ein."""
+    werte = [min(x["ausschlag"], obergrenze) for x in signale if isinstance(x.get("ausschlag"), (int, float))]
+    if not werte:
+        return None
+    return {"wert": round(sum(werte) / len(werte) / obergrenze * 100), "signale": len(werte), "von": len(signale)}
+
+
 def konsens(lage_stufe, zeit, einschaetzungen, sans, verlauf, neu30=None, erhoeht_ab=None):
     """Signale: jedes steht für sich auf erhöht (True), normal (False) oder keine Aussage (None).
     Eigene Signale (Stufe und Tempo, beide aus dem KEV) zählen nicht als Bestätigung, nur externe.
@@ -274,8 +293,10 @@ def konsens(lage_stufe, zeit, einschaetzungen, sans, verlauf, neu30=None, erhoeh
     add("Botnetz-Server (Feodo)", "Botnet servers (Feodo)", f, "aktive Steuerserver mindestens 25 % und mindestens 3 über dem Median der letzten 90 Tage (ab 30 Messtagen)",
         "active command servers at least 25% and at least 3 above the 90-day median (from 30 days of data)",
         ausschlag=fa)
+    for x in signale:
+        x["zeitraum"], x["zeitraum_en"] = ZEITRAUM.get(x["name_en"], ("", ""))
     extern = [x for x in signale if x["art"] == "extern" and x["erhoeht"] is not None]
-    return {"signale": signale, "erhoeht": sum(1 for x in extern if x["erhoeht"]), "bewertet": len(extern), "messtage_feodo": len(werte)}
+    return {"score": radar_score(signale), "signale": signale, "erhoeht": sum(1 for x in extern if x["erhoeht"]), "bewertet": len(extern), "messtage_feodo": len(werte)}
 
 
 def baue(kev, eu, ausblick, cache, prognosen, heute, sans=None, feodo=None, serie=None, ncsc=None):

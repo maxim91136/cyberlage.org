@@ -280,12 +280,22 @@
     var satz = pick(k.erhoeht + " von " + k.bewertet + " externen Signalen zeigen erhöht.", k.erhoeht + " of " + k.bewertet + " external signals show elevated.");
     $("rd-kon").textContent = satz;
     z.textContent = ""; z.appendChild(el("b", "", k.erhoeht + "/" + k.bewertet)); z.appendChild(document.createTextNode(pick(" externe Signale zeigen ebenfalls erhöht · ", " external signals also show elevated · "))); z.appendChild(el("span", "zr", pick("zum Radar", "to the radar"))); z.hidden = false;
+    var sc = k.score, sb = $("rd-score"); sb.textContent = "";
+    if (sc) {
+      var gr = el("div", "sw mono", String(sc.wert)); gr.appendChild(el("small", "", " / 100")); sb.appendChild(gr);
+      var tx = el("div", "st");
+      tx.appendChild(el("b", "mono", pick("Radar-Score · Experiment", "Radar score · experiment")));
+      tx.appendChild(el("span", "", pick(
+        "Gleich gewichteter Mittelwert der Ausschläge von " + sc.signale + " von " + sc.von + " Signalen. 50 heißt: die Regelschwellen sind im Schnitt erreicht, 100: im Schnitt doppelt so weit. Die Zeiträume der Signale sind verschieden, Messungen und Einschätzungen gemischt. Kein objektives Maß, es fließt nicht in den Dreier-Pegel ein. Tagesstand wird ab " + datum(sc.live_seit) + " gespeichert.",
+        "Equally weighted mean of the readings of " + sc.signale + " of " + sc.von + " signals. 50 means the rule thresholds are reached on average, 100 twice as far. The signals cover different periods, measurements and assessments are mixed. Not an objective measure, it does not feed into the Dreier Gauge. The daily value is stored from " + datum(sc.live_seit) + ".")));
+      sb.appendChild(tx); sb.hidden = false;
+    }
     zeichneScope(k.signale || []);
     (k.signale || []).forEach(function (s) {
       var b = el("div", "sg"), st = s.erhoeht === true ? ["●", "an"] : (s.erhoeht === false ? ["○", "aus"] : ["–", "kn"]);
       b.appendChild(el("span", "p mono " + st[1], st[0]));
       b.appendChild(el("span", "n", pick(s.name, s.name_en) + (s.art === "eigen" ? pick(" (eigen)", " (own)") : "") + " · " + (s.erhoeht === true ? pick("erhöht", "elevated") : (s.erhoeht === false ? pick("normal", "normal") : pick("noch keine Aussage", "no rating yet")))));
-      b.appendChild(el("span", "g", pick("Regel: ", "rule: ") + pick(s.grund, s.grund_en)));
+      b.appendChild(el("span", "g", pick("Regel: ", "rule: ") + pick(s.grund, s.grund_en) + (s.zeitraum ? " · " + pick("Zeitraum: ", "period: ") + pick(s.zeitraum, s.zeitraum_en) : "")));
       box.appendChild(b);
     });
   }

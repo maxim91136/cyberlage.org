@@ -25,7 +25,7 @@
     l_kev: "<strong>KEV</strong> stands for <em>Known Exploited Vulnerabilities</em>: a list by the US cybersecurity agency <strong>CISA</strong> of flaws that are proven to be exploited by attackers. The level shows how many are newly added.",
     r_h: "## history", r_pegel: "Dreier Gauge over time", n_h: "## new",
     rd_h: "## radar", rd_intro: "Our own measurements from open data, next to the assessments of other bodies. None of it feeds into the level.",
-    rd_kon_h: "Do others confirm our assessment?", rd_kon_n: "Each signal stands on its own and follows a fixed rule (RULES.md). Only external sources count as confirmation. The further out a point lies, the stronger the reading; the dashed ring is the rule threshold. Nothing is averaged, and what cannot be measured does not count.",
+    rd_kon_h: "Do others confirm our assessment?", rd_kon_n: "Each signal stands on its own and follows a fixed rule (RULES.md). Only external sources count as confirmation. The further out a point lies, the stronger the reading; the dashed ring is the rule threshold. The confirmation above is not averaged. Only the radar score, an experiment, forms a mean. What cannot be measured does not count.",
     rd_zeit_h: "How fast is a vulnerability reported as exploited?", rd_tr_h: "Hit rate of the outlook", rd_eu_h: "EU-KEV and CISA KEV",
     rd_vgl_h: "All measurements at a glance", rd_det: "Explanations: hit rate and EU comparison", rd_vgl_n: "The sources measure different things. When several point the same way, that is a stronger signal than one alone.",
     rd_warum_h: "Why is it rising? Documented reasons", rd_warum_n: "We do not measure geopolitical tension. It appears only where a source documents it.",

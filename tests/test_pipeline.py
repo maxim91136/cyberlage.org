@@ -476,5 +476,13 @@ class VorbelegenTests(unittest.TestCase):
         self.assertIn("<li>Ein Hinweis</li>", out)
         self.assertEqual(prerender.vorbelegen(out, lage), out)  # idempotent
 
+
+class RadarScoreTests(unittest.TestCase):
+    def test_mittelwert_und_leere_signale(self):
+        import fetch_radar
+        sig = [{"ausschlag": 1.0}, {"ausschlag": 3.0}, {"ausschlag": None}]
+        self.assertEqual(fetch_radar.radar_score(sig), {"wert": 75, "signale": 2, "von": 3})  # 3,0 wird auf 2,0 gedeckelt: (1+2)/2/2
+        self.assertIsNone(fetch_radar.radar_score([{"ausschlag": None}]))
+
 if __name__ == "__main__":
     unittest.main()

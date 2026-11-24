@@ -259,3 +259,8 @@ html.alarm .marke{animation:flackern 6s infinite}
 .rd-det{margin-top:14px}.rd-det summary{cursor:pointer;color:var(--green);font-size:14px}.rd-det h4{margin:14px 0 6px}
 
 .pegelstand{font-size:14px;color:var(--green);margin:2px 0 10px;letter-spacing:.02em}
+
+.rd-score{display:flex;gap:18px;align-items:center;margin:4px 0 14px;padding:14px 16px;border:1px dashed var(--green);background:rgba(61,220,132,.05)}
+.rd-score .sw{font-size:44px;font-weight:600;color:var(--green);line-height:1}.rd-score .sw small{font-size:16px;color:var(--dim);font-weight:400}
+.rd-score .st{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--dim)}.rd-score .st b{color:var(--text);font-size:14px}
+@media (max-width:700px){.rd-score{flex-direction:column;align-items:flex-start}}
