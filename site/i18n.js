@@ -8,7 +8,7 @@
   var EN = {
     skip: "Skip to content",
     beta: "",
-    n_rueck: "/history", n_neu: "/new",
+    n_rueck: "/history", n_neu: "/new", n_radar: "/radar",
     tab_ausblick: "Outlook",
     tab_kev: "KEV catalog", i_quellen: "Sources", i_begriffe: "Terms", i_methode: "Method", i_hinweise: "Notes",
     h_lbl: 'as of <span id="stand">…</span> · situation picture from open sources',
@@ -24,6 +24,10 @@
     l_7: "new · 7 days", l_30: "new · 30 days", l_ges: "catalog total",
     l_kev: "<strong>KEV</strong> stands for <em>Known Exploited Vulnerabilities</em>: a list by the US cybersecurity agency <strong>CISA</strong> of flaws that are proven to be exploited by attackers. The level shows how many are newly added.",
     r_h: "## history", n_h: "## new",
+    rd_h: "## radar", rd_intro: "Our own measurements from open data, next to the assessments of other bodies. None of it feeds into the level.",
+    rd_zeit_h: "How fast is a vulnerability reported as exploited?", rd_tr_h: "Hit rate of the outlook", rd_eu_h: "EU-KEV and CISA KEV",
+    rd_vgl_h: "Assessments compared", rd_vgl_n: "The sources measure different things. When several point the same way, that is a stronger signal than one alone.",
+    rd_warum_h: "Why is it rising? Documented reasons", rd_warum_n: "We do not measure geopolitical tension. It appears only where a source documents it.",
     n_sub: 'Exploited vulnerabilities of the last <span id="fenster">30</span> days, newest first. The filter runs only in your browser.',
     n_filter: "Filter by vendor, product or CVE", n_ph: "e.g. microsoft, fortinet, CVE-2026",
     th1: "Added", th2: "Vendor", th3: "Product", th5: "Due date (CISA)",
@@ -43,7 +47,7 @@
       '<div class="panel pad"><strong>No data instead of guesses</strong><p class="dim">If a sourced value is missing, it says “no data”.</p></div>' +
       '<div class="panel pad"><strong>Open rules</strong><p class="dim">Window, thresholds and derivation are in <a href="https://github.com/maxim91136/cyberlage.org/blob/main/RULES.md">RULES.md</a>.</p></div>',
     f_fuss: 'A project by <a href="https://dreierlabs.com">Dreier Labs</a>. Private project, not an official body, no connection to the BSI or any authority. No warranty.',
-    f_links: '<a href="https://dreierlabs.com/impressum.html">legal notice</a> · <a href="hinweise.html">notes &amp; privacy</a>',
+    f_links: '<a href="impressum.html">legal notice</a> · <a href="hinweise.html">notes &amp; privacy</a>',
     top: "Back to top",
     // hinweise.html
     hw_titel: "Notes and privacy",

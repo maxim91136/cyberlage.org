@@ -3,4 +3,5 @@
   <url><loc>https://cyberlage.org/</loc><changefreq>hourly</changefreq></url>
   <url><loc>https://cyberlage.org/hinweise.html</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://cyberlage.org/feed.xml</loc><changefreq>hourly</changefreq></url>
+  <url><loc>https://cyberlage.org/impressum.html</loc><changefreq>yearly</changefreq></url>
 </urlset>

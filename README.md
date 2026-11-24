@@ -25,6 +25,8 @@ Status: öffentlich unter https://cyberlage.org (Beta). Neues gibt es auch im [T
 | `pipeline/fetch_kev.py` | Holt und prüft den KEV-Katalog |
 | `pipeline/fetch_extra.py` | Holt CERT-Bund-Warnungen und EU-KEV (Kontext, nicht Teil der Stufe) |
 | `pipeline/fetch_ausblick.py` | Holt neue CVEs der letzten 14 Tage (NVD) und ihre EPSS-Wahrscheinlichkeit (FIRST), schreibt `data/ausblick/ausblick.json` |
+| `pipeline/fetch_radar.py` | Lage-Radar: Zeit bis zur KEV-Aufnahme (CVE-Liste), Trefferquote des Ausblicks, EU-Abgleich, SANS-Ampel; liest `data/radar/*.csv` (Einschätzungen und Gründe, von Hand mit Beleg) |
+| `pipeline/prerender.py` | Schreibt die wichtigsten Werte als Text ins HTML, für Crawler ohne JavaScript |
 | `pipeline/feed.py` | Schreibt `site/feed.xml` (RSS) aus `site/data/lage.json` |
 | `pipeline/notify.py` | Telegram-Kanal: einmal täglich die Tageslage, sofort nur bei Stufenwechsel und Ransomware-Alarm |
 | `pipeline/score.py` | Wertet nach den Regeln aus und schreibt `site/data/lage.json` |

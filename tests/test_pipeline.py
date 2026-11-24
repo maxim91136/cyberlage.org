@@ -8,6 +8,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "pipeline"))
 
 import fetch_ausblick  # noqa: E402
+import fetch_radar  # noqa: E402
 import fetch_extra  # noqa: E402
 import notify  # noqa: E402
 import fetch_kev  # noqa: E402
@@ -329,6 +330,45 @@ class AusblickTests(unittest.TestCase):
         self.assertEqual(r["stufe"], a["stufe"])
         self.assertTrue(any(q["id"] == "epss" for q in r["quellen"]))
         self.assertTrue(any(q["id"] == "nvd" for q in r["quellen"]))
+
+
+class RadarTests(unittest.TestCase):
+    def test_zeit_bis_aufnahme(self):
+        from datetime import date
+        kev = [{"cve": "A", "hinzugefuegt": "2026-11-10"}, {"cve": "B", "hinzugefuegt": "2026-11-12"},
+               {"cve": "C", "hinzugefuegt": "2026-11-12"}, {"cve": "D", "hinzugefuegt": "2026-11-12"}]
+        veroeff = {"A": "2026-11-08", "B": "2026-11-12", "C": "2010-01-01", "D": None}
+        z = fetch_radar.zeit_bis_aufnahme(kev, veroeff, date(2026, 11, 24))
+        m = z["verlauf"][0]
+        self.assertEqual((m["monat"], m["n"], m["n_frisch"]), ("2026-11", 3, 2))  # C alt, D ohne Datum
+        self.assertEqual(m["median_frisch"], 1.0)
+        self.assertEqual(z["jetzt"]["n"], 3)
+        self.assertEqual(z["ohne_datum"], 1)
+
+    def test_trefferquote_merkt_prognosen_und_zaehlt_treffer(self):
+        from datetime import date
+        ab = {"abgerufen_am": "2026-10-01T00:00:00+00:00", "schwelle_hoch": 0.1,
+              "kandidaten": [{"cve": "X", "epss": 0.5, "veroeffentlicht": "2026-09-30"}, {"cve": "Y", "epss": 0.2, "veroeffentlicht": "2026-09-30"}]}
+        prog = {}
+        kev = [{"cve": "X", "hinzugefuegt": "2026-10-05"}]
+        t = fetch_radar.trefferquote(prog, kev, ab, date(2026, 11, 24))
+        self.assertEqual((t["prognosen"], t["eingetreten"], t["reif"], t["reif_eingetreten"]), (2, 1, 2, 1))
+        self.assertEqual(t["quote_reif"], 0.5)
+        self.assertEqual(t["median_tage_bis_eintritt"], 4)
+        jung = fetch_radar.trefferquote({}, [], ab, date(2026, 10, 10))
+        self.assertIsNone(jung["quote_reif"])
+        self.assertEqual(jung["offen"], 2)
+
+    def test_europa_und_score(self):
+        eu = {"eintraege": [{"cve": ["A"], "ausgenutzt_seit": "2026-11-08"}, {"cve": ["Q"], "ausgenutzt_seit": "2026-11-08"}]}
+        e = fetch_radar.abgleich_eu([{"cve": "A", "hinzugefuegt": "2026-11-10"}], eu)
+        self.assertEqual((e["auch_im_cisa"], e["nur_eu"], e["median_abstand_tage"]), (1, 1, 2))
+        self.assertIsNone(fetch_radar.abgleich_eu([], None))
+        kev = {"meta": {}, "eintraege": []}
+        self.assertIsNone(score.werte_aus(kev, REGELN_FREI, [], STAND)["radar"])
+        r = score.werte_aus(kev, REGELN_FREI, [], STAND, radar={"abgerufen_am": "x", "zeit_bis_kev": {"verlauf": list(range(50))}})
+        self.assertEqual(len(r["radar"]["zeit_bis_kev"]["verlauf"]), 36)
+        self.assertTrue(any(q["id"] == "cvelist" for q in r["quellen"]))
 
 
 class FeedTests(unittest.TestCase):

@@ -116,6 +116,8 @@ def baue(cves, epss, kev_ids, jetzt, fenster_tage=FENSTER_TAGE, n=LISTE_MAX):
         "hoch_wahrscheinlich": sum(1 for z in zeilen if z["epss"] >= HOCH_AB),
         "epss_datum": daten[-1] if daten else None,
         "liste": zeilen[:n],
+        "kandidaten": [{"cve": z["cve"], "epss": z["epss"], "veroeffentlicht": z["veroeffentlicht"]}
+                       for z in zeilen if z["epss"] >= HOCH_AB],
     }
 
 

@@ -186,3 +186,11 @@ html.alarm .zahl{text-shadow:0 0 10px rgba(255,59,59,.4)}
 @keyframes flackern{0%,97%,100%{opacity:1}98%{opacity:.86}99%{opacity:.95}}
 html.alarm .marke{animation:flackern 6s infinite}
 @media (prefers-reduced-motion:reduce){html.alarm h1::after{animation:none}html.alarm .marke{animation:none}}
+
+.rd{margin-top:14px}.rd-t{font-size:15px;font-weight:600;color:var(--green);margin:0 0 12px}
+.rd-zahlen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+.rd-z .w{font-size:30px;font-weight:600;color:var(--green)}.rd-z.neu .w{color:#ff8a7a}.rd-z .l{font-size:12px;color:var(--dim)}.rd-z .u{font-size:12px;color:var(--dim);margin-top:2px}
+.rd-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.rd-grid .rd{margin-top:0}.rd p{margin:0;color:var(--dim)}
+.vg{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,2fr);gap:4px 14px;padding:10px 0;border-top:1px solid var(--line)}.vg:first-child{border-top:none}
+.vg .n{font-weight:600}.vg .m{color:var(--dim);font-size:13px}.vg .s{font-size:12px;color:var(--dim);grid-column:1/-1}
+@media (max-width:700px){.rd-grid{grid-template-columns:1fr}.vg{grid-template-columns:1fr}.rd-z .w{font-size:24px}}

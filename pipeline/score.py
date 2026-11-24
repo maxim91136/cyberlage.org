@@ -52,6 +52,8 @@ QUELLEN_EN = {
     "eu_kev": ("EU-KEV (EUVD by ENISA)", "licence not explicitly clarified"),
     "epss": ("EPSS (FIRST)", "free to use with attribution"),
     "nvd": ("NVD (NIST)", "public domain, only publication date and CVSS score"),
+    "cvelist": ("CVE List (CVE Program, MITRE)", "CVE Terms of Use: free to use with attribution, only publication date"),
+    "sans": ("SANS Internet Storm Center (Infocon)", "Creative Commons per the ISC footer, only the traffic-light status with attribution"),
 }
 
 
@@ -170,7 +172,18 @@ def zusatz_ausblick(daten):
                                        "hoch_wahrscheinlich", "epss_datum", "liste")}
 
 
-def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None, telegram_link=None, ausblick=None):
+def zusatz_radar(daten):
+    """Lage-Radar (eigene Messungen und Einschätzungen anderer). Nicht Teil der Stufe. Ohne Datei: None."""
+    if not daten or not daten.get("zeit_bis_kev"):
+        return None
+    z = dict(daten["zeit_bis_kev"])
+    z["verlauf"] = z.get("verlauf", [])[-36:]
+    return {"abgerufen_am": daten.get("abgerufen_am"), "zeit_bis_kev": z, "trefferquote": daten.get("trefferquote"),
+            "europa": daten.get("europa"), "sans": daten.get("sans"),
+            "einschaetzungen": daten.get("einschaetzungen") or [], "gruende": daten.get("gruende") or []}
+
+
+def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None, telegram_link=None, ausblick=None, radar=None):
     tage = regeln["fenster_tage"]
     alle = kev["eintraege"]
     fenster = im_fenster(alle, stand, tage)
@@ -194,6 +207,7 @@ def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None, telegram_link=None, 
         "cert_bund": zusatz_bsi(bsi, stand, tage),
         "eu_kev": zusatz_eu(eu, stand, tage),
         "ausblick": zusatz_ausblick(ausblick),
+        "radar": zusatz_radar(radar),
     }
     ergebnis["stufe"], ergebnis["stufe_begruendung"] = bestimme_stufe(len(fenster), ransom, regeln)
 
@@ -239,6 +253,13 @@ def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None, telegram_link=None, 
             {"id": "nvd", "name": "NVD (NIST)", "link": "https://nvd.nist.gov/",
              "lizenz": "gemeinfrei, nur Veröffentlichungsdatum und CVSS-Wert", "abgerufen_am": ab},
         ]
+    if ergebnis.get("radar"):
+        ab = ergebnis["radar"]["abgerufen_am"]
+        ergebnis["quellen"].append({"id": "cvelist", "name": "CVE-Liste (CVE Program, MITRE)", "link": "https://github.com/CVEProject/cvelistV5",
+                                    "lizenz": "CVE Terms of Use: frei nutzbar mit Quellenangabe, nur Veröffentlichungsdatum", "abgerufen_am": ab})
+        if ergebnis["radar"].get("sans"):
+            ergebnis["quellen"].append({"id": "sans", "name": "SANS Internet Storm Center (Infocon)", "link": "https://isc.sans.edu/",
+                                        "lizenz": "Creative Commons laut Fußzeile des ISC, nur Ampelstatus mit Quellenangabe", "abgerufen_am": ergebnis["radar"]["sans"]["abgerufen_am"]})
     ergebnis["hinweise"] = HINWEISE
     ergebnis["hinweise_en"] = HINWEISE_EN
     ergebnis["stufe_begruendung_en"] = begruendung_en(len(fenster), ransom, regeln)
@@ -259,7 +280,8 @@ def main(argv):
                          lese_optional(WURZEL / "data" / "bsi" / "warnungen.json"),
                          lese_optional(WURZEL / "data" / "eu" / "kev.json"),
                          (lese_optional(WURZEL / "config" / "telegram.json") or {}).get("kanal_link"),
-                         lese_optional(WURZEL / "data" / "ausblick" / "ausblick.json"))
+                         lese_optional(WURZEL / "data" / "ausblick" / "ausblick.json"),
+                         lese_optional(WURZEL / "data" / "radar" / "radar.json"))
     ziel = WURZEL / "site" / "data" / "lage.json"
     ziel.parent.mkdir(parents=True, exist_ok=True)
     ziel.write_text(json.dumps(ergebnis, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

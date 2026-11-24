@@ -31,6 +31,7 @@
   <div class="wrap navin">
     <a href="#lage" data-sec="lage">/lage</a>
     <a href="#rueckblick" data-sec="rueckblick" data-t="n_rueck">/rückblick</a>
+    <a href="#radar" data-sec="radar" data-t="n_radar">/radar</a>
     <details class="dd"><summary data-sec="neu" data-t="n_neu">/neu</summary><div class="dd-box">
       <a href="#neu" data-tab="kev" data-t="tab_kev">KEV-Katalog</a>
       <a href="#neu" data-tab="bsi">CERT-Bund</a>
@@ -79,7 +80,7 @@
     <p class="dim fine" data-t="l_kev"><strong>KEV</strong> heißt <em>Known Exploited Vulnerabilities</em>, „bekannte, ausgenutzte Schwachstellen“: eine Liste der US-Cybersicherheitsbehörde <strong>CISA</strong> mit Lücken, für die belegt ist, dass Angreifer sie wirklich ausnutzen. Die Stufe zeigt, wie viele neu hinzukommen.</p>
     <p class="mono dim fine" id="kev-quelle"></p>
     <div id="sektor"></div>
-    <noscript><p class="panel pad">Diese Seite lädt ihre Zahlen aus <a href="data/lage.json">data/lage.json</a>. Dafür wird JavaScript benötigt. Die Rohdaten sind direkt abrufbar.</p></noscript>
+    <noscript><!--ssr-start--><p class="panel pad"><b>Die globale Cyberlage, Stand 2026-11-24: Stufe hoch.</b> 36 neu aufgenommene ausgenutzte Schwachstellen in 30 Tagen. Neu im CISA-Katalog ausgenutzter Schwachstellen: 10 in 7 Tagen, 36 in 30 Tagen. Regelbasiert und offen belegt. Ein privates Projekt von Dreier Labs, keine amtliche Stelle.</p><p class="panel pad">Die Zahlen stehen als Rohdaten unter <a href="data/lage.json">data/lage.json</a>, die Regeln auf <a href="https://github.com/maxim91136/cyberlage.org/blob/main/RULES.md">GitHub</a>. Für die Ansicht mit Verlauf und Listen wird JavaScript benötigt.</p><!--ssr-end--></noscript>
   </section>
 
   <section id="rueckblick" class="wrap" aria-labelledby="h-rueck">
@@ -87,6 +88,31 @@
     <div class="panel pad">
       <svg id="verlauf" role="img" aria-labelledby="verlauf-titel" viewBox="0 0 1000 220" width="100%" preserveAspectRatio="xMidYMid meet"><title id="verlauf-titel">Verlauf der neu aufgenommenen Schwachstellen</title></svg>
       <p class="mono dim fine" id="verlauf-legende"></p>
+    </div>
+  </section>
+
+  <section id="radar" class="wrap" aria-labelledby="h-radar">
+    <h2 id="h-radar" class="mono" data-t="rd_h">## radar</h2>
+    <p class="dim" data-t="rd_intro">Eigene Messungen aus offenen Daten, daneben die Einschätzungen anderer Stellen. Nichts davon fließt in die Stufe.</p>
+    <div class="panel pad rd">
+      <h3 class="mono rd-t" data-t="rd_zeit_h">Wie schnell wird eine Lücke ausgenutzt gemeldet?</h3>
+      <div class="rd-zahlen" id="rd-zahlen"></div>
+      <svg id="rd-chart" role="img" aria-labelledby="rd-chart-titel" viewBox="0 0 1000 200" width="100%" preserveAspectRatio="xMidYMid meet"><title id="rd-chart-titel">Anteil der KEV-Aufnahmen binnen 30 Tagen nach Veröffentlichung, je Monat</title></svg>
+      <p class="mono dim fine" id="rd-zeit-fine"></p>
+    </div>
+    <div class="rd-grid">
+      <div class="panel pad rd"><h3 class="mono rd-t" data-t="rd_tr_h">Trefferquote des Ausblicks</h3><p id="rd-treffer"></p></div>
+      <div class="panel pad rd"><h3 class="mono rd-t" data-t="rd_eu_h">EU-KEV und CISA-KEV</h3><p id="rd-eu"></p></div>
+    </div>
+    <div class="panel pad rd">
+      <h3 class="mono rd-t" data-t="rd_vgl_h">Einschätzungen im Vergleich</h3>
+      <div id="rd-vergleich"></div>
+      <p class="mono dim fine" data-t="rd_vgl_n">Die Quellen messen Verschiedenes. Zeigen mehrere in dieselbe Richtung, ist das ein stärkeres Signal als eine allein.</p>
+    </div>
+    <div class="panel pad rd">
+      <h3 class="mono rd-t" data-t="rd_warum_h">Warum steigt es? Belegte Gründe</h3>
+      <ul class="hinw" id="rd-gruende"></ul>
+      <p class="mono dim fine" data-t="rd_warum_n">Geopolitische Spannungen messen wir nicht. Sie stehen nur dort, wo eine Quelle sie belegt.</p>
     </div>
   </section>
 
@@ -165,7 +191,7 @@
 <footer>
   <div class="wrap foot">
     <p class="dim" id="fuss" data-t="f_fuss">Ein Projekt von <a href="https://dreierlabs.com">Dreier Labs</a>. Privates Projekt, keine amtliche Stelle, keine Verbindung zu BSI oder Behörden. Keine Gewähr.</p>
-    <p class="mono" data-t="f_links"><a href="https://dreierlabs.com/impressum.html">impressum</a> · <a href="hinweise.html">hinweise &amp; datenschutz</a></p>
+    <p class="mono" data-t="f_links"><a href="impressum.html">impressum</a> · <a href="hinweise.html">hinweise &amp; datenschutz</a></p>
   </div>
 </footer>
 <button type="button" id="totop" class="totop" aria-label="Nach oben"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M6 10V2M2.5 5.5 6 2l3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></svg><span id="totopl" data-t="top">Nach oben</span></button>

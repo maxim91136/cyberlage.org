@@ -2232,6 +2232,363 @@
       }
     ]
   },
+  "radar": {
+    "abgerufen_am": "2026-11-24T07:46:44+00:00",
+    "zeit_bis_kev": {
+      "verlauf": [
+        {
+          "monat": "2023-12",
+          "n": 11,
+          "n_frisch": 10,
+          "median_frisch": 5.0,
+          "anteil_30": 0.727
+        },
+        {
+          "monat": "2024-01",
+          "n": 21,
+          "n_frisch": 19,
+          "median_frisch": 12,
+          "anteil_30": 0.524
+        },
+        {
+          "monat": "2024-02",
+          "n": 9,
+          "n_frisch": 8,
+          "median_frisch": 1.5,
+          "anteil_30": 0.556
+        },
+        {
+          "monat": "2024-03",
+          "n": 10,
+          "n_frisch": 7,
+          "median_frisch": 13,
+          "anteil_30": 0.5
+        },
+        {
+          "monat": "2024-04",
+          "n": 10,
+          "n_frisch": 9,
+          "median_frisch": 0,
+          "anteil_30": 0.9
+        },
+        {
+          "monat": "2024-05",
+          "n": 14,
+          "n_frisch": 11,
+          "median_frisch": 4,
+          "anteil_30": 0.571
+        },
+        {
+          "monat": "2024-06",
+          "n": 9,
+          "n_frisch": 6,
+          "median_frisch": 10.0,
+          "anteil_30": 0.444
+        },
+        {
+          "monat": "2024-07",
+          "n": 14,
+          "n_frisch": 12,
+          "median_frisch": 19.0,
+          "anteil_30": 0.571
+        },
+        {
+          "monat": "2024-08",
+          "n": 19,
+          "n_frisch": 14,
+          "median_frisch": 1.5,
+          "anteil_30": 0.579
+        },
+        {
+          "monat": "2024-09",
+          "n": 25,
+          "n_frisch": 11,
+          "median_frisch": 6,
+          "anteil_30": 0.36
+        },
+        {
+          "monat": "2024-10",
+          "n": 17,
+          "n_frisch": 17,
+          "median_frisch": 3,
+          "anteil_30": 0.588
+        },
+        {
+          "monat": "2024-11",
+          "n": 22,
+          "n_frisch": 17,
+          "median_frisch": 9,
+          "anteil_30": 0.409
+        },
+        {
+          "monat": "2024-12",
+          "n": 16,
+          "n_frisch": 10,
+          "median_frisch": 6.5,
+          "anteil_30": 0.375
+        },
+        {
+          "monat": "2025-01",
+          "n": 14,
+          "n_frisch": 11,
+          "median_frisch": 1,
+          "anteil_30": 0.714
+        },
+        {
+          "monat": "2025-02",
+          "n": 27,
+          "n_frisch": 19,
+          "median_frisch": 12,
+          "anteil_30": 0.407
+        },
+        {
+          "monat": "2025-03",
+          "n": 32,
+          "n_frisch": 25,
+          "median_frisch": 3,
+          "anteil_30": 0.5
+        },
+        {
+          "monat": "2025-04",
+          "n": 15,
+          "n_frisch": 14,
+          "median_frisch": 4.5,
+          "anteil_30": 0.733
+        },
+        {
+          "monat": "2025-05",
+          "n": 24,
+          "n_frisch": 22,
+          "median_frisch": 9.5,
+          "anteil_30": 0.625
+        },
+        {
+          "monat": "2025-06",
+          "n": 20,
+          "n_frisch": 14,
+          "median_frisch": 15.5,
+          "anteil_30": 0.4
+        },
+        {
+          "monat": "2025-07",
+          "n": 20,
+          "n_frisch": 15,
+          "median_frisch": 14,
+          "anteil_30": 0.5
+        },
+        {
+          "monat": "2025-08",
+          "n": 15,
+          "n_frisch": 10,
+          "median_frisch": 2.5,
+          "anteil_30": 0.467
+        },
+        {
+          "monat": "2025-09",
+          "n": 16,
+          "n_frisch": 13,
+          "median_frisch": 5,
+          "anteil_30": 0.625
+        },
+        {
+          "monat": "2025-10",
+          "n": 31,
+          "n_frisch": 19,
+          "median_frisch": 71,
+          "anteil_30": 0.226
+        },
+        {
+          "monat": "2025-11",
+          "n": 11,
+          "n_frisch": 10,
+          "median_frisch": 14.0,
+          "anteil_30": 0.545
+        },
+        {
+          "monat": "2025-12",
+          "n": 20,
+          "n_frisch": 17,
+          "median_frisch": 0,
+          "anteil_30": 0.75
+        },
+        {
+          "monat": "2026-01",
+          "n": 17,
+          "n_frisch": 14,
+          "median_frisch": 13.5,
+          "anteil_30": 0.529
+        },
+        {
+          "monat": "2026-02",
+          "n": 28,
+          "n_frisch": 20,
+          "median_frisch": 5.0,
+          "anteil_30": 0.571
+        },
+        {
+          "monat": "2026-03",
+          "n": 26,
+          "n_frisch": 21,
+          "median_frisch": 72,
+          "anteil_30": 0.346
+        },
+        {
+          "monat": "2026-04",
+          "n": 31,
+          "n_frisch": 18,
+          "median_frisch": 14.0,
+          "anteil_30": 0.323
+        },
+        {
+          "monat": "2026-05",
+          "n": 21,
+          "n_frisch": 16,
+          "median_frisch": 0.5,
+          "anteil_30": 0.714
+        },
+        {
+          "monat": "2026-06",
+          "n": 23,
+          "n_frisch": 21,
+          "median_frisch": 7,
+          "anteil_30": 0.696
+        },
+        {
+          "monat": "2026-07",
+          "n": 26,
+          "n_frisch": 24,
+          "median_frisch": 6.0,
+          "anteil_30": 0.692
+        },
+        {
+          "monat": "2026-08",
+          "n": 31,
+          "n_frisch": 25,
+          "median_frisch": 9,
+          "anteil_30": 0.548
+        },
+        {
+          "monat": "2026-09",
+          "n": 43,
+          "n_frisch": 42,
+          "median_frisch": 3.0,
+          "anteil_30": 0.674
+        },
+        {
+          "monat": "2026-10",
+          "n": 36,
+          "n_frisch": 31,
+          "median_frisch": 5,
+          "anteil_30": 0.75
+        },
+        {
+          "monat": "2026-11",
+          "n": 26,
+          "n_frisch": 23,
+          "median_frisch": 4,
+          "anteil_30": 0.769
+        }
+      ],
+      "jetzt": {
+        "bis": "2026-11-24",
+        "n": 110,
+        "n_frisch": 100,
+        "median_frisch": 5.0,
+        "anteil_30": 0.718
+      },
+      "vor_12_monaten": {
+        "bis": "2025-11-24",
+        "n": 58,
+        "n_frisch": 43,
+        "median_frisch": 11,
+        "anteil_30": 0.414
+      },
+      "vor_24_monaten": {
+        "bis": "2024-11-24",
+        "n": 65,
+        "n_frisch": 47,
+        "median_frisch": 6,
+        "anteil_30": 0.462
+      },
+      "frisch_tage": 365,
+      "ohne_datum": 0
+    },
+    "trefferquote": {
+      "prognosen": 0,
+      "eingetreten": 0,
+      "offen": 0,
+      "reif": 0,
+      "reif_eingetreten": 0,
+      "quote_reif": null,
+      "median_tage_bis_eintritt": null,
+      "seit": null,
+      "schwelle": 0.1,
+      "reif_nach_tagen": 30
+    },
+    "europa": {
+      "eu_eintraege": 75,
+      "auch_im_cisa": 74,
+      "nur_eu": 1,
+      "median_abstand_tage": 0.0,
+      "eu_datum_frueher": 4
+    },
+    "sans": null,
+    "einschaetzungen": [
+      {
+        "name": "BSI Lagebericht 2026",
+        "art": "jaehrlich",
+        "urteil": "angespannt bis kritisch",
+        "urteil_en": "tense to critical",
+        "richtung": "steigend",
+        "vorher": "angespannt",
+        "vorher_en": "tense",
+        "stand": "2026-11-19",
+        "misst": "Gesamtlage der IT-Sicherheit in Deutschland, Zeitraum Mitte 2025 bis Mitte 2026",
+        "misst_en": "Overall IT security situation in Germany, mid-2025 to mid-2026",
+        "link": "https://www.bsi.bund.de/DE/Service-Navi/Publikationen/Lagebericht/lagebericht_node.html",
+        "beleg": "https://www.zdfheute.de/politik/deutschland/bsi-lagebericht-warnung-cyberangriff-ki-100.html",
+        "geprueft_am": "2026-11-24"
+      }
+    ],
+    "gruende": [
+      {
+        "id": "r7q3",
+        "aussage": "Im Schnitt vergehen 3 Tage von der Veröffentlichung einer schweren Lücke bis zur Ausnutzung. 71 % der ausgenutzten Lücken im 3. Quartal 2026 wurden binnen 7 Tagen ausgenutzt.",
+        "aussage_en": "On average 3 days pass between a severe vulnerability becoming public and its exploitation. 71% of Q3 2026 exploitation happened within 7 days.",
+        "quelle": "Rapid7 Quarterly Threat Landscape Report Q3 2026",
+        "link": "https://www.rapid7.com/blog/post/tr-q3-2026-threat-update-attackers-exploiting-vulnerabilities-within-3-days/",
+        "stand": "2026-10-21",
+        "geprueft_am": "2026-11-24"
+      },
+      {
+        "id": "r7gtl",
+        "aussage": "Der Median bis zur Aufnahme einer Lücke in den CISA-KEV sank von 8,5 auf 5,0 Tage.",
+        "aussage_en": "The median time until a vulnerability is added to CISA KEV fell from 8.5 to 5.0 days.",
+        "quelle": "Rapid7 2026 Global Threat Landscape Report",
+        "link": "https://www.rapid7.com/blog/post/tr-accelerating-attack-cycle-2026-global-threat-landscape-report",
+        "stand": "2026",
+        "geprueft_am": "2026-11-24"
+      },
+      {
+        "id": "cogent",
+        "aussage": "KI verkürzt die Zeit zum Bau eines Exploits laut Cogent Research von 125 Tagen (Januar 2025) auf rund einen halben Tag (April 2026).",
+        "aussage_en": "AI cut the time to build an exploit from 125 days (January 2025) to about half a day (April 2026), according to Cogent Research.",
+        "quelle": "Cogent Research über Dark Reading",
+        "link": "https://www.darkreading.com/threat-intelligence/ai-assisted-exploit-development-scanner-detection",
+        "stand": "2026",
+        "geprueft_am": "2026-11-24"
+      },
+      {
+        "id": "bsi26",
+        "aussage": "Das BSI stuft die Lage 2026 als angespannt bis kritisch ein, im Vorjahr lautete die Bewertung angespannt.",
+        "aussage_en": "The BSI rates the situation as tense to critical in 2026; a year earlier it was tense.",
+        "quelle": "BSI Lagebericht 2026 (über ZDFheute)",
+        "link": "https://www.zdfheute.de/politik/deutschland/bsi-lagebericht-warnung-cyberangriff-ki-100.html",
+        "stand": "2026-11-19",
+        "geprueft_am": "2026-11-24"
+      }
+    ]
+  },
   "sektor": [
     {
       "kennzahl": "sektoranteil_oeffentliche_verwaltung",
@@ -2300,6 +2657,15 @@
       "abgerufen_am": "2026-11-24T06:04:51+00:00",
       "name_en": "NVD (NIST)",
       "lizenz_en": "public domain, only publication date and CVSS score"
+    },
+    {
+      "id": "cvelist",
+      "name": "CVE-Liste (CVE Program, MITRE)",
+      "link": "https://github.com/CVEProject/cvelistV5",
+      "lizenz": "CVE Terms of Use: frei nutzbar mit Quellenangabe, nur Veröffentlichungsdatum",
+      "abgerufen_am": "2026-11-24T07:46:44+00:00",
+      "name_en": "CVE List (CVE Program, MITRE)",
+      "lizenz_en": "CVE Terms of Use: free to use with attribution, only publication date"
     }
   ],
   "hinweise": [

@@ -1,0 +1,217 @@
+#!/usr/bin/env python3
+"""Lage-Radar: eigene Messungen aus offenen Daten. Nur Standardbibliothek.
+
+1. Zeit bis zur Aufnahme: Tage zwischen Veröffentlichung einer CVE (CVE-Liste, MITRE/CVE Program)
+   und ihrer Aufnahme in den CISA-KEV, je Monat. Gezählt wird "frisch" = CVE war bei Aufnahme höchstens
+   365 Tage alt (alte Lücken, die spät aufgenommen werden, verzerren sonst den Median).
+2. Trefferquote des Ausblicks: Prognosen (EPSS >= 10 %) werden beim ersten Auftreten gespeichert und später
+   gegen den KEV geprüft.
+3. Abgleich EU-KEV und CISA-KEV (Überschneidung und Abstand der Daten).
+4. SANS Internet Storm Center Infocon (Ampel, nur Anzeige).
+Außerdem werden die von Hand geführten Einschätzungen und Gründe (CSV) eingelesen.
+
+Veröffentlichungsdaten ändern sich nicht, sie werden in data/radar/veroeffentlicht.json zwischengespeichert.
+Schlägt etwas fehl, bleibt der betreffende Teil leer (null), nichts wird geschätzt.
+"""
+import csv
+import json
+import statistics
+import sys
+import urllib.error
+import urllib.request
+from concurrent.futures import ThreadPoolExecutor
+from datetime import date, datetime, timedelta, timezone
+from pathlib import Path
+
+WURZEL = Path(__file__).resolve().parent.parent
+RADAR = WURZEL / "data" / "radar"
+UA = "cyberlage.org (privates Projekt von Dreier Labs, https://cyberlage.org)"
+CVE_URL = "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/{y}/{g}xxx/{c}.json"
+SANS_URL = "https://isc.sans.edu/api/infocon?json"
+ANFANG = "2022-01"      # früheste Monate im Verlauf
+FRISCH_TAGE = 365
+REIF_TAGE = 30          # so lange gilt eine Prognose als noch offen
+
+
+def lese(pfad, vorgabe=None):
+    try:
+        return json.loads(Path(pfad).read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return vorgabe
+
+
+def lese_csv(pfad):
+    try:
+        with open(pfad, encoding="utf-8", newline="") as f:
+            return list(csv.DictReader(f))
+    except OSError:
+        return []
+
+
+def tag(text):
+    return date.fromisoformat(text[:10])
+
+
+def cve_url(c):
+    _, jahr, nummer = c.split("-")
+    return CVE_URL.format(y=jahr, g=int(nummer) // 1000, c=c)
+
+
+def hole_datum(c):
+    for _ in range(3):
+        try:
+            req = urllib.request.Request(cve_url(c), headers={"User-Agent": UA})
+            with urllib.request.urlopen(req, timeout=30) as r:
+                d = json.loads(r.read())
+            return c, (d.get("cveMetadata", {}).get("datePublished") or "")[:10] or None
+        except urllib.error.HTTPError as ex:
+            if ex.code == 404:
+                return c, None
+        except (urllib.error.URLError, TimeoutError, ValueError):
+            pass
+    return c, False  # nicht erreichbar: nicht speichern, nächster Lauf versucht es erneut
+
+
+def veroeffentlichungen(kev_eintraege, cache):
+    gesucht = [x["cve"] for x in kev_eintraege if x["hinzugefuegt"][:7] >= ANFANG and x["cve"] not in cache]
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        for c, d in pool.map(hole_datum, gesucht):
+            if d is not False:
+                cache[c] = d
+    return cache
+
+
+def zeit_bis_aufnahme(kev_eintraege, veroeff, heute):
+    monate = {}
+    for x in kev_eintraege:
+        monat = x["hinzugefuegt"][:7]
+        v = veroeff.get(x["cve"])
+        if monat < ANFANG or not v:
+            continue
+        tage = (tag(x["hinzugefuegt"]) - tag(v)).days
+        monate.setdefault(monat, []).append(max(tage, 0))
+    verlauf = []
+    for m in sorted(monate):
+        t = monate[m]
+        frisch = [d for d in t if d <= FRISCH_TAGE]
+        verlauf.append({
+            "monat": m, "n": len(t), "n_frisch": len(frisch),
+            "median_frisch": statistics.median(frisch) if frisch else None,
+            "anteil_30": round(sum(1 for d in t if d <= 30) / len(t), 3),
+        })
+
+    def fenster(ende, tage=90):
+        a = ende - timedelta(days=tage)
+        t = []
+        for x in kev_eintraege:
+            v = veroeff.get(x["cve"])
+            d = tag(x["hinzugefuegt"])
+            if v and a < d <= ende:
+                t.append(max((d - tag(v)).days, 0))
+        frisch = [d for d in t if d <= FRISCH_TAGE]
+        return {"bis": ende.isoformat(), "n": len(t), "n_frisch": len(frisch),
+                "median_frisch": statistics.median(frisch) if frisch else None,
+                "anteil_30": round(sum(1 for d in t if d <= 30) / len(t), 3) if t else None}
+
+    return {"verlauf": verlauf, "jetzt": fenster(heute), "vor_12_monaten": fenster(heute - timedelta(days=365)),
+            "vor_24_monaten": fenster(heute - timedelta(days=730)), "frisch_tage": FRISCH_TAGE,
+            "ohne_datum": sum(1 for x in kev_eintraege if x["hinzugefuegt"][:7] >= ANFANG and not veroeff.get(x["cve"]))}
+
+
+def trefferquote(prognosen, kev_eintraege, ausblick, heute):
+    """prognosen: {cve: {"erstmals": datum, "epss": wert}} wird fortgeschrieben."""
+    kev = {x["cve"]: x["hinzugefuegt"] for x in kev_eintraege}
+    for k in (ausblick or {}).get("kandidaten", []):
+        prognosen.setdefault(k["cve"], {"erstmals": (ausblick["abgerufen_am"] or "")[:10], "epss": k["epss"]})
+    treffer = reif = reif_treffer = offen = 0
+    tage = []
+    for c, p in prognosen.items():
+        d = kev.get(c)
+        alter = (heute - tag(p["erstmals"])).days
+        if d and tag(d) >= tag(p["erstmals"]):
+            treffer += 1
+            tage.append((tag(d) - tag(p["erstmals"])).days)
+            p["eingetreten"] = d
+        if alter >= REIF_TAGE:
+            reif += 1
+            reif_treffer += 1 if p.get("eingetreten") else 0
+        elif not p.get("eingetreten"):
+            offen += 1
+    return {"prognosen": len(prognosen), "eingetreten": treffer, "offen": offen,
+            "reif": reif, "reif_eingetreten": reif_treffer,
+            "quote_reif": round(reif_treffer / reif, 3) if reif else None,
+            "median_tage_bis_eintritt": statistics.median(tage) if tage else None,
+            "seit": min((p["erstmals"] for p in prognosen.values()), default=None),
+            "schwelle": (ausblick or {}).get("schwelle_hoch"), "reif_nach_tagen": REIF_TAGE}
+
+
+def abgleich_eu(kev_eintraege, eu):
+    if not eu or not eu.get("eintraege"):
+        return None
+    kev = {x["cve"]: x["hinzugefuegt"] for x in kev_eintraege}
+    gemeinsam, abstaende, eu_zuerst = 0, [], 0
+    for x in eu["eintraege"]:
+        cves = [c for c in x.get("cve") or [] if c in kev]
+        if not cves or not x.get("ausgenutzt_seit"):
+            continue
+        gemeinsam += 1
+        d = (tag(kev[cves[0]]) - tag(x["ausgenutzt_seit"])).days
+        abstaende.append(d)
+        eu_zuerst += 1 if d > 0 else 0
+    return {"eu_eintraege": len(eu["eintraege"]), "auch_im_cisa": gemeinsam,
+            "nur_eu": len(eu["eintraege"]) - gemeinsam,
+            "median_abstand_tage": statistics.median(abstaende) if abstaende else None,
+            "eu_datum_frueher": eu_zuerst}
+
+
+def hole_sans():
+    try:
+        req = urllib.request.Request(SANS_URL, headers={"User-Agent": UA})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            status = json.loads(r.read()).get("status")
+        if status in ("green", "yellow", "orange", "red"):
+            return {"status": status, "abgerufen_am": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+    except (urllib.error.URLError, TimeoutError, ValueError, AttributeError):
+        pass
+    return None
+
+
+def baue(kev, eu, ausblick, cache, prognosen, heute, sans=None):
+    eintraege = kev["eintraege"]
+    return {
+        "abgerufen_am": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "zeit_bis_kev": zeit_bis_aufnahme(eintraege, cache, heute),
+        "trefferquote": trefferquote(prognosen, eintraege, ausblick, heute),
+        "europa": abgleich_eu(eintraege, eu),
+        "sans": sans,
+        "einschaetzungen": lese_csv(RADAR / "einschaetzungen.csv"),
+        "gruende": lese_csv(RADAR / "gruende.csv"),
+    }
+
+
+def main():
+    kev = lese(WURZEL / "data" / "kev" / "kev.json")
+    if not kev:
+        print("FEHLER: KEV-Daten fehlen")
+        return 1
+    cache = lese(RADAR / "veroeffentlicht.json", {})
+    prognosen = lese(RADAR / "prognosen.json", {})
+    try:
+        cache = veroeffentlichungen(kev["eintraege"], cache)
+    except Exception as ex:  # Netz kaputt: mit dem Stand im Cache weiterrechnen
+        print("WARNUNG: CVE-Liste nicht vollständig erreichbar:", ex)
+    heute = datetime.now(timezone.utc).date()
+    ergebnis = baue(kev, lese(WURZEL / "data" / "eu" / "kev.json"), lese(WURZEL / "data" / "ausblick" / "ausblick.json"),
+                    cache, prognosen, heute, hole_sans())
+    RADAR.mkdir(parents=True, exist_ok=True)
+    (RADAR / "veroeffentlicht.json").write_text(json.dumps(cache, sort_keys=True, indent=0) + "\n", encoding="utf-8")
+    (RADAR / "prognosen.json").write_text(json.dumps(prognosen, sort_keys=True, indent=0) + "\n", encoding="utf-8")
+    (RADAR / "radar.json").write_text(json.dumps(ergebnis, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    z = ergebnis["zeit_bis_kev"]["jetzt"]
+    print(f"OK: data/radar/radar.json (Median frisch {z['median_frisch']} Tage, {len(cache)} Daten im Cache, "
+          f"{ergebnis['trefferquote']['prognosen']} Prognosen)")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -36,10 +36,15 @@ jobs:
       - name: Ausblick holen (EPSS und NVD)
         continue-on-error: true
         run: python pipeline/fetch_ausblick.py
+      - name: Radar rechnen (CVE-Liste, SANS, Trefferquote)
+        run: python pipeline/fetch_radar.py
+        continue-on-error: true
       - name: Auswerten
         run: python pipeline/score.py
       - name: RSS-Feed schreiben
         run: python pipeline/feed.py
+      - name: Text für Crawler schreiben
+        run: python pipeline/prerender.py
       - name: Telegram prüfen
         if: ${{ inputs.test }}
         continue-on-error: true
@@ -66,7 +71,7 @@ jobs:
         run: |
           git config user.name "cyberlage-bot"
           git config user.email "cyberlage-bot@users.noreply.github.com"
-          git add data site/data site/feed.xml
+          git add data site/data site/feed.xml site/index.html
           if ! git diff --cached --quiet; then
             git commit -m "Daten aktualisiert"
             git push

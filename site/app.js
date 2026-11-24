@@ -126,6 +126,7 @@
     zeigeBsi(d.cert_bund);
     zeigeEu(d.eu_kev);
     zeigeAusblick(d.ausblick);
+    zeigeRadar(d.radar, d);
 
     var h = $("hinweise");
     var hw = window.I18N.lang === "en" && d.hinweise_en ? d.hinweise_en : (d.hinweise || []);
@@ -243,6 +244,81 @@
       var t = el("span", "titel"); t.appendChild(link(e.link, (e.cve && e.cve[0]) || e.id)); r.appendChild(t);
       return r;
     }), 8);
+  }
+
+  function zeigeRadar(r, d) {
+    var proz = function (x) { return typeof x === "number" ? Math.round(x * 100) + " %" : "–"; };
+    var tage = function (x) { return typeof x === "number" ? x.toLocaleString(window.I18N.locale, { maximumFractionDigits: 1 }) : "–"; };
+    if (!r) { ["rd-zahlen", "rd-treffer", "rd-eu", "rd-vergleich", "rd-gruende"].forEach(function (id) { $(id).textContent = txt("keine"); }); return; }
+    var z = r.zeit_bis_kev || {};
+    var zahlenBox = $("rd-zahlen"); zahlenBox.textContent = "";
+    [["jetzt", pick("letzte 90 Tage", "last 90 days"), true], ["vor_12_monaten", pick("vor 12 Monaten", "12 months ago")], ["vor_24_monaten", pick("vor 24 Monaten", "24 months ago")]].forEach(function (k) {
+      var f = z[k[0]]; if (!f) return;
+      var b = el("div", "rd-z mono" + (k[2] ? " neu" : ""));
+      b.appendChild(el("div", "l", k[1]));
+      b.appendChild(el("div", "w", proz(f.anteil_30)));
+      b.appendChild(el("div", "u", pick("binnen 30 Tagen · Median ", "within 30 days · median ") + tage(f.median_frisch) + pick(" Tage", " days")));
+      zahlenBox.appendChild(b);
+    });
+    zeichneRadar(z.verlauf || []);
+    $("rd-zeit-fine").textContent = pick(
+      "Gemessen wird die Zeit zwischen Veröffentlichung einer CVE (CVE-Liste) und ihrer Aufnahme in den CISA-KEV. Der Median zählt nur frische Lücken (höchstens " + (z.frisch_tage || 365) + " Tage alt bei Aufnahme). Das ist die Aufnahme, nicht der erste Angriff, und Eigenmessung aus CC0- und CVE-Daten.",
+      "We measure the time between a CVE being published (CVE list) and its addition to CISA KEV. The median counts only fresh vulnerabilities (at most " + (z.frisch_tage || 365) + " days old at addition). This is the listing, not the first attack. Own analysis of CC0 and CVE data.");
+    var t = r.trefferquote || {};
+    $("rd-treffer").textContent = typeof t.quote_reif === "number"
+      ? pick(proz(t.quote_reif) + " der " + t.reif + " Prognosen (EPSS ab " + Math.round((t.schwelle || 0.1) * 100) + " %), die älter als " + t.reif_nach_tagen + " Tage sind, standen später im KEV. Insgesamt geprüft seit " + datum(t.seit) + ": " + t.prognosen + ", eingetreten: " + t.eingetreten + ".",
+             proz(t.quote_reif) + " of the " + t.reif + " forecasts (EPSS from " + Math.round((t.schwelle || 0.1) * 100) + " %) older than " + t.reif_nach_tagen + " days were later listed in KEV. Checked since " + datum(t.seit) + ": " + t.prognosen + ", occurred: " + t.eingetreten + ".")
+      : pick("Wir speichern jede Prognose des Ausblicks (EPSS ab " + Math.round((t.schwelle || 0.1) * 100) + " %) und prüfen später, ob die Lücke im KEV landet. Bisher gespeichert: " + (t.prognosen || 0) + ", davon eingetreten: " + (t.eingetreten || 0) + ". Die erste Quote erscheint " + (t.reif_nach_tagen || 30) + " Tage nach dem ersten gespeicherten Wert, vorher wäre sie nicht belastbar.",
+             "We store every forecast of the outlook (EPSS from " + Math.round((t.schwelle || 0.1) * 100) + " %) and check later whether the vulnerability lands in KEV. Stored so far: " + (t.prognosen || 0) + ", occurred: " + (t.eingetreten || 0) + ". The first rate appears " + (t.reif_nach_tagen || 30) + " days after the first stored value; earlier it would not be reliable.");
+    var e = r.europa;
+    $("rd-eu").textContent = !e ? txt("keine") : pick(
+      e.auch_im_cisa + " von " + e.eu_eintraege + " Einträgen im EU-KEV stehen auch im CISA-KEV, " + e.nur_eu + " nur in der EU. Bei " + e.eu_datum_frueher + " nennt die EU ein früheres Ausnutzungsdatum als die Aufnahme bei der CISA (Median-Abstand " + tage(e.median_abstand_tage) + " Tage). Der EU-Katalog bildet den US-Katalog also fast vollständig ab.",
+      e.auch_im_cisa + " of " + e.eu_eintraege + " entries in EU-KEV are also in CISA KEV, " + e.nur_eu + " only in the EU. For " + e.eu_datum_frueher + " the EU names an earlier exploitation date than the CISA listing (median gap " + tage(e.median_abstand_tage) + " days). The EU catalogue thus mirrors the US catalogue almost completely.");
+    var vg = $("rd-vergleich"); vg.textContent = "";
+    var zeile = function (name, url, urteil, misst, stand) {
+      var b = el("div", "vg");
+      var n = el("div", "n"); n.appendChild(url ? link(url, name) : document.createTextNode(name)); b.appendChild(n);
+      b.appendChild(el("div", "mono", urteil)); b.appendChild(el("div", "m", misst)); b.appendChild(el("div", "s", stand)); vg.appendChild(b);
+    };
+    zeile("Cyberlage", null, (d.stufe ? txt(d.stufe) : txt("keine")), pick("zählt neu ausgenutzte Lücken im CISA-KEV (30 Tage)", "counts newly exploited vulnerabilities in CISA KEV (30 days)"), pick("Stand ", "as of ") + datum(d.stand) + pick(" · täglich", " · daily"));
+    (r.einschaetzungen || []).forEach(function (q) {
+      var pfeil = q.richtung === "steigend" ? " ↑" : (q.richtung === "fallend" ? " ↓" : "");
+      zeile(q.name, q.link, pick(q.urteil, q.urteil_en) + pfeil, pick(q.misst, q.misst_en),
+        pick("Stand ", "as of ") + datum(q.stand) + pick(" · jährlich", " · yearly") + (q.vorher ? pick(" · Vorjahr: ", " · year before: ") + pick(q.vorher, q.vorher_en) : ""));
+    });
+    if (r.sans) {
+      var sn = { green: ["ruhig (grün)", "calm (green)"], yellow: ["erhöht (gelb)", "raised (yellow)"], orange: ["hoch (orange)", "high (orange)"], red: ["kritisch (rot)", "critical (red)"] }[r.sans.status];
+      zeile("SANS Internet Storm Center", "https://isc.sans.edu/", pick(sn[0], sn[1]), pick("beobachtet Scans und Ausbrüche im Netz, ein anderer Blickwinkel", "watches scans and outbreaks across the internet, a different angle"), pick("Stand ", "as of ") + datum(r.sans.abgerufen_am) + pick(" · live", " · live"));
+    }
+    var ul = $("rd-gruende"); ul.textContent = "";
+    (r.gruende || []).forEach(function (g) {
+      var li = el("li", "", pick(g.aussage, g.aussage_en) + " ");
+      li.appendChild(link(g.link, "[" + g.quelle + "]")); ul.appendChild(li);
+    });
+  }
+
+  function zeichneRadar(v) {
+    var svg = $("rd-chart"), NS = "http://www.w3.org/2000/svg";
+    svg.textContent = "";
+    var ti = document.createElementNS(NS, "title"); ti.id = "rd-chart-titel"; svg.appendChild(ti);
+    if (!v.length) return;
+    var B = Math.max(300, Math.round(svg.getBoundingClientRect().width)) || 1000, H = B < 600 ? 170 : 200, L = 36, R = 8, T = 10, U = 26;
+    svg.setAttribute("viewBox", "0 0 " + B + " " + H);
+    var mk = function (tag, a, tx) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); if (tx !== undefined) e.textContent = tx; svg.appendChild(e); return e; };
+    var y = function (p) { return T + (H - T - U) * (1 - p); }, w = (B - L - R) / v.length;
+    [0, 0.5, 1].forEach(function (p) {
+      mk("line", { x1: L, x2: B - R, y1: y(p), y2: y(p), stroke: "#1d262e" });
+      mk("text", { x: L - 6, y: y(p) + 4, "text-anchor": "end", fill: "#8a99a6", "font-size": 11, "font-family": "ui-monospace,monospace" }, Math.round(p * 100) + " %");
+    });
+    v.forEach(function (p, i) {
+      var t = mk("rect", { x: L + i * w + 1, y: y(p.anteil_30), width: Math.max(w - 2, 1), height: y(0) - y(p.anteil_30), fill: i === v.length - 1 ? "#ff8a7a" : "#3fae7a" });
+      t.appendChild(document.createElementNS(NS, "title")).textContent = p.monat + ": " + Math.round(p.anteil_30 * 100) + " % (" + p.n + ")";
+    });
+    [0, Math.floor(v.length / 2), v.length - 1].forEach(function (i) {
+      mk("text", { x: L + i * w + w / 2, y: H - 8, "text-anchor": i === 0 ? "start" : (i === v.length - 1 ? "end" : "middle"), fill: "#8a99a6", "font-size": 11, "font-family": "ui-monospace,monospace" }, v[i].monat);
+    });
+    $("rd-chart-titel").textContent = pick("Anteil der KEV-Aufnahmen binnen 30 Tagen nach Veröffentlichung, je Monat, " + v[0].monat + " bis " + v[v.length - 1].monat + ", zuletzt " + Math.round(v[v.length - 1].anteil_30 * 100) + " %",
+      "Share of KEV additions within 30 days of publication, per month, " + v[0].monat + " to " + v[v.length - 1].monat + ", latest " + Math.round(v[v.length - 1].anteil_30 * 100) + " %");
   }
 
   function zeigeAusblick(u) {
