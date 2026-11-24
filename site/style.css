@@ -334,3 +334,4 @@ html.alarm .marke{animation:flackern 6s infinite}
 .p-rang li::before{content:counter(r);position:absolute;left:12px;top:8px;font:600 22px ui-monospace,monospace;color:var(--green)}
 .p-rang li.p-r1{border-left-color:#ff8a7a}.p-rang li.p-r1::before{color:#ff8a7a}.p-rang li.p-r2{border-left-color:var(--amber)}.p-rang li.p-r2::before{color:var(--amber)}
 .p-rk{font-size:14px}.p-q{color:var(--dim);margin-right:8px;font-size:12px}.p-t{font-size:13px;color:var(--dim);margin-top:2px}.p-w{font-size:14px;margin-top:4px;color:var(--text)}
+.ab-b{font-size:13px;line-height:1.4;margin-top:2px;max-width:60em}

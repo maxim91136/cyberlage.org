@@ -36,7 +36,7 @@
       <a href="#neu" data-tab="kev" data-t="tab_kev">KEV-Katalog</a>
       <a href="#neu" data-tab="bsi">CERT-Bund</a>
       <a href="#neu" data-tab="eu">EU-KEV</a>
-      <a href="#neu" data-tab="ausblick" data-t="tab_ausblick">Ausblick</a>
+      <a href="#neu" data-tab="ausblick" data-t="tab_ausblick">Prognose</a>
     </div></details>
     <a href="#patches" data-sec="patches" data-t="n_patches">/patches</a>
     <a href="#signale" data-sec="signale" data-t="n_signale">/signale</a>
@@ -116,15 +116,17 @@
 
   <section id="neu" class="wrap" aria-labelledby="h-neu">
     <h2 id="h-neu" class="mono" data-t="n_h">## neu</h2>
+    <p class="dim" data-t="n_intro">Was in den letzten Tagen bekannt wurde: ausgenutzte Schwachstellen (CISA-KEV, EU-KEV), Warnungen des BSI (CERT-Bund) und eine Prognose für neue Lücken. Jeder Reiter nennt Quelle, Zeitraum und Stand.</p>
     <div class="tabs mono" role="tablist" aria-label="Quelle wählen">
       <button type="button" role="tab" id="t-kev" data-tab="kev" aria-selected="true" aria-controls="p-kev" data-t="tab_kev">KEV-Katalog</button>
       <button type="button" role="tab" id="t-bsi" data-tab="bsi" aria-selected="false" aria-controls="p-bsi" tabindex="-1">CERT-Bund</button>
       <button type="button" role="tab" id="t-eu" data-tab="eu" aria-selected="false" aria-controls="p-eu" tabindex="-1">EU-KEV</button>
-      <button type="button" role="tab" id="t-ausblick" data-tab="ausblick" aria-selected="false" aria-controls="p-ausblick" tabindex="-1" data-t="tab_ausblick">Ausblick</button>
+      <button type="button" role="tab" id="t-ausblick" data-tab="ausblick" aria-selected="false" aria-controls="p-ausblick" tabindex="-1" data-t="tab_ausblick">Prognose</button>
     </div>
 
     <div id="p-kev" role="tabpanel" aria-labelledby="t-kev">
       <p class="dim sub" data-t="n_sub">Ausgenutzte Schwachstellen der letzten <span id="fenster">30</span> Tage, neueste zuerst. Der Filter läuft nur in deinem Browser.</p>
+      <p class="mono dim fine" id="kev-kopf"></p>
       <label class="lbl" for="filter" data-t="n_filter">Hersteller, Produkt oder CVE filtern</label>
       <input id="filter" class="filter mono" type="search" autocomplete="off" placeholder="z. B. microsoft, fortinet, CVE-2026" data-t-ph="n_ph">
       <p class="mono dim fine" id="treffer" aria-live="polite"></p>
@@ -152,7 +154,7 @@
     <div id="p-ausblick" role="tabpanel" aria-labelledby="t-ausblick" hidden>
       <p class="dim sub" id="ab-info">…</p>
       <div class="panel pad"><div id="ab-liste"></div></div>
-      <p class="dim fine" data-t="n_q4">Ausblick, nicht Teil der Stufe: Die Wahrscheinlichkeit stammt von <strong>EPSS</strong> (Exploit Prediction Scoring System, FIRST) und schätzt, ob eine neue Lücke in den nächsten 30 Tagen ausgenutzt wird. Eine Schätzung, kein Befund. Gelistet sind neue CVEs der letzten Tage, die noch nicht im KEV stehen. See EPSS at <a href="https://www.first.org/epss">first.org/epss</a>. Veröffentlichungsdatum und CVSS-Wert aus der NVD. This product uses data from the NVD API but is not endorsed or certified by the NVD.</p>
+      <p class="dim fine" data-t="n_q4">Prognose, nicht Teil der Stufe: Die Wahrscheinlichkeit stammt von <strong>EPSS</strong> (Exploit Prediction Scoring System, FIRST) und schätzt, ob eine neue Lücke in den nächsten 30 Tagen ausgenutzt wird. Eine Schätzung, kein Befund. Gelistet sind neue CVEs der letzten Tage, die noch nicht im KEV stehen. See EPSS at <a href="https://www.first.org/epss">first.org/epss</a>. Veröffentlichungsdatum und CVSS-Wert aus der NVD. This product uses data from the NVD API but is not endorsed or certified by the NVD.</p>
     </div>
   </section>
 
@@ -174,7 +176,7 @@
     <p class="mono dim fine" data-t="rd_vgl_n">Die Quellen messen Verschiedenes. Zeigen mehrere in dieselbe Richtung, ist das ein stärkeres Signal als eine allein.</p>
     <details class="panel pad rd rd-det">
       <summary class="mono" data-t="rd_det">Erklärungen zu Trefferquote und EU-Abgleich</summary>
-      <h4 class="mono rd-t" data-t="rd_tr_h">Trefferquote des Ausblicks</h4><p id="rd-treffer"></p>
+      <h4 class="mono rd-t" data-t="rd_tr_h">Trefferquote der Prognose</h4><p id="rd-treffer"></p>
       <h4 class="mono rd-t" data-t="rd_eu_h">EU-KEV und CISA-KEV</h4><p id="rd-eu"></p>
     </details>
   </section>
@@ -239,8 +241,8 @@
       <p class="dim faq-a" data-t="f6a">Die Skala ist relativ und folgt dem Katalog: Wird die CISA insgesamt aktiver, erreicht der Zähler häufiger die Marken, ohne dass sich die Lage im absoluten Sinn ändert. Darum die lange Basis von 36 Monaten und die Prüfung von Hand. Außerdem zählt der Pegel nur, was in den KEV kommt, nicht, was unentdeckt ausgenutzt wird.</p>
       <h4 class="mono faq-q" data-t="f7q">Was ist der Radar-Score?</h4>
       <p class="dim faq-a" data-t="f7a">Ein Experiment. Er bildet den Mittelwert der Ausschläge aller verfügbaren Signale (Dreier-Pegel, Dreier-Tempo, BSI Cyber Index, SANS, Feodo), jeweils gegen die eigene Regelschwelle. Er ist nicht objektiv, nicht Teil des Dreier-Pegels und sagt erst nach einigen Wochen Verlauf etwas aus. Seine Stufen (ruhig, unauffällig, angespannt, hoch, außergewöhnlich) sind vorläufig und am Dreier-Pegel ausgerichtet; nach etwa 90 Tagen leiten wir sie aus seiner eigenen Verteilung neu ab.</p>
-      <h4 class="mono faq-q" data-t="f8q">Was bedeuten Ausblick und EPSS?</h4>
-      <p class="dim faq-a" data-t="f8a">Der Ausblick zeigt Schwachstellen, die noch nicht im KEV stehen, aber laut EPSS (FIRST) wahrscheinlich bald ausgenutzt werden. Er beeinflusst die Stufe nicht. Ob er stimmt, prüft die Seite selbst: Die Trefferquote erscheint, sobald genug Prognosen 30 Tage alt sind.</p>
+      <h4 class="mono faq-q" data-t="f8q">Was bedeuten Prognose und EPSS?</h4>
+      <p class="dim faq-a" data-t="f8a">Die Prognose zeigt Schwachstellen, die noch nicht im KEV stehen, aber laut EPSS (FIRST) wahrscheinlich bald ausgenutzt werden. Sie beeinflusst die Stufe nicht. Ob sie stimmt, prüft die Seite selbst: Die Trefferquote erscheint, sobald genug Prognosen 30 Tage alt sind.</p>
     </details>
     <details class="akk" id="i-methode"><summary class="mono" data-t="i_methode">methode</summary>
       <div class="grid3" data-t="i_grid">
@@ -254,7 +256,7 @@
       <div class="tabelle" role="region" aria-label="Prüfkalender" tabindex="0"><table id="pruef-tabelle"></table></div>
     </details>
     <details class="akk" id="i-hinweise"><summary class="mono" data-t="i_hinweise">hinweise</summary>
-      <ul id="hinweise" class="hinw"><li>Kein Ersatz für Warnungen des BSI oder eines CERT.</li><li>KEV ist eine weltweite Liste ausgenutzter Schwachstellen und enthält keine Angaben zu Sektoren oder Betroffenen.</li><li>Die Liste ist für den Abgleich mit dem eigenen Bestand gedacht: Wer verteidigt, weiß selbst, was im Einsatz ist.</li><li>Die Stufe zeigt, wie viele Schwachstellen neu als ausgenutzt gelten, im Vergleich zu den letzten 12 Monaten. Sie gilt allgemein, nicht für einen bestimmten Sektor, und sagt nichts über einzelne Angriffe.</li><li>ENISA-Werte gelten für die EU insgesamt, nicht für Deutschland.</li><li>Der Ausblick nennt eine Schätzung (EPSS) für neue Lücken. Er gehört nicht zur Stufe und ist kein Befund.</li></ul>
+      <ul id="hinweise" class="hinw"><li>Kein Ersatz für Warnungen des BSI oder eines CERT.</li><li>KEV ist eine weltweite Liste ausgenutzter Schwachstellen und enthält keine Angaben zu Sektoren oder Betroffenen.</li><li>Die Liste ist für den Abgleich mit dem eigenen Bestand gedacht: Wer verteidigt, weiß selbst, was im Einsatz ist.</li><li>Die Stufe zeigt, wie viele Schwachstellen neu als ausgenutzt gelten, im Vergleich zu den letzten 12 Monaten. Sie gilt allgemein, nicht für einen bestimmten Sektor, und sagt nichts über einzelne Angriffe.</li><li>ENISA-Werte gelten für die EU insgesamt, nicht für Deutschland.</li><li>Die Prognose nennt eine Schätzung (EPSS) für neue Lücken. Sie gehört nicht zur Stufe und ist kein Befund.</li></ul>
     </details>
   </section>
 </main>

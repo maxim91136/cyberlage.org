@@ -844,3 +844,19 @@ class PatchMeldeTests(unittest.TestCase):
         z["zusammenfassung"] = "2026-11-29"
         n3, _ = notify.ermittle(self.kev, None, None, self.lage, z, montag)
         self.assertIn("Fazit", [x for x in n3 if "Tageslage" in x][0])
+
+
+class AusblickTextTests(unittest.TestCase):
+    def test_beschreibung_und_produkt(self):
+        import fetch_ausblick as fa
+        d = [{"lang": "es", "value": "x"}, {"lang": "en", "value": "A use-after-free in Foo allows remote code execution. More text follows."}]
+        self.assertEqual(fa.kurzbeschreibung(d), "A use-after-free in Foo allows remote code execution.")
+        self.assertEqual(fa.kurzbeschreibung(None), "")
+        lang = [{"lang": "en", "value": "x" * 400}]
+        self.assertTrue(len(fa.kurzbeschreibung(lang)) <= 170)
+        konf = [{"nodes": [{"cpeMatch": [{"criteria": "cpe:2.3:a:apache:http_server:2.4:*:*:*:*:*:*:*"}]}]}]
+        self.assertEqual(fa.produkt_aus_cpe(konf), "apache http server")
+        self.assertEqual(fa.produkt_aus_cpe([{"nodes": [{"cpeMatch": [{"criteria": "cpe:2.3:o:*:*"}]}]}]), "")
+        r = fa.parse_nvd({"vulnerabilities": [{"cve": {"id": "CVE-1", "published": "2026-11-20T00:00:00", "descriptions": d, "configurations": konf}}]})
+        self.assertEqual(r[0]["produkt"], "apache http server")
+        self.assertTrue(r[0]["beschreibung"].startswith("A use-after-free"))

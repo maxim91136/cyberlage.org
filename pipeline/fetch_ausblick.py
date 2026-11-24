@@ -10,6 +10,7 @@ Quellen und Bedingungen:
 - EPSS von FIRST (kostenlos, mit Quellenangabe: "See EPSS at https://www.first.org/epss").
 """
 import json
+import re
 import sys
 import time
 import urllib.error
@@ -76,8 +77,31 @@ def parse_nvd(daten):
             "cve": kennung,
             "veroeffentlicht": str(c.get("published", ""))[:10],
             "cvss": cvss_wert(c.get("metrics")),
+            "beschreibung": kurzbeschreibung(c.get("descriptions")),
+            "produkt": produkt_aus_cpe(c.get("configurations")),
         })
     return ergebnis
+
+
+def kurzbeschreibung(beschreibungen, max_zeichen=170):
+    """Erster Satz der englischen Beschreibung aus der NVD, gekürzt. Leer, wenn keine vorhanden ist."""
+    for b in beschreibungen or []:
+        if b.get("lang") == "en" and b.get("value"):
+            text = " ".join(str(b["value"]).split())
+            satz = re.split(r"(?<=[.!?])\s", text, maxsplit=1)[0]
+            return (satz if len(satz) <= max_zeichen else satz[:max_zeichen - 1].rstrip() + "…")
+    return ""
+
+
+def produkt_aus_cpe(konfigurationen):
+    """Hersteller und Produkt aus dem ersten CPE-Eintrag ("cpe:2.3:a:hersteller:produkt:..."), sonst leer."""
+    for k in konfigurationen or []:
+        for n in k.get("nodes", []) or []:
+            for m in n.get("cpeMatch", []) or []:
+                teile = str(m.get("criteria", "")).split(":")
+                if len(teile) > 5 and teile[3] and teile[4] and teile[3] != "*" and teile[4] != "*":
+                    return (teile[3] + " " + teile[4]).replace("_", " ")
+    return ""
 
 
 def parse_epss(daten):
@@ -104,6 +128,8 @@ def baue(cves, epss, kev_ids, jetzt, fenster_tage=FENSTER_TAGE, n=LISTE_MAX):
             "perzentil": round(werte[1], 5),
             "veroeffentlicht": c["veroeffentlicht"],
             "cvss": c["cvss"],
+            "beschreibung": c.get("beschreibung", ""),
+            "produkt": c.get("produkt", ""),
             "link": f"https://nvd.nist.gov/vuln/detail/{c['cve']}",
         })
     zeilen.sort(key=lambda z: (-z["epss"], z["cve"]))

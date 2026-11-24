@@ -77,6 +77,7 @@
     $("kr").textContent = zahl(k.ransomware_bekannt_30_tage);
 
     var kq = (d.quellen || []).filter(function (q) { return q.id === "cisa-kev"; })[0] || {};
+    var kk = $("kev-kopf"); if (kk) kk.textContent = pick("Quelle: CISA KEV-Katalog (US-Behörde) · Katalog veröffentlicht ", "Source: CISA KEV catalog (US agency) · catalog published ") + datum(kq.veroeffentlicht_am) + pick(" · abgerufen ", " · retrieved ") + datum(kq.abgerufen_am);
     $("kev-quelle").textContent = txt("kev_quelle", datum(kq.veroeffentlicht_am), datum(kq.abgerufen_am), pick(kq.lizenz, kq.lizenz_en) || txt("keine"));
 
     var ql = $("quellenliste");
@@ -548,8 +549,8 @@
     $("rd-treffer").textContent = typeof t.quote_reif === "number"
       ? pick(proz(t.quote_reif) + " der " + t.reif + " Prognosen (EPSS ab " + Math.round((t.schwelle || 0.1) * 100) + " %), die älter als " + t.reif_nach_tagen + " Tage sind, standen später im KEV. Insgesamt geprüft seit " + datum(t.seit) + ": " + t.prognosen + ", eingetreten: " + t.eingetreten + ".",
              proz(t.quote_reif) + " of the " + t.reif + " forecasts (EPSS from " + Math.round((t.schwelle || 0.1) * 100) + " %) older than " + t.reif_nach_tagen + " days were later listed in KEV. Checked since " + datum(t.seit) + ": " + t.prognosen + ", occurred: " + t.eingetreten + ".")
-      : pick("Wir speichern jede Prognose des Ausblicks (EPSS ab " + Math.round((t.schwelle || 0.1) * 100) + " %) und prüfen später, ob die Lücke im KEV landet. Bisher gespeichert: " + (t.prognosen || 0) + ", davon eingetreten: " + (t.eingetreten || 0) + ". Die erste Quote erscheint " + (t.reif_nach_tagen || 30) + " Tage nach dem ersten gespeicherten Wert, vorher wäre sie nicht belastbar.",
-             "We store every forecast of the outlook (EPSS from " + Math.round((t.schwelle || 0.1) * 100) + " %) and check later whether the vulnerability lands in KEV. Stored so far: " + (t.prognosen || 0) + ", occurred: " + (t.eingetreten || 0) + ". The first rate appears " + (t.reif_nach_tagen || 30) + " days after the first stored value; earlier it would not be reliable.");
+      : pick("Wir speichern jede Prognose (EPSS ab " + Math.round((t.schwelle || 0.1) * 100) + " %) und prüfen später, ob die Lücke im KEV landet. Bisher gespeichert: " + (t.prognosen || 0) + ", davon eingetreten: " + (t.eingetreten || 0) + ". Die erste Quote erscheint " + (t.reif_nach_tagen || 30) + " Tage nach dem ersten gespeicherten Wert, vorher wäre sie nicht belastbar.",
+             "We store every forecast (EPSS from " + Math.round((t.schwelle || 0.1) * 100) + " %) and check later whether the vulnerability lands in KEV. Stored so far: " + (t.prognosen || 0) + ", occurred: " + (t.eingetreten || 0) + ". The first rate appears " + (t.reif_nach_tagen || 30) + " days after the first stored value; earlier it would not be reliable.");
     var e = r.europa;
     $("rd-eu").textContent = !e ? txt("keine") : pick(
       e.auch_im_cisa + " von " + e.eu_eintraege + " Einträgen im EU-KEV stehen auch im CISA-KEV, " + e.nur_eu + " nur in der EU. Bei " + e.eu_datum_frueher + " nennt die EU ein früheres Ausnutzungsdatum als die Aufnahme bei der CISA (Median-Abstand " + tage(e.median_abstand_tage) + " Tage). Der EU-Katalog bildet den US-Katalog also fast vollständig ab.",
@@ -582,7 +583,7 @@
       kachel({ gr: "score", nat: "eins", quelle: "extern", sig: "SANS Infocon", name: "SANS Infocon", url: "https://isc.sans.edu/", wert: pick(sn[0], sn[1]), misst: pick("Scans und Ausbrüche im Netz", "scans and outbreaks across the internet"), stand: tg + datum(r.sans.abgerufen_am) + " · live" });
     }
     if (r.feodo) kachel({ gr: "score", nat: "mess", quelle: "extern", sig: "Botnet servers (Feodo)", name: pick("Botnetz-Server (Feodo)", "Botnet servers (Feodo)"), url: "https://feodotracker.abuse.ch/", wert: zahl(r.feodo.online), einheit: pick(" aktiv", " active"), misst: pick("aktive Steuerserver, abuse.ch", "active command servers, abuse.ch"), stand: pick("täglich · ", "daily · ") + ((r.konsens && r.konsens.messtage_feodo) || 0) + pick(" Messtage · abgerufen ", " days of data · fetched ") + datum(r.abgerufen_am) });
-    if (typeof t.prognosen === "number") kachel({ gr: "ktx", nat: "mess", quelle: "eigen", name: pick("Trefferquote Ausblick", "Outlook hit rate"), wert: typeof t.quote_reif === "number" ? proz(t.quote_reif) : "–", misst: pick("Prognosen: ", "forecasts: ") + t.prognosen + pick(", eingetreten: ", ", occurred: ") + t.eingetreten, stand: (typeof t.quote_reif === "number" ? "" : pick("erste Quote nach 30 Tagen · ", "first rate after 30 days · ")) + pick("eigener Abgleich EPSS gegen KEV · Stand ", "own comparison EPSS vs KEV · as of ") + datum(r.abgerufen_am) });
+    if (typeof t.prognosen === "number") kachel({ gr: "ktx", nat: "mess", quelle: "eigen", name: pick("Trefferquote Prognose", "Forecast hit rate"), wert: typeof t.quote_reif === "number" ? proz(t.quote_reif) : "–", misst: pick("Prognosen: ", "forecasts: ") + t.prognosen + pick(", eingetreten: ", ", occurred: ") + t.eingetreten, stand: (typeof t.quote_reif === "number" ? "" : pick("erste Quote nach 30 Tagen · ", "first rate after 30 days · ")) + pick("eigener Abgleich EPSS gegen KEV · Stand ", "own comparison EPSS vs KEV · as of ") + datum(r.abgerufen_am) });
     if (e) kachel({ gr: "ktx", nat: "mess", quelle: "eigen", name: "EU-KEV", wert: e.auch_im_cisa + "/" + e.eu_eintraege, misst: pick("EU-Einträge, die auch im CISA-KEV stehen", "EU entries also in CISA KEV"), stand: pick("eigener Abgleich EUVD (ENISA) gegen CISA-KEV · abgerufen ", "own comparison EUVD (ENISA) vs CISA KEV · retrieved ") + datum((d.eu_kev || {}).abgerufen_am || r.abgerufen_am) });
     if (r.ncsc) kachel({ gr: "ktx", nat: "mess", quelle: "extern", name: "NCSC-NL", url: "https://advisories.ncsc.nl/", wert: zahl(r.ncsc.advisories_30), einheit: pick(" Advisories", " advisories"), misst: zahl(r.ncsc.hoch_hoch_30) + pick(" davon mit Kans und Schade hoch", " rated likelihood and damage high"), stand: pick("30 Tage · ", "30 days · ") + tg + datum(r.abgerufen_am) });
     (d.sektor || []).forEach(function (x) {
@@ -648,7 +649,10 @@
       r.appendChild(el("span", "mono dim", datum(e.veroeffentlicht)));
       r.appendChild(el("span", "mono " + (e.epss >= (u.schwelle_hoch || 0.1) ? "rw" : ""), txt("ab_zeile", prozent(e.epss))));
       r.appendChild(el("span", "mono dim", typeof e.cvss === "number" ? "CVSS " + e.cvss.toLocaleString(window.I18N.locale, { minimumFractionDigits: 1 }) : "CVSS –"));
-      var t = el("span", "titel"); t.appendChild(link(e.link, e.cve)); r.appendChild(t);
+      var t = el("span", "titel"); t.appendChild(link(e.link, e.cve));
+      if (e.produkt) t.appendChild(el("span", "mono dim", " · " + e.produkt));
+      if (e.beschreibung) t.appendChild(el("div", "ab-b dim", e.beschreibung));
+      r.appendChild(t);
       return r;
     }), 10);
   }
