@@ -292,3 +292,4 @@ html.alarm .marke{animation:flackern 6s infinite}
 .blau{display:inline-flex;align-items:stretch;margin:12px 0 0;font-size:12px;letter-spacing:.06em;border:1px solid #3d7dd8;color:#8fc0ff;background:rgba(61,125,216,.10)}
 .blau .bl-k{padding:6px 10px;background:#3d7dd8;color:#06090b;font-weight:700}
 .blau .bl-m{padding:6px 12px;text-transform:none;letter-spacing:.02em;font-size:13px}
+.faq-q{margin:16px 16px 4px;color:var(--text);font-size:14px;font-weight:600}.faq-a{margin:0 16px 12px;max-width:72ch}#i-faq{padding-bottom:6px}
