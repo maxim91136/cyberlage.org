@@ -29,6 +29,7 @@ RADAR = WURZEL / "data" / "radar"
 UA = "cyberlage.org (privates Projekt von Dreier Labs, https://cyberlage.org)"
 CVE_URL = "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/{y}/{g}xxx/{c}.json"
 SANS_URL = "https://isc.sans.edu/api/infocon?json"
+NCSC_URL = "https://advisories.ncsc.nl/rss/advisories"
 FEODO_URL = "https://feodotracker.abuse.ch/downloads/ipblocklist.json"
 ANFANG = "2022-01"      # früheste Monate im Verlauf
 FRISCH_TAGE = 365
@@ -178,6 +179,40 @@ def hole_sans():
     return None
 
 
+def ncsc_zaehlen(xml_text, heute):
+    """Zählt Advisories des niederländischen NCSC der letzten 30 Tage und davon die mit Kans und Schade je 'high'."""
+    import re
+    import xml.etree.ElementTree as ET
+    from email.utils import parsedate_to_datetime
+    wurzel = ET.fromstring(xml_text)
+    gesamt = hoch = 0
+    for it in wurzel.iter("item"):
+        d = it.findtext("pubDate")
+        try:
+            tag = parsedate_to_datetime(d).date()
+        except (TypeError, ValueError):
+            continue
+        if not 0 <= (heute - tag).days < 30:
+            continue
+        gesamt += 1
+        text = " ".join(filter(None, [it.findtext("title"), it.findtext("description")]))
+        k = re.search(r"kans\W+(high|medium|low)", text, re.I)
+        sc = re.search(r"schade\W+(high|medium|low)", text, re.I)
+        if (k and k.group(1).lower() == "high" and sc and sc.group(1).lower() == "high") or re.search(r"high/high", text, re.I):
+            hoch += 1
+    return {"advisories_30": gesamt, "hoch_hoch_30": hoch} if gesamt else None
+
+
+def hole_ncsc(heute):
+    """NCSC-NL Beveiligingsadviezen (RSS ohne Konto). None, wenn nicht erreichbar oder nicht lesbar."""
+    try:
+        req = urllib.request.Request(NCSC_URL, headers={"User-Agent": UA})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            return ncsc_zaehlen(r.read(), heute)
+    except Exception:
+        return None
+
+
 def hole_feodo():
     """Zahl der derzeit aktiven Botnetz-Steuerserver (Feodo Tracker, abuse.ch, CC0). None, wenn nicht erreichbar."""
     try:
@@ -230,7 +265,7 @@ def konsens(lage_stufe, zeit, einschaetzungen, sans, verlauf):
     return {"signale": signale, "erhoeht": sum(1 for x in extern if x["erhoeht"]), "bewertet": len(extern), "messtage_feodo": len(werte)}
 
 
-def baue(kev, eu, ausblick, cache, prognosen, heute, sans=None, feodo=None, serie=None):
+def baue(kev, eu, ausblick, cache, prognosen, heute, sans=None, feodo=None, serie=None, ncsc=None):
     eintraege = kev["eintraege"]
     zeit = zeit_bis_aufnahme(eintraege, cache, heute)
     return {
@@ -239,6 +274,7 @@ def baue(kev, eu, ausblick, cache, prognosen, heute, sans=None, feodo=None, seri
         "trefferquote": trefferquote(prognosen, eintraege, ausblick, heute),
         "europa": abgleich_eu(eintraege, eu),
         "sans": sans,
+        "ncsc": ncsc,
         "feodo": feodo,
         "feodo_serie": serie or {},
         "einschaetzungen": lese_csv(RADAR / "einschaetzungen.csv"),
@@ -262,7 +298,7 @@ def main():
     feodo = hole_feodo()
     serie = feodo_verlauf(serie, feodo, heute)
     ergebnis = baue(kev, lese(WURZEL / "data" / "eu" / "kev.json"), lese(WURZEL / "data" / "ausblick" / "ausblick.json"),
-                    cache, prognosen, heute, hole_sans(), feodo, serie)
+                    cache, prognosen, heute, hole_sans(), feodo, serie, hole_ncsc(heute))
     RADAR.mkdir(parents=True, exist_ok=True)
     (RADAR / "veroeffentlicht.json").write_text(json.dumps(cache, sort_keys=True, indent=0) + "\n", encoding="utf-8")
     (RADAR / "feodo.json").write_text(json.dumps(serie, sort_keys=True, indent=0) + "\n", encoding="utf-8")

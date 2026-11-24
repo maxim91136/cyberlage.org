@@ -30,8 +30,8 @@
 <nav class="leiste" aria-label="Hauptnavigation">
   <div class="wrap navin">
     <a href="#lage" data-sec="lage">/lage</a>
-    <a href="#rueckblick" data-sec="rueckblick" data-t="n_rueck">/rückblick</a>
     <a href="#radar" data-sec="radar" data-t="n_radar">/radar</a>
+    <a href="#rueckblick" data-sec="rueckblick" data-t="n_rueck">/rückblick</a>
     <details class="dd"><summary data-sec="neu" data-t="n_neu">/neu</summary><div class="dd-box">
       <a href="#neu" data-tab="kev" data-t="tab_kev">KEV-Katalog</a>
       <a href="#neu" data-tab="bsi">CERT-Bund</a>
@@ -86,14 +86,6 @@
     <noscript><!--ssr-start--><p class="panel pad"><b>Die globale Cyberlage, Stand 2026-11-24: Stufe hoch.</b> 36 neu aufgenommene ausgenutzte Schwachstellen in 30 Tagen. Neu im CISA-Katalog ausgenutzter Schwachstellen: 10 in 7 Tagen, 36 in 30 Tagen. Regelbasiert und offen belegt. Ein privates Projekt von Dreier Labs, keine amtliche Stelle.</p><p class="panel pad">Die Zahlen stehen als Rohdaten unter <a href="data/lage.json">data/lage.json</a>, die Regeln auf <a href="https://github.com/maxim91136/cyberlage.org/blob/main/RULES.md">GitHub</a>. Für die Ansicht mit Verlauf und Listen wird JavaScript benötigt.</p><!--ssr-end--></noscript>
   </section>
 
-  <section id="rueckblick" class="wrap" aria-labelledby="h-rueck">
-    <h2 id="h-rueck" class="mono" data-t="r_h">## rückblick</h2>
-    <div class="panel pad">
-      <svg id="verlauf" role="img" aria-labelledby="verlauf-titel" viewBox="0 0 1000 220" width="100%" preserveAspectRatio="xMidYMid meet"><title id="verlauf-titel">Verlauf der neu aufgenommenen Schwachstellen</title></svg>
-      <p class="mono dim fine" id="verlauf-legende"></p>
-    </div>
-  </section>
-
   <section id="radar" class="wrap" aria-labelledby="h-radar">
     <h2 id="h-radar" class="mono" data-t="rd_h">## radar</h2>
     <p class="dim" data-t="rd_intro">Eigene Messungen aus offenen Daten, daneben die Einschätzungen anderer Stellen. Nichts davon fließt in die Stufe.</p>
@@ -122,6 +114,14 @@
       <h3 class="mono rd-t" data-t="rd_warum_h">Warum steigt es? Belegte Gründe</h3>
       <ul class="hinw" id="rd-gruende"></ul>
       <p class="mono dim fine" data-t="rd_warum_n">Geopolitische Spannungen messen wir nicht. Sie stehen nur dort, wo eine Quelle sie belegt.</p>
+    </div>
+  </section>
+
+  <section id="rueckblick" class="wrap" aria-labelledby="h-rueck">
+    <h2 id="h-rueck" class="mono" data-t="r_h">## rückblick</h2>
+    <div class="panel pad">
+      <svg id="verlauf" role="img" aria-labelledby="verlauf-titel" viewBox="0 0 1000 220" width="100%" preserveAspectRatio="xMidYMid meet"><title id="verlauf-titel">Verlauf der neu aufgenommenen Schwachstellen</title></svg>
+      <p class="mono dim fine" id="verlauf-legende"></p>
     </div>
   </section>
 

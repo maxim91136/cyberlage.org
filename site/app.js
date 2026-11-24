@@ -340,6 +340,9 @@
       var mt = (r.konsens && r.konsens.messtage_feodo) || 0;
       zeile("Feodo Tracker (abuse.ch)", "https://feodotracker.abuse.ch/", zahl(r.feodo.online) + pick(" aktive Steuerserver", " active command servers"), pick("Botnetz-Infrastruktur, ein weiterer Blickwinkel", "botnet infrastructure, another angle"), pick("täglich · Verlauf seit ", "daily · series since ") + mt + pick(" Messtagen", " days of data"));
     }
+    if (r.ncsc) {
+      zeile("NCSC-NL Advisories", "https://advisories.ncsc.nl/", zahl(r.ncsc.advisories_30) + pick(" Advisories, davon ", " advisories, ") + zahl(r.ncsc.hoch_hoch_30) + pick(" mit Kans und Schade hoch", " of them rated likelihood and damage high"), pick("niederländisches Warnzentrum, reiner Kontext, zählt nicht im Konsens", "Dutch warning centre, context only, not counted in the consensus"), pick("30 Tage · Stand ", "30 days · as of ") + datum(r.abgerufen_am));
+    }
     if (r.sans) {
       var sn = { green: ["ruhig (grün)", "calm (green)"], yellow: ["erhöht (gelb)", "raised (yellow)"], orange: ["hoch (orange)", "high (orange)"], red: ["kritisch (rot)", "critical (red)"] }[r.sans.status];
       zeile("SANS Internet Storm Center", "https://isc.sans.edu/", pick(sn[0], sn[1]), pick("beobachtet Scans und Ausbrüche im Netz, ein anderer Blickwinkel", "watches scans and outbreaks across the internet, a different angle"), pick("Stand ", "as of ") + datum(r.sans.abgerufen_am) + pick(" · live", " · live"));

@@ -180,7 +180,7 @@ def zusatz_radar(daten):
     z = dict(daten["zeit_bis_kev"])
     z["verlauf"] = z.get("verlauf", [])[-36:]
     return {"feodo": daten.get("feodo"), "feodo_serie": daten.get("feodo_serie") or {}, "abgerufen_am": daten.get("abgerufen_am"), "zeit_bis_kev": z, "trefferquote": daten.get("trefferquote"),
-            "europa": daten.get("europa"), "sans": daten.get("sans"),
+            "europa": daten.get("europa"), "sans": daten.get("sans"), "ncsc": daten.get("ncsc"),
             "einschaetzungen": daten.get("einschaetzungen") or [], "gruende": daten.get("gruende") or []}
 
 
@@ -265,6 +265,9 @@ def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None, telegram_link=None, 
         if ergebnis["radar"].get("feodo"):
             ergebnis["quellen"].append({"id": "feodo", "name": "Feodo Tracker (abuse.ch)", "link": "https://feodotracker.abuse.ch/",
                                         "lizenz": "CC0, nur die Zahl aktiver Steuerserver", "abgerufen_am": ab})
+        if ergebnis["radar"].get("ncsc"):
+            ergebnis["quellen"].append({"id": "ncsc", "name": "NCSC-NL Beveiligingsadviezen", "link": "https://advisories.ncsc.nl/",
+                                        "lizenz": "Lizenz nicht geprüft, nur Zahl der Advisories mit Quellenangabe", "abgerufen_am": ergebnis["radar"]["abgerufen_am"]})
         if ergebnis["radar"].get("sans"):
             ergebnis["quellen"].append({"id": "sans", "name": "SANS Internet Storm Center (Infocon)", "link": "https://isc.sans.edu/",
                                         "lizenz": "Creative Commons laut Fußzeile des ISC, nur Ampelstatus mit Quellenangabe", "abgerufen_am": ergebnis["radar"]["sans"]["abgerufen_am"]})

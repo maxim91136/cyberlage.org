@@ -426,5 +426,14 @@ class FeedTests(unittest.TestCase):
         self.assertIn("Ransomware", x)
 
 
+
+class NcscTests(unittest.TestCase):
+    def test_zaehlt_dreissig_tage_und_hoch_hoch(self):
+        import datetime, fetch_radar
+        x = ('<rss><channel><item><title>a high/high</title><pubDate>Mon, 23 Nov 2026 10:00:00 +0100</pubDate></item>'
+             '<item><title>b</title><description>Kans: medium Schade: high</description><pubDate>Sun, 22 Nov 2026 10:00:00 +0100</pubDate></item>'
+             '<item><title>alt</title><pubDate>Mon, 01 Jan 2026 10:00:00 +0100</pubDate></item></channel></rss>')
+        self.assertEqual(fetch_radar.ncsc_zaehlen(x, datetime.date(2026, 11, 24)), {"advisories_30": 2, "hoch_hoch_30": 1})
+
 if __name__ == "__main__":
     unittest.main()
