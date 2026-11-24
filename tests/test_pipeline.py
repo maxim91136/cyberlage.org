@@ -11,6 +11,7 @@ import fetch_ausblick  # noqa: E402
 import fetch_radar  # noqa: E402
 import fetch_extra  # noqa: E402
 import notify  # noqa: E402
+import pruefen  # noqa: E402
 import fetch_kev  # noqa: E402
 import score  # noqa: E402
 
@@ -486,3 +487,34 @@ class RadarScoreTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class PruefkalenderTests(unittest.TestCase):
+    def test_faellig_und_link_tot(self):
+        from datetime import datetime, timezone
+        jetzt = datetime(2026, 11, 24, tzinfo=timezone.utc)
+        fehl = lambda url: (False, 404)
+        ok = lambda url: (True, 200)
+        spaet = date(2027, 3, 1)  # nach der 90-Tage-Frist der Gründe, vor der der Jahresangaben
+        r1 = pruefen.pruefen(spaet, None, pruefer=ok, jetzt=jetzt)
+        namen = [e["id"] for e in r1["eintraege"] if e["faellig"]]
+        self.assertIn("r7q3", namen)
+        self.assertNotIn("BSI Cyber Index 2026", namen)
+        # ein einzelner Fehlschlag ist noch kein toter Link, der zweite in Folge schon
+        r2 = pruefen.pruefen(date(2026, 11, 24), None, pruefer=fehl, jetzt=jetzt)
+        self.assertFalse(any(e["link_tot"] for e in r2["eintraege"]))
+        r3 = pruefen.pruefen(date(2026, 11, 25), r2, pruefer=fehl, jetzt=datetime(2026, 11, 26, tzinfo=timezone.utc))
+        self.assertTrue(all(e["link_tot"] for e in r3["eintraege"]))
+        self.assertEqual(len(r3["offen"]), len(r3["eintraege"]))
+
+    def test_nicht_oefter_als_taeglich(self):
+        from datetime import datetime, timezone
+        jetzt = datetime(2026, 11, 24, 8, tzinfo=timezone.utc)
+        n = []
+        def zaehl(url):
+            n.append(url)
+            return True, 200
+        r = pruefen.pruefen(date(2026, 11, 24), None, pruefer=zaehl, jetzt=jetzt)
+        erste = len(n)
+        pruefen.pruefen(date(2026, 11, 24), r, pruefer=zaehl, jetzt=jetzt.replace(hour=10))
+        self.assertEqual(len(n), erste)

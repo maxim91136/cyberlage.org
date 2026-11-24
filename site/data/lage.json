@@ -2693,6 +2693,100 @@
       "erhoeht": 1,
       "bewertet": 2,
       "messtage_feodo": 1
+    },
+    "pruefung": {
+      "stand": "2026-11-24",
+      "fristen_tage": {
+        "jaehrlich": 330,
+        "grund": 90
+      },
+      "eintraege": [
+        {
+          "id": "r7q3",
+          "bereich": "grund",
+          "name": "Rapid7 Quarterly Threat Landscape Report Q3 2026",
+          "link": "https://www.rapid7.com/blog/post/tr-q3-2026-threat-update-attackers-exploiting-vulnerabilities-within-3-days/",
+          "geprueft_am": "2026-11-24",
+          "erreichbar": false,
+          "status": "URLError",
+          "fehler_in_folge": 1,
+          "link_geprueft_um": "2026-11-24T11:30:53+00:00",
+          "faellig_am": "2027-02-22",
+          "faellig": false,
+          "link_tot": false
+        },
+        {
+          "id": "r7gtl",
+          "bereich": "grund",
+          "name": "Rapid7 2026 Global Threat Landscape Report",
+          "link": "https://www.rapid7.com/blog/post/tr-accelerating-attack-cycle-2026-global-threat-landscape-report",
+          "geprueft_am": "2026-11-24",
+          "erreichbar": false,
+          "status": "URLError",
+          "fehler_in_folge": 1,
+          "link_geprueft_um": "2026-11-24T11:30:53+00:00",
+          "faellig_am": "2027-02-22",
+          "faellig": false,
+          "link_tot": false
+        },
+        {
+          "id": "cogent",
+          "bereich": "grund",
+          "name": "Cogent Research über Dark Reading",
+          "link": "https://www.darkreading.com/threat-intelligence/ai-assisted-exploit-development-scanner-detection",
+          "geprueft_am": "2026-11-24",
+          "erreichbar": false,
+          "status": "URLError",
+          "fehler_in_folge": 1,
+          "link_geprueft_um": "2026-11-24T11:30:53+00:00",
+          "faellig_am": "2027-02-22",
+          "faellig": false,
+          "link_tot": false
+        },
+        {
+          "id": "bsi26",
+          "bereich": "grund",
+          "name": "BSI Lagebericht 2026 (über ZDFheute)",
+          "link": "https://www.zdfheute.de/politik/deutschland/bsi-lagebericht-warnung-cyberangriff-ki-100.html",
+          "geprueft_am": "2026-11-24",
+          "erreichbar": false,
+          "status": "URLError",
+          "fehler_in_folge": 1,
+          "link_geprueft_um": "2026-11-24T11:30:53+00:00",
+          "faellig_am": "2027-02-22",
+          "faellig": false,
+          "link_tot": false
+        },
+        {
+          "id": "BSI Cyber Index 2026",
+          "bereich": "jaehrlich",
+          "name": "BSI Cyber Index 2026",
+          "link": "https://www.bsi-lagebericht.de/node/3",
+          "geprueft_am": "2026-11-24",
+          "erreichbar": false,
+          "status": "URLError",
+          "fehler_in_folge": 1,
+          "link_geprueft_um": "2026-11-24T11:30:53+00:00",
+          "faellig_am": "2027-10-20",
+          "faellig": false,
+          "link_tot": false
+        },
+        {
+          "id": "BSI Lagebericht 2026",
+          "bereich": "jaehrlich",
+          "name": "BSI Lagebericht 2026",
+          "link": "https://www.bsi.bund.de/DE/Service-Navi/Publikationen/Lagebericht/lagebericht_node.html",
+          "geprueft_am": "2026-11-24",
+          "erreichbar": false,
+          "status": "URLError",
+          "fehler_in_folge": 1,
+          "link_geprueft_um": "2026-11-24T11:30:53+00:00",
+          "faellig_am": "2027-10-20",
+          "faellig": false,
+          "link_tot": false
+        }
+      ],
+      "offen": []
     }
   },
   "sektor": [

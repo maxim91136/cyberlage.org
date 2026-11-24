@@ -236,6 +236,7 @@ def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None, telegram_link=None, 
         r = ergebnis["radar"]
         r["konsens"] = fetch_radar.konsens(ergebnis["stufe"], r["zeit_bis_kev"], r["einschaetzungen"], r.get("sans"), r.pop("feodo_serie", {}),
                                        len(fenster), regeln.get("erhoeht_ab"))
+        r["pruefung"] = lese_optional(WURZEL / "data" / "radar" / "pruefung.json")
 
     ergebnis["sektor"] = [
         {

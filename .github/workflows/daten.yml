@@ -20,6 +20,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   aktualisieren:
@@ -42,6 +43,25 @@ jobs:
       - name: Radar rechnen (CVE-Liste, SANS, Trefferquote)
         run: python pipeline/fetch_radar.py
         continue-on-error: true
+      - name: Prüfkalender (Fristen und Links der Handangaben)
+        continue-on-error: true
+        env:
+          PRUEFUNG_MD: ${{ runner.temp }}/pruefung.md
+        run: python pipeline/pruefen.py
+      - name: Prüf-Issue öffnen oder schließen
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PRUEFUNG_MD: ${{ runner.temp }}/pruefung.md
+        run: |
+          gh label create pruefung --color BFD4F2 --description "Prüfkalender" 2>/dev/null || true
+          nr=$(gh issue list --label pruefung --state open --json number --jq '.[0].number // empty')
+          if [ -s "$PRUEFUNG_MD" ]; then
+            if [ -n "$nr" ]; then gh issue edit "$nr" --body-file "$PRUEFUNG_MD"
+            else gh issue create --label pruefung --title "Prüfung fällig" --body-file "$PRUEFUNG_MD"; fi
+          elif [ -n "$nr" ]; then
+            gh issue close "$nr" --comment "Alles geprüft, nichts mehr offen."
+          fi
       - name: Auswerten
         run: python pipeline/score.py
       - name: RSS-Feed schreiben

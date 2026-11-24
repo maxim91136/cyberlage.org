@@ -392,8 +392,14 @@
     var ul = $("rd-gruende"); ul.textContent = "";
     (r.gruende || []).forEach(function (g) {
       var li = el("li", "", pick(g.aussage, g.aussage_en) + " ");
-      li.appendChild(link(g.link, "[" + g.quelle + "]")); ul.appendChild(li);
+      li.appendChild(link(g.link, "[" + g.quelle + "]"));
+      var pe = ((r.pruefung || {}).eintraege || []).filter(function (e) { return e.id === g.id; })[0];
+      var st = el("span", "pr mono" + (pe && (pe.faellig || pe.link_tot) ? " warn" : ""),
+        " " + pick("geprüft ", "checked ") + datum(g.geprueft_am) + (pe && pe.faellig ? pick(" · Prüfung fällig", " · check due") : "") + (pe && pe.link_tot ? pick(" · Link prüfen", " · check link") : ""));
+      li.appendChild(st); ul.appendChild(li);
     });
+    var pz = $("rd-pruef"), pr = r.pruefung;
+    if (pz) pz.textContent = pr ? pick("Prüfstand: ", "Check status: ") + (pr.offen.length ? pr.offen.length + pick(" Angaben brauchen eine Prüfung.", " items need a check.") : pick("alle Angaben innerhalb der Frist, alle Quellen erreichbar", "all items within their deadline, all sources reachable")) + " (" + datum(pr.stand) + ")" : "";
   }
 
   function zeichneRadar(v) {
