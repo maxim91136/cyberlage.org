@@ -279,7 +279,7 @@ def aktualisiere(alt, liste_json, hole_dok, kev_cves, jetzt):
 UBUNTU_URL = "https://ubuntu.com/security/notices.json?limit=20&offset=%d"
 UBUNTU_SEITEN = 20  # höchstens 400 Meldungen, genug für 30 Tage
 REDHAT_URLS = ["https://access.redhat.com/hydra/rest/securitydata/csaf.json?after=%s", "https://access.redhat.com/hydra/rest/securitydata/cvrf.json?after=%s"]
-REDHAT_CSV = "https://security.access.redhat.com/data/csaf/v2/advisories/changes.csv"
+REDHAT_CSV = ["https://security.access.redhat.com/data/csaf/v2/advisories/releases.csv", "https://security.access.redhat.com/data/csaf/v2/advisories/changes.csv"]  # releases: Veröffentlichungsdatum, changes: letzte Änderung
 DEBIAN_URLS = ["https://www.debian.org/security/dsa-long.rdf", "https://www.debian.org/security/dsa.rdf", "https://www.debian.org/security/dsa-long.en.rdf", "https://www.debian.org/security/dsa.en.rdf"]
 CISCO_URL = "https://sec.cloudapps.cisco.com/security/center/psirtrss20/CiscoSecurityAdvisory.xml"
 HERSTELLER_DATEI = WURZEL / "data" / "patches" / "hersteller.json"
@@ -437,10 +437,14 @@ def hole_quelle(qid, heute, lade=lade_roh):
                 return parse_redhat(json.loads(lade(u % ab).decode("utf-8")))
             except Exception as e:
                 letzter = e
-        try:
-            return parse_redhat_csv(lade(REDHAT_CSV).decode("utf-8", "replace"))
-        except Exception as e:
-            raise QuellFehler("Red Hat: %s; Ausweichquelle: %s" % (letzter, e))
+        for u in REDHAT_CSV:
+            try:
+                r = parse_redhat_csv(lade(u).decode("utf-8", "replace"))
+                if r:
+                    return r
+            except Exception as e:
+                letzter = e
+        raise QuellFehler("Red Hat: %s" % letzter)
     if qid == "debian":
         letzter = None
         for u in DEBIAN_URLS:
