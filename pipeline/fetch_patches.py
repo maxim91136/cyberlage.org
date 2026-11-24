@@ -16,6 +16,7 @@ import re
 import sys
 import urllib.request
 import xml.etree.ElementTree as ET
+from concurrent.futures import ThreadPoolExecutor
 from datetime import timedelta
 from email.utils import parsedate_to_datetime
 from datetime import datetime, timezone
@@ -42,7 +43,7 @@ class QuellFehler(Exception):
 
 def lade_json(url):
     req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/json"})
-    with urllib.request.urlopen(req, timeout=180) as r:
+    with urllib.request.urlopen(req, timeout=120) as r:
         return json.loads(r.read().decode("utf-8"))
 
 
@@ -175,14 +176,21 @@ def bewerte(monat, vorherige):
     else:
         verh, groesse, groesse_en = None, "noch kein Vergleich (zu wenig Vormonate)", "no comparison yet (too few earlier months)"
     kritisch = monat["schwere"].get("Critical", 0)
-    if monat["ausgenutzt"] > 0:
+    n_aus = monat["ausgenutzt"]
+    if n_aus > 0:
         stufe = "dringend"
-        empf = "Die %d bereits ausgenutzten Lücken zuerst einspielen, danach die kritischen (%d)." % (monat["ausgenutzt"], kritisch)
-        empf_en = "Apply the %d already exploited flaws first, then the critical ones (%d)." % (monat["ausgenutzt"], kritisch)
+        erst = "die bereits ausgenutzte Lücke" if n_aus == 1 else "die %d bereits ausgenutzten Lücken" % n_aus
+        erst_en = "the already exploited flaw" if n_aus == 1 else "the %d already exploited flaws" % n_aus
+        dann = "" if kritisch == 0 else (", danach die als kritisch eingestufte Lücke" if kritisch == 1 else ", danach die %d als kritisch eingestuften" % kritisch)
+        dann_en = "" if kritisch == 0 else (", then the flaw rated critical" if kritisch == 1 else ", then the %d rated critical" % kritisch)
+        empf = "Zuerst %s einspielen%s." % (erst, dann)
+        empf_en = "Apply %s first%s." % (erst_en, dann_en)
     elif kritisch > 0:
         stufe = "zeitnah"
-        empf = "Kritische Lücken (%d) zeitnah einspielen, den Rest im normalen Zyklus." % kritisch
-        empf_en = "Apply critical flaws (%d) promptly, the rest in the normal cycle." % kritisch
+        was = "Die als kritisch eingestufte Lücke" if kritisch == 1 else "Die %d als kritisch eingestuften Lücken" % kritisch
+        was_en = "The flaw rated critical" if kritisch == 1 else "The %d flaws rated critical" % kritisch
+        empf = "%s zeitnah einspielen, den Rest im normalen Zyklus." % was
+        empf_en = "%s promptly, the rest in the normal cycle." % (was_en + " should be applied")
     else:
         stufe = "normal"
         empf = "Im normalen Patchzyklus einspielen."
@@ -215,6 +223,7 @@ def aktualisiere(alt, liste_json, hole_dok, kev_cves, jetzt):
     monate = dict(alt.get("monate", {}))
     ziel = monatsliste(liste_json, HISTORIE_MONATE + 1)
     fehler = []
+    zu_holen = []
     for e in ziel:
         mid = e["ID"]
         vorher = monate.get(mid)
@@ -222,10 +231,21 @@ def aktualisiere(alt, liste_json, hole_dok, kev_cves, jetzt):
             vorher = None  # alte Zählweise: neu holen, keine Nachträge daraus ableiten
         if vorher and vorher.get("aktuell") == e.get("CurrentReleaseDate"):
             continue
+        zu_holen.append((e, vorher))
+
+    def hole(paar):
+        e, _ = paar
         try:
-            doc = hole_dok(e.get("CvrfUrl") or MS_DOK % mid)
+            return hole_dok(e.get("CvrfUrl") or MS_DOK % e["ID"]), None
         except Exception as ex:  # fail-soft je Monat
-            fehler.append("%s: %s" % (mid, ex))
+            return None, "%s: %s" % (e["ID"], ex)
+
+    with ThreadPoolExecutor(max_workers=4) as pool:  # die Monatsdokumente sind groß, vier gleichzeitig
+        ergebnisse = list(pool.map(hole, zu_holen))
+    for (e, vorher), (doc, fehl) in zip(zu_holen, ergebnisse):
+        mid = e["ID"]
+        if fehl:
+            fehler.append(fehl)
             continue
         neu = verdichte_dokument(doc, kev_cves)
         neu["id"] = mid

@@ -43,6 +43,18 @@ def eintraege(lage):
             "link": w.get("link") or SEITE,
             "datum": w["datum"],
         })
+    for k, m in ((((lage.get("patches") or {}).get("microsoft") or {}).get("monate")) or {}).items():
+        b = m.get("bewertung") or {}
+        datum = str(m.get("erste_veroeffentlichung") or "")[:10]
+        if len(datum) != 10:
+            continue
+        liste.append({
+            "id": "ms-" + k,
+            "titel": f"Microsoft Patch Day {k}: {m['cves']} CVEs, {m['ausgenutzt']} ausgenutzt, {m['im_kev']} im KEV",
+            "text": f"Dringlichkeit: {b.get('dringlichkeit', '–')}. Umfang: {b.get('groesse', '–')}. {b.get('empfehlung', '')} Ohne Chromium (Edge) und Azure-Linux-Paketlücken. Quelle: Microsoft Security Response Center.",
+            "link": SEITE + "/#patches",
+            "datum": datum,
+        })
     liste.sort(key=lambda x: x["datum"], reverse=True)
     return liste[:MAX_EINTRAEGE]
 

@@ -611,7 +611,10 @@ class PatchTests(unittest.TestCase):
         b = fetch_patches.bewerte(monat, vor)
         self.assertEqual(b["groesse"], "größer als üblich")
         self.assertEqual(b["dringlichkeit"], "dringend")
-        self.assertIn("2 bereits ausgenutzten", b["empfehlung"])
+        self.assertEqual(b["empfehlung"], "Zuerst die 2 bereits ausgenutzten Lücken einspielen, danach die 5 als kritisch eingestuften.")
+        b1 = fetch_patches.bewerte({"cves": 80, "ausgenutzt": 1, "schwere": {"Critical": 1}}, vor)
+        self.assertEqual(b1["empfehlung"], "Zuerst die bereits ausgenutzte Lücke einspielen, danach die als kritisch eingestufte Lücke.")
+        self.assertEqual(fetch_patches.bewerte({"cves": 60, "ausgenutzt": 0, "schwere": {"Critical": 3}}, vor)["empfehlung"], "Die 3 als kritisch eingestuften Lücken zeitnah einspielen, den Rest im normalen Zyklus.")
         b2 = fetch_patches.bewerte({"cves": 60, "ausgenutzt": 0, "schwere": {"Critical": 0}}, vor)
         self.assertEqual((b2["groesse"], b2["dringlichkeit"]), ("üblicher Umfang", "normal"))
         b3 = fetch_patches.bewerte({"cves": 60, "ausgenutzt": 0, "schwere": {"Critical": 1}}, [{"cves": 60}])
@@ -784,3 +787,60 @@ class PrioritaetTests(unittest.TestCase):
         self.assertEqual(fetch_patches.hole_epss(["CVE-1"], lade), {})
         ok = lambda url: {"data": [{"cve": "CVE-1", "epss": "0.5", "percentile": "0.9", "date": "2026-11-25"}]}
         self.assertEqual(fetch_patches.hole_epss(["CVE-1"], ok)["CVE-1"][0], 0.5)
+
+
+class PatchMeldeTests(unittest.TestCase):
+    def setUp(self):
+        from datetime import datetime, timezone
+        self.jetzt = datetime(2026, 11, 25, 9, 0, tzinfo=timezone.utc)  # Mittwoch
+        self.kev = {"meta": {}, "eintraege": [kev_klein("CVE-1", "Cisco", "X", "2026-11-20")]}
+        monat = {"id": "2026-Nov", "erste_veroeffentlichung": "2026-11-10T08:00:00Z", "aktuell": "2026-11-10T08:00:00Z", "cves": 120, "schwere": {"Critical": 9},
+                 "ausgenutzt": 2, "oeffentlich_bekannt": 1, "im_kev": 2, "ausgenutzt_cves": ["CVE-2026-0001"], "nachtraege": [],
+                 "bewertung": {"groesse": "größer als üblich", "dringlichkeit": "dringend", "empfehlung": "Ausgenutzte zuerst."}}
+        self.lage = {"stufe": "hoch", "stufe_begruendung": "39 neu.", "kev": {"neu_7_tage": 9, "neu_30_tage": 39},
+                     "patches": {"microsoft": {"monate": {"2026-Nov": monat}}, "prioritaet": {"liste": [
+                         {"rang": 1, "quelle": "Microsoft", "link": "https://m/1", "cves": ["CVE-2026-0001"], "titel": "t", "grund": "Steht im CISA-KEV."}]}},
+                     "fazit": {"pegel_stufe": "hoch", "tempo_stufe": "erhoeht", "radar_stufe": "angespannt", "status": "vorlaeufig", "text": "Der Dreier-Pegel steht auf hoch.", "hinweis": "Täglich abgleichen."}}
+
+    def test_ohne_vorstand_nur_merken(self):
+        n, _ = notify.patch_nachrichten(self.lage, None, self.jetzt)
+        self.assertEqual(n, [])
+        n, z = notify.patch_nachrichten(self.lage, {"ms": {"2026-Nov": {"aktuell": "x", "nachtraege": 0}}}, self.jetzt)
+        self.assertEqual(n, [])  # bekannter Monat ohne Nachtrag
+
+    def test_neuer_patchday_und_nachtrag(self):
+        self.lage["patches"]["microsoft"]["monate"]["2026-Nov"]["erste_veroeffentlichung"] = "2026-11-18T08:00:00Z"  # innerhalb der 10 Tage
+        n, z = notify.patch_nachrichten(self.lage, {"ms": {}}, self.jetzt)
+        self.assertEqual(len(n), 1)
+        self.assertIn("Patch Day 2026-Nov", n[0])
+        self.assertIn("120 CVEs", n[0])
+        self.assertIn("Dringlichkeit: <b>dringend</b>", n[0])
+        self.lage["patches"]["microsoft"]["monate"]["2026-Nov"]["nachtraege"] = [{"am": "2026-11-18", "neue_cves": 3, "ausgenutzt_neu": 1}]
+        n2, _ = notify.patch_nachrichten(self.lage, z, self.jetzt)
+        self.assertEqual(len(n2), 1)
+        self.assertIn("Nachtrag", n2[0])
+        self.assertIn("3 neue", n2[0])
+
+    def test_alter_monat_nicht_nachtraeglich_melden(self):
+        self.lage["patches"]["microsoft"]["monate"]["2026-Nov"]["erste_veroeffentlichung"] = "2026-09-10T08:00:00Z"
+        n, _ = notify.patch_nachrichten(self.lage, {"ms": {}}, self.jetzt)
+        self.assertEqual(n, [])
+
+    def test_fazit_nur_bei_aenderung_oder_montags(self):
+        zustand = {"gesehen": {"kev": ["CVE-1"], "bsi": [], "eu": []}, "stufe": "hoch", "zusammenfassung": "2026-11-24", "offen": {"kev": [], "bsi": [], "eu": []},
+                   "patches": {"ms": {"2026-Nov": {"aktuell": "2026-11-10T08:00:00Z", "nachtraege": 0}}}, "fazit_gesendet": None}
+        n, z = notify.ermittle(self.kev, None, None, self.lage, zustand, self.jetzt)
+        tages = [x for x in n if "Tageslage" in x][0]
+        self.assertIn("Fazit", tages)
+        self.assertIn("Diese Woche zuerst patchen", tages)
+        self.assertEqual(z["fazit_gesendet"], "hoch|erhoeht|angespannt")
+        # gleicher Stand, kein Montag: kein Fazit
+        z["zusammenfassung"] = "2026-11-24"
+        n2, _ = notify.ermittle(self.kev, None, None, self.lage, z, self.jetzt)
+        self.assertNotIn("Fazit", [x for x in n2 if "Tageslage" in x][0])
+        # Montag: Wochenstand
+        from datetime import datetime, timezone
+        montag = datetime(2026, 11, 30, 9, 0, tzinfo=timezone.utc)
+        z["zusammenfassung"] = "2026-11-29"
+        n3, _ = notify.ermittle(self.kev, None, None, self.lage, z, montag)
+        self.assertIn("Fazit", [x for x in n3 if "Tageslage" in x][0])

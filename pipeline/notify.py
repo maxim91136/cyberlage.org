@@ -66,6 +66,49 @@ def abschnitt(zeilen, kopf):
     return text
 
 
+def zahl(n):
+    return f"{n:,}".replace(",", ".") if isinstance(n, int) else "–"
+
+
+def patch_nachrichten(lage, alt, jetzt):
+    """Meldungen zu Microsoft-Patch-Days und späteren Nachträgen (Out-of-Band). alt = {"ms": {id: {"aktuell", "nachtraege"}}} oder None.
+    Gibt (nachrichten, neuer_stand) zurück. Ohne früheren Stand wird nur gemerkt (kein Rückblick-Spam), neue Monate nur bis 10 Tage nach Veröffentlichung gemeldet."""
+    monate = ((((lage or {}).get("patches") or {}).get("microsoft") or {}).get("monate")) or {}
+    neu = {"ms": {k: {"aktuell": m.get("aktuell"), "nachtraege": len(m.get("nachtraege") or [])} for k, m in monate.items()}}
+    if alt is None or "ms" not in alt:
+        return [], neu
+    nachrichten = []
+    for k, m in sorted(monate.items(), key=lambda kv: str(kv[1].get("erste_veroeffentlichung"))):
+        frueher = alt["ms"].get(k)
+        b = m.get("bewertung") or {}
+        try:
+            tage = (jetzt.date() - datetime.fromisoformat(str(m.get("erste_veroeffentlichung")).replace("Z", "+00:00")).date()).days
+        except (TypeError, ValueError):
+            tage = 999
+        if frueher is None and 0 <= tage <= 10:
+            zeilen = [f"{zahl(m['cves'])} CVEs, davon {zahl(m['schwere'].get('Critical'))} kritisch",
+                      f"ausgenutzt: <b>{zahl(m['ausgenutzt'])}</b>, öffentlich bekannt: {zahl(m['oeffentlich_bekannt'])}, im CISA-KEV: <b>{zahl(m['im_kev'])}</b>",
+                      f"Umfang: {e(b.get('groesse', '–'))}, Dringlichkeit: <b>{e(b.get('dringlichkeit', '–'))}</b>",
+                      f"Empfehlung: {e(b.get('empfehlung', ''))}"]
+            if m.get("ausgenutzt_cves"):
+                zeilen.append("Ausgenutzt: " + ", ".join(f'<a href="https://msrc.microsoft.com/update-guide/vulnerability/{e(c)}">{e(c)}</a>' for c in m["ausgenutzt_cves"][:6]))
+            nachrichten.append(f"<b>Microsoft Patch Day {e(k)}</b>\n" + "\n".join(zeilen) + f"\nNicht mitgezählt: Chromium (Edge) und Azure-Linux-Paketlücken.\n{SEITE}/#patches")
+        elif frueher is not None and len(m.get("nachtraege") or []) > frueher.get("nachtraege", 0):
+            x = m["nachtraege"][-1]
+            nachrichten.append(f"<b>Microsoft {e(k)}: Nachtrag (Out-of-Band)</b>\n{zahl(x.get('neue_cves'))} neue Lücke(n), davon {zahl(x.get('ausgenutzt_neu'))} ausgenutzt\n{SEITE}/#patches")
+    return nachrichten, neu
+
+
+def fazit_kombi(lage):
+    f = (lage or {}).get("fazit") or {}
+    return "|".join(str(f.get(k)) for k in ("pegel_stufe", "tempo_stufe", "radar_stufe")) if f else None
+
+
+def zuerst_zeilen(lage, n=3):
+    liste = ((((lage or {}).get("patches") or {}).get("prioritaet") or {}).get("liste")) or []
+    return [f"{k['rang']}. {e(k['quelle'])}: <a href=\"{e(k['link'])}\">{e((k['cves'] or [k['titel']])[0])}</a> – {e(k['grund'])}" for k in liste[:n]]
+
+
 def ermittle(kev, bsi, eu, lage, zustand, jetzt):
     """Gibt (nachrichten, neuer_zustand) zurück. Reine Funktion, gut testbar.
 
@@ -79,6 +122,9 @@ def ermittle(kev, bsi, eu, lage, zustand, jetzt):
     neu_zustand = {"gesehen": {"kev": kev_ids, "bsi": bsi_ids, "eu": eu_ids}, "stufe": stufe,
                    "zusammenfassung": zustand.get("zusammenfassung") if zustand else None,
                    "offen": {"kev": [], "bsi": [], "eu": []}}
+    patch_msgs, patch_neu = patch_nachrichten(lage, (zustand or {}).get("patches"), jetzt)
+    neu_zustand["patches"] = patch_neu
+    neu_zustand["fazit_gesendet"] = (zustand or {}).get("fazit_gesendet")
     nachrichten = []
     if zustand is None:  # erster Lauf: nur merken
         neu_zustand["zusammenfassung"] = jetzt.date().isoformat()
@@ -102,6 +148,7 @@ def ermittle(kev, bsi, eu, lage, zustand, jetzt):
     offen["eu"] += [f"• {e(', '.join(x['hersteller']) or '–')} – <a href=\"{e(x['link'])}\">{e((x['cve'] or [x['id']])[0])}</a>"
                     for x in (eu or {}).get("eintraege", []) if x["id"] not in alt_eu]
 
+    nachrichten += patch_msgs
     if zustand.get("stufe") != stufe:
         nachrichten.append(f"<b>Dreier-Pegel geändert:</b> {STUFENNAME.get(zustand.get('stufe'), e(zustand.get('stufe')))} → "
                            f"<b>{STUFENNAME.get(stufe, e(stufe))}</b>\n{e(lage.get('stufe_begruendung', ''))}\n{SEITE}")
@@ -117,7 +164,15 @@ def ermittle(kev, bsi, eu, lage, zustand, jetzt):
             zeilen.append(f"CERT-Bund: {c['kritisch_7_tage']} kritisch, {c['hoch_7_tage']} hoch in 7 Tagen")
         if lage.get("eu_kev"):
             zeilen.append(f"EU-KEV: {lage['eu_kev']['neu_30_tage']} neu in 30 Tagen")
+        kombi = fazit_kombi(lage)
+        if kombi and (kombi != zustand.get("fazit_gesendet") or lokal.weekday() == 0):  # bei Änderung, sonst montags als Wochenstand
+            f = lage["fazit"]
+            zeilen.append("<b>Fazit</b>" + (" (vorläufig)" if f.get("status") == "vorlaeufig" else "") + f": {e(f['text'])}\nFür Verteidiger: {e(f['hinweis'])}")
+            neu_zustand["fazit_gesendet"] = kombi
         teile = ["<b>Cyberlage, Tageslage</b>\n" + "\n".join(zeilen)]
+        z = zuerst_zeilen(lage)
+        if z:
+            teile.append("<b>Diese Woche zuerst patchen</b>\n" + "\n".join(z) + f"\n{SEITE}/#patches")
         for liste, kopf in ((offen["kev"], f"<b>Neu im CISA-KEV ({len(offen['kev'])})</b>"),
                             (offen["bsi"], f"<b>CERT-Bund, neue kritische Warnungen ({len(offen['bsi'])})</b>"),
                             (offen["eu"], f"<b>Neu im EU-KEV ({len(offen['eu'])})</b>")):
