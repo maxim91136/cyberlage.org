@@ -97,5 +97,11 @@ jobs:
           git add data site/data site/feed.xml site/index.html
           if ! git diff --cached --quiet; then
             git commit -m "Daten aktualisiert"
-            git push
+            # Liegt inzwischen ein anderer Commit auf main, erst abgleichen und erneut pushen.
+            # Sonst ginge der Merker "schon gemeldet" verloren und Telegram würde doppelt melden.
+            for i in 1 2 3; do
+              git pull --rebase -q && git push && exit 0
+              echo "Push-Versuch $i fehlgeschlagen, neuer Versuch"; sleep 5
+            done
+            exit 1
           fi
