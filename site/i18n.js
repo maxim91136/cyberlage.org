@@ -57,7 +57,7 @@
     hw_l1: "Cyberlage is a private project of Dreier Labs and not an official body. There is no connection to the BSI or any other authority.",
     hw_l2: "The content is an analysis of openly licensed sources and no substitute for warnings from the BSI or a CERT. No guarantee of accuracy or completeness.",
     hw_l3: "The operators of linked sites are responsible for them.",
-    hw_ds: 'This site sets no cookies and embeds no tracking or third-party services. When you visit, the hosting provider (Cloudflare) processes technically necessary connection data. More: <a href="https://dreierlabs.com/datenschutz.html">privacy policy of Dreier Labs</a>.',
+    hw_ds: 'This site sets no cookies and embeds no tracking or third-party services. When you visit, the hosting provider (Cloudflare) processes technically necessary connection data. Your browser’s local storage holds only your language choice and the alert mode setting; neither is transmitted. More: <a href="https://dreierlabs.com/datenschutz.html">privacy policy of Dreier Labs</a>.',
     hw_zurueck: "Back to the start page"
   };
 
