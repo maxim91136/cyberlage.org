@@ -279,7 +279,7 @@
     if (!k || !k.bewertet) { $("rd-kon").textContent = txt("keine"); return; }
     var satz = pick(k.erhoeht + " von " + k.bewertet + " externen Signalen zeigen erhöht.", k.erhoeht + " of " + k.bewertet + " external signals show elevated.");
     $("rd-kon").textContent = satz;
-    z.textContent = ""; z.appendChild(el("b", "", k.erhoeht + "/" + k.bewertet)); z.appendChild(document.createTextNode(pick(" externe Signale zeigen ebenfalls erhöht · zum Radar", " external signals also show elevated · to the radar"))); z.hidden = false;
+    z.textContent = ""; z.appendChild(el("b", "", k.erhoeht + "/" + k.bewertet)); z.appendChild(document.createTextNode(pick(" externe Signale zeigen ebenfalls erhöht · ", " external signals also show elevated · "))); z.appendChild(el("span", "zr", pick("zum Radar", "to the radar"))); z.hidden = false;
     zeichneScope(k.signale || []);
     (k.signale || []).forEach(function (s) {
       var b = el("div", "sg"), st = s.erhoeht === true ? ["●", "an"] : (s.erhoeht === false ? ["○", "aus"] : ["–", "kn"]);
