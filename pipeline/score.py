@@ -214,7 +214,8 @@ def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None, telegram_link=None, 
     if ergebnis.get("radar"):
         import fetch_radar
         r = ergebnis["radar"]
-        r["konsens"] = fetch_radar.konsens(ergebnis["stufe"], r["zeit_bis_kev"], r["einschaetzungen"], r.get("sans"), r.pop("feodo_serie", {}))
+        r["konsens"] = fetch_radar.konsens(ergebnis["stufe"], r["zeit_bis_kev"], r["einschaetzungen"], r.get("sans"), r.pop("feodo_serie", {}),
+                                       len(fenster), regeln.get("erhoeht_ab"))
 
     ergebnis["sektor"] = [
         {

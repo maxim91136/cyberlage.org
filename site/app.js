@@ -63,21 +63,6 @@
     var kq = (d.quellen || []).filter(function (q) { return q.id === "cisa-kev"; })[0] || {};
     $("kev-quelle").textContent = txt("kev_quelle", datum(kq.veroeffentlicht_am), datum(kq.abgerufen_am), pick(kq.lizenz, kq.lizenz_en) || txt("keine"));
 
-    var s = $("sektor");
-    (d.sektor || []).forEach(function (z) {
-      var box = el("div", "panel sektor");
-      box.appendChild(el("div", "zahl mono", String(z.wert).replace(".", ",") + " %"));
-      var t = el("div", "txt");
-      t.appendChild(el("div", "", txt("sektor_txt", z.berichtsjahr)));
-      var m = el("div", "mono dim fine");
-      m.appendChild(document.createTextNode(txt("sektor_meta", z.geltungsbereich, z.geltungsbereich === "EU", z.quelle, z.seite, z.lizenz)));
-      if (/^https:\/\//.test(z.link || "")) {
-        var a = el("a", "", txt("quelle"));
-        a.href = z.link; a.rel = "noopener"; m.appendChild(a);
-      }
-      t.appendChild(m); box.appendChild(t); s.appendChild(box);
-    });
-
     var ql = $("quellenliste");
     (d.quellen || []).forEach(function (q) {
       var r = el("div", "row");
@@ -257,12 +242,44 @@
     });
   })();
 
+  function zeichneScope(sig) {
+    var svg = $("rd-scope"); if (!svg) return;
+    var NS = "http://www.w3.org/2000/svg", C = 200, R = 128, MAX = 2;
+    var sv = function (tag, at, par) { var n = document.createElementNS(NS, tag); for (var k in at) n.setAttribute(k, at[k]); (par || svg).appendChild(n); return n; };
+    svg.textContent = "";
+    var t = sv("title", { id: "rd-scope-t" }); t.textContent = pick("Radar der Signale: je weiter außen, desto stärker der Ausschlag", "Signal radar: the further out, the stronger the reading");
+    var defs = sv("defs", {}), g = sv("radialGradient", { id: "rd-sw", cx: "0", cy: "0", r: "1" }, defs);
+    sv("stop", { offset: "0", "stop-color": "#3ddc84", "stop-opacity": "0" }, g); sv("stop", { offset: "1", "stop-color": "#3ddc84", "stop-opacity": ".28" }, g);
+    [0.5, 1, 1.5, 2].forEach(function (f) { sv("circle", { cx: C, cy: C, r: R * f / MAX, "class": f === 1 ? "sc-ring sc-schw" : "sc-ring" }); });
+    var n = sig.length, pos = function (i, f) { var w = -Math.PI / 2 + i * 2 * Math.PI / n; return [C + Math.cos(w) * R * f / MAX, C + Math.sin(w) * R * f / MAX, w]; };
+    sig.forEach(function (s, i) { var p = pos(i, MAX); sv("line", { x1: C, y1: C, x2: p[0], y2: p[1], "class": "sc-ax" }); });
+    var sw = sv("g", { "class": "sc-sweep" });
+    sv("path", { d: "M" + C + " " + C + " L" + C + " " + (C - R) + " A" + R + " " + R + " 0 0 0 " + (C - R * Math.sin(Math.PI / 4)) + " " + (C - R * Math.cos(Math.PI / 4)) + " Z", fill: "url(#rd-sw)" }, sw);
+    sv("line", { x1: C, y1: C, x2: C, y2: C - R, "class": "sc-arm" }, sw);
+    var pts = [];
+    sig.forEach(function (s, i) { if (typeof s.ausschlag === "number") { var p = pos(i, Math.min(s.ausschlag, MAX)); pts.push(p[0].toFixed(1) + "," + p[1].toFixed(1)); } });
+    if (pts.length > 2) sv("polygon", { points: pts.join(" "), "class": "sc-poly" });
+    sig.forEach(function (s, i) {
+      var l = pos(i, MAX + 0.34), nm = pick(s.name, s.name_en).split(" (")[0];
+      var tx = sv("text", { x: l[0], y: l[1], "class": "sc-lab", "text-anchor": Math.abs(Math.cos(l[2])) < 0.3 ? "middle" : (Math.cos(l[2]) > 0 ? "start" : "end"), "dominant-baseline": "middle" });
+      tx.textContent = nm;
+      if (typeof s.ausschlag === "number") {
+        var p = pos(i, Math.min(s.ausschlag, MAX));
+        sv("circle", { cx: p[0], cy: p[1], r: 6, "class": "sc-blip " + (s.erhoeht ? "an" : "aus") + (s.art === "eigen" ? " eigen" : "") });
+      } else {
+        var q = pos(i, 0.25); sv("circle", { cx: q[0], cy: q[1], r: 5, "class": "sc-blip kn" });
+      }
+    });
+    var sl = sv("text", { x: C + 4, y: C - R / 2 - 3, "class": "sc-tx" }); sl.textContent = pick("Schwelle", "threshold");
+  }
+
   function zeigeKonsens(r) {
     var k = r && r.konsens, z = $("konsens-zeile"), box = $("rd-signale"); box.textContent = "";
     if (!k || !k.bewertet) { $("rd-kon").textContent = txt("keine"); return; }
-    var satz = pick(k.erhoeht + " von " + k.bewertet + " externen Signalen zeigen erhöht. Stufe und Tempo sind unsere eigenen, beide aus dem KEV, sie zählen nicht als Bestätigung.", k.erhoeht + " of " + k.bewertet + " external signals show elevated. Level and speed are our own, both from KEV, so they do not count as confirmation.");
+    var satz = pick(k.erhoeht + " von " + k.bewertet + " externen Signalen zeigen erhöht.", k.erhoeht + " of " + k.bewertet + " external signals show elevated.");
     $("rd-kon").textContent = satz;
     z.textContent = ""; z.appendChild(el("b", "", k.erhoeht + "/" + k.bewertet)); z.appendChild(document.createTextNode(pick(" externe Signale zeigen ebenfalls erhöht · zum Radar", " external signals also show elevated · to the radar"))); z.hidden = false;
+    zeichneScope(k.signale || []);
     (k.signale || []).forEach(function (s) {
       var b = el("div", "sg"), st = s.erhoeht === true ? ["●", "an"] : (s.erhoeht === false ? ["○", "aus"] : ["–", "kn"]);
       b.appendChild(el("span", "p mono " + st[1], st[0]));
@@ -299,7 +316,7 @@
   function zeigeRadar(r, d) {
     var proz = function (x) { return typeof x === "number" ? Math.round(x * 100) + " %" : "–"; };
     var tage = function (x) { return typeof x === "number" ? x.toLocaleString(window.I18N.locale, { maximumFractionDigits: 1 }) : "–"; };
-    if (!r) { ["rd-zahlen", "rd-treffer", "rd-eu", "rd-vergleich", "rd-gruende"].forEach(function (id) { $(id).textContent = txt("keine"); }); return; }
+    if (!r) { ["rd-zahlen", "rd-treffer", "rd-eu", "rd-kacheln", "rd-gruende"].forEach(function (id) { $(id).textContent = txt("keine"); }); return; }
     var z = r.zeit_bis_kev || {};
     var zahlenBox = $("rd-zahlen"); zahlenBox.textContent = "";
     [["jetzt", pick("letzte 90 Tage", "last 90 days"), true], ["vor_12_monaten", pick("vor 12 Monaten", "12 months ago")], ["vor_24_monaten", pick("vor 24 Monaten", "24 months ago")]].forEach(function (k) {
@@ -324,29 +341,36 @@
     $("rd-eu").textContent = !e ? txt("keine") : pick(
       e.auch_im_cisa + " von " + e.eu_eintraege + " Einträgen im EU-KEV stehen auch im CISA-KEV, " + e.nur_eu + " nur in der EU. Bei " + e.eu_datum_frueher + " nennt die EU ein früheres Ausnutzungsdatum als die Aufnahme bei der CISA (Median-Abstand " + tage(e.median_abstand_tage) + " Tage). Der EU-Katalog bildet den US-Katalog also fast vollständig ab.",
       e.auch_im_cisa + " of " + e.eu_eintraege + " entries in EU-KEV are also in CISA KEV, " + e.nur_eu + " only in the EU. For " + e.eu_datum_frueher + " the EU names an earlier exploitation date than the CISA listing (median gap " + tage(e.median_abstand_tage) + " days). The EU catalogue thus mirrors the US catalogue almost completely.");
-    var vg = $("rd-vergleich"); vg.textContent = "";
-    var zeile = function (name, url, urteil, misst, stand) {
-      var b = el("div", "vg");
-      var n = el("div", "n"); n.appendChild(url ? link(url, name) : document.createTextNode(name)); b.appendChild(n);
-      b.appendChild(el("div", "mono", urteil)); b.appendChild(el("div", "m", misst)); b.appendChild(el("div", "s", stand)); vg.appendChild(b);
+    var vg = $("rd-kacheln"); vg.textContent = "";
+    var sig = {}; ((r.konsens && r.konsens.signale) || []).forEach(function (x) { sig[x.name_en] = x.erhoeht; });
+    var kachel = function (o) {
+      var b = el("div", "kc " + (o.art || "ext") + (o.an === true ? " an" : (o.an === false ? " aus" : "")));
+      var kopf = el("div", "kc-k mono"); kopf.appendChild(o.url ? link(o.url, o.name) : document.createTextNode(o.name));
+      kopf.appendChild(el("span", "kc-a", o.art === "eigen" ? pick("eigen", "own") : (o.art === "kontext" ? pick("Kontext", "context") : pick("extern", "external"))));
+      b.appendChild(kopf);
+      var w = el("div", "kc-w mono", o.wert); if (o.einheit) w.appendChild(el("small", "", o.einheit)); b.appendChild(w);
+      b.appendChild(el("div", "kc-m", o.misst));
+      b.appendChild(el("div", "kc-s mono", o.stand));
+      vg.appendChild(b);
     };
-    zeile("Cyberlage", null, (d.stufe ? txt(d.stufe) : txt("keine")), pick("zählt neu ausgenutzte Lücken im CISA-KEV (30 Tage)", "counts newly exploited vulnerabilities in CISA KEV (30 days)"), pick("Stand ", "as of ") + datum(d.stand) + pick(" · täglich", " · daily"));
+    var tg = pick("Stand ", "as of ");
+    var jz = z.jetzt || {}, v12 = z.vor_12_monaten || {};
+    if (typeof jz.median_frisch === "number") kachel({ art: "eigen", name: pick("Tempo bis KEV", "Speed to KEV"), wert: tage(jz.median_frisch), einheit: pick(" Tage Median", " days median"), misst: pick("Veröffentlichung bis KEV-Aufnahme, vor 12 Monaten: ", "publication to KEV listing, 12 months ago: ") + tage(v12.median_frisch) + pick(" Tage", " days"), stand: pick("letzte 90 Tage", "last 90 days"), an: sig["Speed to KEV"] });
+    if (typeof t.prognosen === "number") kachel({ art: "eigen", name: pick("Trefferquote Ausblick", "Outlook hit rate"), wert: typeof t.quote_reif === "number" ? proz(t.quote_reif) : "–", misst: pick("Prognosen: ", "forecasts: ") + t.prognosen + pick(", eingetreten: ", ", occurred: ") + t.eingetreten, stand: typeof t.quote_reif === "number" ? "" : pick("erste Quote nach 30 Tagen", "first rate after 30 days") });
+    if (e) kachel({ art: "kontext", name: "EU-KEV", wert: e.auch_im_cisa + "/" + e.eu_eintraege, misst: pick("EU-Einträge, die auch im CISA-KEV stehen", "EU entries also in CISA KEV"), stand: pick("Eigenabgleich", "own comparison") });
     (r.einschaetzungen || []).forEach(function (q) {
-      var pfeil = q.richtung === "steigend" ? " ↑" : (q.richtung === "fallend" ? " ↓" : "");
-      zeile(q.name, q.link, pick(q.urteil, q.urteil_en) + pfeil, pick(q.misst, q.misst_en),
-        pick("Stand ", "as of ") + datum(q.stand) + pick(" · jährlich", " · yearly") + (q.vorher ? pick(" · Vorjahr: ", " · year before: ") + pick(q.vorher, q.vorher_en) : ""));
+      var pfeil = q.richtung === "steigend" ? " ↑" : (q.richtung === "fallend" ? " ↓" : ""), idx = q.wert && q.basis;
+      kachel({ art: "ext", name: q.name, url: q.link, wert: idx ? String(Math.round(q.wert / q.basis * 100)) : pick(q.urteil, q.urteil_en) + pfeil, einheit: idx ? pick(" % von 2024", " % of 2024") : "", misst: pick(q.misst, q.misst_en), stand: tg + datum(q.stand) + pick(" · jährlich", " · yearly") + (q.vorher ? pick(" · Vorjahr: ", " · year before: ") + pick(q.vorher, q.vorher_en) : ""), an: idx ? sig["BSI Cyber Index"] : undefined });
     });
-    if (r.feodo) {
-      var mt = (r.konsens && r.konsens.messtage_feodo) || 0;
-      zeile("Feodo Tracker (abuse.ch)", "https://feodotracker.abuse.ch/", zahl(r.feodo.online) + pick(" aktive Steuerserver", " active command servers"), pick("Botnetz-Infrastruktur, ein weiterer Blickwinkel", "botnet infrastructure, another angle"), pick("täglich · Verlauf seit ", "daily · series since ") + mt + pick(" Messtagen", " days of data"));
-    }
-    if (r.ncsc) {
-      zeile("NCSC-NL Advisories", "https://advisories.ncsc.nl/", zahl(r.ncsc.advisories_30) + pick(" Advisories, davon ", " advisories, ") + zahl(r.ncsc.hoch_hoch_30) + pick(" mit Kans und Schade hoch", " of them rated likelihood and damage high"), pick("niederländisches Warnzentrum, reiner Kontext, zählt nicht im Konsens", "Dutch warning centre, context only, not counted in the consensus"), pick("30 Tage · Stand ", "30 days · as of ") + datum(r.abgerufen_am));
-    }
     if (r.sans) {
-      var sn = { green: ["ruhig (grün)", "calm (green)"], yellow: ["erhöht (gelb)", "raised (yellow)"], orange: ["hoch (orange)", "high (orange)"], red: ["kritisch (rot)", "critical (red)"] }[r.sans.status];
-      zeile("SANS Internet Storm Center", "https://isc.sans.edu/", pick(sn[0], sn[1]), pick("beobachtet Scans und Ausbrüche im Netz, ein anderer Blickwinkel", "watches scans and outbreaks across the internet, a different angle"), pick("Stand ", "as of ") + datum(r.sans.abgerufen_am) + pick(" · live", " · live"));
+      var sn = { green: ["ruhig (grün)", "calm (green)"], yellow: ["erhöht (gelb)", "raised (yellow)"], orange: ["hoch (orange)", "high (orange)"], red: ["kritisch (rot)", "critical (red)"] }[r.sans.status] || ["–", "–"];
+      kachel({ art: "ext", name: "SANS Infocon", url: "https://isc.sans.edu/", wert: pick(sn[0], sn[1]), misst: pick("Scans und Ausbrüche im Netz", "scans and outbreaks across the internet"), stand: tg + datum(r.sans.abgerufen_am) + " · live", an: sig["SANS Infocon"] });
     }
+    if (r.feodo) kachel({ art: "ext", name: pick("Botnetz-Server (Feodo)", "Botnet servers (Feodo)"), url: "https://feodotracker.abuse.ch/", wert: zahl(r.feodo.online), einheit: pick(" aktiv", " active"), misst: pick("aktive Steuerserver, abuse.ch", "active command servers, abuse.ch"), stand: pick("täglich · ", "daily · ") + ((r.konsens && r.konsens.messtage_feodo) || 0) + pick(" Messtage", " days of data"), an: sig["Botnet servers (Feodo)"] });
+    if (r.ncsc) kachel({ art: "kontext", name: "NCSC-NL", url: "https://advisories.ncsc.nl/", wert: zahl(r.ncsc.advisories_30), einheit: pick(" Advisories", " advisories"), misst: zahl(r.ncsc.hoch_hoch_30) + pick(" davon mit Kans und Schade hoch", " rated likelihood and damage high"), stand: pick("30 Tage · ", "30 days · ") + tg + datum(r.abgerufen_am) });
+    (d.sektor || []).forEach(function (x) {
+      kachel({ art: "kontext", name: "ENISA", url: /^https:\/\//.test(x.link || "") ? x.link : null, wert: x.wert.toLocaleString(window.I18N.locale, { maximumFractionDigits: 1 }), einheit: " %", misst: pick("der Ereignisse " + x.berichtsjahr + " betrafen die öffentliche Verwaltung (EU)", "of events in " + x.berichtsjahr + " affected public administration (EU)"), stand: "Threat Landscape 2026, S. " + x.seite + " · " + x.lizenz });
+    });
     var ul = $("rd-gruende"); ul.textContent = "";
     (r.gruende || []).forEach(function (g) {
       var li = el("li", "", pick(g.aussage, g.aussage_en) + " ");

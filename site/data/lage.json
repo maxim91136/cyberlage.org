@@ -2625,8 +2625,9 @@
           "name_en": "Cyberlage",
           "erhoeht": true,
           "grund": "Stufe hoch",
-          "grund_en": "level hoch",
-          "art": "eigen"
+          "grund_en": "level high",
+          "art": "eigen",
+          "ausschlag": 1.44
         },
         {
           "name": "Tempo bis KEV",
@@ -2634,7 +2635,8 @@
           "erhoeht": true,
           "grund": "Median mindestens 1,5-mal schneller als vor 12 Monaten",
           "grund_en": "median at least 1.5x faster than 12 months ago",
-          "art": "eigen"
+          "art": "eigen",
+          "ausschlag": 1.47
         },
         {
           "name": "BSI Cyber Index",
@@ -2642,7 +2644,8 @@
           "erhoeht": true,
           "grund": "mindestens 20 % über dem Basisjahr 2024",
           "grund_en": "at least 20% above the 2024 base year",
-          "art": "extern"
+          "art": "extern",
+          "ausschlag": 1.42
         },
         {
           "name": "SANS Infocon",
@@ -2650,7 +2653,8 @@
           "erhoeht": false,
           "grund": "nicht grün",
           "grund_en": "not green",
-          "art": "extern"
+          "art": "extern",
+          "ausschlag": 0.4
         },
         {
           "name": "Botnetz-Server (Feodo)",
@@ -2658,7 +2662,8 @@
           "erhoeht": null,
           "grund": "aktive Steuerserver mindestens 25 % und mindestens 3 über dem Median der letzten 90 Tage (ab 30 Messtagen)",
           "grund_en": "active command servers at least 25% and at least 3 above the 90-day median (from 30 days of data)",
-          "art": "extern"
+          "art": "extern",
+          "ausschlag": null
         }
       ],
       "erhoeht": 1,

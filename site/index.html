@@ -82,7 +82,6 @@
     </details>
     <p class="dim fine" data-t="l_kev"><strong>KEV</strong> heißt <em>Known Exploited Vulnerabilities</em>, „bekannte, ausgenutzte Schwachstellen“: eine Liste der US-Cybersicherheitsbehörde <strong>CISA</strong> mit Lücken, für die belegt ist, dass Angreifer sie wirklich ausnutzen. Die Stufe zeigt, wie viele neu hinzukommen.</p>
     <p class="mono dim fine" id="kev-quelle"></p>
-    <div id="sektor"></div>
     <noscript><!--ssr-start--><p class="panel pad"><b>Die globale Cyberlage, Stand 2026-11-24: Stufe hoch.</b> 36 neu aufgenommene ausgenutzte Schwachstellen in 30 Tagen. Neu im CISA-Katalog ausgenutzter Schwachstellen: 10 in 7 Tagen, 36 in 30 Tagen. Regelbasiert und offen belegt. Ein privates Projekt von Dreier Labs, keine amtliche Stelle.</p><p class="panel pad">Die Zahlen stehen als Rohdaten unter <a href="data/lage.json">data/lage.json</a>, die Regeln auf <a href="https://github.com/maxim91136/cyberlage.org/blob/main/RULES.md">GitHub</a>. Für die Ansicht mit Verlauf und Listen wird JavaScript benötigt.</p><!--ssr-end--></noscript>
   </section>
 
@@ -92,24 +91,26 @@
     <div class="panel pad rd">
       <h3 class="mono rd-t" data-t="rd_kon_h">Bestätigen andere unsere Lage?</h3>
       <p class="rd-kon" id="rd-kon"></p>
-      <div id="rd-signale"></div>
-      <p class="mono dim fine" data-t="rd_kon_n">Jedes Signal steht für sich und folgt einer festen Regel (RULES.md). Nur externe Quellen zählen als Bestätigung. Es wird nichts gemittelt, und was nicht messbar ist, zählt nicht mit.</p>
+      <div class="rd-scopewrap">
+        <svg id="rd-scope" class="rd-scope" role="img" aria-labelledby="rd-scope-t" viewBox="-70 -16 540 424" width="100%"><title id="rd-scope-t">Radar</title></svg>
+        <div id="rd-signale"></div>
+      </div>
+      <p class="mono dim fine" data-t="rd_kon_n">Jedes Signal steht für sich und folgt einer festen Regel (RULES.md). Nur externe Quellen zählen als Bestätigung. Je weiter außen ein Punkt liegt, desto stärker schlägt die Messung aus; der gestrichelte Ring ist die Regelschwelle. Es wird nichts gemittelt, und was nicht messbar ist, zählt nicht mit.</p>
     </div>
+    <h3 class="mono rd-t rd-sub" data-t="rd_vgl_h">Alle Messungen auf einen Blick</h3>
+    <div class="rd-kacheln" id="rd-kacheln"></div>
+    <p class="mono dim fine" data-t="rd_vgl_n">Die Quellen messen Verschiedenes. Zeigen mehrere in dieselbe Richtung, ist das ein stärkeres Signal als eine allein.</p>
     <div class="panel pad rd">
       <h3 class="mono rd-t" data-t="rd_zeit_h">Wie schnell wird eine Lücke ausgenutzt gemeldet?</h3>
       <div class="rd-zahlen" id="rd-zahlen"></div>
       <svg id="rd-chart" role="img" aria-labelledby="rd-chart-titel" viewBox="0 0 1000 200" width="100%" preserveAspectRatio="xMidYMid meet"><title id="rd-chart-titel">Anteil der KEV-Aufnahmen binnen 30 Tagen nach Veröffentlichung, je Monat</title></svg>
       <p class="mono dim fine" id="rd-zeit-fine"></p>
     </div>
-    <div class="rd-grid">
-      <div class="panel pad rd"><h3 class="mono rd-t" data-t="rd_tr_h">Trefferquote des Ausblicks</h3><p id="rd-treffer"></p></div>
-      <div class="panel pad rd"><h3 class="mono rd-t" data-t="rd_eu_h">EU-KEV und CISA-KEV</h3><p id="rd-eu"></p></div>
-    </div>
-    <div class="panel pad rd">
-      <h3 class="mono rd-t" data-t="rd_vgl_h">Einschätzungen im Vergleich</h3>
-      <div id="rd-vergleich"></div>
-      <p class="mono dim fine" data-t="rd_vgl_n">Die Quellen messen Verschiedenes. Zeigen mehrere in dieselbe Richtung, ist das ein stärkeres Signal als eine allein.</p>
-    </div>
+    <details class="panel pad rd rd-det">
+      <summary class="mono" data-t="rd_det">Erklärungen zu Trefferquote und EU-Abgleich</summary>
+      <h4 class="mono rd-t" data-t="rd_tr_h">Trefferquote des Ausblicks</h4><p id="rd-treffer"></p>
+      <h4 class="mono rd-t" data-t="rd_eu_h">EU-KEV und CISA-KEV</h4><p id="rd-eu"></p>
+    </details>
     <div class="panel pad rd">
       <h3 class="mono rd-t" data-t="rd_warum_h">Warum steigt es? Belegte Gründe</h3>
       <ul class="hinw" id="rd-gruende"></ul>

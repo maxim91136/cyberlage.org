@@ -233,34 +233,47 @@ def feodo_verlauf(verlauf, messung, heute):
     return verlauf
 
 
-def konsens(lage_stufe, zeit, einschaetzungen, sans, verlauf):
+_STUFE_EN = {"niedrig": "low", "erhoeht": "elevated", "hoch": "high"}
+
+
+def konsens(lage_stufe, zeit, einschaetzungen, sans, verlauf, neu30=None, erhoeht_ab=None):
     """Signale: jedes steht für sich auf erhöht (True), normal (False) oder keine Aussage (None).
     Eigene Signale (Stufe und Tempo, beide aus dem KEV) zählen nicht als Bestätigung, nur externe.
     Regeln stehen in RULES.md. Es wird nichts gemittelt."""
     signale = []
 
-    def add(name, name_en, wert, grund, grund_en, art="extern"):
-        signale.append({"name": name, "name_en": name_en, "erhoeht": wert, "grund": grund, "grund_en": grund_en, "art": art})
+    def add(name, name_en, wert, grund, grund_en, art="extern", ausschlag=None):
+        """ausschlag: Messwert im Verhältnis zur Regelschwelle (1,0 = Schwelle erreicht), nur für die Radar-Grafik."""
+        signale.append({"name": name, "name_en": name_en, "erhoeht": wert, "grund": grund, "grund_en": grund_en, "art": art,
+                        "ausschlag": None if ausschlag is None else round(ausschlag, 2)})
 
     add("Cyberlage", "Cyberlage", None if lage_stufe is None else lage_stufe in ("erhoeht", "hoch"),
-        f"Stufe {lage_stufe}" if lage_stufe else "keine Bewertung", f"level {lage_stufe}" if lage_stufe else "no rating", "eigen")
+        f"Stufe {lage_stufe}" if lage_stufe else "keine Bewertung", f"level {_STUFE_EN.get(lage_stufe, lage_stufe)}" if lage_stufe else "no rating", "eigen",
+        (neu30 / erhoeht_ab) if neu30 is not None and erhoeht_ab else {"niedrig": 0.5, "erhoeht": 1.0, "hoch": 1.5}.get(lage_stufe))
     j, v = (zeit or {}).get("jetzt") or {}, (zeit or {}).get("vor_12_monaten") or {}
     t = None
     if j.get("n_frisch", 0) >= 10 and v.get("n_frisch", 0) >= 10 and j.get("median_frisch") is not None and v.get("median_frisch") is not None:
         t = v["median_frisch"] / max(j["median_frisch"], 0.5) >= 1.5
-    add("Tempo bis KEV", "Speed to KEV", t, "Median mindestens 1,5-mal schneller als vor 12 Monaten", "median at least 1.5x faster than 12 months ago", "eigen")
+    add("Tempo bis KEV", "Speed to KEV", t, "Median mindestens 1,5-mal schneller als vor 12 Monaten", "median at least 1.5x faster than 12 months ago", "eigen",
+        None if t is None else v["median_frisch"] / max(j["median_frisch"], 0.5) / 1.5)
     bsi = next((e for e in einschaetzungen if e.get("wert") and e.get("basis")), None)
     add("BSI Cyber Index", "BSI Cyber Index", None if not bsi else float(bsi["wert"]) >= 1.2 * float(bsi["basis"]),
-        "mindestens 20 % über dem Basisjahr 2024", "at least 20% above the 2024 base year")
-    add("SANS Infocon", "SANS Infocon", None if not sans else sans["status"] != "green", "nicht grün", "not green")
+        "mindestens 20 % über dem Basisjahr 2024", "at least 20% above the 2024 base year",
+        ausschlag=None if not bsi else float(bsi["wert"]) / (1.2 * float(bsi["basis"])))
+    add("SANS Infocon", "SANS Infocon", None if not sans else sans["status"] != "green", "nicht grün", "not green",
+        ausschlag=None if not sans else {"green": 0.4, "yellow": 1.1, "orange": 1.5, "red": 2.0}.get(sans["status"]))
     werte = [verlauf[k] for k in sorted(verlauf)]
-    f = None
+    f = fa = None
     if len(werte) >= 31:
         alt = sorted(werte[:-1][-90:])
         med = statistics.median(alt)
         f = werte[-1] >= 1.25 * med and werte[-1] - med >= 3  # bei kleinen Zahlen sonst Zufallsrauschen
+        fa = werte[-1] / (1.25 * med) if med else None
+        if fa is not None and not f:
+            fa = min(fa, 0.99)
     add("Botnetz-Server (Feodo)", "Botnet servers (Feodo)", f, "aktive Steuerserver mindestens 25 % und mindestens 3 über dem Median der letzten 90 Tage (ab 30 Messtagen)",
-        "active command servers at least 25% and at least 3 above the 90-day median (from 30 days of data)")
+        "active command servers at least 25% and at least 3 above the 90-day median (from 30 days of data)",
+        ausschlag=fa)
     extern = [x for x in signale if x["art"] == "extern" and x["erhoeht"] is not None]
     return {"signale": signale, "erhoeht": sum(1 for x in extern if x["erhoeht"]), "bewertet": len(extern), "messtage_feodo": len(werte)}
 

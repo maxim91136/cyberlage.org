@@ -62,3 +62,8 @@ Sind mindestens `ransomware_aufschlag_ab` der Einträge mit bekannter Ransomware
 - Passen die Schwellen? Zum Beispiel Rückblick auf Monate mit bekannten Großlagen.
 - Wie wird die EU-weite ENISA-Zahl neben den Tageswerten dargestellt, ohne sie als deutschen Wert auszugeben?
 - Soll die Rückstufung nach einer Ruhephase eigens geregelt werden, oder reicht das gleitende Fenster?
+
+
+## Radar-Grafik
+
+Die Grafik im Radar zeigt je Signal einen Punkt. Der Abstand zur Mitte ist der Messwert im Verhältnis zur Regelschwelle des Signals (gestrichelter Ring = Schwelle erreicht, äußerer Ring = doppelt so weit). Cyberlage: neue KEV-Einträge in 30 Tagen geteilt durch die Schwelle für erhöht. Tempo bis KEV: Verbesserung des Medians gegenüber vor 12 Monaten geteilt durch 1,5. BSI Cyber Index: Wert geteilt durch 120 % des Basisjahres. SANS Infocon: grün 0,4, gelb 1,1, orange 1,5, rot 2,0 (feste Darstellungswerte). Feodo: aktive Steuerserver geteilt durch das 1,25-Fache des 90-Tage-Medians, unter der Schwelle höchstens 0,99. Ohne Messwert steht ein leerer Kreis nahe der Mitte. Die Grafik ändert keine Regel und mittelt nichts. NCSC-NL, EU-KEV und ENISA sind Kontext und haben keine Schwelle, sie stehen nur als Kacheln darunter.

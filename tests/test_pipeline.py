@@ -435,5 +435,17 @@ class NcscTests(unittest.TestCase):
              '<item><title>alt</title><pubDate>Mon, 01 Jan 2026 10:00:00 +0100</pubDate></item></channel></rss>')
         self.assertEqual(fetch_radar.ncsc_zaehlen(x, datetime.date(2026, 11, 24)), {"advisories_30": 2, "hoch_hoch_30": 1})
 
+
+class AusschlagTests(unittest.TestCase):
+    def test_ausschlag_und_englische_stufe(self):
+        import fetch_radar
+        k = fetch_radar.konsens("hoch", {}, [{"wert": "170", "basis": "100"}], {"status": "yellow"}, {}, 36, 25)
+        d = {x["name_en"]: x for x in k["signale"]}
+        self.assertEqual(d["Cyberlage"]["ausschlag"], 1.44)
+        self.assertEqual(d["Cyberlage"]["grund_en"], "level high")
+        self.assertEqual(d["BSI Cyber Index"]["ausschlag"], 1.42)
+        self.assertEqual(d["SANS Infocon"]["ausschlag"], 1.1)
+        self.assertIsNone(d["Botnet servers (Feodo)"]["ausschlag"])
+
 if __name__ == "__main__":
     unittest.main()
