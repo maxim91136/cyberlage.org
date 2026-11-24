@@ -7,6 +7,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "pipeline"))
 
+import fetch_ausblick  # noqa: E402
 import fetch_extra  # noqa: E402
 import notify  # noqa: E402
 import fetch_kev  # noqa: E402
@@ -270,6 +271,55 @@ class MeldeTests(unittest.TestCase):
         n, _ = notify.ermittle(viele, None, None, self.lage, z, self.jetzt)
         self.assertIn("15 weitere", n[0])
         self.assertLessEqual(len(n[0]), notify.MAX_ZEICHEN)
+
+
+class AusblickTests(unittest.TestCase):
+    NVD = {"totalResults": 3, "vulnerabilities": [
+        {"cve": {"id": "CVE-2026-1001", "published": "2026-11-20T10:15:00.000", "vulnStatus": "Analyzed",
+                 "metrics": {"cvssMetricV31": [{"cvssData": {"baseScore": 9.8}}, {"cvssData": {"baseScore": 7.5}}]}}},
+        {"cve": {"id": "CVE-2026-1002", "published": "2026-11-21T08:00:00.000", "vulnStatus": "Rejected"}},
+        {"cve": {"id": "CVE-2026-1003", "published": "2026-11-22T08:00:00.000", "vulnStatus": "Received",
+                 "metrics": {"cvssMetricV30": [{"cvssData": {"baseScore": 5.0}}]}}},
+    ]}
+    EPSS = {"data": [
+        {"cve": "CVE-2026-1001", "epss": "0.730000000", "percentile": "0.985000000", "date": "2026-11-23"},
+        {"cve": "CVE-2026-1003", "epss": "0.020000000", "percentile": "0.610000000", "date": "2026-11-23"},
+        {"cve": "CVE-2026-1004", "epss": "kaputt", "percentile": "0.1", "date": "2026-11-23"},
+    ]}
+
+    def test_nvd_ohne_abgelehnte_und_mit_hoechstem_cvss(self):
+        v = fetch_ausblick.parse_nvd(self.NVD)
+        self.assertEqual([x["cve"] for x in v], ["CVE-2026-1001", "CVE-2026-1003"])
+        self.assertEqual(v[0]["cvss"], 9.8)
+        self.assertEqual(v[0]["veroeffentlicht"], "2026-11-20")
+        self.assertEqual(v[1]["cvss"], 5.0)
+
+    def test_epss_zahlen_und_kaputte_zeilen(self):
+        e = fetch_ausblick.parse_epss(self.EPSS)
+        self.assertEqual(set(e), {"CVE-2026-1001", "CVE-2026-1003"})
+        self.assertAlmostEqual(e["CVE-2026-1001"][0], 0.73)
+
+    def test_baue_ohne_kev_sortiert_und_zaehlt(self):
+        from datetime import datetime, timezone
+        cves = fetch_ausblick.parse_nvd(self.NVD)
+        e = fetch_ausblick.parse_epss(self.EPSS)
+        r = fetch_ausblick.baue(cves, e, {"CVE-2026-1003"}, datetime(2026, 11, 24, tzinfo=timezone.utc))
+        self.assertEqual([z["cve"] for z in r["liste"]], ["CVE-2026-1001"])  # 1003 steht schon im KEV
+        self.assertEqual(r["geprueft"], 1)
+        self.assertEqual(r["hoch_wahrscheinlich"], 1)
+        r2 = fetch_ausblick.baue(cves, e, set(), datetime(2026, 11, 24, tzinfo=timezone.utc))
+        self.assertEqual([z["cve"] for z in r2["liste"]], ["CVE-2026-1001", "CVE-2026-1003"])
+        self.assertEqual(r2["hoch_wahrscheinlich"], 1)
+        self.assertEqual(r2["epss_datum"], "2026-11-23")
+
+    def test_ohne_ausblick_ist_der_wert_none_und_stufe_unveraendert(self):
+        kev = {"meta": {}, "eintraege": [kev_klein("CVE-1", "H", "P", "2026-11-20")]}
+        a = score.werte_aus(kev, REGELN_FREI, [], STAND)
+        self.assertIsNone(a["ausblick"])
+        r = score.werte_aus(kev, REGELN_FREI, [], STAND, ausblick={"liste": [], "geprueft": 0})
+        self.assertEqual(r["stufe"], a["stufe"])
+        self.assertTrue(any(q["id"] == "epss" for q in r["quellen"]))
+        self.assertTrue(any(q["id"] == "nvd" for q in r["quellen"]))
 
 
 if __name__ == "__main__":

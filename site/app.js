@@ -125,6 +125,7 @@
     d_stand = d.stand;
     zeigeBsi(d.cert_bund);
     zeigeEu(d.eu_kev);
+    zeigeAusblick(d.ausblick);
 
     var h = $("hinweise");
     var hw = window.I18N.lang === "en" && d.hinweise_en ? d.hinweise_en : (d.hinweise || []);
@@ -132,7 +133,7 @@
   }
 
   function waehleTab(name) {
-    ["kev", "bsi", "eu"].forEach(function (n) {
+    ["kev", "bsi", "eu", "ausblick"].forEach(function (n) {
       var t = $("t-" + n), an = n === name;
       t.setAttribute("aria-selected", an ? "true" : "false"); t.tabIndex = an ? 0 : -1;
       $("p-" + n).hidden = !an;
@@ -142,8 +143,8 @@
     Array.prototype.forEach.call(document.querySelectorAll(".tabs button"), function (b) {
       b.addEventListener("click", function () { waehleTab(b.getAttribute("data-tab")); });
       b.addEventListener("keydown", function (e) {
-        var ids = ["kev", "bsi", "eu"], i = ids.indexOf(b.getAttribute("data-tab"));
-        if (e.key === "ArrowRight") i = (i + 1) % 3; else if (e.key === "ArrowLeft") i = (i + 2) % 3; else return;
+        var ids = ["kev", "bsi", "eu", "ausblick"], i = ids.indexOf(b.getAttribute("data-tab"));
+        if (e.key === "ArrowRight") i = (i + 1) % ids.length; else if (e.key === "ArrowLeft") i = (i + ids.length - 1) % ids.length; else return;
         waehleTab(ids[i]); $("t-" + ids[i]).focus(); e.preventDefault();
       });
     });
@@ -242,5 +243,19 @@
       var t = el("span", "titel"); t.appendChild(link(e.link, (e.cve && e.cve[0]) || e.id)); r.appendChild(t);
       return r;
     }), 8);
+  }
+
+  function zeigeAusblick(u) {
+    if (!u) { $("ab-info").textContent = txt("keine"); $("ab-liste").textContent = txt("keine"); return; }
+    var prozent = function (x) { return (x * 100).toLocaleString(window.I18N.locale, { maximumFractionDigits: 1 }) + " %"; };
+    $("ab-info").textContent = txt("ab_info", u.fenster_tage, zahl(u.geprueft), zahl(u.hoch_wahrscheinlich), Math.round((u.schwelle_hoch || 0.1) * 100), datum(u.abgerufen_am));
+    liste("ab-liste", (u.liste || []).map(function (e) {
+      var r = el("div", "row zeile");
+      r.appendChild(el("span", "mono dim", datum(e.veroeffentlicht)));
+      r.appendChild(el("span", "mono " + (e.epss >= (u.schwelle_hoch || 0.1) ? "rw" : ""), txt("ab_zeile", prozent(e.epss))));
+      r.appendChild(el("span", "mono dim", typeof e.cvss === "number" ? "CVSS " + e.cvss.toLocaleString(window.I18N.locale, { minimumFractionDigits: 1 }) : "CVSS –"));
+      var t = el("span", "titel"); t.appendChild(link(e.link, e.cve)); r.appendChild(t);
+      return r;
+    }), 10);
   }
 })();

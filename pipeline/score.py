@@ -32,6 +32,7 @@ HINWEISE = [
     "Die Liste ist für den Abgleich mit dem eigenen Bestand gedacht: Wer verteidigt, weiß selbst, was im Einsatz ist.",
     "Die Stufe zeigt, wie viele Schwachstellen neu als ausgenutzt gelten, im Vergleich zu den letzten 12 Monaten. Sie gilt allgemein, nicht für einen bestimmten Sektor, und sagt nichts über einzelne Angriffe.",
     "ENISA-Werte gelten für die EU insgesamt, nicht für Deutschland.",
+    "Der Ausblick nennt eine Schätzung (EPSS) für neue Lücken. Er gehört nicht zur Stufe und ist kein Befund.",
 ]
 
 
@@ -41,6 +42,7 @@ HINWEISE_EN = [
     "The list is meant for matching against your own inventory: defenders know what they run.",
     "The level shows how many vulnerabilities newly count as exploited compared with the last 12 months. It applies in general, not to any particular sector, and says nothing about individual attacks.",
     "ENISA figures apply to the EU as a whole, not to Germany.",
+    "The outlook gives an estimate (EPSS) for new flaws. It is not part of the level and not a finding.",
 ]
 
 QUELLEN_EN = {
@@ -48,6 +50,8 @@ QUELLEN_EN = {
     "enisa": ("ENISA Threat Landscape 2026", "CC BY 4.0"),
     "cert_bund": ("CERT-Bund / BSI Warning and Information Service", "titles and links only, observe the BSI terms of use"),
     "eu_kev": ("EU-KEV (EUVD by ENISA)", "licence not explicitly clarified"),
+    "epss": ("EPSS (FIRST)", "free to use with attribution"),
+    "nvd": ("NVD (NIST)", "public domain, only publication date and CVSS score"),
 }
 
 
@@ -158,7 +162,15 @@ def zusatz_eu(daten, stand, tage):
     }
 
 
-def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None, telegram_link=None):
+def zusatz_ausblick(daten):
+    """Ausblick (EPSS + NVD). Nicht Teil der Stufe. Ohne Datei: None ('keine Daten')."""
+    if not daten or not isinstance(daten.get("liste"), list):
+        return None
+    return {k: daten.get(k) for k in ("abgerufen_am", "fenster_tage", "geprueft", "schwelle_hoch",
+                                       "hoch_wahrscheinlich", "epss_datum", "liste")}
+
+
+def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None, telegram_link=None, ausblick=None):
     tage = regeln["fenster_tage"]
     alle = kev["eintraege"]
     fenster = im_fenster(alle, stand, tage)
@@ -181,6 +193,7 @@ def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None, telegram_link=None):
         "telegram": {"link": telegram_link},
         "cert_bund": zusatz_bsi(bsi, stand, tage),
         "eu_kev": zusatz_eu(eu, stand, tage),
+        "ausblick": zusatz_ausblick(ausblick),
     }
     ergebnis["stufe"], ergebnis["stufe_begruendung"] = bestimme_stufe(len(fenster), ransom, regeln)
 
@@ -218,6 +231,14 @@ def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None, telegram_link=None):
         if z:
             ergebnis["quellen"].append({"id": schluessel, "name": name, "link": z["quelle_url"], "lizenz": lizenz,
                                         "abgerufen_am": z.get("abgerufen_am")})
+    if ergebnis.get("ausblick"):
+        ab = ergebnis["ausblick"]["abgerufen_am"]
+        ergebnis["quellen"] += [
+            {"id": "epss", "name": "EPSS (FIRST)", "link": "https://www.first.org/epss/",
+             "lizenz": "kostenlos mit Quellenangabe", "abgerufen_am": ab},
+            {"id": "nvd", "name": "NVD (NIST)", "link": "https://nvd.nist.gov/",
+             "lizenz": "gemeinfrei, nur Veröffentlichungsdatum und CVSS-Wert", "abgerufen_am": ab},
+        ]
     ergebnis["hinweise"] = HINWEISE
     ergebnis["hinweise_en"] = HINWEISE_EN
     ergebnis["stufe_begruendung_en"] = begruendung_en(len(fenster), ransom, regeln)
@@ -237,7 +258,8 @@ def main(argv):
     ergebnis = werte_aus(kev, regeln, enisa, stand,
                          lese_optional(WURZEL / "data" / "bsi" / "warnungen.json"),
                          lese_optional(WURZEL / "data" / "eu" / "kev.json"),
-                         (lese_optional(WURZEL / "config" / "telegram.json") or {}).get("kanal_link"))
+                         (lese_optional(WURZEL / "config" / "telegram.json") or {}).get("kanal_link"),
+                         lese_optional(WURZEL / "data" / "ausblick" / "ausblick.json"))
     ziel = WURZEL / "site" / "data" / "lage.json"
     ziel.parent.mkdir(parents=True, exist_ok=True)
     ziel.write_text(json.dumps(ergebnis, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

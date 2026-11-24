@@ -34,6 +34,7 @@
       <a href="#neu" data-tab="kev" data-t="tab_kev">KEV-Katalog</a>
       <a href="#neu" data-tab="bsi">CERT-Bund</a>
       <a href="#neu" data-tab="eu">EU-KEV</a>
+      <a href="#neu" data-tab="ausblick" data-t="tab_ausblick">Ausblick</a>
     </div></details>
     <details class="dd"><summary data-sec="info">/info</summary><div class="dd-box">
       <a href="#info" data-offen="i-quellen" data-t="i_quellen">Quellen</a>
@@ -93,6 +94,7 @@
       <button type="button" role="tab" id="t-kev" data-tab="kev" aria-selected="true" aria-controls="p-kev" data-t="tab_kev">KEV-Katalog</button>
       <button type="button" role="tab" id="t-bsi" data-tab="bsi" aria-selected="false" aria-controls="p-bsi" tabindex="-1">CERT-Bund</button>
       <button type="button" role="tab" id="t-eu" data-tab="eu" aria-selected="false" aria-controls="p-eu" tabindex="-1">EU-KEV</button>
+      <button type="button" role="tab" id="t-ausblick" data-tab="ausblick" aria-selected="false" aria-controls="p-ausblick" tabindex="-1" data-t="tab_ausblick">Ausblick</button>
     </div>
 
     <div id="p-kev" role="tabpanel" aria-labelledby="t-kev">
@@ -119,6 +121,12 @@
       <p class="dim sub" id="eu-info">…</p>
       <div class="panel pad"><div id="eu-liste"></div></div>
       <p class="dim fine" data-t="n_q3">Quelle: EU-Schwachstellendatenbank (EUVD) der <strong>ENISA</strong>, der EU-Agentur für Cybersicherheit. Die Lizenz ist nicht ausdrücklich geklärt, deshalb nur Kennung, CVE, Hersteller und Link.</p>
+    </div>
+
+    <div id="p-ausblick" role="tabpanel" aria-labelledby="t-ausblick" hidden>
+      <p class="dim sub" id="ab-info">…</p>
+      <div class="panel pad"><div id="ab-liste"></div></div>
+      <p class="dim fine" data-t="n_q4">Ausblick, nicht Teil der Stufe: Die Wahrscheinlichkeit stammt von <strong>EPSS</strong> (Exploit Prediction Scoring System, FIRST) und schätzt, ob eine neue Lücke in den nächsten 30 Tagen ausgenutzt wird. Eine Schätzung, kein Befund. Gelistet sind neue CVEs der letzten Tage, die noch nicht im KEV stehen. See EPSS at <a href="https://www.first.org/epss">first.org/epss</a>. Veröffentlichungsdatum und CVSS-Wert aus der NVD. This product uses data from the NVD API but is not endorsed or certified by the NVD.</p>
     </div>
   </section>
 
