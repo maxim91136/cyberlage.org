@@ -1,7 +1,7 @@
 {
-  "abgerufen_am": "2026-11-24T06:04:51+00:00",
+  "abgerufen_am": "2026-11-24T07:47:12+00:00",
   "fenster_tage": 14,
-  "geprueft": 8663,
+  "geprueft": 8640,
   "schwelle_hoch": 0.1,
   "hoch_wahrscheinlich": 15,
   "epss_datum": "2026-11-23",
@@ -85,6 +85,83 @@
       "veroeffentlicht": "2026-11-19",
       "cvss": 9.2,
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-129289"
+    }
+  ],
+  "kandidaten": [
+    {
+      "cve": "CVE-2026-115560",
+      "epss": 0.73107,
+      "veroeffentlicht": "2026-11-19"
+    },
+    {
+      "cve": "CVE-2026-114938",
+      "epss": 0.57324,
+      "veroeffentlicht": "2026-11-17"
+    },
+    {
+      "cve": "CVE-2026-95645",
+      "epss": 0.28818,
+      "veroeffentlicht": "2026-11-18"
+    },
+    {
+      "cve": "CVE-2026-123007",
+      "epss": 0.27785,
+      "veroeffentlicht": "2026-11-18"
+    },
+    {
+      "cve": "CVE-2026-95643",
+      "epss": 0.24378,
+      "veroeffentlicht": "2026-11-18"
+    },
+    {
+      "cve": "CVE-2026-75869",
+      "epss": 0.20352,
+      "veroeffentlicht": "2026-11-12"
+    },
+    {
+      "cve": "CVE-2026-123633",
+      "epss": 0.17525,
+      "veroeffentlicht": "2026-11-18"
+    },
+    {
+      "cve": "CVE-2026-123634",
+      "epss": 0.17103,
+      "veroeffentlicht": "2026-11-18"
+    },
+    {
+      "cve": "CVE-2026-121810",
+      "epss": 0.16404,
+      "veroeffentlicht": "2026-11-18"
+    },
+    {
+      "cve": "CVE-2026-129289",
+      "epss": 0.16163,
+      "veroeffentlicht": "2026-11-19"
+    },
+    {
+      "cve": "CVE-2026-119618",
+      "epss": 0.15822,
+      "veroeffentlicht": "2026-11-11"
+    },
+    {
+      "cve": "CVE-2026-113425",
+      "epss": 0.1386,
+      "veroeffentlicht": "2026-11-18"
+    },
+    {
+      "cve": "CVE-2026-126714",
+      "epss": 0.13297,
+      "veroeffentlicht": "2026-11-19"
+    },
+    {
+      "cve": "CVE-2026-129538",
+      "epss": 0.12818,
+      "veroeffentlicht": "2026-11-19"
+    },
+    {
+      "cve": "CVE-2026-12507",
+      "epss": 0.104,
+      "veroeffentlicht": "2026-11-12"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
- "abgerufen_am": "2026-11-24T07:46:44+00:00",
+ "abgerufen_am": "2026-11-24T07:49:42+00:00",
  "zeit_bis_kev": {
   "verlauf": [
    {
@@ -441,14 +441,14 @@
   "ohne_datum": 0
  },
  "trefferquote": {
-  "prognosen": 0,
+  "prognosen": 15,
   "eingetreten": 0,
-  "offen": 0,
+  "offen": 15,
   "reif": 0,
   "reif_eingetreten": 0,
   "quote_reif": null,
   "median_tage_bis_eintritt": null,
-  "seit": null,
+  "seit": "2026-11-24",
   "schwelle": 0.1,
   "reif_nach_tagen": 30
  },
@@ -459,7 +459,10 @@
   "median_abstand_tage": 0.0,
   "eu_datum_frueher": 4
  },
- "sans": null,
+ "sans": {
+  "status": "green",
+  "abgerufen_am": "2026-11-24T07:49:42+00:00"
+ },
  "einschaetzungen": [
   {
    "name": "BSI Lagebericht 2026",

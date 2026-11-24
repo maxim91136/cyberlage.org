@@ -2125,5 +2125,10 @@
   ]
  },
  "stufe": "hoch",
- "zusammenfassung": "2026-11-23"
+ "zusammenfassung": "2026-11-24",
+ "offen": {
+  "kev": [],
+  "bsi": [],
+  "eu": []
+ }
 }
