@@ -106,6 +106,7 @@
       $("rechnung").textContent = txt("keine");
     }
     zeichneVerlauf(d.verlauf || [], d.schwellen || {});
+    zeichneScoreVerlauf(((((d.radar || {}).konsens) || {}).score) || null);
     var tl = d.telegram && d.telegram.link;
     if (/^https:\/\/t\.me\//.test(tl || "")) { $("telegram-link").href = tl; $("telegram").hidden = false; }
     d_stand = d.stand;
@@ -192,6 +193,36 @@
     var s = $("verlauf-titel");
     s.textContent = txt("v_titel", datum(v[0].stand), datum(v[v.length - 1].stand), Math.min.apply(null, zahlen), Math.max.apply(null, zahlen), zahlen[zahlen.length - 1]);
     $("verlauf-legende").textContent = txt("v_leg", sw.basis_monate || 12);
+  }
+
+  function zeichneScoreVerlauf(sc) {
+    var svg = $("rs-chart"), leg = $("rs-legende"), NS = "http://www.w3.org/2000/svg";
+    if (!svg) return;
+    svg.textContent = "";
+    var v = sc && sc.reihe || [];
+    if (!v.length) { leg.textContent = txt("keine"); return; }
+    var B = Math.max(300, Math.round(svg.getBoundingClientRect().width)) || 1000, H = B < 600 ? 170 : 200, L = 30, R = 16, T = 12, U = 28;
+    svg.setAttribute("viewBox", "0 0 " + B + " " + H);
+    var mk = function (tag, a, t) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); if (t !== undefined) e.textContent = t; svg.appendChild(e); return e; };
+    var y = function (n) { return T + (H - T - U) * (1 - n / 100); };
+    var x = function (i) { return v.length < 2 ? (L + B - R) / 2 : L + i * (B - L - R) / (v.length - 1); };
+    [0, 50, 100].forEach(function (n) {
+      mk("line", { x1: L, x2: B - R, y1: y(n), y2: y(n), stroke: n === 50 ? "#263340" : "#1d262e", "stroke-dasharray": n === 50 ? "4 4" : "0" });
+      mk("text", { x: L - 6, y: y(n) + 4, "text-anchor": "end", fill: "#8a99a6", "font-size": 11, "font-family": "ui-monospace,monospace" }, String(n));
+    });
+    if (v.length > 1) mk("polyline", { points: v.map(function (p, i) { return x(i) + "," + y(p.wert); }).join(" "), fill: "none", stroke: "#6fe0a0", "stroke-width": 2 });
+    v.forEach(function (p, i) {
+      var c = mk("circle", { cx: x(i), cy: y(p.wert), r: v.length > 60 ? 1.5 : 3, fill: "#6fe0a0" });
+      c.appendChild(document.createElementNS(NS, "title")).textContent = datum(p.stand) + ": " + p.wert + " (" + p.signale + "/" + p.von + ")";
+    });
+    [0, v.length - 1].forEach(function (i, k) {
+      if (k && v.length < 2) return;
+      mk("text", { x: x(i), y: H - 8, "text-anchor": i === 0 ? "start" : "end", fill: "#8a99a6", "font-size": 11, "font-family": "ui-monospace,monospace" }, datum(v[i].stand));
+    });
+    var t = document.createElementNS(NS, "title"); t.textContent = pick("Verlauf des Radar-Scores, zuletzt " + v[v.length - 1].wert + " von 100.", "Radar score over time, latest " + v[v.length - 1].wert + " of 100."); svg.insertBefore(t, svg.firstChild);
+    leg.textContent = pick("Eine Messung pro Tag, seit " + datum(sc.live_seit || v[0].stand) + ". ", "One reading per day, since " + datum(sc.live_seit || v[0].stand) + ". ") +
+      (v.length < 7 ? pick("Die Linie wächst mit jedem Tag; erst nach einigen Wochen sagt sie etwas aus. ", "The line grows each day; it only means something after a few weeks. ") : "") +
+      pick("Experiment: Mittelwert der Ausschläge aller verfügbaren Signale, nicht objektiv und nicht Teil des Dreier-Pegels.", "Experiment: mean of the readings of all available signals, not objective and not part of the Dreier Gauge.");
   }
 
   function liste(boxId, zeilen, max) {

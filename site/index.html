@@ -6,14 +6,14 @@
 
 <meta name="color-scheme" content="dark">
 <title>Cyberlage – Lagebild aus offenen Quellen</title>
-<meta name="description" content="Ein Seismograph für die Cyberlage: der Dreier-Pegel mit Radar, regelbasiert aus ausgenutzten Schwachstellen abgeleitet. Offene Quellen, offene Regeln. Ein Projekt von Dreier Labs.">
+<meta name="description" content="Ein Seismograph der Cyber-Bedrohungslage: der Dreier-Pegel mit Radar, regelbasiert aus ausgenutzten Schwachstellen abgeleitet. Offene Quellen, offene Regeln. Ein Projekt von Dreier Labs.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.ico" sizes="48x48">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#06090b">
 <link rel="canonical" href="https://cyberlage.org/">
 <link rel="alternate" type="application/rss+xml" title="Cyberlage" href="https://cyberlage.org/feed.xml">
-<meta property="og:title" content="Seismograph für die globale Cyberlage. Regelbasiert und offen belegt.">
+<meta property="og:title" content="Seismograph der Cyber-Bedrohungslage. Weltweit, regelbasiert, offen belegt.">
 <meta property="og:description" content="Regelbasiertes Lagebild aus ausgenutzten Schwachstellen. Offene Quellen, offene Regeln.">
 <meta property="og:url" content="https://cyberlage.org/">
 <meta property="og:type" content="website">
@@ -56,8 +56,8 @@
 
 <main>
   <section class="wrap hero">
-    <p class="lbl" data-t="h_lbl">stand <span id="stand">…</span></p>
-    <h1 data-t="h_titel">Seismograph für die globale Cyberlage.<br>Regelbasiert und offen belegt.</h1>
+    <p class="lbl" data-t="h_lbl">stand <span id="stand">…</span> · experiment</p>
+    <h1 data-t="h_titel">Seismograph der Cyber-Bedrohungslage.<br>Weltweit, regelbasiert, offen belegt.</h1>
   </section>
 
   <section id="lage" class="wrap" aria-labelledby="h-lage">
@@ -90,7 +90,7 @@
       <span><span data-t="l_ges">Katalog gesamt</span> <b id="kall">1.792</b></span>
       <span>Ransomware <b id="kr">1</b></span>
     </p>
-    <p class="lead" data-t="h_lead">Weltweit, über alle Hersteller: Wir zählen die Schwachstellen, die Stellen wie CISA als ausgenutzt melden, und rechnen sie nach offenen Regeln zu einer Stufe zusammen. Wie ein Seismograph zeigt der Dreier-Pegel mit dem Radar die Ausschläge, er sagt nichts voraus. Keine Aussage über ein Land oder einen Sektor. Für alle, die verteidigen.</p>
+    <p class="lead" data-t="h_lead">Weltweit, über alle Hersteller: Wir zählen die Schwachstellen, die Stellen wie CISA als ausgenutzt melden, und rechnen sie nach offenen Regeln zu einer Stufe zusammen. Wie ein Seismograph zeigt der Dreier-Pegel mit dem Radar die Ausschläge, er sagt nichts voraus. Das Ganze ist ein offenes Experiment von Dreier Labs: Die Stufe folgt festen Regeln, der Radar-Score ist ein Versuch. Keine Aussage über ein Land oder einen Sektor. Für alle, die verteidigen.</p>
     <details class="akk" id="l-rechnung"><summary class="mono" data-t="l_wie">so entsteht die stufe</summary>
       <div id="rechnung" class="rechnung"></div>
     </details>
@@ -120,6 +120,11 @@
       <h3 class="mono rd-t" data-t="r_pegel">Dreier-Pegel im Verlauf</h3>
       <svg id="verlauf" role="img" aria-labelledby="verlauf-titel" viewBox="0 0 1000 220" width="100%" preserveAspectRatio="xMidYMid meet"><title id="verlauf-titel">Verlauf der neu aufgenommenen Schwachstellen</title></svg>
       <p class="mono dim fine" id="verlauf-legende"></p>
+    </div>
+    <div class="panel pad rd">
+      <h3 class="mono rd-t" data-t="r_rscore">Radar-Score im Verlauf · Experiment</h3>
+      <svg id="rs-chart" role="img" viewBox="0 0 1000 200" width="100%" preserveAspectRatio="xMidYMid meet"></svg>
+      <p class="mono dim fine" id="rs-legende"></p>
     </div>
     <div class="panel pad rd">
       <h3 class="mono rd-t" data-t="rd_zeit_h">Wie schnell wird eine Lücke ausgenutzt gemeldet?</h3>
