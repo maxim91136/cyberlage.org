@@ -295,3 +295,4 @@ html.alarm .marke{animation:flackern 6s infinite}
 .faq-q{margin:16px 16px 4px;color:var(--text);font-size:14px;font-weight:600}.faq-a{margin:0 16px 12px;max-width:72ch}#i-faq{padding-bottom:6px}
 .faqlink{margin:10px 0 0}.faqlink a{color:var(--green)}
 .navin a.faq-nav{color:var(--green);font-weight:700}
+.kernq{margin:8px 0 0}
