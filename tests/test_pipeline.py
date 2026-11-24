@@ -500,6 +500,9 @@ class PruefkalenderTests(unittest.TestCase):
         namen = [e["id"] for e in r1["eintraege"] if e["faellig"]]
         self.assertIn("r7q3", namen)
         self.assertNotIn("BSI Cyber Index 2026", namen)
+        self.assertNotIn("schwellen", namen)  # 183 Tage ab 23.11.2026, am 1.3.2027 noch nicht fällig
+        spaeter = pruefen.pruefen(date(2027, 6, 1), None, pruefer=ok, jetzt=jetzt)
+        self.assertIn("schwellen", [e["id"] for e in spaeter["eintraege"] if e["faellig"]])
         # ein Fehlschlag allein ist noch kein toter Link; erst wenn es 24 Stunden lang bei jedem Versuch scheitert
         r2 = pruefen.pruefen(date(2026, 11, 24), None, pruefer=fehl, jetzt=jetzt)
         self.assertFalse(any(e["link_tot"] for e in r2["eintraege"]))

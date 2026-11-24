@@ -7,5 +7,6 @@
   "hinweis": "Freigegeben am 23.11.2026 durch den Projektbetreiber, Basis 36 Monate (vorher 12 Monate: 31/37). Änderungen sind im Verlauf des Repos sichtbar.",
   "grundlage": "Verteilung der neu aufgenommenen KEV-Einträge pro 30-Tage-Fenster, täglich gemessen vom 23.11.2023 bis 23.11.2026 (36 Monate; das Anlaufjahr 2022 ist bewusst nicht enthalten): Median 19, 75. Perzentil 25, 90. Perzentil 32; Ransomware-bekannt: 90. Perzentil 5.",
   "basis_monate": 36,
+  "geprueft_am": "2026-11-23",
   "median": 19
 }
