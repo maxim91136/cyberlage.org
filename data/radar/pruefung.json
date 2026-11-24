@@ -103,10 +103,10 @@
    "link": "https://github.com/maxim91136/cyberlage.org/blob/main/config/regeln.json",
    "geprueft_am": "2026-11-23",
    "erreichbar": false,
-   "status": 503,
-   "fehler_in_folge": 1,
+   "status": 404,
+   "fehler_in_folge": 2,
    "erster_fehler_um": "2026-11-24T16:15:10+00:00",
-   "link_geprueft_um": "2026-11-24T16:15:10+00:00",
+   "link_geprueft_um": "2026-11-24T17:51:47+00:00",
    "faellig_am": "2027-05-25",
    "faellig": false,
    "link_tot": false
