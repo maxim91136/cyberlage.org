@@ -746,3 +746,41 @@ class TempoTests(unittest.TestCase):
         f = score.fazit({"wert": 61}, "niedrig", cfg, "hoch")
         self.assertIn("Dreier-Tempo ist hoch", f["text"])
         self.assertEqual(f["hinweis"], cfg["pegel"]["hoch"]["hinweis"])  # die höhere der beiden Stufen bestimmt den Hinweis
+
+
+class PrioritaetTests(unittest.TestCase):
+    def test_reihenfolge_und_zeitfenster(self):
+        heute = date(2026, 11, 25)
+        monat = {"erste_veroeffentlichung": "2026-11-10T08:00:00Z", "kandidaten": [
+            {"cve": "CVE-A", "titel": "kritisch", "schwere": "Critical", "ausgenutzt": False, "oeffentlich": False, "kev": False, "familien": ["Windows 11"]},
+            {"cve": "CVE-B", "titel": "ausgenutzt", "schwere": "Important", "ausgenutzt": True, "oeffentlich": False, "kev": False, "familien": []},
+            {"cve": "CVE-C", "titel": "im KEV", "schwere": "Important", "ausgenutzt": True, "oeffentlich": False, "kev": True, "familien": []},
+            {"cve": "CVE-D", "titel": "epss", "schwere": "Important", "ausgenutzt": False, "oeffentlich": False, "kev": False, "familien": []},
+            {"cve": "CVE-E", "titel": "unauffällig", "schwere": "Important", "ausgenutzt": False, "oeffentlich": False, "kev": False, "familien": []}]}
+        alt = dict(monat, erste_veroeffentlichung="2026-08-10T08:00:00Z")  # zu alt, nicht mehr "diese Woche"
+        alt = dict(alt, kandidaten=[dict(monat["kandidaten"][2], cve="CVE-ALT")])
+        pr = fetch_patches.priorisiere([alt, monat], {}, [], {"CVE-D": (0.4, 0.9, "2026-11-25")}, heute)
+        self.assertEqual([k["cves"][0] for k in pr["liste"]], ["CVE-C", "CVE-B", "CVE-D", "CVE-A"])
+        self.assertEqual([k["stufe"] for k in pr["liste"]], [1, 2, 3, 4])
+        self.assertEqual(pr["liste"][0]["rang"], 1)
+        self.assertIn("EPSS 40 %", pr["liste"][2]["grund"])
+
+    def test_distribution_mit_kev(self):
+        heute = date(2026, 11, 25)
+        items = [{"id": "USN-1-1", "datum": date(2026, 11, 22), "titel": "Kernel", "link": "u", "schwere": None, "cves": ["CVE-K1", "CVE-X"]},
+                 {"id": "USN-2-1", "datum": date(2026, 11, 22), "titel": "andere", "link": "u2", "schwere": None, "cves": ["CVE-X"]}]
+        z = fetch_patches.verdichte_quelle(items, heute, kev=["CVE-K1"])
+        self.assertEqual(z["im_kev_30"], 1)
+        self.assertEqual(z["im_kev_meldungen"][0]["cves_kev"], ["CVE-K1"])
+        hs = {"quellen": {"ubuntu": dict(z, name="Ubuntu Security Notices", status="ok", typ="distribution", letzte=[])}}
+        pr = fetch_patches.priorisiere([], hs, ["CVE-K1"], {}, heute)
+        self.assertEqual(len(pr["liste"]), 1)
+        self.assertEqual(pr["liste"][0]["quelle"], "Ubuntu Security Notices")
+        self.assertEqual(pr["liste"][0]["stufe"], 1)
+
+    def test_epss_fehler_ist_nicht_fatal(self):
+        def lade(url):
+            raise OSError("gesperrt")
+        self.assertEqual(fetch_patches.hole_epss(["CVE-1"], lade), {})
+        ok = lambda url: {"data": [{"cve": "CVE-1", "epss": "0.5", "percentile": "0.9", "date": "2026-11-25"}]}
+        self.assertEqual(fetch_patches.hole_epss(["CVE-1"], ok)["CVE-1"][0], 0.5)

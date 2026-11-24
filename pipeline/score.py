@@ -379,6 +379,9 @@ def main(argv):
     if ms and ms.get("monate"):
         kompakt = {k: {f: w for f, w in m.items() if f != "cve_liste"} for k, m in ms["monate"].items()}
         ergebnis["patches"] = {"microsoft": {"meta": ms.get("meta"), "monate": kompakt}}
+    prio = lese_optional(WURZEL / "data" / "patches" / "prioritaet.json")
+    if prio and prio.get("liste") is not None:
+        ergebnis.setdefault("patches", {})["prioritaet"] = prio
     hers = lese_optional(WURZEL / "data" / "patches" / "hersteller.json")
     if hers and hers.get("quellen"):
         ergebnis.setdefault("patches", {})["hersteller"] = {"meta": hers.get("meta"), "quellen": {k: {f: w for f, w in q.items() if f != "reihe"} for k, q in hers["quellen"].items()}}

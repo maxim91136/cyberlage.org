@@ -131,6 +131,7 @@
     zeigeRadar(d.radar, d);
     zeigeKern(d);
     zeigeKonsens(d.radar);
+    zeigeZuerst(d.patches && d.patches.prioritaet);
     zeigeMicrosoft(d.patches && d.patches.microsoft);
     zeigeHersteller(d.patches && d.patches.hersteller);
 
@@ -348,6 +349,31 @@
       });
     });
     host.appendChild(svg);
+  }
+  function zeigeZuerst(pr) {
+    var box = $("p-zuerst"); if (!box) return;
+    if (!pr) { box.hidden = true; return; }
+    box.textContent = "";
+    box.appendChild(el("h3", "mono rd-t", pick("Diese Woche zuerst", "This week first")));
+    if (!pr.liste.length) {
+      box.appendChild(el("p", "", pick("Aktuell nichts, was nach unseren Regeln vorgezogen werden muss: keine Lücke aus den Patches der letzten Wochen steht im CISA-KEV, wird vom Hersteller als ausgenutzt gemeldet oder hat eine hohe Ausnutzungswahrscheinlichkeit. Der normale Patchzyklus genügt.", "Currently nothing that needs to be moved up by our rules: no flaw from the recent patches is in the CISA KEV, reported as exploited by the vendor or has a high likelihood of exploitation. The normal patch cycle is enough.")));
+    } else {
+      var ol = el("ol", "p-rang");
+      pr.liste.forEach(function (k) {
+        var li = el("li", "p-r" + k.stufe);
+        var kopf = el("div", "p-rk");
+        kopf.appendChild(el("span", "mono p-q", k.quelle));
+        kopf.appendChild(link(k.link, k.cves && k.cves.length ? k.cves.slice(0, 3).join(", ") + (k.cves.length > 3 ? " …" : "") : k.titel));
+        kopf.appendChild(el("span", "mono dim", " · " + datum(k.datum)));
+        li.appendChild(kopf);
+        li.appendChild(el("div", "p-t", k.titel + (k.betrifft && k.betrifft !== k.quelle ? " (" + k.betrifft + ")" : "")));
+        li.appendChild(el("div", "p-w", pick("Warum zuerst: ", "Why first: ") + pick(k.grund, k.grund_en)));
+        ol.appendChild(li);
+      });
+      box.appendChild(ol);
+    }
+    box.appendChild(el("p", "mono dim fine", pick("Reihenfolge nach festen Regeln: 1. im CISA-KEV, 2. vom Hersteller als ausgenutzt gemeldet, 3. EPSS ab 10 %, 4. vom Hersteller als kritisch eingestuft. Berücksichtigt: Microsoft Patch Day der letzten 30 Tage, Linux-Meldungen und Cisco der letzten 14 Tage (Linux nur mit KEV-Bezug). Stand ", "Order by fixed rules: 1. in the CISA KEV, 2. reported as exploited by the vendor, 3. EPSS from 10%, 4. rated critical by the vendor. Considered: Microsoft patch day of the last 30 days, Linux advisories and Cisco of the last 14 days (Linux only with a KEV link). As of ") + datum(pr.stand) + pick(". Das ist keine Vorhersage und ersetzt keine Prüfung in Ihrem eigenen System.", ". This is no forecast and does not replace a check in your own system.")));
+    box.hidden = false;
   }
   function zeigeMicrosoft(ms) {
     var box = $("p-ms"); if (!box) return;

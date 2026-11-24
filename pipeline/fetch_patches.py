@@ -33,7 +33,7 @@ MONAT_ID = re.compile(r"^(\d{4})-(" + "|".join(MONATE) + r")$")
 SCHWEREN = ("Critical", "Important", "Moderate", "Low")
 BEHALTEN_MONATE = 36
 HISTORIE_MONATE = 12  # Vergleichsbasis für die Bewertung
-SCHEMA = 2  # erhöhen, wenn sich die Zählweise ändert: dann werden alle Monate neu geholt
+SCHEMA = 3  # erhöhen, wenn sich die Zählweise ändert: dann werden alle Monate neu geholt
 
 
 class QuellFehler(Exception):
@@ -99,7 +99,7 @@ def verdichte_dokument(doc, kev_cves=()):
     schwere = {k: 0 for k in SCHWEREN}
     schwere["unbekannt"] = 0
     auswirkung, fam = {}, {}
-    ausgenutzt, oeffentlich, in_kev, cves, chromium, azure_linux = [], [], [], [], 0, 0
+    ausgenutzt, oeffentlich, in_kev, cves, chromium, azure_linux, kandidaten = [], [], [], [], 0, 0, []
     gesehen = set()
     for v in doc.get("Vulnerability") or []:
         cve = v.get("CVE")
@@ -129,6 +129,15 @@ def verdichte_dokument(doc, kev_cves=()):
             elif art == 1 and not ex_text:
                 ex_text = text
         schwere[sev if sev in SCHWEREN else "unbekannt"] += 1
+        ist_aus = bool(re.search(r"Exploited:\s*Yes", ex_text, re.I))
+        ist_oeff = bool(re.search(r"Publicly Disclosed:\s*Yes", ex_text, re.I))
+        if ist_aus or ist_oeff or cve in kev or sev == "Critical":
+            fam_c = set()
+            for st in v.get("ProductStatuses") or []:
+                for pid in st.get("ProductID") or []:
+                    fam_c.add(familie(produkte.get(str(pid), "")))
+            kandidaten.append({"cve": cve, "titel": titel[:120], "schwere": sev, "ausgenutzt": ist_aus, "oeffentlich": ist_oeff, "kev": cve in kev,
+                               "familien": sorted(fam_c - {"Sonstige"})[:3]})
         if imp:
             auswirkung[imp] = auswirkung.get(imp, 0) + 1
         if re.search(r"Exploited:\s*Yes", ex_text, re.I):
@@ -151,6 +160,7 @@ def verdichte_dokument(doc, kev_cves=()):
         "auswirkung": dict(sorted(auswirkung.items(), key=lambda kv: -kv[1])[:8]),
         "familien": dict(sorted(fam.items(), key=lambda kv: -kv[1])),
         "cve_liste": sorted(cves),
+        "kandidaten": sorted(kandidaten, key=lambda k: (not k["kev"], not k["ausgenutzt"], not k["oeffentlich"], k["cve"]))[:40],
     }
 
 
@@ -234,6 +244,8 @@ def aktualisiere(alt, liste_json, hole_dok, kev_cves, jetzt):
     for i, m in enumerate(reihe):
         m["bewertung"] = bewerte(m, reihe[:i])
     reihe = reihe[-BEHALTEN_MONATE:]
+    for m in reihe[:-2]:
+        m.pop("kandidaten", None)
     if not reihe:
         raise QuellFehler("keine Monatsberichte")
     return {"meta": {"quelle": "Microsoft Security Response Center (CVRF 3.0)", "quelle_url": MS_QUELLE, "listen_url": MS_LISTE,
@@ -251,6 +263,7 @@ REDHAT_CSV = "https://security.access.redhat.com/data/csaf/v2/advisories/changes
 DEBIAN_URLS = ["https://www.debian.org/security/dsa-long.rdf", "https://www.debian.org/security/dsa.rdf", "https://www.debian.org/security/dsa-long.en.rdf", "https://www.debian.org/security/dsa.en.rdf"]
 CISCO_URL = "https://sec.cloudapps.cisco.com/security/center/psirtrss20/CiscoSecurityAdvisory.xml"
 HERSTELLER_DATEI = WURZEL / "data" / "patches" / "hersteller.json"
+PRIO_DATEI = WURZEL / "data" / "patches" / "prioritaet.json"
 CVE_RE = re.compile(r"CVE-\d{4}-\d{4,7}")
 FENSTER = 30
 
@@ -361,14 +374,17 @@ def parse_cisco(xml_bytes):
     return out
 
 
-def verdichte_quelle(items, heute):
+def verdichte_quelle(items, heute, kev=()):
     """Zählung der Meldungen der letzten 7 und 30 Tage. Fehlt eine Angabe (z. B. Schweregrad), wird sie nicht geraten."""
     inner = [i for i in items if 0 <= (heute - i["datum"]).days < FENSTER]
     sieben = [i for i in inner if (heute - i["datum"]).days < 7]
     mit_sev = [i for i in inner if i["schwere"]]
     cves = set(c for i in inner for c in i["cves"])
     letzte = sorted(inner, key=lambda i: (i["datum"], i["id"]), reverse=True)[:10]
-    return {"neu_7": len(sieben), "neu_30": len(inner), "kritisch_30": len([i for i in inner if i["schwere"] == "kritisch"]) if mit_sev else None,
+    kev = set(kev)
+    mit_kev = [dict(id=i["id"], datum=i["datum"].isoformat(), titel=i["titel"][:140], link=i["link"], cves_kev=sorted(set(i["cves"]) & kev)[:6])
+               for i in sorted(inner, key=lambda i: (i["datum"], i["id"]), reverse=True) if set(i["cves"]) & kev]
+    return {"im_kev_30": len(mit_kev), "im_kev_meldungen": mit_kev[:8], "neu_7": len(sieben), "neu_30": len(inner), "kritisch_30": len([i for i in inner if i["schwere"] == "kritisch"]) if mit_sev else None,
             "hoch_30": len([i for i in inner if i["schwere"] == "hoch"]) if mit_sev else None, "cves_30": len(cves),
             "schwere_bekannt": bool(mit_sev),
             "letzte": [{"id": i["id"], "datum": i["datum"].isoformat(), "titel": i["titel"][:140], "link": i["link"], "schwere": i["schwere"]} for i in letzte]}
@@ -418,7 +434,7 @@ def hole_quelle(qid, heute, lade=lade_roh):
     raise QuellFehler("unbekannte Quelle " + qid)
 
 
-def aktualisiere_hersteller(alt, heute, jetzt, lade=lade_roh):
+def aktualisiere_hersteller(alt, heute, jetzt, lade=lade_roh, kev=()):
     alt = alt or {}
     quellen = dict(alt.get("quellen", {}))
     for q in QUELLEN:
@@ -427,7 +443,7 @@ def aktualisiere_hersteller(alt, heute, jetzt, lade=lade_roh):
             items = hole_quelle(q["id"], heute, lade)
             if not items:
                 raise QuellFehler("keine Einträge erkannt")
-            z = verdichte_quelle(items, heute)
+            z = verdichte_quelle(items, heute, kev)
             reihe = [p for p in vorher.get("reihe", []) if p["stand"] != heute.isoformat()]
             reihe.append({"stand": heute.isoformat(), "neu_30": z["neu_30"]})
             quellen[q["id"]] = dict(q, **z, abgerufen_am=jetzt.isoformat(timespec="seconds"), status="ok", reihe=reihe[-400:])
@@ -438,6 +454,87 @@ def aktualisiere_hersteller(alt, heute, jetzt, lade=lade_roh):
                 quellen[q["id"]] = dict(q, status="fehler", fehler=str(e)[:200], neu_7=None, neu_30=None, letzte=[])
     return {"meta": {"hinweis": "Nur Zählung und Verweise auf die Meldungen der Hersteller. Schweregrade stammen von den Herstellern und fehlen, wo sie nicht geliefert werden.",
                      "abgerufen_am": jetzt.isoformat(timespec="seconds")}, "quellen": quellen}
+
+
+# ---------- Diese Woche zuerst ----------
+EPSS_HOCH = 0.10
+ZEIT_MS_TAGE = 30
+ZEIT_HERSTELLER_TAGE = 14
+
+
+def hole_epss(cves, lade=lade_json):
+    """EPSS-Wahrscheinlichkeiten (FIRST) für die Kandidaten; Fehler führen nur zu fehlenden Werten."""
+    import fetch_ausblick
+    out, liste = {}, sorted(set(cves))
+    for i in range(0, len(liste), 100):
+        try:
+            out.update(fetch_ausblick.parse_epss(lade("%s?cve=%s" % (fetch_ausblick.EPSS_URL, ",".join(liste[i:i + 100])))))
+        except Exception:
+            continue
+    return out
+
+
+def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=8):
+    """Rangliste nach festen Regeln: 1 im KEV (nachweislich angegriffen), 2 vom Hersteller als ausgenutzt gemeldet,
+    3 EPSS ab 10 %, 4 vom Hersteller als kritisch eingestuft. Innerhalb einer Stufe nach EPSS, dann nach Kennung."""
+    kev = set(kev)
+    kand, gesehen = [], set()
+    for m in ms_monate or []:
+        try:
+            tage = (heute - datetime.fromisoformat(str(m.get("erste_veroeffentlichung")).replace("Z", "+00:00")).date()).days
+        except (TypeError, ValueError):
+            continue
+        if tage > ZEIT_MS_TAGE or tage < 0:
+            continue
+        for k in m.get("kandidaten", []):
+            e = (epss.get(k["cve"]) or (None,))[0]
+            if k["cve"] in kev or k.get("kev"):
+                stufe, g, ge = 1, "Steht im CISA-KEV: Die Lücke wird nachweislich angegriffen.", "Listed in the CISA KEV: the flaw is proven to be attacked."
+            elif k["ausgenutzt"]:
+                stufe, g, ge = 2, "Microsoft meldet aktive Ausnutzung.", "Microsoft reports active exploitation."
+            elif e is not None and e >= EPSS_HOCH:
+                stufe, g, ge = 3, "Hohe Ausnutzungswahrscheinlichkeit (EPSS %d %%)." % round(e * 100), "High likelihood of exploitation (EPSS %d%%)." % round(e * 100)
+            elif k["schwere"] == "Critical":
+                stufe, g, ge = 4, "Von Microsoft als kritisch eingestuft.", "Rated critical by Microsoft."
+            else:
+                continue
+            if k["cve"] in gesehen:
+                continue
+            gesehen.add(k["cve"])
+            kand.append({"stufe": stufe, "epss": e, "quelle": "Microsoft", "titel": k["titel"], "cves": [k["cve"]], "grund": g, "grund_en": ge,
+                         "betrifft": ", ".join(k["familien"]), "datum": str(m.get("erste_veroeffentlichung"))[:10],
+                         "link": "https://msrc.microsoft.com/update-guide/vulnerability/" + k["cve"]})
+    for q in (hersteller or {}).get("quellen", {}).values():
+        if q.get("status") != "ok":
+            continue
+        for x in q.get("im_kev_meldungen", []):
+            try:
+                tage = (heute - datetime.fromisoformat(x["datum"]).date()).days
+            except (TypeError, ValueError):
+                continue
+            neue = [c for c in x["cves_kev"] if c not in gesehen]
+            if tage > ZEIT_HERSTELLER_TAGE or not neue:
+                continue
+            gesehen.update(neue)
+            kand.append({"stufe": 1, "epss": None, "quelle": q["name"], "titel": x["titel"], "cves": neue,
+                         "grund": "Schließt %d Lücke(n) aus dem CISA-KEV: nachweislich angegriffen." % len(neue),
+                         "grund_en": "Closes %d flaw(s) from the CISA KEV: proven to be attacked." % len(neue), "betrifft": q["name"], "datum": x["datum"], "link": x["link"]})
+        for x in q.get("letzte", []):
+            if x.get("schwere") != "kritisch" or q.get("typ") != "hersteller":
+                continue
+            try:
+                tage = (heute - datetime.fromisoformat(x["datum"]).date()).days
+            except (TypeError, ValueError):
+                continue
+            if tage <= ZEIT_HERSTELLER_TAGE and x["id"] not in gesehen:
+                gesehen.add(x["id"])
+                kand.append({"stufe": 4, "epss": None, "quelle": q["name"], "titel": x["titel"], "cves": [], "grund": "Vom Hersteller als kritisch eingestuft.",
+                             "grund_en": "Rated critical by the vendor.", "betrifft": q["name"], "datum": x["datum"], "link": x["link"]})
+    kand.sort(key=lambda k: (k["stufe"], -(k["epss"] or 0), k["cves"][0] if k["cves"] else k["titel"]))
+    for i, k in enumerate(kand[:maximum], 1):
+        k["rang"] = i
+    return {"stand": heute.isoformat(), "regeln": "1 im CISA-KEV, 2 vom Hersteller als ausgenutzt gemeldet, 3 EPSS ab 10 %, 4 vom Hersteller als kritisch eingestuft",
+            "gesamt": len(kand), "liste": kand[:maximum]}
 
 
 def kev_cves():
@@ -463,13 +560,25 @@ def main():
     except Exception as e:
         print("Microsoft-Patches: Abruf fehlgeschlagen, alter Stand bleibt (%s)" % e)
     try:
-        hs = aktualisiere_hersteller(lese_datei(HERSTELLER_DATEI), jetzt.date(), jetzt)
+        hs = aktualisiere_hersteller(lese_datei(HERSTELLER_DATEI), jetzt.date(), jetzt, kev=kev_cves())
         HERSTELLER_DATEI.parent.mkdir(parents=True, exist_ok=True)
         HERSTELLER_DATEI.write_text(json.dumps(hs, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
         for k, q in hs["quellen"].items():
             print("  %s: %s, neu 7 Tage %s, 30 Tage %s%s" % (k, q["status"], q.get("neu_7"), q.get("neu_30"), (" (%s)" % q["fehler"]) if q.get("fehler") else ""))
     except Exception as e:
         print("Hersteller-Patches: Fehler (%s)" % e)
+    try:
+        ms = lese_datei(MS_DATEI) or {}
+        hs = lese_datei(HERSTELLER_DATEI) or {}
+        kev = set(kev_cves())
+        monate = list((ms.get("monate") or {}).values())
+        kand = [k["cve"] for m in monate[-2:] for k in m.get("kandidaten", [])]
+        epss = hole_epss(kand)
+        pr = priorisiere(monate, hs, kev, epss, jetzt.date())
+        PRIO_DATEI.write_text(json.dumps(pr, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+        print("Priorität: %d Einträge insgesamt, %d angezeigt, EPSS für %d Kandidaten" % (pr["gesamt"], len(pr["liste"]), len(epss)))
+    except Exception as e:
+        print("Priorität: Fehler (%s)" % e)
     return 0
 
 
