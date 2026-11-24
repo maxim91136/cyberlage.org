@@ -145,7 +145,7 @@
     });
     document.addEventListener("click", function (e) { menues.forEach(function (m) { if (!m.contains(e.target)) m.open = false; }); });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") menues.forEach(function (m) { m.open = false; }); });
-    Array.prototype.forEach.call(document.querySelectorAll(".dd-box a"), function (a) {
+    Array.prototype.forEach.call(document.querySelectorAll(".dd-box a, a[data-offen]"), function (a) {
       a.addEventListener("click", function (e) {
         e.preventDefault();
         var tab = a.getAttribute("data-tab"), offen = a.getAttribute("data-offen"), ziel = document.querySelector(a.getAttribute("href"));
