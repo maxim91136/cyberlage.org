@@ -3,10 +3,38 @@
   "quelle": "EU-KEV über die EU-Schwachstellendatenbank (EUVD) von ENISA",
   "quelle_url": "https://euvd.enisa.europa.eu/",
   "hinweis": "Lizenz nicht ausdrücklich geklärt. Nur Kennung, CVE, Hersteller, Werte, Datum und Link.",
-  "abgerufen_am": "2026-11-24T18:12:33+00:00",
-  "anzahl": 75
+  "abgerufen_am": "2026-11-24T20:12:34+00:00",
+  "anzahl": 77
  },
  "eintraege": [
+  {
+   "id": "EUVD-2026-129432",
+   "cve": [
+    "CVE-2026-131914"
+   ],
+   "hersteller": [
+    "Idunno"
+   ],
+   "ausgenutzt_seit": "2026-11-24",
+   "veroeffentlicht": "2026-11-19",
+   "cvss": 9.3,
+   "epss": 0.61,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-129432"
+  },
+  {
+   "id": "EUVD-2026-129010",
+   "cve": [
+    "CVE-2026-132224"
+   ],
+   "hersteller": [
+    "Optimizely"
+   ],
+   "ausgenutzt_seit": "2026-11-24",
+   "veroeffentlicht": "2026-11-18",
+   "cvss": 7.1,
+   "epss": 0.43,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-129010"
+  },
   {
    "id": "EUVD-2026-132805",
    "cve": [

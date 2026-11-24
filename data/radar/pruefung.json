@@ -104,9 +104,9 @@
    "geprueft_am": "2026-11-23",
    "erreichbar": false,
    "status": 404,
-   "fehler_in_folge": 3,
+   "fehler_in_folge": 4,
    "erster_fehler_um": "2026-11-24T16:15:10+00:00",
-   "link_geprueft_um": "2026-11-24T18:15:05+00:00",
+   "link_geprueft_um": "2026-11-24T20:14:49+00:00",
    "faellig_am": "2027-05-25",
    "faellig": false,
    "link_tot": false

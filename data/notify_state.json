@@ -2228,6 +2228,8 @@
    "WID-SEC-2022-1243"
   ],
   "eu": [
+   "EUVD-2026-129432",
+   "EUVD-2026-129010",
    "EUVD-2026-132805",
    "EUVD-2026-131722",
    "EUVD-2026-130196",
@@ -2317,6 +2319,9 @@
    "• <a href=\"https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4416\">Ruby: Mehrere Schwachstellen ermöglichen Codeausführung</a>",
    "• <a href=\"https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-2640\">Linux Kernel: Mehrere Schwachstellen</a>"
   ],
-  "eu": []
+  "eu": [
+   "• Idunno – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-129432\">CVE-2026-131914</a>",
+   "• Optimizely – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-129010\">CVE-2026-132224</a>"
+  ]
  }
 }
