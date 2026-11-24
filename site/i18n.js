@@ -17,7 +17,7 @@
     tg_btn: "Subscribe to the Telegram channel",
     rss_btn: "Subscribe to the RSS feed",
     rss_txt: " the same for any feed reader, no account needed.",
-    tg_txt: " new entries, critical warnings and level changes as soon as they appear.",
+    tg_txt: " one daily report; instant messages only for a level change or a ransomware alert.",
     h_lage: "Current situation",
     l_wie: "how the level is calculated",
     l_stufe: "lage.level · worldwide", l_lade: "Loading data",

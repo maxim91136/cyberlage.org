@@ -234,23 +234,32 @@ class MeldeTests(unittest.TestCase):
         self.assertEqual(n, [])
         self.assertEqual(z["gesehen"]["kev"], ["CVE-1", "CVE-2"])
 
-    def test_meldet_nur_neues_und_nur_kritisches_von_bsi(self):
+    def test_sofort_nur_ransomware_rest_in_tageslage(self):
         _, z = notify.ermittle(self.kev, self.bsi, None, self.lage, None, self.jetzt)
         z["zusammenfassung"] = "2026-11-23"
-        kev2 = {"meta": {}, "eintraege": self.kev["eintraege"] + [kev_klein("CVE-3", "Fortinet", "FortiOS", "2026-11-23", ransom=True)]}
+        kev2 = {"meta": {}, "eintraege": self.kev["eintraege"] + [
+            kev_klein("CVE-3", "Fortinet", "FortiOS", "2026-11-23", ransom=True),
+            kev_klein("CVE-4", "Zyxel", "Box", "2026-11-23")]}
         bsi2 = {"eintraege": self.bsi["eintraege"] + [
             {"id": "W3", "schwere": "kritisch", "titel": "Neu", "link": "https://w/3", "datum": "2026-11-23"},
             {"id": "W4", "schwere": "hoch", "titel": "Egal", "link": "https://w/4", "datum": "2026-11-23"}]}
         n, z2 = notify.ermittle(kev2, bsi2, None, self.lage, z, self.jetzt)
-        self.assertEqual(len(n), 2)
-        self.assertIn("CVE-3", n[0]); self.assertIn("Ransomware bekannt", n[0]); self.assertNotIn("CVE-1", n[0])
-        self.assertIn("Neu", n[1]); self.assertNotIn("Egal", n[1])
-        n3, _ = notify.ermittle(kev2, bsi2, None, self.lage, z2, self.jetzt)
-        self.assertEqual(n3, [])  # nichts doppelt
+        self.assertEqual(len(n), 1)  # nur der Ransomware-Alarm
+        self.assertIn("CVE-3", n[0]); self.assertIn("Alarm", n[0]); self.assertNotIn("CVE-4", n[0])
+        self.assertEqual(len(z2["offen"]["kev"]), 1)
+        self.assertEqual(len(z2["offen"]["bsi"]), 1)
+        n2, z3 = notify.ermittle(kev2, bsi2, None, self.lage, z2, self.jetzt)
+        self.assertEqual(n2, [])  # nichts doppelt, nichts zwischendurch
+        from datetime import datetime, timezone
+        morgen = datetime(2026, 11, 24, 8, 0, tzinfo=timezone.utc)
+        n3, z4 = notify.ermittle(kev2, bsi2, None, self.lage, z3, morgen)
+        self.assertEqual(len(n3), 1)  # eine Tageslage mit allem Offenen
+        self.assertIn("CVE-4", n3[0]); self.assertIn("Neu", n3[0]); self.assertNotIn("Egal", n3[0]); self.assertNotIn("CVE-3", n3[0])
+        self.assertEqual(z4["offen"], {"kev": [], "bsi": [], "eu": []})
 
     def test_html_wird_maskiert(self):
         _, z = notify.ermittle(self.kev, self.bsi, None, self.lage, None, self.jetzt)
-        z["gesehen"]["bsi"] = []; z["zusammenfassung"] = "2026-11-23"
+        z["gesehen"]["bsi"] = []; z["zusammenfassung"] = None
         n, _ = notify.ermittle(self.kev, self.bsi, None, self.lage, z, self.jetzt)
         self.assertIn("Foo &lt;b&gt;", n[0])
 
@@ -266,7 +275,7 @@ class MeldeTests(unittest.TestCase):
 
     def test_lange_liste_wird_gekuerzt(self):
         _, z = notify.ermittle({"meta": {}, "eintraege": []}, None, None, self.lage, None, self.jetzt)
-        z["zusammenfassung"] = "2026-11-23"
+        z["zusammenfassung"] = None
         viele = {"meta": {}, "eintraege": [kev_klein(f"CVE-{i}", "H", "P", "2026-11-23") for i in range(25)]}
         n, _ = notify.ermittle(viele, None, None, self.lage, z, self.jetzt)
         self.assertIn("15 weitere", n[0])

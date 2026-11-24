@@ -26,7 +26,7 @@ Status: öffentlich unter https://cyberlage.org (Beta). Neues gibt es auch im [T
 | `pipeline/fetch_extra.py` | Holt CERT-Bund-Warnungen und EU-KEV (Kontext, nicht Teil der Stufe) |
 | `pipeline/fetch_ausblick.py` | Holt neue CVEs der letzten 14 Tage (NVD) und ihre EPSS-Wahrscheinlichkeit (FIRST), schreibt `data/ausblick/ausblick.json` |
 | `pipeline/feed.py` | Schreibt `site/feed.xml` (RSS) aus `site/data/lage.json` |
-| `pipeline/notify.py` | Meldet Neues in den Telegram-Kanal |
+| `pipeline/notify.py` | Telegram-Kanal: einmal täglich die Tageslage, sofort nur bei Stufenwechsel und Ransomware-Alarm |
 | `pipeline/score.py` | Wertet nach den Regeln aus und schreibt `site/data/lage.json` |
 | `tests/` | Tests für Abruf und Auswertung |
 | `site/` | Die Seite (Deutsch und Englisch), Ausgabedaten und Feed |
