@@ -23,6 +23,22 @@ def baustein(lage):
     return "".join(zeilen)
 
 
+def vorbelegen(s, lage):
+    """Startwerte direkt ins HTML, damit vor dem Laden der Daten kein Platzhalter steht. JavaScript überschreibt sie danach."""
+    e = lambda t: html.escape(str(t))
+    k = lage["kev"]
+    if lage.get("stufe"):
+        s = re.sub(r'(<div class="stufe mono" id="stufe-wert">)[^<]*(</div>)', lambda m: m.group(1) + e(NAME[lage["stufe"]]) + m.group(2), s, count=1)
+        s = re.sub(r'<div class="stufe-text" id="stufe-text"[^>]*>[^<]*</div>', '<div class="stufe-text" id="stufe-text" hidden></div>', s, count=1)
+    for kennung, wert in (("k7", k.get("neu_7_tage")), ("k30", k.get("neu_30_tage")), ("kall", k.get("gesamt")), ("kr", k.get("ransomware_bekannt_30_tage"))):
+        if isinstance(wert, int):
+            s = re.sub(r'(<b id="%s">)[^<]*(</b>)' % kennung, lambda m: m.group(1) + f"{wert:,}".replace(",", ".") + m.group(2), s, count=1)
+    li = "".join(f"<li>{e(t)}</li>" for t in lage.get("hinweise") or [])
+    if li:
+        s = re.sub(r'(<ul id="hinweise" class="hinw">).*?(</ul>)', lambda m: m.group(1) + li + m.group(2), s, count=1, flags=re.S)
+    return s
+
+
 def main():
     try:
         lage = json.loads((WURZEL / "site" / "data" / "lage.json").read_text(encoding="utf-8"))
@@ -32,6 +48,7 @@ def main():
         neu, n = re.subn(r"<!--ssr-start-->.*?<!--ssr-end-->", lambda m: "<!--ssr-start-->" + text + "<!--ssr-end-->", s, flags=re.S)
         if n != 1:
             raise ValueError("Marker fehlen")
+        neu = vorbelegen(neu, lage)
     except (OSError, ValueError, KeyError) as err:
         print("FEHLER:", err)
         return 1

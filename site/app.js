@@ -117,6 +117,7 @@
 
     var h = $("hinweise");
     var hw = window.I18N.lang === "en" && d.hinweise_en ? d.hinweise_en : (d.hinweise || []);
+    h.textContent = "";
     hw.forEach(function (t) { h.appendChild(el("li", "", t)); });
   }
 

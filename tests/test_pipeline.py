@@ -462,5 +462,19 @@ class PegelTests(unittest.TestCase):
         self.assertEqual(d["2026-11-24"]["quelle"], "live")
         self.assertEqual(d["2026-11-23"]["quelle"], "rueckgerechnet")
 
+
+class VorbelegenTests(unittest.TestCase):
+    def test_startwerte_und_hinweise_im_html(self):
+        import prerender
+        html_in = ('<div class="stufe mono" id="stufe-wert">…</div><div class="stufe-text" id="stufe-text" data-t="l_lade">Daten werden geladen</div>'
+                   '<b id="k7">…</b><b id="k30">…</b><b id="kall">…</b><b id="kr">…</b><ul id="hinweise" class="hinw"></ul>')
+        lage = {"stufe": "hoch", "kev": {"neu_7_tage": 10, "neu_30_tage": 36, "gesamt": 1792, "ransomware_bekannt_30_tage": 1}, "hinweise": ["Ein Hinweis"]}
+        out = prerender.vorbelegen(html_in, lage)
+        self.assertIn('id="stufe-wert">hoch<', out)
+        self.assertIn('id="stufe-text" hidden>', out)
+        self.assertIn('id="kall">1.792<', out)
+        self.assertIn("<li>Ein Hinweis</li>", out)
+        self.assertEqual(prerender.vorbelegen(out, lage), out)  # idempotent
+
 if __name__ == "__main__":
     unittest.main()
