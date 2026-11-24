@@ -1,5 +1,5 @@
 {
- "abgerufen_am": "2026-11-24T11:53:10+00:00",
+ "abgerufen_am": "2026-11-24T16:15:09+00:00",
  "zeit_bis_kev": {
   "verlauf": [
    {
@@ -461,7 +461,7 @@
  },
  "sans": {
   "status": "green",
-  "abgerufen_am": "2026-11-24T11:53:09+00:00"
+  "abgerufen_am": "2026-11-24T16:15:09+00:00"
  },
  "ncsc": {
   "advisories_30": 25,

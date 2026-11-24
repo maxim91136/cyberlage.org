@@ -2,7 +2,8 @@
  "stand": "2026-11-24",
  "fristen_tage": {
   "jaehrlich": 330,
-  "grund": 90
+  "grund": 90,
+  "schwellen": 183
  },
  "eintraege": [
   {
@@ -92,6 +93,21 @@
    "erster_fehler_um": null,
    "link_geprueft_um": "2026-11-24T11:53:10+00:00",
    "faellig_am": "2027-10-20",
+   "faellig": false,
+   "link_tot": false
+  },
+  {
+   "id": "schwellen",
+   "bereich": "schwellen",
+   "name": "Schwellen des Dreier-Pegels",
+   "link": "https://github.com/maxim91136/cyberlage.org/blob/main/config/regeln.json",
+   "geprueft_am": "2026-11-23",
+   "erreichbar": false,
+   "status": 503,
+   "fehler_in_folge": 1,
+   "erster_fehler_um": "2026-11-24T16:15:10+00:00",
+   "link_geprueft_um": "2026-11-24T16:15:10+00:00",
+   "faellig_am": "2027-05-25",
    "faellig": false,
    "link_tot": false
   }

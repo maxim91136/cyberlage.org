@@ -1,79 +1,79 @@
 {
-  "abgerufen_am": "2026-11-24T11:51:00+00:00",
+  "abgerufen_am": "2026-11-24T16:12:38+00:00",
   "fenster_tage": 14,
-  "geprueft": 8610,
+  "geprueft": 8981,
   "schwelle_hoch": 0.1,
   "hoch_wahrscheinlich": 15,
-  "epss_datum": "2026-11-23",
+  "epss_datum": "2026-11-24",
   "liste": [
     {
       "cve": "CVE-2026-115560",
       "epss": 0.73107,
-      "perzentil": 0.99467,
+      "perzentil": 0.99462,
       "veroeffentlicht": "2026-11-19",
       "cvss": 9.2,
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-115560"
     },
     {
       "cve": "CVE-2026-114938",
-      "epss": 0.57324,
-      "perzentil": 0.99096,
+      "epss": 0.59265,
+      "perzentil": 0.99133,
       "veroeffentlicht": "2026-11-17",
       "cvss": 8.1,
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-114938"
     },
     {
-      "cve": "CVE-2026-95645",
-      "epss": 0.28818,
-      "perzentil": 0.98194,
-      "veroeffentlicht": "2026-11-18",
-      "cvss": 9.1,
-      "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-95645"
-    },
-    {
       "cve": "CVE-2026-123007",
-      "epss": 0.27785,
-      "perzentil": 0.98136,
+      "epss": 0.447,
+      "perzentil": 0.98792,
       "veroeffentlicht": "2026-11-18",
       "cvss": 9.2,
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-123007"
     },
     {
+      "cve": "CVE-2026-95645",
+      "epss": 0.28818,
+      "perzentil": 0.98178,
+      "veroeffentlicht": "2026-11-18",
+      "cvss": 9.1,
+      "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-95645"
+    },
+    {
       "cve": "CVE-2026-95643",
       "epss": 0.24378,
-      "perzentil": 0.97916,
+      "perzentil": 0.97901,
       "veroeffentlicht": "2026-11-18",
       "cvss": 9.1,
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-95643"
     },
     {
-      "cve": "CVE-2026-75869",
-      "epss": 0.20352,
-      "perzentil": 0.97546,
-      "veroeffentlicht": "2026-11-12",
-      "cvss": 8.8,
-      "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-75869"
-    },
-    {
       "cve": "CVE-2026-123633",
-      "epss": 0.17525,
-      "perzentil": 0.97208,
+      "epss": 0.2211,
+      "perzentil": 0.9771,
       "veroeffentlicht": "2026-11-18",
       "cvss": 9.2,
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-123633"
     },
     {
+      "cve": "CVE-2026-75869",
+      "epss": 0.20352,
+      "perzentil": 0.97529,
+      "veroeffentlicht": "2026-11-12",
+      "cvss": 8.8,
+      "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-75869"
+    },
+    {
       "cve": "CVE-2026-123634",
-      "epss": 0.17103,
-      "perzentil": 0.97158,
+      "epss": 0.18839,
+      "perzentil": 0.97341,
       "veroeffentlicht": "2026-11-18",
       "cvss": 9.2,
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-123634"
     },
     {
       "cve": "CVE-2026-121810",
-      "epss": 0.16404,
-      "perzentil": 0.97056,
+      "epss": 0.18075,
+      "perzentil": 0.9725,
       "veroeffentlicht": "2026-11-18",
       "cvss": 9.2,
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-121810"
@@ -81,7 +81,7 @@
     {
       "cve": "CVE-2026-129289",
       "epss": 0.16163,
-      "perzentil": 0.97012,
+      "perzentil": 0.96993,
       "veroeffentlicht": "2026-11-19",
       "cvss": 9.2,
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-129289"
@@ -95,17 +95,17 @@
     },
     {
       "cve": "CVE-2026-114938",
-      "epss": 0.57324,
+      "epss": 0.59265,
       "veroeffentlicht": "2026-11-17"
+    },
+    {
+      "cve": "CVE-2026-123007",
+      "epss": 0.447,
+      "veroeffentlicht": "2026-11-18"
     },
     {
       "cve": "CVE-2026-95645",
       "epss": 0.28818,
-      "veroeffentlicht": "2026-11-18"
-    },
-    {
-      "cve": "CVE-2026-123007",
-      "epss": 0.27785,
       "veroeffentlicht": "2026-11-18"
     },
     {
@@ -114,23 +114,23 @@
       "veroeffentlicht": "2026-11-18"
     },
     {
+      "cve": "CVE-2026-123633",
+      "epss": 0.2211,
+      "veroeffentlicht": "2026-11-18"
+    },
+    {
       "cve": "CVE-2026-75869",
       "epss": 0.20352,
       "veroeffentlicht": "2026-11-12"
     },
     {
-      "cve": "CVE-2026-123633",
-      "epss": 0.17525,
-      "veroeffentlicht": "2026-11-18"
-    },
-    {
       "cve": "CVE-2026-123634",
-      "epss": 0.17103,
+      "epss": 0.18839,
       "veroeffentlicht": "2026-11-18"
     },
     {
       "cve": "CVE-2026-121810",
-      "epss": 0.16404,
+      "epss": 0.18075,
       "veroeffentlicht": "2026-11-18"
     },
     {
@@ -145,7 +145,7 @@
     },
     {
       "cve": "CVE-2026-113425",
-      "epss": 0.1386,
+      "epss": 0.15289,
       "veroeffentlicht": "2026-11-18"
     },
     {
