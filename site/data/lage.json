@@ -1325,7 +1325,7 @@
   "cert_bund": {
     "quelle": "CERT-Bund / BSI Warn- und Informationsdienst",
     "quelle_url": "https://wid.cert-bund.de/",
-    "abgerufen_am": "2026-11-24T22:53:35+00:00",
+    "abgerufen_am": "2026-11-24T23:06:44+00:00",
     "fenster_tage": 30,
     "daten_seit": "2026-11-23",
     "kritisch_7_tage": 7,
@@ -1658,7 +1658,7 @@
   "eu_kev": {
     "quelle": "EU-KEV über die EU-Schwachstellendatenbank (EUVD) von ENISA",
     "quelle_url": "https://euvd.enisa.europa.eu/",
-    "abgerufen_am": "2026-11-24T22:53:35+00:00",
+    "abgerufen_am": "2026-11-24T23:06:44+00:00",
     "fenster_tage": 30,
     "daten_seit": "2026-08-07",
     "neu_30_tage": 38,
@@ -2198,7 +2198,7 @@
     ]
   },
   "ausblick": {
-    "abgerufen_am": "2026-11-24T22:53:37+00:00",
+    "abgerufen_am": "2026-11-24T23:06:46+00:00",
     "fenster_tage": 14,
     "geprueft": 7210,
     "schwelle_hoch": 0.1,
@@ -2292,7 +2292,7 @@
       "online": 1,
       "gelistet": 5
     },
-    "abgerufen_am": "2026-11-24T22:55:30+00:00",
+    "abgerufen_am": "2026-11-24T23:08:51+00:00",
     "zeit_bis_kev": {
       "verlauf": [
         {
@@ -2593,7 +2593,7 @@
     },
     "sans": {
       "status": "green",
-      "abgerufen_am": "2026-11-24T22:55:29+00:00"
+      "abgerufen_am": "2026-11-24T23:08:50+00:00"
     },
     "ncsc": {
       "advisories_30": 25,
@@ -2864,9 +2864,9 @@
           "geprueft_am": "2026-11-23",
           "erreichbar": false,
           "status": 404,
-          "fehler_in_folge": 8,
+          "fehler_in_folge": 9,
           "erster_fehler_um": "2026-11-24T16:15:10+00:00",
-          "link_geprueft_um": "2026-11-24T22:55:30+00:00",
+          "link_geprueft_um": "2026-11-24T23:09:09+00:00",
           "faellig_am": "2027-05-25",
           "faellig": false,
           "link_tot": false
@@ -2879,9 +2879,9 @@
           "geprueft_am": "2026-11-24",
           "erreichbar": false,
           "status": 404,
-          "fehler_in_folge": 4,
+          "fehler_in_folge": 5,
           "erster_fehler_um": "2026-11-24T22:03:12+00:00",
-          "link_geprueft_um": "2026-11-24T22:55:30+00:00",
+          "link_geprueft_um": "2026-11-24T23:09:09+00:00",
           "faellig_am": "2027-02-22",
           "faellig": false,
           "link_tot": false
@@ -2911,7 +2911,7 @@
       "lizenz": "CC0 1.0 (laut LICENSE-Datei von cisagov/kev-data)",
       "quelle_abruf": "cisa.gov",
       "veroeffentlicht_am": "2026-11-24T17:47:46.199Z",
-      "abgerufen_am": "2026-11-24T22:53:35+00:00",
+      "abgerufen_am": "2026-11-24T23:06:44+00:00",
       "name_en": "CISA Known Exploited Vulnerabilities",
       "lizenz_en": "CC0 1.0 (per the LICENSE file of cisagov/kev-data)"
     },
@@ -2928,7 +2928,7 @@
       "name": "CERT-Bund / BSI Warn- und Informationsdienst",
       "link": "https://wid.cert-bund.de/",
       "lizenz": "nur Titel und Links, Nutzungsbedingungen des BSI beachten",
-      "abgerufen_am": "2026-11-24T22:53:35+00:00",
+      "abgerufen_am": "2026-11-24T23:06:44+00:00",
       "name_en": "CERT-Bund / BSI Warning and Information Service",
       "lizenz_en": "titles and links only, observe the BSI terms of use"
     },
@@ -2937,7 +2937,7 @@
       "name": "EU-KEV (EUVD von ENISA)",
       "link": "https://euvd.enisa.europa.eu/",
       "lizenz": "Lizenz nicht ausdrücklich geklärt",
-      "abgerufen_am": "2026-11-24T22:53:35+00:00",
+      "abgerufen_am": "2026-11-24T23:06:44+00:00",
       "name_en": "EU-KEV (EUVD by ENISA)",
       "lizenz_en": "licence not explicitly clarified"
     },
@@ -2946,7 +2946,7 @@
       "name": "EPSS (FIRST)",
       "link": "https://www.first.org/epss/",
       "lizenz": "kostenlos mit Quellenangabe",
-      "abgerufen_am": "2026-11-24T22:53:37+00:00",
+      "abgerufen_am": "2026-11-24T23:06:46+00:00",
       "name_en": "EPSS (FIRST)",
       "lizenz_en": "free to use with attribution"
     },
@@ -2955,7 +2955,7 @@
       "name": "NVD (NIST)",
       "link": "https://nvd.nist.gov/",
       "lizenz": "gemeinfrei, nur Veröffentlichungsdatum und CVSS-Wert",
-      "abgerufen_am": "2026-11-24T22:53:37+00:00",
+      "abgerufen_am": "2026-11-24T23:06:46+00:00",
       "name_en": "NVD (NIST)",
       "lizenz_en": "public domain, only publication date and CVSS score"
     },
@@ -2964,7 +2964,7 @@
       "name": "CVE-Liste (CVE Program, MITRE)",
       "link": "https://github.com/CVEProject/cvelistV5",
       "lizenz": "CVE Terms of Use: frei nutzbar mit Quellenangabe, nur Veröffentlichungsdatum",
-      "abgerufen_am": "2026-11-24T22:55:30+00:00",
+      "abgerufen_am": "2026-11-24T23:08:51+00:00",
       "name_en": "CVE List (CVE Program, MITRE)",
       "lizenz_en": "CVE Terms of Use: free to use with attribution, only publication date"
     },
@@ -2973,7 +2973,7 @@
       "name": "Feodo Tracker (abuse.ch)",
       "link": "https://feodotracker.abuse.ch/",
       "lizenz": "CC0, nur die Zahl aktiver Steuerserver",
-      "abgerufen_am": "2026-11-24T22:55:30+00:00",
+      "abgerufen_am": "2026-11-24T23:08:51+00:00",
       "name_en": "Feodo Tracker (abuse.ch)",
       "lizenz_en": "CC0, only the number of active command servers"
     },
@@ -2982,14 +2982,14 @@
       "name": "NCSC-NL Beveiligingsadviezen",
       "link": "https://advisories.ncsc.nl/",
       "lizenz": "Lizenz nicht geprüft, nur Zahl der Advisories mit Quellenangabe",
-      "abgerufen_am": "2026-11-24T22:55:30+00:00"
+      "abgerufen_am": "2026-11-24T23:08:51+00:00"
     },
     {
       "id": "sans",
       "name": "SANS Internet Storm Center (Infocon)",
       "link": "https://isc.sans.edu/",
       "lizenz": "Creative Commons laut Fußzeile des ISC, nur Ampelstatus mit Quellenangabe",
-      "abgerufen_am": "2026-11-24T22:55:29+00:00",
+      "abgerufen_am": "2026-11-24T23:08:50+00:00",
       "name_en": "SANS Internet Storm Center (Infocon)",
       "lizenz_en": "Creative Commons per the ISC footer, only the traffic-light status with attribution"
     }
@@ -3057,6 +3057,797 @@
         "ampel": "ausserordentlich"
       }
     ]
+  },
+  "patches": {
+    "microsoft": {
+      "meta": {
+        "quelle": "Microsoft Security Response Center (CVRF 3.0)",
+        "quelle_url": "https://msrc.microsoft.com/update-guide",
+        "listen_url": "https://api.msrc.microsoft.com/cvrf/v3.0/updates",
+        "abgerufen_am": "2026-11-24T23:08:51+00:00",
+        "hinweis": "Zählung je CVE; Chromium-Lücken im Edge sind ausgenommen und getrennt ausgewiesen. Schweregrad, Ausnutzung und Bekanntheit stammen vom Hersteller.",
+        "fehler": []
+      },
+      "monate": {
+        "2025-Nov": {
+          "id": "2025-Nov",
+          "erste_veroeffentlichung": "2025-11-11T08:00:00",
+          "aktuell": "2026-11-21T01:14:05",
+          "cves": 181,
+          "davon_chromium_ausgenommen": 8,
+          "schwere": {
+            "Critical": 13,
+            "Important": 93,
+            "Moderate": 64,
+            "Low": 11,
+            "unbekannt": 0
+          },
+          "ausgenutzt": 1,
+          "ausgenutzt_cves": [
+            "CVE-2025-62215"
+          ],
+          "oeffentlich_bekannt": 0,
+          "oeffentlich_cves": [],
+          "im_kev": 2,
+          "im_kev_cves": [
+            "CVE-2025-60710",
+            "CVE-2025-62215"
+          ],
+          "auswirkung": {
+            "Elevation of Privilege": 36,
+            "Remote Code Execution": 18,
+            "Information Disclosure": 11,
+            "Denial of Service": 3,
+            "Spoofing": 3,
+            "Security Feature Bypass": 2
+          },
+          "familien": {
+            "Cloud und Dienste": 122,
+            "Sonstige": 61,
+            "Windows 11": 39,
+            "Windows Server": 36,
+            "Windows 10": 36,
+            "Office und SharePoint": 14,
+            "Entwicklung und Server": 6,
+            "Windows (andere)": 1
+          },
+          "nachtraege": [],
+          "bewertung": {
+            "groesse": "noch kein Vergleich (zu wenig Vormonate)",
+            "groesse_en": "no comparison yet (too few earlier months)",
+            "verhaeltnis_median": null,
+            "median_vormonate": null,
+            "dringlichkeit": "dringend",
+            "empfehlung": "Die 1 bereits ausgenutzten Lücken zuerst einspielen, danach die kritischen (13).",
+            "empfehlung_en": "Apply the 1 already exploited flaws first, then the critical ones (13)."
+          }
+        },
+        "2025-Dec": {
+          "id": "2025-Dec",
+          "erste_veroeffentlichung": "2025-12-09T00:00:00",
+          "aktuell": "2026-11-21T01:14:39",
+          "cves": 337,
+          "davon_chromium_ausgenommen": 18,
+          "schwere": {
+            "Critical": 16,
+            "Important": 119,
+            "Moderate": 192,
+            "Low": 10,
+            "unbekannt": 0
+          },
+          "ausgenutzt": 1,
+          "ausgenutzt_cves": [
+            "CVE-2025-62221"
+          ],
+          "oeffentlich_bekannt": 2,
+          "oeffentlich_cves": [
+            "CVE-2025-54100",
+            "CVE-2025-64671"
+          ],
+          "im_kev": 1,
+          "im_kev_cves": [
+            "CVE-2025-62221"
+          ],
+          "auswirkung": {
+            "Elevation of Privilege": 31,
+            "Remote Code Execution": 21,
+            "Spoofing": 6,
+            "Information Disclosure": 4,
+            "Denial of Service": 3
+          },
+          "familien": {
+            "Cloud und Dienste": 284,
+            "Sonstige": 54,
+            "Windows Server": 39,
+            "Windows 11": 37,
+            "Windows 10": 31,
+            "Office und SharePoint": 15,
+            "Edge": 2,
+            "Exchange": 2
+          },
+          "nachtraege": [],
+          "bewertung": {
+            "groesse": "noch kein Vergleich (zu wenig Vormonate)",
+            "groesse_en": "no comparison yet (too few earlier months)",
+            "verhaeltnis_median": null,
+            "median_vormonate": null,
+            "dringlichkeit": "dringend",
+            "empfehlung": "Die 1 bereits ausgenutzten Lücken zuerst einspielen, danach die kritischen (16).",
+            "empfehlung_en": "Apply the 1 already exploited flaws first, then the critical ones (16)."
+          }
+        },
+        "2026-Jan": {
+          "id": "2026-Jan",
+          "erste_veroeffentlichung": "2026-01-13T08:00:00",
+          "aktuell": "2026-11-21T01:15:28",
+          "cves": 333,
+          "davon_chromium_ausgenommen": 13,
+          "schwere": {
+            "Critical": 33,
+            "Important": 158,
+            "Moderate": 131,
+            "Low": 10,
+            "unbekannt": 1
+          },
+          "ausgenutzt": 2,
+          "ausgenutzt_cves": [
+            "CVE-2026-20805",
+            "CVE-2026-21509"
+          ],
+          "oeffentlich_bekannt": 2,
+          "oeffentlich_cves": [
+            "CVE-2023-31096",
+            "CVE-2026-21265"
+          ],
+          "im_kev": 3,
+          "im_kev_cves": [
+            "CVE-2026-20805",
+            "CVE-2026-20963",
+            "CVE-2026-21509"
+          ],
+          "auswirkung": {
+            "Elevation of Privilege": 61,
+            "Information Disclosure": 26,
+            "Remote Code Execution": 23,
+            "Spoofing": 6,
+            "Security Feature Bypass": 4,
+            "Tampering": 3,
+            "Denial of Service": 2
+          },
+          "familien": {
+            "Cloud und Dienste": 202,
+            "Windows Server": 90,
+            "Windows 11": 88,
+            "Windows 10": 72,
+            "Sonstige": 58,
+            "Office und SharePoint": 18,
+            "Entwicklung und Server": 1,
+            "Windows (andere)": 1,
+            "Edge": 1
+          },
+          "nachtraege": [],
+          "bewertung": {
+            "groesse": "noch kein Vergleich (zu wenig Vormonate)",
+            "groesse_en": "no comparison yet (too few earlier months)",
+            "verhaeltnis_median": null,
+            "median_vormonate": null,
+            "dringlichkeit": "dringend",
+            "empfehlung": "Die 2 bereits ausgenutzten Lücken zuerst einspielen, danach die kritischen (33).",
+            "empfehlung_en": "Apply the 2 already exploited flaws first, then the critical ones (33)."
+          }
+        },
+        "2026-Feb": {
+          "id": "2026-Feb",
+          "erste_veroeffentlichung": "2026-02-10T08:00:00",
+          "aktuell": "2026-11-21T01:11:37",
+          "cves": 200,
+          "davon_chromium_ausgenommen": 17,
+          "schwere": {
+            "Critical": 19,
+            "Important": 109,
+            "Moderate": 62,
+            "Low": 7,
+            "unbekannt": 3
+          },
+          "ausgenutzt": 6,
+          "ausgenutzt_cves": [
+            "CVE-2026-21510",
+            "CVE-2026-21513",
+            "CVE-2026-21514",
+            "CVE-2026-21519",
+            "CVE-2026-21525",
+            "CVE-2026-21533"
+          ],
+          "oeffentlich_bekannt": 3,
+          "oeffentlich_cves": [
+            "CVE-2026-21510",
+            "CVE-2026-21513",
+            "CVE-2026-21514"
+          ],
+          "im_kev": 6,
+          "im_kev_cves": [
+            "CVE-2026-21510",
+            "CVE-2026-21513",
+            "CVE-2026-21514",
+            "CVE-2026-21519",
+            "CVE-2026-21525",
+            "CVE-2026-21533"
+          ],
+          "auswirkung": {
+            "Elevation of Privilege": 26,
+            "Remote Code Execution": 12,
+            "Spoofing": 8,
+            "Information Disclosure": 7,
+            "Security Feature Bypass": 5,
+            "Denial of Service": 3,
+            "Defense in Depth": 1
+          },
+          "familien": {
+            "Cloud und Dienste": 125,
+            "Sonstige": 66,
+            "Windows Server": 32,
+            "Windows 11": 28,
+            "Windows 10": 24,
+            "Office und SharePoint": 8,
+            "Entwicklung und Server": 5,
+            "Windows (andere)": 3,
+            "Edge": 3,
+            "Exchange": 1
+          },
+          "nachtraege": [],
+          "bewertung": {
+            "groesse": "kleiner als üblich",
+            "groesse_en": "smaller than usual",
+            "verhaeltnis_median": 0.6,
+            "median_vormonate": 333,
+            "dringlichkeit": "dringend",
+            "empfehlung": "Die 6 bereits ausgenutzten Lücken zuerst einspielen, danach die kritischen (19).",
+            "empfehlung_en": "Apply the 6 already exploited flaws first, then the critical ones (19)."
+          }
+        },
+        "2026-Mar": {
+          "id": "2026-Mar",
+          "erste_veroeffentlichung": "2026-03-10T07:00:00",
+          "aktuell": "2026-11-21T01:20:27",
+          "cves": 465,
+          "davon_chromium_ausgenommen": 74,
+          "schwere": {
+            "Critical": 45,
+            "Important": 225,
+            "Moderate": 160,
+            "Low": 34,
+            "unbekannt": 1
+          },
+          "ausgenutzt": 0,
+          "ausgenutzt_cves": [],
+          "oeffentlich_bekannt": 2,
+          "oeffentlich_cves": [
+            "CVE-2026-21262",
+            "CVE-2026-26127"
+          ],
+          "im_kev": 0,
+          "im_kev_cves": [],
+          "auswirkung": {
+            "Elevation of Privilege": 51,
+            "Remote Code Execution": 20,
+            "Information Disclosure": 14,
+            "Spoofing": 5,
+            "Denial of Service": 4,
+            "Security Feature Bypass": 2,
+            "Tampering": 1,
+            "Defense in Depth": 1
+          },
+          "familien": {
+            "Cloud und Dienste": 351,
+            "Sonstige": 202,
+            "Windows Server": 45,
+            "Windows 10": 44,
+            "Windows 11": 44,
+            "Office und SharePoint": 13,
+            "Entwicklung und Server": 7,
+            "Edge": 3,
+            "Windows (andere)": 3,
+            "Exchange": 1
+          },
+          "nachtraege": [],
+          "bewertung": {
+            "groesse": "größer als üblich",
+            "groesse_en": "larger than usual",
+            "verhaeltnis_median": 1.74,
+            "median_vormonate": 266.5,
+            "dringlichkeit": "zeitnah",
+            "empfehlung": "Kritische Lücken (45) zeitnah einspielen, den Rest im normalen Zyklus.",
+            "empfehlung_en": "Apply critical flaws (45) promptly, the rest in the normal cycle."
+          }
+        },
+        "2026-Apr": {
+          "id": "2026-Apr",
+          "erste_veroeffentlichung": "2026-04-14T07:00:00",
+          "aktuell": "2026-11-21T01:15:37",
+          "cves": 672,
+          "davon_chromium_ausgenommen": 109,
+          "schwere": {
+            "Critical": 39,
+            "Important": 321,
+            "Moderate": 285,
+            "Low": 27,
+            "unbekannt": 0
+          },
+          "ausgenutzt": 2,
+          "ausgenutzt_cves": [
+            "CVE-2026-32201",
+            "CVE-2026-32202"
+          ],
+          "oeffentlich_bekannt": 1,
+          "oeffentlich_cves": [
+            "CVE-2026-33825"
+          ],
+          "im_kev": 5,
+          "im_kev_cves": [
+            "CVE-2026-31431",
+            "CVE-2026-32201",
+            "CVE-2026-32202",
+            "CVE-2026-33824",
+            "CVE-2026-33825"
+          ],
+          "auswirkung": {
+            "Elevation of Privilege": 103,
+            "Information Disclosure": 23,
+            "Remote Code Execution": 22,
+            "Spoofing": 13,
+            "Security Feature Bypass": 12,
+            "Denial of Service": 10,
+            "Tampering": 2
+          },
+          "familien": {
+            "Cloud und Dienste": 485,
+            "Sonstige": 261,
+            "Windows Server": 130,
+            "Windows 11": 127,
+            "Windows 10": 108,
+            "Office und SharePoint": 14,
+            "Entwicklung und Server": 12,
+            "Windows (andere)": 5,
+            "Edge": 2
+          },
+          "nachtraege": [],
+          "bewertung": {
+            "groesse": "größer als üblich",
+            "groesse_en": "larger than usual",
+            "verhaeltnis_median": 2.02,
+            "median_vormonate": 333,
+            "dringlichkeit": "dringend",
+            "empfehlung": "Die 2 bereits ausgenutzten Lücken zuerst einspielen, danach die kritischen (39).",
+            "empfehlung_en": "Apply the 2 already exploited flaws first, then the critical ones (39)."
+          }
+        },
+        "2026-May": {
+          "id": "2026-May",
+          "erste_veroeffentlichung": "2026-05-12T07:00:00",
+          "aktuell": "2026-11-23T19:04:10",
+          "cves": 834,
+          "davon_chromium_ausgenommen": 368,
+          "schwere": {
+            "Critical": 70,
+            "Important": 276,
+            "Moderate": 437,
+            "Low": 38,
+            "unbekannt": 13
+          },
+          "ausgenutzt": 3,
+          "ausgenutzt_cves": [
+            "CVE-2026-41091",
+            "CVE-2026-42897",
+            "CVE-2026-45498"
+          ],
+          "oeffentlich_bekannt": 3,
+          "oeffentlich_cves": [
+            "CVE-2026-41091",
+            "CVE-2026-45498",
+            "CVE-2026-45585"
+          ],
+          "im_kev": 6,
+          "im_kev_cves": [
+            "CVE-2026-41091",
+            "CVE-2026-42897",
+            "CVE-2026-45498",
+            "CVE-2026-45659",
+            "CVE-2026-46300",
+            "CVE-2026-48710"
+          ],
+          "auswirkung": {
+            "Elevation of Privilege": 70,
+            "Remote Code Execution": 38,
+            "Information Disclosure": 19,
+            "Spoofing": 16,
+            "Denial of Service": 9,
+            "Security Feature Bypass": 8,
+            "Tampering": 3
+          },
+          "familien": {
+            "Cloud und Dienste": 721,
+            "Windows Server": 72,
+            "Windows 11": 64,
+            "Windows 10": 56,
+            "Office und SharePoint": 32,
+            "Sonstige": 12,
+            "Entwicklung und Server": 9,
+            "Edge": 9,
+            "Windows (andere)": 4,
+            "Exchange": 1
+          },
+          "nachtraege": [],
+          "bewertung": {
+            "groesse": "größer als üblich",
+            "groesse_en": "larger than usual",
+            "verhaeltnis_median": 2.49,
+            "median_vormonate": 335.0,
+            "dringlichkeit": "dringend",
+            "empfehlung": "Die 3 bereits ausgenutzten Lücken zuerst einspielen, danach die kritischen (70).",
+            "empfehlung_en": "Apply the 3 already exploited flaws first, then the critical ones (70)."
+          }
+        },
+        "2026-Jun": {
+          "id": "2026-Jun",
+          "erste_veroeffentlichung": "2026-06-09T07:00:00",
+          "aktuell": "2026-11-21T01:20:45",
+          "cves": 847,
+          "davon_chromium_ausgenommen": 543,
+          "schwere": {
+            "Critical": 87,
+            "Important": 340,
+            "Moderate": 386,
+            "Low": 34,
+            "unbekannt": 0
+          },
+          "ausgenutzt": 0,
+          "ausgenutzt_cves": [],
+          "oeffentlich_bekannt": 4,
+          "oeffentlich_cves": [
+            "CVE-2026-45586",
+            "CVE-2026-49160",
+            "CVE-2026-50507",
+            "CVE-2026-50656"
+          ],
+          "im_kev": 1,
+          "im_kev_cves": [
+            "CVE-2026-53266"
+          ],
+          "auswirkung": {
+            "Elevation of Privilege": 76,
+            "Remote Code Execution": 55,
+            "Information Disclosure": 32,
+            "Spoofing": 29,
+            "Security Feature Bypass": 19,
+            "Denial of Service": 7,
+            "Tampering": 4
+          },
+          "familien": {
+            "Cloud und Dienste": 667,
+            "Windows 11": 114,
+            "Windows Server": 111,
+            "Windows 10": 94,
+            "Office und SharePoint": 54,
+            "Windows (andere)": 13,
+            "Sonstige": 11,
+            "Entwicklung und Server": 9,
+            "Exchange": 9,
+            "Edge": 5
+          },
+          "nachtraege": [],
+          "bewertung": {
+            "groesse": "größer als üblich",
+            "groesse_en": "larger than usual",
+            "verhaeltnis_median": 2.51,
+            "median_vormonate": 337,
+            "dringlichkeit": "zeitnah",
+            "empfehlung": "Kritische Lücken (87) zeitnah einspielen, den Rest im normalen Zyklus.",
+            "empfehlung_en": "Apply critical flaws (87) promptly, the rest in the normal cycle."
+          }
+        },
+        "2026-Jul": {
+          "id": "2026-Jul",
+          "erste_veroeffentlichung": "2026-07-14T07:00:00",
+          "aktuell": "2026-11-23T14:05:47",
+          "cves": 1297,
+          "davon_chromium_ausgenommen": 868,
+          "schwere": {
+            "Critical": 154,
+            "Important": 807,
+            "Moderate": 296,
+            "Low": 37,
+            "unbekannt": 3
+          },
+          "ausgenutzt": 3,
+          "ausgenutzt_cves": [
+            "CVE-2026-56155",
+            "CVE-2026-56164",
+            "CVE-2026-58644"
+          ],
+          "oeffentlich_bekannt": 1,
+          "oeffentlich_cves": [
+            "CVE-2026-50661"
+          ],
+          "im_kev": 6,
+          "im_kev_cves": [
+            "CVE-2026-50522",
+            "CVE-2026-53362",
+            "CVE-2026-55040",
+            "CVE-2026-56155",
+            "CVE-2026-56164",
+            "CVE-2026-58644"
+          ],
+          "auswirkung": {
+            "Elevation of Privilege": 264,
+            "Remote Code Execution": 175,
+            "Information Disclosure": 118,
+            "Spoofing": 36,
+            "Denial of Service": 35,
+            "Security Feature Bypass": 21,
+            "Tampering": 14
+          },
+          "familien": {
+            "Cloud und Dienste": 739,
+            "Windows Server": 409,
+            "Windows 11": 399,
+            "Windows 10": 345,
+            "Office und SharePoint": 100,
+            "Edge": 68,
+            "Entwicklung und Server": 32,
+            "Windows (andere)": 22,
+            "Sonstige": 17,
+            "Exchange": 6
+          },
+          "nachtraege": [],
+          "bewertung": {
+            "groesse": "größer als üblich",
+            "groesse_en": "larger than usual",
+            "verhaeltnis_median": 3.23,
+            "median_vormonate": 401.0,
+            "dringlichkeit": "dringend",
+            "empfehlung": "Die 3 bereits ausgenutzten Lücken zuerst einspielen, danach die kritischen (154).",
+            "empfehlung_en": "Apply the 3 already exploited flaws first, then the critical ones (154)."
+          }
+        },
+        "2026-Aug": {
+          "id": "2026-Aug",
+          "erste_veroeffentlichung": "2026-08-11T07:00:00",
+          "aktuell": "2026-11-21T14:03:39",
+          "cves": 1527,
+          "davon_chromium_ausgenommen": 312,
+          "schwere": {
+            "Critical": 173,
+            "Important": 589,
+            "Moderate": 590,
+            "Low": 121,
+            "unbekannt": 54
+          },
+          "ausgenutzt": 1,
+          "ausgenutzt_cves": [
+            "CVE-2026-68820"
+          ],
+          "oeffentlich_bekannt": 3,
+          "oeffentlich_cves": [
+            "CVE-2026-62832",
+            "CVE-2026-69414",
+            "CVE-2026-72971"
+          ],
+          "im_kev": 2,
+          "im_kev_cves": [
+            "CVE-2026-65660",
+            "CVE-2026-68820"
+          ],
+          "auswirkung": {
+            "Elevation of Privilege": 191,
+            "Remote Code Execution": 122,
+            "Information Disclosure": 95,
+            "Spoofing": 23,
+            "Denial of Service": 12,
+            "Security Feature Bypass": 12,
+            "Tampering": 4
+          },
+          "familien": {
+            "Cloud und Dienste": 1162,
+            "Windows Server": 223,
+            "Windows 11": 207,
+            "Windows 10": 175,
+            "Office und SharePoint": 128,
+            "Edge": 50,
+            "Entwicklung und Server": 25,
+            "Windows (andere)": 20,
+            "Sonstige": 17,
+            "Exchange": 8
+          },
+          "nachtraege": [],
+          "bewertung": {
+            "groesse": "größer als üblich",
+            "groesse_en": "larger than usual",
+            "verhaeltnis_median": 3.28,
+            "median_vormonate": 465,
+            "dringlichkeit": "dringend",
+            "empfehlung": "Die 1 bereits ausgenutzten Lücken zuerst einspielen, danach die kritischen (173).",
+            "empfehlung_en": "Apply the 1 already exploited flaws first, then the critical ones (173)."
+          }
+        },
+        "2026-Sep": {
+          "id": "2026-Sep",
+          "erste_veroeffentlichung": "2026-09-08T07:00:00",
+          "aktuell": "2026-11-23T19:04:44",
+          "cves": 2937,
+          "davon_chromium_ausgenommen": 432,
+          "schwere": {
+            "Critical": 231,
+            "Important": 1423,
+            "Moderate": 901,
+            "Low": 115,
+            "unbekannt": 267
+          },
+          "ausgenutzt": 2,
+          "ausgenutzt_cves": [
+            "CVE-2026-81963",
+            "CVE-2026-85880"
+          ],
+          "oeffentlich_bekannt": 0,
+          "oeffentlich_cves": [],
+          "im_kev": 2,
+          "im_kev_cves": [
+            "CVE-2026-81963",
+            "CVE-2026-85880"
+          ],
+          "auswirkung": {
+            "Elevation of Privilege": 455,
+            "Remote Code Execution": 261,
+            "Information Disclosure": 177,
+            "Denial of Service": 55,
+            "Security Feature Bypass": 19,
+            "Spoofing": 18,
+            "Tampering": 13
+          },
+          "familien": {
+            "Cloud und Dienste": 2068,
+            "Windows Server": 695,
+            "Windows 10": 647,
+            "Windows 11": 640,
+            "Office und SharePoint": 132,
+            "Entwicklung und Server": 87,
+            "Sonstige": 30,
+            "Exchange": 9,
+            "Windows (andere)": 9,
+            "Edge": 5
+          },
+          "nachtraege": [],
+          "bewertung": {
+            "groesse": "größer als üblich",
+            "groesse_en": "larger than usual",
+            "verhaeltnis_median": 5.17,
+            "median_vormonate": 568.5,
+            "dringlichkeit": "dringend",
+            "empfehlung": "Die 2 bereits ausgenutzten Lücken zuerst einspielen, danach die kritischen (231).",
+            "empfehlung_en": "Apply the 2 already exploited flaws first, then the critical ones (231)."
+          }
+        },
+        "2026-Oct": {
+          "id": "2026-Oct",
+          "erste_veroeffentlichung": "2026-10-13T07:00:00",
+          "aktuell": "2026-11-24T01:27:08",
+          "cves": 3170,
+          "davon_chromium_ausgenommen": 739,
+          "schwere": {
+            "Critical": 234,
+            "Important": 1733,
+            "Moderate": 731,
+            "Low": 130,
+            "unbekannt": 342
+          },
+          "ausgenutzt": 1,
+          "ausgenutzt_cves": [
+            "CVE-2026-96951"
+          ],
+          "oeffentlich_bekannt": 3,
+          "oeffentlich_cves": [
+            "CVE-2026-108398",
+            "CVE-2026-111497",
+            "CVE-2026-92707"
+          ],
+          "im_kev": 3,
+          "im_kev_cves": [
+            "CVE-2026-111497",
+            "CVE-2026-96951",
+            "CVE-2026-97229"
+          ],
+          "auswirkung": {
+            "Elevation of Privilege": 688,
+            "Remote Code Execution": 350,
+            "Information Disclosure": 262,
+            "Denial of Service": 72,
+            "Security Feature Bypass": 43,
+            "Spoofing": 31,
+            "Tampering": 29,
+            "Not a Vulnerability": 1
+          },
+          "familien": {
+            "Cloud und Dienste": 1862,
+            "Windows Server": 1100,
+            "Windows 11": 1058,
+            "Windows 10": 981,
+            "Office und SharePoint": 208,
+            "Entwicklung und Server": 86,
+            "Windows (andere)": 47,
+            "Sonstige": 24,
+            "Edge": 20,
+            "Exchange": 8
+          },
+          "nachtraege": [],
+          "bewertung": {
+            "groesse": "größer als üblich",
+            "groesse_en": "larger than usual",
+            "verhaeltnis_median": 4.72,
+            "median_vormonate": 672,
+            "dringlichkeit": "dringend",
+            "empfehlung": "Die 1 bereits ausgenutzten Lücken zuerst einspielen, danach die kritischen (234).",
+            "empfehlung_en": "Apply the 1 already exploited flaws first, then the critical ones (234)."
+          }
+        },
+        "2026-Nov": {
+          "id": "2026-Nov",
+          "erste_veroeffentlichung": "2026-11-10T08:00:00",
+          "aktuell": "2026-11-24T08:00:00",
+          "cves": 2048,
+          "davon_chromium_ausgenommen": 402,
+          "schwere": {
+            "Critical": 114,
+            "Important": 1243,
+            "Moderate": 420,
+            "Low": 80,
+            "unbekannt": 191
+          },
+          "ausgenutzt": 1,
+          "ausgenutzt_cves": [
+            "CVE-2026-124194"
+          ],
+          "oeffentlich_bekannt": 0,
+          "oeffentlich_cves": [],
+          "im_kev": 4,
+          "im_kev_cves": [
+            "CVE-2026-115731",
+            "CVE-2026-123158",
+            "CVE-2026-124194",
+            "CVE-2026-125350"
+          ],
+          "auswirkung": {
+            "Elevation of Privilege": 546,
+            "Remote Code Execution": 302,
+            "Information Disclosure": 159,
+            "Denial of Service": 46,
+            "Security Feature Bypass": 27,
+            "Spoofing": 24,
+            "Tampering": 11
+          },
+          "familien": {
+            "Cloud und Dienste": 1146,
+            "Windows Server": 695,
+            "Windows 11": 679,
+            "Windows 10": 612,
+            "Office und SharePoint": 223,
+            "Entwicklung und Server": 100,
+            "Windows (andere)": 27,
+            "Sonstige": 26,
+            "Exchange": 10,
+            "Edge": 2
+          },
+          "nachtraege": [],
+          "bewertung": {
+            "groesse": "größer als üblich",
+            "groesse_en": "larger than usual",
+            "verhaeltnis_median": 2.72,
+            "median_vormonate": 753.0,
+            "dringlichkeit": "dringend",
+            "empfehlung": "Die 1 bereits ausgenutzten Lücken zuerst einspielen, danach die kritischen (114).",
+            "empfehlung_en": "Apply the 1 already exploited flaws first, then the critical ones (114)."
+          }
+        }
+      }
+    }
   },
   "pegel": {
     "wert": 39,
