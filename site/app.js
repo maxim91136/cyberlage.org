@@ -402,11 +402,10 @@
     };
     var tg = pick("Stand ", "as of ");
     var jz = z.jetzt || {}, v12 = z.vor_12_monaten || {};
-    var pg = d.pegel;
-    if (pg && typeof pg.wert === "number") kachel({ gr: "score", nat: "mess", quelle: "eigen", sig: "Dreier Gauge", name: "Dreier-Pegel", wert: String(pg.wert), einheit: pick(" neu in 30 Tagen", " new in 30 days"), misst: pick("Neu aufgenommene Einträge im CISA-KEV. Stufe ", "Newly added CISA KEV entries. Level ") + (d.stufe ? txt(d.stufe) : "–") + pick(" (erhöht ab ", " (elevated from ") + pg.marken.erhoeht_ab + pick(", hoch ab ", ", high from ") + pg.marken.hoch_ab + ")", stand: tg + datum(d.stand) + pick(" · täglich", " · daily") });
     if (typeof jz.median_frisch === "number") kachel({ gr: "score", nat: "mess", quelle: "eigen", sig: "Speed to KEV", name: pick("Tempo bis KEV", "Speed to KEV"), wert: tage(jz.median_frisch), einheit: pick(" Tage Median", " days median"), misst: pick("Veröffentlichung bis KEV-Aufnahme, vor 12 Monaten: ", "publication to KEV listing, 12 months ago: ") + tage(v12.median_frisch) + pick(" Tage", " days"), stand: tg + datum(d.stand) });
     (r.einschaetzungen || []).forEach(function (q) {
       var pfeil = q.richtung === "steigend" ? " ↑" : (q.richtung === "fallend" ? " ↓" : ""), idx = q.wert && q.basis;
+      if (!idx) return; // Lagebericht-Urteil steht schon bei den Gründen
       kachel({ gr: idx ? "score" : "ktx", nat: "eins", quelle: "extern", sig: idx ? "BSI Cyber Index" : null, name: q.name, url: q.link, wert: idx ? String(Math.round(q.wert / q.basis * 100)) : pick(q.urteil, q.urteil_en) + pfeil, einheit: idx ? pick(" % von 2024", " % of 2024") : "", misst: pick(q.misst, q.misst_en), stand: tg + datum(q.stand) + pick(" · jährlich", " · yearly") + (q.vorher ? pick(" · Vorjahr: ", " · year before: ") + pick(q.vorher, q.vorher_en) : "") });
     });
     if (r.sans) {
