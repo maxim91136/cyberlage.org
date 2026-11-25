@@ -243,7 +243,7 @@ html.alarm .marke{animation:flackern 6s infinite}
 @keyframes scsweep{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.sc-sweep{animation:none;display:none}}
 .sc-poly{fill:rgba(61,220,132,.10);stroke:var(--green);stroke-width:1.5;stroke-linejoin:round}
-.sc-blip{stroke:#0d1117;stroke-width:2}.sc-blip.an{fill:#ff8a7a}.sc-blip.aus{fill:#3ddc84}.sc-blip.kn{fill:none;stroke:var(--dim);stroke-dasharray:2 2}
+.sc-blip{stroke:#0d1117;stroke-width:2}.sc-blip.an{fill:#e3b341}.sc-blip.aus{fill:#3ddc84}.sc-blip.kn{fill:none;stroke:var(--dim);stroke-dasharray:2 2}
 .sc-blip.eigen{stroke:var(--text);stroke-width:1.5}
 .sc-tx{paint-order:stroke;stroke:#0d1117;stroke-width:4px;stroke-linejoin:round}.sc-lab{fill:var(--text);font:12px ui-monospace,Menlo,Consolas,monospace}.sc-tx{fill:var(--dim);font:10px ui-monospace,Menlo,monospace}
 @media (max-width:700px){.rd-scopewrap{grid-template-columns:1fr}.rd-scope{margin:0 auto}}
@@ -466,3 +466,6 @@ html[lang=en] .sek>summary::after{content:"\25B8  show"}html[lang=en] .sek[open]
 .fr-over{color:#ff8a7a}.fr-bald{color:#e3b341}
 .navin{flex-wrap:wrap}.navin .nav-row{flex-wrap:wrap}
 .umbau{color:#e3b341;border:1px dashed #e3b341;padding:6px 10px;font-size:13px;margin:8px 0;display:inline-block}
+.rd-balken{max-width:680px;display:block}
+.hero-pegel{display:inline-block;margin:10px 0 2px;padding:7px 12px;border:1px solid var(--st,#e3b341);color:var(--st,#e3b341);text-decoration:none;font-weight:700;font-size:15px;letter-spacing:.02em}
+.hero-pegel.st-ruhig{--st:#3ddc84}.hero-pegel.st-unauffaellig{--st:#8fd3a8}.hero-pegel.st-angespannt{--st:#e3b341}.hero-pegel.st-hoch{--st:#ff8a7a}.hero-pegel.st-ausserordentlich{--st:#ff4d5e}

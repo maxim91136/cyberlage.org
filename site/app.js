@@ -81,6 +81,8 @@
     var hatStufe = d.stufe !== null && d.stufe !== undefined;
     var name = hatStufe ? txt(String(d.stufe)) : null;
     $("stufe-wert").textContent = hatStufe ? name : "null";
+    var hp = $("hero-pegel");
+    if (hp) { hp.hidden = !hatStufe; if (hatStufe) { hp.className = "hero-pegel mono st-" + d.stufe; hp.textContent = pick("Dreier-Pegel heute: ", "Dreier Gauge today: ") + name.toUpperCase() + (d.pegel && typeof d.pegel.wert === "number" ? " · " + d.pegel.wert + " / 100" : "") + " ↓"; } }
     window.DP = hatStufe ? name + (d.pegel && typeof d.pegel.wert === "number" ? " " + d.pegel.wert : "") : "";
     if (hatStufe) $("lage-box").classList.add("st-" + d.stufe);
     $("stufe-text").textContent = hatStufe ? "" : txt("keine_bew");
@@ -755,7 +757,7 @@
     sc.modell_gruppen.forEach(function (g) { g.bausteine.forEach(function (b) { if (typeof b.ausschlag === "number") bs.push(b); }); });
     if (!bs.length) return;
     var NS = "http://www.w3.org/2000/svg", W = 540, bo = sc.beobachtung || [], H = 36 + (bs.length + bo.length) * 34, X0 = 150, X1 = 500, max = 2;
-    var svg = document.createElementNS(NS, "svg"); svg.setAttribute("viewBox", "0 0 " + W + " " + H); svg.setAttribute("width", "100%"); svg.setAttribute("role", "img");
+    var svg = document.createElementNS(NS, "svg"); svg.setAttribute("viewBox", "0 0 " + W + " " + H); svg.setAttribute("width", "100%"); svg.setAttribute("role", "img"); svg.setAttribute("class", "rd-balken");
     var mk = function (tag, a, t) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); if (t !== undefined) e.textContent = t; svg.appendChild(e); return e; };
     var mono = { "font-family": "ui-monospace,Menlo,Consolas,monospace", "font-size": "11", fill: "#9aa7b4" };
     var xs = function (v) { return X0 + (Math.min(v, max) / max) * (X1 - X0); };
@@ -765,7 +767,7 @@
       mk("text", Object.assign({ x: X0 - 8, y: y + 14, "text-anchor": "end" }, mono), pick(b.name, b.name_en));
       mk("rect", { x: X0, y: y, width: X1 - X0, height: 20, fill: "#1a222b" });
       mk("rect", { x: X0, y: y, width: xs(b.ausschlag) - X0, height: 20, fill: over ? "#e3b341" : "#4fa57a" });
-      mk("text", Object.assign({ x: Math.min(xs(b.ausschlag) + 6, X1 - 30), y: y + 14 }, mono, { fill: "#e6edf3" }), b.ausschlag.toLocaleString(window.I18N.locale, { minimumFractionDigits: 1, maximumFractionDigits: 2 }));
+      mk("text", Object.assign({ x: b.ausschlag > 1.8 ? X1 - 6 : xs(b.ausschlag) + 6, y: y + 14 }, mono, b.ausschlag > 1.8 ? { fill: "#0d1117", "font-weight": 700, "text-anchor": "end" } : { fill: "#e6edf3" }), b.ausschlag.toLocaleString(window.I18N.locale, { minimumFractionDigits: 1, maximumFractionDigits: 2 }));
     });
     bo.forEach(function (b, i) {
       var y = 20 + (bs.length + i) * 34, n = pick(b.name, b.name_en).split(":")[0];
@@ -784,7 +786,7 @@
     var box = $("rd-modell"); if (!box) return; box.textContent = "";
     if (!sc || !sc.modell_gruppen) return;
     zeigeBalken(sc, box);
-    box.appendChild(el("h4", "mono rd-t", pick("Aufbau · Modell ", "Structure · model ") + (sc.modell || "")));
+    box.appendChild(el("h4", "mono rd-t", pick("Aufbau: drei Gruppen", "Structure: three groups")));
     var ul = el("ul", "p-liste");
     sc.modell_gruppen.forEach(function (g) {
       if (!g.bausteine.length) return;
@@ -809,7 +811,8 @@
   function zeigeKonsens(r) {
     var k = r && r.konsens, box = $("rd-signale"); box.textContent = "";
     if (!k || !k.bewertet) { $("rd-kon").textContent = txt("keine"); return; }
-    var satz = pick(k.erhoeht + " von " + k.bewertet + (k.bewertet === 1 ? " externem Signal liegt" : " externen Signalen liegen") + " an oder über der Schwelle.", k.erhoeht + " of " + k.bewertet + " external " + (k.bewertet === 1 ? "signal is" : "signals are") + " at or above the threshold.");
+    var alleS = (k.signale || []).filter(function (x) { return typeof x.ausschlag === "number"; }), ueberS = alleS.filter(function (x) { return x.ausschlag >= 1; }).length;
+    var satz = pick(ueberS + " von " + alleS.length + " Bausteinen liegen an oder über ihrer Schwelle.", ueberS + " of " + alleS.length + " components are at or above their threshold.");
     $("rd-kon").textContent = satz + " " + pick("Stand ", "As of ") + datum(r.abgerufen_am) + ".";
     var sc = k.score, sb = $("rd-score"); sb.textContent = "";
     var ampel = (sc.stufe && sc.stufe.ampel) || "", rb = $("radar"), fzb = $("fazit");
@@ -845,7 +848,7 @@
     (k.signale || []).forEach(function (s) {
       var b = el("div", "sg"), st = s.erhoeht === true ? ["●", "an"] : (s.erhoeht === false ? ["○", "aus"] : ["–", "kn"]);
       b.appendChild(el("span", "p mono " + st[1], st[0]));
-      b.appendChild(el("span", "n", pick(s.name, s.name_en) + (s.art === "eigen" ? pick(" (eigen)", " (own)") : "") + " · " + (s.erhoeht === true ? pick("an oder über der Schwelle", "at or above threshold") : (s.erhoeht === false ? pick("unter der Schwelle", "below threshold") : pick("noch keine Aussage", "no rating yet")))));
+      b.appendChild(el("span", "n", pick(s.name, s.name_en) + " · " + (s.erhoeht === true ? pick("an oder über der Schwelle", "at or above threshold") : (s.erhoeht === false ? pick("unter der Schwelle", "below threshold") : pick("noch keine Aussage", "no rating yet")))));
 b.appendChild(el("span", "g", typeof s.ausschlag === "number" ? pick("Messwert: das ", "reading: ") + s.ausschlag.toLocaleString(window.I18N.locale, { minimumFractionDigits: 1, maximumFractionDigits: 2 }) + pick("-Fache der Schwelle", "x the threshold") : pick("noch kein Messwert", "no reading yet")));
       box.appendChild(b);
     });
