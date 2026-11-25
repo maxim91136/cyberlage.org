@@ -967,5 +967,28 @@ class ArchivTests(unittest.TestCase):
         self.assertEqual(r, [{"stand": "2026-01-01", "ausnutzung": 50, "n": 1}])
 
 
+class DistroTests(unittest.TestCase):
+    def test_suse_mbox(self):
+        import fetch_patches as p
+        txt = ("From null at suse.de  Mon Nov  2 08:30:35 2026\nFrom: null at suse.de\nDate: Mon, 02 Nov 2026 08:30:35 -0000\n"
+               "Subject: SUSE-SU-2026:4984-1: important: Security update for the\n Linux Kernel\nMessage-ID: <x>\n\n# Security update\nCross-References:\n  * CVE-2026-53016\n\n"
+               "From null at suse.de  Mon Nov  2 09:00:00 2026\nDate: Mon, 02 Nov 2026 09:00:00 -0000\nSubject: SUSE-RU-2026:1-1: moderate: Recommended update\n\nx\n")
+        r = p.parse_suse(txt)
+        self.assertEqual(len(r), 1)
+        self.assertEqual((r[0]["id"], r[0]["schwere"], r[0]["cves"], r[0]["titel"]), ("SUSE-SU-2026:4984-1", "hoch", ["CVE-2026-53016"], "SUSE-SU-2026:4984-1: Linux Kernel"))
+        self.assertTrue(r[0]["link"].endswith("/2026/suse-su-20264984-1/"))
+
+    def test_alma_rocky_amazon(self):
+        import fetch_patches as p
+        rss = b"<rss><channel><item><title>[ALSA-2026:53844] Important: iscsi security update</title><link>https://e/x.html</link><pubDate>Wed, 12 Aug 2026 09:24:35 +0000</pubDate><description>fix CVE-2026-1234</description></item></channel></rss>"
+        a = p.parse_alma(rss)[0]
+        self.assertEqual((a["id"], a["schwere"], a["cves"]), ("ALSA-2026:53844", "hoch", ["CVE-2026-1234"]))
+        r = p.parse_rocky({"advisories": [{"name": "RLSA-2026:103408", "synopsis": "Important: gnome-remote-desktop security update", "severity": "SEVERITY_IMPORTANT",
+                                           "publishedAt": "2026-11-25T12:07:26.538210Z", "cves": [{"name": "CVE-2026-132858"}]}]})[0]
+        self.assertEqual((r["titel"], r["schwere"], r["cves"]), ("RLSA-2026:103408: gnome-remote-desktop security update", "hoch", ["CVE-2026-132858"]))
+        am = p.parse_amazon(b"<rss><channel><item><title>ALAS2023-2026-3508 (important): firefox</title><link>https://a/x</link><pubDate>Fri, 20 Nov 2026 16:24:00 GMT</pubDate><description>CVE-2026-115506, CVE-2026-117610</description></item></channel></rss>")[0]
+        self.assertEqual((am["id"], am["schwere"], len(am["cves"])), ("ALAS2023-2026-3508", "hoch", 2))
+
+
 if __name__ == "__main__":
     unittest.main()

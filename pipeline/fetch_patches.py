@@ -6,7 +6,7 @@ Stufe 1: Microsoft Security Response Center, CVRF v3.0 (JSON). Je Monat ein Beri
 Ausgenommen und getrennt gezählt: Chromium-Lücken im Edge und Paketlücken von Azure Linux (frühere Bezeichnung Mariner), weil sie den Patch Day sonst um ein Vielfaches aufblähen. Gezählt wird nur: Lücken je Schweregrad, ausgenutzt, öffentlich bekannt, Auswirkungsart, betroffene Produktfamilie,
 Überschneidung mit dem CISA-KEV. Keine Beschreibungstexte, keine Eigenbewertung der Schwere.
 
-Stufe 2 und 3: Sicherheitsmeldungen von Linux-Distributionen (Ubuntu, Debian, Red Hat) und von Cisco, nur als Zählung
+Stufe 2 und 3: Sicherheitsmeldungen von Linux-Distributionen (Ubuntu, Debian, Red Hat, SUSE, AlmaLinux, Rocky Linux, Amazon Linux) und von Cisco, nur als Zählung
 (neu in 7 und 30 Tagen, davon kritisch, genannte CVEs) mit Kennung, Titel, Datum und Link der letzten Meldungen. Keine Texte.
 Schreibt data/patches/microsoft.json und data/patches/hersteller.json. Schlägt die Quelle fehl, bleibt die alte Datei bestehen und der Lauf meldet es.
 """
@@ -531,6 +531,91 @@ def parse_sap(html_text, monat_url):
     return out
 
 
+_SEV = {"critical": "kritisch", "important": "hoch", "moderate": "mittel", "medium": "mittel", "low": "niedrig"}
+MONATSNAMEN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+SUSE_URL = "https://lists.suse.com/pipermail/sle-security-updates/%d-%s.txt"
+ALMA_URLS = ["https://errata.almalinux.org/%s/errata.rss" % v for v in ("10", "9", "8")]
+ROCKY_URL = "https://errata.rockylinux.org/api/v2/advisories?filters.type=TYPE_SECURITY&page=%d&limit=100"
+AMAZON_URLS = ["https://alas.aws.amazon.com/AL2023/alas.rss", "https://alas.aws.amazon.com/AL2/alas.rss"]
+
+
+def parse_suse(text):
+    """Monatsarchiv der Liste sle-security-updates (mbox-Text): Kennung, Schweregrad, Titel, Datum, CVEs."""
+    out = []
+    for teil in re.split(r"\n(?=From \S+ at \S+ )", "\n" + (text or "")):
+        kopf, _, rumpf = teil.partition("\n\n")
+        kopf = re.sub(r"\n[ \t]+", " ", kopf)
+        m = re.search(r"^Subject: (SUSE-SU-(\d{4}):(\d+)-(\d+)): (\w+): (.+)$", kopf, re.M)
+        d = re.search(r"^Date: (.+)$", kopf, re.M)
+        datum = _datum(d.group(1)) if d else None
+        if not m or not datum:
+            continue
+        titel = re.sub(r"^Security update for (the )?", "", m.group(6).strip())
+        out.append({"id": m.group(1), "datum": datum, "titel": "%s: %s" % (m.group(1), titel),
+                    "link": "https://www.suse.com/support/update/announcement/%s/suse-su-%s%s-%s/" % (m.group(2), m.group(2), m.group(3), m.group(4)),
+                    "schwere": _SEV.get(m.group(5).lower()), "cves": sorted(set(CVE_RE.findall(rumpf)))})
+    return out
+
+
+def _rss_items(xml_bytes, name):
+    try:
+        wurzel = ET.fromstring(xml_bytes)
+    except ET.ParseError as e:
+        raise QuellFehler("%s-Feed kein gültiges XML: %s" % (name, e))
+    return [it for it in wurzel.iter() if _tag(it) == "item"]
+
+
+def parse_alma(xml_bytes):
+    out = []
+    for it in _rss_items(xml_bytes, "AlmaLinux"):
+        titel, link, datum = _kind(it, "title"), _kind(it, "link"), _datum(_kind(it, "pubDate"))
+        m = re.match(r"\[(ALSA-\d{4}:\d+)\]\s*(\w+):\s*(.+)", titel or "")
+        if not datum or not m:
+            continue
+        out.append({"id": m.group(1), "datum": datum, "titel": "%s: %s" % (m.group(1), m.group(3).strip()), "link": link,
+                    "schwere": _SEV.get(m.group(2).lower()), "cves": sorted(set(CVE_RE.findall(" ".join((k.text or "") for k in it.iter()))))})
+    return out
+
+
+def parse_rocky(daten):
+    out = []
+    for a in (daten or {}).get("advisories", []) if isinstance(daten, dict) else []:
+        rid, datum = a.get("name") or "", _datum(a.get("publishedAt"))
+        if not rid.startswith("RLSA-") or not datum:
+            continue
+        syn = re.sub(r"^\w+:\s*", "", a.get("synopsis") or "").strip()
+        out.append({"id": rid, "datum": datum, "titel": "%s: %s" % (rid, syn) if syn else rid, "link": "https://errata.rockylinux.org/" + rid,
+                    "schwere": _SEV.get(str(a.get("severity") or "").replace("SEVERITY_", "").lower()),
+                    "cves": sorted({c.get("name") for c in (a.get("cves") or []) if isinstance(c, dict) and CVE_RE.fullmatch(str(c.get("name")))})})
+    return out
+
+
+def parse_amazon(xml_bytes):
+    out = []
+    for it in _rss_items(xml_bytes, "Amazon Linux"):
+        titel, link, datum = _kind(it, "title"), _kind(it, "link"), _datum(_kind(it, "pubDate"))
+        m = re.match(r"(ALAS[\w]*-\d{4}-\d+)\s*\((\w+)\):\s*(.+)", titel or "")
+        if not datum or not m:
+            continue
+        out.append({"id": m.group(1), "datum": datum, "titel": "%s: %s" % (m.group(1), m.group(3).strip()), "link": link,
+                    "schwere": _SEV.get(m.group(2).lower()), "cves": sorted(set(CVE_RE.findall(" ".join((k.text or "") for k in it.iter()))))})
+    return out
+
+
+def _mehrere(urls, parse, lade, name):
+    """Mehrere Feeds derselben Quelle: was erreichbar ist, zählt; doppelte Kennungen nur einmal."""
+    alle, fehler = {}, []
+    for u in urls:
+        try:
+            for i in parse(lade(u)):
+                alle.setdefault(i["id"], i)
+        except Exception as e:
+            fehler.append(str(e))
+    if not alle:
+        raise QuellFehler("%s: %s" % (name, "; ".join(fehler) or "keine Meldungen"))
+    return list(alle.values())
+
+
 def verdichte_quelle(items, heute, kev=()):
     """Zählung der Meldungen der letzten 7 und 30 Tage. Fehlt eine Angabe (z. B. Schweregrad), wird sie nicht geraten."""
     inner = [i for i in items if 0 <= (heute - i["datum"]).days < FENSTER]
@@ -551,6 +636,10 @@ QUELLEN = [
     {"id": "ubuntu", "name": "Ubuntu Security Notices", "typ": "distribution", "url": "https://ubuntu.com/security/notices", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
     {"id": "debian", "name": "Debian Security Advisories", "typ": "distribution", "url": "https://www.debian.org/security/", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
     {"id": "redhat", "name": "Red Hat Security Advisories", "typ": "distribution", "url": "https://access.redhat.com/security/security-updates/", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
+    {"id": "suse", "name": "SUSE Security Updates", "typ": "distribution", "url": "https://www.suse.com/support/update/", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
+    {"id": "alma", "name": "AlmaLinux Errata", "typ": "distribution", "url": "https://errata.almalinux.org/", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
+    {"id": "rocky", "name": "Rocky Linux Errata", "typ": "distribution", "url": "https://errata.rockylinux.org/", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
+    {"id": "amazon", "name": "Amazon Linux Security Center", "typ": "distribution", "url": "https://alas.aws.amazon.com/", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
     {"id": "sap", "name": "SAP Security Patch Day", "typ": "hersteller", "url": "https://support.sap.com/en/my-support/knowledge-base/security-notes-news.html", "lizenz": "Öffentliche Monatsseite ohne Konto; nur Zählung, CVE, Priorität, Link. Die Sicherheitshinweise selbst liegen hinter SAP for Me."},
     {"id": "cisco", "name": "Cisco Security Advisories", "typ": "hersteller", "url": "https://sec.cloudapps.cisco.com/security/center/publicationListing.x", "lizenz": "Feed nennt nur ein Urheberrecht, keine Nutzungsbedingungen; nur Zählung, Kennung, Titel, Datum, Link"},
 ]
@@ -611,6 +700,23 @@ def hole_quelle(qid, heute, lade=lade_roh):
         if not alle and fehler:
             raise QuellFehler("SAP: %s" % fehler)
         return alle
+    if qid == "suse":
+        vor = (heute.replace(day=1) - timedelta(days=1))
+        urls = [SUSE_URL % (heute.year, MONATSNAMEN[heute.month - 1]), SUSE_URL % (vor.year, MONATSNAMEN[vor.month - 1])]
+        return _mehrere(urls, lambda b: parse_suse(b.decode("utf-8", "replace")), lade, "SUSE")
+    if qid == "alma":
+        return _mehrere(ALMA_URLS, parse_alma, lade, "AlmaLinux")
+    if qid == "amazon":
+        return _mehrere(AMAZON_URLS, parse_amazon, lade, "Amazon Linux")
+    if qid == "rocky":
+        alle = {}
+        for seite in range(15):
+            teil = parse_rocky(json.loads(lade(ROCKY_URL % seite).decode("utf-8")))
+            for i in teil:
+                alle.setdefault(i["id"], i)
+            if not teil or min(i["datum"] for i in teil) < heute - timedelta(days=FENSTER + 2):
+                break
+        return list(alle.values())
     if qid == "cisco":
         return parse_cisco(lade(CISCO_URL))
     raise QuellFehler("unbekannte Quelle " + qid)
@@ -685,7 +791,7 @@ STUFEN_NAMEN = {1: ("im CISA-KEV, nachweislich angegriffen", "in the CISA KEV, p
 
 def _pm(name):
     n = name.lower()
-    return "apt" if ("ubuntu" in n or "debian" in n) else ("dnf/yum" if "red hat" in n else "Paketverwaltung")
+    return "apt" if ("ubuntu" in n or "debian" in n) else ("zypper" if "suse" in n else ("dnf/yum" if any(x in n for x in ("red hat", "alma", "rocky", "amazon")) else "Paketverwaltung"))
 
 
 def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=24, cvss=None):
