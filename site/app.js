@@ -428,14 +428,16 @@
       });
       row.appendChild(b); host.appendChild(row);
     });
-    var alle = el("button", "mono t-alle", pick("Alle Patch-Termine als wiederkehrende Einträge (.ics)", "All patch dates as recurring entries (.ics)")); alle.type = "button";
+    var alle = el("button", "mono t-alle", pick("Alle vier Hersteller als wiederkehrende Einträge (.ics)", "All four vendors as recurring entries (.ics)")); alle.type = "button";
     alle.addEventListener("click", function () {
-      var h = new Date(), n = termine(h, 40), erst = function (art) { return n.filter(function (g) { return g.ev.some(function (e) { return e.art === art; }); })[0]; };
-      var ms = erst("ms"), orc = erst("oracle");
-      icsLaden("patch-kalender.ics", icsDatei([
-        { uid: "ms-adobe-sap", zeit: ms.zeit, regel: "FREQ=MONTHLY;BYDAY=2TU", titel: "Patch Day: Microsoft, Adobe, SAP", text: hinweis + " cyberlage.org/#termine", url: "https://cyberlage.org/#termine" },
-        { uid: "oracle", zeit: orc.zeit, regel: "FREQ=MONTHLY;BYDAY=3TU", titel: "Oracle Patch-Termin (CPU im Jan, Apr, Jul, Okt)", text: hinweis + " cyberlage.org/#termine", url: "https://www.oracle.com/security-alerts/" }
-      ]));
+      var n = termine(new Date(), 40), liste = [];
+      [["ms", "FREQ=MONTHLY;BYDAY=2TU", "Microsoft Patch Day"], ["adobe", "FREQ=MONTHLY;BYDAY=2TU", "Adobe Patch Day"], ["sap", "FREQ=MONTHLY;BYDAY=2TU", "SAP Security Patch Day"],
+       ["oracle", "FREQ=MONTHLY;BYDAY=3TU", "Oracle Patch-Termin (CPU im Jan, Apr, Jul, Okt, sonst Critical Security Patch Update)"]].forEach(function (d) {
+        var g = n.filter(function (x) { return x.ev.some(function (e) { return e.art === d[0]; }); })[0]; if (!g) return;
+        var e = g.ev.filter(function (e) { return e.art === d[0]; })[0];
+        liste.push({ uid: "serie-" + d[0], zeit: g.zeit, regel: d[1], titel: d[2], text: hinweis + " cyberlage.org/#termine", url: e.l });
+      });
+      icsLaden("patch-kalender.ics", icsDatei(liste));
     });
     host.appendChild(alle);
   }
