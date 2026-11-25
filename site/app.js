@@ -773,7 +773,7 @@
     mk("text", Object.assign({ x: xs(1), y: H - 4, "text-anchor": "middle" }, mono), pick("Schwelle 1,0", "threshold 1.0"));
     box.appendChild(el("h4", "mono rd-t", pick("Bausteine im Vergleich", "Components compared")));
     box.appendChild(svg);
-    box.appendChild(el("p", "mono dim fine", bo.length ? pick(bs.length + " Bausteine zählen im Pegel, " + bo.length + " weitere werden beobachtet und zählen erst mit eigener Schwelle.", bs.length + " components count in the gauge, " + bo.length + " more are observed and count only once they have a threshold.") : pick("Alle " + bs.length + " Bausteine zählen im Pegel. Gelb: an oder über der Schwelle.", "All " + bs.length + " components count in the gauge. Yellow: at or above threshold.")));
+    box.appendChild(el("p", "mono dim fine", bo.length ? pick(bs.length + " Bausteine zählen im Pegel, " + bo.length + " weitere werden beobachtet und zählen erst mit eigener Schwelle.", bs.length + " components count in the gauge, " + bo.length + " more are observed and count only once they have a threshold.") : pick("Alle " + bs.length + " Bausteine zählen im Pegel. Gelb: an oder über der Schwelle. Für den Pegel zählt jeder Ausschlag höchstens mit 2,0.", "All " + bs.length + " components count in the gauge. Yellow: at or above threshold. For the gauge each reading counts at most 2.0.")));
   }
 
   function zeigeModell(sc) {

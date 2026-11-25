@@ -563,7 +563,13 @@ def hole_quelle(qid, heute, lade=lade_roh):
         letzter = None
         for u in REDHAT_URLS:
             try:
-                return parse_redhat(json.loads(lade(u % ab).decode("utf-8")))
+                alle = []
+                for seite in range(1, 11):  # die Schnittstelle liefert höchstens 1000 je Seite
+                    teil = json.loads(lade((u % ab) + "&per_page=1000&page=%d" % seite).decode("utf-8"))
+                    alle.extend(teil if isinstance(teil, list) else [])
+                    if not isinstance(teil, list) or len(teil) < 1000:
+                        break
+                return list({i["id"]: i for i in parse_redhat(alle)}.values())
             except Exception as e:
                 letzter = e
         for u in REDHAT_CSV:
