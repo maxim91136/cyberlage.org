@@ -51,6 +51,10 @@ jobs:
         continue-on-error: true
         timeout-minutes: 15
         run: python pipeline/fetch_patches.py
+      - name: Verlaufsdaten der Bausteine (CERT-Bund, NCSC-NL, EU-KEV, Microsoft)
+        continue-on-error: true
+        timeout-minutes: 15
+        run: python pipeline/fetch_historie.py
       - name: Prüfkalender (Fristen und Links der Handangaben)
         continue-on-error: true
         env:
