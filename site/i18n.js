@@ -7,6 +7,8 @@
   // Englische Texte für Elemente mit data-t (Deutsch steht im HTML). Nur eigene, feste Texte.
   var EN = {
     skip: "Skip to content",
+    n_schwach: "/flaws", sw_h: "## flaws & patches", sw_intro: "The second part of the page follows the path of a flaw: it is reported, it is attacked, and there is (or is not yet) a patch. Everything above measures the situation, here is what you can actually do.",
+    sw_1: "reported", sw_1t: "new flaws, warnings, forecast", sw_2: "attacked", sw_2t: "proven exploited (KEV)", sw_3: "patched?", sw_3t: "which patch, what first",
     beta: "",
     n_rueck: "/history", n_neu: "/new", n_radar: "/radar", n_signale: "/signals", n_abo: "/subscribe",
     tab_ausblick: "Forecast",

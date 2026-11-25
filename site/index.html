@@ -32,15 +32,15 @@
     <a href="#info" class="faq-nav" data-offen="i-faq">/faq</a>
     <a href="#lage" data-sec="lage">/lage</a>
     <a href="#radar" data-sec="radar" data-t="n_radar">/radar</a>
-    <details class="dd"><summary data-sec="neu" data-t="n_neu">/neu</summary><div class="dd-box">
+    <a href="#signale" data-sec="signale" data-t="n_signale">/signale</a>
+    <a href="#rueckblick" data-sec="rueckblick" data-t="n_rueck">/rückblick</a>
+    <details class="dd"><summary data-sec="schwach" data-t="n_schwach">/schwachstellen</summary><div class="dd-box dd-l">
       <a href="#neu" data-tab="kev" data-t="tab_kev">KEV-Katalog</a>
       <a href="#neu" data-tab="bsi">CERT-Bund</a>
       <a href="#neu" data-tab="eu">EU-KEV</a>
       <a href="#neu" data-tab="ausblick" data-t="tab_ausblick">Prognose</a>
+      <a href="#patches" data-t="n_patches">/patches</a>
     </div></details>
-    <a href="#patches" data-sec="patches" data-t="n_patches">/patches</a>
-    <a href="#signale" data-sec="signale" data-t="n_signale">/signale</a>
-    <a href="#rueckblick" data-sec="rueckblick" data-t="n_rueck">/rückblick</a>
     <details class="dd" id="abo"><summary data-t="n_abo">/abo</summary><div class="dd-box dd-abo">
       <span id="telegram" class="abo-z" hidden><a id="telegram-link" href="#" rel="noopener" data-t="tg_btn">Telegram-Kanal abonnieren</a><small class="dim" data-t="tg_txt">einmal täglich die Tageslage, sofort nur bei Stufenwechsel und Ransomware-Alarm.</small></span>
       <span class="abo-z"><button type="button" id="rss-kopieren" data-feed="https://cyberlage.org/feed.xml"><span id="rss-btn" data-t="rss_btn">RSS-Feed-Adresse kopieren</span></button><small class="dim"><span data-t="rss_txt">in deinen Feed-Reader einfügen (Feedly, Inoreader, NetNewsWire), ohne Konto.</span> <a href="feed.xml" data-t="rss_roh">Rohdatei</a></small></span>
@@ -114,6 +114,57 @@
     <noscript><!--ssr-start--><p class="panel pad"><b>Die globale Cyberlage, Stand 2026-11-25, Dreier-Pegel: hoch.</b> 37 neu aufgenommene ausgenutzte Schwachstellen in 30 Tagen. Neu im CISA-Katalog ausgenutzter Schwachstellen: 9 in 7 Tagen, 37 in 30 Tagen. Regelbasiert und offen belegt. Ein privates Projekt von Dreier Labs, keine amtliche Stelle.</p><p class="panel pad">Die Zahlen stehen als Rohdaten unter <a href="data/lage.json">data/lage.json</a>, die Regeln auf <a href="https://github.com/maxim91136/cyberlage.org/blob/main/RULES.md">GitHub</a>. Für die Ansicht mit Verlauf und Listen wird JavaScript benötigt.</p><!--ssr-end--></noscript>
   </section>
 
+  <section id="signale" class="wrap" aria-labelledby="h-sig">
+    <h2 id="h-sig" class="mono" data-t="rd_sig_h">## signale</h2>
+    <p class="dim" data-t="rd_sig_intro">Jedes Signal einmal, mit Wert, Regel und Zeitraum. Messungen sind Zählungen aus offenen Rohdaten, Einschätzungen sind Urteile anderer Stellen.</p>
+    <h3 class="mono rd-gr" data-t="rd_g_score">Im Radar-Score: Signale mit Regelschwelle</h3>
+    <div class="rd-kacheln" id="rd-k-score"></div>
+    <h3 class="mono rd-gr" data-t="rd_g_ktx">Nur zur Einordnung: ohne Schwelle, nicht im Score</h3>
+    <div class="rd-kacheln" id="rd-k-ktx"></div>
+    <p class="mono dim fine" data-t="rd_vgl_n">Die Quellen messen Verschiedenes. Zeigen mehrere in dieselbe Richtung, ist das ein stärkeres Signal als eine allein.</p>
+    <details class="panel pad rd rd-det">
+      <summary class="mono" data-t="rd_det">Erklärungen zu Trefferquote und EU-Abgleich</summary>
+      <h4 class="mono rd-t" data-t="rd_tr_h">Trefferquote der Prognose</h4><p id="rd-treffer"></p>
+      <h4 class="mono rd-t" data-t="rd_eu_h">EU-KEV und CISA-KEV</h4><p id="rd-eu"></p>
+    </details>
+  </section>
+
+  <section id="rueckblick" class="wrap" aria-labelledby="h-rueck">
+    <h2 id="h-rueck" class="mono" data-t="r_h">## rückblick</h2>
+    <div class="panel pad">
+      <h3 class="mono rd-t" data-t="r_pegel">Dreier-Pegel im Verlauf</h3>
+      <svg id="verlauf" role="img" aria-labelledby="verlauf-titel" viewBox="0 0 1000 220" width="100%" preserveAspectRatio="xMidYMid meet"><title id="verlauf-titel">Verlauf der neu aufgenommenen Schwachstellen</title></svg>
+      <p class="mono dim fine" id="verlauf-legende"></p>
+    </div>
+    <div class="panel pad rd">
+      <h3 class="mono rd-t" data-t="r_rscore">Radar-Score im Verlauf · Experiment</h3>
+      <svg id="rs-chart" role="img" viewBox="0 0 1000 200" width="100%" preserveAspectRatio="xMidYMid meet"></svg>
+      <p class="mono dim fine" id="rs-legende"></p>
+    </div>
+    <div class="panel pad rd">
+      <h3 class="mono rd-t" data-t="rd_zeit_h">Wie schnell wird eine Lücke ausgenutzt gemeldet?</h3>
+      <div class="rd-zahlen" id="rd-zahlen"></div>
+      <svg id="rd-chart" role="img" aria-labelledby="rd-chart-titel" viewBox="0 0 1000 200" width="100%" preserveAspectRatio="xMidYMid meet"><title id="rd-chart-titel">Anteil der KEV-Aufnahmen binnen 30 Tagen nach Veröffentlichung, je Monat</title></svg>
+      <p class="mono dim fine" id="rd-zeit-fine"></p>
+    </div>
+    <div class="panel pad rd">
+      <h3 class="mono rd-t" data-t="rd_warum_h">Belegte Gründe für den Takt</h3>
+      <ul class="hinw" id="rd-gruende"></ul>
+      <p class="mono dim fine" id="rd-pruef"></p>
+      <p class="mono dim fine" data-t="rd_warum_n">Das ist der langfristige Hintergrund, nicht der Tagesstand. Von Hand gepflegt, jeweils mit Quelle und Prüfdatum. Geopolitische Spannungen messen wir nicht.</p>
+    </div>
+  </section>
+
+  <section id="schwach" class="wrap grp" aria-labelledby="h-schwach">
+    <h2 id="h-schwach" class="mono" data-t="sw_h">## schwachstellen &amp; patches</h2>
+    <p class="dim" data-t="sw_intro">Der zweite Teil der Seite folgt dem Weg einer Lücke: Sie wird gemeldet, sie wird angegriffen, und es gibt (oder gibt noch nicht) einen Patch. Alles andere oben misst die Lage, hier geht es um das, was du konkret tun kannst.</p>
+    <ol class="weg mono">
+      <li><a href="#neu" data-tab="ausblick"><b>1 · <span data-t="sw_1">gemeldet</span></b><span data-t="sw_1t">neue Lücken, Warnungen, Prognose</span></a></li>
+      <li><a href="#neu" data-tab="kev"><b>2 · <span data-t="sw_2">angegriffen</span></b><span data-t="sw_2t">belegt ausgenutzt (KEV)</span></a></li>
+      <li><a href="#patches"><b>3 · <span data-t="sw_3">gepatcht?</span></b><span data-t="sw_3t">welcher Patch, was zuerst</span></a></li>
+    </ol>
+  </section>
+
   <section id="neu" class="wrap" aria-labelledby="h-neu">
     <h2 id="h-neu" class="mono" data-t="n_h">## neu</h2>
     <p class="dim" data-t="n_intro">Was in den letzten Tagen bekannt wurde: ausgenutzte Schwachstellen (CISA-KEV, EU-KEV), Warnungen des BSI (CERT-Bund) und eine Prognose für neue Lücken. Jeder Reiter nennt Quelle, Zeitraum und Stand.</p>
@@ -164,47 +215,6 @@
     <div class="panel pad pt pz" id="p-zuerst" hidden></div>
     <div class="panel pad pt" id="p-ms" hidden></div>
     <div class="panel pad pt" id="p-hs" hidden></div>
-  </section>
-
-  <section id="signale" class="wrap" aria-labelledby="h-sig">
-    <h2 id="h-sig" class="mono" data-t="rd_sig_h">## signale</h2>
-    <p class="dim" data-t="rd_sig_intro">Jedes Signal einmal, mit Wert, Regel und Zeitraum. Messungen sind Zählungen aus offenen Rohdaten, Einschätzungen sind Urteile anderer Stellen.</p>
-    <h3 class="mono rd-gr" data-t="rd_g_score">Im Radar-Score: Signale mit Regelschwelle</h3>
-    <div class="rd-kacheln" id="rd-k-score"></div>
-    <h3 class="mono rd-gr" data-t="rd_g_ktx">Nur zur Einordnung: ohne Schwelle, nicht im Score</h3>
-    <div class="rd-kacheln" id="rd-k-ktx"></div>
-    <p class="mono dim fine" data-t="rd_vgl_n">Die Quellen messen Verschiedenes. Zeigen mehrere in dieselbe Richtung, ist das ein stärkeres Signal als eine allein.</p>
-    <details class="panel pad rd rd-det">
-      <summary class="mono" data-t="rd_det">Erklärungen zu Trefferquote und EU-Abgleich</summary>
-      <h4 class="mono rd-t" data-t="rd_tr_h">Trefferquote der Prognose</h4><p id="rd-treffer"></p>
-      <h4 class="mono rd-t" data-t="rd_eu_h">EU-KEV und CISA-KEV</h4><p id="rd-eu"></p>
-    </details>
-  </section>
-
-  <section id="rueckblick" class="wrap" aria-labelledby="h-rueck">
-    <h2 id="h-rueck" class="mono" data-t="r_h">## rückblick</h2>
-    <div class="panel pad">
-      <h3 class="mono rd-t" data-t="r_pegel">Dreier-Pegel im Verlauf</h3>
-      <svg id="verlauf" role="img" aria-labelledby="verlauf-titel" viewBox="0 0 1000 220" width="100%" preserveAspectRatio="xMidYMid meet"><title id="verlauf-titel">Verlauf der neu aufgenommenen Schwachstellen</title></svg>
-      <p class="mono dim fine" id="verlauf-legende"></p>
-    </div>
-    <div class="panel pad rd">
-      <h3 class="mono rd-t" data-t="r_rscore">Radar-Score im Verlauf · Experiment</h3>
-      <svg id="rs-chart" role="img" viewBox="0 0 1000 200" width="100%" preserveAspectRatio="xMidYMid meet"></svg>
-      <p class="mono dim fine" id="rs-legende"></p>
-    </div>
-    <div class="panel pad rd">
-      <h3 class="mono rd-t" data-t="rd_zeit_h">Wie schnell wird eine Lücke ausgenutzt gemeldet?</h3>
-      <div class="rd-zahlen" id="rd-zahlen"></div>
-      <svg id="rd-chart" role="img" aria-labelledby="rd-chart-titel" viewBox="0 0 1000 200" width="100%" preserveAspectRatio="xMidYMid meet"><title id="rd-chart-titel">Anteil der KEV-Aufnahmen binnen 30 Tagen nach Veröffentlichung, je Monat</title></svg>
-      <p class="mono dim fine" id="rd-zeit-fine"></p>
-    </div>
-    <div class="panel pad rd">
-      <h3 class="mono rd-t" data-t="rd_warum_h">Belegte Gründe für den Takt</h3>
-      <ul class="hinw" id="rd-gruende"></ul>
-      <p class="mono dim fine" id="rd-pruef"></p>
-      <p class="mono dim fine" data-t="rd_warum_n">Das ist der langfristige Hintergrund, nicht der Tagesstand. Von Hand gepflegt, jeweils mit Quelle und Prüfdatum. Geopolitische Spannungen messen wir nicht.</p>
-    </div>
   </section>
 
   <section id="info" class="wrap" aria-labelledby="h-info">

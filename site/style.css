@@ -335,3 +335,15 @@ html.alarm .marke{animation:flackern 6s infinite}
 .p-rang li.p-r1{border-left-color:#ff8a7a}.p-rang li.p-r1::before{color:#ff8a7a}.p-rang li.p-r2{border-left-color:var(--amber)}.p-rang li.p-r2::before{color:var(--amber)}
 .p-rk{font-size:14px}.p-q{color:var(--dim);margin-right:8px;font-size:12px}.p-t{font-size:13px;color:var(--dim);margin-top:2px}.p-w{font-size:14px;margin-top:4px;color:var(--text)}
 .ab-b{font-size:13px;line-height:1.4;margin-top:2px;max-width:60em}
+
+.grp{border-top:1px solid var(--line);padding-top:8px}
+.weg{list-style:none;display:flex;gap:0;margin:14px 0 4px;padding:0;flex-wrap:wrap}
+.weg li{flex:1 1 180px;position:relative}
+.weg li+li::before{content:"\2192";position:absolute;left:-12px;top:50%;transform:translateY(-50%);color:var(--green);z-index:1;background:var(--bg,#06090b);line-height:1}
+.weg a{display:block;height:100%;padding:12px 16px;border:1px solid var(--line);margin:0 6px 6px 0;text-decoration:none;color:inherit}
+.weg a:hover,.weg a:focus-visible{border-color:var(--green)}
+.weg b{display:block;color:var(--green);font-weight:600}.weg span{display:block;font-size:14px}.weg a span:not([data-t]),.weg b span{display:inline}
+.weg li a>span{color:var(--dim)}
+html.alarm .weg b,html.alarm .weg li+li::before{color:#ff5b6b}
+.dd-box.dd-l{left:0;transform:none}
+@media (max-width:640px){.weg li+li::before{display:none}.weg a{margin-right:0}}
