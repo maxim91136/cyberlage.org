@@ -7206,11 +7206,13 @@
     "ampel": "angespannt",
     "kev_stufe": "hoch",
     "tempo_stufe": "erhoeht",
-    "text": "Die Signale liegen im Schnitt über ihren Regelschwellen, aber nicht klar darüber. Die KEV-Menge liegt weit über dem Üblichen: Es kommt deutlich mehr Neues in den KEV-Katalog. Das Tempo bis KEV liegt über dem Üblichen: Neue Lücken kommen schneller in den KEV als in drei Vierteln der letzten 36 Monate.",
-    "text_en": "On average the signals are above their rule thresholds, but not by a wide margin. The KEV count is far above the usual: clearly more new in the KEV catalog. The pace to KEV is above the usual: new flaws reach the KEV faster than in three quarters of the last 36 months.",
+    "text": "Die Signale liegen im Schnitt über ihren Regelschwellen, aber nicht klar darüber. Die KEV-Menge liegt weit über dem Üblichen: Es kommt deutlich mehr Neues in den KEV-Katalog. Das Tempo bis KEV liegt über dem Üblichen: Neue Lücken kommen schneller in den KEV als in drei Vierteln der letzten 36 Monate. 6 von 8 Bausteinen liegen an oder über ihrer Schwelle, am stärksten: CERT-Bund (2,6-fach), EU-KEV (1,5-fach), KEV-Menge (1,5-fach).",
+    "text_en": "On average the signals are above their rule thresholds, but not by a wide margin. The KEV count is far above the usual: clearly more new in the KEV catalog. The pace to KEV is above the usual: new flaws reach the KEV faster than in three quarters of the last 36 months. 6 of 8 components are at or above their threshold, strongest: CERT-Bund (2.6x), EU-KEV (1.5x), KEV count (1.5x).",
     "hinweis": "Die KEV-Liste täglich abgleichen, aus dem Internet erreichbare Systeme zuerst patchen und Patchfristen verkürzen.",
     "hinweis_en": "Compare the KEV list daily, patch internet-facing systems first and shorten patch deadlines.",
-    "stand": "2026-11-24"
+    "stand": "2026-11-24",
+    "treiber": "6 von 8 Bausteinen liegen an oder über ihrer Schwelle, am stärksten: CERT-Bund (2,6-fach), EU-KEV (1,5-fach), KEV-Menge (1,5-fach).",
+    "treiber_en": "6 of 8 components are at or above their threshold, strongest: CERT-Bund (2.6x), EU-KEV (1.5x), KEV count (1.5x)."
   },
   "radar_skala": {
     "status": "vorlaeufig",

@@ -428,6 +428,17 @@ def main(argv):
         if st:
             rsc["stufe"] = {"name": st["name"], "name_en": st["name_en"], "ampel": st.get("ampel"), "satz": st["satz"], "satz_en": st["satz_en"], "status": stufen_cfg.get("status")}
         ergebnis["fazit"] = fazit(rsc, ergebnis["stufe"], stufen_cfg, (ergebnis.get("tempo") or {}).get("stufe"))
+        sig = [x for x in ergebnis["radar"]["konsens"]["signale"] if isinstance(x.get("ausschlag"), (int, float))]
+        ueber = sorted([x for x in sig if x["ausschlag"] >= 1], key=lambda x: -x["ausschlag"])
+        if ergebnis.get("fazit") and sig:
+            de = lambda v: ("%.1f" % v).replace(".", ",")
+            top = ueber[:3]
+            ergebnis["fazit"]["treiber"] = ("%d von %d Bausteinen liegen an oder über ihrer Schwelle" % (len(ueber), len(sig))) + (
+                ", am stärksten: " + ", ".join("%s (%s-fach)" % (x["name"], de(x["ausschlag"])) for x in top) + "." if top else ".")
+            ergebnis["fazit"]["treiber_en"] = ("%d of %d components are at or above their threshold" % (len(ueber), len(sig))) + (
+                ", strongest: " + ", ".join("%s (%.1fx)" % (x["name_en"], x["ausschlag"]) for x in top) + "." if top else ".")
+            ergebnis["fazit"]["text"] += " " + ergebnis["fazit"]["treiber"]
+            ergebnis["fazit"]["text_en"] += " " + ergebnis["fazit"]["treiber_en"]
         ergebnis["radar_skala"] = {"status": stufen_cfg.get("status"),
                                    "stufen": [{"bis": x["bis"], "name": x["name"], "name_en": x["name_en"], "ampel": x.get("ampel")} for x in stufen_cfg["stufen"]]}
     ms = lese_optional(WURZEL / "data" / "patches" / "microsoft.json")
