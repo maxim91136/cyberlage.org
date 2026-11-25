@@ -32,7 +32,7 @@ SANS_URL = "https://isc.sans.edu/api/infocon?json"
 NCSC_URL = "https://advisories.ncsc.nl/rss/advisories"
 FEODO_URL = "https://feodotracker.abuse.ch/downloads/ipblocklist.json"
 FEODO_ALLE_URL = "https://feodotracker.abuse.ch/downloads/ipblocklist_aggressive.csv"  # alle je gesehenen Steuerserver mit first_seen und last_online
-FEODO_RUECK_TAGE = 120
+FEODO_RUECK_TAGE = 1100
 ANFANG = "2022-01"      # früheste Monate im Verlauf
 FRISCH_TAGE = 365
 REIF_TAGE = 30          # so lange gilt eine Prognose als noch offen
@@ -136,7 +136,7 @@ def tempo_median(kev_eintraege, veroeff, ende, fenster_tage=90):
     return (statistics.median(frisch) if frisch else None), len(frisch)
 
 
-def tempo_reihe(kev_eintraege, veroeff, heute, tage=400, fenster_tage=90, mindest_n=10):
+def tempo_reihe(kev_eintraege, veroeff, heute, tage=1100, fenster_tage=90, mindest_n=10):
     """Tagesreihe des Dreier-Tempos: gleitender 90-Tage-Median der Tage bis zur KEV-Aufnahme. Aus festen Daten berechnet,
     deshalb jederzeit neu ableitbar. Tage mit weniger als mindest_n frischen Lücken bleiben ohne Wert."""
     out = []
@@ -423,7 +423,7 @@ def main():
     heute = datetime.now(timezone.utc).date()
     feodo = hole_feodo()
     rueck = lese(RADAR / "feodo_rueck.json", {"tage": []})
-    if len(serie) < 31:  # einmalig: Historie aus der Liste aller je gesehenen Steuerserver auffüllen
+    if len(rueck.get("tage", [])) < 1000:  # einmalig: Historie aus der Liste aller je gesehenen Steuerserver auffüllen
         try:
             req = urllib.request.Request(FEODO_ALLE_URL, headers={"User-Agent": UA})
             with urllib.request.urlopen(req, timeout=60) as r:

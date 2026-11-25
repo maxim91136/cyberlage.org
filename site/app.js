@@ -139,7 +139,7 @@
       $("rechnung").textContent = txt("keine");
     }
     zeichneVerlauf(d.verlauf || [], d.schwellen || {});
-    zeichneScoreVerlauf(((((d.radar || {}).konsens) || {}).score) || null);
+    zeichneScoreVerlauf(d.pegel || null);
     var tl = d.telegram && d.telegram.link;
     if (/^https:\/\/t\.me\//.test(tl || "")) { $("telegram-link").href = tl; $("telegram").hidden = false; }
     d_stand = d.stand; d_skala = d.radar_skala || null;
@@ -247,19 +247,30 @@
       mk("line", { x1: L, x2: B - R, y1: y(n), y2: y(n), stroke: n === 50 ? "#263340" : "#1d262e", "stroke-dasharray": n === 50 ? "4 4" : "0" });
       mk("text", { x: L - 6, y: y(n) + 4, "text-anchor": "end", fill: "#8a99a6", "font-size": 11, "font-family": "ui-monospace,monospace" }, String(n));
     });
-    if (v.length > 1) mk("polyline", { points: v.map(function (p, i) { return x(i) + "," + y(p.wert); }).join(" "), fill: "none", stroke: "#6fe0a0", "stroke-width": 2 });
+    [30, 64, 80].forEach(function (n) { mk("line", { x1: L, x2: B - R, y1: y(n), y2: y(n), stroke: "#1d262e", "stroke-dasharray": "2 4" }); });
+    var strecke = function (von, bis, farbe, breit, strich) {
+      if (bis - von < 1) return;
+      var a = { points: v.slice(von, bis + 1).map(function (p, i) { return x(von + i) + "," + y(p.wert); }).join(" "), fill: "none", stroke: farbe, "stroke-width": breit };
+      if (strich) a["stroke-dasharray"] = strich; mk("polyline", a);
+    };
+    var ersteLive = v.findIndex(function (p) { return !p.rueck; }); if (ersteLive < 0) ersteLive = v.length;
+    strecke(0, Math.min(ersteLive, v.length - 1), "#5a8f74", 1.6, "");
+    strecke(Math.max(0, ersteLive - 1), v.length - 1, "#6fe0a0", 2.4, "");
     v.forEach(function (p, i) {
-      var c = mk("circle", { cx: x(i), cy: y(p.wert), r: v.length > 60 ? 1.5 : 3, fill: "#6fe0a0" });
-      c.appendChild(document.createElementNS(NS, "title")).textContent = datum(p.stand) + ": " + p.wert + " (" + p.signale + "/" + p.von + ")";
+      if (p.rueck && v.length > 200 && i !== 0) return;
+      var c = mk("circle", { cx: x(i), cy: y(p.wert), r: p.rueck ? 1.2 : 3, fill: p.rueck ? "#5a8f74" : "#6fe0a0" });
+      c.appendChild(document.createElementNS(NS, "title")).textContent = datum(p.stand) + ": " + p.wert + " (" + p.signale + "/" + p.von + (p.rueck ? pick(", rückgerechnet", ", back-calculated") : "") + ")";
     });
     [0, v.length - 1].forEach(function (i, k) {
       if (k && v.length < 2) return;
       mk("text", { x: x(i), y: H - 8, "text-anchor": i === 0 ? "start" : "end", fill: "#8a99a6", "font-size": 11, "font-family": "ui-monospace,monospace" }, datum(v[i].stand));
     });
-    var t = document.createElementNS(NS, "title"); t.textContent = pick("Verlauf des Radar-Scores, zuletzt " + v[v.length - 1].wert + " von 100.", "Radar score over time, latest " + v[v.length - 1].wert + " of 100."); svg.insertBefore(t, svg.firstChild);
-    leg.textContent = pick("Eine Messung pro Tag, seit " + datum(sc.live_seit || v[0].stand) + ". ", "One reading per day, since " + datum(sc.live_seit || v[0].stand) + ". ") +
-      (v.length < 7 ? pick("Die Linie wächst mit jedem Tag; erst nach einigen Wochen sagt sie etwas aus. ", "The line grows each day; it only means something after a few weeks. ") : "") +
-      pick("Experiment: Mittelwert der Ausschläge aller verfügbaren Signale, nicht objektiv und nicht Teil des Dreier-Pegels.", "Experiment: mean of the readings of all available signals, not objective and not part of the Dreier Gauge.");
+    var t = document.createElementNS(NS, "title"); t.textContent = pick("Verlauf des Dreier-Pegels, zuletzt " + v[v.length - 1].wert + " von 100.", "Dreier Gauge over time, latest " + v[v.length - 1].wert + " of 100."); svg.insertBefore(t, svg.firstChild);
+    var nr = v.filter(function (p) { return p.rueck; }).length;
+    leg.textContent = (nr ? pick("Gedämpfte Linie: rückgerechnet für " + nr + " Tage aus den Bausteinen mit Historie (KEV-Menge, Tempo bis KEV, Botnetz-Server); BSI Cyber Index und SANS Infocon haben keine Tagesreihe und fehlen darin, die Zahl der beteiligten Bausteine steht im Tooltip. Helle Linie: live gemessen seit " + datum(sc.live_seit || v[0].stand) + " mit allen verfügbaren Bausteinen, der Übergang kann springen. ",
+        "Dimmed line: back-calculated for " + nr + " days from the components with history (KEV count, pace to KEV, botnet servers); BSI Cyber Index and SANS Infocon have no daily series and are missing from it, the number of components taking part is in the tooltip. Bright line: measured live since " + datum(sc.live_seit || v[0].stand) + " with all available components, the junction may jump. ")
+      : pick("Eine Messung pro Tag, seit " + datum(sc.live_seit || v[0].stand) + ". ", "One reading per day, since " + datum(sc.live_seit || v[0].stand) + ". ")) +
+      pick("Experiment, nicht objektiv. Strichlinien: Stufengrenzen 30, 50, 64, 80.", "Experiment, not objective. Dashed lines: level limits 30, 50, 64, 80.");
   }
 
   function liste(boxId, zeilen, max) {

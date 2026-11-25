@@ -169,6 +169,34 @@ def fazit(score, kev_stufe, cfg, tempo_stufe=None):
             "tempo_stufe": tempo_stufe, "text": text, "text_en": text_en, "hinweis": hint["hinweis"], "hinweis_en": hint["hinweis_en"], "stand": cfg.get("geprueft_am")}
 
 
+def pegel_rueckrechnung(kev_reihe, erhoeht_ab, tempo_reihe, tempo_erhoeht_bis, feodo_serie, obergrenze=2.0):
+    """Rückgerechneter Dreier-Pegel aus den Bausteinen, für die es Historie gibt: KEV-Menge, Tempo bis KEV, Feodo.
+    BSI Cyber Index (jährlich, von Hand) und SANS Infocon (nur heutiger Stand) haben keine Tagesreihe und fehlen darin.
+    Rechnung wie beim Live-Wert: Mittelwert der Ausschläge (höchstens `obergrenze`), umgerechnet auf 0 bis 100.
+    Gibt eine Liste {stand, wert, signale, von, rueck} zurück."""
+    import statistics
+    tempo = {p["stand"]: p["wert"] for p in tempo_reihe or []}
+    feodo = {k: v for k, v in (feodo_serie or {}).items()}
+    tage_f = sorted(feodo)
+    out = []
+    for p in kev_reihe:
+        d = p["stand"]
+        werte = []
+        if erhoeht_ab:
+            werte.append(min(p["wert"] / erhoeht_ab, obergrenze))
+        if d in tempo and tempo_erhoeht_bis:
+            werte.append(min(tempo_erhoeht_bis / max(tempo[d], 1.0), obergrenze))
+        if d in feodo:
+            davor = [feodo[k] for k in tage_f if k < d][-90:]
+            if len(davor) >= 30:
+                med = statistics.median(davor)
+                if med:
+                    werte.append(min(feodo[d] / (1.25 * med), obergrenze))
+        if werte:
+            out.append({"stand": d, "wert": round(sum(werte) / len(werte) / obergrenze * 100), "signale": len(werte), "von": 5, "rueck": True})
+    return out
+
+
 def lese_optional(pfad):
     try:
         return json.loads(Path(pfad).read_text(encoding="utf-8"))
@@ -357,6 +385,11 @@ def main(argv):
                                   "reihe": sr}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
         rs["live_seit"] = sr[0]["stand"]
         rs["reihe"] = sr[-90:]
+        rtempo = (ergebnis["radar"].get("zeit_bis_kev") or {}).get("tempo_reihe") or []
+        alt = pegel_rueckrechnung(reihe, regeln.get("erhoeht_ab"), rtempo, (regeln.get("tempo") or {}).get("erhoeht_bis"),
+                                  lese_optional(WURZEL / "data" / "radar" / "feodo.json"))
+        live = {x["stand"] for x in sr}
+        rs["reihe_voll"] = [x for x in alt if x["stand"] not in live] + [dict(x, rueck=False) for x in sr]
     import fetch_radar
     tcfg = regeln.get("tempo")
     zk = (ergebnis.get("radar") or {}).get("zeit_bis_kev") or {}
@@ -366,6 +399,7 @@ def main(argv):
                              "stufe": fetch_radar.tempo_stufe(tj.get("median_frisch"), tj.get("n_frisch"), tcfg),
                              "marken": {"erhoeht_bis": tcfg["erhoeht_bis"], "hoch_bis": tcfg["hoch_bis"]},
                              "stand": stand.isoformat(), "reihe": zk.get("tempo_reihe", [])[-400:]}
+        zk["tempo_reihe"] = zk.get("tempo_reihe", [])[-400:]
     stufen_cfg = lese_optional(WURZEL / "config" / "radar_stufen.json")
     rsc = ((ergebnis.get("radar") or {}).get("konsens") or {}).get("score")
     if rsc and stufen_cfg:
@@ -394,7 +428,7 @@ def main(argv):
         ergebnis["stufe_begruendung"] = "Gesamtscore %s von 100 aus %s von %s Bausteinen." % (rsc["wert"], rsc["signale"], rsc["von"])
         ergebnis["stufe_begruendung_en"] = "Overall score %s of 100 from %s of %s components." % (rsc["wert"], rsc["signale"], rsc["von"])
         ergebnis["pegel"] = {"wert": rsc["wert"], "signale": rsc["signale"], "von": rsc["von"], "stufe": rsc["stufe"], "status": stufen_cfg.get("status"),
-                             "live_seit": rsc.get("live_seit"), "reihe": rsc.get("reihe", [])}
+                             "live_seit": rsc.get("live_seit"), "reihe": rsc.pop("reihe_voll", rsc.get("reihe", []))}
     else:
         ergebnis["stufe"], ergebnis["stufe_begruendung"], ergebnis["stufe_begruendung_en"], ergebnis["pegel"] = None, "Der Gesamtscore ist noch nicht berechenbar.", "The overall score cannot be computed yet.", None
     ziel = WURZEL / "site" / "data" / "lage.json"

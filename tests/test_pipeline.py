@@ -949,5 +949,18 @@ class FeodoRueckTests(unittest.TestCase):
         self.assertGreaterEqual(len(serie), 100)
 
 
+class PegelRueckTests(unittest.TestCase):
+    def test_rueckrechnung_mittelt_vorhandene_bausteine(self):
+        import score
+        kev = [{"stand": "2026-01-01", "wert": 25}, {"stand": "2026-01-02", "wert": 50}]
+        tempo = [{"stand": "2026-01-01", "wert": 5.0}]
+        r = score.pegel_rueckrechnung(kev, 25, tempo, 5, {})
+        self.assertEqual(r[0]["signale"], 2)
+        self.assertEqual(r[0]["wert"], 50)          # beide Ausschläge 1,0 -> 50
+        self.assertEqual(r[1]["signale"], 1)
+        self.assertEqual(r[1]["wert"], 100)         # 50/25 = 2,0 (Obergrenze) -> 100
+        self.assertTrue(r[0]["rueck"])
+
+
 if __name__ == "__main__":
     unittest.main()
