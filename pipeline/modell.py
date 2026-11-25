@@ -77,3 +77,49 @@ def speichern(alt, stand, version, aktiv, beobachtung):
     reihe.append({"stand": stand.isoformat(), "modell": version,
                   "aktiv": {k: (None if v is None else round(v, 3)) for k, v in aktiv.items()}, "beobachtung": beobachtung})
     return {"meta": {"hinweis": "Einzelwerte je Tag: aktiv = Ausschlag, beobachtung = Rohwert. Ein neues Modell rechnet daraus rückwirkend neu."}, "reihe": reihe}
+
+
+def erstdatum(eintraege):
+    """{Kennung: letztes Datum} -> {Kennung: Datum der Erstveröffentlichung}.
+    Die Quellen nennen bei aktualisierten Meldungen nur das Datum der Aktualisierung. Die Kennungen werden aber je Jahr
+    fortlaufend vergeben. Eine Meldung kann deshalb nicht später erschienen sein als jede Meldung mit höherer Nummer
+    desselben Jahres, und nicht später als am 31.12. ihres Jahres. Das früheste dieser Daten ist ihr Erstdatum."""
+    jahre = {}
+    for k, d in eintraege.items():
+        t = k.rsplit("-", 2)
+        jahre.setdefault(t[-2], []).append((int(t[-1]), k, d))
+    out = {}
+    for jahr, xs in jahre.items():
+        grenze = jahr + "-12-31"
+        for _, k, d in sorted(xs, reverse=True):
+            grenze = min(grenze, d)
+            out[k] = grenze
+    return out
+
+
+def fenster_reihe(daten, tage, von, bis):
+    """Liste von ISO-Daten -> [{stand, wert}] je Tag: Anzahl der Daten im Fenster (stand - tage, stand]."""
+    from collections import Counter
+    from datetime import date
+    c = Counter(daten)
+    d0, d1 = date.fromisoformat(von), date.fromisoformat(bis)
+    out, summe = [], 0
+    t = d0 - timedelta(days=tage - 1)
+    while t <= d1:
+        summe += c.get(t.isoformat(), 0)
+        alt = t - timedelta(days=tage)
+        summe -= c.get(alt.isoformat(), 0) if alt >= d0 - timedelta(days=tage - 1) else 0
+        if t >= d0:
+            out.append({"stand": t.isoformat(), "wert": summe})
+        t += timedelta(days=1)
+    return out
+
+
+def quantil(werte, q):
+    xs = sorted(werte)
+    if not xs:
+        return None
+    i = (len(xs) - 1) * q
+    lo = int(i)
+    hi = min(lo + 1, len(xs) - 1)
+    return xs[lo] + (xs[hi] - xs[lo]) * (i - lo)

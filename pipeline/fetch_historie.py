@@ -128,9 +128,8 @@ def hole_eu(jetzt, lade=lade, max_seiten=40, pause=0.5):
             break
         seiten += 1
         frisch = {k: v["ausgenutzt_seit"] for k, v in neu.items()}
-        bekannt = all(k in eintraege for k in frisch)
         eintraege.update(frisch)
-        if bekannt and alt.get("eintraege") or min(frisch.values()) < grenze:
+        if len(neu) < 100:
             break
         time.sleep(pause)
     schreibe("eu_kev.json", {"quelle": "EU-KEV über die EUVD von ENISA", "quelle_url": "https://euvd.enisa.europa.eu/",
@@ -139,7 +138,7 @@ def hole_eu(jetzt, lade=lade, max_seiten=40, pause=0.5):
     return "EU-KEV: %d Einträge, %d Seiten, ältestes Datum %s" % (len(eintraege), seiten, min(eintraege.values()))
 
 
-def hole_ms(jetzt, lade=lade, monate=37, je_lauf=12):
+def hole_ms(jetzt, lade=lade, monate=37, je_lauf=24):
     import fetch_patches
     alt = lese("microsoft.json")
     mon = dict(alt.get("monate", {}))
@@ -148,12 +147,12 @@ def hole_ms(jetzt, lade=lade, monate=37, je_lauf=12):
     for mid, m in (ms.get("monate") or {}).items():
         if m.get("erste_veroeffentlichung") and isinstance(m.get("ausgenutzt"), int):
             mon[mid] = {"tag": m["erste_veroeffentlichung"][:10], "ausgenutzt": m["ausgenutzt"], "cves": m.get("cves")}
-    liste = json.loads(lade(fetch_patches.MS_LISTE))
+    liste = fetch_patches.lade_json(fetch_patches.MS_LISTE)
     fehlend = [e for e in fetch_patches.monatsliste(liste, monate) if e["ID"] not in mon]
     fehler = []
     for e in fehlend[-je_lauf:]:
         try:
-            doc = json.loads(lade(e.get("CvrfUrl") or fetch_patches.MS_DOK % e["ID"], timeout=120))
+            doc = fetch_patches.lade_json(e.get("CvrfUrl") or fetch_patches.MS_DOK % e["ID"])
             v = fetch_patches.verdichte_dokument(doc, ())
             tag = (v.get("erste_veroeffentlichung") or e.get("InitialReleaseDate") or "")[:10]
             if tag:
