@@ -1307,7 +1307,7 @@
   "cert_bund": {
     "quelle": "CERT-Bund / BSI Warn- und Informationsdienst",
     "quelle_url": "https://wid.cert-bund.de/",
-    "abgerufen_am": "2026-11-25T02:12:33+00:00",
+    "abgerufen_am": "2026-11-25T02:31:40+00:00",
     "fenster_tage": 30,
     "daten_seit": "2026-11-23",
     "kritisch_7_tage": 7,
@@ -1640,7 +1640,7 @@
   "eu_kev": {
     "quelle": "EU-KEV über die EU-Schwachstellendatenbank (EUVD) von ENISA",
     "quelle_url": "https://euvd.enisa.europa.eu/",
-    "abgerufen_am": "2026-11-25T02:12:33+00:00",
+    "abgerufen_am": "2026-11-25T02:31:40+00:00",
     "fenster_tage": 30,
     "daten_seit": "2026-08-07",
     "neu_30_tage": 36,
@@ -2152,7 +2152,7 @@
     ]
   },
   "ausblick": {
-    "abgerufen_am": "2026-11-25T02:12:35+00:00",
+    "abgerufen_am": "2026-11-25T02:31:43+00:00",
     "fenster_tage": 14,
     "geprueft": 7185,
     "schwelle_hoch": 0.1,
@@ -2266,7 +2266,7 @@
       "online": 1,
       "gelistet": 5
     },
-    "abgerufen_am": "2026-11-25T02:14:39+00:00",
+    "abgerufen_am": "2026-11-25T02:33:44+00:00",
     "zeit_bis_kev": {
       "verlauf": [
         {
@@ -4574,7 +4574,7 @@
     },
     "sans": {
       "status": "green",
-      "abgerufen_am": "2026-11-25T02:14:38+00:00"
+      "abgerufen_am": "2026-11-25T02:33:43+00:00"
     },
     "ncsc": {
       "advisories_30": 25,
@@ -4851,9 +4851,9 @@
           "geprueft_am": "2026-11-23",
           "erreichbar": false,
           "status": 404,
-          "fehler_in_folge": 16,
+          "fehler_in_folge": 17,
           "erster_fehler_um": "2026-11-24T16:15:10+00:00",
-          "link_geprueft_um": "2026-11-25T02:15:27+00:00",
+          "link_geprueft_um": "2026-11-25T02:35:14+00:00",
           "faellig_am": "2027-05-25",
           "faellig": false,
           "link_tot": false
@@ -4866,9 +4866,9 @@
           "geprueft_am": "2026-11-24",
           "erreichbar": false,
           "status": 404,
-          "fehler_in_folge": 12,
+          "fehler_in_folge": 13,
           "erster_fehler_um": "2026-11-24T22:03:12+00:00",
-          "link_geprueft_um": "2026-11-25T02:15:27+00:00",
+          "link_geprueft_um": "2026-11-25T02:35:14+00:00",
           "faellig_am": "2027-02-22",
           "faellig": false,
           "link_tot": false
@@ -4898,7 +4898,7 @@
       "lizenz": "CC0 1.0 (laut LICENSE-Datei von cisagov/kev-data)",
       "quelle_abruf": "cisa.gov",
       "veroeffentlicht_am": "2026-11-24T17:47:46.199Z",
-      "abgerufen_am": "2026-11-25T02:12:33+00:00",
+      "abgerufen_am": "2026-11-25T02:31:40+00:00",
       "name_en": "CISA Known Exploited Vulnerabilities",
       "lizenz_en": "CC0 1.0 (per the LICENSE file of cisagov/kev-data)"
     },
@@ -4915,7 +4915,7 @@
       "name": "CERT-Bund / BSI Warn- und Informationsdienst",
       "link": "https://wid.cert-bund.de/",
       "lizenz": "nur Titel und Links, Nutzungsbedingungen des BSI beachten",
-      "abgerufen_am": "2026-11-25T02:12:33+00:00",
+      "abgerufen_am": "2026-11-25T02:31:40+00:00",
       "name_en": "CERT-Bund / BSI Warning and Information Service",
       "lizenz_en": "titles and links only, observe the BSI terms of use"
     },
@@ -4924,7 +4924,7 @@
       "name": "EU-KEV (EUVD von ENISA)",
       "link": "https://euvd.enisa.europa.eu/",
       "lizenz": "Lizenz nicht ausdrücklich geklärt",
-      "abgerufen_am": "2026-11-25T02:12:33+00:00",
+      "abgerufen_am": "2026-11-25T02:31:40+00:00",
       "name_en": "EU-KEV (EUVD by ENISA)",
       "lizenz_en": "licence not explicitly clarified"
     },
@@ -4933,7 +4933,7 @@
       "name": "EPSS (FIRST)",
       "link": "https://www.first.org/epss/",
       "lizenz": "kostenlos mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T02:12:35+00:00",
+      "abgerufen_am": "2026-11-25T02:31:43+00:00",
       "name_en": "EPSS (FIRST)",
       "lizenz_en": "free to use with attribution"
     },
@@ -4942,7 +4942,7 @@
       "name": "NVD (NIST)",
       "link": "https://nvd.nist.gov/",
       "lizenz": "gemeinfrei, nur Veröffentlichungsdatum und CVSS-Wert",
-      "abgerufen_am": "2026-11-25T02:12:35+00:00",
+      "abgerufen_am": "2026-11-25T02:31:43+00:00",
       "name_en": "NVD (NIST)",
       "lizenz_en": "public domain, only publication date and CVSS score"
     },
@@ -4951,7 +4951,7 @@
       "name": "CVE-Liste (CVE Program, MITRE)",
       "link": "https://github.com/CVEProject/cvelistV5",
       "lizenz": "CVE Terms of Use: frei nutzbar mit Quellenangabe, nur Veröffentlichungsdatum",
-      "abgerufen_am": "2026-11-25T02:14:39+00:00",
+      "abgerufen_am": "2026-11-25T02:33:44+00:00",
       "name_en": "CVE List (CVE Program, MITRE)",
       "lizenz_en": "CVE Terms of Use: free to use with attribution, only publication date"
     },
@@ -4960,7 +4960,7 @@
       "name": "Feodo Tracker (abuse.ch)",
       "link": "https://feodotracker.abuse.ch/",
       "lizenz": "CC0, nur die Zahl aktiver Steuerserver",
-      "abgerufen_am": "2026-11-25T02:14:39+00:00",
+      "abgerufen_am": "2026-11-25T02:33:44+00:00",
       "name_en": "Feodo Tracker (abuse.ch)",
       "lizenz_en": "CC0, only the number of active command servers"
     },
@@ -4969,14 +4969,14 @@
       "name": "NCSC-NL Beveiligingsadviezen",
       "link": "https://advisories.ncsc.nl/",
       "lizenz": "Lizenz nicht geprüft, nur Zahl der Advisories mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T02:14:39+00:00"
+      "abgerufen_am": "2026-11-25T02:33:44+00:00"
     },
     {
       "id": "sans",
       "name": "SANS Internet Storm Center (Infocon)",
       "link": "https://isc.sans.edu/",
       "lizenz": "Creative Commons laut Fußzeile des ISC, nur Ampelstatus mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T02:14:38+00:00",
+      "abgerufen_am": "2026-11-25T02:33:43+00:00",
       "name_en": "SANS Internet Storm Center (Infocon)",
       "lizenz_en": "Creative Commons per the ISC footer, only the traffic-light status with attribution"
     }
@@ -7065,7 +7065,7 @@
         "quelle": "Microsoft Security Response Center (CVRF 3.0)",
         "quelle_url": "https://msrc.microsoft.com/update-guide",
         "listen_url": "https://api.msrc.microsoft.com/cvrf/v3.0/updates",
-        "abgerufen_am": "2026-11-25T00:14:48+00:00",
+        "abgerufen_am": "2026-11-25T02:33:44+00:00",
         "hinweis": "Zählung je CVE; Chromium-Lücken im Edge und Linux-Paketlücken von Azure Linux sind ausgenommen und getrennt ausgewiesen. Schweregrad, Ausnutzung und Bekanntheit stammen vom Hersteller.",
         "fehler": []
       },
@@ -7106,8 +7106,8 @@
           },
           "familien": {
             "Windows 11": 39,
-            "Windows Server": 36,
             "Windows 10": 36,
+            "Windows Server": 36,
             "Cloud und Dienste": 21,
             "Office und SharePoint": 14,
             "Entwicklung und Server": 6,
@@ -7354,8 +7354,8 @@
           },
           "familien": {
             "Windows Server": 45,
-            "Windows 11": 44,
             "Windows 10": 44,
+            "Windows 11": 44,
             "Sonstige": 35,
             "Cloud und Dienste": 20,
             "Azure Linux": 19,
@@ -8981,7 +8981,7 @@
     "hersteller": {
       "meta": {
         "hinweis": "Nur Zählung und Verweise auf die Meldungen der Hersteller. Schweregrade stammen von den Herstellern und fehlen, wo sie nicht geliefert werden.",
-        "abgerufen_am": "2026-11-25T02:14:39+00:00"
+        "abgerufen_am": "2026-11-25T02:33:44+00:00"
       },
       "quellen": {
         "ubuntu": {
@@ -9145,7 +9145,7 @@
               "schwere": null
             }
           ],
-          "abgerufen_am": "2026-11-25T02:14:39+00:00",
+          "abgerufen_am": "2026-11-25T02:33:44+00:00",
           "status": "ok"
         },
         "debian": {
@@ -9234,7 +9234,7 @@
               "schwere": null
             }
           ],
-          "abgerufen_am": "2026-11-25T02:14:39+00:00",
+          "abgerufen_am": "2026-11-25T02:33:44+00:00",
           "status": "ok"
         },
         "redhat": {
@@ -9397,7 +9397,7 @@
               "schwere": "hoch"
             }
           ],
-          "abgerufen_am": "2026-11-25T02:14:39+00:00",
+          "abgerufen_am": "2026-11-25T02:33:44+00:00",
           "status": "ok"
         },
         "cisco": {
@@ -9551,7 +9551,7 @@
               "schwere": "kritisch"
             }
           ],
-          "abgerufen_am": "2026-11-25T02:14:39+00:00",
+          "abgerufen_am": "2026-11-25T02:33:44+00:00",
           "status": "ok"
         }
       }
