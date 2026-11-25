@@ -394,17 +394,50 @@
     });
   }
   function inTagen(n) { return n === 0 ? pick("heute", "today") : (n === 1 ? pick("morgen", "tomorrow") : pick("in " + n + " Tagen", "in " + n + " days")); }
+  function icsText(s) { return String(s).replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\n/g, "\\n"); }
+  function icsDatum(ms) { var d = new Date(ms); return d.getUTCFullYear() + ("0" + (d.getUTCMonth() + 1)).slice(-2) + ("0" + d.getUTCDate()).slice(-2); }
+  function icsDatei(termine) {
+    var stempel = new Date().toISOString().replace(/[-:]/g, "").slice(0, 15) + "Z", z = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//cyberlage.org//Patch-Kalender//DE", "CALSCALE:GREGORIAN"];
+    termine.forEach(function (t) {
+      z.push("BEGIN:VEVENT", "UID:" + t.uid + "@cyberlage.org", "DTSTAMP:" + stempel, "DTSTART;VALUE=DATE:" + icsDatum(t.zeit), "DTEND;VALUE=DATE:" + icsDatum(t.zeit + TAG_MS));
+      if (t.regel) z.push("RRULE:" + t.regel);
+      z.push("SUMMARY:" + icsText(t.titel), "DESCRIPTION:" + icsText(t.text), "URL:" + t.url, "TRANSP:TRANSPARENT", "BEGIN:VALARM", "ACTION:DISPLAY", "DESCRIPTION:" + icsText(t.titel), "TRIGGER:-PT15H", "END:VALARM", "END:VEVENT");
+    });
+    z.push("END:VCALENDAR");
+    return z.map(function (l) { var o = [], r = l; while (r.length > 70) { o.push(r.slice(0, 70)); r = " " + r.slice(70); } o.push(r); return o.join("\r\n"); }).join("\r\n") + "\r\n";
+  }
+  function icsLaden(name, text) {
+    var bl = new Blob([text], { type: "text/calendar;charset=utf-8" }), u = URL.createObjectURL(bl), l = document.createElement("a");
+    l.href = u; l.download = name; document.body.appendChild(l); l.click(); document.body.removeChild(l); setTimeout(function () { URL.revokeObjectURL(u); }, 3000);
+  }
   function zeigeTermine() {
     var host = $("t-liste"); if (!host) return;
     host.textContent = "";
+    var hinweis = pick("Erinnerung am Vortag um 9 Uhr (Standard des Kalenders). Termin nach den Regeln des Herstellers, ohne Gewähr.", "Reminder the day before at 9:00 (calendar default). Date from the vendor's rules, without guarantee.");
     termine(new Date(), 6).forEach(function (g) {
       var row = el("div", "t-row" + (g.tage <= 1 ? " t-nah" : ""));
       row.appendChild(el("span", "mono t-d", new Date(g.zeit).toLocaleDateString(window.I18N.locale, { timeZone: "UTC", weekday: "short", day: "numeric", month: "numeric", year: "numeric" })));
       row.appendChild(el("span", "mono t-c", inTagen(g.tage)));
       var w = el("span", "t-n");
       g.ev.forEach(function (e, i) { if (i) w.appendChild(document.createTextNode(" · ")); w.appendChild(link(e.l, e.n)); });
-      row.appendChild(w); host.appendChild(row);
+      row.appendChild(w);
+      var b = el("button", "mono t-k", pick("+ Kalender", "+ calendar")); b.type = "button"; b.setAttribute("aria-label", pick("Termin in den Kalender eintragen", "Add this date to your calendar"));
+      b.addEventListener("click", function () {
+        var namen = g.ev.map(function (e) { return e.n; }).join(", ");
+        icsLaden("patch-termin-" + icsDatum(g.zeit) + ".ics", icsDatei([{ uid: "pt-" + icsDatum(g.zeit), zeit: g.zeit, titel: namen, text: hinweis + " cyberlage.org/#termine", url: g.ev[0].l }]));
+      });
+      row.appendChild(b); host.appendChild(row);
     });
+    var alle = el("button", "mono t-alle", pick("Alle Patch-Termine als wiederkehrende Einträge (.ics)", "All patch dates as recurring entries (.ics)")); alle.type = "button";
+    alle.addEventListener("click", function () {
+      var h = new Date(), n = termine(h, 40), erst = function (art) { return n.filter(function (g) { return g.ev.some(function (e) { return e.art === art; }); })[0]; };
+      var ms = erst("ms"), orc = erst("oracle");
+      icsLaden("patch-kalender.ics", icsDatei([
+        { uid: "ms-adobe-sap", zeit: ms.zeit, regel: "FREQ=MONTHLY;BYDAY=2TU", titel: "Patch Day: Microsoft, Adobe, SAP", text: hinweis + " cyberlage.org/#termine", url: "https://cyberlage.org/#termine" },
+        { uid: "oracle", zeit: orc.zeit, regel: "FREQ=MONTHLY;BYDAY=3TU", titel: "Oracle Patch-Termin (CPU im Jan, Apr, Jul, Okt)", text: hinweis + " cyberlage.org/#termine", url: "https://www.oracle.com/security-alerts/" }
+      ]));
+    });
+    host.appendChild(alle);
   }
   function zeigeTicker(d) {
     var bar = $("ticker"), b = $("tk-b"); if (!bar || !b) return;

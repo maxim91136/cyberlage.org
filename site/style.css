@@ -443,3 +443,8 @@ html[lang=en] .sek>summary::after{content:"\25B8  show"}html[lang=en] .sek[open]
 .p-ohne{border-left-color:#e3b341}
 .p-op{margin-top:16px}
 @media print{.sek>summary::after{display:none}.p-det:not([open])>*:not(summary){display:block!important}}
+
+.t-k,.t-alle{background:none;border:1px solid var(--line);color:var(--green);padding:6px 10px;font-size:13px;cursor:pointer;margin-left:auto}
+.t-k:hover,.t-alle:hover,.t-k:focus-visible,.t-alle:focus-visible{border-color:var(--green)}
+.t-alle{display:block;margin:12px 0 0}
+@media print{.t-k,.t-alle{display:none}}
