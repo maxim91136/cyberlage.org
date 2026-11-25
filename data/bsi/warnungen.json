@@ -3,7 +3,7 @@
   "quelle": "CERT-Bund / BSI Warn- und Informationsdienst",
   "quelle_url": "https://wid.cert-bund.de/",
   "hinweis": "Nur Kennung, Schweregrad, Titel, Datum und Link. Beschreibungstexte werden nicht übernommen.",
-  "abgerufen_am": "2026-11-25T11:18:56+00:00",
+  "abgerufen_am": "2026-11-25T11:27:23+00:00",
   "anzahl": 435
  },
  "eintraege": [
@@ -32,12 +32,28 @@
    "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4757"
   },
   {
+   "id": "WID-SEC-2026-4753",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Google Chrome: Schwachstelle ermöglicht nicht spezifizierten Angriff",
+   "datum": "2026-11-25",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4753"
+  },
+  {
    "id": "WID-SEC-2026-4743",
    "schwere": "hoch",
    "status": "update",
    "titel": "Microsoft Azure: Mehrere Schwachstellen",
    "datum": "2026-11-25",
    "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4743"
+  },
+  {
+   "id": "WID-SEC-2026-4733",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "GPGME: Schwachstelle ermöglicht Codeausführung und Offenlegung von Informationen",
+   "datum": "2026-11-25",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4733"
   },
   {
    "id": "WID-SEC-2026-4717",
@@ -256,14 +272,6 @@
    "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4754"
   },
   {
-   "id": "WID-SEC-2026-4753",
-   "schwere": "mittel",
-   "status": "neu",
-   "titel": "Google Chrome: Schwachstelle ermöglicht nicht spezifizierten Angriff",
-   "datum": "2026-11-24",
-   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4753"
-  },
-  {
    "id": "WID-SEC-2026-4752",
    "schwere": "mittel",
    "status": "neu",
@@ -358,14 +366,6 @@
    "titel": "Apache Solr: Mehrere Schwachstellen",
    "datum": "2026-11-24",
    "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4739"
-  },
-  {
-   "id": "WID-SEC-2026-4733",
-   "schwere": "hoch",
-   "status": "update",
-   "titel": "GPGME: Schwachstelle ermöglicht Codeausführung und Offenlegung von Informationen",
-   "datum": "2026-11-24",
-   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4733"
   },
   {
    "id": "WID-SEC-2026-4731",
