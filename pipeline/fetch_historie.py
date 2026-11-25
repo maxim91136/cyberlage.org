@@ -165,10 +165,56 @@ def hole_ms(jetzt, lade=lade, monate=37, je_lauf=24):
     return "Microsoft: %d Monate, %d fehlten, Fehler: %s" % (len(mon), len(fehlend), "; ".join(fehler) or "keine")
 
 
+DSHIELD_URL = "https://isc.sans.edu/api/dailysummary/%s/%s?json"
+
+
+def parse_dshield(daten):
+    """Antwort der DShield-Tagesübersicht -> {Datum: [Meldungen, Ziele, Quellen]}. Verträgt Liste oder Objekt mit Liste."""
+    if isinstance(daten, dict):
+        daten = next((v for v in daten.values() if isinstance(v, list)), [])
+    out = {}
+    for e in daten or []:
+        if not isinstance(e, dict):
+            continue
+        d = str(e.get("date") or "")[:10]
+        try:
+            werte = [int(e.get(k)) for k in ("records", "targets", "sources")]
+        except (TypeError, ValueError):
+            continue
+        if re.match(r"\d{4}-\d\d-\d\d$", d):
+            out[d] = werte
+    return out
+
+
+def hole_dshield(jetzt, lade=lade, pause=1.0):
+    alt = lese("dshield.json")
+    tage = dict(alt.get("tage", {}))
+    ende = jetzt.date()
+    start = (jetzt - timedelta(days=TAGE)).date()
+    if tage:
+        start = max(start, datetime.fromisoformat(max(tage)).date() - timedelta(days=7))
+    roh = None
+    t = start
+    while t <= ende:
+        bis = min(t + timedelta(days=180), ende)
+        antwort = lade(DSHIELD_URL % (t.isoformat(), bis.isoformat()))
+        if roh is None:
+            roh = antwort[:300].decode("utf-8", "replace")
+        tage.update(parse_dshield(json.loads(antwort)))
+        t = bis + timedelta(days=1)
+        time.sleep(pause)
+    if not tage:
+        raise ValueError("keine Tageswerte, Antwort begann mit: %s" % roh)
+    schreibe("dshield.json", {"quelle": "SANS Internet Storm Center / DShield, Tagesübersicht", "quelle_url": "https://isc.sans.edu/",
+                              "hinweis": "Je Tag: Meldungen (records), meldende Ziele (targets), angreifende Quellen (sources) aus den Firewall- und Honeypot-Protokollen der DShield-Teilnehmer. Nutzung mit Quellenangabe: SANS Technology Institute, Internet Storm Center.",
+                              "abgerufen_am": jetzt.isoformat(timespec="seconds"), "tage": tage})
+    return "DShield: %d Tage, %s bis %s, Antwortbeginn: %s" % (len(tage), min(tage), max(tage), (roh or "")[:160].replace("\n", " "))
+
+
 def main(argv):
     jetzt = datetime.now(timezone.utc)
     rc = 0
-    for name, fn in (("cert", hole_cert), ("ncsc", hole_ncsc), ("eu", hole_eu), ("ms", hole_ms)):
+    for name, fn in (("cert", hole_cert), ("ncsc", hole_ncsc), ("eu", hole_eu), ("ms", hole_ms), ("dshield", hole_dshield)):
         if argv and name not in argv:
             continue
         try:
