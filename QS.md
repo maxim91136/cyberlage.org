@@ -21,6 +21,9 @@ Steve soll nicht zwischen den Chats vermitteln müssen. Wer am Repo arbeitet, li
 - **Handstarts des Datenlaufs sparsam einsetzen.** Jeder Handstart fragt alle Patch-Quellen ab; am 25.11. schlug einer nach rund einem Dutzend Handstarts fehl (vermutlich gebremste Quelle). Der Zeitplan reicht.
 - **Geschmacksfragen, bewusst nicht angefasst:** Diagrammschrift 10 px, Ticker-Links 21 px hoch, drei eingeklappte Bereiche.
 
+- **Bau-Chat, 25.11. abends (zur Kenntnis für die QS):** Der Pegel hat jetzt zehn Bausteine in vier Gruppen. Neu: Gruppe Angriffsaktivität mit DShield (angreifende Quellen je Tag, SANS ISC, 7-Tage-Mittel, Schwelle 175.000) und Ransomware (neue Einträge auf Leak-Seiten in 30 Tagen, RansomLook, Schwelle 855). Jede Gruppe hat mindestens zwei Bausteine. Grenze ruhig/unauffällig 35. RULES.md hat einen Abschnitt „Begründung der Modellentscheidungen“ mit Empfindlichkeitsanalyse, Test außerhalb der Stichprobe und Verlässlichkeit der Quellen. Neu ist `site/data/status.json` (Stand, Pegel, fehlende Bausteine); Sentinel3 prüft darüber Frische und Vollständigkeit und kennt die neuen Quellen. Signale-Kacheln stehen nach Gruppen geordnet, „Gruppen und Einzelwerte“ ist ein kompakter Block.
+- **Aufbau von Teil 2 (Steve wünscht sich die Hersteller sichtbarer, 25.11. abends):** Der Bau-Chat hat nur Vorschläge gemacht und baut hier nicht, solange die QS am Ausbau „Handeln“ arbeitet. Entscheidung von Steve steht aus.
+
 ## Entscheidungen von Steve
 
 - 25.11.2026: Die Patch-Seite soll mehr Rollen bedienen (Admins, Netzwerk, Anwendungsverantwortliche, SOC). Priorisierung macht die QS; gebaut wird nur, was echten Mehrwert hat. Zwei Sichten (Lage/Handeln) statt freier Anpassung.
