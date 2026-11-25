@@ -1,5 +1,5 @@
 {
- "abgerufen_am": "2026-11-25T15:47:09+00:00",
+ "abgerufen_am": "2026-11-25T17:11:27+00:00",
  "zeit_bis_kev": {
   "verlauf": [
    {
@@ -5968,7 +5968,7 @@
  },
  "sans": {
   "status": "green",
-  "abgerufen_am": "2026-11-25T15:47:08+00:00"
+  "abgerufen_am": "2026-11-25T17:11:26+00:00"
  },
  "ncsc": {
   "advisories_30": 25,
@@ -5984,11 +5984,11 @@
    "vorher": "+50 %",
    "vorher_en": "+50 %",
    "stand": "2026-11-19",
-   "misst": "Angriffsfläche, Gefährdung und Schaden in einer Zahl, Deutschland. Der Gesamtwert 170 stammt so vom BSI, wir rechnen ihn nicht aus den Teilwerten nach. Teilwerte: Angriffsfläche 349 (2. Quartal, +117 %), Gefährdung 123 (+9 %), Schaden 168 (+33 %)",
-   "misst_en": "Attack surface, threat and damage in one number, Germany. The overall value of 170 is taken as published by the BSI, we do not recompute it from the sub-scores. Sub-scores: attack surface 349 (Q2, +117%), threat 123 (+9%), impact 168 (+33%)",
+   "misst": "Angriffsfläche, Gefährdung und Schaden in einer Zahl, Deutschland. Im Pegel zählt der Jahresschnitt von 170 Punkten (Juli 2025 bis Juni 2026), den das BSI als Hauptwert nennt; wir rechnen ihn nicht aus den Teilwerten nach. Zuletzt lag der Index höher: 181 im 1. Quartal und 238 im 2. Quartal 2026. Teilwerte im Jahresschnitt: Gefährdung 123 (+9 %), Schaden 168 (+33 %), Angriffsfläche +117 % (im 2. Quartal 2026 bei 349)",
+   "misst_en": "Attack surface, threat and damage in one number, Germany. The gauge counts the annual average of 170 points (July 2025 to June 2026), which the BSI gives as the headline value; we do not recompute it from the sub-scores. Most recently the index was higher: 181 in Q1 and 238 in Q2 2026. Sub-scores as annual averages: threat 123 (+9%), impact 168 (+33%), attack surface +117% (349 in Q2 2026)",
    "link": "https://www.bsi-lagebericht.de/node/3",
    "beleg": "https://www.bsi-lagebericht.de/node/3",
-   "geprueft_am": "2026-11-24",
+   "geprueft_am": "2026-11-25",
    "wert": "170",
    "basis": "100"
   },

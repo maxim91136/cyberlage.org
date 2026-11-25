@@ -72,13 +72,13 @@
    "bereich": "jaehrlich",
    "name": "BSI Cyber Index 2026",
    "link": "https://www.bsi-lagebericht.de/node/3",
-   "geprueft_am": "2026-11-24",
+   "geprueft_am": "2026-11-25",
    "erreichbar": true,
    "status": 200,
    "fehler_in_folge": 0,
    "erster_fehler_um": null,
    "link_geprueft_um": "2026-11-25T11:56:38+00:00",
-   "faellig_am": "2027-10-20",
+   "faellig_am": "2027-10-21",
    "faellig": false,
    "link_tot": false
   },
@@ -105,12 +105,12 @@
    "geprueft_am": "2026-11-23",
    "erreichbar": false,
    "status": 404,
-   "fehler_in_folge": 52,
+   "fehler_in_folge": 53,
    "erster_fehler_um": "2026-11-24T16:15:10+00:00",
-   "link_geprueft_um": "2026-11-25T15:47:51+00:00",
+   "link_geprueft_um": "2026-11-25T17:14:50+00:00",
    "faellig_am": "2027-05-25",
    "faellig": false,
-   "link_tot": false
+   "link_tot": true
   },
   {
    "id": "radar_stufen",
@@ -120,9 +120,9 @@
    "geprueft_am": "2026-11-24",
    "erreichbar": false,
    "status": 404,
-   "fehler_in_folge": 48,
+   "fehler_in_folge": 49,
    "erster_fehler_um": "2026-11-24T22:03:12+00:00",
-   "link_geprueft_um": "2026-11-25T15:47:51+00:00",
+   "link_geprueft_um": "2026-11-25T17:14:50+00:00",
    "faellig_am": "2027-02-22",
    "faellig": false,
    "link_tot": false
@@ -135,13 +135,15 @@
    "geprueft_am": "2026-11-25",
    "erreichbar": false,
    "status": 404,
-   "fehler_in_folge": 13,
+   "fehler_in_folge": 14,
    "erster_fehler_um": "2026-11-25T10:53:06+00:00",
-   "link_geprueft_um": "2026-11-25T15:47:51+00:00",
+   "link_geprueft_um": "2026-11-25T17:14:50+00:00",
    "faellig_am": "2027-02-23",
    "faellig": false,
    "link_tot": false
   }
  ],
- "offen": []
+ "offen": [
+  "Schwellen des Dreier-Pegels: Link nicht erreichbar (404), https://github.com/maxim91136/cyberlage.org/blob/main/config/regeln.json"
+ ]
 }
