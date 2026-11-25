@@ -102,6 +102,7 @@
     var hatStufe = d.stufe !== null && d.stufe !== undefined;
     var name = hatStufe ? txt(String(d.stufe)) : null;
     $("stufe-wert").textContent = hatStufe ? name : "null";
+    if (hatStufe && d.pegel && typeof d.pegel.wert === "number") document.title = "Cyberlage · " + name.toUpperCase() + " " + d.pegel.wert + pick(" · Dreier-Pegel", " · Dreier Gauge");
     var hp = $("hero-pegel");
     if (hp) { hp.hidden = !hatStufe; if (hatStufe) { hp.className = "hero-pegel mono st-" + d.stufe; hp.textContent = pick("Dreier-Pegel heute: ", "Dreier Gauge today: ") + name.toUpperCase() + (d.pegel && typeof d.pegel.wert === "number" ? " · " + d.pegel.wert + " / 100" : "") + " ↓"; } }
     window.DP = hatStufe ? name + (d.pegel && typeof d.pegel.wert === "number" ? " " + d.pegel.wert : "") : "";

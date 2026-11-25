@@ -149,7 +149,7 @@
     Array.prototype.forEach.call(document.querySelectorAll("[data-t-ph]"), function (n) {
       var v = EN[n.getAttribute("data-t-ph")]; if (v !== undefined) n.setAttribute("placeholder", v);
     });
-    var tt = { "index": "Cyberlage – situation picture from open sources", "hinweise": "Notes and privacy – Cyberlage" };
+    var tt = { "index": "Cyberlage · Dreier Gauge for the cyber threat", "hinweise": "Notes and privacy – Cyberlage" };
     document.title = /hinweise/.test(location.pathname) ? tt.hinweise : tt.index;
     var md = document.querySelector('meta[name="description"]');
     if (md) md.setAttribute("content", "The cyber situation, derived by rules from exploited vulnerabilities. Open sources, open rules. A project by Dreier Labs.");
