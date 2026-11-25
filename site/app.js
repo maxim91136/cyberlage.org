@@ -359,8 +359,8 @@
     if (!pr.liste.length) {
       box.appendChild(el("p", "", pick("Aktuell nichts, was nach unseren Regeln vorgezogen werden muss: keine Lücke aus den Patches der letzten Wochen steht im CISA-KEV, wird vom Hersteller als ausgenutzt gemeldet oder hat eine hohe Ausnutzungswahrscheinlichkeit. Der normale Patchzyklus genügt.", "Currently nothing that needs to be moved up by our rules: no flaw from the recent patches is in the CISA KEV, reported as exploited by the vendor or has a high likelihood of exploitation. The normal patch cycle is enough.")));
     } else {
-      var ol = el("ol", "p-rang");
-      pr.liste.forEach(function (k) {
+      var ol = el("ol", "p-rang"), olRest = el("ol", "p-rang"); olRest.start = 9;
+      pr.liste.forEach(function (k, idx) {
         var li = el("li", "p-r" + k.stufe);
         var kopf = el("div", "p-rk");
         kopf.appendChild(el("span", "mono p-q", k.quelle));
@@ -377,9 +377,12 @@
         if (k.patch_link && /^https:\/\//.test(k.patch_link)) { fx.appendChild(document.createTextNode(" · ")); fx.appendChild(link(k.patch_link, pick("Fix-Seite", "fix page"))); }
         li.appendChild(fx);
         if (k.monat) li.appendChild(el("div", "p-w mono dim", pick("Enthalten im Microsoft Patch Day ", "Included in the Microsoft Patch Day ") + monatName(k.monat) + pick(" (Sammelupdate des Monats; Nachträge sind Out-of-Band-Updates)", " (the month's cumulative update; later additions are out-of-band updates)")));
-        ol.appendChild(li);
+        (idx < 8 ? ol : olRest).appendChild(li);
       });
       box.appendChild(ol);
+      if (olRest.children.length) {
+        var dt = el("details", "p-mehr"); dt.appendChild(el("summary", "mono", pick("Weitere ", "Another ") + olRest.children.length + pick(" Einträge dieser Woche", " entries this week"))); dt.appendChild(olRest); box.appendChild(dt);
+      }
       if (pr.ohne_patch && pr.ohne_patch.length) {
         box.appendChild(el("h4", "mono rd-t", pick("Angegriffen, aber noch kein Patch", "Attacked, but no patch yet")));
         box.appendChild(el("p", "mono dim fine", pick("Für diese Lücken meldet Microsoft nur Umgehung oder Abmilderung, keinen Patch. Hier hilft die Gegenmaßnahme im Hersteller-Hinweis.", "For these flaws Microsoft lists only a workaround or mitigation, no patch. The countermeasure in the vendor note applies.")));

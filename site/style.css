@@ -385,3 +385,7 @@ html.alarm .teil1{border-top-color:#ff5b6b}html.alarm .teil1 h2{color:#ff5b6b}
 .nav-row>a,.nav-row .dd>summary{white-space:nowrap}
 @media (max-width:480px){.nav-row{gap:0 9px}.nav-row>a,.nav-row .dd>summary{font-size:14px}.nav-row .nav-grp{width:72px}}
 @media (min-width:900px){.nav-row{flex-wrap:nowrap}.navin{gap:0 18px}.nav-u{margin-left:auto}.nav-row .nav-grp{width:auto;padding:2px 8px}}
+
+.nav-row .nav-grp2{color:var(--dim);border-color:var(--line)}
+.nav-wichtig{color:var(--green)!important;font-weight:400!important}
+.p-mehr summary{cursor:pointer;color:var(--green);padding:8px 0}

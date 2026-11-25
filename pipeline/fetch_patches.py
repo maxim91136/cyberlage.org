@@ -34,7 +34,7 @@ MONAT_ID = re.compile(r"^(\d{4})-(" + "|".join(MONATE) + r")$")
 SCHWEREN = ("Critical", "Important", "Moderate", "Low")
 BEHALTEN_MONATE = 36
 HISTORIE_MONATE = 12  # Vergleichsbasis für die Bewertung
-SCHEMA = 7  # erhöhen, wenn sich die Zählweise ändert: dann werden alle Monate neu geholt
+SCHEMA = 8  # erhöhen, wenn sich die Zählweise ändert: dann werden alle Monate neu geholt
 
 
 class QuellFehler(Exception):
@@ -193,6 +193,7 @@ def verdichte_dokument(doc, kev_cves=()):
                 for pid in st.get("ProductID") or []:
                     fam_c.add(familie(produkte.get(str(pid), "")))
             kandidaten.append({"cve": cve, "titel": titel[:120], "schwere": sev, "ausgenutzt": ist_aus, "oeffentlich": ist_oeff, "kev": cve in kev,
+                               "fix_roh": ([{kk: (str(vv)[:160] if not isinstance(vv, (list, dict)) else (_wert(vv) if isinstance(vv, dict) else "[%d]" % len(vv))) for kk, vv in r.items() if kk != "ProductID"} for r in (v.get("Remediations") or []) if r.get("Type") == 2][:4] if (ist_aus or cve in kev) else []),
                                "patch": patch, "kb": kbs, "fix_text": fix_t, "fix_url": fix_u, "fixe": fixe, "familien": sorted(fam_c - {"Sonstige"})[:3]})
         if imp:
             auswirkung[imp] = auswirkung.get(imp, 0) + 1
@@ -568,7 +569,7 @@ def _pm(name):
     return "apt" if ("ubuntu" in n or "debian" in n) else ("dnf/yum" if "red hat" in n else "Paketverwaltung")
 
 
-def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=8):
+def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=24):
     """Rangliste nach festen Regeln: 1 im KEV (nachweislich angegriffen), 2 vom Hersteller als ausgenutzt gemeldet,
     3 EPSS ab 10 %, 4 vom Hersteller als kritisch eingestuft. Innerhalb einer Stufe nach EPSS, dann nach Kennung."""
     kev = set(kev)
