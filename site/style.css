@@ -327,7 +327,7 @@ html.alarm .marke{animation:flackern 6s infinite}
 .p-badge.pr-rot{color:#ff8a7a;border-color:#ff8a7a}.p-badge.pr-gelb{color:var(--amber);border-color:var(--amber)}.p-badge.pr-gruen{color:var(--green);border-color:var(--green)}
 .p-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin:8px 0}
 .pk{border:1px solid var(--line);padding:10px 12px}.pk b{display:block;font-size:26px;color:var(--text)}.pk span{font-size:12px;color:var(--dim)}.pk.warn b{color:var(--amber)}
-.p-emp{margin:10px 0;color:var(--green)}.p-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin:12px 0}
+.p-emp{margin:10px 0;color:var(--text);border-left:3px solid var(--green);padding:2px 0 2px 12px}.p-emp-k{display:block;color:var(--green);font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}.p-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin:12px 0}
 .p-cols h4{margin:0 0 6px;font-size:13px;color:var(--dim);font-weight:400}.p-z{font-size:13px;line-height:1.7}
 .p-chart{width:100%;height:auto;margin-top:14px;max-height:180px}.p-liste{list-style:none;margin:6px 0 10px;padding:0 0 0 4px;font-size:13px;line-height:1.7}
 .p-rang{list-style:none;counter-reset:r;margin:10px 0;padding:0}.p-rang li{counter-increment:r;position:relative;padding:10px 12px 10px 44px;border:1px solid var(--line);border-left:3px solid var(--green);margin-bottom:8px}

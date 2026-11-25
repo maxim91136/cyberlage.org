@@ -658,7 +658,7 @@
     g.appendChild(kpi(zahl(m.oeffentlich_bekannt), pick("öffentlich bekannt", "publicly disclosed")));
     g.appendChild(kpi(zahl(m.im_kev), pick("davon im KEV", "of them in KEV"), m.im_kev > 0 ? "warn" : ""));
     box.appendChild(g);
-    box.appendChild(el("p", "p-emp", pick("Empfehlung: ", "Recommendation: ") + pick(b.empfehlung, b.empfehlung_en)));
+    var emp = el("p", "p-emp"); emp.appendChild(el("b", "mono p-emp-k", pick("Empfehlung", "Recommendation"))); emp.appendChild(document.createTextNode(pick(b.empfehlung, b.empfehlung_en))); box.appendChild(emp);
     if (b.aktionen && b.aktionen.length) {
       var al = el("ol", "p-akt");
       b.aktionen.forEach(function (x) {
