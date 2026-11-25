@@ -409,3 +409,25 @@ html.alarm .teil1{border-top-color:#ff5b6b}html.alarm .teil1 h2{color:#ff5b6b}
 .tk-f:hover .tk-b,.ticker.halt .tk-b,.tk-b:focus-within{animation-play-state:paused}
 @keyframes tk{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 html.alarm .tk-l{background:#ff5b6b}
+
+/* Werkzeuge, Termine, Druck */
+.p-werk{margin-bottom:12px}
+.p-btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.p-btns button{background:none;border:1px solid var(--line);color:var(--green);padding:8px 12px;font-size:14px;cursor:pointer}
+.p-btns button:hover,.p-btns button:focus-visible{border-color:var(--green)}
+.p-ok{margin-left:auto;font-size:13px;color:var(--dim);cursor:pointer;white-space:nowrap}
+.p-rk{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline}
+.p-done{opacity:.5}.p-done .p-t{text-decoration:line-through}
+.p-rang li[hidden]{display:none}
+.t-row{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line)}
+.t-row:last-child{border-bottom:none}
+.t-d{min-width:150px;color:var(--text)}.t-c{color:var(--dim);min-width:90px}
+.t-nah .t-c{color:var(--amber);font-weight:700}
+@media print{
+  body{background:#fff!important;color:#000!important}
+  .ticker,.leiste,.marke,.hero,#teil-lage,#lage,#signale,#rueckblick,#neu,#info,#termine,#schwach,.p-werk,#totop,footer,.p-ok,.p-mehr summary{display:none!important}
+  #patches,#patches *{color:#000!important;background:none!important;border-color:#999!important;text-shadow:none!important}
+  #patches a{text-decoration:underline}
+  .p-mehr:not([open])>*:not(summary){display:block!important}
+  .p-rang li{break-inside:avoid}
+}

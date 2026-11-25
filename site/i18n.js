@@ -7,6 +7,8 @@
   // Englische Texte für Elemente mit data-t (Deutsch steht im HTML). Nur eigene, feste Texte.
   var EN = {
     skip: "Skip to content",
+    n_termine: "/dates", t_h: "## dates: patch calendar", t_intro: "The next patch dates of the big vendors, calculated from their published rules. So you know in advance when to plan maintenance windows and time.",
+    t_quelle: "Rules: Microsoft, Adobe and SAP usually publish on the second Tuesday of the month (Microsoft usually at 18:00 UTC). Oracle: Critical Patch Update on the third Tuesday of January, April, July and October, in the other months a Critical Security Patch Update on the third Tuesday; Oracle announces each date on the Thursday before. Out-of-band updates cannot be predicted and appear in the ticker. Dates without guarantee, the vendor's page is authoritative.",
     g_lage: "SITUATION", g_handeln: "ACT",
     tl_h: "## part 1 · situation", tl_intro: "How tense is the global cyber situation? Dreier Gauge, Dreier Pace and radar measure it, the signals and the history back it up.", sw_h: "## part 2 · act: flaws & patches", sw_intro: "This is not about the situation but about what you can do: which flaws to patch first, and with what.",
     sw_1: "reported", sw_1t: "new flaws, warnings, forecast", sw_2: "attacked", sw_2t: "proven exploited (KEV)", sw_3: "patch", sw_3t: "what first, with which update",

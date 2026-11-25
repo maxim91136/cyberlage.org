@@ -133,6 +133,7 @@
     zeigeKern(d);
     zeigeKonsens(d.radar);
     zeigeTicker(d);
+    zeigeTermine();
     zeigeZuerst(d.patches && d.patches.prioritaet);
     zeigeMicrosoft(d.patches && d.patches.microsoft);
     zeigeHersteller(d.patches && d.patches.hersteller);
@@ -361,21 +362,49 @@
     });
     return t;
   }
-  function patchDienstag(jahr, monat) {
+  var TAG_MS = 86400000;
+  function nteDienstag(jahr, monat, n) {
     var d = new Date(Date.UTC(jahr, monat, 1)), erst = (2 - d.getUTCDay() + 7) % 7;
-    return new Date(Date.UTC(jahr, monat, 1 + erst + 7));
+    return new Date(Date.UTC(jahr, monat, 1 + erst + 7 * (n - 1)));
+  }
+  function termine(heute, anzahl) {
+    var t0 = Date.UTC(heute.getUTCFullYear(), heute.getUTCMonth(), heute.getUTCDate()), grp = {};
+    function add(dt, ev) { var k = dt.getTime(); if (k < t0) return; (grp[k] = grp[k] || { zeit: k, ev: [] }).ev.push(ev); }
+    for (var i = 0; i < 7; i++) {
+      var y = heute.getUTCFullYear() + Math.floor((heute.getUTCMonth() + i) / 12), m = (heute.getUTCMonth() + i) % 12;
+      var z = nteDienstag(y, m, 2), o = nteDienstag(y, m, 3);
+      add(z, { n: "Microsoft Patch Day", l: "https://msrc.microsoft.com/update-guide/", art: "ms" });
+      add(z, { n: "Adobe", l: "https://helpx.adobe.com/security.html", art: "adobe" });
+      add(z, { n: "SAP Security Patch Day", l: "https://support.sap.com/en/my-support/knowledge-base/security-notes-news.html", art: "sap" });
+      add(o, { n: [0, 3, 6, 9].indexOf(m) >= 0 ? "Oracle Critical Patch Update (CPU)" : "Oracle Critical Security Patch Update", l: "https://www.oracle.com/security-alerts/", art: "oracle" });
+    }
+    return Object.keys(grp).map(function (k) { return grp[k]; }).sort(function (x, y) { return x.zeit - y.zeit; }).slice(0, anzahl).map(function (g) {
+      g.tage = Math.round((g.zeit - t0) / TAG_MS); return g;
+    });
+  }
+  function inTagen(n) { return n === 0 ? pick("heute", "today") : (n === 1 ? pick("morgen", "tomorrow") : pick("in " + n + " Tagen", "in " + n + " days")); }
+  function zeigeTermine() {
+    var host = $("t-liste"); if (!host) return;
+    host.textContent = "";
+    termine(new Date(), 8).forEach(function (g) {
+      var row = el("div", "t-row" + (g.tage <= 1 ? " t-nah" : ""));
+      row.appendChild(el("span", "mono t-d", new Date(g.zeit).toLocaleDateString(window.I18N.locale, { timeZone: "UTC", weekday: "short", day: "numeric", month: "numeric", year: "numeric" })));
+      row.appendChild(el("span", "mono t-c", inTagen(g.tage)));
+      var w = el("span", "t-n");
+      g.ev.forEach(function (e, i) { if (i) w.appendChild(document.createTextNode(" · ")); w.appendChild(link(e.l, e.n)); });
+      row.appendChild(w); host.appendChild(row);
+    });
   }
   function zeigeTicker(d) {
     var bar = $("ticker"), b = $("tk-b"); if (!bar || !b) return;
     var items = [], heute = new Date(), t0 = Date.UTC(heute.getUTCFullYear(), heute.getUTCMonth(), heute.getUTCDate());
     var TAG = 86400000;
     function add(text, link, art) { items.push({ t: text, l: link, a: art || "" }); }
-    var pd = patchDienstag(heute.getUTCFullYear(), heute.getUTCMonth());
-    if (pd.getTime() < t0) pd = patchDienstag(heute.getUTCMonth() === 11 ? heute.getUTCFullYear() + 1 : heute.getUTCFullYear(), (heute.getUTCMonth() + 1) % 12);
-    var n = Math.round((pd.getTime() - t0) / TAG), ptxt = pd.toLocaleDateString(window.I18N.locale, { timeZone: "UTC", weekday: "short", day: "numeric", month: "numeric" });
-    if (n === 0) add(pick("HEUTE: Microsoft Patch Day (auch Adobe) – Updates ab ca. 19 Uhr MEZ prüfen", "TODAY: Microsoft Patch Day (also Adobe) – check updates from about 18:00 UTC"), "#patches", "warn");
-    else if (n === 1) add(pick("MORGEN: Microsoft Patch Day (auch Adobe), " + ptxt, "TOMORROW: Microsoft Patch Day (also Adobe), " + ptxt), "#patches", "warn");
-    else if (n <= 7) add(pick("In " + n + " Tagen: Microsoft Patch Day (auch Adobe), " + ptxt, "In " + n + " days: Microsoft Patch Day (also Adobe), " + ptxt), "#patches");
+    termine(heute, 3).forEach(function (g) {
+      if (g.tage > 7) return;
+      var namen = g.ev.map(function (e) { return e.n; }).join(", ");
+      add((g.tage <= 1 ? inTagen(g.tage).toUpperCase() : inTagen(g.tage).charAt(0).toUpperCase() + inTagen(g.tage).slice(1)) + ": " + namen, "#termine", g.tage <= 1 ? "warn" : "");
+    });
     var ms = d.patches && d.patches.microsoft && d.patches.microsoft.monate, mon = ms ? Object.keys(ms).map(function (k) { return ms[k]; }) : [], m = mon[mon.length - 1];
     if (m) {
       var alt = (t0 - Date.parse(String(m.erste_veroeffentlichung).slice(0, 10))) / TAG;
@@ -435,6 +464,10 @@
         if (k.patch_link && /^https:\/\//.test(k.patch_link)) { fx.appendChild(document.createTextNode(" · ")); fx.appendChild(link(k.patch_link, /OfficeSecurityReleases/.test(k.patch_link) ? pick("Office-Release-Notes", "Office release notes") : pick("Fix-Seite", "fix page"))); }
         li.appendChild(fx);
         if (k.monat) li.appendChild(el("div", "p-w mono dim", pick("Enthalten im Microsoft Patch Day ", "Included in the Microsoft Patch Day ") + monatName(k.monat) + pick(" (Sammelupdate des Monats; Nachträge sind Out-of-Band-Updates)", " (the month's cumulative update; later additions are out-of-band updates)")));
+        li.setAttribute("data-i", idx); li.setAttribute("data-k", pzKey(k));
+        var lb = el("label", "p-ok mono"), cb = document.createElement("input"); cb.type = "checkbox"; cb.setAttribute("data-k", pzKey(k));
+        lb.appendChild(cb); lb.appendChild(document.createTextNode(" " + pick("erledigt", "done"))); kopf.appendChild(lb);
+        li.setAttribute("data-t", li.textContent.toLowerCase());
         (idx < 8 ? ol : olRest).appendChild(li);
       });
       box.appendChild(ol);
@@ -449,6 +482,7 @@
           var li = el("li", "p-r" + k.stufe), kopf = el("div", "p-rk");
           kopf.appendChild(el("span", "mono p-q", k.quelle)); kopf.appendChild(link(k.link, k.cves[0]));
           li.appendChild(kopf); li.appendChild(el("div", "p-t", k.titel)); li.appendChild(el("div", "p-w", pick(k.grund, k.grund_en)));
+          li.setAttribute("data-t", li.textContent.toLowerCase());
           ul.appendChild(li);
         });
         box.appendChild(ul);
@@ -456,6 +490,74 @@
     }
     box.appendChild(el("p", "mono dim fine", pick("Reihenfolge nach festen Regeln: 1. im CISA-KEV, 2. vom Hersteller als ausgenutzt gemeldet, 3. EPSS ab 10 %, 4. vom Hersteller als kritisch eingestuft. Berücksichtigt: Microsoft Patch Day der letzten 30 Tage, Linux-Meldungen und Cisco der letzten 14 Tage (Linux nur mit KEV-Bezug). Stand ", "Order by fixed rules: 1. in the CISA KEV, 2. reported as exploited by the vendor, 3. EPSS from 10%, 4. rated critical by the vendor. Considered: Microsoft patch day of the last 30 days, Linux advisories and Cisco of the last 14 days (Linux only with a KEV link). As of ") + datum(pr.stand) + pick(". Das ist keine Vorhersage und ersetzt keine Prüfung in Ihrem eigenen System.", ". This is no forecast and does not replace a check in your own system.")));
     box.hidden = false;
+    werkzeuge(pr);
+  }
+  function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) { } }
+  function pzKey(k) { return ((k.cves && k.cves[0]) || k.titel) + "|" + k.quelle; }
+  function pzLoesung(k) { var t = fixTeile(k.fixe); return t.length ? t.join(", ") : (pick(k.patch_text, k.patch_text_en) || ""); }
+  function pzScore(k) { return (k.cvss || []).map(function (c) { return c.score; }).join("/"); }
+  function werkzeuge(pr) {
+    var host = $("p-werk"); if (!host) return;
+    if (!pr || !pr.liste || !pr.liste.length) { host.hidden = true; return; }
+    host.hidden = false; host.textContent = "";
+    var erledigt = {}; try { erledigt = JSON.parse(lsGet("cl_erledigt") || "{}") || {}; } catch (e) { erledigt = {}; }
+    host.appendChild(el("label", "lbl", pick("Betrifft mich? Produkte oder Hersteller, durch Komma getrennt", "Affects me? Products or vendors, separated by commas"))).setAttribute("for", "p-filter");
+    var inp = el("input", "filter mono"); inp.id = "p-filter"; inp.type = "search"; inp.autocomplete = "off"; inp.placeholder = pick("z. B. windows 11, outlook, ubuntu, cisco", "e.g. windows 11, outlook, ubuntu, cisco"); inp.value = lsGet("cl_filter") || "";
+    host.appendChild(inp);
+    var info = el("p", "mono dim fine"); info.setAttribute("aria-live", "polite"); host.appendChild(info);
+    var bt = el("div", "p-btns mono"); host.appendChild(bt);
+    host.appendChild(el("p", "mono dim fine", pick("Filter und Haken bleiben nur in diesem Browser gespeichert, nichts wird übertragen.", "Filter and ticks are stored only in this browser, nothing is sent.")));
+    function lis() { return Array.prototype.slice.call(document.querySelectorAll("#p-zuerst li[data-t]")); }
+    function sichtbar() { return lis().filter(function (li) { return !li.hidden && li.hasAttribute("data-i"); }).map(function (li) { return pr.liste[+li.getAttribute("data-i")]; }); }
+    function anwenden() {
+      var ts = inp.value.toLowerCase().split(",").map(function (x) { return x.trim(); }).filter(Boolean), alle = lis(), n = 0, erl = 0, rest = false;
+      alle.forEach(function (li) {
+        var treffer = !ts.length || ts.some(function (t) { return li.getAttribute("data-t").indexOf(t) >= 0; });
+        li.hidden = !treffer; if (treffer) n++;
+        var cb = li.querySelector("input[type=checkbox]");
+        if (cb) { var an = !!erledigt[cb.getAttribute("data-k")]; cb.checked = an; li.classList.toggle("p-done", an); if (treffer && an) erl++; }
+        if (treffer && ts.length && li.closest(".p-mehr")) rest = true;
+      });
+      var dt = document.querySelector("#p-zuerst .p-mehr"); if (dt && rest) dt.open = true;
+      info.textContent = (ts.length ? pick("Treffer: ", "Matches: ") + n + pick(" von ", " of ") + alle.length + " · " : "") + erl + pick(" erledigt", " done");
+      lsSet("cl_filter", inp.value);
+    }
+    inp.addEventListener("input", anwenden);
+    document.getElementById("p-zuerst").addEventListener("change", function (e) {
+      var cb = e.target; if (!cb || cb.type !== "checkbox") return;
+      var key = cb.getAttribute("data-k"); if (cb.checked) erledigt[key] = new Date().toISOString().slice(0, 10); else delete erledigt[key];
+      lsSet("cl_erledigt", JSON.stringify(erledigt)); anwenden();
+    });
+    function knopf(text, fn) { var b = el("button", "mono", text); b.type = "button"; b.addEventListener("click", function () { var alt = b.textContent; var r = fn(); if (r) { b.textContent = r; setTimeout(function () { b.textContent = alt; }, 1600); } }); bt.appendChild(b); }
+    function kopieren(t) {
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t); return; }
+      var ta = document.createElement("textarea"); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); } catch (e) { } document.body.removeChild(ta);
+    }
+    function laden(name, text, typ) {
+      var bl = new Blob([text], { type: typ }), u = URL.createObjectURL(bl), l = document.createElement("a"); l.href = u; l.download = name; document.body.appendChild(l); l.click(); document.body.removeChild(l); setTimeout(function () { URL.revokeObjectURL(u); }, 3000);
+    }
+    var heute = new Date().toISOString().slice(0, 10);
+    knopf(pick("Kurzfassung kopieren", "Copy summary"), function () {
+      var z = ["Patch-Lage " + heute + " · cyberlage.org", pick("Diese Woche zuerst:", "This week first:")];
+      sichtbar().slice(0, 5).forEach(function (k, i) { z.push((i + 1) + ". " + ((k.cves && k.cves[0]) || "") + " – " + k.titel + " (" + k.quelle + ")" + (pzScore(k) ? " · CVSS " + pzScore(k) : "") + " · " + pick("Lösung: ", "Fix: ") + pzLoesung(k)); });
+      z.push("https://cyberlage.org/#patches"); kopieren(z.join("\n")); return pick("kopiert ✓", "copied ✓");
+    });
+    knopf("CSV", function () {
+      var sep = window.I18N.locale.indexOf("de") === 0 ? ";" : ",";
+      function q(x) { return '"' + String(x == null ? "" : x).replace(/"/g, '""') + '"'; }
+      var zl = [["Rang", "Quelle", "CVE", "Titel", "Betrifft", "CVSS", "EPSS", "Stufe", "Loesung", "Link", "Erledigt"].map(q).join(sep)];
+      sichtbar().forEach(function (k) { zl.push([k.rang, k.quelle, (k.cves || []).join(" "), k.titel, k.betrifft, pzScore(k), typeof k.epss === "number" ? Math.round(k.epss * 100) + "%" : "", k.stufe_name, pzLoesung(k), k.link, erledigt[pzKey(k)] || ""].map(q).join(sep)); });
+      laden("cyberlage-patches-" + heute + ".csv", "\ufeff" + zl.join("\r\n"), "text/csv;charset=utf-8");
+    });
+    knopf("Markdown", function () {
+      var z = ["# Patch-Lage " + heute + " (cyberlage.org)", ""];
+      sichtbar().forEach(function (k) { z.push("- [" + (erledigt[pzKey(k)] ? "x" : " ") + "] **" + ((k.cves && k.cves[0]) || k.titel) + "** " + k.titel + " (" + k.quelle + ")" + (pzScore(k) ? ", CVSS " + pzScore(k) : "") + " – " + pick("Lösung: ", "Fix: ") + pzLoesung(k) + " – " + k.link); });
+      laden("cyberlage-patches-" + heute + ".md", z.join("\n") + "\n", "text/markdown;charset=utf-8");
+    });
+    knopf(pick("Drucken", "Print"), function () { window.print(); });
+    knopf(pick("Haken zurücksetzen", "Reset ticks"), function () { erledigt = {}; lsSet("cl_erledigt", "{}"); anwenden(); return pick("zurückgesetzt", "reset"); });
+    anwenden();
   }
   function zeigeMicrosoft(ms) {
     var box = $("p-ms"); if (!box) return;

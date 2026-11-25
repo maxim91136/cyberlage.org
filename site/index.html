@@ -42,6 +42,7 @@
     </div>
     <div class="nav-row nav-g2"><span class="nav-grp nav-grp2" aria-hidden="true" data-t="g_handeln">HANDELN</span>
       <a href="#patches" data-sec="patches" data-t="n_patches">/patches</a>
+      <a href="#termine" data-sec="termine" data-t="n_termine">/termine</a>
       <a href="#neu" data-sec="neu" data-t="n_neu">/neu</a>
     </div>
     <div class="nav-row nav-u">
@@ -178,9 +179,17 @@
   <section id="patches" class="wrap" aria-labelledby="h-patches">
     <h2 id="h-patches" class="mono" data-t="p_h">## patches: was zuerst, womit</h2>
     <p class="dim" data-t="p_intro">Was die Hersteller zuletzt gepatcht haben, mit Zahlen und einer Bewertung nach festen Regeln. Wir verwalten keine Patches und bewerten die Schwere nicht selbst: Schweregrad und Ausnutzung stammen von den Herstellern.</p>
+    <div class="panel pad p-werk" id="p-werk"></div>
     <div class="panel pad pt pz" id="p-zuerst" hidden></div>
     <div class="panel pad pt" id="p-ms" hidden></div>
     <div class="panel pad pt" id="p-hs" hidden></div>
+  </section>
+
+  <section id="termine" class="wrap" aria-labelledby="h-termine">
+    <h2 id="h-termine" class="mono" data-t="t_h">## termine: patch-kalender</h2>
+    <p class="dim" data-t="t_intro">Die nächsten Patch-Termine der großen Hersteller, nach deren veröffentlichten Regeln berechnet. So weißt du im Voraus, wann du Wartungsfenster und Zeit einplanen musst.</p>
+    <div class="panel pad" id="t-liste"></div>
+    <p class="mono dim fine" data-t="t_quelle">Regeln: Microsoft, Adobe und SAP veröffentlichen in der Regel am zweiten Dienstag des Monats (Microsoft meist um 19 Uhr MEZ). Oracle: Critical Patch Update am dritten Dienstag von Januar, April, Juli und Oktober, in den übrigen Monaten (außer Januar, April, Juli, Oktober) ein Critical Security Patch Update am dritten Dienstag; Oracle kündigt jeden Termin am Donnerstag davor an. Außerplanmäßige Updates (Out-of-Band) sind nicht vorhersehbar und erscheinen im Ticker. Termine ohne Gewähr, maßgeblich ist die Seite des Herstellers.</p>
   </section>
 
   <section id="neu" class="wrap" aria-labelledby="h-neu">
