@@ -1307,7 +1307,7 @@
   "cert_bund": {
     "quelle": "CERT-Bund / BSI Warn- und Informationsdienst",
     "quelle_url": "https://wid.cert-bund.de/",
-    "abgerufen_am": "2026-11-25T07:03:14+00:00",
+    "abgerufen_am": "2026-11-25T07:25:55+00:00",
     "fenster_tage": 30,
     "daten_seit": "2026-11-23",
     "kritisch_7_tage": 7,
@@ -1640,7 +1640,7 @@
   "eu_kev": {
     "quelle": "EU-KEV über die EU-Schwachstellendatenbank (EUVD) von ENISA",
     "quelle_url": "https://euvd.enisa.europa.eu/",
-    "abgerufen_am": "2026-11-25T07:03:14+00:00",
+    "abgerufen_am": "2026-11-25T07:25:55+00:00",
     "fenster_tage": 30,
     "daten_seit": "2026-08-07",
     "neu_30_tage": 36,
@@ -2152,9 +2152,9 @@
     ]
   },
   "ausblick": {
-    "abgerufen_am": "2026-11-25T07:03:16+00:00",
+    "abgerufen_am": "2026-11-25T07:25:57+00:00",
     "fenster_tage": 14,
-    "geprueft": 7083,
+    "geprueft": 7082,
     "schwelle_hoch": 0.1,
     "hoch_wahrscheinlich": 15,
     "epss_datum": "2026-11-24",
@@ -2266,7 +2266,7 @@
       "online": 1,
       "gelistet": 5
     },
-    "abgerufen_am": "2026-11-25T07:05:06+00:00",
+    "abgerufen_am": "2026-11-25T07:27:57+00:00",
     "zeit_bis_kev": {
       "verlauf": [
         {
@@ -4574,7 +4574,7 @@
     },
     "sans": {
       "status": "green",
-      "abgerufen_am": "2026-11-25T07:05:05+00:00"
+      "abgerufen_am": "2026-11-25T07:27:56+00:00"
     },
     "ncsc": {
       "advisories_30": 25,
@@ -4851,9 +4851,9 @@
           "geprueft_am": "2026-11-23",
           "erreichbar": false,
           "status": 404,
-          "fehler_in_folge": 27,
+          "fehler_in_folge": 28,
           "erster_fehler_um": "2026-11-24T16:15:10+00:00",
-          "link_geprueft_um": "2026-11-25T07:15:26+00:00",
+          "link_geprueft_um": "2026-11-25T07:36:15+00:00",
           "faellig_am": "2027-05-25",
           "faellig": false,
           "link_tot": false
@@ -4866,9 +4866,9 @@
           "geprueft_am": "2026-11-24",
           "erreichbar": false,
           "status": 404,
-          "fehler_in_folge": 23,
+          "fehler_in_folge": 24,
           "erster_fehler_um": "2026-11-24T22:03:12+00:00",
-          "link_geprueft_um": "2026-11-25T07:15:26+00:00",
+          "link_geprueft_um": "2026-11-25T07:36:15+00:00",
           "faellig_am": "2027-02-22",
           "faellig": false,
           "link_tot": false
@@ -4898,7 +4898,7 @@
       "lizenz": "CC0 1.0 (laut LICENSE-Datei von cisagov/kev-data)",
       "quelle_abruf": "cisa.gov",
       "veroeffentlicht_am": "2026-11-24T17:47:46.199Z",
-      "abgerufen_am": "2026-11-25T07:03:14+00:00",
+      "abgerufen_am": "2026-11-25T07:25:55+00:00",
       "name_en": "CISA Known Exploited Vulnerabilities",
       "lizenz_en": "CC0 1.0 (per the LICENSE file of cisagov/kev-data)"
     },
@@ -4915,7 +4915,7 @@
       "name": "CERT-Bund / BSI Warn- und Informationsdienst",
       "link": "https://wid.cert-bund.de/",
       "lizenz": "nur Titel und Links, Nutzungsbedingungen des BSI beachten",
-      "abgerufen_am": "2026-11-25T07:03:14+00:00",
+      "abgerufen_am": "2026-11-25T07:25:55+00:00",
       "name_en": "CERT-Bund / BSI Warning and Information Service",
       "lizenz_en": "titles and links only, observe the BSI terms of use"
     },
@@ -4924,7 +4924,7 @@
       "name": "EU-KEV (EUVD von ENISA)",
       "link": "https://euvd.enisa.europa.eu/",
       "lizenz": "Lizenz nicht ausdrücklich geklärt",
-      "abgerufen_am": "2026-11-25T07:03:14+00:00",
+      "abgerufen_am": "2026-11-25T07:25:55+00:00",
       "name_en": "EU-KEV (EUVD by ENISA)",
       "lizenz_en": "licence not explicitly clarified"
     },
@@ -4933,7 +4933,7 @@
       "name": "EPSS (FIRST)",
       "link": "https://www.first.org/epss/",
       "lizenz": "kostenlos mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T07:03:16+00:00",
+      "abgerufen_am": "2026-11-25T07:25:57+00:00",
       "name_en": "EPSS (FIRST)",
       "lizenz_en": "free to use with attribution"
     },
@@ -4942,7 +4942,7 @@
       "name": "NVD (NIST)",
       "link": "https://nvd.nist.gov/",
       "lizenz": "gemeinfrei, nur Veröffentlichungsdatum und CVSS-Wert",
-      "abgerufen_am": "2026-11-25T07:03:16+00:00",
+      "abgerufen_am": "2026-11-25T07:25:57+00:00",
       "name_en": "NVD (NIST)",
       "lizenz_en": "public domain, only publication date and CVSS score"
     },
@@ -4951,7 +4951,7 @@
       "name": "CVE-Liste (CVE Program, MITRE)",
       "link": "https://github.com/CVEProject/cvelistV5",
       "lizenz": "CVE Terms of Use: frei nutzbar mit Quellenangabe, nur Veröffentlichungsdatum",
-      "abgerufen_am": "2026-11-25T07:05:06+00:00",
+      "abgerufen_am": "2026-11-25T07:27:57+00:00",
       "name_en": "CVE List (CVE Program, MITRE)",
       "lizenz_en": "CVE Terms of Use: free to use with attribution, only publication date"
     },
@@ -4960,7 +4960,7 @@
       "name": "Feodo Tracker (abuse.ch)",
       "link": "https://feodotracker.abuse.ch/",
       "lizenz": "CC0, nur die Zahl aktiver Steuerserver",
-      "abgerufen_am": "2026-11-25T07:05:06+00:00",
+      "abgerufen_am": "2026-11-25T07:27:57+00:00",
       "name_en": "Feodo Tracker (abuse.ch)",
       "lizenz_en": "CC0, only the number of active command servers"
     },
@@ -4969,14 +4969,14 @@
       "name": "NCSC-NL Beveiligingsadviezen",
       "link": "https://advisories.ncsc.nl/",
       "lizenz": "Lizenz nicht geprüft, nur Zahl der Advisories mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T07:05:06+00:00"
+      "abgerufen_am": "2026-11-25T07:27:57+00:00"
     },
     {
       "id": "sans",
       "name": "SANS Internet Storm Center (Infocon)",
       "link": "https://isc.sans.edu/",
       "lizenz": "Creative Commons laut Fußzeile des ISC, nur Ampelstatus mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T07:05:05+00:00",
+      "abgerufen_am": "2026-11-25T07:27:56+00:00",
       "name_en": "SANS Internet Storm Center (Infocon)",
       "lizenz_en": "Creative Commons per the ISC footer, only the traffic-light status with attribution"
     }
@@ -7065,7 +7065,7 @@
         "quelle": "Microsoft Security Response Center (CVRF 3.0)",
         "quelle_url": "https://msrc.microsoft.com/update-guide",
         "listen_url": "https://api.msrc.microsoft.com/cvrf/v3.0/updates",
-        "abgerufen_am": "2026-11-25T07:05:06+00:00",
+        "abgerufen_am": "2026-11-25T07:27:57+00:00",
         "hinweis": "Zählung je CVE; Chromium-Lücken im Edge und Linux-Paketlücken von Azure Linux sind ausgenommen und getrennt ausgewiesen. Schweregrad, Ausnutzung und Bekanntheit stammen vom Hersteller.",
         "fehler": []
       },
@@ -7119,6 +7119,48 @@
           },
           "nachtraege": [],
           "bewertung": {
+            "aktionen": [
+              {
+                "cve": "CVE-2025-62215",
+                "titel": "Windows Kernel Elevation of Privilege Vulnerability",
+                "betrifft": "Windows 10, Windows 11, Windows Server",
+                "fixe": [
+                  {
+                    "kb": "5068791",
+                    "build": "",
+                    "fuer": "Windows 10, Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5068787",
+                    "build": "",
+                    "fuer": "Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5068840",
+                    "build": "",
+                    "fuer": "Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5068781",
+                    "build": "",
+                    "fuer": "Windows 10",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  }
+                ],
+                "patch": "ja"
+              }
+            ],
             "groesse": "noch kein Vergleich (zu wenig Vormonate)",
             "groesse_en": "no comparison yet (too few earlier months)",
             "verhaeltnis_median": null,
@@ -7178,6 +7220,48 @@
           },
           "nachtraege": [],
           "bewertung": {
+            "aktionen": [
+              {
+                "cve": "CVE-2025-62221",
+                "titel": "Windows Cloud Files Mini Filter Driver Elevation of Privilege Vulnerability",
+                "betrifft": "Windows 10, Windows 11, Windows Server",
+                "fixe": [
+                  {
+                    "kb": "5071544",
+                    "build": "",
+                    "fuer": "Windows 10, Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5071546",
+                    "build": "",
+                    "fuer": "Windows 10",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5072033",
+                    "build": "",
+                    "fuer": "Windows 11, Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5072014",
+                    "build": "",
+                    "fuer": "Windows 11, Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  }
+                ],
+                "patch": "ja"
+              }
+            ],
             "groesse": "noch kein Vergleich (zu wenig Vormonate)",
             "groesse_en": "no comparison yet (too few earlier months)",
             "verhaeltnis_median": null,
@@ -7243,6 +7327,80 @@
           },
           "nachtraege": [],
           "bewertung": {
+            "aktionen": [
+              {
+                "cve": "CVE-2026-20805",
+                "titel": "Desktop Window Manager Information Disclosure Vulnerability",
+                "betrifft": "Windows 10, Windows 11, Windows Server",
+                "fixe": [
+                  {
+                    "kb": "5073723",
+                    "build": "",
+                    "fuer": "Windows 10, Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5073457",
+                    "build": "",
+                    "fuer": "Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5073724",
+                    "build": "",
+                    "fuer": "Windows 10",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5073379",
+                    "build": "",
+                    "fuer": "Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  }
+                ],
+                "patch": "ja"
+              },
+              {
+                "cve": "CVE-2026-21509",
+                "titel": "Microsoft Office Security Feature Bypass Vulnerability",
+                "betrifft": "Cloud und Dienste, Office und SharePoint",
+                "fixe": [
+                  {
+                    "kb": "",
+                    "build": "16.0.10417.20095",
+                    "fuer": "Office und SharePoint",
+                    "produkt": "Microsoft Office 2019 for 32-bit editions",
+                    "text": "Click to Run",
+                    "url": ""
+                  },
+                  {
+                    "kb": "",
+                    "build": "",
+                    "fuer": "Cloud und Dienste, Office und SharePoint",
+                    "produkt": "Microsoft 365 Apps for Enterprise for 32-bit Systems",
+                    "text": "Click to Run",
+                    "url": "https://aka.ms/OfficeSecurityReleases"
+                  },
+                  {
+                    "kb": "5002713",
+                    "build": "",
+                    "fuer": "Office und SharePoint",
+                    "produkt": "Microsoft Office 2016 (32-bit edition)",
+                    "text": "",
+                    "url": ""
+                  }
+                ],
+                "patch": "ja"
+              }
+            ],
             "groesse": "noch kein Vergleich (zu wenig Vormonate)",
             "groesse_en": "no comparison yet (too few earlier months)",
             "verhaeltnis_median": null,
@@ -7317,6 +7475,112 @@
           },
           "nachtraege": [],
           "bewertung": {
+            "aktionen": [
+              {
+                "cve": "CVE-2026-21510",
+                "titel": "Windows Shell Security Feature Bypass Vulnerability",
+                "betrifft": "Windows 10, Windows 11, Windows Server",
+                "fixe": [
+                  {
+                    "kb": "5075904",
+                    "build": "",
+                    "fuer": "Windows 10, Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5075906",
+                    "build": "",
+                    "fuer": "Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5075943",
+                    "build": "",
+                    "fuer": "Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5075912",
+                    "build": "",
+                    "fuer": "Windows 10",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  }
+                ],
+                "patch": "ja"
+              },
+              {
+                "cve": "CVE-2026-21513",
+                "titel": "MSHTML Framework Security Feature Bypass Vulnerability",
+                "betrifft": "Windows 10, Windows 11, Windows Server",
+                "fixe": [
+                  {
+                    "kb": "5077179",
+                    "build": "",
+                    "fuer": "Windows 11",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5075904",
+                    "build": "",
+                    "fuer": "Windows 10, Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5075906",
+                    "build": "",
+                    "fuer": "Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5075943",
+                    "build": "",
+                    "fuer": "Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  }
+                ],
+                "patch": "ja"
+              },
+              {
+                "cve": "CVE-2026-21514",
+                "titel": "Microsoft Word Security Feature Bypass Vulnerability",
+                "betrifft": "Cloud und Dienste, Office und SharePoint",
+                "fixe": [
+                  {
+                    "kb": "",
+                    "build": "",
+                    "fuer": "Cloud und Dienste, Office und SharePoint",
+                    "produkt": "Microsoft 365 Apps for Enterprise for 32-bit Systems",
+                    "text": "Click to Run",
+                    "url": "https://aka.ms/OfficeSecurityReleases"
+                  },
+                  {
+                    "kb": "831049",
+                    "build": "",
+                    "fuer": "Office und SharePoint",
+                    "produkt": "Microsoft Office LTSC for Mac 2021",
+                    "text": "",
+                    "url": ""
+                  }
+                ],
+                "patch": "ja"
+              }
+            ],
             "groesse": "üblicher Umfang",
             "groesse_en": "usual size",
             "verhaeltnis_median": 0.85,
@@ -7364,8 +7628,8 @@
           },
           "familien": {
             "Windows Server": 45,
-            "Windows 10": 44,
             "Windows 11": 44,
+            "Windows 10": 44,
             "Sonstige": 35,
             "Cloud und Dienste": 20,
             "Azure Linux": 19,
@@ -7377,6 +7641,7 @@
           },
           "nachtraege": [],
           "bewertung": {
+            "aktionen": [],
             "groesse": "größer als üblich",
             "groesse_en": "larger than usual",
             "verhaeltnis_median": 1.58,
@@ -7443,6 +7708,80 @@
           },
           "nachtraege": [],
           "bewertung": {
+            "aktionen": [
+              {
+                "cve": "CVE-2026-32201",
+                "titel": "Microsoft SharePoint Server Spoofing Vulnerability",
+                "betrifft": "Office und SharePoint",
+                "fixe": [
+                  {
+                    "kb": "5002861",
+                    "build": "",
+                    "fuer": "Office und SharePoint",
+                    "produkt": "Microsoft SharePoint Enterprise Server 2016",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5002854",
+                    "build": "",
+                    "fuer": "Office und SharePoint",
+                    "produkt": "Microsoft SharePoint Server 2019",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5002853",
+                    "build": "",
+                    "fuer": "Office und SharePoint",
+                    "produkt": "Microsoft SharePoint Server Subscription Edition",
+                    "text": "",
+                    "url": ""
+                  }
+                ],
+                "patch": "ja"
+              },
+              {
+                "cve": "CVE-2026-32202",
+                "titel": "Windows Shell Spoofing Vulnerability",
+                "betrifft": "Windows 10, Windows 11, Windows Server",
+                "fixe": [
+                  {
+                    "kb": "5099538",
+                    "build": "",
+                    "fuer": "Windows 10, Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5099540",
+                    "build": "",
+                    "fuer": "Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5099539",
+                    "build": "",
+                    "fuer": "Windows 10",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5099536",
+                    "build": "",
+                    "fuer": "Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  }
+                ],
+                "patch": "ja"
+              }
+            ],
             "groesse": "größer als üblich",
             "groesse_en": "larger than usual",
             "verhaeltnis_median": 2.69,
@@ -7511,6 +7850,80 @@
           },
           "nachtraege": [],
           "bewertung": {
+            "aktionen": [
+              {
+                "cve": "CVE-2026-41091",
+                "titel": "Microsoft Defender Elevation of Privilege Vulnerability",
+                "betrifft": "",
+                "fixe": [
+                  {
+                    "kb": "",
+                    "build": "1.1.26040.8",
+                    "fuer": "",
+                    "produkt": "",
+                    "text": "Release Notes",
+                    "url": ""
+                  }
+                ],
+                "patch": "ja"
+              },
+              {
+                "cve": "CVE-2026-45498",
+                "titel": "Microsoft Defender Denial of Service Vulnerability",
+                "betrifft": "Cloud und Dienste",
+                "fixe": [
+                  {
+                    "kb": "",
+                    "build": "4.18.26040.7",
+                    "fuer": "Cloud und Dienste",
+                    "produkt": "",
+                    "text": "Release Notes",
+                    "url": ""
+                  }
+                ],
+                "patch": "ja"
+              },
+              {
+                "cve": "CVE-2026-42897",
+                "titel": "Microsoft Exchange Server Spoofing Vulnerability",
+                "betrifft": "Exchange",
+                "fixe": [
+                  {
+                    "kb": "5094144",
+                    "build": "",
+                    "fuer": "Exchange",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5094142",
+                    "build": "",
+                    "fuer": "Exchange",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5094140",
+                    "build": "",
+                    "fuer": "Exchange",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5094139",
+                    "build": "",
+                    "fuer": "Exchange",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  }
+                ],
+                "patch": "ja"
+              }
+            ],
             "groesse": "größer als üblich",
             "groesse_en": "larger than usual",
             "verhaeltnis_median": 1.71,
@@ -7571,6 +7984,7 @@
           },
           "nachtraege": [],
           "bewertung": {
+            "aktionen": [],
             "groesse": "größer als üblich",
             "groesse_en": "larger than usual",
             "verhaeltnis_median": 1.91,
@@ -7638,6 +8052,112 @@
           },
           "nachtraege": [],
           "bewertung": {
+            "aktionen": [
+              {
+                "cve": "CVE-2026-56155",
+                "titel": "Active Directory Federation Services Elevation of Privilege Vulnerability",
+                "betrifft": "Windows 10, Windows Server",
+                "fixe": [
+                  {
+                    "kb": "5099538",
+                    "build": "",
+                    "fuer": "Windows 10, Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5099540",
+                    "build": "",
+                    "fuer": "Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5099536",
+                    "build": "",
+                    "fuer": "Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5099535",
+                    "build": "",
+                    "fuer": "Windows 10, Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  }
+                ],
+                "patch": "ja"
+              },
+              {
+                "cve": "CVE-2026-56164",
+                "titel": "Microsoft SharePoint Server Elevation of Privilege Vulnerability",
+                "betrifft": "Office und SharePoint",
+                "fixe": [
+                  {
+                    "kb": "5002891",
+                    "build": "",
+                    "fuer": "Office und SharePoint",
+                    "produkt": "Microsoft SharePoint Enterprise Server 2016",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5002883",
+                    "build": "",
+                    "fuer": "Office und SharePoint",
+                    "produkt": "Microsoft SharePoint Server 2019",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5002882",
+                    "build": "",
+                    "fuer": "Office und SharePoint",
+                    "produkt": "Microsoft SharePoint Server Subscription Edition",
+                    "text": "",
+                    "url": ""
+                  }
+                ],
+                "patch": "ja"
+              },
+              {
+                "cve": "CVE-2026-58644",
+                "titel": "Microsoft SharePoint Remote Code Execution Vulnerability",
+                "betrifft": "Office und SharePoint",
+                "fixe": [
+                  {
+                    "kb": "5002880",
+                    "build": "",
+                    "fuer": "Office und SharePoint",
+                    "produkt": "Microsoft SharePoint Enterprise Server 2016",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5002874",
+                    "build": "",
+                    "fuer": "Office und SharePoint",
+                    "produkt": "Microsoft SharePoint Server 2019",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5002873",
+                    "build": "",
+                    "fuer": "Office und SharePoint",
+                    "produkt": "Microsoft SharePoint Server Subscription Edition",
+                    "text": "",
+                    "url": ""
+                  }
+                ],
+                "patch": "ja"
+              }
+            ],
             "groesse": "größer als üblich",
             "groesse_en": "larger than usual",
             "verhaeltnis_median": 5.33,
@@ -7702,6 +8222,48 @@
           },
           "nachtraege": [],
           "bewertung": {
+            "aktionen": [
+              {
+                "cve": "CVE-2026-68820",
+                "titel": "Windows Ancillary Function Driver for WinSock Elevation of Privilege Vulnerability",
+                "betrifft": "Windows 10, Windows 11, Windows Server",
+                "fixe": [
+                  {
+                    "kb": "5120238",
+                    "build": "",
+                    "fuer": "Windows 10, Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5120242",
+                    "build": "",
+                    "fuer": "Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5120229",
+                    "build": "",
+                    "fuer": "Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5120249",
+                    "build": "",
+                    "fuer": "Windows 10",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  }
+                ],
+                "patch": "ja"
+              }
+            ],
             "groesse": "größer als üblich",
             "groesse_en": "larger than usual",
             "verhaeltnis_median": 3.74,
@@ -7764,6 +8326,88 @@
           },
           "nachtraege": [],
           "bewertung": {
+            "aktionen": [
+              {
+                "cve": "CVE-2026-81963",
+                "titel": "Windows Update Stack Elevation of Privilege Vulnerability",
+                "betrifft": "Windows 11, Windows Server",
+                "fixe": [
+                  {
+                    "kb": "5122871",
+                    "build": "",
+                    "fuer": "Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5124008",
+                    "build": "",
+                    "fuer": "Windows 11",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5122880",
+                    "build": "",
+                    "fuer": "Windows 11",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5124012",
+                    "build": "",
+                    "fuer": "Windows 11",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  }
+                ],
+                "patch": "ja"
+              },
+              {
+                "cve": "CVE-2026-85880",
+                "titel": "Windows Advanced Local Procedure Call (ALPC) Elevation of Privilege Vulnerability",
+                "betrifft": "Windows 10, Windows Server",
+                "fixe": [
+                  {
+                    "kb": "5122876",
+                    "build": "",
+                    "fuer": "Windows 10, Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5122882",
+                    "build": "",
+                    "fuer": "Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5122878",
+                    "build": "",
+                    "fuer": "Windows 10",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5123099",
+                    "build": "",
+                    "fuer": "Windows 10, Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  }
+                ],
+                "patch": "ja"
+              }
+            ],
             "groesse": "größer als üblich",
             "groesse_en": "larger than usual",
             "verhaeltnis_median": 6.81,
@@ -9795,6 +10439,48 @@
           ],
           "nachtraege": [],
           "bewertung": {
+            "aktionen": [
+              {
+                "cve": "CVE-2026-96951",
+                "titel": "Windows Shell Security Feature Bypass Vulnerability",
+                "betrifft": "Edge, Office und SharePoint, Windows 10",
+                "fixe": [
+                  {
+                    "kb": "5126836",
+                    "build": "",
+                    "fuer": "Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5126868",
+                    "build": "",
+                    "fuer": "Windows 10, Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5126651",
+                    "build": "",
+                    "fuer": "Windows 10, Windows Server",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  },
+                  {
+                    "kb": "5126657",
+                    "build": "",
+                    "fuer": "Windows 10",
+                    "produkt": "",
+                    "text": "",
+                    "url": ""
+                  }
+                ],
+                "patch": "ja"
+              }
+            ],
             "groesse": "größer als üblich",
             "groesse_en": "larger than usual",
             "verhaeltnis_median": 9.12,
@@ -11675,6 +12361,40 @@
           ],
           "nachtraege": [],
           "bewertung": {
+            "aktionen": [
+              {
+                "cve": "CVE-2026-124194",
+                "titel": "Microsoft Outlook Spoofing Vulnerability",
+                "betrifft": "Cloud und Dienste, Office und SharePoint",
+                "fixe": [
+                  {
+                    "kb": "",
+                    "build": "16.0.14334.21048",
+                    "fuer": "Office und SharePoint",
+                    "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
+                    "text": "Release Notes",
+                    "url": ""
+                  },
+                  {
+                    "kb": "",
+                    "build": "16.0.17932.21140",
+                    "fuer": "Office und SharePoint",
+                    "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
+                    "text": "Release Notes",
+                    "url": ""
+                  },
+                  {
+                    "kb": "",
+                    "build": "",
+                    "fuer": "Cloud und Dienste",
+                    "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
+                    "text": "Release Notes",
+                    "url": "https://aka.ms/OfficeSecurityReleases"
+                  }
+                ],
+                "patch": "ja"
+              }
+            ],
             "groesse": "größer als üblich",
             "groesse_en": "larger than usual",
             "verhaeltnis_median": 6.1,
@@ -12686,7 +13406,7 @@
     "hersteller": {
       "meta": {
         "hinweis": "Nur Zählung und Verweise auf die Meldungen der Hersteller. Schweregrade stammen von den Herstellern und fehlen, wo sie nicht geliefert werden.",
-        "abgerufen_am": "2026-11-25T07:05:06+00:00"
+        "abgerufen_am": "2026-11-25T07:27:57+00:00"
       },
       "quellen": {
         "ubuntu": {
@@ -12850,7 +13570,7 @@
               "schwere": null
             }
           ],
-          "abgerufen_am": "2026-11-25T07:05:06+00:00",
+          "abgerufen_am": "2026-11-25T07:27:57+00:00",
           "status": "ok"
         },
         "debian": {
@@ -12939,7 +13659,7 @@
               "schwere": null
             }
           ],
-          "abgerufen_am": "2026-11-25T07:05:06+00:00",
+          "abgerufen_am": "2026-11-25T07:27:57+00:00",
           "status": "ok"
         },
         "redhat": {
@@ -13102,7 +13822,7 @@
               "schwere": "hoch"
             }
           ],
-          "abgerufen_am": "2026-11-25T07:05:06+00:00",
+          "abgerufen_am": "2026-11-25T07:27:57+00:00",
           "status": "ok"
         },
         "cisco": {
@@ -13256,7 +13976,7 @@
               "schwere": "kritisch"
             }
           ],
-          "abgerufen_am": "2026-11-25T07:05:06+00:00",
+          "abgerufen_am": "2026-11-25T07:27:57+00:00",
           "status": "ok"
         }
       }
