@@ -471,3 +471,16 @@ html[lang=en] .sek>summary::after{content:"\25B8  show"}html[lang=en] .sek[open]
 .hero-pegel.st-ruhig{--st:#3ddc84}.hero-pegel.st-unauffaellig{--st:#8fd3a8}.hero-pegel.st-angespannt{--st:#e3b341}.hero-pegel.st-hoch{--st:#ff8a7a}.hero-pegel.st-ausserordentlich{--st:#ff4d5e}
 .fz-dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:8px 0 6px}.fz-dl dt{color:var(--dim);font-size:12px;text-transform:uppercase;letter-spacing:.06em;padding-top:3px}.fz-dl dd{margin:0}.fz-dl dd.fh{color:var(--green)}
 @media (max-width:520px){.fz-dl{grid-template-columns:1fr;gap:2px}.fz-dl dd{margin-bottom:8px}}
+
+.teil{border-top:1px solid var(--line);margin-top:26px}
+.teil>summary{cursor:pointer;list-style:none;display:flex;align-items:baseline;gap:12px;border-top:0;padding-top:14px;padding-bottom:6px}
+.teil>summary::-webkit-details-marker{display:none}
+.teil>summary h2{margin:0}
+.teil>summary::after{content:"\25B8  aufklappen";color:var(--green);font:13px ui-monospace,monospace;white-space:nowrap}
+.teil[open]>summary::after{content:"\25BE  zuklappen"}
+html[lang=en] .teil>summary::after{content:"\25B8  open"}html[lang=en] .teil[open]>summary::after{content:"\25BE  close"}
+.teil section.wrap{margin-top:14px}
+.sek.psub{margin-top:12px}.sek.psub>summary h3{margin:0;font-size:15px;color:var(--green)}
+.sek.psub:has(>.panel[hidden]){display:none}
+@media print{.teil>summary::after{display:none}}
+#k-edge .panel>h3:first-child,#k-hs .panel>h3:first-child{display:none}

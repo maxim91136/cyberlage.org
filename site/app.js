@@ -19,15 +19,33 @@
     return e;
   };
 
+  function aufklappen(el0) {
+    if (!el0) return;
+    for (var n = el0; n; n = n.parentElement) if (n.tagName === "DETAILS") n.open = true;
+    var d = el0.querySelector && el0.querySelector(":scope > details.sek"); if (d) d.open = true;
+  }
   function oeffne() {
-    var id = (location.hash || "").slice(1), sec = id && document.getElementById(id), d = sec && sec.querySelector("details.sek");
-    if (d) d.open = true;
+    var id = (location.hash || "").slice(1); if (id) aufklappen(document.getElementById(id));
   }
   window.addEventListener("hashchange", oeffne);
   document.addEventListener("click", function (e) {
     var l = e.target.closest && e.target.closest("a[href^='#']"); if (!l) return;
-    var sec = document.getElementById(l.getAttribute("href").slice(1)), d = sec && sec.querySelector("details.sek"); if (d) d.open = true;
+    var ziel = document.getElementById(l.getAttribute("href").slice(1)); aufklappen(ziel);
+    if (ziel && ziel.scrollIntoView) setTimeout(function () { ziel.scrollIntoView(); }, 0);
   });
+  // Klappen: Zustand nur im Browser merken; beim Öffnen die Grafiken in der richtigen Breite neu zeichnen
+  var KL = "klappen";
+  try {
+    var gem = JSON.parse(localStorage.getItem(KL) || "{}");
+    Object.keys(gem).forEach(function (id) { var d = document.getElementById(id); if (d && d.tagName === "DETAILS") d.open = !!gem[id]; });
+  } catch (e) { /* ohne Speicher gilt die Vorgabe */ }
+  document.addEventListener("toggle", function (e) {
+    var d = e.target; if (!d || d.tagName !== "DETAILS") return;
+    if (d.id && (d.classList.contains("teil") || d.classList.contains("sek"))) {
+      try { var g = JSON.parse(localStorage.getItem(KL) || "{}"); g[d.id] = d.open; localStorage.setItem(KL, JSON.stringify(g)); } catch (e2) { /* egal */ }
+    }
+    if (d.open && window.neuZeichnen) window.neuZeichnen();
+  }, true);
   window.addEventListener("load", oeffne);
   // Ohne Ziel im Link immer oben starten: sonst stellt der Browser eine alte Scrollposition wieder her, die nach dem Nachladen der Daten woanders (z. B. beim Fazit) liegt.
   if (!location.hash) {
@@ -47,7 +65,7 @@
       ticks = false;
       knopf.classList.toggle("on", window.scrollY > window.innerHeight * 1.2);
       var aktiv = -1, grenze = window.scrollY + 120;
-      abschnitte.forEach(function (sec, i) { if (sec && sec.offsetTop <= grenze) aktiv = i; });
+      abschnitte.forEach(function (sec, i) { if (sec && sec.offsetParent !== null && sec.getBoundingClientRect().top + window.scrollY <= grenze) aktiv = i; });
       navLinks.forEach(function (a, i) { if (i === aktiv) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current"); a.classList.toggle("aktiv", i === aktiv); });
     };
     window.addEventListener("scroll", function () { if (!ticks) { ticks = true; requestAnimationFrame(pruefen); } }, { passive: true });
@@ -151,6 +169,7 @@
     }
     zeichneVerlauf(d.verlauf || [], d.schwellen || {});
     zeichneScoreVerlauf(d.pegel || null);
+    window.neuZeichnen = function () { zeichneVerlauf(d.verlauf || [], d.schwellen || {}); zeichneScoreVerlauf(d.pegel || null); var zz = (d.radar || {}).zeit_bis_kev || {}; if (zz.verlauf) zeichneRadar(zz.verlauf); };
     var tl = d.telegram && d.telegram.link;
     if (/^https:\/\/t\.me\//.test(tl || "")) { $("telegram-link").href = tl; $("telegram").hidden = false; }
     d_stand = d.stand; d_skala = d.radar_skala || null;
