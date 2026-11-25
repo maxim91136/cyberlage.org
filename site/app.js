@@ -839,6 +839,7 @@
       if (!g.bausteine.length) return;
       var li = el("li", ""); li.appendChild(el("b", "mono", pick(g.name, g.name_en) + ": "));
       li.appendChild(document.createTextNode(g.bausteine.map(function (b) { return pick(b.name, b.name_en) + (typeof b.ausschlag === "number" ? " " + b.ausschlag.toLocaleString(window.I18N.locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : " –"); }).join(" · ")));
+      if (g.frage) li.appendChild(el("span", "dim gr-frage", pick(g.frage, g.frage_en)));
       ul.appendChild(li);
     });
     box.appendChild(ul);

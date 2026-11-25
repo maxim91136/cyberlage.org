@@ -8,22 +8,30 @@
     {
       "id": "ausnutzung",
       "name": "Ausnutzung",
-      "name_en": "Exploitation"
+      "name_en": "Exploitation",
+      "frage": "Was wird nachweislich angegriffen? Zählt Lücken, deren Ausnutzung belegt ist, und wie schnell neue Lücken ausgenutzt werden.",
+      "frage_en": "What is proven to be attacked? Counts flaws with confirmed exploitation and how fast new flaws are exploited."
     },
     {
       "id": "warnungen",
       "name": "Warnungen",
-      "name_en": "Warnings"
+      "name_en": "Warnings",
+      "frage": "Wovor wird gewarnt? Zählt neue Warnungen staatlicher Warndienste, unabhängig davon, ob schon angegriffen wird.",
+      "frage_en": "What is being warned about? Counts new advisories from national warning services, whether or not attacks have begun."
     },
     {
       "id": "angriffe",
       "name": "Angriffsaktivität",
-      "name_en": "Attack activity"
+      "name_en": "Attack activity",
+      "frage": "Wie viel wird angegriffen? Zählt die angreifenden Adressen, die ein weltweites Sensornetz pro Tag sieht.",
+      "frage_en": "How much attacking is going on? Counts the attacking addresses a worldwide sensor network sees per day."
     },
     {
       "id": "extern",
       "name": "Externe Einschätzungen",
-      "name_en": "External assessments"
+      "name_en": "External assessments",
+      "frage": "Wie schätzen andere die Lage ein? Urteile von BSI und SANS, also Einschätzungen statt Zählungen.",
+      "frage_en": "How do others judge the situation? Verdicts by BSI and SANS, assessments rather than counts."
     }
   ],
   "bausteine": [
