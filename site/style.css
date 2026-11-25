@@ -484,3 +484,39 @@ html[lang=en] .teil>summary::after{content:"\25B8  open"}html[lang=en] .teil[ope
 .sek.psub:has(>.panel[hidden]){display:none}
 @media print{.teil>summary::after{display:none}}
 #k-edge .panel>h3:first-child,#k-hs .panel>h3:first-child{display:none}
+
+/* ===== Designschicht: taktisches HUD, ruhig und aufgeräumt (ein Commit, rückholbar) ===== */
+:root{--r:10px;--r2:8px;--glas:rgba(8,12,15,.72)}
+::selection{background:rgba(111,224,160,.28)}
+html{scrollbar-color:#24303a transparent;scrollbar-width:thin}
+.kopf,.leiste{background:var(--glas);-webkit-backdrop-filter:saturate(160%) blur(18px);backdrop-filter:saturate(160%) blur(18px)}
+.lbl{letter-spacing:.14em}
+h1{letter-spacing:-.025em}
+.panel{border-radius:var(--r);background-image:linear-gradient(180deg,rgba(255,255,255,.028),rgba(255,255,255,0) 64px)}
+.fazit,.kc,.dd-box,.p-emp,.hero-pegel,.umbau{border-radius:var(--r2)}
+.subnav a,button,input,select{border-radius:var(--r2)}
+.subnav a{transition:border-color .15s,color .15s,background .15s}.subnav a:hover{background:rgba(111,224,160,.06)}
+/* Lagekasten als HUD: Eckmarken rechts, feine Zeilen */
+.lage{border-radius:var(--r);background-repeat:no-repeat,no-repeat,no-repeat,no-repeat,repeat;
+  background-image:linear-gradient(var(--st,var(--amber)),var(--st,var(--amber))),linear-gradient(var(--st,var(--amber)),var(--st,var(--amber))),linear-gradient(var(--st,var(--amber)),var(--st,var(--amber))),linear-gradient(var(--st,var(--amber)),var(--st,var(--amber))),repeating-linear-gradient(0deg,rgba(255,255,255,.016) 0 1px,transparent 1px 3px);
+  background-size:18px 1px,1px 18px,18px 1px,1px 18px,auto;
+  background-position:right 12px top 12px,right 12px top 12px,right 12px bottom 12px,right 12px bottom 12px,0 0}
+.lage .stufe{text-shadow:0 0 32px color-mix(in srgb,currentColor 38%,transparent);letter-spacing:.01em}
+.hero-pegel{box-shadow:0 0 26px -10px var(--st,#e3b341);transition:background .15s}.hero-pegel:hover{background:color-mix(in srgb,var(--st,#e3b341) 10%,transparent)}
+/* Klappen der ersten Ebene: breite Leisten */
+.teil{border-top:0;margin-top:16px}
+.teil>summary.wrap{max-width:1096px;width:calc(100% - 64px);padding:16px 18px;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:var(--r);
+  background:linear-gradient(180deg,#0f151a,#0b0f13);transition:border-color .15s,background .15s}
+.teil>summary.wrap:hover{border-color:#2f3f4b}.teil[open]>summary.wrap{border-color:#2b5a45}
+.teil>summary:focus-visible,.sek>summary:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.teil>summary h2{font-size:clamp(17px,3.6vw,22px)}
+.teil>summary::after,.sek>summary::after{font:11px ui-monospace,Menlo,monospace;letter-spacing:.14em;color:var(--green);border:1px solid #23463a;border-radius:6px;padding:4px 8px}
+.teil>summary::after,.sek>summary::after{content:"ÖFFNEN +"}.teil[open]>summary::after,.sek[open]>summary::after{content:"SCHLIESSEN –"}
+html[lang=en] .teil>summary::after,html[lang=en] .sek>summary::after{content:"OPEN +"}html[lang=en] .teil[open]>summary::after,html[lang=en] .sek[open]>summary::after{content:"CLOSE –"}
+/* Klappen der zweiten Ebene: Zeilen mit Haarlinie */
+.sek>summary{justify-content:space-between;align-items:center;padding:13px 2px;border-bottom:1px solid var(--line);transition:border-color .15s}
+.sek>summary:hover{border-bottom-color:#2f3f4b}.sek[open]>summary{border-bottom-color:#2b5a45;margin-bottom:14px}
+.sek>summary h2{font-size:18px}
+.teil section.wrap{margin-top:0;padding-bottom:0}.teil>div.wrap{margin-top:14px}.teil[open]{padding-bottom:10px}
+@media (max-width:600px){.teil>summary.wrap{width:calc(100% - 36px);padding:14px}.teil>summary::after,.sek>summary::after{letter-spacing:.08em;padding:3px 6px}}
+@media print{.teil>summary::after,.sek>summary::after{display:none}}
