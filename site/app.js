@@ -931,6 +931,93 @@
     box.hidden = false;
   }
 
+  // Berichte je Monat, Quartal und Jahr: werden erst geladen, wenn der Abschnitt aufgeht
+  (function () {
+    var sek = $("k-berichte"), box = $("br-box"), wahl = $("br-wahl"), tabs = $("br-art"); if (!sek || !box || !wahl || !tabs) return;
+    var daten = null, art = "monat", laedt = false;
+    var z1 = function (v, n) { return v.toLocaleString(window.I18N.locale, { minimumFractionDigits: n, maximumFractionDigits: n }); };
+    var kurz = function (iso) { return new Date(iso).toLocaleDateString(window.I18N.locale, { timeZone: "UTC", day: "numeric", month: "short" }); };
+    var mitVz = function (v, n) { return v === null || v === undefined ? "–" : (v > 0 ? "+" : v < 0 ? "−" : "±") + z1(Math.abs(v), n); };
+    function kopiere(t, b) {
+      var fertig = function () { var alt = b.textContent; b.textContent = pick("Kopiert", "Copied"); setTimeout(function () { b.textContent = alt; }, 1600); };
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(fertig, function () { }); return; }
+      var ta = document.createElement("textarea"); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); fertig(); } catch (e) { } document.body.removeChild(ta);
+    }
+    function kennzahl(name, wert, zusatz) { var k = el("div", "br-kz"); k.appendChild(el("span", "mono dim", name)); k.appendChild(el("strong", "mono", wert)); if (zusatz) k.appendChild(el("span", "dim", zusatz)); return k; }
+    function zeige(b) {
+      box.textContent = ""; if (!b) { box.appendChild(el("p", "dim", pick("Für diesen Zeitraum gibt es noch keinen abgeschlossenen Bericht.", "There is no completed report for this period yet."))); return; }
+      var a = el("article", "br ra-" + b.stufe.ampel), kopf = el("div", "br-k");
+      kopf.appendChild(el("h3", "", pick(b.titel, b.titel_en)));
+      kopf.appendChild(el("span", "br-st mono", pick(b.stufe.name, b.stufe.name_en) + " · " + z1(b.mittel, 1)));
+      a.appendChild(kopf);
+      a.appendChild(el("p", "br-satz", pick(b.satz, b.satz_en)));
+      var kn = el("div", "br-kn"), k1 = el("button", "mono", pick("Text kopieren", "Copy text")), k2 = el("button", "mono", pick("Link kopieren", "Copy link"));
+      var link = location.origin + location.pathname + "?bericht=" + b.id;
+      k1.type = k2.type = "button";
+      k1.addEventListener("click", function () { kopiere(pick(b.satz, b.satz_en) + "\n\n" + link, k1); });
+      k2.addEventListener("click", function () { kopiere(link, k2); });
+      kn.appendChild(k1); kn.appendChild(k2); a.appendChild(kn);
+      var vor = { monat: pick("Vormonat", "previous month"), quartal: pick("Vorquartal", "previous quarter"), jahr: pick("Vorjahr", "previous year") }[b.art];
+      var kz = el("div", "br-kzs");
+      kz.appendChild(kennzahl(pick("Mittel", "Average"), z1(b.mittel, 1), b.delta === null ? "" : mitVz(b.delta, 1) + pick(" zum ", " vs. ") + vor));
+      kz.appendChild(kennzahl(pick("Höchststand", "High"), String(b.hoch.wert), kurz(b.hoch.datum)));
+      kz.appendChild(kennzahl(pick("Tiefststand", "Low"), String(b.tief.wert), kurz(b.tief.datum)));
+      kz.appendChild(kennzahl(pick("Stufenwechsel", "Level changes"), String(b.wechsel), b.tage + pick(" Tage", " days")));
+      a.appendChild(kz);
+      a.appendChild(el("p", "lbl mono", pick("Tage je Stufe", "Days per level")));
+      var band = el("div", "br-band"), leg = el("p", "br-leg mono dim");
+      b.je_stufe.forEach(function (s, i) {
+        var seg = el("span", "sg ra-" + s.ampel); seg.style.width = (100 * s.tage / b.tage) + "%"; seg.title = pick(s.name, s.name_en) + ": " + s.tage; band.appendChild(seg);
+        var l = el("span", "br-li"); var p = el("i", "sg ra-" + s.ampel); l.appendChild(p); l.appendChild(document.createTextNode(pick(s.name, s.name_en) + " " + s.tage)); leg.appendChild(l);
+      });
+      a.appendChild(band); a.appendChild(leg);
+      if (b.bausteine.length) {
+        a.appendChild(el("p", "lbl mono", pick("Bausteine", "Components")));
+        var tw = el("div", "br-tab"), t = el("table"), th = el("thead"), tr = el("tr"), tb = el("tbody");
+        [pick("Baustein", "Component"), pick("Mittel", "Average"), pick("Tage ≥ 1", "Days ≥ 1"), "Δ"].forEach(function (x) { tr.appendChild(el("th", "", x)); });
+        th.appendChild(tr); t.appendChild(th);
+        b.bausteine.forEach(function (c) {
+          var r = el("tr"); r.appendChild(el("td", "", pick(c.name, c.name_en)));
+          r.appendChild(el("td", "mono" + (c.mittel >= 1 ? " rw" : ""), z1(c.mittel, 2)));
+          r.appendChild(el("td", "mono", c.ueber + " %")); r.appendChild(el("td", "mono dim", mitVz(c.delta, 2))); tb.appendChild(r);
+        });
+        t.appendChild(tb); tw.appendChild(t); a.appendChild(tw);
+        a.appendChild(el("p", "br-leg2 dim", pick("Mittel: Messwert im Verhältnis zur Schwelle, 1 = Schwelle erreicht, wie im Pegel höchstens 2. Tage ≥ 1: Anteil der Tage an oder über der Schwelle. Δ: Veränderung des Mittels zum ", "Average: reading relative to its threshold, 1 = threshold reached, capped at 2 as in the gauge. Days ≥ 1: share of days at or above the threshold. Δ: change of the average vs. the ") + vor + "."));
+      }
+      if (b.logbuch.length) {
+        a.appendChild(el("p", "lbl mono", pick("Logbuch im Zeitraum", "Logbook in this period")));
+        var ul = el("ul", "br-lb"); b.logbuch.forEach(function (e) { var li = el("li"); li.appendChild(el("time", "mono dim", datum(e.datum) + " ")); li.appendChild(document.createTextNode(pick(e.titel, e.titel_en))); ul.appendChild(li); });
+        a.appendChild(ul);
+      }
+      a.appendChild(el("p", "br-fuss mono dim", datum(b.von) + " – " + datum(b.bis) + " · " + (b.bis < daten.live_seit
+        ? pick("zurückgerechnet aus den Archivdaten, ohne die Gruppe Externe Einschätzungen", "back-calculated from the archive data, without the group external assessments")
+        : pick("ab " + datum(daten.live_seit) + " gespeicherter Tagesstand aller Bausteine, davor zurückgerechnet", "from " + datum(daten.live_seit) + " stored daily value of all components, back-calculated before"))));
+      box.appendChild(a);
+    }
+    function fuelle(id) {
+      var liste = daten.berichte.filter(function (b) { return b.art === art; });
+      wahl.textContent = ""; liste.forEach(function (b) { var o = el("option", "", pick(b.titel, b.titel_en)); o.value = b.id; wahl.appendChild(o); });
+      if (id) wahl.value = id;
+      zeige(liste.filter(function (b) { return b.id === wahl.value; })[0] || liste[0]);
+    }
+    function setzeArt(a2, id) {
+      art = a2; Array.prototype.forEach.call(tabs.querySelectorAll("button"), function (b) { var an = b.getAttribute("data-art") === art; b.setAttribute("aria-selected", an ? "true" : "false"); b.tabIndex = an ? 0 : -1; });
+      if (daten) fuelle(id);
+    }
+    function lade(id) {
+      if (daten || laedt) return; laedt = true; box.textContent = ""; box.appendChild(el("p", "dim", pick("Lädt …", "Loading …")));
+      fetch("data/berichte.json", { cache: "no-cache" }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) {
+        daten = d; var ziel = id && d.berichte.filter(function (b) { return b.id === id; })[0];
+        if (ziel) setzeArt(ziel.art, ziel.id); else fuelle();
+      }).catch(function () { laedt = false; box.textContent = ""; box.appendChild(el("p", "dim", pick("Die Berichte ließen sich nicht laden.", "The reports could not be loaded."))); });
+    }
+    tabs.addEventListener("click", function (e) { var b = e.target.closest ? e.target.closest("button[data-art]") : null; if (b) setzeArt(b.getAttribute("data-art")); });
+    wahl.addEventListener("change", function () { fuelle(wahl.value); });
+    sek.addEventListener("toggle", function () { if (sek.open) lade(); });
+    var m = /[?&]bericht=([0-9]{4}(?:-(?:Q[1-4]|[01][0-9]))?)(?:&|$)/.exec(location.search);
+    if (m) { aufklappen(sek); sek.open = true; lade(m[1]); setTimeout(function () { sek.scrollIntoView(); }, 300); }
+  })();
+
   function zeigeLogbuch(liste) {
     var box = $("lb-liste"), sek = $("logbuch"); if (!box) return; box.textContent = "";
     if (sek) sek.hidden = !liste.length;
@@ -1268,7 +1355,7 @@ b.appendChild(el("span", "g", typeof s.ausschlag === "number" ? pick("Messwert: 
       th.addEventListener("click", sortiere);
       th.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); sortiere(); } });
     });
-    if (tb.rows.length >= 6 && !t.closest("#neu")) {
+    if (tb.rows.length >= 6 && !t.closest("#neu") && !t.closest(".br-tab")) {
       var f = el("input", "filter mono tw-f"); f.type = "search"; f.autocomplete = "off"; f.placeholder = pick("Tabelle filtern …", "Filter table …"); f.setAttribute("aria-label", pick("Tabelle filtern", "Filter table"));
       f.addEventListener("input", function () {
         var w = f.value.toLowerCase().split(/\s+/).filter(Boolean);

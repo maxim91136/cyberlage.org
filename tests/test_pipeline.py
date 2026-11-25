@@ -1128,5 +1128,39 @@ class LogbuchTests(unittest.TestCase):
         self.assertEqual(modell.logbuch_hoechststand(lb, reihe), [])
 
 
+class BerichtTests(unittest.TestCase):
+    STUFEN = [{"bis": 50, "name": "unauffällig", "name_en": "unremarkable", "ampel": "u"}, {"bis": 64, "name": "angespannt", "name_en": "tense", "ampel": "a"},
+              {"bis": 101, "name": "hoch", "name_en": "high", "ampel": "h"}]
+
+    def reihe(self):
+        from datetime import date, timedelta
+        tage = [(date(2026, 1, 1) + timedelta(days=i)).isoformat() for i in range(120)]  # Januar bis April
+        return tage, [{"stand": d, "wert": 70 if d.startswith("2026-02") else 60} for d in tage]
+
+    def test_nur_abgeschlossene_zeitraeume_und_kennzahlen(self):
+        import modell
+        tage, reihe = self.reihe()
+        reihe[10]["wert"] = 66  # 11.1.: ein Tag „hoch“, also zwei Stufenwechsel im Januar
+        b = modell.berichte(reihe, [{"id": "x", "name": "X", "name_en": "X", "aus": {d: (3.0 if d.startswith("2026-02") else 0.5) for d in tage}}],
+                            {"eintraege": [{"datum": "2026-02-10", "art": "erkenntnis", "titel": "T", "titel_en": "T"}]}, self.STUFEN, "2026-04-30")
+        ids = [x["id"] for x in b]
+        self.assertEqual(sorted(ids), ["2026-01", "2026-02", "2026-03", "2026-Q1"])  # April läuft noch, das Jahr auch
+        jan, feb = [x for x in b if x["id"] == "2026-01"][0], [x for x in b if x["id"] == "2026-02"][0]
+        self.assertEqual((jan["wechsel"], jan["hoch"], jan["delta"]), (2, {"wert": 66, "datum": "2026-01-11"}, None))
+        self.assertEqual((feb["mittel"], feb["stufe"]["ampel"], feb["delta"]), (70.0, "h", round(70 - (60 * 30 + 66) / 31, 1)))
+        self.assertEqual(feb["bausteine"][0]["mittel"], 2.0)  # gekappt wie im Pegel
+        self.assertEqual(feb["bausteine"][0]["ueber"], 100)
+        self.assertEqual(len(feb["logbuch"]), 1)
+        self.assertIn("Februar 2026: Dreier-Pegel im Mittel 70,0 von 100 (hoch)", feb["satz"])
+
+    def test_luecken_geben_keinen_bericht(self):
+        import modell
+        tage, reihe = self.reihe()
+        duenn = [x for x in reihe if not ("2026-03-05" <= x["stand"] <= "2026-03-20")]
+        ids = [x["id"] for x in modell.berichte(duenn, [], {}, self.STUFEN, "2026-04-30")]
+        self.assertNotIn("2026-03", ids)
+        self.assertIn("2026-02", ids)
+
+
 if __name__ == "__main__":
     unittest.main()

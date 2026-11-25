@@ -431,6 +431,17 @@ def main(argv):
         kev_tage = {x["stand"] for x in reihe}
         alt = [x for x in modell.rueck_reihe(ar, mcfg) if x["stand"] in kev_tage]
         live = {x["stand"]: x for x in sr}
+        # Berichte je Monat, Quartal und Jahr: Tagesreihe aus der Rückrechnung, an Live-Tagen der gespeicherte volle Pegel
+        scfg = lese_optional(WURZEL / "config" / "radar_stufen.json") or {}
+        if scfg.get("stufen"):
+            namen_b = {b["id"]: (b.get("kurz") or b["name"], b.get("kurz") or b["name_en"]) for b in mcfg["bausteine"]}
+            ber = modell.berichte([{"stand": x["stand"], "wert": live[x["stand"]]["wert"] if x["stand"] in live else x["ausnutzung"]} for x in alt],
+                                  [{"id": b["id"], "name": namen_b[b["id"]][0], "name_en": namen_b[b["id"]][1], "aus": ar[b["id"]]} for b in mcfg["bausteine"] if b["id"] in ar],
+                                  lese_optional(WURZEL / "data" / "logbuch.json") or {}, scfg["stufen"], stand.isoformat(), obergrenze=mcfg.get("obergrenze", 2.0))
+            (WURZEL / "site" / "data").mkdir(parents=True, exist_ok=True)
+            (WURZEL / "site" / "data" / "berichte.json").write_text(json.dumps({
+                "hinweis": "Berichte je abgeschlossenem Monat, Quartal und Jahr. Vor dem %s aus den Archivdaten zurückgerechnet (acht Bausteine, ohne die Gruppe Externe Einschätzungen), ab dann der gespeicherte Tagesstand aller Bausteine. Regeln: RULES.md, Abschnitt Berichte." % sr[0]["stand"],
+                "stand": stand.isoformat(), "daten_seit": alt[0]["stand"] if alt else None, "live_seit": sr[0]["stand"], "berichte": ber}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
         rs["reihe_voll"] = [{"stand": x["stand"], "ausnutzung": x["ausnutzung"], "n": x["n"],
                              "wert": live[x["stand"]]["wert"] if x["stand"] in live else None,
                              "signale": live[x["stand"]]["signale"] if x["stand"] in live else None} for x in alt]

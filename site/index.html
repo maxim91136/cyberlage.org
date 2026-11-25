@@ -180,6 +180,20 @@
     </details>
   </section>
 
+  <section id="berichte" class="wrap" aria-labelledby="h-ber">
+    <details class="sek" id="k-berichte">
+      <summary><h2 id="h-ber" class="mono" data-t="br_h">## berichte</h2></summary>
+      <p class="dim" data-t="br_intro">Der Dreier-Pegel je abgeschlossenem Monat, Quartal und Jahr: Mittel, Höchst- und Tiefststand, Stufenwechsel, die Bausteine und die Logbuch-Einträge des Zeitraums.</p>
+      <div class="tabs mono" role="tablist" id="br-art" aria-label="Zeitraum wählen">
+        <button type="button" role="tab" data-art="monat" aria-selected="true" data-t="br_monat">Monat</button>
+        <button type="button" role="tab" data-art="quartal" aria-selected="false" tabindex="-1" data-t="br_quartal">Quartal</button>
+        <button type="button" role="tab" data-art="jahr" aria-selected="false" tabindex="-1" data-t="br_jahr">Jahr</button>
+      </div>
+      <label class="br-wahl mono dim"><span data-t="br_wahl">Zeitraum</span> <select id="br-wahl"></select></label>
+      <div id="br-box" aria-live="polite"></div>
+    </details>
+  </section>
+
   <section id="wie" class="wrap" aria-labelledby="h-wie">
     <details class="sek" id="k-wie">
       <summary><h2 id="h-wie" class="mono" data-t="k_wie">## so entsteht der pegel</h2></summary>

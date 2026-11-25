@@ -246,3 +246,88 @@ def logbuch_hoechststand(logbuch, live_reihe, mindest=30):
          "text_en": "Highest stored daily value since %s. Previous high: %d." % (live_reihe[0]["stand"], davor), "belege": [], "belege_en": []}
     logbuch.setdefault("eintraege", []).append(e)
     return [e]
+
+
+MONATE = ("Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember")
+MONATE_EN = ("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
+
+
+def _zeitraeume(erster, letzter):
+    """Alle Monate, Quartale und Jahre, die ganz zwischen `erster` und `letzter` (date, einschließlich) liegen."""
+    from datetime import date, timedelta
+    out = []
+    for jahr in range(erster.year, letzter.year + 1):
+        grenzen = [("jahr", "%d" % jahr, date(jahr, 1, 1), date(jahr, 12, 31), "%d" % jahr, "%d" % jahr)]
+        for q in range(4):
+            ende = date(jahr + (q == 3), (q * 3 + 3) % 12 + 1, 1) - timedelta(days=1)
+            grenzen.append(("quartal", "%d-Q%d" % (jahr, q + 1), date(jahr, q * 3 + 1, 1), ende, "Q%d %d" % (q + 1, jahr), "Q%d %d" % (q + 1, jahr)))
+        for mo in range(12):
+            ende = date(jahr + (mo == 11), (mo + 1) % 12 + 1, 1) - timedelta(days=1)
+            grenzen.append(("monat", "%d-%02d" % (jahr, mo + 1), date(jahr, mo + 1, 1), ende, "%s %d" % (MONATE[mo], jahr), "%s %d" % (MONATE_EN[mo], jahr)))
+        out += [g for g in grenzen if g[2] >= erster and g[3] <= letzter]
+    return out
+
+
+def berichte(tage, bausteine, logbuch, stufen, stand, mindest_anteil=0.9, obergrenze=2.0):
+    """Berichte je abgeschlossenem Monat, Quartal und Jahr aus der Tagesreihe des Pegels.
+    tage: [{stand, wert}] aufsteigend; bausteine: [{id, name, name_en, aus: {stand: ausschlag}}];
+    stufen: [{bis, name, name_en, ampel}]; stand: heutiges Datum (ISO), der laufende Zeitraum bekommt keinen Bericht.
+    Ausschläge der Bausteine zählen wie im Pegel höchstens mit `obergrenze`."""
+    from datetime import date, timedelta
+    if not tage:
+        return []
+    wert = {x["stand"]: x["wert"] for x in tage}
+    stufe = lambda w: next((s for s in stufen if w < s["bis"]), stufen[-1])
+    de = lambda v, n=1: ("%.*f" % (n, v)).replace(".", ",")
+    kurz = lambda iso: "%d.%d." % (int(iso[8:10]), int(iso[5:7]))
+    kurz_en = lambda iso: "%d %s" % (int(iso[8:10]), MONATE_EN[int(iso[5:7]) - 1][:3])
+    out, vorher = [], {}
+    for art, kennung, von, bis, titel, titel_en in _zeitraeume(date.fromisoformat(tage[0]["stand"]), date.fromisoformat(stand) - timedelta(days=1)):
+        alle = [(von + timedelta(days=i)).isoformat() for i in range((bis - von).days + 1)]
+        da = [d for d in alle if d in wert]
+        if len(da) < mindest_anteil * len(alle):
+            continue
+        vor = vorher.get(art) or {}
+        vor = vor if vor.get("bis") == (von - timedelta(days=1)).isoformat() else {}  # nur mit dem unmittelbar vorangehenden Zeitraum vergleichen
+        w = [wert[d] for d in da]
+        mittel = sum(w) / len(w)
+        st = stufe(round(mittel))
+        hoch, tief = max(da, key=lambda d: (wert[d], d)), min(reversed(da), key=lambda d: wert[d])  # bei gleichem Wert der spätere Tag
+        je = {}
+        for d in da:
+            a = stufe(wert[d])["ampel"]
+            je[a] = je.get(a, 0) + 1
+        wechsel = sum(1 for a, b in zip(da, da[1:]) if stufe(wert[a])["ampel"] != stufe(wert[b])["ampel"])
+        bs = []
+        for b in bausteine:
+            v = [min(b["aus"][d], obergrenze) for d in alle if b["aus"].get(d) is not None]
+            if len(v) < mindest_anteil * len(alle):
+                continue
+            bm = sum(v) / len(v)
+            alt = vor.get("b", {}).get(b["id"])
+            bs.append({"id": b["id"], "name": b["name"], "name_en": b["name_en"], "roh": bm, "mittel": round(bm, 2),
+                       "ueber": round(100 * sum(1 for x in v if x >= 1) / len(v)), "delta": None if alt is None else round(bm - alt, 2)})
+        top = max(bs, key=lambda x: x["mittel"]) if bs else None
+        alt_m = vor.get("mittel")
+        delta = None if alt_m is None else round(mittel - alt_m, 1)
+        eintraege = [{"datum": e["datum"], "art": e["art"], "titel": e["titel"], "titel_en": e["titel_en"]}
+                     for e in sorted(logbuch.get("eintraege", []), key=lambda e: e["datum"]) if von.isoformat() <= e["datum"] <= bis.isoformat()]
+        dv, dv_en = {"monat": ("Vormonat", "previous month"), "quartal": ("Vorquartal", "previous quarter"), "jahr": ("Vorjahr", "previous year")}[art]
+        vgl = "" if delta is None else (", unverändert zum %s" % dv if abs(delta) < 0.05 else ", %s Punkte %s als im %s" % (de(abs(delta)), "höher" if delta > 0 else "niedriger", dv))
+        vgl_en = "" if delta is None else (", unchanged from the %s" % dv_en if abs(delta) < 0.05 else ", %.1f points %s than in the %s" % (abs(delta), "higher" if delta > 0 else "lower", dv_en))
+        satz = "%s: Dreier-Pegel im Mittel %s von 100 (%s)%s. Höchststand %d (%s), Tiefststand %d (%s), %d %s." % (
+            titel, de(mittel), st["name"], vgl, wert[hoch], kurz(hoch), wert[tief], kurz(tief), wechsel, "Stufenwechsel")
+        satz_en = "%s: Dreier Gauge averaged %.1f out of 100 (%s)%s. High %d (%s), low %d (%s), %d level change%s." % (
+            titel_en, mittel, st["name_en"], vgl_en, wert[hoch], kurz_en(hoch), wert[tief], kurz_en(tief), wechsel, "" if wechsel == 1 else "s")
+        if top:
+            satz += " Stärkster Baustein: %s, im Mittel das %s-Fache der Schwelle, an %d %% der Tage an oder über der Schwelle." % (top["name"], de(top["mittel"]), top["ueber"])
+            satz_en += " Strongest component: %s, on average %.1fx its threshold, at or above it on %d%% of days." % (top["name_en"], top["mittel"], top["ueber"])
+        out.append({"id": kennung, "art": art, "titel": titel, "titel_en": titel_en, "von": von.isoformat(), "bis": bis.isoformat(), "tage": len(da),
+                    "mittel": round(mittel, 1), "stufe": {"name": st["name"], "name_en": st["name_en"], "ampel": st["ampel"]}, "delta": delta,
+                    "hoch": {"wert": wert[hoch], "datum": hoch}, "tief": {"wert": wert[tief], "datum": tief}, "wechsel": wechsel,
+                    "je_stufe": [{"ampel": s["ampel"], "name": s["name"], "name_en": s["name_en"], "tage": je[s["ampel"]]} for s in stufen if s["ampel"] in je],
+                    "bausteine": bs, "logbuch": eintraege, "satz": satz, "satz_en": satz_en})
+        vorher[art] = {"bis": bis.isoformat(), "mittel": mittel, "b": {x["id"]: x["roh"] for x in bs}}
+        for x in bs:
+            del x["roh"]
+    return sorted(out, key=lambda x: x["bis"], reverse=True)
