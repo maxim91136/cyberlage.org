@@ -606,7 +606,7 @@ def parse_amazon(xml_bytes):
 FEEDS = {  # Hersteller mit offenem RSS- oder Atom-Feed: Adressen (erste, die antwortet, zählt weiter mit), Kennungsmuster
     "fortinet": (["https://www.fortiguard.com/rss/ir.xml", "https://filestore.fortinet.com/fortiguard/rss/ir.xml"], r"FG-IR-\d+-\d+"),
     "paloalto": (["https://security.paloaltonetworks.com/rss.xml"], r"PAN-SA-\d{4}-\d+|CVE-\d{4}-\d+"),
-    "oracle": (["https://www.oracle.com/ocom/groups/public/@otn/documents/webcontent/rss-otn-sec.xml"], r"CVE-\d{4}-\d+"),
+    # Oracle (rss-otn-sec.xml) antwortet dem Lauf mit 403 (geprüft 25.11.2026) und bleibt deshalb draußen; der Termin steht im Patch-Kalender.
 }
 MOZILLA_URL = "https://www.mozilla.org/en-US/security/advisories/"
 _MONATE_EN = {m: i + 1 for i, m in enumerate(["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"])}
@@ -704,7 +704,6 @@ QUELLEN = [
     {"id": "fortinet", "bereich": "netzwerk", "name": "Fortinet PSIRT Advisories", "typ": "hersteller", "url": "https://www.fortiguard.com/psirt", "lizenz": "Öffentlicher Feed des Herstellers, Nutzungsbedingungen nicht ausdrücklich geklärt; nur Zählung, Kennung, Titel, Datum, Link"},
     {"id": "paloalto", "bereich": "netzwerk", "name": "Palo Alto Networks Security Advisories", "typ": "hersteller", "url": "https://security.paloaltonetworks.com/", "lizenz": "Öffentlicher Feed des Herstellers, Nutzungsbedingungen nicht ausdrücklich geklärt; nur Zählung, Kennung, Titel, Datum, Link"},
     {"id": "mozilla", "bereich": "arbeitsplatz", "name": "Mozilla Security Advisories (Firefox, Thunderbird)", "typ": "hersteller", "url": "https://www.mozilla.org/en-US/security/advisories/", "lizenz": "Öffentliche Übersichtsseite (Inhalte unter CC BY-SA); nur Zählung, Kennung, Titel, Datum, Link"},
-    {"id": "oracle", "bereich": "anwendungen", "name": "Oracle Security Alerts", "typ": "hersteller", "url": "https://www.oracle.com/security-alerts/", "lizenz": "Öffentlicher Feed des Herstellers, Nutzungsbedingungen nicht ausdrücklich geklärt; nur Zählung, Kennung, Titel, Datum, Link"},
 ]
 
 
@@ -813,7 +812,7 @@ def aktualisiere_hersteller(alt, heute, jetzt, lade=lade_roh, kev=()):
             quellen[q["id"]] = dict(q, **z, abgerufen_am=jetzt.isoformat(timespec="seconds"), status="ok", reihe=reihe[-400:])
         except Exception as e:  # fail-soft je Quelle: alter Stand bleibt, Fehler wird vermerkt
             if vorher:
-                quellen[q["id"]] = dict(vorher, status="fehler", fehler=str(e)[:200])
+                quellen[q["id"]] = dict(vorher, bereich=q.get("bereich"), status="fehler", fehler=str(e)[:200])
             else:
                 quellen[q["id"]] = dict(q, status="fehler", fehler=str(e)[:200], neu_7=None, neu_30=None, letzte=[])
     return {"meta": {"hinweis": "Nur Zählung und Verweise auf die Meldungen der Hersteller. Schweregrade stammen von den Herstellern und fehlen, wo sie nicht geliefert werden.",

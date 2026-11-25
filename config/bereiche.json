@@ -21,10 +21,10 @@
     },
     {
       "id": "windows",
-      "name": "Windows und Microsoft-Server",
-      "name_en": "Windows and Microsoft servers",
-      "fuer": "Windows, Windows Server, Exchange, SharePoint, SQL Server und Azure",
-      "fuer_en": "Windows, Windows Server, Exchange, SharePoint, SQL Server and Azure",
+      "name": "Windows und Microsoft",
+      "name_en": "Windows and Microsoft",
+      "fuer": "Windows auf Arbeitsplätzen und Servern, Exchange, SharePoint, SQL Server und Azure",
+      "fuer_en": "Windows on workstations and servers, Exchange, SharePoint, SQL Server and Azure",
       "muster": "microsoft"
     },
     {

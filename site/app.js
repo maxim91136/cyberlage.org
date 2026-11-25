@@ -579,7 +579,25 @@
     var info = el("p", "mono dim fine"), ul = el("ul", "b-liste"); box.appendChild(info); box.appendChild(ul);
     box.appendChild(el("p", "mono dim fine", pick("Reine Zuordnung nach Namen, feste Regeln in RULES.md. Was bei dir im Einsatz ist, weiß die Seite nicht: eigenes Inventar prüfen. Frist = Frist der CISA für US-Behörden, als Anhalt. Die Auswahl bleibt nur in diesem Browser.",
       "Assignment by name only, fixed rules in RULES.md. The site does not know what you run: check your own inventory. Deadline = CISA deadline for US agencies, as a guide. Your choice stays in this browser only.")));
+    var hq = ((d.patches || {}).hersteller || {}).quellen || {}, hbox = el("div", "b-hs"); box.insertBefore(hbox, box.lastChild);
+    function zeigeHersteller() {
+      hbox.textContent = "";
+      var qs = Object.keys(hq).map(function (k) { return hq[k]; }).filter(function (q) { return q.bereich === wahl; });
+      if (!qs.length && wahl !== "windows") return;
+      hbox.appendChild(el("h4", "mono", pick("Meldungen der Hersteller in diesem Bereich", "Vendor advisories in this area")));
+      var ul2 = el("ul", "b-liste"); hbox.appendChild(ul2);
+      if (wahl === "windows") { var lm = el("li", ""); var am = el("a", "", pick("Microsoft Patch Day: Zahlen und Bewertung weiter unten", "Microsoft patch day: figures and rating further down")); am.href = "#k-ms"; am.addEventListener("click", function () { var k = $("k-ms"); if (k) k.open = true; }); lm.appendChild(am); ul2.appendChild(lm); }
+      qs.forEach(function (q) {
+        var li = el("li", ""); li.appendChild(link(q.url, q.name));
+        if (q.status !== "ok" || typeof q.neu_30 !== "number") { li.appendChild(el("span", "mono dim", " · " + pick("keine Daten (Quelle nicht erreichbar)", "no data (source unreachable)"))); ul2.appendChild(li); return; }
+        li.appendChild(el("span", "mono dim", " · " + pick(q.neu_30 + " in 30 Tagen, " + q.neu_7 + " in 7", q.neu_30 + " in 30 days, " + q.neu_7 + " in 7") + (q.schwere_bekannt && q.kritisch_30 ? pick(", davon " + q.kritisch_30 + " kritisch", ", " + q.kritisch_30 + " of them critical") : "") + (q.im_kev_30 ? pick(" · " + q.im_kev_30 + " mit Lücke im KEV", " · " + q.im_kev_30 + " with a KEV flaw") : "")));
+        var neu1 = (q.letzte || [])[0];
+        if (neu1) { var dv = el("div", "dim fine"); dv.appendChild(document.createTextNode(pick("zuletzt ", "latest ") + datum(neu1.datum) + ": ")); dv.appendChild(link(neu1.link, dx(neu1.titel))); li.appendChild(dv); }
+        ul2.appendChild(li);
+      });
+    }
     function zeige() {
+      zeigeHersteller();
       Array.prototype.forEach.call(bt.children, function (b) { b.setAttribute("aria-pressed", String(b.dataset.b === wahl)); });
       var b = bl.filter(function (x) { return x.id === wahl; })[0], mein = neu.filter(function (e) { return e.bereich === wahl; });
       info.textContent = (pick(b.fuer, b.fuer_en) ? pick(b.name, b.name_en) + ": " + pick(b.fuer, b.fuer_en) + ". " : "") + pick(b.anzahl + " in " + (d.fenster_tage || 30) + " Tagen, davon " + b.anzahl_7 + " in den letzten 7.", b.anzahl + " in " + (d.fenster_tage || 30) + " days, " + b.anzahl_7 + " of them in the last 7.");
