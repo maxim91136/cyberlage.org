@@ -119,7 +119,7 @@
       if (/^https:\/\/nvd\.nist\.gov\//.test(e.link || "")) { var a = el("a", "", e.cve); a.href = e.link; a.rel = "noopener"; c.appendChild(a); } else { c.textContent = e.cve; }
       tr.appendChild(c);
       tr.appendChild(el("td", "mono", datum(e.frist)));
-      tr.appendChild(e.ransomware_bekannt ? el("td", "rw", txt("bekannt")) : el("td", "dim", txt("nicht_bekannt")));
+      tr.appendChild(e.ransomware_bekannt ? el("td", "rw", txt("bekannt")) : (function () { var c = el("td", "dim", "–"); c.title = txt("nicht_bekannt"); return c; })());
       tr._text = (e.hersteller + " " + e.produkt + " " + e.cve).toLowerCase();
       body.appendChild(tr);
       return tr;
