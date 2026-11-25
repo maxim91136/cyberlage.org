@@ -355,7 +355,7 @@ def main(argv):
         einzel = {b["id"]: aus.get(b.get("signal")) for b in mcfg["bausteine"] if b["status"] == "aktiv" and b.get("signal")}
         # Archiv-Bausteine: Tageswerte aus echten Meldungen (data/radar/historie), Ausschlag = Wert / Schwelle
         hd = WURZEL / "data" / "radar" / "historie"
-        archiv = modell.archiv_reihen({k: lese_optional(hd / (k + ".json")) for k in ("cert_bund", "ncsc_nl", "eu_kev", "microsoft", "dshield")}, stand.isoformat())
+        archiv = modell.archiv_reihen({k: lese_optional(hd / (k + ".json")) for k in ("cert_bund", "ncsc_nl", "eu_kev", "microsoft", "dshield", "ransomware")}, stand.isoformat())
         arch_aus = {}
         kon = ergebnis["radar"]["konsens"]
         for bst in mcfg["bausteine"]:
@@ -385,7 +385,7 @@ def main(argv):
         bp = WURZEL / "data" / "radar" / "bausteine.json"
         bp.write_text(json.dumps(modell.speichern(lese_optional(bp), stand, mcfg["version"], einzel, beob), ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
         rs["beobachtung"] = [dict(b, wert=beob.get(b["id"])) for b in mcfg["bausteine"] if b["status"] == "beobachtung"]
-        rs["modell_gruppen"] = [dict(g, bausteine=[{"id": b["id"], "name": b.get("kurz") or b["name"], "name_en": b.get("kurz") or b["name_en"], "status": b["status"], "historie": b.get("historie"),
+        rs["modell_gruppen"] = [dict(g, bausteine=[{"id": b["id"], "signal": b.get("signal") or b.get("kurz"), "name": b.get("kurz") or b["name"], "name_en": b.get("kurz") or b["name_en"], "status": b["status"], "historie": b.get("historie"),
                                                     "ausschlag": None if einzel.get(b["id"]) is None else round(einzel[b["id"]], 2)}
                                                    for b in mcfg["bausteine"] if b["gruppe"] == g["id"] and b["status"] == "aktiv"]) for g in mcfg["gruppen"]]
         sr = [p for p in (lese_optional(sp) or {}).get("reihe", []) if p["stand"] != stand.isoformat()]

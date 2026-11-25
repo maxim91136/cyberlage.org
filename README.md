@@ -60,4 +60,4 @@ Alle Rechte vorbehalten, siehe [LICENSE](LICENSE). Regeln, Rohdaten und Quellenl
 
 ## Dank
 
-Danke an alle, deren offene Daten diese Seite möglich machen: CISA, ENISA, BSI und CERT-Bund, NCSC-NL, SANS ISC, FIRST (EPSS), NIST (NVD), Microsoft, Red Hat, SUSE, Canonical, Debian, AlmaLinux, Rocky Linux, Amazon, Cisco und SAP.
+Danke an alle, deren offene Daten diese Seite möglich machen: CISA, ENISA, BSI und CERT-Bund, NCSC-NL, SANS ISC, FIRST (EPSS), NIST (NVD), RansomLook, Microsoft, Red Hat, SUSE, Canonical, Debian, AlmaLinux, Rocky Linux, Amazon, Cisco und SAP.

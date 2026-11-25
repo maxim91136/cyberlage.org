@@ -156,6 +156,12 @@ def archiv_reihen(hist, bis):
                 reihe.append({"stand": t.isoformat(), "wert": round(sum(fenster) / len(fenster))})
             t += timedelta(days=1)
         out["dshield"] = reihe
+    rw = (hist.get("ransomware") or {}).get("tage")
+    if rw:
+        # neue Einträge auf Leak-Seiten in den 30 vollständigen Tagen vor dem Stichtag (der laufende Tag ist unvollständig)
+        liste = [d for d, n in rw.items() for _ in range(int(n))]
+        gestern = plus(bis, -1)
+        out["ransomware"] = [{"stand": plus(x["stand"], 1), "wert": x["wert"]} for x in fenster_reihe(liste, 30, plus(min(rw), 30), gestern)]
     m = (hist.get("microsoft") or {}).get("monate")
     if m:
         xs = sorted(m.values(), key=lambda x: x["tag"])

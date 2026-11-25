@@ -955,6 +955,7 @@ b.appendChild(el("span", "g", typeof s.ausschlag === "number" ? pick("Messwert: 
       b.appendChild(el("div", "kc-m", o.misst));
       if (sg) b.appendChild(el("div", "kc-r", pick("Regel: ", "rule: ") + pick(sg.grund, sg.grund_en) + " · " + pick("Zeitraum: ", "period: ") + pick(sg.zeitraum, sg.zeitraum_en)));
       b.appendChild(el("div", "kc-s mono", o.stand));
+      if (o.sig) b.setAttribute("data-sig", o.sig);
       $(o.gr === "ktx" ? "rd-k-ktx" : "rd-k-score").appendChild(b);
     };
     var tg = pick("Stand ", "as of ");
@@ -975,6 +976,23 @@ b.appendChild(el("span", "g", typeof s.ausschlag === "number" ? pick("Messwert: 
       var sn = { green: ["ruhig (grün)", "calm (green)"], yellow: ["erhöht (gelb)", "raised (yellow)"], orange: ["hoch (orange)", "high (orange)"], red: ["kritisch (rot)", "critical (red)"] }[r.sans.status] || ["–", "–"];
       kachel({ gr: "score", nat: "eins", quelle: "extern", sig: "SANS Infocon", name: "SANS Infocon", url: "https://isc.sans.edu/", wert: pick(sn[0], sn[1]), misst: pick("Scans und Ausbrüche im Netz", "scans and outbreaks across the internet"), stand: tg + datum(r.sans.abgerufen_am) + " · live" });
     }
+    window.__ordneKacheln = function () {
+      var gruppen = (((r.konsens || {}).score || {}).modell_gruppen) || [], ziel = $("rd-k-score"); if (!gruppen.length || !ziel) return;
+      var kacheln = Array.prototype.slice.call(ziel.querySelectorAll(".kc")); if (!kacheln.length) return;
+      ziel.className = "kc-gruppen"; ziel.textContent = "";
+      gruppen.forEach(function (g) {
+        var sigs = g.bausteine.map(function (x) { return x.signal; }), meine = kacheln.filter(function (k) { return sigs.indexOf(k.getAttribute("data-sig")) >= 0; });
+        if (!meine.length) return;
+        var w = el("div", "kc-gruppe");
+        w.appendChild(el("h4", "mono kc-gh", pick(g.name, g.name_en)));
+        if (g.frage) w.appendChild(el("p", "dim gr-frage", pick(g.frage, g.frage_en)));
+        var grid = el("div", "rd-kacheln"); meine.sort(function (x, y) { return sigs.indexOf(x.getAttribute("data-sig")) - sigs.indexOf(y.getAttribute("data-sig")); }).forEach(function (k) { grid.appendChild(k); });
+        w.appendChild(grid); ziel.appendChild(w);
+      });
+      var rest = kacheln.filter(function (k) { return !k.parentNode || k.parentNode === ziel; });
+      if (rest.length) { var g2 = el("div", "rd-kacheln"); rest.forEach(function (k) { g2.appendChild(k); }); ziel.appendChild(g2); }
+    };
+    window.__ordneKacheln();
     if (typeof t.prognosen === "number") kachel({ gr: "ktx", nat: "mess", quelle: "eigen", name: pick("Trefferquote Prognose", "Forecast hit rate"), wert: typeof t.quote_reif === "number" ? proz(t.quote_reif) : "–", misst: pick("Prognosen: ", "forecasts: ") + t.prognosen + pick(", eingetreten: ", ", occurred: ") + t.eingetreten, stand: (typeof t.quote_reif === "number" ? "" : pick("erste Quote nach 30 Tagen · ", "first rate after 30 days · ")) + pick("eigener Abgleich EPSS gegen KEV · Stand ", "own comparison EPSS vs KEV · as of ") + datum(r.abgerufen_am) });
     if (e) kachel({ gr: "ktx", nat: "mess", quelle: "eigen", name: pick("EU-KEV und CISA-KEV: Überschneidung", "EU KEV and CISA KEV: overlap"), wert: e.auch_im_cisa + "/" + e.eu_eintraege, misst: pick("EU-Einträge, die auch im CISA-KEV stehen", "EU entries also in CISA KEV"), stand: pick("eigener Abgleich EUVD (ENISA) gegen CISA-KEV · abgerufen ", "own comparison EUVD (ENISA) vs CISA KEV · retrieved ") + datum((d.eu_kev || {}).abgerufen_am || r.abgerufen_am) });
     (d.sektor || []).forEach(function (x) {

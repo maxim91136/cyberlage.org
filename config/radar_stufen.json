@@ -96,5 +96,5 @@
       "en": "SANS reports raised activity on the internet: watch perimeter and logs more closely."
     }
   },
-  "grundlage_grenzen": "Grenze ruhig/unauffällig am 25.11.2026 von 30 auf 35 gesetzt: Der über 36 Monate rückgerechnete Pegel aus neun Bausteinen lag zwischen 28 und 71; unter 35 liegen die ruhigsten rund 15 Prozent der Tage, unter 30 weniger als 1 Prozent. Die übrigen Grenzen (50, 64, 80) bleiben: 50 heißt Schwellen im Schnitt erreicht, ab 64 liegen die obersten rund 5 Prozent der Tage, 80 wurde in 36 Monaten nicht erreicht."
+  "grundlage_grenzen": "Grenze ruhig/unauffällig am 25.11.2026 von 30 auf 35 gesetzt. Mit zehn Bausteinen liegt der über 36 Monate rückgerechnete Pegel zwischen 22 und 73: unter 35 das ruhigste Fünftel der Tage, ab 64 die obersten rund 8 Prozent, 80 wurde nie erreicht. 50 heißt Schwellen im Schnitt erreicht."
 }

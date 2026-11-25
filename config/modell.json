@@ -23,8 +23,8 @@
       "id": "angriffe",
       "name": "Angriffsaktivität",
       "name_en": "Attack activity",
-      "frage": "Wie viel wird angegriffen? Zählt die angreifenden Adressen, die ein weltweites Sensornetz pro Tag sieht.",
-      "frage_en": "How much attacking is going on? Counts the attacking addresses a worldwide sensor network sees per day."
+      "frage": "Wie viel wird angegriffen? Zählt die angreifenden Adressen, die ein weltweites Sensornetz pro Tag sieht, und die Opfer, die Ransomware-Gruppen neu veröffentlichen.",
+      "frage_en": "How much attacking is going on? Counts the attacking addresses a worldwide sensor network sees per day and the victims ransomware groups newly publish."
     },
     {
       "id": "extern",
@@ -127,6 +127,21 @@
       "zeitraum_en": "last 7 complete days",
       "historie": "36 Monate",
       "grundlage": "Tagesübersicht des SANS Internet Storm Center (DShield): Zahl der Quell-Adressen, die von den Sensoren der Teilnehmer als Angreifer gemeldet wurden. 7-Tage-Mittel, täglich vom 19.10.2023 bis 24.11.2026: Median 153.956, 75. Perzentil 175.109, 90. Perzentil 212.720. Gewählt wurden die Quellen, nicht die Meldungen, weil ihre Zahl kaum davon abhängt, wie viele Sensoren gerade melden."
+    },
+    {
+      "id": "ransomware",
+      "gruppe": "angriffe",
+      "kurz": "Ransomware",
+      "name": "Ransomware: neue Opfer-Einträge auf Leak-Seiten (30 Tage)",
+      "name_en": "Ransomware: new victim posts on leak sites (30 days)",
+      "status": "aktiv",
+      "schwelle": 855,
+      "regel": "mindestens 855 neue Einträge auf Leak-Seiten in 30 Tagen, das obere Viertel der letzten 36 Monate",
+      "regel_en": "at least 855 new posts on leak sites in 30 days, the top quarter of the last 36 months",
+      "zeitraum": "letzte 30 vollständige Tage",
+      "zeitraum_en": "last 30 complete days",
+      "historie": "36 Monate",
+      "grundlage": "RansomLook zählt Einträge, die Ransomware-Gruppen auf ihren Leak-Seiten veröffentlichen. Je 30-Tage-Fenster, täglich vom 25.11.2023 bis 24.11.2026: Median 670, 75. Perzentil 855, 90. Perzentil 1.006. Es sind Behauptungen der Täter, keine bestätigten Vorfälle; die Zahl hängt auch davon ab, wie viele Gruppen das Projekt beobachtet. Gespeichert wird nur die Zahl je Tag, keine Namen."
     },
     {
       "id": "bsi",

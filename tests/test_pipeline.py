@@ -1005,5 +1005,14 @@ class DshieldTests(unittest.TestCase):
         self.assertEqual(r[-1], {"stand": "2026-01-09", "wert": 500})  # der 9. selbst zählt nicht mit
 
 
+class RansomTests(unittest.TestCase):
+    def test_parse_zaehlt_nur_und_fenster_ohne_laufenden_tag(self):
+        import fetch_historie, modell
+        self.assertEqual(fetch_historie.parse_ransom({"posts": [{"post_title": "X", "discovered": "2026-01-02T10:00:00"}, {"discovered": "2026-01-02 11:00:00"}, {"discovered": None}]}), {"2026-01-02": 2})
+        tage = {"2026-01-%02d" % i: 1 for i in range(1, 32)}; tage["2026-02-01"] = 50
+        r = modell.archiv_reihen({"ransomware": {"tage": tage}}, "2026-02-01")["ransomware"]
+        self.assertEqual(r[-1], {"stand": "2026-02-01", "wert": 30})  # 2. bis 31. Januar, der laufende Tag zählt nicht
+
+
 if __name__ == "__main__":
     unittest.main()

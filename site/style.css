@@ -591,3 +591,4 @@ html[lang=en] #teil3 .akk>summary::after{content:"OPEN +"}html[lang=en] #teil3 .
 /* /abo auf dem Handy: volle Breite unter der Navigation statt rechts angeschlagen */
 @media (max-width:899px){.dd-box.dd-l.dd-abo{left:8px;right:8px;width:auto;min-width:0}}
 .gr-frage{display:block;font-size:13px;margin:2px 0 8px}
+.kc-gruppe{margin:0 0 20px}.kc-gh{margin:0 0 2px;font-size:14px;color:var(--green);letter-spacing:.06em;text-transform:uppercase}.kc-gruppe .gr-frage{margin:0 0 10px}
