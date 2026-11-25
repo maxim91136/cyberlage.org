@@ -500,6 +500,21 @@ def main(argv):
         ergebnis["stufe"], ergebnis["stufe_begruendung"], ergebnis["stufe_begruendung_en"], ergebnis["pegel"] = None, "Der Gesamtscore ist noch nicht berechenbar.", "The overall score cannot be computed yet.", None
     ziel = WURZEL / "site" / "data" / "lage.json"
     ziel.parent.mkdir(parents=True, exist_ok=True)
+    # Logbuch: Stufenwechsel der Live-Reihe eintragen, die neuesten Einträge mit ausgeben
+    lbp = WURZEL / "data" / "logbuch.json"
+    lb = lese_optional(lbp) or {"eintraege": []}
+    try:
+        skala = (ergebnis.get("radar_skala") or {}).get("stufen") or []
+        if skala:
+            def _stufe(w):
+                return next((x["ampel"] for x in skala if w < x["bis"]), skala[-1]["ampel"])
+            namen = {x["ampel"]: (x["name"], x["name_en"]) for x in skala}
+            live = [x for x in (lese_optional(WURZEL / "data" / "radar" / "score.json") or {}).get("reihe", []) if isinstance(x.get("wert"), (int, float))]
+            if modell.logbuch_stufenwechsel(lb, sorted(live, key=lambda x: x["stand"]), _stufe, namen):
+                lbp.write_text(json.dumps(lb, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    except Exception as e:  # das Logbuch darf den Lauf nicht aufhalten
+        print("Hinweis: Logbuch nicht fortgeschrieben:", e)
+    ergebnis["logbuch"] = sorted(lb.get("eintraege", []), key=lambda e: e["datum"], reverse=True)[:40]
     # Schlanke Ausgabe: die lange Tagesreihe des Pegels spaltenweise (ein Wert je Tag ab "start"), ohne Einrückung
     pg = ergebnis.get("pegel") or {}
     lang = pg.get("reihe") or []

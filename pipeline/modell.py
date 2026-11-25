@@ -189,3 +189,22 @@ def rueck_reihe(ausschlaege, cfg, ohne_gruppen=("extern",)):
         if sc:
             out.append({"stand": d, "ausnutzung": sc["wert"], "n": sc["signale"]})
     return out
+
+
+def logbuch_stufenwechsel(logbuch, live_reihe, stufe_von, namen):
+    """Trägt Stufenwechsel der gespeicherten Live-Reihe als Ereignis ins Logbuch ein (jeden Wechsel einmal).
+    live_reihe: [{stand, wert}] aufsteigend; stufe_von: Funktion Wert -> Stufenschlüssel; namen: {Schlüssel: (deutsch, englisch)}."""
+    vorhanden = {(e["datum"], e.get("schluessel")) for e in logbuch.get("eintraege", [])}
+    neu = []
+    for a, b in zip(live_reihe, live_reihe[1:]):
+        sa, sb = stufe_von(a["wert"]), stufe_von(b["wert"])
+        if sa == sb or (b["stand"], "stufe:" + sb) in vorhanden:
+            continue
+        rauf = b["wert"] > a["wert"]
+        neu.append({"datum": b["stand"], "art": "ereignis", "schluessel": "stufe:" + sb,
+                    "titel": "Stufenwechsel: von „%s“ auf „%s“" % (namen[sa][0], namen[sb][0]), "titel_en": "Level change: from “%s” to “%s”" % (namen[sa][1], namen[sb][1]),
+                    "text": "Der Dreier-Pegel %s von %d auf %d." % ("stieg" if rauf else "fiel", a["wert"], b["wert"]),
+                    "text_en": "The Dreier Gauge %s from %d to %d." % ("rose" if rauf else "fell", a["wert"], b["wert"]), "belege": [], "belege_en": []})
+    if neu:
+        logbuch.setdefault("eintraege", []).extend(neu)
+    return neu

@@ -90,6 +90,7 @@
     var kq0 = (d.quellen || []).filter(function (q) { return q.id === "cisa-kev"; })[0] || {};
     $("stand").textContent = datum((d.radar && d.radar.abgerufen_am) || kq0.abgerufen_am || d.stand);
     window.__pegel = d.pegel || null;
+    zeigeLogbuch(d.logbuch || []);
     var fz = $("fazit"), f = d.fazit;
     if (fz && f) {
       fz.textContent = "";
@@ -928,6 +929,22 @@
     if (mitAdobe) box.appendChild(ad);
     box.appendChild(el("p", "mono dim fine", pick("Nur Zählung und Verweise auf die Meldungen der Hersteller, keine Texte. Schweregrade stammen von den Herstellern und fehlen, wo sie nicht geliefert werden (zum Beispiel bei Ubuntu und Debian).", "Counts and links to the vendors' advisories only, no texts. Severity comes from the vendors and is missing where they do not provide it (for example Ubuntu and Debian).")));
     box.hidden = false;
+  }
+
+  function zeigeLogbuch(liste) {
+    var box = $("lb-liste"), sek = $("logbuch"); if (!box) return; box.textContent = "";
+    if (sek) sek.hidden = !liste.length;
+    var art = { erkenntnis: pick("Erkenntnis", "Finding"), ereignis: pick("Ereignis", "Event"), modell: pick("Modell", "Model") };
+    liste.forEach(function (e) {
+      var a = el("article", "lb lb-" + e.art), kopf = el("div", "lb-k mono");
+      kopf.appendChild(el("time", "", datum(e.datum))); kopf.appendChild(el("span", "lb-art", art[e.art] || e.art));
+      a.appendChild(kopf);
+      a.appendChild(el("h3", "lb-t", pick(e.titel, e.titel_en)));
+      a.appendChild(el("p", "", pick(e.text, e.text_en)));
+      var bl = pick(e.belege, e.belege_en) || [];
+      if (bl.length) { var ul = el("ul", "lb-b mono dim"); bl.forEach(function (b) { ul.appendChild(el("li", "", b)); }); a.appendChild(ul); }
+      box.appendChild(a);
+    });
   }
 
   function zeigeBalken(sc, box) {

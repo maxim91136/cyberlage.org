@@ -1,0 +1,45 @@
+{
+ "hinweis": "Logbuch von cyberlage.org. Einträge bleiben stehen, auch wenn sich die Lage ändert. Arten: erkenntnis (von Hand, mit Belegen), ereignis (schreibt der Datenlauf: Stufenwechsel), modell (Änderung am Dreier-Pegel).",
+ "eintraege": [
+  {
+   "datum": "2026-11-25",
+   "art": "erkenntnis",
+   "titel": "Wettrennen: 2026 wird mehr gepatcht und mehr angegriffen als in den drei Jahren davor",
+   "titel_en": "A race: in 2026 more is patched and more is attacked than in the three years before",
+   "text": "Verteidigung und Angriff nehmen gleichzeitig Fahrt auf. Die Warndienste melden weit mehr Lücken als in den Vorjahren, zugleich werden mehr Lücken nachweislich ausgenutzt und mehr Opfer von Ransomware veröffentlicht. Das Fenster zwischen Bekanntwerden und Ausnutzung ist kurz.",
+   "text_en": "Defence and attack are speeding up at the same time. Warning services report far more flaws than in earlier years, while more flaws are proven to be exploited and more ransomware victims are published. The window between disclosure and exploitation is short.",
+   "belege": [
+    "CERT-Bund lag im letzten Jahr an 92 % der Tage über der Schwelle der beiden Vorjahre",
+    "Ransomware-Einträge an 99 %, KEV-Menge an 75 % der Tage",
+    "Ransomware: 1.341 neue Einträge in 30 Tagen, Höchststand der drei Jahre",
+    "Tempo bis KEV: 5 Tage im Median",
+    "Grundlage: Test mit getrennten Zeiträumen in RULES.md, gerechnet am 25.11.2026"
+   ],
+   "belege_en": [
+    "CERT-Bund was above the threshold of the two earlier years on 92% of days in the last year",
+    "Ransomware posts on 99%, KEV count on 75% of days",
+    "Ransomware: 1,341 new posts in 30 days, the high of the three years",
+    "Pace to KEV: 5 days median",
+    "Basis: test with separate periods in RULES.md, computed on 25 Nov 2026"
+   ]
+  },
+  {
+   "datum": "2026-11-25",
+   "art": "modell",
+   "titel": "Der Dreier-Pegel hat zehn Bausteine in vier Gruppen",
+   "titel_en": "The Dreier Gauge has ten components in four groups",
+   "text": "Neu ist die Gruppe Angriffsaktivität mit DShield (angreifende Quellen je Tag) und Ransomware (neue Opfer-Einträge auf Leak-Seiten). Dazu kamen EU-KEV, Microsoft, CERT-Bund und NCSC-NL mit eigenen Schwellen aus drei Jahren Archiv. Jede Gruppe hat mindestens zwei Bausteine, kein einzelner bestimmt den Pegel.",
+   "text_en": "New is the group attack activity with DShield (attacking sources per day) and ransomware (new victim posts on leak sites). EU KEV, Microsoft, CERT-Bund and NCSC-NL were added with their own thresholds from three years of archive. Every group has at least two components, none determines the gauge alone.",
+   "belege": [
+    "Lässt man einen Baustein weg, ändert sich der Pegel im Mittel um 1 bis 3 Punkte",
+    "Grenze ruhig/unauffällig von 30 auf 35",
+    "Begründung und Prüfung: RULES.md"
+   ],
+   "belege_en": [
+    "Leaving one component out changes the gauge by 1 to 3 points on average",
+    "Limit calm/unremarkable moved from 30 to 35",
+    "Rationale and checks: RULES.md"
+   ]
+  }
+ ]
+}

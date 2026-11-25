@@ -1094,5 +1094,19 @@ class RansomTests(unittest.TestCase):
         self.assertEqual(r[-1], {"stand": "2026-02-01", "wert": 30})  # 2. bis 31. Januar, der laufende Tag zählt nicht
 
 
+class LogbuchTests(unittest.TestCase):
+    def test_stufenwechsel_wird_einmal_eingetragen(self):
+        import modell
+        stufe = lambda w: "hoch" if w >= 64 else "angespannt"
+        namen = {"hoch": ("hoch", "high"), "angespannt": ("angespannt", "tense")}
+        lb = {"eintraege": []}
+        reihe = [{"stand": "2026-11-25", "wert": 63}, {"stand": "2026-11-26", "wert": 66}, {"stand": "2026-11-27", "wert": 67}]
+        neu = modell.logbuch_stufenwechsel(lb, reihe, stufe, namen)
+        self.assertEqual(len(neu), 1)
+        self.assertEqual((neu[0]["datum"], neu[0]["art"]), ("2026-11-26", "ereignis"))
+        self.assertIn("stieg von 63 auf 66", neu[0]["text"])
+        self.assertEqual(modell.logbuch_stufenwechsel(lb, reihe, stufe, namen), [])  # zweiter Lauf trägt nichts doppelt ein
+
+
 if __name__ == "__main__":
     unittest.main()
