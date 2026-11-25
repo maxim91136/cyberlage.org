@@ -106,7 +106,11 @@
           var dd = el("dd", "fz-top");
           top.forEach(function (p, i) {
             if (i) dd.appendChild(document.createTextNode(" · "));
-            var lk = el("a", "", (p.cves && p.cves[0] ? p.cves[0] + " " : "") + "(" + String(p.titel || "").replace(/^[A-Z]+-[\d:-]+:\s*/, "").slice(0, 42) + ")"); lk.href = "#patches"; dd.appendChild(lk);
+            var nm = String(p.titel || "").replace(/^[A-Z]+-[\d:-]+:\s*/, "").split(",")[0].replace(/^.*\//, "").replace(/\s+(security update|vulnerabilit(y|ies)|update)$/i, "").trim();
+            if (nm.length > 34) nm = nm.slice(0, 34).replace(/\s+\S*$/, "") + "…";
+            var mk = { 1: "KEV", 2: pick("ausgenutzt", "exploited"), 3: "EPSS", 4: pick("kritisch", "critical") }[p.stufe] || "";
+            var lk = el("a", "", (p.cves && p.cves[0] ? p.cves[0] : nm) + (p.cves && p.cves[0] && nm ? " (" + nm + ")" : "")); lk.href = "#patches"; lk.title = pick(p.grund, p.grund_en) || ""; dd.appendChild(lk);
+            if (mk) { dd.appendChild(document.createTextNode(" ")); dd.appendChild(el("span", "fz-mk mono", mk)); }
           });
           dl.appendChild(dd);
         }
@@ -908,7 +912,7 @@
           var pl = document.createElementNS(NSs, "polyline"); pl.setAttribute("fill", "none"); pl.setAttribute("stroke", "currentColor"); pl.setAttribute("stroke-width", "1.6");
           pl.setAttribute("points", a9.map(function (v, i) { return (i * (Ws - 4) / (a9.length - 1) + 2).toFixed(1) + "," + (Hs - 4 - (v - mn) / sp * (Hs - 8)).toFixed(1); }).join(" ")); sv.appendChild(pl);
           var w9 = el("div", "spark-w mono"); w9.appendChild(sv);
-          w9.appendChild(el("span", "dim", pick("90 Tage, ohne BSI/SANS: zwischen " + mn + " und " + mx + ", zuletzt " + a9[a9.length - 1], "90 days, without BSI/SANS: between " + mn + " and " + mx + ", latest " + a9[a9.length - 1])));
+          w9.appendChild(el("span", "dim", pick("Verlauf 90 Tage: zwischen " + mn + " und " + mx + " (rückgerechnet ohne BSI Cyber Index und SANS, daher nicht gleich dem Wert links)", "90-day course: between " + mn + " and " + mx + " (recalculated without BSI Cyber Index and SANS, so not equal to the value on the left)")));
           tx.appendChild(w9);
         }
       }
