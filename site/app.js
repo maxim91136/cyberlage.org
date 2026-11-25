@@ -100,6 +100,16 @@
         [[pick("Lage", "Situation"), pick(f.stufe_satz, f.stufe_satz_en), ""], [pick("Treiber", "Drivers"), pick(f.treiber, f.treiber_en), ""], [pick("Empfehlung", "Advice"), pick(f.hinweis, f.hinweis_en), "fh"]].forEach(function (z) {
           dl.appendChild(el("dt", "mono", z[0])); dl.appendChild(el("dd", z[2], z[1]));
         });
+        var top = ((((d.patches || {}).prioritaet || {}).liste) || []).slice(0, 3);
+        if (top.length) {
+          dl.appendChild(el("dt", "mono", pick("Zuerst patchen", "Patch first")));
+          var dd = el("dd", "fz-top");
+          top.forEach(function (p, i) {
+            if (i) dd.appendChild(document.createTextNode(" · "));
+            var lk = el("a", "", (p.cves && p.cves[0] ? p.cves[0] + " " : "") + "(" + String(p.titel || "").replace(/^[A-Z]+-[\d:-]+:\s*/, "").slice(0, 42) + ")"); lk.href = "#patches"; dd.appendChild(lk);
+          });
+          dl.appendChild(dd);
+        }
         fz.appendChild(dl);
       } else {
         fz.appendChild(el("p", "ft", pick(f.text, f.text_en)));
@@ -890,6 +900,17 @@
         var lv = ((window.__pegel || {}).reihe_k || {}).live || {}, tg = Object.keys(lv).sort(), gest = tg.length > 1 ? lv[tg[tg.length - 2]][0] : null;
         if (typeof gest === "number") teile.push(pick("am Vortag " + gest, "previous day " + gest));
         if (teile.length) tx.appendChild(el("span", "mono", pick("Abstand: ", "Margin: ") + teile.join(" · ")));
+        var rk9 = (window.__pegel || {}).reihe_k, a9 = rk9 && rk9.a ? rk9.a.slice(-90) : [];
+        if (a9.length > 20) {
+          var NSs = "http://www.w3.org/2000/svg", Ws = 260, Hs = 46, mn = Math.min.apply(null, a9), mx = Math.max.apply(null, a9), sp = Math.max(mx - mn, 1);
+          var sv = document.createElementNS(NSs, "svg"); sv.setAttribute("viewBox", "0 0 " + Ws + " " + Hs); sv.setAttribute("class", "spark"); sv.setAttribute("role", "img");
+          var ti = document.createElementNS(NSs, "title"); ti.textContent = pick("Verlauf der letzten 90 Tage", "Course of the last 90 days"); sv.appendChild(ti);
+          var pl = document.createElementNS(NSs, "polyline"); pl.setAttribute("fill", "none"); pl.setAttribute("stroke", "currentColor"); pl.setAttribute("stroke-width", "1.6");
+          pl.setAttribute("points", a9.map(function (v, i) { return (i * (Ws - 4) / (a9.length - 1) + 2).toFixed(1) + "," + (Hs - 4 - (v - mn) / sp * (Hs - 8)).toFixed(1); }).join(" ")); sv.appendChild(pl);
+          var w9 = el("div", "spark-w mono"); w9.appendChild(sv);
+          w9.appendChild(el("span", "dim", pick("90 Tage, ohne BSI/SANS: zwischen " + mn + " und " + mx + ", zuletzt " + a9[a9.length - 1], "90 days, without BSI/SANS: between " + mn + " and " + mx + ", latest " + a9[a9.length - 1])));
+          tx.appendChild(w9);
+        }
       }
       tx.appendChild(el("span", "mono dim", pick("Stand: ", "as of: ") + datum(r.abgerufen_am)));
       sb.appendChild(tx); sb.hidden = false;
