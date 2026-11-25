@@ -379,6 +379,11 @@
         li.appendChild(el("div", "p-t", k.titel));
         if (k.betrifft && k.betrifft !== k.quelle) li.appendChild(el("div", "p-w", pick("Betrifft: ", "Affects: ") + k.betrifft));
         li.appendChild(el("div", "p-w", pick("Warum zuerst: ", "Why first: ") + pick(k.grund, k.grund_en)));
+        var bw = [];
+        (k.cvss || []).forEach(function (c) { bw.push("CVSS " + String(c.score).replace(".", pick(",", ".")) + ((k.cves || []).length > 1 || k.cvss.length > 1 ? " (" + c.cve + ")" : "")); });
+        if (typeof k.epss === "number") bw.push("EPSS " + Math.round(k.epss * 100) + " %");
+        li.appendChild(el("div", "p-w mono", pick("Bewertung: ", "Scores: ") + (bw.length ? bw.join(" · ") : pick("CVSS noch nicht verfügbar", "CVSS not available yet")) + (k.cves && k.cves.length > 3 ? " …" : "")));
+        li.appendChild(el("div", "p-w mono dim fine", pick("Rang " + k.rang + ": Stufe " + k.stufe + " von 4 (", "Rank " + k.rang + ": level " + k.stufe + " of 4 (") + pick(k.stufe_name, k.stufe_name_en) + pick("). Innerhalb der Stufe zählt EPSS, dann CVSS.", "). Within a level EPSS counts, then CVSS.")));
         var fx = el("div", "p-fix"); fx.appendChild(el("b", "mono", pick("Lösung: ", "Fix: ")));
         var teile = [];
         teile = fixTeile(k.fixe);

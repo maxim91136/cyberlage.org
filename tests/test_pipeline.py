@@ -877,3 +877,25 @@ class PatchStandTests(unittest.TestCase):
         self.assertEqual([k["cves"][0] for k in r["liste"]], ["CVE-1"])
         self.assertIn("KB5068861", r["liste"][0]["patch_text"])
         self.assertEqual([k["cves"][0] for k in r["ohne_patch"]], ["CVE-2"])
+
+
+class CvssTests(unittest.TestCase):
+    def test_hole_cvss_cache_und_fehler(self):
+        def lade(url):
+            if "CVE-2" in url:
+                raise OSError("x")
+            return {"vulnerabilities": [{"cve": {"metrics": {"cvssMetricV31": [{"cvssData": {"baseScore": 9.8}}]}}}]}
+        cache = fetch_patches.hole_cvss(["CVE-1", "CVE-2"], {"CVE-3": 5.0}, lade=lade, pause=0)
+        self.assertEqual(cache["CVE-1"], 9.8)
+        self.assertNotIn("CVE-2", cache)  # Fehler: Wert bleibt offen
+        self.assertEqual(cache["CVE-3"], 5.0)
+
+    def test_rang_innerhalb_stufe_nach_epss_dann_cvss(self):
+        from datetime import date
+        ms = [{"erste_veroeffentlichung": "2026-11-11T08:00:00Z", "kandidaten": [
+            {"cve": "CVE-A", "titel": "A", "schwere": "Critical", "ausgenutzt": True, "oeffentlich": False, "kev": True, "patch": "ja", "cvss": 7.0, "familien": []},
+            {"cve": "CVE-B", "titel": "B", "schwere": "Critical", "ausgenutzt": True, "oeffentlich": False, "kev": True, "patch": "ja", "cvss": 9.0, "familien": []}]}]
+        r = fetch_patches.priorisiere(ms, {}, [], {}, date(2026, 11, 25))
+        self.assertEqual([k["cves"][0] for k in r["liste"]], ["CVE-B", "CVE-A"])
+        self.assertEqual(r["liste"][0]["cvss"], [{"cve": "CVE-B", "score": 9.0}])
+        self.assertEqual(r["liste"][0]["stufe_name"], "im CISA-KEV, nachweislich angegriffen")

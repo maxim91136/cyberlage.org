@@ -34,7 +34,7 @@ MONAT_ID = re.compile(r"^(\d{4})-(" + "|".join(MONATE) + r")$")
 SCHWEREN = ("Critical", "Important", "Moderate", "Low")
 BEHALTEN_MONATE = 36
 HISTORIE_MONATE = 12  # Vergleichsbasis für die Bewertung
-SCHEMA = 9  # erhöhen, wenn sich die Zählweise ändert: dann werden alle Monate neu geholt
+SCHEMA = 10  # erhöhen, wenn sich die Zählweise ändert: dann werden alle Monate neu geholt
 
 
 class QuellFehler(Exception):
@@ -187,6 +187,8 @@ def verdichte_dokument(doc, kev_cves=()):
                 ex_text = text
         schwere[sev if sev in SCHWEREN else "unbekannt"] += 1
         patch, kbs = patch_stand(v)
+        wertung = [float(x.get("BaseScore")) for x in (v.get("CVSSScoreSets") or []) if isinstance(x.get("BaseScore"), (int, float))]
+        cvss = max(wertung) if wertung else None
         fix_t, fix_u = fix_hinweis(v)
         fixe = fix_liste(v, produkte)
         if patch == "nein":
@@ -198,7 +200,7 @@ def verdichte_dokument(doc, kev_cves=()):
             for st in v.get("ProductStatuses") or []:
                 for pid in st.get("ProductID") or []:
                     fam_c.add(familie(produkte.get(str(pid), "")))
-            kandidaten.append({"cve": cve, "titel": titel[:120], "schwere": sev, "ausgenutzt": ist_aus, "oeffentlich": ist_oeff, "kev": cve in kev,
+            kandidaten.append({"cve": cve, "titel": titel[:120], "schwere": sev, "ausgenutzt": ist_aus, "oeffentlich": ist_oeff, "kev": cve in kev, "cvss": cvss,
                                "fix_roh": ([{kk: (str(vv)[:160] if not isinstance(vv, (list, dict)) else (_wert(vv) if isinstance(vv, dict) else "[%d]" % len(vv))) for kk, vv in r.items() if kk != "ProductID"} for r in (v.get("Remediations") or []) if r.get("Type") == 2][:4] if (ist_aus or cve in kev) else []),
                                "patch": patch, "kb": kbs, "fix_text": fix_t, "fix_url": fix_u, "fixe": fixe, "familien": sorted(fam_c - {"Sonstige"})[:3]})
         if imp:
@@ -572,15 +574,43 @@ def hole_epss(cves, lade=lade_json):
     return out
 
 
+CVSS_DATEI = WURZEL / "data" / "patches" / "cvss.json"
+NVD_EINZEL = "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId="
+
+
+def hole_cvss(cves, cache, lade=lade_json, pause=6.5, maximum=20):
+    """CVSS-Basiswerte aus der NVD für CVEs ohne bekannten Wert (Cache in data/patches/cvss.json). Fehler lassen den Wert offen."""
+    import fetch_ausblick
+    import time
+    neu = 0
+    for c in sorted(set(cves)):
+        if c in cache or neu >= maximum:
+            continue
+        try:
+            d = lade(NVD_EINZEL + c)
+            vs = d.get("vulnerabilities") or []
+            cache[c] = fetch_ausblick.cvss_wert((vs[0].get("cve") or {}).get("metrics")) if vs else None
+        except Exception:
+            continue
+        neu += 1
+        time.sleep(pause)
+    return cache
+
+
+STUFEN_NAMEN = {1: ("im CISA-KEV, nachweislich angegriffen", "in the CISA KEV, proven attacked"), 2: ("vom Hersteller als ausgenutzt gemeldet", "reported exploited by the vendor"),
+                3: ("hohe Ausnutzungswahrscheinlichkeit (EPSS)", "high likelihood of exploitation (EPSS)"), 4: ("vom Hersteller als kritisch eingestuft", "rated critical by the vendor")}
+
+
 def _pm(name):
     n = name.lower()
     return "apt" if ("ubuntu" in n or "debian" in n) else ("dnf/yum" if "red hat" in n else "Paketverwaltung")
 
 
-def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=24):
+def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=24, cvss=None):
     """Rangliste nach festen Regeln: 1 im KEV (nachweislich angegriffen), 2 vom Hersteller als ausgenutzt gemeldet,
     3 EPSS ab 10 %, 4 vom Hersteller als kritisch eingestuft. Innerhalb einer Stufe nach EPSS, dann nach Kennung."""
     kev = set(kev)
+    cvss = cvss or {}
     kand, gesehen, ohne = [], set(), []
     for m in ms_monate or []:
         try:
@@ -628,7 +658,7 @@ def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=24):
             else:
                 pt, pt_en = "Patch-Stand bei Microsoft prüfen", "Check patch status with Microsoft"
             kand.append({"stufe": stufe, "epss": e, "quelle": "Microsoft", "titel": k["titel"], "cves": [k["cve"]], "grund": g, "grund_en": ge,
-                         "patch": pst, "patch_text": pt, "patch_text_en": pt_en, "patch_link": k.get("fix_url") or next((f["url"] for f in (k.get("fixe") or []) if f.get("url")), ""), "fixe": k.get("fixe") or [], "monat": m.get("id"),
+                         "cvss_ms": k.get("cvss"), "patch": pst, "patch_text": pt, "patch_text_en": pt_en, "patch_link": k.get("fix_url") or next((f["url"] for f in (k.get("fixe") or []) if f.get("url")), ""), "fixe": k.get("fixe") or [], "monat": m.get("id"),
                          "betrifft": ", ".join(k["familien"]), "datum": str(m.get("erste_veroeffentlichung"))[:10],
                          "link": "https://msrc.microsoft.com/update-guide/vulnerability/" + k["cve"]})
     for q in (hersteller or {}).get("quellen", {}).values():
@@ -659,10 +689,20 @@ def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=24):
                 gesehen.add(x["id"])
                 kand.append({"stufe": 4, "epss": None, "quelle": q["name"], "titel": x["titel"], "cves": [], "grund": "Vom Hersteller als kritisch eingestuft.",
                              "grund_en": "Rated critical by the vendor.", "patch": "pruefen", "patch_text": "Fix-Stand im Advisory prüfen", "patch_text_en": "Check fix status in the advisory", "betrifft": q["name"], "datum": x["datum"], "link": x["link"]})
-    kand.sort(key=lambda k: (k["stufe"], -(k["epss"] or 0), k["cves"][0] if k["cves"] else k["titel"]))
+    for k in kand:
+        w = [{"cve": c, "score": cvss.get(c)} for c in k["cves"]]
+        if k.get("cvss_ms") is not None:
+            w = [{"cve": k["cves"][0], "score": k["cvss_ms"]}]
+        w = [x for x in w if x["score"] is not None]
+        k["cvss"] = sorted(w, key=lambda x: -x["score"])[:3]
+        k["cvss_max"] = k["cvss"][0]["score"] if k["cvss"] else None
+        k["stufe_name"] = STUFEN_NAMEN[k["stufe"]][0]
+        k["stufe_name_en"] = STUFEN_NAMEN[k["stufe"]][1]
+        k.pop("cvss_ms", None)
+    kand.sort(key=lambda k: (k["stufe"], -(k["epss"] or 0), -(k["cvss_max"] or 0), k["cves"][0] if k["cves"] else k["titel"]))
     for i, k in enumerate(kand[:maximum], 1):
         k["rang"] = i
-    return {"stand": heute.isoformat(), "regeln": "Nur Lücken, für die ein Patch vorliegt oder im Advisory zu prüfen ist. 1 im CISA-KEV, 2 vom Hersteller als ausgenutzt gemeldet, 3 EPSS ab 10 %, 4 vom Hersteller als kritisch eingestuft",
+    return {"stand": heute.isoformat(), "regeln": "Nur Lücken, für die ein Patch vorliegt oder im Advisory zu prüfen ist. Stufe 1 im CISA-KEV, 2 vom Hersteller als ausgenutzt gemeldet, 3 EPSS ab 10 %, 4 vom Hersteller als kritisch eingestuft. Innerhalb einer Stufe nach EPSS, dann nach CVSS, dann nach Kennung",
             "gesamt": len(kand), "liste": kand[:maximum], "ohne_patch": sorted(ohne, key=lambda k: (k["stufe"], k["cves"][0]))[:6]}
 
 
@@ -703,7 +743,15 @@ def main():
         monate = list((ms.get("monate") or {}).values())
         kand = [k["cve"] for m in monate[-2:] for k in m.get("kandidaten", [])]
         epss = hole_epss(kand)
-        pr = priorisiere(monate, hs, kev, epss, jetzt.date())
+        vorab = priorisiere(monate, hs, kev, epss, jetzt.date())
+        cache = lese_datei(CVSS_DATEI) or {}
+        brauch = [c for k in vorab["liste"] if k.get("cvss_max") is None for c in k["cves"][:3]]
+        try:
+            hole_cvss(brauch, cache)
+            CVSS_DATEI.write_text(json.dumps(cache, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+        except Exception as e:
+            print("CVSS: Fehler (%s)" % e)
+        pr = priorisiere(monate, hs, kev, epss, jetzt.date(), cvss=cache)
         PRIO_DATEI.write_text(json.dumps(pr, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
         print("Priorität: %d Einträge insgesamt, %d angezeigt, EPSS für %d Kandidaten" % (pr["gesamt"], len(pr["liste"]), len(epss)))
     except Exception as e:
