@@ -97,14 +97,7 @@
   <details class="teil" id="teil1">
     <summary class="wrap grp teil1"><h2 id="h-teil1" class="mono" data-t="tl_h">## teil 1 · lage</h2></summary>
     <div id="teil-lage" class="wrap">
-    <h2 id="h-teil1" class="mono" data-t="tl_h">## teil 1 · lage</h2>
     <p class="sw-lead" data-t="tl_intro">Wie angespannt ist die Cyberlage weltweit? Der Dreier-Pegel misst das als ein Score aus mehreren Bausteinen, die Signale und der Rückblick belegen es.</p>
-    <nav class="subnav mono" aria-label="Teil 1">
-      <a href="#radar"><span data-t="s_lage">Bausteine &amp; Radar</span></a>
-      <a href="#signale"><span data-t="s_sig">Signale</span></a>
-      <a href="#rueckblick"><span data-t="s_rueck">Rückblick</span></a>
-      <a href="#wie"><span data-t="s_wie">So entsteht der Pegel</span></a>
-    </nav>
     </div>
   <section id="bausteine" class="wrap" aria-labelledby="h-bau">
     <details class="sek" id="k-bausteine">
@@ -128,10 +121,14 @@
     <details class="sek" id="k-signale">
       <summary><h2 id="h-sig" class="mono" data-t="rd_sig_h">## signale</h2></summary>
     <p class="dim" data-t="rd_sig_intro">Jeder Baustein einmal, mit Wert, Schwelle, Regel und Zeitraum. Messungen sind Zählungen aus offenen Rohdaten, Einschätzungen sind Urteile anderer Stellen.</p>
-    <h3 class="mono rd-gr" data-t="rd_g_score">Im Dreier-Pegel: die acht Bausteine mit ihrer Schwelle</h3>
+    <details class="sek sub" id="k-s-score">
+      <summary><h3 class="mono" data-t="rd_g_score">Im Dreier-Pegel: die acht Bausteine mit ihrer Schwelle</h3></summary>
     <div class="rd-kacheln" id="rd-k-score"></div>
-    <h3 class="mono rd-gr" data-t="rd_g_ktx">Nur zur Einordnung: ohne Schwelle, nicht im Score</h3>
+    </details>
+    <details class="sek sub" id="k-s-ktx">
+      <summary><h3 class="mono" data-t="rd_g_ktx">Nur zur Einordnung: ohne Schwelle, nicht im Score</h3></summary>
     <div class="rd-kacheln" id="rd-k-ktx"></div>
+    </details>
     <p class="mono dim fine" data-t="rd_vgl_n">Die Quellen messen Verschiedenes. Zeigen mehrere in dieselbe Richtung, ist das ein stärkeres Signal als eine allein.</p>
     <details class="panel pad rd rd-det">
       <summary class="mono" data-t="rd_det">Erklärungen zu Trefferquote und EU-Abgleich</summary>
@@ -143,28 +140,36 @@
   <section id="rueckblick" class="wrap" aria-labelledby="h-rueck">
     <details class="sek" id="k-rueck">
       <summary><h2 id="h-rueck" class="mono" data-t="r_h">## rückblick</h2></summary>
+    <details class="sek sub" id="k-r-pegel">
+      <summary><h3 class="mono rd-t" data-t="r_rscore">Dreier-Pegel im Verlauf · 3 Jahre</h3></summary>
     <div class="panel pad rd">
-      <h3 class="mono rd-t" data-t="r_rscore">Dreier-Pegel im Verlauf · 3 Jahre</h3>
       <svg id="rs-chart" role="img" viewBox="0 0 1000 200" width="100%" preserveAspectRatio="xMidYMid meet"></svg>
       <p class="mono dim fine" id="rs-legende"></p>
     </div>
+    </details>
+    <details class="sek sub" id="k-r-kev">
+      <summary><h3 class="mono rd-t" data-t="r_pegel">KEV-Menge im Verlauf</h3></summary>
     <div class="panel pad">
-      <h3 class="mono rd-t" data-t="r_pegel">KEV-Menge im Verlauf</h3>
       <svg id="verlauf" role="img" aria-labelledby="verlauf-titel" viewBox="0 0 1000 220" width="100%" preserveAspectRatio="xMidYMid meet"><title id="verlauf-titel">Verlauf der neu aufgenommenen Schwachstellen</title></svg>
       <p class="mono dim fine" id="verlauf-legende"></p>
     </div>
+    </details>
+    <details class="sek sub" id="k-r-tempo">
+      <summary><h3 class="mono rd-t" data-t="rd_zeit_h">Wie schnell wird eine Lücke ausgenutzt gemeldet?</h3></summary>
     <div class="panel pad rd">
-      <h3 class="mono rd-t" data-t="rd_zeit_h">Wie schnell wird eine Lücke ausgenutzt gemeldet?</h3>
       <div class="rd-zahlen" id="rd-zahlen"></div>
       <svg id="rd-chart" role="img" aria-labelledby="rd-chart-titel" viewBox="0 0 1000 200" width="100%" preserveAspectRatio="xMidYMid meet"><title id="rd-chart-titel">Anteil der KEV-Aufnahmen binnen 30 Tagen nach Veröffentlichung, je Monat</title></svg>
       <p class="mono dim fine" id="rd-zeit-fine"></p>
     </div>
+    </details>
+    <details class="sek sub" id="k-r-gruende">
+      <summary><h3 class="mono rd-t" data-t="rd_warum_h">Belegte Gründe für den Takt</h3></summary>
     <div class="panel pad rd">
-      <h3 class="mono rd-t" data-t="rd_warum_h">Belegte Gründe für den Takt</h3>
       <ul class="hinw" id="rd-gruende"></ul>
       <p class="mono dim fine" id="rd-pruef"></p>
       <p class="mono dim fine" data-t="rd_warum_n">Das ist der langfristige Hintergrund, nicht der Tagesstand. Von Hand gepflegt, jeweils mit Quelle und Prüfdatum. Geopolitische Spannungen messen wir nicht.</p>
     </div>
+    </details>
     </details>
   </section>
   <section id="wie" class="wrap" aria-labelledby="h-wie">
@@ -184,28 +189,25 @@
   <details class="teil" id="teil2">
     <summary class="wrap grp"><h2 id="h-schwach" class="mono" data-t="sw_h">## teil 2 · handeln: schwachstellen &amp; patches</h2></summary>
     <div id="schwach" class="wrap">
-    <h2 id="h-schwach" class="mono" data-t="sw_h">## teil 2 · handeln: schwachstellen &amp; patches</h2>
     <p class="sw-lead" data-t="sw_intro">Welche Lücken zuerst geschlossen werden müssen und mit welchem Patch. Gelistet sind nur Lücken, für die es einen Patch gibt; Angegriffenes ohne Patch steht gesondert darunter.</p>
-    <nav class="subnav mono" aria-label="Teil 2">
-      <a href="#patches"><span data-t="s_patches">Patches</span></a>
-      <a href="#termine"><span data-t="s_termine">Patch-Kalender</span></a>
-      <a href="#neu" data-tab="kev"><span data-t="s_kev">Angegriffen (KEV)</span></a>
-      <a href="#neu" data-tab="ausblick"><span data-t="s_neu">Neue Lücken</span></a>
-    </nav>
     </div>
   <section id="patches" class="wrap" aria-labelledby="h-patches">
-    <h2 id="h-patches" class="mono" data-t="p_h">## patches: was zuerst, womit</h2>
+    <details class="sek" id="k-patches">
+      <summary><h2 id="h-patches" class="mono" data-t="p_h">## patches: was zuerst, womit</h2></summary>
     <p class="dim" data-t="p_intro">Was die Hersteller zuletzt gepatcht haben, mit Zahlen und einer Bewertung nach festen Regeln. Wir verwalten keine Patches und bewerten die Schwere nicht selbst: Schweregrad und Ausnutzung stammen von den Herstellern.</p>
     <div class="panel pad p-werk" id="p-werk"></div>
-    <div class="panel pad pt pz" id="p-zuerst" hidden></div>
-    <details class="sek psub" id="k-ms"><summary><h3 class="mono" data-t="k_ms">Microsoft Patch Day</h3></summary>
+    <details class="sek sub psub" id="k-zuerst"><summary><h3 class="mono" data-t="k_zuerst">Diese Woche zuerst</h3></summary>
+      <div class="panel pad pt pz" id="p-zuerst" hidden></div>
+    </details>
+    <details class="sek sub psub" id="k-ms"><summary><h3 class="mono" data-t="k_ms">Microsoft Patch Day</h3></summary>
       <div class="panel pad pt" id="p-ms" hidden></div>
     </details>
-    <details class="sek psub" id="k-edge"><summary><h3 class="mono" data-t="k_edge">Edge und Chrome</h3></summary>
+    <details class="sek sub psub" id="k-edge"><summary><h3 class="mono" data-t="k_edge">Edge und Chrome</h3></summary>
       <div class="panel pad pt" id="p-edge" hidden></div>
     </details>
-    <details class="sek psub" id="k-hs"><summary><h3 class="mono" data-t="k_hs">Linux-Distributionen und Hersteller</h3></summary>
+    <details class="sek sub psub" id="k-hs"><summary><h3 class="mono" data-t="k_hs">Linux-Distributionen und Hersteller</h3></summary>
       <div class="panel pad pt" id="p-hs" hidden></div>
+    </details>
     </details>
   </section>
   <section id="termine" class="wrap" aria-labelledby="h-termine">

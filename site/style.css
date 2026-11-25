@@ -522,3 +522,28 @@ html[lang=en] .teil>summary::after,html[lang=en] .sek>summary::after{content:"OP
 /* Navigation zwischen 900 und 1240 px: eine Zeile, ohne Gruppenschilder, enger gesetzt */
 @media (min-width:900px) and (max-width:1239px){.navin{gap:0 12px;flex-wrap:nowrap}.nav-row{gap:2px 11px}.nav-row .nav-grp{display:none}.nav-row>a,.nav-row .dd>summary{font-size:14.5px}.nav-g1,.nav-g2{padding-right:12px!important}.navin button,.navin .sprache{font-size:12px;padding:4px 8px}}
 .teil>summary h2{color:var(--green)}html.alarm .teil>summary h2{color:#ff5b6b}#teil3>summary h2{color:var(--text)}#teil3 section.wrap{margin-top:14px}
+/* ===== Klappen einheitlich: Ebene 1 Leiste (grün), Ebene 2 Zeile (weiß), Ebene 3 eingerückte Zeile ===== */
+.teil #schwach,.teil #teil-lage{margin-top:14px;padding-top:0;border-top:0}
+.teil .sw-lead{font-size:15px;color:var(--dim);margin:0 0 4px;max-width:760px}
+.sek>summary h2,.sek>summary h3{margin:0;font-weight:600;color:var(--text)}
+.sek>summary h2{font-size:18px}
+.sek.sub{margin:0 0 0 6px;padding-left:14px;border-left:1px solid var(--line)}
+.sek.sub>summary{padding:11px 2px}
+.sek.sub>summary h3{font-size:15px}
+.sek.sub>summary h3::before{content:"› ";color:var(--green)}
+.sek.sub[open]>summary{margin-bottom:12px}.sek.sub[open]{padding-bottom:10px;border-left-color:#2b5a45}
+.sek.sub>summary::after{font-size:10px;padding:3px 7px}
+.sek.psub{margin-top:0}.sek.psub>summary h3{font-size:15px;color:var(--text)}
+#k-zuerst .panel>h3:first-child{display:none}
+.sek>.dim,.sek>p.dim{margin-top:0}
+/* Info-Punkte wie Ebene 2 */
+#teil3 .akk{border:0;background:none;margin:0;border-radius:0}
+#teil3 .akk>summary{display:flex;justify-content:space-between;align-items:center;padding:13px 2px;border-bottom:1px solid var(--line);color:var(--text);font-size:18px;font-weight:600}
+#teil3 .akk>summary::before{content:"## ";white-space:pre;color:var(--text);margin-right:0}
+#teil3 .akk>summary{justify-content:flex-start}
+#teil3 .akk>summary::after{content:"ÖFFNEN +";margin-left:auto;font:11px ui-monospace,Menlo,monospace;letter-spacing:.14em;color:var(--green);border:1px solid #23463a;border-radius:6px;padding:4px 8px;font-weight:400}
+#teil3 .akk[open]>summary::after{content:"SCHLIESSEN –"}#teil3 .akk[open]>summary{border-bottom-color:#2b5a45;margin-bottom:14px}
+html[lang=en] #teil3 .akk>summary::after{content:"OPEN +"}html[lang=en] #teil3 .akk[open]>summary::after{content:"CLOSE –"}
+#teil3 .akk>*:not(summary){margin-left:2px;margin-right:2px}
+#teil3 .akk>summary{text-transform:lowercase}
+@media (max-width:600px){#teil3 .akk>summary{font-size:16px}.sek>summary h2{font-size:16px}.sek.sub>summary h3{font-size:14px}}

@@ -33,6 +33,7 @@
     l_umbau: "⚠ Work in progress: the Dreier Gauge is being reworked. Components and value may still change.",
     rd_einzel: "Individual values and group structure",
     k_bau: "## components", k_wie: "## how the gauge arises", k_ms: "Microsoft patch day", k_edge: "Edge and Chrome", k_hs: "Linux distributions and vendors", s_wie: "How the gauge arises",
+    k_zuerst: "This week first",
     f1cq: "Why is it called the “Dreier” gauge?", f1ca: "The name comes from Dreier Labs, the project behind Cyberlage, and has nothing to do with the number of levels: the gauge has five levels (calm, unremarkable, tense, high, exceptional).",
     f1bq: "What is it made of?", f1ba: "From eight components in three groups. Exploitation: KEV count (new in the CISA catalog, 30 days), pace to KEV (how fast new flaws are exploited), EU KEV (newly reported as exploited) and Microsoft (exploited flaws in the latest patch day). Warnings: CERT-Bund (new critical and high advisories, 30 days) and NCSC-NL (new advisories, 30 days). External assessments: BSI Cyber Index and SANS Infocon. Each component is measured against its own threshold, the top quarter of its history. Averaged within each group first, then across groups. 50 means the thresholds are reached on average.",
     f2q: "Where does the data come from?", f2a: "From public sources, fetched daily: CISA KEV, CVE list, EU KEV (ENISA), Microsoft MSRC, CERT-Bund, NCSC-NL, BSI Cyber Index and SANS ISC. All eight feed the score. Every value names its source and date.",
