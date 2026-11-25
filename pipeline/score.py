@@ -476,12 +476,12 @@ def main(argv):
     prio = lese_optional(WURZEL / "data" / "patches" / "prioritaet.json")
     if prio and prio.get("liste") is not None:
         bcfg = lese_optional(WURZEL / "config" / "bereiche.json")
-        if bcfg and isinstance(prio.get("liste"), list):  # Bereich je Eintrag: Quelle entscheidet, bei Microsoft Titel und betroffene Produkte
+        if bcfg and isinstance(prio.get("liste"), list):  # Bereich je Eintrag: Quelle entscheidet, bei Microsoft der Titel der Lücke
             import bereiche
             import fetch_patches
             nach_quelle = {q["name"]: q.get("bereich") for q in fetch_patches.QUELLEN}
             for e in prio["liste"]:
-                e["bereich"] = nach_quelle.get(e.get("quelle")) or bereiche.zuordnen("Microsoft", "%s %s" % (e.get("titel", ""), e.get("betrifft", "")), bcfg)
+                e["bereich"] = nach_quelle.get(e.get("quelle")) or bereiche.zuordnen("Microsoft", e.get("titel", ""), bcfg)
         ergebnis.setdefault("patches", {})["prioritaet"] = prio
     hers = lese_optional(WURZEL / "data" / "patches" / "hersteller.json")
     if hers and hers.get("quellen"):

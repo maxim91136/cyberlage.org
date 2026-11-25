@@ -4,20 +4,44 @@
   "hinweis": "Ordnet jede ausgenutzte Lücke aus dem CISA-KEV genau einem Bereich zu, nach Hersteller und Produkt. Die Regeln werden in dieser Reihenfolge geprüft, die erste passende gilt. Passt keine, steht der Eintrag unter 'Sonstige'. Reine Zuordnung nach Namen, keine Aussage darüber, was bei wem im Einsatz ist.",
   "bereiche": [
     {
+      "id": "zusammenarbeit",
+      "name": "E-Mail und Zusammenarbeit",
+      "name_en": "Email and collaboration",
+      "fuer": "Mailserver, SharePoint, Wikis, Videokonferenz und Telefonanlagen",
+      "fuer_en": "mail servers, SharePoint, wikis, video conferencing and telephony",
+      "muster": "exchange|sharepoint|zimbra|synacor|roundcube|smartermail|smartertools|\\bteams\\b|confluence|\\bjira\\b|atlassian|\\bzoom\\b|trueconf|mitel|sangoma|freeswitch|signalwire|unified communications|expressway|broadworks|webex|openwave|unrealircd|zammad|owncloud|nextcloud|onlyoffice|collabora"
+    },
+    {
+      "id": "fernwartung",
+      "name": "Fernwartung, Verwaltung und Dateitransfer",
+      "name_en": "Remote management and file transfer",
+      "fuer": "Fernzugriff, Geräte- und Softwareverwaltung, Überwachung und Dateitransfer",
+      "fuer_en": "remote access, device and software management, monitoring and file transfer",
+      "muster": "connectwise|screenconnect|simplehelp|beyondtrust|n-able|kaseya|manageengine|zoho|sysaid|solarwinds|crushftp|\\bcleo\\b|fortra|goanywhere|moveit|progress|wing ftp|gladinet|centrestack|triofox|puppet|perforce|teamviewer|anydesk|endpoint manager|\\bepmm\\b|\\bepm\\b|workspace one|omnissa|kace|\\bquest\\b|lanscope|motex|filezen|soliton|splunk|papercut|aspera|serv-u"
+    },
+    {
       "id": "netzwerk",
-      "name": "Netzwerk und Randgeräte",
-      "name_en": "Network and edge devices",
-      "fuer": "Firewalls, VPN-Gateways, Router, Switches, NAS und Kameras",
-      "fuer_en": "firewalls, VPN gateways, routers, switches, NAS and cameras",
-      "muster": "fortinet|ivanti|pulse secure|citrix|netscaler|palo alto|sonicwall|cisco|juniper|\\bf5\\b|big-ip|zyxel|d-link|tp-link|netgear|sophos|check point|barracuda|mikrotik|draytek|watchguard|qnap|synology|\\bzte\\b|array networks|sangoma|digiever|edimax|geovision|four-faith|totolink|linksys|\\basus\\b|hikvision|dahua|arista|ubiquiti|aviatrix|versa|session smart|router|firewall|\\bvpn\\b|gateway"
+      "name": "Netzwerk, Randgeräte und Industrie",
+      "name_en": "Network, edge devices and industrial",
+      "fuer": "Firewalls, VPN-Gateways, Router, Switches, NAS, Kameras und Steuerungen",
+      "fuer_en": "firewalls, VPN gateways, routers, switches, NAS, cameras and controllers",
+      "muster": "fortinet|ivanti|pulse secure|citrix|netscaler|palo alto|sonicwall|cisco|juniper|\\bf5\\b|big-ip|zyxel|d-link|tp-link|netgear|sophos|check point|barracuda|mikrotik|draytek|watchguard|qnap|synology|\\bzte\\b|array networks|sangoma|digiever|edimax|geovision|four-faith|totolink|linksys|\\basus\\b|hikvision|dahua|arista|ubiquiti|aviatrix|versa|session smart|router|firewall|\\bvpn\\b|gateway|sierra wireless|lantronix|dd-wrt|openplc|rockwell|siemens|schneider|advantech|moxa|\\bknx\\b|\\bptc\\b|qualcomm"
+    },
+    {
+      "id": "entwicklung",
+      "name": "Entwicklung, DevOps und KI-Werkzeuge",
+      "name_en": "Development, DevOps and AI tools",
+      "fuer": "Build- und Code-Werkzeuge, Container, Paketquellen und KI-Bausteine",
+      "fuer_en": "build and code tools, containers, package registries and AI components",
+      "muster": "jenkins|gitlab|\\bgogs\\b|\\bgit\\b|jetbrains|teamcity|jfrog|artifactory|docker|kubernetes|aquasecurity|trivy|langflow|\\bn8n\\b|berriai|litellm|gpustack|monai|marimo|tanstack|\\bnx\\b|prettier|next\\.js|\\breact\\b|\\bvite\\b|ray-project|\\bray\\b|metabase|brotli|erlang|mlflow|kestra|starlette|gitea|strapi"
     },
     {
       "id": "arbeitsplatz",
       "name": "Arbeitsplatz",
       "name_en": "Workplace",
-      "fuer": "Browser, Office, PDF, Packprogramme und Mobilgeräte",
-      "fuer_en": "browsers, Office, PDF, archivers and mobile devices",
-      "muster": "chrom|\\bedge\\b|mozilla|firefox|thunderbird|apple|webkit|android|samsung|adobe|acrobat|\\boffice\\b|outlook|\\bword\\b|excel|powerpoint|\\bteams\\b|onenote|winrar|rarlab|7-zip|foxit|\\bzoom\\b|trueconf"
+      "fuer": "Browser, Office, PDF, Packprogramme, Editoren und Mobilgeräte",
+      "fuer_en": "browsers, Office, PDF, archivers, editors and mobile devices",
+      "muster": "chrom|\\bedge\\b|mozilla|firefox|thunderbird|apple|webkit|android|samsung|acrobat|adobe reader|adobe flash|photoshop|illustrator|indesign|\\boffice\\b|outlook|\\bword\\b|excel|powerpoint|onenote|winrar|rarlab|7-zip|foxit|notepad\\+\\+|daemon tools|\\bpixel\\b|\\bskia\\b|\\bdawn\\b"
     },
     {
       "id": "windows",
@@ -31,18 +55,22 @@
       "id": "anwendungen",
       "name": "Unternehmens-Anwendungen",
       "name_en": "Business applications",
-      "fuer": "ERP, Datenbanken, Virtualisierung, Backup, Fernwartung, Dateitransfer und Verwaltungswerkzeuge",
-      "fuer_en": "ERP, databases, virtualisation, backup, remote management, file transfer and admin tools",
-      "muster": "\\bsap\\b|oracle|vmware|broadcom|atlassian|veeam|commvault|connectwise|progress|solarwinds|manageengine|zoho|sitecore|gladinet|crushftp|cleo|fortra|kentico|trend micro|beyondtrust|sysaid|simplehelp|dassault|papercut|\\bibm\\b|\\bhpe\\b|hewlett|\\bdell\\b|gitlab|nakivo|wing ftp|n-able|kaseya|mitel|advantive|telerik|trimble|jetbrains|jfrog|smartertools|zammad|ahsay|sysaid|kaspersky|symantec|mcafee|trellix|crowdstrike"
+      "fuer": "ERP, Datenbanken, Virtualisierung, Backup und Schutzsoftware",
+      "fuer_en": "ERP, databases, virtualisation, backup and protection software",
+      "muster": "\\bsap\\b|oracle|vmware|broadcom|veeam|commvault|nakivo|sitecore|kentico|dassault|\\bibm\\b|\\bhpe\\b|hewlett|\\bdell\\b|advantive|telerik|trimble|ahsay|kaspersky|symantec|mcafee|trellix|crowdstrike|trend micro|teamt5|mongodb|optimizely|geoserver|osgeo|redcap|vanderbilt|adobe commerce|magento|mirasvit|coldfusion|experience manager|adobe|acronis|wso2"
     },
     {
       "id": "linux",
-      "name": "Linux und Open Source",
-      "name_en": "Linux and open source",
-      "fuer": "Linux, Webserver, Web-Software und verbreitete Open-Source-Bausteine",
-      "fuer_en": "Linux, web servers, web software and common open-source components",
-      "muster": "linux|red hat|apache|openssl|openssh|\\bgnu\\b|sudo|\\bphp\\b|roundcube|redis|nginx|tomcat|kernel|samba|exim|\\bgit\\b|craft cms|wordpress|drupal|joomla|laravel|spring|jenkins|grafana|next\\.js|\\bvite\\b|langflow|n8n|react|synacor|zimbra|rsync|docker|kubernetes|litespeed|cyberpanel|erlang|adminer|berriai|litellm|plex"
+      "name": "Linux, Webserver und Open Source",
+      "name_en": "Linux, web servers and open source",
+      "fuer": "Linux, Webserver, CMS und verbreitete Open-Source-Bausteine",
+      "fuer_en": "Linux, web servers, CMS and common open-source components",
+      "muster": "linux|red hat|apache|openssl|openssh|\\bgnu\\b|sudo|\\bphp\\b|redis|nginx|tomcat|kernel|samba|exim|craft cms|wordpress|drupal|joomla|joomshaper|icagenda|balbooa|laravel|spring|grafana|rsync|litespeed|cyberpanel|adminer|plex|anticsrf|idunno|proftpd|\\bbind\\b|\\bisc\\b"
     }
   ],
-  "sonstige": {"id": "sonstige", "name": "Sonstige", "name_en": "Other"}
+  "sonstige": {
+    "id": "sonstige",
+    "name": "Sonstige",
+    "name_en": "Other"
+  }
 }

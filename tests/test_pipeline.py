@@ -666,11 +666,21 @@ class HerstellerPatchTests(unittest.TestCase):
         z = lambda h, p: bereiche.zuordnen(h, p, cfg)
         self.assertEqual(z("Cisco", "IOS XE"), "netzwerk")               # nicht Arbeitsplatz wegen "ios"
         self.assertEqual(z("Hewlett Packard Enterprise (HPE)", "Juniper Session Smart Router"), "netzwerk")
+        self.assertEqual(z("Cisco", "Unified Communications Manager"), "zusammenarbeit")   # vor Netzwerk
+        self.assertEqual(z("Ivanti", "Endpoint Manager (EPM)"), "fernwartung")              # vor Netzwerk
+        self.assertEqual(z("Ivanti", "Connect Secure"), "netzwerk")
         self.assertEqual(z("Apple", "iOS and iPadOS"), "arbeitsplatz")
         self.assertEqual(z("Microsoft", "Office"), "arbeitsplatz")
+        self.assertEqual(z("Microsoft", "Outlook Spoofing Vulnerability"), "arbeitsplatz")
         self.assertEqual(z("Microsoft", "Windows"), "windows")
-        self.assertEqual(z("Microsoft", "SharePoint Server"), "windows")
+        self.assertEqual(z("Microsoft", "SharePoint Server"), "zusammenarbeit")
+        self.assertEqual(z("Microsoft", "Exchange Server"), "zusammenarbeit")
+        self.assertEqual(z("Adobe", "Acrobat and Reader"), "arbeitsplatz")
+        self.assertEqual(z("Adobe", "ColdFusion"), "anwendungen")
         self.assertEqual(z("SAP", "NetWeaver"), "anwendungen")
+        self.assertEqual(z("ConnectWise", "ScreenConnect"), "fernwartung")
+        self.assertEqual(z("JetBrains", "TeamCity"), "entwicklung")
+        self.assertEqual(z("Langflow", "Langflow"), "entwicklung")
         self.assertEqual(z("WordPress", "Plugin"), "linux")               # nicht Arbeitsplatz wegen "word"
         self.assertEqual(z("Apache", "Tomcat"), "linux")
         self.assertEqual(z("Unbekannt GmbH", "Ding"), "sonstige")

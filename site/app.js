@@ -582,12 +582,13 @@
     box.appendChild(el("h4", "mono b-h4", pick("Gerade angegriffen (CISA-KEV, 30 Tage)", "Under attack now (CISA KEV, 30 days)"))); box.appendChild(ul);
     box.appendChild(el("p", "mono dim fine", pick("Reine Zuordnung nach Namen, feste Regeln in RULES.md. Was bei dir im Einsatz ist, weiß die Seite nicht: eigenes Inventar prüfen. Frist = Frist der CISA für US-Behörden, als Anhalt. Die Auswahl bleibt nur in diesem Browser.",
       "Assignment by name only, fixed rules in RULES.md. The site does not know what you run: check your own inventory. Deadline = CISA deadline for US agencies, as a guide. Your choice stays in this browser only.")));
-    var hq = ((d.patches || {}).hersteller || {}).quellen || {}, hbox = el("div", "b-hs"); box.insertBefore(hbox, info.nextSibling);
+    var hq = ((d.patches || {}).hersteller || {}).quellen || {}, hbox = el("div", "b-hs"); box.insertBefore(hbox, zbox.nextSibling);
     /* Hersteller je Bereich: q = Quelle mit Zahlen, t = Patch-Tag nach Regel des Herstellers, a = Sprung zu einem Abschnitt, ohne = noch keine offene Quelle angebunden */
     var KAT = {
       netzwerk: [{ n: "Cisco", q: "cisco" }, { n: "Fortinet", q: "fortinet" }, { n: "Palo Alto Networks", q: "paloalto" }, { n: "Ivanti", ohne: 1 }, { n: "Citrix", ohne: 1 }],
       arbeitsplatz: [{ n: "Edge und Chrome", n_en: "Edge and Chrome", a: "k-edge" }, { n: "Firefox und Thunderbird", n_en: "Firefox and Thunderbird", q: "mozilla" }, { n: "Adobe", t: "adobe", l: "https://helpx.adobe.com/security.html" }, { n: "Apple", ohne: 1 }],
       windows: [{ n: "Microsoft Patch Day", t: "ms", a: "k-ms" }],
+      zusammenarbeit: [{ n: "Microsoft (Exchange, SharePoint, Teams)", t: "ms", a: "k-ms" }, { n: "Atlassian", ohne: 1 }, { n: "Zimbra", ohne: 1 }],
       anwendungen: [{ n: "SAP", q: "sap", t: "sap" }, { n: "Oracle", t: "oracle", l: "https://www.oracle.com/security-alerts/" }, { n: "VMware (Broadcom)", ohne: 1 }],
       linux: [{ n: "Ubuntu", q: "ubuntu" }, { n: "Debian", q: "debian" }, { n: "Red Hat", q: "redhat" }, { n: "SUSE", q: "suse" }, { n: "AlmaLinux", q: "alma" }, { n: "Rocky Linux", q: "rocky" }, { n: "Amazon Linux", q: "amazon" }]
     };
@@ -597,7 +598,11 @@
     }
     function zeigeHersteller() {
       hbox.textContent = "";
-      var liste = KAT[wahl]; if (!liste) return;
+      var liste = KAT[wahl];
+      if (!liste) {
+        if (wahl !== "sonstige") { hbox.appendChild(el("h4", "mono", pick("Hersteller in diesem Bereich", "Vendors in this area"))); hbox.appendChild(el("p", "dim fine", pick("Für diesen Bereich ist noch keine Hersteller-Quelle angebunden. Maßgeblich ist die Liste der angegriffenen Lücken darunter.", "No vendor source is connected for this area yet. The list of attacked flaws below is what counts."))); }
+        return;
+      }
       hbox.appendChild(el("h4", "mono", pick("Hersteller in diesem Bereich", "Vendors in this area")));
       var gr = el("div", "b-kacheln"); hbox.appendChild(gr);
       liste.forEach(function (h) {
