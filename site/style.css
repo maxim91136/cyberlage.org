@@ -592,3 +592,13 @@ html[lang=en] #teil3 .akk>summary::after{content:"OPEN +"}html[lang=en] #teil3 .
 @media (max-width:899px){.dd-box.dd-l.dd-abo{left:8px;right:8px;width:auto;min-width:0}}
 .gr-frage{display:block;font-size:13px;margin:2px 0 8px}
 .kc-gruppe{margin:0 0 20px}.kc-gh{margin:0 0 2px;font-size:14px;color:var(--green);letter-spacing:.06em;text-transform:uppercase}.kc-gruppe .gr-frage{margin:0 0 10px}
+/* Gruppen und Einzelwerte in einem kompakten Block */
+#rd-signale{display:none}
+.gr-tab{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px 18px;margin:10px 0 8px}
+.gr-z{border-left:2px solid var(--line);padding:2px 0 2px 10px}
+.gr-k{display:flex;justify-content:space-between;gap:10px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--green)}
+.gr-w{color:var(--text)}.gr-w.an{color:#e3b341}
+.gr-z .gr-frage{font-size:12px;margin:1px 0 6px}
+.gr-m{display:flex;flex-wrap:wrap;gap:5px 6px}
+.gr-b{font-size:12px;border:1px solid var(--line);border-radius:6px;padding:1px 7px;white-space:nowrap}
+.gr-b.an{border-color:#6b5a1f;color:#e3b341}.gr-b.aus{border-color:#23463a;color:var(--green)}

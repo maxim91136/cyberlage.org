@@ -31,7 +31,7 @@
     r_h: "## history", i_faq: "faq", l_verk2: "The conclusion drawn from it", l_tempo: "For comparison: the pace", l_tempo2: "· own signal in the radar, not part of the gauge", n_patches: "/patches", p_h: "## patches: what first, with what", p_intro: "What vendors patched recently, with figures and a rating by fixed rules. We do not manage patches and do not rate severity ourselves: severity and exploitation come from the vendors.", n_intro: "What became known in the last days: exploited vulnerabilities (CISA KEV, EU KEV), warnings of the BSI (CERT-Bund) and a forecast for new flaws. Each tab names its source, period and date.", l_faq: "▸ New here? Questions and answers (FAQ)",
     f1q: "What is the Dreier Gauge?", f1a: "Our own score, not a standard or norm. It combines several components into one number from 0 to 100 and derives a level from it: calm, unremarkable, tense, high or exceptional. 50 means the rule thresholds of the components are reached on average. It measures activity and signals, not the number of attacks, and predicts nothing.",
     l_umbau: "⚠ Work in progress: the Dreier Gauge is being reworked. Components and value may still change.",
-    rd_einzel: "Individual values and group structure",
+    rd_einzel: "Groups and individual values",
     k_bau: "## components", k_wie: "## how the gauge arises", k_ms: "Microsoft patch day", k_edge: "Edge and Chrome", k_hs: "Linux distributions and vendors", s_wie: "How the gauge arises",
     k_zuerst: "This week first",
     f_dank: "Thanks to everyone whose open data makes this site possible: CISA, ENISA, BSI and CERT-Bund, NCSC-NL, SANS ISC, FIRST (EPSS), NIST (NVD), RansomLook, Microsoft, Red Hat, SUSE, Canonical, Debian, AlmaLinux, Rocky Linux, Amazon, Cisco and SAP.",

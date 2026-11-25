@@ -833,17 +833,26 @@
     if (!sc || !sc.modell_gruppen) return;
     var bb = $("rd-balken") || box; if (bb !== box) bb.textContent = "";
     zeigeBalken(sc, bb);
-    box.appendChild(el("h4", "mono rd-t", pick("Aufbau: vier Gruppen", "Structure: four groups")));
-    var ul = el("ul", "p-liste");
+    // Ein kompakter Block statt zweier Listen: je Gruppe eine Zeile mit Gruppenwert und Leitfrage, darunter die Bausteine als Marken
+    var fmt = function (v) { return v.toLocaleString(window.I18N.locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
+    var gw = {}; (sc.gruppen || []).forEach(function (x) { gw[x.id] = x.ausschlag; });
+    var tab = el("div", "gr-tab");
     sc.modell_gruppen.forEach(function (g) {
       if (!g.bausteine.length) return;
-      var li = el("li", ""); li.appendChild(el("b", "mono", pick(g.name, g.name_en) + ": "));
-      li.appendChild(document.createTextNode(g.bausteine.map(function (b) { return pick(b.name, b.name_en) + (typeof b.ausschlag === "number" ? " " + b.ausschlag.toLocaleString(window.I18N.locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : " –"); }).join(" · ")));
-      if (g.frage) li.appendChild(el("span", "dim gr-frage", pick(g.frage, g.frage_en)));
-      ul.appendChild(li);
+      var z = el("div", "gr-z"), kopf = el("div", "gr-k mono");
+      kopf.appendChild(el("b", "", pick(g.name, g.name_en)));
+      if (typeof gw[g.id] === "number") kopf.appendChild(el("span", "gr-w" + (gw[g.id] >= 1 ? " an" : ""), fmt(gw[g.id])));
+      z.appendChild(kopf);
+      if (g.frage) z.appendChild(el("div", "dim gr-frage", pick(g.frage, g.frage_en)));
+      var marken = el("div", "gr-m mono");
+      g.bausteine.forEach(function (b) {
+        var hat = typeof b.ausschlag === "number";
+        marken.appendChild(el("span", "gr-b" + (hat ? (b.ausschlag >= 1 ? " an" : " aus") : ""), pick(b.name, b.name_en) + " " + (hat ? fmt(b.ausschlag) : "–")));
+      });
+      z.appendChild(marken); tab.appendChild(z);
     });
-    box.appendChild(ul);
-    box.appendChild(el("p", "mono dim fine", pick("Je Gruppe wird gemittelt, dann über die Gruppen. So wiegt ein Thema nicht doppelt, nur weil mehrere Bausteine dazu messen.", "Averaged within each group, then across groups, so one topic does not weigh double just because several components measure it.")));
+    box.appendChild(tab);
+    box.appendChild(el("p", "mono dim fine", pick("Zahl = Messwert im Verhältnis zur Schwelle, 1,00 heißt Schwelle erreicht (gelb: an oder über der Schwelle). Erst wird je Gruppe gemittelt, dann über die Gruppen; jeder Baustein zählt höchstens mit 2,00.", "Number = reading relative to the threshold, 1.00 means threshold reached (yellow: at or above). Averaged within each group first, then across groups; each component counts at most 2.00.")));
     if (sc.beobachtung && sc.beobachtung.length) {
       var d = el("details", "rd-det"); d.appendChild(el("summary", "mono", pick("In Beobachtung (zählt noch nicht): " + sc.beobachtung.length, "Under observation (does not count yet): " + sc.beobachtung.length)));
       var u2 = el("ul", "p-liste");
