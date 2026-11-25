@@ -1307,7 +1307,7 @@
   "cert_bund": {
     "quelle": "CERT-Bund / BSI Warn- und Informationsdienst",
     "quelle_url": "https://wid.cert-bund.de/",
-    "abgerufen_am": "2026-11-25T05:15:22+00:00",
+    "abgerufen_am": "2026-11-25T05:45:47+00:00",
     "fenster_tage": 30,
     "daten_seit": "2026-11-23",
     "kritisch_7_tage": 7,
@@ -1640,7 +1640,7 @@
   "eu_kev": {
     "quelle": "EU-KEV über die EU-Schwachstellendatenbank (EUVD) von ENISA",
     "quelle_url": "https://euvd.enisa.europa.eu/",
-    "abgerufen_am": "2026-11-25T05:15:22+00:00",
+    "abgerufen_am": "2026-11-25T05:45:47+00:00",
     "fenster_tage": 30,
     "daten_seit": "2026-08-07",
     "neu_30_tage": 36,
@@ -1670,7 +1670,7 @@
         "ausgenutzt_seit": "2026-11-24",
         "veroeffentlicht": "2026-11-18",
         "cvss": 7.1,
-        "epss": 0.43,
+        "epss": 0.41,
         "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-129010"
       },
       {
@@ -1684,7 +1684,7 @@
         "ausgenutzt_seit": "2026-11-23",
         "veroeffentlicht": "2026-11-22",
         "cvss": 9.3,
-        "epss": 0.35,
+        "epss": 0.62,
         "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-132805"
       },
       {
@@ -1698,7 +1698,7 @@
         "ausgenutzt_seit": "2026-11-23",
         "veroeffentlicht": "2026-11-20",
         "cvss": 9.8,
-        "epss": 3.66,
+        "epss": 49.8,
         "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-131722"
       },
       {
@@ -1726,7 +1726,7 @@
         "ausgenutzt_seit": "2026-11-20",
         "veroeffentlicht": "2026-11-17",
         "cvss": 9.8,
-        "epss": 5.46,
+        "epss": 40.07,
         "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-126955"
       },
       {
@@ -1852,7 +1852,7 @@
         "ausgenutzt_seit": "2026-11-13",
         "veroeffentlicht": "2026-11-08",
         "cvss": 8.6,
-        "epss": 1.15,
+        "epss": 1.35,
         "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-119377"
       },
       {
@@ -2146,15 +2146,15 @@
         "ausgenutzt_seit": "2026-10-27",
         "veroeffentlicht": "2026-10-22",
         "cvss": 9.2,
-        "epss": 99.93,
+        "epss": 99.99,
         "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-108169"
       }
     ]
   },
   "ausblick": {
-    "abgerufen_am": "2026-11-25T05:15:24+00:00",
+    "abgerufen_am": "2026-11-25T05:45:49+00:00",
     "fenster_tage": 14,
-    "geprueft": 7169,
+    "geprueft": 7144,
     "schwelle_hoch": 0.1,
     "hoch_wahrscheinlich": 15,
     "epss_datum": "2026-11-24",
@@ -2266,7 +2266,7 @@
       "online": 1,
       "gelistet": 5
     },
-    "abgerufen_am": "2026-11-25T05:17:51+00:00",
+    "abgerufen_am": "2026-11-25T05:47:56+00:00",
     "zeit_bis_kev": {
       "verlauf": [
         {
@@ -4574,7 +4574,7 @@
     },
     "sans": {
       "status": "green",
-      "abgerufen_am": "2026-11-25T05:17:50+00:00"
+      "abgerufen_am": "2026-11-25T05:47:55+00:00"
     },
     "ncsc": {
       "advisories_30": 25,
@@ -4851,9 +4851,9 @@
           "geprueft_am": "2026-11-23",
           "erreichbar": false,
           "status": 404,
-          "fehler_in_folge": 20,
+          "fehler_in_folge": 21,
           "erster_fehler_um": "2026-11-24T16:15:10+00:00",
-          "link_geprueft_um": "2026-11-25T05:22:31+00:00",
+          "link_geprueft_um": "2026-11-25T05:48:20+00:00",
           "faellig_am": "2027-05-25",
           "faellig": false,
           "link_tot": false
@@ -4866,9 +4866,9 @@
           "geprueft_am": "2026-11-24",
           "erreichbar": false,
           "status": 404,
-          "fehler_in_folge": 16,
+          "fehler_in_folge": 17,
           "erster_fehler_um": "2026-11-24T22:03:12+00:00",
-          "link_geprueft_um": "2026-11-25T05:22:31+00:00",
+          "link_geprueft_um": "2026-11-25T05:48:20+00:00",
           "faellig_am": "2027-02-22",
           "faellig": false,
           "link_tot": false
@@ -4898,7 +4898,7 @@
       "lizenz": "CC0 1.0 (laut LICENSE-Datei von cisagov/kev-data)",
       "quelle_abruf": "cisa.gov",
       "veroeffentlicht_am": "2026-11-24T17:47:46.199Z",
-      "abgerufen_am": "2026-11-25T05:15:22+00:00",
+      "abgerufen_am": "2026-11-25T05:45:47+00:00",
       "name_en": "CISA Known Exploited Vulnerabilities",
       "lizenz_en": "CC0 1.0 (per the LICENSE file of cisagov/kev-data)"
     },
@@ -4915,7 +4915,7 @@
       "name": "CERT-Bund / BSI Warn- und Informationsdienst",
       "link": "https://wid.cert-bund.de/",
       "lizenz": "nur Titel und Links, Nutzungsbedingungen des BSI beachten",
-      "abgerufen_am": "2026-11-25T05:15:22+00:00",
+      "abgerufen_am": "2026-11-25T05:45:47+00:00",
       "name_en": "CERT-Bund / BSI Warning and Information Service",
       "lizenz_en": "titles and links only, observe the BSI terms of use"
     },
@@ -4924,7 +4924,7 @@
       "name": "EU-KEV (EUVD von ENISA)",
       "link": "https://euvd.enisa.europa.eu/",
       "lizenz": "Lizenz nicht ausdrücklich geklärt",
-      "abgerufen_am": "2026-11-25T05:15:22+00:00",
+      "abgerufen_am": "2026-11-25T05:45:47+00:00",
       "name_en": "EU-KEV (EUVD by ENISA)",
       "lizenz_en": "licence not explicitly clarified"
     },
@@ -4933,7 +4933,7 @@
       "name": "EPSS (FIRST)",
       "link": "https://www.first.org/epss/",
       "lizenz": "kostenlos mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T05:15:24+00:00",
+      "abgerufen_am": "2026-11-25T05:45:49+00:00",
       "name_en": "EPSS (FIRST)",
       "lizenz_en": "free to use with attribution"
     },
@@ -4942,7 +4942,7 @@
       "name": "NVD (NIST)",
       "link": "https://nvd.nist.gov/",
       "lizenz": "gemeinfrei, nur Veröffentlichungsdatum und CVSS-Wert",
-      "abgerufen_am": "2026-11-25T05:15:24+00:00",
+      "abgerufen_am": "2026-11-25T05:45:49+00:00",
       "name_en": "NVD (NIST)",
       "lizenz_en": "public domain, only publication date and CVSS score"
     },
@@ -4951,7 +4951,7 @@
       "name": "CVE-Liste (CVE Program, MITRE)",
       "link": "https://github.com/CVEProject/cvelistV5",
       "lizenz": "CVE Terms of Use: frei nutzbar mit Quellenangabe, nur Veröffentlichungsdatum",
-      "abgerufen_am": "2026-11-25T05:17:51+00:00",
+      "abgerufen_am": "2026-11-25T05:47:56+00:00",
       "name_en": "CVE List (CVE Program, MITRE)",
       "lizenz_en": "CVE Terms of Use: free to use with attribution, only publication date"
     },
@@ -4960,7 +4960,7 @@
       "name": "Feodo Tracker (abuse.ch)",
       "link": "https://feodotracker.abuse.ch/",
       "lizenz": "CC0, nur die Zahl aktiver Steuerserver",
-      "abgerufen_am": "2026-11-25T05:17:51+00:00",
+      "abgerufen_am": "2026-11-25T05:47:56+00:00",
       "name_en": "Feodo Tracker (abuse.ch)",
       "lizenz_en": "CC0, only the number of active command servers"
     },
@@ -4969,14 +4969,14 @@
       "name": "NCSC-NL Beveiligingsadviezen",
       "link": "https://advisories.ncsc.nl/",
       "lizenz": "Lizenz nicht geprüft, nur Zahl der Advisories mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T05:17:51+00:00"
+      "abgerufen_am": "2026-11-25T05:47:56+00:00"
     },
     {
       "id": "sans",
       "name": "SANS Internet Storm Center (Infocon)",
       "link": "https://isc.sans.edu/",
       "lizenz": "Creative Commons laut Fußzeile des ISC, nur Ampelstatus mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T05:17:50+00:00",
+      "abgerufen_am": "2026-11-25T05:47:55+00:00",
       "name_en": "SANS Internet Storm Center (Infocon)",
       "lizenz_en": "Creative Commons per the ISC footer, only the traffic-light status with attribution"
     }
@@ -7065,7 +7065,7 @@
         "quelle": "Microsoft Security Response Center (CVRF 3.0)",
         "quelle_url": "https://msrc.microsoft.com/update-guide",
         "listen_url": "https://api.msrc.microsoft.com/cvrf/v3.0/updates",
-        "abgerufen_am": "2026-11-25T05:17:51+00:00",
+        "abgerufen_am": "2026-11-25T05:47:56+00:00",
         "hinweis": "Zählung je CVE; Chromium-Lücken im Edge und Linux-Paketlücken von Azure Linux sind ausgenommen und getrennt ausgewiesen. Schweregrad, Ausnutzung und Bekanntheit stammen vom Hersteller.",
         "fehler": []
       },
@@ -7074,7 +7074,7 @@
           "id": "2025-Nov",
           "erste_veroeffentlichung": "2025-11-11T08:00:00",
           "aktuell": "2026-11-21T01:14:05",
-          "schema": 3,
+          "schema": 4,
           "cves": 75,
           "davon_chromium_ausgenommen": 8,
           "davon_azure_linux_ausgenommen": 106,
@@ -7091,6 +7091,8 @@
           ],
           "oeffentlich_bekannt": 0,
           "oeffentlich_cves": [],
+          "ohne_fix": 0,
+          "ohne_fix_cves": [],
           "im_kev": 2,
           "im_kev_cves": [
             "CVE-2025-60710",
@@ -7106,8 +7108,8 @@
           },
           "familien": {
             "Windows 11": 39,
-            "Windows 10": 36,
             "Windows Server": 36,
+            "Windows 10": 36,
             "Cloud und Dienste": 21,
             "Office und SharePoint": 14,
             "Entwicklung und Server": 6,
@@ -7122,15 +7124,15 @@
             "verhaeltnis_median": null,
             "median_vormonate": null,
             "dringlichkeit": "dringend",
-            "empfehlung": "Zuerst die bereits ausgenutzte Lücke einspielen, danach die 11 als kritisch eingestuften.",
-            "empfehlung_en": "Apply the already exploited flaw first, then the 11 rated critical."
+            "empfehlung": "Zuerst den Patch für die bereits ausgenutzte Lücke einspielen, danach die Patches für die 11 als kritisch eingestuften.",
+            "empfehlung_en": "Apply the patch for the already exploited flaw first, then the patches for the 11 rated critical."
           }
         },
         "2025-Dec": {
           "id": "2025-Dec",
           "erste_veroeffentlichung": "2025-12-09T00:00:00",
           "aktuell": "2026-11-21T01:14:39",
-          "schema": 3,
+          "schema": 4,
           "cves": 72,
           "davon_chromium_ausgenommen": 18,
           "davon_azure_linux_ausgenommen": 265,
@@ -7150,6 +7152,8 @@
             "CVE-2025-54100",
             "CVE-2025-64671"
           ],
+          "ohne_fix": 0,
+          "ohne_fix_cves": [],
           "im_kev": 1,
           "im_kev_cves": [
             "CVE-2025-62221"
@@ -7179,15 +7183,15 @@
             "verhaeltnis_median": null,
             "median_vormonate": null,
             "dringlichkeit": "dringend",
-            "empfehlung": "Zuerst die bereits ausgenutzte Lücke einspielen, danach die 9 als kritisch eingestuften.",
-            "empfehlung_en": "Apply the already exploited flaw first, then the 9 rated critical."
+            "empfehlung": "Zuerst den Patch für die bereits ausgenutzte Lücke einspielen, danach die Patches für die 9 als kritisch eingestuften.",
+            "empfehlung_en": "Apply the patch for the already exploited flaw first, then the patches for the 9 rated critical."
           }
         },
         "2026-Jan": {
           "id": "2026-Jan",
           "erste_veroeffentlichung": "2026-01-13T08:00:00",
           "aktuell": "2026-11-21T01:15:28",
-          "schema": 3,
+          "schema": 4,
           "cves": 133,
           "davon_chromium_ausgenommen": 13,
           "davon_azure_linux_ausgenommen": 200,
@@ -7208,6 +7212,8 @@
             "CVE-2023-31096",
             "CVE-2026-21265"
           ],
+          "ohne_fix": 0,
+          "ohne_fix_cves": [],
           "im_kev": 3,
           "im_kev_cves": [
             "CVE-2026-20805",
@@ -7242,15 +7248,15 @@
             "verhaeltnis_median": null,
             "median_vormonate": null,
             "dringlichkeit": "dringend",
-            "empfehlung": "Zuerst die 2 bereits ausgenutzten Lücken einspielen, danach die 17 als kritisch eingestuften.",
-            "empfehlung_en": "Apply the 2 already exploited flaws first, then the 17 rated critical."
+            "empfehlung": "Zuerst die Patches für die 2 bereits ausgenutzten Lücken einspielen, danach die Patches für die 17 als kritisch eingestuften.",
+            "empfehlung_en": "Apply the patches for the 2 already exploited flaws first, then the patches for the 17 rated critical."
           }
         },
         "2026-Feb": {
           "id": "2026-Feb",
           "erste_veroeffentlichung": "2026-02-10T08:00:00",
           "aktuell": "2026-11-21T01:11:37",
-          "schema": 3,
+          "schema": 4,
           "cves": 64,
           "davon_chromium_ausgenommen": 17,
           "davon_azure_linux_ausgenommen": 136,
@@ -7276,6 +7282,8 @@
             "CVE-2026-21513",
             "CVE-2026-21514"
           ],
+          "ohne_fix": 0,
+          "ohne_fix_cves": [],
           "im_kev": 6,
           "im_kev_cves": [
             "CVE-2026-21510",
@@ -7314,15 +7322,15 @@
             "verhaeltnis_median": 0.85,
             "median_vormonate": 75,
             "dringlichkeit": "dringend",
-            "empfehlung": "Zuerst die 6 bereits ausgenutzten Lücken einspielen, danach die 7 als kritisch eingestuften.",
-            "empfehlung_en": "Apply the 6 already exploited flaws first, then the 7 rated critical."
+            "empfehlung": "Zuerst die Patches für die 6 bereits ausgenutzten Lücken einspielen, danach die Patches für die 7 als kritisch eingestuften.",
+            "empfehlung_en": "Apply the patches for the 6 already exploited flaws first, then the patches for the 7 rated critical."
           }
         },
         "2026-Mar": {
           "id": "2026-Mar",
           "erste_veroeffentlichung": "2026-03-10T07:00:00",
           "aktuell": "2026-11-21T01:20:27",
-          "schema": 3,
+          "schema": 4,
           "cves": 116,
           "davon_chromium_ausgenommen": 74,
           "davon_azure_linux_ausgenommen": 349,
@@ -7340,6 +7348,8 @@
             "CVE-2026-21262",
             "CVE-2026-26127"
           ],
+          "ohne_fix": 0,
+          "ohne_fix_cves": [],
           "im_kev": 0,
           "im_kev_cves": [],
           "auswirkung": {
@@ -7354,8 +7364,8 @@
           },
           "familien": {
             "Windows Server": 45,
-            "Windows 10": 44,
             "Windows 11": 44,
+            "Windows 10": 44,
             "Sonstige": 35,
             "Cloud und Dienste": 20,
             "Azure Linux": 19,
@@ -7372,15 +7382,15 @@
             "verhaeltnis_median": 1.58,
             "median_vormonate": 73.5,
             "dringlichkeit": "zeitnah",
-            "empfehlung": "Die 19 als kritisch eingestuften Lücken zeitnah einspielen, den Rest im normalen Zyklus.",
-            "empfehlung_en": "The 19 flaws rated critical should be applied promptly, the rest in the normal cycle."
+            "empfehlung": "Die Patches für die 19 als kritisch eingestuften Lücken zeitnah einspielen, den Rest im normalen Zyklus.",
+            "empfehlung_en": "The patches for the 19 flaws rated critical should be applied promptly, the rest in the normal cycle."
           }
         },
         "2026-Apr": {
           "id": "2026-Apr",
           "erste_veroeffentlichung": "2026-04-14T07:00:00",
           "aktuell": "2026-11-21T01:15:37",
-          "schema": 3,
+          "schema": 4,
           "cves": 202,
           "davon_chromium_ausgenommen": 109,
           "davon_azure_linux_ausgenommen": 470,
@@ -7400,6 +7410,8 @@
           "oeffentlich_cves": [
             "CVE-2026-33825"
           ],
+          "ohne_fix": 0,
+          "ohne_fix_cves": [],
           "im_kev": 5,
           "im_kev_cves": [
             "CVE-2026-31431",
@@ -7436,15 +7448,15 @@
             "verhaeltnis_median": 2.69,
             "median_vormonate": 75,
             "dringlichkeit": "dringend",
-            "empfehlung": "Zuerst die 2 bereits ausgenutzten Lücken einspielen, danach die 23 als kritisch eingestuften.",
-            "empfehlung_en": "Apply the 2 already exploited flaws first, then the 23 rated critical."
+            "empfehlung": "Zuerst die Patches für die 2 bereits ausgenutzten Lücken einspielen, danach die Patches für die 23 als kritisch eingestuften.",
+            "empfehlung_en": "Apply the patches for the 2 already exploited flaws first, then the patches for the 23 rated critical."
           }
         },
         "2026-May": {
           "id": "2026-May",
           "erste_veroeffentlichung": "2026-05-12T07:00:00",
           "aktuell": "2026-11-23T19:04:10",
-          "schema": 3,
+          "schema": 4,
           "cves": 163,
           "davon_chromium_ausgenommen": 368,
           "davon_azure_linux_ausgenommen": 671,
@@ -7467,6 +7479,8 @@
             "CVE-2026-45498",
             "CVE-2026-45585"
           ],
+          "ohne_fix": 0,
+          "ohne_fix_cves": [],
           "im_kev": 4,
           "im_kev_cves": [
             "CVE-2026-41091",
@@ -7502,15 +7516,15 @@
             "verhaeltnis_median": 1.71,
             "median_vormonate": 95.5,
             "dringlichkeit": "dringend",
-            "empfehlung": "Zuerst die 3 bereits ausgenutzten Lücken einspielen, danach die 46 als kritisch eingestuften.",
-            "empfehlung_en": "Apply the 3 already exploited flaws first, then the 46 rated critical."
+            "empfehlung": "Zuerst die Patches für die 3 bereits ausgenutzten Lücken einspielen, danach die Patches für die 46 als kritisch eingestuften.",
+            "empfehlung_en": "Apply the patches for the 3 already exploited flaws first, then the patches for the 46 rated critical."
           }
         },
         "2026-Jun": {
           "id": "2026-Jun",
           "erste_veroeffentlichung": "2026-06-09T07:00:00",
           "aktuell": "2026-11-21T01:20:45",
-          "schema": 3,
+          "schema": 4,
           "cves": 222,
           "davon_chromium_ausgenommen": 543,
           "davon_azure_linux_ausgenommen": 625,
@@ -7530,6 +7544,8 @@
             "CVE-2026-50507",
             "CVE-2026-50656"
           ],
+          "ohne_fix": 0,
+          "ohne_fix_cves": [],
           "im_kev": 0,
           "im_kev_cves": [],
           "auswirkung": {
@@ -7560,15 +7576,15 @@
             "verhaeltnis_median": 1.91,
             "median_vormonate": 116,
             "dringlichkeit": "zeitnah",
-            "empfehlung": "Die 49 als kritisch eingestuften Lücken zeitnah einspielen, den Rest im normalen Zyklus.",
-            "empfehlung_en": "The 49 flaws rated critical should be applied promptly, the rest in the normal cycle."
+            "empfehlung": "Die Patches für die 49 als kritisch eingestuften Lücken zeitnah einspielen, den Rest im normalen Zyklus.",
+            "empfehlung_en": "The patches for the 49 flaws rated critical should be applied promptly, the rest in the normal cycle."
           }
         },
         "2026-Jul": {
           "id": "2026-Jul",
           "erste_veroeffentlichung": "2026-07-14T07:00:00",
           "aktuell": "2026-11-23T14:05:47",
-          "schema": 3,
+          "schema": 4,
           "cves": 664,
           "davon_chromium_ausgenommen": 868,
           "davon_azure_linux_ausgenommen": 633,
@@ -7589,6 +7605,8 @@
           "oeffentlich_cves": [
             "CVE-2026-50661"
           ],
+          "ohne_fix": 0,
+          "ohne_fix_cves": [],
           "im_kev": 5,
           "im_kev_cves": [
             "CVE-2026-50522",
@@ -7625,15 +7643,15 @@
             "verhaeltnis_median": 5.33,
             "median_vormonate": 124.5,
             "dringlichkeit": "dringend",
-            "empfehlung": "Zuerst die 3 bereits ausgenutzten Lücken einspielen, danach die 78 als kritisch eingestuften.",
-            "empfehlung_en": "Apply the 3 already exploited flaws first, then the 78 rated critical."
+            "empfehlung": "Zuerst die Patches für die 3 bereits ausgenutzten Lücken einspielen, danach die Patches für die 78 als kritisch eingestuften.",
+            "empfehlung_en": "Apply the patches for the 3 already exploited flaws first, then the patches for the 78 rated critical."
           }
         },
         "2026-Aug": {
           "id": "2026-Aug",
           "erste_veroeffentlichung": "2026-08-11T07:00:00",
           "aktuell": "2026-11-21T14:03:39",
-          "schema": 3,
+          "schema": 4,
           "cves": 497,
           "davon_chromium_ausgenommen": 312,
           "davon_azure_linux_ausgenommen": 1030,
@@ -7654,6 +7672,8 @@
             "CVE-2026-69414",
             "CVE-2026-72971"
           ],
+          "ohne_fix": 0,
+          "ohne_fix_cves": [],
           "im_kev": 2,
           "im_kev_cves": [
             "CVE-2026-65660",
@@ -7687,15 +7707,15 @@
             "verhaeltnis_median": 3.74,
             "median_vormonate": 133,
             "dringlichkeit": "dringend",
-            "empfehlung": "Zuerst die bereits ausgenutzte Lücke einspielen, danach die 84 als kritisch eingestuften.",
-            "empfehlung_en": "Apply the already exploited flaw first, then the 84 rated critical."
+            "empfehlung": "Zuerst den Patch für die bereits ausgenutzte Lücke einspielen, danach die Patches für die 84 als kritisch eingestuften.",
+            "empfehlung_en": "Apply the patch for the already exploited flaw first, then the patches for the 84 rated critical."
           }
         },
         "2026-Sep": {
           "id": "2026-Sep",
           "erste_veroeffentlichung": "2026-09-08T07:00:00",
           "aktuell": "2026-11-23T19:04:44",
-          "schema": 3,
+          "schema": 4,
           "cves": 1008,
           "davon_chromium_ausgenommen": 432,
           "davon_azure_linux_ausgenommen": 1929,
@@ -7713,6 +7733,8 @@
           ],
           "oeffentlich_bekannt": 0,
           "oeffentlich_cves": [],
+          "ohne_fix": 0,
+          "ohne_fix_cves": [],
           "im_kev": 2,
           "im_kev_cves": [
             "CVE-2026-81963",
@@ -7747,15 +7769,15 @@
             "verhaeltnis_median": 6.81,
             "median_vormonate": 148.0,
             "dringlichkeit": "dringend",
-            "empfehlung": "Zuerst die 2 bereits ausgenutzten Lücken einspielen, danach die 132 als kritisch eingestuften.",
-            "empfehlung_en": "Apply the 2 already exploited flaws first, then the 132 rated critical."
+            "empfehlung": "Zuerst die Patches für die 2 bereits ausgenutzten Lücken einspielen, danach die Patches für die 132 als kritisch eingestuften.",
+            "empfehlung_en": "Apply the patches for the 2 already exploited flaws first, then the patches for the 132 rated critical."
           }
         },
         "2026-Oct": {
           "id": "2026-Oct",
           "erste_veroeffentlichung": "2026-10-13T07:00:00",
           "aktuell": "2026-11-24T01:27:08",
-          "schema": 3,
+          "schema": 4,
           "cves": 1487,
           "davon_chromium_ausgenommen": 739,
           "davon_azure_linux_ausgenommen": 1683,
@@ -7776,6 +7798,8 @@
             "CVE-2026-111497",
             "CVE-2026-92707"
           ],
+          "ohne_fix": 0,
+          "ohne_fix_cves": [],
           "im_kev": 2,
           "im_kev_cves": [
             "CVE-2026-111497",
@@ -7812,6 +7836,12 @@
               "ausgenutzt": true,
               "oeffentlich": false,
               "kev": true,
+              "patch": "ja",
+              "kb": [
+                "5126836",
+                "5126868",
+                "5126651"
+              ],
               "familien": [
                 "Edge",
                 "Office und SharePoint",
@@ -7825,6 +7855,12 @@
               "ausgenutzt": false,
               "oeffentlich": true,
               "kev": true,
+              "patch": "ja",
+              "kb": [
+                "5133964",
+                "5133965",
+                "5133966"
+              ],
               "familien": [
                 "Azure Linux",
                 "Entwicklung und Server",
@@ -7838,6 +7874,12 @@
               "ausgenutzt": false,
               "oeffentlich": true,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5126868",
+                "5127666",
+                "5127685"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -7851,6 +7893,8 @@
               "ausgenutzt": false,
               "oeffentlich": true,
               "kev": false,
+              "patch": "ja",
+              "kb": [],
               "familien": [
                 "Entwicklung und Server",
                 "Windows (andere)"
@@ -7863,6 +7907,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5126835",
+                "5126836",
+                "5126868"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -7876,6 +7926,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste",
                 "Office und SharePoint"
@@ -7888,6 +7940,10 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5002928"
+              ],
               "familien": [
                 "Cloud und Dienste",
                 "Office und SharePoint"
@@ -7900,6 +7956,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste",
                 "Office und SharePoint"
@@ -7912,6 +7970,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5127648",
+                "5126646",
+                "5127646"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -7925,6 +7989,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5126655",
+                "5126653",
+                "5127648"
+              ],
               "familien": [
                 "Windows 11",
                 "Windows Server"
@@ -7937,6 +8007,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5126835",
+                "5126836",
+                "5126868"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -7950,6 +8026,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5126868",
+                "5126651",
+                "5126657"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -7963,6 +8045,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5126651",
+                "5126655",
+                "5126657"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -7976,6 +8064,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5126835",
+                "5126836",
+                "5126868"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -7989,6 +8083,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste",
                 "Office und SharePoint"
@@ -8001,6 +8097,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste",
                 "Office und SharePoint"
@@ -8013,6 +8111,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste",
                 "Office und SharePoint"
@@ -8025,6 +8125,10 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5002927"
+              ],
               "familien": [
                 "Office und SharePoint"
               ]
@@ -8036,6 +8140,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "unbekannt",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste"
               ]
@@ -8047,6 +8153,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5126655",
+                "5126653",
+                "5127648"
+              ],
               "familien": [
                 "Entwicklung und Server",
                 "Windows (andere)",
@@ -8060,6 +8172,10 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5002928"
+              ],
               "familien": [
                 "Cloud und Dienste",
                 "Office und SharePoint"
@@ -8072,6 +8188,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5126657",
+                "5126655",
+                "5126653"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -8085,6 +8207,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5127648",
+                "5126646",
+                "5127646"
+              ],
               "familien": [
                 "Windows 11",
                 "Windows Server"
@@ -8097,6 +8225,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5126835",
+                "5126836",
+                "5126868"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -8110,6 +8244,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5127648",
+                "5126651",
+                "5126655"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -8123,6 +8263,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -8136,6 +8278,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste",
                 "Office und SharePoint"
@@ -8148,6 +8292,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste",
                 "Office und SharePoint"
@@ -8160,6 +8306,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste",
                 "Office und SharePoint"
@@ -8172,6 +8320,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "unbekannt",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste"
               ]
@@ -8183,6 +8333,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5126653",
+                "5126657",
+                "5126655"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -8196,6 +8352,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5126835",
+                "5126836",
+                "5126868"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -8209,6 +8371,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5126835",
+                "5126836",
+                "5126868"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -8222,6 +8390,10 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5126651"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows Server"
@@ -8234,6 +8406,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "unbekannt",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste"
               ]
@@ -8245,6 +8419,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [],
               "familien": [
                 "Windows 10",
                 "Windows 11"
@@ -8257,6 +8433,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [],
               "familien": []
             },
             {
@@ -8266,6 +8444,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "unbekannt",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste"
               ]
@@ -8277,6 +8457,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5122876",
+                "5122882",
+                "5122878"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -8290,6 +8476,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5126835",
+                "5126836",
+                "5126868"
+              ],
               "familien": [
                 "Windows Server"
               ]
@@ -8302,15 +8494,15 @@
             "verhaeltnis_median": 9.12,
             "median_vormonate": 163,
             "dringlichkeit": "dringend",
-            "empfehlung": "Zuerst die bereits ausgenutzte Lücke einspielen, danach die 95 als kritisch eingestuften.",
-            "empfehlung_en": "Apply the already exploited flaw first, then the 95 rated critical."
+            "empfehlung": "Zuerst den Patch für die bereits ausgenutzte Lücke einspielen, danach die Patches für die 95 als kritisch eingestuften.",
+            "empfehlung_en": "Apply the patch for the already exploited flaw first, then the patches for the 95 rated critical."
           }
         },
         "2026-Nov": {
           "id": "2026-Nov",
           "erste_veroeffentlichung": "2026-11-10T08:00:00",
           "aktuell": "2026-11-24T08:00:00",
-          "schema": 3,
+          "schema": 4,
           "cves": 1114,
           "davon_chromium_ausgenommen": 402,
           "davon_azure_linux_ausgenommen": 934,
@@ -8327,6 +8519,8 @@
           ],
           "oeffentlich_bekannt": 0,
           "oeffentlich_cves": [],
+          "ohne_fix": 0,
+          "ohne_fix_cves": [],
           "im_kev": 2,
           "im_kev_cves": [
             "CVE-2026-124194",
@@ -8362,6 +8556,8 @@
               "ausgenutzt": true,
               "oeffentlich": false,
               "kev": true,
+              "patch": "ja",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste",
                 "Office und SharePoint"
@@ -8374,6 +8570,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": true,
+              "patch": "ja",
+              "kb": [],
               "familien": [
                 "Azure Linux",
                 "Edge"
@@ -8386,6 +8584,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5131291",
+                "5131085",
+                "5131096"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -8399,6 +8603,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "unbekannt",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste"
               ]
@@ -8410,6 +8616,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "unbekannt",
+              "kb": [],
               "familien": []
             },
             {
@@ -8419,6 +8627,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste"
               ]
@@ -8430,6 +8640,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "unbekannt",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste"
               ]
@@ -8441,6 +8653,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste",
                 "Office und SharePoint"
@@ -8453,6 +8667,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste",
                 "Office und SharePoint"
@@ -8465,6 +8681,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste",
                 "Office und SharePoint"
@@ -8477,6 +8695,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste",
                 "Office und SharePoint"
@@ -8489,6 +8709,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste",
                 "Office und SharePoint"
@@ -8501,6 +8723,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste",
                 "Office und SharePoint"
@@ -8513,6 +8737,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste",
                 "Office und SharePoint"
@@ -8525,6 +8751,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste",
                 "Office und SharePoint"
@@ -8537,6 +8765,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5131085",
+                "5131096",
+                "5131087"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11"
@@ -8549,6 +8783,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5131291",
+                "5131085",
+                "5131096"
+              ],
               "familien": [
                 "Office und SharePoint",
                 "Windows 10",
@@ -8562,6 +8802,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5131291",
+                "5131085",
+                "5131096"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -8575,6 +8821,10 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5132059"
+              ],
               "familien": [
                 "Windows 11"
               ]
@@ -8586,6 +8836,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "unbekannt",
+              "kb": [],
               "familien": []
             },
             {
@@ -8595,6 +8847,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5131085",
+                "5131096",
+                "5131090"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -8608,6 +8866,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5131090",
+                "5131096",
+                "5131080"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -8621,6 +8885,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5132061",
+                "5132043",
+                "5131080"
+              ],
               "familien": [
                 "Windows 11",
                 "Windows Server"
@@ -8633,6 +8903,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5131085",
+                "5131096",
+                "5131090"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -8646,6 +8922,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5131291",
+                "5131085",
+                "5131096"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -8659,6 +8941,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5131291",
+                "5131085",
+                "5131096"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -8672,6 +8960,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5131291",
+                "5131085",
+                "5131096"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -8685,6 +8979,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5131096",
+                "5131090",
+                "5131087"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -8698,6 +8998,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste"
               ]
@@ -8709,6 +9011,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [],
               "familien": [
                 "Windows 10",
                 "Windows 11"
@@ -8721,6 +9025,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5131291",
+                "5131085",
+                "5131096"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -8734,6 +9044,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5132061",
+                "5132043",
+                "5131085"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -8747,6 +9063,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5131085",
+                "5131090",
+                "5131096"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -8760,6 +9082,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5131291",
+                "5131085",
+                "5131096"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -8773,6 +9101,12 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5131291",
+                "5131085",
+                "5131096"
+              ],
               "familien": [
                 "Windows 10",
                 "Windows 11",
@@ -8786,6 +9120,10 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5133453"
+              ],
               "familien": [
                 "Exchange"
               ]
@@ -8797,6 +9135,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "unbekannt",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste"
               ]
@@ -8808,6 +9148,8 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "unbekannt",
+              "kb": [],
               "familien": [
                 "Cloud und Dienste"
               ]
@@ -8819,6 +9161,10 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5002946"
+              ],
               "familien": [
                 "Cloud und Dienste",
                 "Office und SharePoint"
@@ -8831,6 +9177,10 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "patch": "ja",
+              "kb": [
+                "5002946"
+              ],
               "familien": [
                 "Cloud und Dienste",
                 "Office und SharePoint"
@@ -8844,15 +9194,15 @@
             "verhaeltnis_median": 6.1,
             "median_vormonate": 182.5,
             "dringlichkeit": "dringend",
-            "empfehlung": "Zuerst die bereits ausgenutzte Lücke einspielen, danach die 80 als kritisch eingestuften.",
-            "empfehlung_en": "Apply the already exploited flaw first, then the 80 rated critical."
+            "empfehlung": "Zuerst den Patch für die bereits ausgenutzte Lücke einspielen, danach die Patches für die 80 als kritisch eingestuften.",
+            "empfehlung_en": "Apply the patch for the already exploited flaw first, then the patches for the 80 rated critical."
           }
         }
       }
     },
     "prioritaet": {
       "stand": "2026-11-25",
-      "regeln": "1 im CISA-KEV, 2 vom Hersteller als ausgenutzt gemeldet, 3 EPSS ab 10 %, 4 vom Hersteller als kritisch eingestuft",
+      "regeln": "Nur Lücken, für die ein Patch vorliegt oder im Advisory zu prüfen ist. 1 im CISA-KEV, 2 vom Hersteller als ausgenutzt gemeldet, 3 EPSS ab 10 %, 4 vom Hersteller als kritisch eingestuft",
       "gesamt": 49,
       "liste": [
         {
@@ -8865,6 +9215,9 @@
           ],
           "grund": "Steht im CISA-KEV: Die Lücke wird nachweislich angegriffen.",
           "grund_en": "Listed in the CISA KEV: the flaw is proven to be attacked.",
+          "patch": "ja",
+          "patch_text": "Patch liegt vor",
+          "patch_text_en": "Patch available",
           "betrifft": "Cloud und Dienste, Office und SharePoint",
           "datum": "2026-11-10",
           "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-124194",
@@ -8880,6 +9233,9 @@
           ],
           "grund": "Steht im CISA-KEV: Die Lücke wird nachweislich angegriffen.",
           "grund_en": "Listed in the CISA KEV: the flaw is proven to be attacked.",
+          "patch": "ja",
+          "patch_text": "Patch liegt vor",
+          "patch_text_en": "Patch available",
           "betrifft": "Azure Linux, Edge",
           "datum": "2026-11-10",
           "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-125350",
@@ -8895,6 +9251,9 @@
           ],
           "grund": "Schließt 1 Lücke(n) aus dem CISA-KEV: nachweislich angegriffen.",
           "grund_en": "Closes 1 flaw(s) from the CISA KEV: proven to be attacked.",
+          "patch": "ja",
+          "patch_text": "Das Update liegt vor (Meldung des Herstellers)",
+          "patch_text_en": "The update is available (vendor advisory)",
           "betrifft": "Ubuntu Security Notices",
           "datum": "2026-11-23",
           "link": "https://ubuntu.com/security/notices/USN-9186-1",
@@ -8911,6 +9270,9 @@
           ],
           "grund": "Schließt 2 Lücke(n) aus dem CISA-KEV: nachweislich angegriffen.",
           "grund_en": "Closes 2 flaw(s) from the CISA KEV: proven to be attacked.",
+          "patch": "ja",
+          "patch_text": "Das Update liegt vor (Meldung des Herstellers)",
+          "patch_text_en": "The update is available (vendor advisory)",
           "betrifft": "Red Hat Security Advisories",
           "datum": "2026-11-11",
           "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:98609.json",
@@ -8926,6 +9288,9 @@
           ],
           "grund": "Schließt 1 Lücke(n) aus dem CISA-KEV: nachweislich angegriffen.",
           "grund_en": "Closes 1 flaw(s) from the CISA KEV: proven to be attacked.",
+          "patch": "ja",
+          "patch_text": "Das Update liegt vor (Meldung des Herstellers)",
+          "patch_text_en": "The update is available (vendor advisory)",
           "betrifft": "Red Hat Security Advisories",
           "datum": "2026-11-23",
           "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102223.json",
@@ -8941,6 +9306,9 @@
           ],
           "grund": "Schließt 1 Lücke(n) aus dem CISA-KEV: nachweislich angegriffen.",
           "grund_en": "Closes 1 flaw(s) from the CISA KEV: proven to be attacked.",
+          "patch": "ja",
+          "patch_text": "Das Update liegt vor (Meldung des Herstellers)",
+          "patch_text_en": "The update is available (vendor advisory)",
           "betrifft": "Cisco Security Advisories",
           "datum": "2026-11-13",
           "link": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-bworks-xxe-uwUd7CEt",
@@ -8956,6 +9324,9 @@
           ],
           "grund": "Schließt 1 Lücke(n) aus dem CISA-KEV: nachweislich angegriffen.",
           "grund_en": "Closes 1 flaw(s) from the CISA KEV: proven to be attacked.",
+          "patch": "ja",
+          "patch_text": "Das Update liegt vor (Meldung des Herstellers)",
+          "patch_text_en": "The update is available (vendor advisory)",
           "betrifft": "Ubuntu Security Notices",
           "datum": "2026-11-12",
           "link": "https://ubuntu.com/security/notices/USN-9066-1",
@@ -8971,17 +9342,21 @@
           ],
           "grund": "Schließt 1 Lücke(n) aus dem CISA-KEV: nachweislich angegriffen.",
           "grund_en": "Closes 1 flaw(s) from the CISA KEV: proven to be attacked.",
+          "patch": "ja",
+          "patch_text": "Das Update liegt vor (Meldung des Herstellers)",
+          "patch_text_en": "The update is available (vendor advisory)",
           "betrifft": "Ubuntu Security Notices",
           "datum": "2026-11-24",
           "link": "https://ubuntu.com/security/notices/USN-9192-1",
           "rang": 8
         }
-      ]
+      ],
+      "ohne_patch": []
     },
     "hersteller": {
       "meta": {
         "hinweis": "Nur Zählung und Verweise auf die Meldungen der Hersteller. Schweregrade stammen von den Herstellern und fehlen, wo sie nicht geliefert werden.",
-        "abgerufen_am": "2026-11-25T05:17:51+00:00"
+        "abgerufen_am": "2026-11-25T05:47:56+00:00"
       },
       "quellen": {
         "ubuntu": {
@@ -9145,7 +9520,7 @@
               "schwere": null
             }
           ],
-          "abgerufen_am": "2026-11-25T05:17:51+00:00",
+          "abgerufen_am": "2026-11-25T05:47:56+00:00",
           "status": "ok"
         },
         "debian": {
@@ -9234,7 +9609,7 @@
               "schwere": null
             }
           ],
-          "abgerufen_am": "2026-11-25T05:17:51+00:00",
+          "abgerufen_am": "2026-11-25T05:47:56+00:00",
           "status": "ok"
         },
         "redhat": {
@@ -9397,7 +9772,7 @@
               "schwere": "hoch"
             }
           ],
-          "abgerufen_am": "2026-11-25T05:17:51+00:00",
+          "abgerufen_am": "2026-11-25T05:47:56+00:00",
           "status": "ok"
         },
         "cisco": {
@@ -9551,7 +9926,7 @@
               "schwere": "kritisch"
             }
           ],
-          "abgerufen_am": "2026-11-25T05:17:51+00:00",
+          "abgerufen_am": "2026-11-25T05:47:56+00:00",
           "status": "ok"
         }
       }
