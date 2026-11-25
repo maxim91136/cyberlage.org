@@ -741,9 +741,33 @@
     box.hidden = false;
   }
 
+  function zeigeBalken(sc, box) {
+    var bs = [];
+    sc.modell_gruppen.forEach(function (g) { g.bausteine.forEach(function (b) { if (typeof b.ausschlag === "number") bs.push(b); }); });
+    if (!bs.length) return;
+    var NS = "http://www.w3.org/2000/svg", W = 540, H = 36 + bs.length * 34, X0 = 150, X1 = 500, max = 2;
+    var svg = document.createElementNS(NS, "svg"); svg.setAttribute("viewBox", "0 0 " + W + " " + H); svg.setAttribute("width", "100%"); svg.setAttribute("role", "img");
+    var mk = function (tag, a, t) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); if (t !== undefined) e.textContent = t; svg.appendChild(e); return e; };
+    var mono = { "font-family": "ui-monospace,Menlo,Consolas,monospace", "font-size": "11", fill: "#9aa7b4" };
+    var xs = function (v) { return X0 + (Math.min(v, max) / max) * (X1 - X0); };
+    mk("title", {}, pick("Bausteine als Balken, Schwelle bei 1,0", "Components as bars, threshold at 1.0"));
+    bs.forEach(function (b, i) {
+      var y = 20 + i * 34, over = b.ausschlag >= 1;
+      mk("text", Object.assign({ x: X0 - 8, y: y + 14, "text-anchor": "end" }, mono), pick(b.name, b.name_en));
+      mk("rect", { x: X0, y: y, width: X1 - X0, height: 20, fill: "#1a222b" });
+      mk("rect", { x: X0, y: y, width: xs(b.ausschlag) - X0, height: 20, fill: over ? "#e3b341" : "#4fa57a" });
+      mk("text", Object.assign({ x: Math.min(xs(b.ausschlag) + 6, X1 - 30), y: y + 14 }, mono, { fill: "#e6edf3" }), b.ausschlag.toLocaleString(window.I18N.locale, { minimumFractionDigits: 1, maximumFractionDigits: 2 }));
+    });
+    mk("line", { x1: xs(1), x2: xs(1), y1: 10, y2: H - 18, stroke: "#e6edf3", "stroke-width": "1.5", "stroke-dasharray": "4 3" });
+    mk("text", Object.assign({ x: xs(1), y: H - 4, "text-anchor": "middle" }, mono), pick("Schwelle 1,0", "threshold 1.0"));
+    box.appendChild(el("h4", "mono rd-t", pick("Bausteine im Vergleich", "Components compared")));
+    box.appendChild(svg);
+  }
+
   function zeigeModell(sc) {
     var box = $("rd-modell"); if (!box) return; box.textContent = "";
     if (!sc || !sc.modell_gruppen) return;
+    zeigeBalken(sc, box);
     box.appendChild(el("h4", "mono rd-t", pick("Aufbau · Modell ", "Structure · model ") + (sc.modell || "")));
     var ul = el("ul", "p-liste");
     sc.modell_gruppen.forEach(function (g) {
