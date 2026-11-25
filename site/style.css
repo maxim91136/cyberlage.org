@@ -605,3 +605,4 @@ html[lang=en] #teil3 .akk>summary::after{content:"OPEN +"}html[lang=en] #teil3 .
 .spark-w{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:6px;font-size:12px;color:var(--st,#e3b341)}.spark{width:180px;height:32px;flex:none}
 .fz-top a{white-space:nowrap}
 .fz-mk{font-size:11px;border:1px solid currentColor;border-radius:4px;padding:0 4px;opacity:.85;white-space:nowrap}
+#modus{white-space:nowrap}

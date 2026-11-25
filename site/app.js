@@ -547,7 +547,7 @@
     if (pr) add(pick("Diese Woche zuerst: ", "This week first: ") + (pr.cves && pr.cves[0] ? pr.cves[0] + " – " : "") + pr.titel.slice(0, 70) + " (" + pr.quelle + ")", "#p-zuerst");
     var k = d.kev || {};
     if (typeof k.neu_7_tage === "number") add(pick("CISA-KEV: ", "CISA KEV: ") + zahl(k.neu_7_tage) + pick(" neue ausgenutzte Lücken in 7 Tagen, ", " new exploited flaws in 7 days, ") + zahl(k.neu_30_tage) + pick(" in 30 Tagen", " in 30 days") + (k.ransomware_bekannt_30_tage ? " · " + zahl(k.ransomware_bekannt_30_tage) + pick(" mit Ransomware-Nutzung", " with ransomware use") : ""), "#lage", k.ransomware_bekannt_30_tage ? "warn" : "");
-    if (window.DP) add("Dreier-Pegel: " + window.DP, "#lage");
+    if (window.DP) add(pick("Dreier-Pegel: ", "Dreier Gauge: ") + window.DP, "#lage");
     if (!items.length) { bar.hidden = true; return; }
     var reduziert = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     function bau(kopie) {
