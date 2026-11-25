@@ -562,3 +562,8 @@ html[lang=en] #teil3 .akk>summary::after{content:"OPEN +"}html[lang=en] #teil3 .
 .skz,.kc-s,.nav-grp,.nav-row .nav-grp{font-size:12px}.kc-a{font-size:11px}
 .teil>summary::after,.sek>summary::after,#teil3 .akk>summary::after{font-size:12px;letter-spacing:.1em}.sek.sub>summary::after{font-size:11px}
 .fz-dl dd.fh{color:var(--text)}.fz-dl dt{font-size:12px}.fz-dl dt:last-of-type{color:var(--green)}
+/* Skala ohne Knick: die Segmente erben sonst Abstand und Linie der Signalzeilen */
+.ska .sg{display:block;padding:0;border:0;margin:0;height:100%;gap:0}
+/* Blue-Team-Abzeichen */
+.blau{display:inline-flex;align-items:center;gap:7px;margin:12px 0 0;padding:5px 11px 5px 9px;font-size:12px;font-weight:700;letter-spacing:.16em;color:#8fc0ff;border:1px solid #3d7dd8;border-radius:999px;background:linear-gradient(180deg,rgba(61,125,216,.20),rgba(61,125,216,.06));box-shadow:0 0 18px -8px #3d7dd8}
+.blau svg{display:block;flex:none}
