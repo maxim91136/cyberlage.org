@@ -54,6 +54,7 @@ def main():
         return 1
     pfad.write_text(neu, encoding="utf-8")
     (WURZEL / "site" / "RULES.md").write_text((WURZEL / "RULES.md").read_text(encoding="utf-8"), encoding="utf-8")  # Regeln auch unter cyberlage.org/RULES.md
+    (WURZEL / "site" / "LICENSE").write_text((WURZEL / "LICENSE").read_text(encoding="utf-8"), encoding="utf-8")
     print("OK: site/index.html (Text für Crawler)")
     return 0
 

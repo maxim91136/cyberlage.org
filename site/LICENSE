@@ -1,0 +1,36 @@
+Copyright (c) 2026 Steve Dreier, Dreier Labs. Alle Rechte vorbehalten. All rights reserved.
+
+DEUTSCH
+
+Dieses Repository ist öffentlich einsehbar, damit jede Zahl und jede Regel von cyberlage.org nachprüfbar ist.
+Öffentlich einsehbar heißt nicht frei verwendbar.
+
+1. Code, Texte, Regeln, Modell und Gestaltung (Quelltext, RULES.md, der "Dreier-Pegel" mit seinen Bausteinen,
+   Schwellen und Stufen, das Erscheinungsbild der Seite) dürfen gelesen, zitiert und zur Prüfung lokal ausgeführt werden.
+2. Jede weitere Nutzung braucht die vorherige schriftliche Zustimmung des Rechteinhabers. Das gilt insbesondere für das
+   Kopieren, Verändern, Weiterverbreiten, den Betrieb eigener Angebote auf dieser Grundlage und jede kommerzielle Nutzung.
+3. Die Namen und Zeichen "Cyberlage", "cyberlage.org", "Dreier-Pegel", "Dreier Labs" sowie das Logo sind nicht Teil
+   irgendeiner Erlaubnis. Sie dürfen nicht für eigene Angebote verwendet werden.
+4. Daten Dritter (unter anderem CISA, ENISA, BSI/CERT-Bund, NCSC-NL, SANS ISC, FIRST, NIST, Microsoft, Red Hat, SUSE,
+   Canonical, Debian, AlmaLinux, Rocky Linux, Amazon, Cisco, SAP) bleiben bei ihren Urhebern und unterliegen deren
+   Bedingungen. Diese Datei räumt daran keine Rechte ein. Die jeweilige Quelle und ihr Status stehen in data/sources.csv.
+5. Die Inhalte werden ohne Gewähr bereitgestellt. Eine Haftung für Richtigkeit, Vollständigkeit oder Folgen der Nutzung
+   ist ausgeschlossen, soweit gesetzlich zulässig.
+
+Anfragen: siehe https://cyberlage.org/impressum.html
+
+ENGLISH
+
+This repository is public so that every number and rule on cyberlage.org can be verified. Public does not mean free to use.
+
+1. Code, texts, rules, model and design (source code, RULES.md, the "Dreier-Pegel" / "Dreier Gauge" with its components,
+   thresholds and levels, the look of the site) may be read, quoted and run locally for verification.
+2. Any other use requires prior written permission from the rights holder, in particular copying, modifying,
+   redistributing, operating services based on it, and any commercial use.
+3. The names and marks "Cyberlage", "cyberlage.org", "Dreier-Pegel", "Dreier Gauge", "Dreier Labs" and the logo are not
+   covered by any permission and must not be used for other offerings.
+4. Third-party data remains with its originators and is subject to their terms. This file grants no rights to it.
+   Sources and their status are listed in data/sources.csv.
+5. Provided without warranty. Liability is excluded to the extent permitted by law.
+
+Contact: see https://cyberlage.org/impressum.html

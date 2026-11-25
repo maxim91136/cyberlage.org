@@ -34,6 +34,7 @@
     rd_einzel: "Individual values and group structure",
     k_bau: "## components", k_wie: "## how the gauge arises", k_ms: "Microsoft patch day", k_edge: "Edge and Chrome", k_hs: "Linux distributions and vendors", s_wie: "How the gauge arises",
     k_zuerst: "This week first",
+    f_dank: "Thanks to everyone whose open data makes this site possible: CISA, ENISA, BSI and CERT-Bund, NCSC-NL, SANS ISC, FIRST (EPSS), NIST (NVD), Microsoft, Red Hat, SUSE, Canonical, Debian, AlmaLinux, Rocky Linux, Amazon, Cisco and SAP.",
     f1cq: "Why is it called the “Dreier” gauge?", f1ca: "The name comes from Dreier Labs, the project behind Cyberlage, and has nothing to do with the number of levels: the gauge has five levels (calm, unremarkable, tense, high, exceptional).",
     f1bq: "What is it made of?", f1ba: "From eight components in three groups. Exploitation: KEV count (new in the CISA catalog, 30 days), pace to KEV (how fast new flaws are exploited), EU KEV (newly reported as exploited) and Microsoft (exploited flaws in the latest patch day). Warnings: CERT-Bund (new critical and high advisories, 30 days) and NCSC-NL (new advisories, 30 days). External assessments: BSI Cyber Index and SANS Infocon. Each component is measured against its own threshold, the top quarter of its history. Averaged within each group first, then across groups. 50 means the thresholds are reached on average.",
     f2q: "Where does the data come from?", f2a: "From public sources, fetched daily: CISA KEV, CVE list, EU KEV (ENISA), Microsoft MSRC, CERT-Bund, NCSC-NL, BSI Cyber Index and SANS ISC. All eight feed the score. Every value names its source and date.",
@@ -68,7 +69,7 @@
       '<div class="panel pad"><strong>No data instead of guesses</strong><p class="dim">If a sourced value is missing, it says “no data”.</p></div>' +
       '<div class="panel pad"><strong>Open rules</strong><p class="dim">Window, thresholds and derivation are in <a href="https://github.com/maxim91136/cyberlage.org/blob/main/RULES.md">RULES.md</a>.</p></div>',
     f_fuss: 'A project by <a href="https://dreierlabs.com">Dreier Labs</a>. Private project, not an official body, no connection to the BSI or any authority. No warranty.',
-    f_links: '<a href="impressum.html">legal notice</a> · <a href="hinweise.html">notes &amp; privacy</a>',
+    f_links: '<a href="impressum.html">legal notice</a> · <a href="hinweise.html">notes &amp; privacy</a> · <a href="LICENSE">licence</a>',
     top: "Back to top",
     // hinweise.html
     hw_titel: "Notes and privacy",

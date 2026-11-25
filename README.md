@@ -53,3 +53,11 @@ python3 pipeline/feed.py
 ## Hinweis
 
 Die Seite zeigt Zahlen aus öffentlichen Quellen. Sie ersetzt keine Warnung des BSI oder eines CERT. Die Verlinkung auf amtliche Quellen ist kein Hinweis auf eine Zusammenarbeit.
+
+## Lizenz
+
+Alle Rechte vorbehalten, siehe [LICENSE](LICENSE). Das Repository ist öffentlich, damit alles nachprüfbar ist; eine Weiterverwendung braucht die Zustimmung des Rechteinhabers. Die Namen „Cyberlage“ und „Dreier-Pegel“ sind nicht freigegeben. Daten Dritter bleiben bei ihren Urhebern.
+
+## Dank
+
+Danke an alle, deren offene Daten diese Seite möglich machen: CISA, ENISA, BSI und CERT-Bund, NCSC-NL, SANS ISC, FIRST (EPSS), NIST (NVD), Microsoft, Red Hat, SUSE, Canonical, Debian, AlmaLinux, Rocky Linux, Amazon, Cisco und SAP.

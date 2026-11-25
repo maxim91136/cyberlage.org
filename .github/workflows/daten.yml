@@ -106,7 +106,7 @@ jobs:
         run: |
           git config user.name "cyberlage-bot"
           git config user.email "cyberlage-bot@users.noreply.github.com"
-          git add data site/data site/feed.xml site/index.html site/RULES.md
+          git add data site/data site/feed.xml site/index.html site/RULES.md site/LICENSE
           if ! git diff --cached --quiet; then
             git commit -m "Daten aktualisiert"
             # Liegt inzwischen ein anderer Commit auf main, erst abgleichen und erneut pushen.
