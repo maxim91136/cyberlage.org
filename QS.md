@@ -35,6 +35,8 @@ Steve soll nicht zwischen den Chats vermitteln müssen. Wer am Repo arbeitet, li
 
 - **„Was betreue ich?“: Knopf „Alle“ (Bau-Chat, 25.11. nachts, Auftrag von Steve):** Erster Knopf „Alle N“ zeigt die Rangliste „Diese Woche zuerst patchen“ und die angegriffenen Lücken über alle Bereiche, je Eintrag mit Bereichsnamen; die lange Liste zeigt zuerst zehn, der Rest per Knopf. „Alle“ ist die Vorgabe, solange kein Bereich gewählt wurde. Hersteller-Kacheln erscheinen erst nach Wahl eines Bereichs. Nur Anzeige, keine Regel geändert. Lokal geprüft bei 390 und 1280 px, Deutsch und Englisch.
 
+- **„Was betreue ich?“: zwei Zahlen je Knopf (Bau-Chat, 26.11., nach Hinweis von Steve):** Bisher stand nur die KEV-Zahl am Knopf; „Windows und Microsoft 0“ bei zehn kritischen Einträgen in der Rangliste las sich wie „nichts zu tun“. Jetzt stehen beide Zahlen am Knopf (zuerst patchen · neu angegriffen), mit Legende darunter und in der Infozeile. Dazu Fehler behoben: Der Knopf „alle N zeigen“ blieb stehen, wenn man von „Alle“ in einen Bereich ohne KEV-Einträge wechselte.
+
 ## Entscheidungen von Steve
 
 - **Keine Trägheitsregel (25.11. abends).** Die Stufe wechselt genau an der Grenze, auch wenn der Pegel um einen Punkt pendelt („irgendwo muss er ja umswitchen“). Steht in RULES.md unter „Logbuch“. Nicht erneut vorschlagen.

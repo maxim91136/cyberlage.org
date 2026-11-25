@@ -592,7 +592,15 @@
       "Pick an area: the site shows that area's vendors with figures and patch day and, below, what is being attacked there. Shown are flaws added to the CISA KEV as proven attacked in the last " + (d.fenster_tage || 30) + " days, assigned by vendor and product.")));
     var wahl = lsGet("cl_bereich"); if (wahl !== "alle" && !bl.some(function (b) { return b.id === wahl; })) wahl = "alle";
     var bname = {}; bl.forEach(function (b) { bname[b.id] = pick(b.name, b.name_en); });
+    var prl = (((d.patches || {}).prioritaet || {}).liste) || [], prn = {}; prl.forEach(function (p) { prn[p.bereich] = (prn[p.bereich] || 0) + 1; });
+    /* Zwei Zahlen je Knopf: Einträge in „Diese Woche zuerst patchen“ und neu im KEV (30 Tage) */
+    function knopfText(k, name, patch, kev) {
+      k.textContent = ""; k.appendChild(document.createTextNode(name + " "));
+      var z = el("span", "b-z"); z.appendChild(el("b", patch ? "rw" : "", String(patch))); z.appendChild(document.createTextNode(" · " + kev)); k.appendChild(z);
+      k.setAttribute("aria-label", name + pick(": " + patch + " zuerst patchen, " + kev + " neu angegriffen", ": " + patch + " to patch first, " + kev + " newly attacked"));
+    }
     var bt = el("div", "p-btns mono b-btns"); bt.setAttribute("role", "group"); bt.setAttribute("aria-label", pick("Bereich", "Area")); box.appendChild(bt);
+    var leg = el("p", "mono dim fine b-leg"); leg.appendChild(document.createTextNode(pick("Zahlen je Bereich: ", "Figures per area: "))); leg.appendChild(el("b", "rw", pick("zuerst patchen", "patch first"))); leg.appendChild(document.createTextNode(pick(" · neu angegriffen (CISA-KEV, 30 Tage)", " · newly attacked (CISA KEV, 30 days)"))); box.appendChild(leg);
     var info = el("p", "mono dim fine"), ul = el("ul", "b-liste"); box.appendChild(info);
     var zbox = el("div", "b-zu"); box.appendChild(zbox);
     box.appendChild(el("h4", "mono b-h4", pick("Gerade angegriffen (CISA-KEV, 30 Tage)", "Under attack now (CISA KEV, 30 days)"))); box.appendChild(ul);
@@ -649,7 +657,6 @@
         gr.appendChild(k);
       });
     }
-    var prl = (((d.patches || {}).prioritaet || {}).liste) || [];
     function zeigeZuerstBereich() {
       zbox.textContent = "";
       var mein = wahl === "alle" ? prl : prl.filter(function (p) { return p.bereich === wahl; });
@@ -672,8 +679,9 @@
       Array.prototype.forEach.call(bt.children, function (b) { b.setAttribute("aria-pressed", String(b.dataset.b === wahl)); });
       var b = wahl === "alle" ? { name: "Alle Bereiche", name_en: "All areas", fuer: "die Rangliste über alles, ohne Filter", fuer_en: "the ranking across everything, unfiltered", anzahl: bl.reduce(function (n, x) { return n + x.anzahl; }, 0), anzahl_7: bl.reduce(function (n, x) { return n + (x.anzahl_7 || 0); }, 0) }
         : bl.filter(function (x) { return x.id === wahl; })[0], mein = wahl === "alle" ? neu.filter(function (e) { return e.bereich; }) : neu.filter(function (e) { return e.bereich === wahl; });
-      info.textContent = (pick(b.fuer, b.fuer_en) ? pick(b.name, b.name_en) + ": " + pick(b.fuer, b.fuer_en) + ". " : "") + pick(b.anzahl + " in " + (d.fenster_tage || 30) + " Tagen, davon " + b.anzahl_7 + " in den letzten 7.", b.anzahl + " in " + (d.fenster_tage || 30) + " days, " + b.anzahl_7 + " of them in the last 7.");
+      info.textContent = (pick(b.fuer, b.fuer_en) ? pick(b.name, b.name_en) + ": " + pick(b.fuer, b.fuer_en) + ". " : "") + pick((wahl === "alle" ? prl.length : prn[wahl] || 0) + " in der Rangliste „zuerst patchen“. " + b.anzahl + " neu angegriffen in " + (d.fenster_tage || 30) + " Tagen, davon " + b.anzahl_7 + " in den letzten 7.", (wahl === "alle" ? prl.length : prn[wahl] || 0) + " in the “patch first” ranking. " + b.anzahl + " newly attacked in " + (d.fenster_tage || 30) + " days, " + b.anzahl_7 + " of them in the last 7.");
       ul.textContent = "";
+      var alt = box.querySelector(".b-mehr"); if (alt) alt.parentNode.removeChild(alt);
       if (!mein.length) { ul.appendChild(el("li", "dim", pick("In diesem Bereich kam in den letzten " + (d.fenster_tage || 30) + " Tagen nichts neu als angegriffen in den Katalog. Das heißt nicht, dass es nichts zu patchen gibt.", "Nothing in this area was newly listed as attacked in the last " + (d.fenster_tage || 30) + " days. That does not mean there is nothing to patch."))); return; }
       mein.forEach(function (e) {
         var li = el("li", ""); li.appendChild(el("span", "mono dim", datum(e.hinzugefuegt) + " ")); li.appendChild(link(e.link, e.cve));
@@ -684,7 +692,6 @@
         ul.appendChild(li);
       });
       /* Ohne Filter ist die Liste lang: die ersten zehn zeigen, der Rest per Knopf */
-      var alt = box.querySelector(".b-mehr"); if (alt) alt.parentNode.removeChild(alt);
       if (wahl === "alle" && mein.length > 10) {
         Array.prototype.forEach.call(ul.children, function (li, i) { li.hidden = i >= 10; });
         var mb = el("button", "mono b-mehr", pick("alle " + mein.length + " zeigen", "show all " + mein.length)); mb.type = "button";
@@ -693,11 +700,11 @@
       }
     }
     (function () {
-      var k = el("button", "", pick("Alle", "All") + " " + bl.reduce(function (n, x) { return n + x.anzahl; }, 0)); k.type = "button"; k.dataset.b = "alle";
+      var k = el("button", ""); knopfText(k, pick("Alle", "All"), prl.length, bl.reduce(function (n, x) { return n + x.anzahl; }, 0)); k.type = "button"; k.dataset.b = "alle";
       k.addEventListener("click", function () { wahl = "alle"; lsSet("cl_bereich", wahl); zeige(); }); bt.appendChild(k);
     })();
     bl.forEach(function (b) {
-      var k = el("button", "", pick(b.name, b.name_en) + " " + b.anzahl); k.type = "button"; k.dataset.b = b.id;
+      var k = el("button", ""); knopfText(k, pick(b.name, b.name_en), prn[b.id] || 0, b.anzahl); k.type = "button"; k.dataset.b = b.id;
       k.addEventListener("click", function () { wahl = b.id; lsSet("cl_bereich", wahl); zeige(); }); bt.appendChild(k);
     });
     zeige();

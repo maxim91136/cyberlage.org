@@ -641,3 +641,4 @@ th.th-s{cursor:pointer;user-select:none;white-space:nowrap}th.th-s:hover,th.th-s
 @media(max-width:520px){.br{padding:14px 12px 10px}.br-tab table{font-size:13px}.br-tab td,.br-tab th{padding:7px 8px}.br-tab th{letter-spacing:0}}
 .fz-zeit strong{color:var(--amber);font-size:17px;white-space:nowrap}
 .b-mehr{background:none;border:1px solid var(--line);color:var(--green);font-size:13px;padding:7px 12px;min-height:36px;cursor:pointer;margin:8px 0 4px}.b-mehr:hover{border-color:var(--green)}
+.b-z{color:var(--dim);font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;margin-left:2px}.b-z b{font-weight:600}.b-z b:not(.rw){color:var(--dim)}.b-leg{margin:0 0 8px}
