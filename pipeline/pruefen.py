@@ -53,7 +53,7 @@ def eintraege():
         pass
     try:
         mod = json.loads((WURZEL / "config" / "modell.json").read_text(encoding="utf-8"))
-        out.append({"id": "modell", "bereich": "radar_stufen", "name": "Modell des Dreier-Pegels %s: Bausteine, Gruppen, Beobachtung (%s)" % (mod.get("version", ""), mod.get("status", "")),
+        out.append({"id": "modell", "bereich": "radar_stufen", "name": "Modell des Dreier-Pegels %s: Bausteine, Gruppen, Schwellen (%s)" % (mod.get("version", ""), mod.get("status", "")),
                     "link": "https://github.com/maxim91136/cyberlage.org/blob/main/config/modell.json", "geprueft_am": mod.get("geprueft_am", "")})
     except (OSError, ValueError):
         pass

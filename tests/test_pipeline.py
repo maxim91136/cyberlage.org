@@ -941,5 +941,31 @@ class ModellTests(unittest.TestCase):
         self.assertEqual((r[1]["ausnutzung"], r[1]["n"]), (100, 1))
 
 
+class ArchivTests(unittest.TestCase):
+    def test_erstdatum_nimmt_fruehestes_datum_hoeherer_nummern(self):
+        import modell
+        e = modell.erstdatum({"WID-SEC-2026-0001": "2026-03-01", "WID-SEC-2026-0002": "2026-01-05", "WID-SEC-2026-0003": "2026-01-07", "WID-SEC-2025-0900": "2026-02-01"})
+        self.assertEqual(e["WID-SEC-2026-0001"], "2026-01-05")
+        self.assertEqual(e["WID-SEC-2026-0003"], "2026-01-07")
+        self.assertEqual(e["WID-SEC-2025-0900"], "2025-12-31")
+
+    def test_fenster_reihe_zaehlt_gleitend(self):
+        import modell
+        r = modell.fenster_reihe(["2026-01-01", "2026-01-02", "2026-01-02", "2026-01-05"], 2, "2026-01-02", "2026-01-05")
+        self.assertEqual([x["wert"] for x in r], [3, 2, 0, 1])
+
+    def test_archiv_microsoft_ist_stufenreihe(self):
+        import modell
+        r = modell.archiv_reihen({"microsoft": {"monate": {"a": {"tag": "2026-01-01", "ausgenutzt": 2}, "b": {"tag": "2026-01-03", "ausgenutzt": 0}}}}, "2026-01-04")
+        self.assertEqual([x["wert"] for x in r["ms_ausgenutzt"]], [2, 2, 0, 0])
+
+    def test_rueck_reihe_ohne_externe(self):
+        import modell
+        cfg = {"obergrenze": 2.0, "gruppen": [{"id": "a", "name": "A", "name_en": "A"}, {"id": "extern", "name": "E", "name_en": "E"}],
+               "bausteine": [{"id": "x", "gruppe": "a", "status": "aktiv"}, {"id": "y", "gruppe": "extern", "status": "aktiv"}]}
+        r = modell.rueck_reihe({"x": {"2026-01-01": 1.0}, "y": {"2026-01-01": 2.0}}, cfg)
+        self.assertEqual(r, [{"stand": "2026-01-01", "ausnutzung": 50, "n": 1}])
+
+
 if __name__ == "__main__":
     unittest.main()

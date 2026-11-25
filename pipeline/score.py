@@ -350,16 +350,38 @@ def main(argv):
         import modell
         mcfg = lese_optional(WURZEL / "config" / "modell.json")
         aus = {x["name_en"]: x.get("ausschlag") for x in ergebnis["radar"]["konsens"]["signale"]}
-        einzel = {b["id"]: aus.get(b.get("signal")) for b in mcfg["bausteine"] if b["status"] == "aktiv"}
+        einzel = {b["id"]: aus.get(b.get("signal")) for b in mcfg["bausteine"] if b["status"] == "aktiv" and b.get("signal")}
+        # Archiv-Bausteine: Tageswerte aus echten Meldungen (data/radar/historie), Ausschlag = Wert / Schwelle
+        hd = WURZEL / "data" / "radar" / "historie"
+        archiv = modell.archiv_reihen({k: lese_optional(hd / (k + ".json")) for k in ("cert_bund", "ncsc_nl", "eu_kev", "microsoft")}, stand.isoformat())
+        arch_aus = {}
+        kon = ergebnis["radar"]["konsens"]
+        for bst in mcfg["bausteine"]:
+            if bst["status"] != "aktiv" or not bst.get("schwelle") or bst["id"] not in archiv:
+                continue
+            reihe_b = [x for x in archiv[bst["id"]] if x["wert"] is not None]
+            arch_aus[bst["id"]] = {x["stand"]: x["wert"] / bst["schwelle"] for x in reihe_b}
+            heute_w = reihe_b[-1]["wert"] if reihe_b and reihe_b[-1]["stand"] == stand.isoformat() else None
+            einzel[bst["id"]] = None if heute_w is None else heute_w / bst["schwelle"]
+            kon["signale"].append({"name": bst["kurz"], "name_en": bst["kurz"], "erhoeht": None if heute_w is None else heute_w >= bst["schwelle"],
+                                   "grund": bst["regel"], "grund_en": bst["regel_en"], "art": "extern", "baustein": bst["id"],
+                                   "ausschlag": None if heute_w is None else round(heute_w / bst["schwelle"], 2),
+                                   "wert": heute_w, "schwelle": bst["schwelle"], "misst": bst["name"], "misst_en": bst["name_en"],
+                                   "zeitraum": bst["zeitraum"], "zeitraum_en": bst["zeitraum_en"], "daten_seit": reihe_b[0]["stand"] if reihe_b else None})
+        ext = [x for x in kon["signale"] if x["art"] == "extern" and x["erhoeht"] is not None]
+        kon["erhoeht"], kon["bewertet"] = sum(1 for x in ext if x["erhoeht"]), len(ext)
         ms = modell.score(einzel, mcfg)
         if ms:
             rs.update(wert=ms["wert"], signale=ms["signale"], von=ms["von"], gruppen=ms["gruppen"], modell=mcfg["version"])
         beob = modell.beobachtung_heute(stand, lese_optional(WURZEL / "data" / "bsi" / "warnungen.json"), lese_optional(WURZEL / "data" / "eu" / "kev.json"),
                                         lese_optional(WURZEL / "data" / "patches" / "microsoft.json"), ergebnis["radar"].get("ncsc"))
+        beob = {b["id"]: beob.get(b["id"]) for b in mcfg["bausteine"] if b["status"] == "beobachtung"}
         bp = WURZEL / "data" / "radar" / "bausteine.json"
         bp.write_text(json.dumps(modell.speichern(lese_optional(bp), stand, mcfg["version"], einzel, beob), ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
         rs["beobachtung"] = [dict(b, wert=beob.get(b["id"])) for b in mcfg["bausteine"] if b["status"] == "beobachtung"]
-        rs["modell_gruppen"] = [dict(g, bausteine=[{k: b[k] for k in ("id", "name", "name_en", "status", "historie")} | {"ausschlag": einzel.get(b["id"])} for b in mcfg["bausteine"] if b["gruppe"] == g["id"] and b["status"] == "aktiv"]) for g in mcfg["gruppen"]]
+        rs["modell_gruppen"] = [dict(g, bausteine=[{"id": b["id"], "name": b.get("kurz") or b["name"], "name_en": b.get("kurz") or b["name_en"], "status": b["status"], "historie": b.get("historie"),
+                                                    "ausschlag": None if einzel.get(b["id"]) is None else round(einzel[b["id"]], 2)}
+                                                   for b in mcfg["bausteine"] if b["gruppe"] == g["id"] and b["status"] == "aktiv"]) for g in mcfg["gruppen"]]
         sr = [p for p in (lese_optional(sp) or {}).get("reihe", []) if p["stand"] != stand.isoformat()]
         sr.append({"stand": stand.isoformat(), "wert": rs["wert"], "signale": rs["signale"], "von": rs["von"], "modell": rs.get("modell")})
         sp.write_text(json.dumps({"meta": {"name": "Dreier-Pegel (Gesamtscore)", "hinweis": "Tagesstand live gespeichert, keine Rückrechnung möglich, weil die externen Signale keine Historie haben"},
@@ -367,7 +389,14 @@ def main(argv):
         rs["live_seit"] = sr[0]["stand"]
         rs["reihe"] = sr[-90:]
         rtempo = (ergebnis["radar"].get("zeit_bis_kev") or {}).get("tempo_reihe") or []
-        alt = modell.ausnutzung_reihe(reihe, regeln.get("erhoeht_ab"), rtempo, (regeln.get("tempo") or {}).get("erhoeht_bis"), mcfg)
+        ar = dict(arch_aus)
+        if regeln.get("erhoeht_ab"):
+            ar["kev_menge"] = {x["stand"]: x["wert"] / regeln["erhoeht_ab"] for x in reihe}
+        tb = (regeln.get("tempo") or {}).get("erhoeht_bis")
+        if tb:
+            ar["tempo"] = {x["stand"]: tb / max(x["wert"], 1.0) for x in rtempo}
+        kev_tage = {x["stand"] for x in reihe}
+        alt = [x for x in modell.rueck_reihe(ar, mcfg) if x["stand"] in kev_tage]
         live = {x["stand"]: x for x in sr}
         rs["reihe_voll"] = [{"stand": x["stand"], "ausnutzung": x["ausnutzung"], "n": x["n"],
                              "wert": live[x["stand"]]["wert"] if x["stand"] in live else None,

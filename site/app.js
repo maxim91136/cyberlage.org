@@ -250,7 +250,7 @@
       mk("text", Object.assign({ x: L - 6, y: y(n) + 4, "text-anchor": "end" }, mono), String(n));
     });
     [30, 64, 80].forEach(function (n) { mk("line", { x1: L, x2: B - R, y1: y(n), y2: y(n), stroke: "#1d262e", "stroke-dasharray": "2 4" }); });
-    // Linie 1: Gruppe Ausnutzung, über den ganzen Zeitraum gleich definiert
+    // Linie 1: alle Bausteine mit Archiv, rückgerechnet
     mk("polyline", { points: v.map(function (p, i) { return x(i) + "," + y(p.ausnutzung); }).join(" "), fill: "none", stroke: "#5a8f74", "stroke-width": 1.6 });
     // Linie 2: voller Dreier-Pegel, erst ab dem Live-Start
     var live = []; v.forEach(function (p, i) { if (typeof p.wert === "number") live.push(i); });
@@ -269,8 +269,9 @@
     mk("text", Object.assign({ x: x(v.length - 1), y: H - 8, "text-anchor": "end" }, mono), datum(v[v.length - 1].stand));
     var t = document.createElementNS(NS, "title"); t.textContent = pick("Verlauf des Dreier-Pegels, zuletzt " + (typeof sc.wert === "number" ? sc.wert : "–") + " von 100.", "Dreier Gauge over time, latest " + (typeof sc.wert === "number" ? sc.wert : "–") + " of 100."); svg.insertBefore(t, svg.firstChild);
     var ak = v[v.length - 1].ausnutzung;
-    leg.textContent = pick("Dunkle Linie: Gruppe Ausnutzung (KEV-Menge und Tempo bis KEV), über alle 36 Monate gleich definiert und aus echten Daten rückgerechnet; die heutigen Schwellen werden rückwirkend angewendet, zuletzt " + ak + ". Helle Linie: voller Dreier-Pegel mit allen aktiven Bausteinen, erst ab " + datum(sc.live_seit) + " gemessen, davor gibt es für BSI und SANS keine Tagesreihe und wir schätzen nichts. Experiment, nicht objektiv. Strichlinien: Stufengrenzen 30, 50, 64, 80.",
-      "Dark line: Exploitation group (KEV count and pace to KEV), defined the same way over all 36 months and back-calculated from real data; today's thresholds are applied retroactively, latest " + ak + ". Bright line: full Dreier Gauge with all active components, measured only from " + datum(sc.live_seit) + "; before that BSI and SANS have no daily series and we estimate nothing. Experiment, not objective. Dashed lines: level limits 30, 50, 64, 80.");
+    var n0 = v[0].n, n1 = v[v.length - 1].n;
+    leg.textContent = pick("Dunkle Linie: Pegel aus allen Bausteinen mit Archiv, aus echten Meldungen rückgerechnet (anfangs " + n0 + ", zuletzt " + n1 + " Bausteine, je nachdem wie weit jede Quelle zurückreicht); die heutigen Schwellen werden rückwirkend angewendet, zuletzt " + ak + ". Helle Linie: voller Dreier-Pegel einschließlich der externen Einschätzungen (BSI, SANS), die kein Archiv haben, live gespeichert seit " + datum(sc.live_seit) + ". Nichts ist geschätzt.",
+      "Dark line: gauge from all components with an archive, back-calculated from real advisories (" + n0 + " components at first, " + n1 + " latest, depending on how far each source goes back); today's thresholds are applied retroactively, latest " + ak + ". Bright line: full Dreier Gauge including the external assessments (BSI, SANS), which have no archive, stored live since " + datum(sc.live_seit) + ". Nothing is estimated.");
   }
 
   function liste(boxId, zeilen, max) {
@@ -769,7 +770,7 @@
     mk("text", Object.assign({ x: xs(1), y: H - 4, "text-anchor": "middle" }, mono), pick("Schwelle 1,0", "threshold 1.0"));
     box.appendChild(el("h4", "mono rd-t", pick("Bausteine im Vergleich", "Components compared")));
     box.appendChild(svg);
-    box.appendChild(el("p", "mono dim fine", pick(bs.length + " Bausteine zählen im Pegel, " + bo.length + " weitere werden beobachtet und zählen erst mit eigener Schwelle.", bs.length + " components count in the gauge, " + bo.length + " more are observed and count only once they have a threshold.")));
+    box.appendChild(el("p", "mono dim fine", bo.length ? pick(bs.length + " Bausteine zählen im Pegel, " + bo.length + " weitere werden beobachtet und zählen erst mit eigener Schwelle.", bs.length + " components count in the gauge, " + bo.length + " more are observed and count only once they have a threshold.") : pick("Alle " + bs.length + " Bausteine zählen im Pegel. Gelb: an oder über der Schwelle.", "All " + bs.length + " components count in the gauge. Yellow: at or above threshold.")));
   }
 
   function zeigeModell(sc) {
@@ -887,6 +888,10 @@ b.appendChild(el("span", "g", typeof s.ausschlag === "number" ? pick("Messwert: 
       $(o.gr === "ktx" ? "rd-k-ktx" : "rd-k-score").appendChild(b);
     };
     var tg = pick("Stand ", "as of ");
+    ((r.konsens && r.konsens.signale) || []).forEach(function (x) {
+      if (!x.baustein || typeof x.wert !== "number") return;
+      kachel({ gr: "score", nat: "mess", quelle: "extern", sig: x.name_en, name: x.name, wert: zahl(x.wert), einheit: pick(" · Schwelle ", " · threshold ") + zahl(x.schwelle), misst: pick(x.misst, x.misst_en) + (x.daten_seit ? pick(", Archiv seit ", ", archive since ") + datum(x.daten_seit) : ""), stand: tg + datum(r.abgerufen_am) });
+    });
     var jz = z.jetzt || {}, v12 = z.vor_12_monaten || {};
     if (typeof jz.median_frisch === "number") kachel({ gr: "score", nat: "mess", quelle: "eigen", sig: "Dreier Pace", name: pick("Dreier-Tempo", "Dreier Pace"), wert: tage(jz.median_frisch), einheit: pick(" Tage Median", " days median"), misst: pick("Veröffentlichung bis KEV-Aufnahme, vor 12 Monaten: ", "publication to KEV listing, 12 months ago: ") + tage(v12.median_frisch) + pick(" Tage", " days"), stand: pick("Quelle CISA KEV · abgerufen ", "source CISA KEV · retrieved ") + datum(((d.quellen || []).filter(function (x) { return x.id === "cisa-kev"; })[0] || {}).abgerufen_am || d.stand) });
     (r.einschaetzungen || []).forEach(function (q) {

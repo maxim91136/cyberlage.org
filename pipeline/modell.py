@@ -123,3 +123,51 @@ def quantil(werte, q):
     lo = int(i)
     hi = min(lo + 1, len(xs) - 1)
     return xs[lo] + (xs[hi] - xs[lo]) * (i - lo)
+
+
+def archiv_reihen(hist, bis):
+    """Tageswerte der Archiv-Bausteine aus echten Meldungen. hist: {cert_bund, ncsc_nl, eu_kev, microsoft} (Inhalte der Dateien
+    unter data/radar/historie, fehlende sind None). Gibt {baustein_id: [{stand, wert}]} zurück; jede Reihe beginnt erst dort,
+    wo das erste volle Fenster im Archiv liegt."""
+    from datetime import date
+    out = {}
+    plus = lambda iso, n: (date.fromisoformat(iso) + timedelta(days=n)).isoformat()
+    c = (hist.get("cert_bund") or {})
+    if c.get("eintraege") and c.get("vollstaendig_bis"):
+        erst = erstdatum({k: v[0] for k, v in c["eintraege"].items()})
+        tage = [erst[k] for k, v in c["eintraege"].items() if v[1] in ("k", "h")]
+        out["cert_bund"] = fenster_reihe(tage, 30, plus(c["vollstaendig_bis"], 30), bis)
+    n = (hist.get("ncsc_nl") or {}).get("eintraege")
+    if n:
+        erst = erstdatum(n)
+        out["ncsc_nl"] = fenster_reihe(list(erst.values()), 30, plus(min(n.values()), 30), bis)
+    e = hist.get("eu_kev") or {}
+    if e.get("eintraege"):
+        out["eu_kev"] = fenster_reihe(list(e["eintraege"].values()), 30, max(plus(min(e["eintraege"].values()), 30), plus(bis, -1130)), bis)
+    m = (hist.get("microsoft") or {}).get("monate")
+    if m:
+        xs = sorted(m.values(), key=lambda x: x["tag"])
+        reihe, t, i, wert = [], date.fromisoformat(xs[0]["tag"]), 0, None
+        ende = date.fromisoformat(bis)
+        while t <= ende:
+            while i < len(xs) and xs[i]["tag"] <= t.isoformat():
+                wert = xs[i]["ausgenutzt"]
+                i += 1
+            reihe.append({"stand": t.isoformat(), "wert": wert})
+            t += timedelta(days=1)
+        out["ms_ausgenutzt"] = reihe
+    return out
+
+
+def rueck_reihe(ausschlaege, cfg, ohne_gruppen=("extern",)):
+    """ausschlaege: {baustein_id: {stand: ausschlag}}. Rechnet den Pegel je Tag aus allen Bausteinen, die an dem Tag einen
+    echten Wert haben. Gruppen ohne Archiv (externe Einschätzungen) bleiben außen vor. Gibt [{stand, ausnutzung, n}] zurück."""
+    sub = dict(cfg, gruppen=[g for g in cfg["gruppen"] if g["id"] not in ohne_gruppen],
+               bausteine=[b for b in cfg["bausteine"] if b["gruppe"] not in ohne_gruppen])
+    tage = sorted(set().union(*[set(v) for v in ausschlaege.values()])) if ausschlaege else []
+    out = []
+    for d in tage:
+        sc = score({k: v.get(d) for k, v in ausschlaege.items()}, sub)
+        if sc:
+            out.append({"stand": d, "ausnutzung": sc["wert"], "n": sc["signale"]})
+    return out
