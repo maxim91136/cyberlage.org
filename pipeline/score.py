@@ -344,6 +344,8 @@ def main(argv):
                                           "marken": {"erhoeht_ab": regeln.get("erhoeht_ab"), "hoch_ab": regeln.get("hoch_ab")},
                                           "hinweis": "live = am Stichtag berechnet und nicht mehr verändert; rueckgerechnet = nachträglich mit den heutigen Schwellen"},
                                   "reihe": reihe}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+    (WURZEL / "site" / "data").mkdir(parents=True, exist_ok=True)
+    (WURZEL / "site" / "data" / "pegel.json").write_text(pfad.read_text(encoding="utf-8"), encoding="utf-8")  # auch unter cyberlage.org/data/pegel.json abrufbar
     if ergebnis.get("radar") and (ergebnis["radar"].get("konsens") or {}).get("score"):
         sp = WURZEL / "data" / "radar" / "score.json"
         rs = ergebnis["radar"]["konsens"]["score"]

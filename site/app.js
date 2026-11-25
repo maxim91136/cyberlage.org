@@ -29,6 +29,9 @@
     var id = (location.hash || "").slice(1), z = id && document.getElementById(id); if (!z) return;
     aufklappen(z); setTimeout(function () { z.scrollIntoView(); ohneZiel(); }, 60);
   }
+  var vorDruck = [];
+  window.addEventListener("beforeprint", function () { vorDruck = Array.prototype.filter.call(document.querySelectorAll("details"), function (d) { return !d.open; }); vorDruck.forEach(function (d) { d.open = true; }); });
+  window.addEventListener("afterprint", function () { vorDruck.forEach(function (d) { d.open = false; }); vorDruck = []; });
   window.addEventListener("hashchange", oeffne);
   document.addEventListener("click", function (e) {
     var l = e.target.closest && e.target.closest("a[href^='#']"); if (!l) return;
@@ -105,7 +108,7 @@
     $("stufe-wert").textContent = hatStufe ? name : "null";
     if (hatStufe && d.pegel && typeof d.pegel.wert === "number") document.title = "Cyberlage · " + name.toUpperCase() + " " + d.pegel.wert;
     var hp = $("hero-pegel");
-    if (hp) { hp.hidden = !hatStufe; if (hatStufe) { hp.className = "hero-pegel mono st-" + d.stufe; hp.textContent = pick("Dreier-Pegel heute: ", "Dreier Gauge today: ") + name.toUpperCase() + (d.pegel && typeof d.pegel.wert === "number" ? " · " + d.pegel.wert + " / 100" : "") + " ↓"; } }
+    if (hp) { hp.hidden = !hatStufe; if (hatStufe) { hp.className = "hero-pegel mono st-" + d.stufe; hp.textContent = pick("Dreier-Pegel heute: ", "Dreier Gauge today: ") + name.toUpperCase() + (d.pegel && typeof d.pegel.wert === "number" ? " · " + d.pegel.wert + " / 100" : "") + pick("  · Details", "  · details"); } }
     window.DP = hatStufe ? name + (d.pegel && typeof d.pegel.wert === "number" ? " " + d.pegel.wert : "") : "";
     if (hatStufe) $("lage-box").classList.add("st-" + d.stufe);
     $("stufe-text").textContent = hatStufe ? "" : txt("keine_bew");
@@ -693,7 +696,7 @@
     var sub = el("p", "mono dim fine", pick("veröffentlicht ", "released ") + datum(String(m.erste_veroeffentlichung).slice(0, 10)) + pick(" · Stand der Daten ", " · data as of ") + datum(m.aktuell) + pick(" · abgerufen ", " · retrieved ") + datum(ms.meta && ms.meta.abgerufen_am) + pick(" · Quelle: ", " · source: "));
     sub.appendChild(link((ms.meta && ms.meta.quelle_url) || "https://msrc.microsoft.com/update-guide", "Microsoft Security Response Center")); box.appendChild(sub);
     var dr = { dringend: ["pr-rot", pick("dringend", "urgent")], zeitnah: ["pr-gelb", pick("zeitnah", "prompt")], normal: ["pr-gruen", pick("normal", "normal")] }[b.dringlichkeit] || ["", ""];
-    var bw = el("div", "p-bew"); bw.appendChild(el("span", "p-badge " + dr[0], dr[1]));
+    var bw = el("div", "p-bew"); bw.appendChild(el("span", "p-badge " + dr[0], dr[1] + (b.dringlichkeit === "dringend" && m.ausgenutzt ? pick(" · " + m.ausgenutzt + " bereits ausgenutzt", " · " + m.ausgenutzt + " already exploited") : "")));
     bw.appendChild(el("span", "", pick(b.groesse, b.groesse_en) + (b.verhaeltnis_median ? " · " + pick("das ", "") + b.verhaeltnis_median.toLocaleString(window.I18N.locale) + pick("-Fache des Medians der Vormonate (", "x the median of earlier months (") + zahl(b.median_vormonate) + ")" : "")));
     box.appendChild(bw);
     var g = el("div", "p-kpis");
@@ -759,6 +762,7 @@
       [zahl(q.neu_7), zahl(q.neu_30), q.schwere_bekannt ? zahl(q.kritisch_30) : "–", zahl(q.cves_30), datum(q.abgerufen_am)].forEach(function (x) { tr.appendChild(el("td", "mono", x)); });
     });
     tw.appendChild(t); box.appendChild(tw);
+    box.appendChild(el("p", "mono dim fine", pick("Meldungen und CVEs zählen Verschiedenes: Eine Meldung kann mehrere CVEs schließen, mehrere Meldungen können dieselbe CVE betreffen, und manche nennen keine. Die Hersteller schneiden ihre Meldungen unterschiedlich zu, die Zahlen sind deshalb nicht direkt vergleichbar.", "Advisories and CVEs count different things: one advisory can fix several CVEs, several advisories can cover the same CVE, and some name none. Vendors slice their advisories differently, so the numbers are not directly comparable.")));
     qs.forEach(function (q) {
       if (!q.letzte || !q.letzte.length) return;
       var d = el("details", "rd-det"); d.appendChild(el("summary", "mono", q.name + pick(": letzte Meldungen", ": latest advisories")));
