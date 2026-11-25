@@ -469,3 +469,5 @@ html[lang=en] .sek>summary::after{content:"\25B8  show"}html[lang=en] .sek[open]
 .rd-balken{max-width:680px;display:block}
 .hero-pegel{display:inline-block;margin:10px 0 2px;padding:7px 12px;border:1px solid var(--st,#e3b341);color:var(--st,#e3b341);text-decoration:none;font-weight:700;font-size:15px;letter-spacing:.02em}
 .hero-pegel.st-ruhig{--st:#3ddc84}.hero-pegel.st-unauffaellig{--st:#8fd3a8}.hero-pegel.st-angespannt{--st:#e3b341}.hero-pegel.st-hoch{--st:#ff8a7a}.hero-pegel.st-ausserordentlich{--st:#ff4d5e}
+.fz-dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:8px 0 6px}.fz-dl dt{color:var(--dim);font-size:12px;text-transform:uppercase;letter-spacing:.06em;padding-top:3px}.fz-dl dd{margin:0}.fz-dl dd.fh{color:var(--green)}
+@media (max-width:520px){.fz-dl{grid-template-columns:1fr;gap:2px}.fz-dl dd{margin-bottom:8px}}

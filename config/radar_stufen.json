@@ -6,40 +6,40 @@
       "bis": 30,
       "name": "ruhig",
       "name_en": "calm",
-      "satz": "Die Signale liegen im Schnitt klar unter ihren Regelschwellen.",
-      "satz_en": "On average the signals are clearly below their rule thresholds.",
+      "satz": "Die Bausteine liegen im Schnitt klar unter ihren Regelschwellen.",
+      "satz_en": "On average the components are clearly below their rule thresholds.",
       "ampel": "ruhig"
     },
     {
       "bis": 50,
       "name": "unauffällig",
       "name_en": "unremarkable",
-      "satz": "Die Signale liegen im Schnitt im üblichen Bereich, unter ihren Regelschwellen.",
-      "satz_en": "On average the signals are in the usual range, below their rule thresholds.",
+      "satz": "Die Bausteine liegen im Schnitt im üblichen Bereich, unter ihren Regelschwellen.",
+      "satz_en": "On average the components are in the usual range, below their rule thresholds.",
       "ampel": "unauffaellig"
     },
     {
       "bis": 64,
       "name": "angespannt",
       "name_en": "tense",
-      "satz": "Die Signale liegen im Schnitt über ihren Regelschwellen, aber nicht klar darüber.",
-      "satz_en": "On average the signals are above their rule thresholds, but not by a wide margin.",
+      "satz": "Die Bausteine liegen im Schnitt über ihren Regelschwellen, aber nicht klar darüber.",
+      "satz_en": "On average the components are above their rule thresholds, but not by a wide margin.",
       "ampel": "angespannt"
     },
     {
       "bis": 80,
       "name": "hoch",
       "name_en": "high",
-      "satz": "Die Signale liegen im Schnitt deutlich über ihren Regelschwellen.",
-      "satz_en": "On average the signals are well above their rule thresholds.",
+      "satz": "Die Bausteine liegen im Schnitt deutlich über ihren Regelschwellen.",
+      "satz_en": "On average the components are well above their rule thresholds.",
       "ampel": "hoch"
     },
     {
       "bis": 101,
       "name": "außergewöhnlich",
       "name_en": "exceptional",
-      "satz": "Die Signale liegen im Schnitt weit über ihren Regelschwellen. Die KEV-Menge erreichte so hohe Werte in den letzten 36 Monaten nur an wenigen Tagen.",
-      "satz_en": "On average the signals are far above their rule thresholds. The KEV count reached such values on only a few days in the last 36 months.",
+      "satz": "Die Bausteine liegen im Schnitt weit über ihren Regelschwellen. Die KEV-Menge erreichte so hohe Werte in den letzten 36 Monaten nur an wenigen Tagen.",
+      "satz_en": "On average the components are far above their rule thresholds. The KEV count reached such values on only a few days in the last 36 months.",
       "ampel": "ausserordentlich"
     }
   ],
@@ -76,6 +76,24 @@
     "hoch": {
       "satz": "Das Tempo bis KEV ist ungewöhnlich schnell: Neue Lücken kommen so schnell in den KEV wie nur in jedem zehnten der letzten 36 Monate.",
       "satz_en": "The pace to KEV is unusually fast: new flaws reach the KEV as fast as in only one in ten of the last 36 months."
+    }
+  },
+  "treiber_hinweise": {
+    "cert_bund": {
+      "de": "Die Warndienste melden deutlich mehr als üblich: neue Warnungen für die eigenen Produkte täglich sichten.",
+      "en": "Warning services report clearly more than usual: review new advisories for your own products daily."
+    },
+    "ncsc_nl": {
+      "de": "Die Warndienste melden deutlich mehr als üblich: neue Warnungen für die eigenen Produkte täglich sichten.",
+      "en": "Warning services report clearly more than usual: review new advisories for your own products daily."
+    },
+    "ms_ausgenutzt": {
+      "de": "Microsoft meldet überdurchschnittlich viele ausgenutzte Lücken: die Patches dafür vorziehen.",
+      "en": "Microsoft reports an above-average number of exploited flaws: bring those patches forward."
+    },
+    "SANS Infocon": {
+      "de": "SANS meldet erhöhte Aktivität im Netz: Perimeter und Protokolle enger beobachten.",
+      "en": "SANS reports raised activity on the internet: watch perimeter and logs more closely."
     }
   }
 }

@@ -71,8 +71,16 @@
       fz.textContent = "";
       var fk = el("b", "mono", pick("Fazit", "Conclusion")); fz.appendChild(fk);
       if (f.status === "vorlaeufig") fz.appendChild(el("span", "mono dim", pick(" · vorläufig", " · provisional")));
-      fz.appendChild(el("p", "ft", pick(f.text, f.text_en)));
-      fz.appendChild(el("p", "fh", pick("Für Verteidiger: ", "For defenders: ") + pick(f.hinweis, f.hinweis_en)));
+      if (f.treiber && f.stufe_satz) {
+        var dl = el("dl", "fz-dl");
+        [[pick("Lage", "Situation"), pick(f.stufe_satz, f.stufe_satz_en), ""], [pick("Treiber", "Drivers"), pick(f.treiber, f.treiber_en), ""], [pick("Empfehlung", "Advice"), pick(f.hinweis, f.hinweis_en), "fh"]].forEach(function (z) {
+          dl.appendChild(el("dt", "mono", z[0])); dl.appendChild(el("dd", z[2], z[1]));
+        });
+        fz.appendChild(dl);
+      } else {
+        fz.appendChild(el("p", "ft", pick(f.text, f.text_en)));
+        fz.appendChild(el("p", "fh", pick("Für Verteidiger: ", "For defenders: ") + pick(f.hinweis, f.hinweis_en)));
+      }
       fz.appendChild(el("p", "mono dim fine", pick("Feste Sätze nach Regeln, keine Vorhersage. Stufen des Dreier-Pegels geprüft am ", "Fixed sentences by rule, no forecast. Dreier Gauge levels checked on ") + datum(f.stand) + "."));
       fz.hidden = false; var fv = $("fazit-verk"); if (fv) fv.hidden = false;
     }
@@ -785,7 +793,8 @@
   function zeigeModell(sc) {
     var box = $("rd-modell"); if (!box) return; box.textContent = "";
     if (!sc || !sc.modell_gruppen) return;
-    zeigeBalken(sc, box);
+    var bb = $("rd-balken") || box; if (bb !== box) bb.textContent = "";
+    zeigeBalken(sc, bb);
     box.appendChild(el("h4", "mono rd-t", pick("Aufbau: drei Gruppen", "Structure: three groups")));
     var ul = el("ul", "p-liste");
     sc.modell_gruppen.forEach(function (g) {

@@ -434,7 +434,13 @@ def parse_redhat(daten):
         if not d or not rid:
             continue
         sev = (n.get("severity") or "").strip().lower() or None
-        out.append({"id": rid, "datum": d, "titel": rid, "link": n.get("resource_url") or "https://access.redhat.com/errata/" + rid.replace(":", "-"),
+        pakete = []
+        for pk in n.get("released_packages") or []:
+            name = re.sub(r"-\d.*$", "", str(pk).split(":")[0]).strip()
+            if name and name not in pakete:
+                pakete.append(name)
+        titel = rid if not pakete else "%s: %s%s" % (rid, ", ".join(pakete[:3]), " und weitere" if len(pakete) > 3 else "")
+        out.append({"id": rid, "datum": d, "titel": titel, "link": n.get("resource_url") or "https://access.redhat.com/errata/" + rid.replace(":", "-"),
                     "schwere": {"critical": "kritisch", "important": "hoch", "moderate": "mittel", "low": "niedrig"}.get(sev, sev),
                     "cves": [c for c in (n.get("CVEs") or []) if CVE_RE.fullmatch(str(c))]})
     return out

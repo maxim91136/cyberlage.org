@@ -441,6 +441,11 @@ def main(argv):
                 ", am stärksten: " + ", ".join("%s (%s-fach)" % (x["name"], de(x["ausschlag"])) for x in top) + "." if top else ".")
             ergebnis["fazit"]["treiber_en"] = ("%d of %d components are at or above their threshold" % (len(ueber), len(sig))) + (
                 ", strongest: " + ", ".join("%s (%.1fx)" % (x["name_en"], x["ausschlag"]) for x in top) + "." if top else ".")
+            ergebnis["fazit"]["stufe_satz"], ergebnis["fazit"]["stufe_satz_en"] = rsc["stufe"]["satz"], rsc["stufe"]["satz_en"]
+            th = (stufen_cfg.get("treiber_hinweise") or {}).get((top[0].get("baustein") or top[0]["name_en"]) if top else "")
+            if th:
+                ergebnis["fazit"]["hinweis"] += " " + th["de"]
+                ergebnis["fazit"]["hinweis_en"] += " " + th["en"]
             ergebnis["fazit"]["text"] += " " + ergebnis["fazit"]["treiber"]
             ergebnis["fazit"]["text_en"] += " " + ergebnis["fazit"]["treiber_en"]
         ergebnis["radar_skala"] = {"status": stufen_cfg.get("status"),
