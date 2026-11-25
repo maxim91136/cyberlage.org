@@ -34,7 +34,7 @@ MONAT_ID = re.compile(r"^(\d{4})-(" + "|".join(MONATE) + r")$")
 SCHWEREN = ("Critical", "Important", "Moderate", "Low")
 BEHALTEN_MONATE = 36
 HISTORIE_MONATE = 12  # Vergleichsbasis für die Bewertung
-SCHEMA = 8  # erhöhen, wenn sich die Zählweise ändert: dann werden alle Monate neu geholt
+SCHEMA = 9  # erhöhen, wenn sich die Zählweise ändert: dann werden alle Monate neu geholt
 
 
 class QuellFehler(Exception):
@@ -81,12 +81,18 @@ def fix_liste(v, produkte):
         kb = m.group(1) if m else ""
         fams = sorted({familie(produkte.get(str(pid), "")) for pid in (r.get("ProductID") or [])} - {"Sonstige"})[:2]
         fuer = ", ".join(fams)
-        build = "" if kb else str(r.get("FixedBuild") or "")[:40]
+        fb = str(r.get("FixedBuild") or "").strip()
+        url = str(r.get("URL") or "").strip()
+        if fb.startswith("http"):
+            url, fb = fb, ""
+        build = "" if kb else fb[:40]
+        namen = [produkte.get(str(pid), "") for pid in (r.get("ProductID") or [])]
+        produkt = next((n[:60] for n in namen if n and n.lower().startswith(("microsoft 365", "microsoft office", "microsoft outlook", "microsoft word", "microsoft excel", "microsoft sharepoint", "office"))), "")
         schluessel = (kb, fuer, build, "" if kb or build else _wert(r.get("Description"))[:40])
-        if schluessel in gesehen:
+        if schluessel in gesehen and not (url and not kb and not build):
             continue
         gesehen.add(schluessel)
-        out.append({"kb": kb, "build": build, "fuer": fuer, "text": "" if kb else _wert(r.get("Description"))[:90], "url": "" if kb else str(r.get("URL") or "")[:200]})
+        out.append({"kb": kb, "build": build, "fuer": fuer, "produkt": produkt, "text": "" if kb else _wert(r.get("Description"))[:90], "url": "" if kb else url[:200]})
         if len(out) >= 4:
             break
     return out
@@ -609,6 +615,9 @@ def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=24):
                     ft = ""
                 if kb:
                     pt, pt_en = "Patch liegt vor: KB" + ", KB".join(kb), "Patch available: KB" + ", KB".join(kb)
+                elif any(f.get("build") for f in (k.get("fixe") or [])):
+                    bl = ", ".join(sorted({f["build"] for f in k["fixe"] if f.get("build")})[:3])
+                    pt, pt_en = "Patch liegt vor: Office-Version " + bl, "Patch available: Office version " + bl
                 elif ft:
                     pt, pt_en = "Patch liegt vor: " + ft, "Patch available: " + ft
                 else:
@@ -617,7 +626,7 @@ def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=24):
             else:
                 pt, pt_en = "Patch-Stand bei Microsoft prüfen", "Check patch status with Microsoft"
             kand.append({"stufe": stufe, "epss": e, "quelle": "Microsoft", "titel": k["titel"], "cves": [k["cve"]], "grund": g, "grund_en": ge,
-                         "patch": pst, "patch_text": pt, "patch_text_en": pt_en, "patch_link": k.get("fix_url") or "", "fixe": k.get("fixe") or [], "monat": m.get("id"),
+                         "patch": pst, "patch_text": pt, "patch_text_en": pt_en, "patch_link": k.get("fix_url") or next((f["url"] for f in (k.get("fixe") or []) if f.get("url")), ""), "fixe": k.get("fixe") or [], "monat": m.get("id"),
                          "betrifft": ", ".join(k["familien"]), "datum": str(m.get("erste_veroeffentlichung"))[:10],
                          "link": "https://msrc.microsoft.com/update-guide/vulnerability/" + k["cve"]})
     for q in (hersteller or {}).get("quellen", {}).values():
