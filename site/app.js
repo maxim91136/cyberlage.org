@@ -118,7 +118,8 @@
       var c = el("td", "mono");
       if (/^https:\/\/nvd\.nist\.gov\//.test(e.link || "")) { var a = el("a", "", e.cve); a.href = e.link; a.rel = "noopener"; c.appendChild(a); } else { c.textContent = e.cve; }
       tr.appendChild(c);
-      tr.appendChild(el("td", "mono", datum(e.frist)));
+      var fd = Date.parse(e.frist), tg = (fd - Date.now()) / 86400000;
+      tr.appendChild(el("td", "mono" + (isNaN(fd) ? "" : (tg < 0 ? " fr-over" : (tg < 7 ? " fr-bald" : ""))), datum(e.frist)));
       tr.appendChild(e.ransomware_bekannt ? el("td", "rw", txt("bekannt")) : (function () { var c = el("td", "dim", "–"); c.title = txt("nicht_bekannt"); return c; })());
       tr._text = (e.hersteller + " " + e.produkt + " " + e.cve).toLowerCase();
       body.appendChild(tr);

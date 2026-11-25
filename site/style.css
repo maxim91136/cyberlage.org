@@ -462,3 +462,6 @@ html[lang=en] .sek>summary::after{content:"\25B8  show"}html[lang=en] .sek[open]
 .lage.st-angespannt{--st:var(--ra-angespannt);background:linear-gradient(90deg,rgba(227,179,65,.09),transparent 75%)}
 .lage.st-ausserordentlich{--st:var(--ra-ausserordentlich);background:linear-gradient(90deg,rgba(255,59,92,.12),transparent 75%)}
 .lage .rd-score{margin-top:12px}
+
+.fr-over{color:#ff8a7a}.fr-bald{color:#e3b341}
+.navin{flex-wrap:wrap}.navin .nav-row{flex-wrap:wrap}
