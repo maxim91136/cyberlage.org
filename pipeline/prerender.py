@@ -63,6 +63,91 @@ def vorbelegen(s, lage):
     return s
 
 
+BASIS = "https://cyberlage.org"
+
+
+def stufe_en(lage):
+    """Englischer Name der Stufe aus der Skala in lage.json."""
+    for x in (lage.get("radar_skala") or {}).get("stufen") or []:
+        if x.get("ampel") == lage.get("stufe"):
+            return x.get("name_en")
+    return None
+
+
+def titel(lage, en=False):
+    """Seitentitel: Tagesstand vorn (im Reiter sichtbar), dahinter der feste Teil mit dem Suchbegriff. Derselbe Aufbau wie in app.js."""
+    fest = "Cyberlage: cyber threat level today" if en else "Cyberlage: Cyber-Bedrohungslage heute"
+    pg, name = lage.get("pegel") or {}, (stufe_en(lage) if en else NAME.get(lage.get("stufe")))
+    return "%s %d · %s" % (name.upper(), pg["wert"], fest) if name and lage.get("stufe") and isinstance(pg.get("wert"), int) else fest
+
+
+def kurzlage_en(lage):
+    pg, name = lage.get("pegel") or {}, stufe_en(lage)
+    if not name or not isinstance(pg.get("wert"), int):
+        return ""
+    return "Dreier Gauge on %s: %s, %d out of 100 (from %s of %s components)." % (str(lage["stand"])[:10], name, pg["wert"], pg.get("signale"), pg.get("von"))
+
+
+def strukturierte_daten(lage, en=False):
+    """JSON-LD: die Seite und der offene Datensatz dahinter. Nur Angaben, die auch auf der Seite stehen."""
+    url = BASIS + ("/en/" if en else "/")
+    wer = {"@type": "Organization", "name": "Dreier Labs", "url": "https://dreierlabs.com/"}
+    daten = [{"@context": "https://schema.org", "@type": "WebSite", "name": "Cyberlage", "url": url, "inLanguage": "en" if en else "de", "publisher": wer},
+             {"@context": "https://schema.org", "@type": "Dataset", "name": "Dreier Gauge: daily cyber threat level" if en else "Dreier-Pegel: Tagesstand der Cyber-Bedrohungslage",
+              "description": ("Daily score from 0 to 100 for the cyber threat level, computed by fixed rules from ten open components (exploited vulnerabilities, advisories, attack activity, external assessments). Rules and sources are published."
+                              if en else "Täglicher Score von 0 bis 100 für die Cyber-Bedrohungslage, nach festen Regeln aus zehn offenen Bausteinen berechnet (ausgenutzte Schwachstellen, Warnungen, Angriffsaktivität, externe Einschätzungen). Regeln und Quellen sind veröffentlicht."),
+              "url": url, "creator": wer, "isAccessibleForFree": True, "license": BASIS + "/LICENSE", "dateModified": str(lage.get("stand"))[:10],
+              "distribution": [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": BASIS + "/data/lage.json"},
+                               {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": BASIS + "/data/berichte.json"}]}]
+    return '<script type="application/ld+json">' + json.dumps(daten, ensure_ascii=False).replace("</", "<\\/") + "</script>"
+
+
+def kopf(s, lage, en=False):
+    """Titel und strukturierte Daten in den Kopf schreiben."""
+    e = lambda t: html.escape(str(t))
+    s = re.sub(r"<title>[^<]*</title>", lambda m: "<title>" + e(titel(lage, en)) + "</title>", s, count=1)
+    return re.sub(r"<!--ld-start-->.*?<!--ld-end-->", lambda m: "<!--ld-start-->" + strukturierte_daten(lage, en) + "<!--ld-end-->", s, count=1, flags=re.S)
+
+
+def englisch(s, lage):
+    """Aus der fertigen deutschen Startseite die englische unter /en/: eigene Adresse, Sprache, Titel, Beschreibung und Kurztext.
+    Die übrigen Texte tauscht i18n.js im Browser, die Daten kommen aus derselben lage.json."""
+    e = lambda t: html.escape(str(t))
+    k, kurz = lage["kev"], kurzlage_en(lage)
+    fest = " Seismograph of the cyber threat level from ten open components, rule-based and verifiable. A tool for everyone who defends systems. A project by Dreier Labs."
+    for muster, neu in (
+            (r'<html lang="de">', '<html lang="en">'),
+            (r'(<meta name="description" content=")[^"]*(">)', lambda m: m.group(1) + e((kurz or "") + fest).strip() + m.group(2)),
+            (r'(<meta property="og:description" content=")[^"]*(">)', lambda m: m.group(1) + e(((kurz + " ") if kurz else "") + "Rule-based from open sources.") + m.group(2)),
+            (r'(<meta property="og:title" content=")[^"]*(">)', lambda m: m.group(1) + "Seismograph of the cyber threat level. Worldwide, rule-based, openly sourced." + m.group(2)),
+            (r'(<meta property="og:url" content=")[^"]*(">)', lambda m: m.group(1) + BASIS + "/en/" + m.group(2)),
+            (r'(<link rel="canonical" href=")[^"]*(">)', lambda m: m.group(1) + BASIS + "/en/" + m.group(2))):
+        s, n = re.subn(muster, neu, s, count=1)
+        if n != 1:
+            raise ValueError("englische Seite: Muster fehlt: " + muster[:40])
+    name = stufe_en(lage)
+    if name and isinstance((lage.get("pegel") or {}).get("wert"), int):
+        s = re.sub(r'(<a id="hero-pegel"[^>]*>)[^<]*(</a>)', lambda m: m.group(1) + "Dreier Gauge today: %s · %d / 100  · Details" % (e(name.upper()), lage["pegel"]["wert"]) + m.group(2), s, count=1)
+        s = re.sub(r'(<div class="stufe mono" id="stufe-wert">)[^<]*(</div>)', lambda m: m.group(1) + e(name) + m.group(2), s, count=1)
+    text = ('<p class="panel pad"><b>The global cyber situation, as of %s. %s</b> Newly added to the CISA catalogue of exploited vulnerabilities: %s in 7 days, %s in 30 days. '
+            'Rule-based and openly sourced. A private project by Dreier Labs, not an official body. Data: <a href="/data/lage.json">data/lage.json</a>, rules: <a href="/RULES.md">RULES.md</a>. '
+            'German version: <a href="/">cyberlage.org</a>.</p>') % (e(str(lage["stand"])[:10]), e(kurz), e(k["neu_7_tage"]), e(k["neu_30_tage"]))
+    s = re.sub(r"<!--ssr-start-->.*?<!--ssr-end-->", lambda m: "<!--ssr-start-->" + text + "<!--ssr-end-->", s, count=1, flags=re.S)
+    return kopf(s, lage, en=True)
+
+
+def sitemap(lage):
+    """Nur die Adressen, die im Index stehen sollen; lastmod für die beiden Startseiten ist der Stand der Daten."""
+    tag = str(lage.get("stand"))[:10]
+    zeilen = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">']
+    alt = "".join('<xhtml:link rel="alternate" hreflang="%s" href="%s"/>' % (c, BASIS + u) for c, u in (("de", "/"), ("en", "/en/"), ("x-default", "/")))
+    for u in ("/", "/en/"):
+        zeilen.append("  <url><loc>%s%s</loc><lastmod>%s</lastmod>%s</url>" % (BASIS, u, tag, alt))
+    for u in ("/hinweise", "/impressum"):
+        zeilen.append("  <url><loc>%s%s</loc></url>" % (BASIS, u))
+    return "\n".join(zeilen + ["</urlset>"]) + "\n"
+
+
 def main():
     try:
         lage = json.loads((WURZEL / "site" / "data" / "lage.json").read_text(encoding="utf-8"))
@@ -72,11 +157,15 @@ def main():
         neu, n = re.subn(r"<!--ssr-start-->.*?<!--ssr-end-->", lambda m: "<!--ssr-start-->" + text + "<!--ssr-end-->", s, flags=re.S)
         if n != 1:
             raise ValueError("Marker fehlen")
-        neu = vorbelegen(neu, lage)
+        neu = kopf(vorbelegen(neu, lage), lage)
+        en = englisch(neu, lage)
     except (OSError, ValueError, KeyError) as err:
         print("FEHLER:", err)
         return 1
     pfad.write_text(neu, encoding="utf-8")
+    (WURZEL / "site" / "en").mkdir(exist_ok=True)
+    (WURZEL / "site" / "en" / "index.html").write_text(en, encoding="utf-8")  # englische Startseite unter /en/
+    (WURZEL / "site" / "sitemap.xml").write_text(sitemap(lage), encoding="utf-8")
     (WURZEL / "site" / "RULES.md").write_text((WURZEL / "RULES.md").read_text(encoding="utf-8"), encoding="utf-8")  # Regeln auch unter cyberlage.org/RULES.md
     (WURZEL / "site" / "data" / "sources.csv").write_text((WURZEL / "data" / "sources.csv").read_text(encoding="utf-8"), encoding="utf-8")  # Quellenliste öffentlich
     (WURZEL / "site" / "LICENSE").write_text((WURZEL / "LICENSE").read_text(encoding="utf-8"), encoding="utf-8")

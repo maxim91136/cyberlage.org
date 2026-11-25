@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="color-scheme" content="dark">
+<title>HIGH 65 · Cyberlage: cyber threat level today</title>
+<meta name="description" content="Dreier Gauge on 2026-11-25: high, 65 out of 100 (from 10 of 10 components). Seismograph of the cyber threat level from ten open components, rule-based and verifiable. A tool for everyone who defends systems. A project by Dreier Labs.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#06090b">
+<link rel="canonical" href="https://cyberlage.org/en/">
+<link rel="alternate" hreflang="de" href="https://cyberlage.org/">
+<link rel="alternate" hreflang="en" href="https://cyberlage.org/en/">
+<link rel="alternate" hreflang="x-default" href="https://cyberlage.org/">
+<!--ld-start--><script type="application/ld+json">[{"@context": "https://schema.org", "@type": "WebSite", "name": "Cyberlage", "url": "https://cyberlage.org/en/", "inLanguage": "en", "publisher": {"@type": "Organization", "name": "Dreier Labs", "url": "https://dreierlabs.com/"}}, {"@context": "https://schema.org", "@type": "Dataset", "name": "Dreier Gauge: daily cyber threat level", "description": "Daily score from 0 to 100 for the cyber threat level, computed by fixed rules from ten open components (exploited vulnerabilities, advisories, attack activity, external assessments). Rules and sources are published.", "url": "https://cyberlage.org/en/", "creator": {"@type": "Organization", "name": "Dreier Labs", "url": "https://dreierlabs.com/"}, "isAccessibleForFree": true, "license": "https://cyberlage.org/LICENSE", "dateModified": "2026-11-25", "distribution": [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://cyberlage.org/data/lage.json"}, {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://cyberlage.org/data/berichte.json"}]}]</script><!--ld-end-->
+<link rel="alternate" type="application/rss+xml" title="Cyberlage" href="https://cyberlage.org/feed.xml">
+<meta property="og:title" content="Seismograph of the cyber threat level. Worldwide, rule-based, openly sourced.">
+<meta property="og:description" content="Dreier Gauge on 2026-11-25: high, 65 out of 100 (from 10 of 10 components). Rule-based from open sources.">
+<meta property="og:url" content="https://cyberlage.org/en/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://cyberlage.org/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="stylesheet" href="/style.css">
+<script src="/modus.js"></script>
+</head>
+<body id="oben">
+<a class="skip" href="#lage" data-t="skip">Zum Inhalt</a>
+<div class="beta mono" data-t="beta"></div>
+<div class="ticker" id="ticker" role="region" aria-label="News-Ticker" hidden>
+  <span class="tk-l mono" aria-hidden="true">NEWS &#9656;</span>
+  <div class="tk-f"><div class="tk-b" id="tk-b"></div></div>
+  <button type="button" id="tk-p" class="tk-p mono" aria-pressed="false" aria-label="Ticker anhalten">&#10074;&#10074;</button>
+</div>
+<header class="marke">
+  <a class="brand" href="./" aria-label="cyberlage.org, Startseite"><img src="/favicon.svg" width="30" height="30" alt="" aria-hidden="true"><span>cyberlage<span class="dim">.org</span></span></a>
+</header>
+<nav class="leiste" aria-label="Hauptnavigation">
+  <div class="wrap navin">
+    <div class="nav-links">
+    <div class="nav-row nav-g1"><span class="nav-grp" aria-hidden="true" data-t="g_lage">LAGE</span>
+      <a href="#lage" data-sec="lage">/lage</a>
+      <a href="#radar" data-sec="radar" data-t="n_radar">/radar</a>
+      <a href="#signale" data-sec="signale" data-t="n_signale">/signale</a>
+      <a href="#rueckblick" data-sec="rueckblick" data-t="n_rueck">/rückblick</a>
+    </div>
+    <div class="nav-row nav-g2"><span class="nav-grp nav-grp2" aria-hidden="true" data-t="g_handeln">HANDELN</span>
+      <a href="#patches" data-sec="patches" data-t="n_patches">/patches</a>
+      <a href="#termine" data-sec="termine" data-t="n_termine">/termine</a>
+      <a href="#neu" data-sec="neu" data-t="n_neu">/neu</a>
+    </div>
+    </div>
+    <div class="nav-row nav-u">
+    <details class="dd" id="abo"><summary data-t="n_abo">/abo</summary><div class="dd-box dd-l dd-abo">
+      <span id="telegram" class="abo-z" hidden><a id="telegram-link" href="#" rel="noopener" data-t="tg_btn">Telegram-Kanal abonnieren</a><small class="dim" data-t="tg_txt">einmal täglich die Tageslage, sofort nur bei Stufenwechsel und Ransomware-Alarm.</small></span>
+      <span class="abo-z"><button type="button" id="rss-kopieren" data-feed="https://cyberlage.org/feed.xml"><span id="rss-btn" data-t="rss_btn">RSS-Feed-Adresse kopieren</span></button><small class="dim"><span data-t="rss_txt">in deinen Feed-Reader einfügen (Feedly, Inoreader, NetNewsWire), ohne Konto.</span> <a href="/feed.xml" data-t="rss_roh">Rohdatei</a></small></span>
+    </div></details>
+    <details class="dd"><summary data-sec="info">/info</summary><div class="dd-box dd-l">
+      <a href="#info" data-offen="i-quellen" data-t="i_quellen">Quellen</a>
+      <a href="#info" data-offen="i-begriffe" data-t="i_begriffe">Begriffe</a>
+      <a href="#info" data-offen="i-faq" data-t="i_faq">FAQ</a>
+      <a href="#info" data-offen="i-methode" data-t="i_methode">Methode</a>
+      <a href="#info" data-offen="i-begruendung" data-t="i_begr_n">Begründung</a>
+      <a href="#info" data-offen="i-andere" data-t="i_andere_n">Andere Lagebilder</a>
+      <a href="#info" data-offen="i-pruef" data-t="i_pruef">Prüfkalender</a>
+      <a href="#info" data-offen="i-hinweise" data-t="i_hinweise">Hinweise</a>
+    </div></details>
+      <button type="button" id="modus" class="spr mono" aria-pressed="false">ALARM □</button>
+      <button type="button" id="sprache" class="spr mono" aria-label="Sprache wechseln / Change language">EN</button>
+    </div>
+  </nav>
+
+<main>
+  <section class="wrap hero">
+    <p class="lbl" data-t="h_lbl">stand <span id="stand">…</span></p>
+    <h1 data-t="h_titel">Seismograph der Cyber-Bedrohungslage.<br>Weltweit, regelbasiert, offen belegt.</h1>
+    <a id="hero-pegel" class="hero-pegel mono st-hoch" href="#lage">Dreier Gauge today: HIGH · 65 / 100  · Details</a>
+    <p class="blau mono" title="Für alle, die Systeme verteidigen"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M8 1.2 13.5 3v4.4c0 3.3-2.2 6-5.5 7.4-3.3-1.4-5.5-4.1-5.5-7.4V3z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="m5.6 8 1.7 1.7 3.1-3.3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-t="h_blau">BLUE TEAM</span></p>
+  </section>
+
+  <section id="lage" class="wrap" aria-labelledby="h-lage">
+    <h2 id="h-lage" class="sr" data-t="h_lage">Aktuelle Lage</h2>
+    <div class="verbund">
+    <div class="panel lage" id="lage-box">
+      <p class="lbl" data-t="l_stufe">dreier-pegel · von dreier labs · weltweit</p>
+      <div class="stufe-zeile"><div class="stufe mono" id="stufe-wert">high</div><div class="stufe-zahl mono" id="stufe-zahl" hidden></div></div>
+      <div class="stufe-text" id="stufe-text" hidden></div>
+      <p class="schlag" id="stufe-begr"></p>
+      <div class="rd-skala" id="rd-skala" hidden></div>
+      <div class="rd-score" id="rd-score" hidden></div>
+    </div>
+    <div class="verknuepf mono" id="fazit-verk" aria-hidden="true" hidden><span data-t="l_verk2">Daraus das Fazit</span></div>
+    <div class="fazit" id="fazit" hidden></div>
+    </div>
+    <p class="mono dim klein">
+      <span><span data-t="l_7">KEV neu · 7 Tage</span> <b id="k7">19</b></span>
+      <span><span data-t="l_30">KEV neu · 30 Tage</span> <b id="k30">47</b></span>
+      <span><span data-t="l_ges">KEV-Katalog gesamt</span> <b id="kall">1.805</b></span>
+      <span><span data-t="l_rw">KEV mit Ransomware-Bezug</span> <b id="kr">1</b></span>
+    </p>
+    <div id="radar" class="panel pad rd radar-box">
+      <h3 class="mono rd-t" data-t="rd_kon_h">Bausteine des Dreier-Pegels</h3>
+      <p class="rd-kon" id="rd-kon"></p>
+      <div class="rd-scopewrap">
+        <svg id="rd-scope" class="rd-scope" role="img" aria-labelledby="rd-scope-t" viewBox="-70 30 540 340" width="100%"><title id="rd-scope-t">Radar</title></svg>
+        <div id="rd-balken"></div>
+      </div>
+      <details class="rd-det"><summary class="mono" data-t="rd_einzel">Gruppen und Einzelwerte</summary>
+        <div id="rd-signale"></div>
+        <div id="rd-modell" class="rd-modell"></div>
+      </details>
+      <p class="mono dim fine" data-t="rd_kon_n">Jeder Baustein folgt einer festen Regel (RULES.md). Der gestrichelte Ring ist die Schwelle: je weiter außen ein Punkt liegt, desto stärker der Ausschlag. Der Pegel oben ist der Mittelwert daraus.</p>
+    </div>
+    <noscript><!--ssr-start--><p class="panel pad"><b>The global cyber situation, as of 2026-11-25. Dreier Gauge on 2026-11-25: high, 65 out of 100 (from 10 of 10 components).</b> Newly added to the CISA catalogue of exploited vulnerabilities: 19 in 7 days, 47 in 30 days. Rule-based and openly sourced. A private project by Dreier Labs, not an official body. Data: <a href="/data/lage.json">data/lage.json</a>, rules: <a href="/RULES.md">RULES.md</a>. German version: <a href="/">cyberlage.org</a>.</p><!--ssr-end--></noscript>
+  </section>
+
+  <details class="teil" id="teil1">
+    <summary class="wrap grp teil1"><h2 id="h-teil1" class="mono" data-t="tl_h"># teil 1 · lage</h2></summary>
+    <div id="teil-lage" class="wrap">
+    <p class="sw-lead" data-t="tl_intro">Wie angespannt ist die Cyberlage weltweit? Der Dreier-Pegel misst das als ein Score aus mehreren Bausteinen, die Signale und der Rückblick belegen es.</p>
+    </div>
+  <section id="signale" class="wrap" aria-labelledby="h-sig">
+    <details class="sek" id="k-signale">
+      <summary><h2 id="h-sig" class="mono" data-t="rd_sig_h">## signale</h2></summary>
+    <p class="dim" data-t="rd_sig_intro">Jeder Baustein einmal, nach Gruppen geordnet, mit Wert, Schwelle, Regel und Zeitraum. Messungen sind Zählungen aus offenen Rohdaten, Einschätzungen sind Urteile anderer Stellen.</p>
+    <details class="sek sub" id="k-s-score">
+      <summary><h3 class="mono" data-t="rd_g_score">Im Dreier-Pegel: die zehn Bausteine mit ihrer Schwelle</h3></summary>
+    <div class="rd-kacheln" id="rd-k-score"></div>
+    </details>
+    <details class="sek sub" id="k-s-ktx">
+      <summary><h3 class="mono" data-t="rd_g_ktx">Nur zur Einordnung: ohne Schwelle, nicht im Score</h3></summary>
+    <div class="rd-kacheln" id="rd-k-ktx"></div>
+    </details>
+    <p class="mono dim fine" data-t="rd_vgl_n">Die Quellen messen Verschiedenes. Zeigen mehrere in dieselbe Richtung, ist das ein stärkeres Signal als eine allein.</p>
+    <details class="panel pad rd rd-det">
+      <summary class="mono" data-t="rd_det">Erklärungen zu Trefferquote und EU-Abgleich</summary>
+      <h4 class="mono rd-t" data-t="rd_tr_h">Trefferquote der Prognose</h4><p id="rd-treffer"></p>
+      <h4 class="mono rd-t" data-t="rd_eu_h">EU-KEV und CISA-KEV</h4><p id="rd-eu"></p>
+    </details>
+    </details>
+  </section>
+  <section id="rueckblick" class="wrap" aria-labelledby="h-rueck">
+    <details class="sek" id="k-rueck">
+      <summary><h2 id="h-rueck" class="mono" data-t="r_h">## rückblick</h2></summary>
+    <details class="sek sub" id="k-r-pegel">
+      <summary><h3 class="mono rd-t" data-t="r_rscore">Dreier-Pegel im Verlauf · 3 Jahre</h3></summary>
+    <div class="panel pad rd">
+      <svg id="rs-chart" role="img" viewBox="0 0 1000 200" width="100%" preserveAspectRatio="xMidYMid meet"></svg>
+      <p class="mono dim fine" id="rs-legende"></p>
+    </div>
+    </details>
+    <details class="sek sub" id="k-r-kev">
+      <summary><h3 class="mono rd-t" data-t="r_pegel">KEV-Menge im Verlauf</h3></summary>
+    <div class="panel pad">
+      <svg id="verlauf" role="img" aria-labelledby="verlauf-titel" viewBox="0 0 1000 220" width="100%" preserveAspectRatio="xMidYMid meet"><title id="verlauf-titel">Verlauf der neu aufgenommenen Schwachstellen</title></svg>
+      <p class="mono dim fine" id="verlauf-legende"></p>
+    </div>
+    </details>
+    <details class="sek sub" id="k-r-tempo">
+      <summary><h3 class="mono rd-t" data-t="rd_zeit_h">Wie schnell wird eine Lücke ausgenutzt gemeldet?</h3></summary>
+    <div class="panel pad rd">
+      <div class="rd-zahlen" id="rd-zahlen"></div>
+      <svg id="rd-chart" role="img" aria-labelledby="rd-chart-titel" viewBox="0 0 1000 200" width="100%" preserveAspectRatio="xMidYMid meet"><title id="rd-chart-titel">Anteil der KEV-Aufnahmen binnen 30 Tagen nach Veröffentlichung, je Monat</title></svg>
+      <p class="mono dim fine" id="rd-zeit-fine"></p>
+    </div>
+    </details>
+    <details class="sek sub" id="k-r-gruende">
+      <summary><h3 class="mono rd-t" data-t="rd_warum_h">Belegte Gründe für den Takt</h3></summary>
+    <div class="panel pad rd">
+      <ul class="hinw" id="rd-gruende"></ul>
+      <p class="mono dim fine" id="rd-pruef"></p>
+      <p class="mono dim fine" data-t="rd_warum_n">Das ist der langfristige Hintergrund, nicht der Tagesstand. Von Hand gepflegt, jeweils mit Quelle und Prüfdatum. Geopolitische Spannungen messen wir nicht.</p>
+    </div>
+    </details>
+    </details>
+  </section>
+  <section id="logbuch" class="wrap" aria-labelledby="h-log">
+    <details class="sek" id="k-logbuch">
+      <summary><h2 id="h-log" class="mono" data-t="lb_h">## logbuch</h2></summary>
+      <p class="dim" data-t="lb_intro">Was festgehalten wurde: Erkenntnisse mit ihren Belegen, Stufenwechsel und Änderungen am Modell. Einträge bleiben stehen, auch wenn sich die Lage ändert.</p>
+      <div id="lb-liste"></div>
+    </details>
+  </section>
+
+  <section id="berichte" class="wrap" aria-labelledby="h-ber">
+    <details class="sek" id="k-berichte">
+      <summary><h2 id="h-ber" class="mono" data-t="br_h">## berichte</h2></summary>
+      <p class="dim" data-t="br_intro">Der Dreier-Pegel je abgeschlossenem Monat, Quartal und Jahr: Mittel, Höchst- und Tiefststand, Stufenwechsel, die Bausteine und die Logbuch-Einträge des Zeitraums.</p>
+      <div class="tabs mono" role="tablist" id="br-art" aria-label="Zeitraum wählen">
+        <button type="button" role="tab" data-art="monat" aria-selected="true" data-t="br_monat">Monat</button>
+        <button type="button" role="tab" data-art="quartal" aria-selected="false" tabindex="-1" data-t="br_quartal">Quartal</button>
+        <button type="button" role="tab" data-art="jahr" aria-selected="false" tabindex="-1" data-t="br_jahr">Jahr</button>
+      </div>
+      <label class="br-wahl mono dim"><span data-t="br_wahl">Zeitraum</span> <select id="br-wahl"></select></label>
+      <div id="br-box" aria-live="polite"></div>
+    </details>
+  </section>
+
+  <section id="wie" class="wrap" aria-labelledby="h-wie">
+    <details class="sek" id="k-wie">
+      <summary><h2 id="h-wie" class="mono" data-t="k_wie">## so entsteht der pegel</h2></summary>
+    <p class="lead" data-t="h_lead">Weltweit, über alle Hersteller: Der Dreier-Pegel fasst mehrere Bausteine nach offenen Regeln zu einem Score von 0 bis 100 zusammen: zehn Bausteine in vier Gruppen: Ausnutzung (KEV-Menge, Tempo bis KEV, EU-KEV, Microsoft), Warnungen (CERT-Bund, NCSC-NL), Angriffsaktivität (DShield, Ransomware) und externe Einschätzungen (BSI Cyber Index, SANS Infocon). Wie ein Seismograph zeigt er die Lage, er sagt nichts voraus. Ein eigener Score von Dreier Labs mit offenen Regeln, die Stufengrenzen sind vorläufig. Keine Aussage über ein Land oder einen Sektor. Ein Werkzeug für die Verteidigung: für Blue Teams, SOCs und alle, die ihre Systeme schützen.</p>
+    <p class="mono fine faqlink"><a href="#info" data-offen="i-faq" data-t="l_faq">▸ Neu hier? Fragen und Antworten (FAQ)</a></p>
+    <details class="akk" id="l-rechnung"><summary class="mono" data-t="l_wie">so entsteht der dreier-pegel</summary>
+      <div id="rechnung" class="rechnung"></div>
+    </details>
+    <p class="dim fine" data-t="l_kev"><strong>KEV</strong> heißt <em>Known Exploited Vulnerabilities</em>, „bekannte, ausgenutzte Schwachstellen“: eine Liste der US-Cybersicherheitsbehörde <strong>CISA</strong> mit Lücken, für die belegt ist, dass Angreifer sie wirklich ausnutzen. Die KEV-Menge ist ein Baustein des Pegels.</p>
+    <p class="mono dim fine" id="kev-quelle"></p>
+    </details>
+  </section>
+  </details>
+
+  <details class="teil" id="teil2">
+    <summary class="wrap grp"><h2 id="h-schwach" class="mono" data-t="sw_h"># teil 2 · handeln: schwachstellen &amp; patches</h2></summary>
+    <div id="schwach" class="wrap">
+    <p class="sw-lead" data-t="sw_intro">Welche Lücken zuerst geschlossen werden müssen und mit welchem Patch. Gelistet sind nur Lücken, für die es einen Patch gibt; Angegriffenes ohne Patch steht gesondert darunter.</p>
+    </div>
+  <section id="patches" class="wrap" aria-labelledby="h-patches">
+    <details class="sek" id="k-patches" open>
+      <summary><h2 id="h-patches" class="mono" data-t="p_h">## patches: was zuerst, womit</h2></summary>
+    <p class="dim" data-t="p_intro">Was die Hersteller zuletzt gepatcht haben, mit Zahlen und einer Bewertung nach festen Regeln. Wir verwalten keine Patches und bewerten die Schwere nicht selbst: Schweregrad und Ausnutzung stammen von den Herstellern.</p>
+    <div class="panel pad pt p-bereich" id="p-bereich" hidden></div>
+    <div class="panel pad p-werk" id="p-werk"></div>
+    <details class="sek sub psub" id="k-zuerst"><summary><h3 class="mono" data-t="k_zuerst">Diese Woche zuerst</h3></summary>
+      <div class="panel pad pt pz" id="p-zuerst" hidden></div>
+    </details>
+    <details class="sek sub psub" id="k-ms"><summary><h3 class="mono" data-t="k_ms">Microsoft Patch Day</h3></summary>
+      <div class="panel pad pt" id="p-ms" hidden></div>
+    </details>
+    <details class="sek sub psub" id="k-edge"><summary><h3 class="mono" data-t="k_edge">Edge und Chrome</h3></summary>
+      <div class="panel pad pt" id="p-edge" hidden></div>
+    </details>
+    <details class="sek sub psub" id="k-hv"><summary><h3 class="mono" data-t="k_hv">Hersteller: Cisco, Fortinet, Palo Alto, Ivanti, SAP, Firefox, Apple</h3></summary>
+      <div class="panel pad pt" id="p-hv" hidden></div>
+    </details>
+    <details class="sek sub psub" id="k-hs"><summary><h3 class="mono" data-t="k_hs">Linux-Distributionen</h3></summary>
+      <div class="panel pad pt" id="p-hs" hidden></div>
+    </details>
+    </details>
+  </section>
+  <section id="termine" class="wrap" aria-labelledby="h-termine">
+    <details class="sek" id="k-termine">
+      <summary><h2 id="h-termine" class="mono" data-t="t_h">## termine: patch-kalender</h2></summary>
+    <p class="dim" data-t="t_intro">Die nächsten Patch-Termine der großen Hersteller, nach deren veröffentlichten Regeln berechnet. So weißt du im Voraus, wann du Wartungsfenster und Zeit einplanen musst.</p>
+    <div class="panel pad" id="t-liste"></div>
+    <p class="mono dim fine" data-t="t_quelle">Regeln: Microsoft, Adobe und SAP veröffentlichen in der Regel am zweiten Dienstag des Monats (Microsoft meist um 19 Uhr MEZ). Oracle: Critical Patch Update am dritten Dienstag von Januar, April, Juli und Oktober, in den übrigen Monaten ein Critical Security Patch Update am dritten Dienstag; Oracle kündigt jeden Termin am Donnerstag davor an. Außerplanmäßige Updates (Out-of-Band) sind nicht vorhersehbar und erscheinen im Ticker. Termine ohne Gewähr, maßgeblich ist die Seite des Herstellers.</p>
+    </details>
+  </section>
+  <section id="neu" class="wrap" aria-labelledby="h-neu">
+    <details class="sek" id="k-neu">
+      <summary><h2 id="h-neu" class="mono" data-t="n_h">## neu</h2></summary>
+    <p class="dim" data-t="n_intro">Was in den letzten Tagen bekannt wurde: ausgenutzte Schwachstellen (CISA-KEV, EU-KEV), Warnungen des BSI (CERT-Bund) und eine Prognose für neue Lücken. Jeder Reiter nennt Quelle, Zeitraum und Stand.</p>
+    <div class="tabs mono" role="tablist" aria-label="Quelle wählen">
+      <button type="button" role="tab" id="t-kev" data-tab="kev" aria-selected="true" aria-controls="p-kev" data-t="tab_kev">KEV-Katalog</button>
+      <button type="button" role="tab" id="t-bsi" data-tab="bsi" aria-selected="false" aria-controls="p-bsi" tabindex="-1">CERT-Bund</button>
+      <button type="button" role="tab" id="t-eu" data-tab="eu" aria-selected="false" aria-controls="p-eu" tabindex="-1">EU-KEV</button>
+      <button type="button" role="tab" id="t-ausblick" data-tab="ausblick" aria-selected="false" aria-controls="p-ausblick" tabindex="-1" data-t="tab_ausblick">Prognose</button>
+    </div>
+
+    <div id="p-kev" role="tabpanel" aria-labelledby="t-kev">
+      <p class="dim sub" data-t="n_sub">Ausgenutzte Schwachstellen der letzten <span id="fenster">30</span> Tage, neueste zuerst. Der Filter läuft nur in deinem Browser.</p>
+      <p class="mono dim fine" id="kev-kopf"></p>
+      <label class="lbl" for="filter" data-t="n_filter">Hersteller, Produkt oder CVE filtern</label>
+      <input id="filter" class="filter mono" type="search" autocomplete="off" placeholder="z. B. microsoft, fortinet, CVE-2026" data-t-ph="n_ph">
+      <p class="mono dim fine" id="treffer" aria-live="polite"></p>
+      <div class="tabelle" role="region" aria-label="Neue Einträge im KEV-Katalog" tabindex="0">
+        <table>
+          <thead><tr><th scope="col" data-t="th1">Aufgenommen</th><th scope="col" data-t="th2">Hersteller</th><th scope="col" data-t="th3">Produkt</th><th scope="col">CVE</th><th scope="col" data-t="th5">Frist (CISA)</th><th scope="col">Ransomware</th></tr></thead>
+          <tbody id="neu-liste"></tbody>
+        </table>
+      </div>
+      <p class="dim fine" data-t="n_q1">Quelle: CISA KEV (CC0 1.0). Die Frist gilt für US-Bundesbehörden und ist nur eine Orientierung. Die Links führen zur CVE-Seite des NIST (NVD). Keine Angriffsdetails.</p>
+    </div>
+
+    <div id="p-bsi" role="tabpanel" aria-labelledby="t-bsi" hidden>
+      <p class="dim sub" id="bsi-info">…</p>
+      <div class="panel pad"><div id="bsi-liste"></div></div>
+      <p class="dim fine" data-t="n_q2">Quelle: CERT-Bund, das Computer-Notfallteam des <strong>BSI</strong> (Bundesamt für Sicherheit in der Informationstechnik), über wid.cert-bund.de. Übernommen werden nur Titel, Schweregrad, Datum und Link, die Texte stehen beim BSI. Kein Hinweis auf eine Zusammenarbeit mit dem BSI.</p>
+    </div>
+
+    <div id="p-eu" role="tabpanel" aria-labelledby="t-eu" hidden>
+      <p class="dim sub" id="eu-info">…</p>
+      <div class="panel pad"><div id="eu-liste"></div></div>
+      <p class="dim fine" data-t="n_q3">Quelle: EU-Schwachstellendatenbank (EUVD) der <strong>ENISA</strong>, der EU-Agentur für Cybersicherheit. Die Lizenz ist nicht ausdrücklich geklärt, deshalb nur Kennung, CVE, Hersteller und Link.</p>
+    </div>
+
+    <div id="p-ausblick" role="tabpanel" aria-labelledby="t-ausblick" hidden>
+      <p class="dim sub" id="ab-info">…</p>
+      <div class="panel pad"><div id="ab-liste"></div></div>
+      <p class="dim fine" data-t="n_q4">Prognose, nicht Teil der Stufe: Die Wahrscheinlichkeit stammt von <strong>EPSS</strong> (Exploit Prediction Scoring System, FIRST) und schätzt, ob eine neue Lücke in den nächsten 30 Tagen ausgenutzt wird. Eine Schätzung, kein Befund. Gelistet sind neue CVEs der letzten Tage, die noch nicht im KEV stehen. See EPSS at <a href="https://www.first.org/epss" target="_blank" rel="noopener">first.org/epss</a>. Veröffentlichungsdatum und CVSS-Wert aus der NVD. This product uses data from the NVD API but is not endorsed or certified by the NVD.</p>
+    </div>
+    </details>
+  </section>
+  </details>
+
+  <details class="teil" id="teil3">
+    <summary class="wrap grp"><h2 id="h-info" class="mono"># info</h2></summary>
+  <section id="info" class="wrap" aria-labelledby="h-info">
+    <details class="akk" id="i-quellen"><summary class="mono" data-t="i_quellen">quellen</summary>
+      <div class="panel pad" id="quellenliste"></div>
+      <p class="dim fine" data-t="i_qtxt">Von CERT-Bund (BSI) zeigen wir nur Titel, Schweregrad, Datum und Link, immer mit Quelle. Die Texte stehen beim BSI.</p>
+    </details>
+    <details class="akk" id="i-begriffe"><summary class="mono" data-t="i_begriffe">begriffe</summary>
+      <dl class="begriffe" data-t="i_dl">
+        <dt>CISA</dt><dd>Cybersecurity and Infrastructure Security Agency, die Cybersicherheitsbehörde der USA. Führt die KEV-Liste.</dd>
+        <dt>KEV</dt><dd>Known Exploited Vulnerabilities: Schwachstellen, die nachweislich in Angriffen ausgenutzt werden.</dd>
+        <dt>CVE</dt><dd>Die weltweit einheitliche Kennung einer Schwachstelle, zum Beispiel CVE-2026-12345.</dd>
+        <dt>BSI / CERT-Bund</dt><dd>Das Bundesamt für Sicherheit in der Informationstechnik und sein Computer-Notfallteam. Sie warnen vor Schwachstellen in Deutschland.</dd>
+        <dt>ENISA / EUVD</dt><dd>Die EU-Agentur für Cybersicherheit und ihre Schwachstellendatenbank (European Union Vulnerability Database).</dd>
+        <dt>NVD</dt><dd>National Vulnerability Database des US-Instituts NIST, Anlaufstelle für Details zu einer CVE.</dd>
+        <dt>Ransomware</dt><dd>Schadsoftware, die Daten verschlüsselt, um Lösegeld zu erpressen.</dd>
+      </dl>
+    </details>
+    <details class="akk" id="i-faq"><summary class="mono" data-t="i_faq">faq</summary>
+      <h4 class="mono faq-q" data-t="f1q">Was ist der Dreier-Pegel?</h4>
+      <p class="dim faq-a" data-t="f1a">Unser eigener Score, kein Standard und keine Norm. Er fasst mehrere Bausteine zu einer Zahl von 0 bis 100 zusammen und leitet daraus eine Stufe ab: ruhig, unauffällig, angespannt, hoch oder außergewöhnlich. 50 heißt: die Regelschwellen der Bausteine sind im Schnitt erreicht. Er misst Aktivität und Signale, nicht die Zahl der Angriffe, und sagt nichts voraus.</p>
+      <h4 class="mono faq-q" data-t="f1cq">Warum heißt er „Dreier“-Pegel?</h4>
+      <p class="dim faq-a" data-t="f1ca">Der Name kommt von Dreier Labs, dem Projekt hinter Cyberlage, und hat nichts mit der Zahl der Stufen zu tun: Der Pegel hat fünf Stufen (ruhig, unauffällig, angespannt, hoch, außergewöhnlich).</p>
+      <h4 class="mono faq-q" data-t="f1bq">Aus welchen Bausteinen besteht er?</h4>
+      <p class="dim faq-a" data-t="f1ba">Aus zehn Bausteinen in vier Gruppen. Ausnutzung: KEV-Menge (neu im CISA-Katalog, 30 Tage), Tempo bis KEV (wie schnell neue Lücken ausgenutzt werden), EU-KEV (neu als ausgenutzt gemeldet) und Microsoft (ausgenutzte Lücken im letzten Patch Day). Warnungen: CERT-Bund (neue kritische und hohe Warnungen, 30 Tage) und NCSC-NL (neue Advisories, 30 Tage). Angriffsaktivität: DShield (angreifende Quellen je Tag im weltweiten Sensornetz des SANS Internet Storm Center) und Ransomware (neue Opfer-Einträge auf den Leak-Seiten der Täter in 30 Tagen, gezählt von RansomLook). Externe Einschätzungen: BSI Cyber Index und SANS Infocon. Jeder Baustein wird an seiner eigenen Schwelle gemessen, dem oberen Viertel seiner Historie. Erst wird je Gruppe gemittelt, dann über die Gruppen. 50 heißt: die Schwellen sind im Schnitt erreicht.</p>
+      <h4 class="mono faq-q" data-t="f2q">Woher kommen die Daten?</h4>
+      <p class="dim faq-a" data-t="f2a">Aus öffentlichen Quellen, täglich abgerufen: CISA-KEV, CVE-Liste, EU-KEV (ENISA), Microsoft MSRC, CERT-Bund, NCSC-NL, BSI Cyber Index, SANS ISC (Infocon und DShield) und RansomLook. Alle zehn Bausteine gehen in den Score ein. Jeder Wert nennt Quelle und Stand.</p>
+      <h4 class="mono faq-q" data-t="f3q">Was sind KEV und CISA?</h4>
+      <p class="dim faq-a" data-t="f3a">CISA ist die US-Behörde für Cybersicherheit. KEV (Known Exploited Vulnerabilities) ist ihr Katalog von Schwachstellen, deren Ausnutzung in der Praxis belegt ist. Aufnahme heißt also: nachweislich ausgenutzt, nicht nur theoretisch gefährlich (anders als der CVSS-Schweregrad oder die EPSS-Wahrscheinlichkeit). Einschränkung: Es ist die US-Sicht, und es zählt nur, was die CISA aufnimmt.</p>
+      <h4 class="mono faq-q" data-t="f4q">Was sind die Schwellenwerte, und wer legt sie fest?</h4>
+      <p class="dim faq-a" data-t="f4a">Es gibt keine amtlichen oder genormten Schwellen. Wir haben sie selbst festgelegt, aus der Verteilung der 30-Tage-Zählung über 36 Monate: Für den Baustein KEV-Menge ergibt das 75. Perzentil (25 Einträge) „erhöht“, das 90. Perzentil (32) „hoch“; sind mindestens 5 der Einträge in Ransomware-Kampagnen genutzt, steigt die Stufe des Bausteins um eine. Die anderen Bausteine haben eigene feste Regeln (RULES.md). Die Werte sind fest, stehen mit Begründung in config/regeln.json und werden von Hand neu geprüft. Jede Änderung ist im Verlauf des Repos sichtbar, Einwände gern als Issue auf GitHub.</p>
+      <h4 class="mono faq-q" data-t="f5q">Heißt „hoch“, dass ich angegriffen werde?</h4>
+      <p class="dim faq-a" data-t="f5a">Nein. Die Stufe gilt allgemein, nicht für einen Sektor oder eine Organisation, und sie sagt nichts voraus. Ob eine Lücke Sie betrifft, hängt vom eigenen Bestand ab. Dafür gibt es unter „neu“ die Liste der frisch aufgenommenen Einträge zum Abgleich.</p>
+      <h4 class="mono faq-q" data-t="f6q">Was ist die Schwäche dieser Methode?</h4>
+      <p class="dim faq-a" data-t="f6a">Die Skala ist relativ und folgt den Quellen: Wird die CISA insgesamt aktiver, erreicht die KEV-Menge häufiger ihre Marken, ohne dass sich die Lage im absoluten Sinn ändert. Darum die lange Basis von 36 Monaten und die Prüfung von Hand. Außerdem zählt der Score nur, was gemeldet wird, nicht, was unentdeckt ausgenutzt wird.</p>
+      <h4 class="mono faq-q" data-t="f7q">Wie belastbar ist der Score?</h4>
+      <p class="dim faq-a" data-t="f7a">Er ist ein eigenes Modell, kein amtliches Maß: Die Bausteine haben verschiedene Zeiträume und mischen Messungen mit Einschätzungen, das Gewicht ist gleich und noch nicht begründet. Die Stufengrenzen (30, 50, 64, 80) sind vorläufig und am Verlauf der KEV-Menge der letzten 36 Monate ausgerichtet. Der Tagesstand des vollen Pegels wird seit dem 25.11.2026 gespeichert, der Verlauf davor ist aus Archivdaten rückgerechnet; nach etwa 90 Tagen leiten wir die Grenzen aus der eigenen Verteilung neu ab. Bis dahin ist er ein Gesamteindruck, kein objektives Maß.</p>
+      <h4 class="mono faq-q" data-t="f8q">Was bedeuten Prognose und EPSS?</h4>
+      <p class="dim faq-a" data-t="f8a">Die Prognose zeigt Schwachstellen, die noch nicht im KEV stehen, aber laut EPSS (FIRST) wahrscheinlich bald ausgenutzt werden. Sie beeinflusst die Stufe nicht. Ob sie stimmt, prüft die Seite selbst: Die Trefferquote erscheint, sobald genug Prognosen 30 Tage alt sind.</p>
+    </details>
+    <details class="akk" id="i-methode"><summary class="mono" data-t="i_methode">methode</summary>
+      <div class="grid3" data-t="i_grid">
+        <div class="panel pad"><strong>Nur Veröffentlichtes</strong><p class="dim">Was bei wem im Einsatz ist, wissen wir nicht und behaupten es nicht.</p></div>
+        <div class="panel pad"><strong>Keine Daten statt Schätzung</strong><p class="dim">Fehlt ein belegter Wert, steht dort „keine Daten“.</p></div>
+        <div class="panel pad"><strong>Regeln offen</strong><p class="dim">Fenster, Schwellen und Herleitung stehen in <a href="/RULES.md">RULES.md</a>.</p></div>
+      </div>
+    </details>
+    <details class="akk" id="i-begruendung"><summary class="mono" data-t="i_begr">begründung des modells</summary>
+      <p class="dim" data-t="bg_intro">Jede Festlegung im Dreier-Pegel ist eine Entscheidung. Hier steht in Kurzform, warum sie so getroffen wurde und was die Prüfung an drei Jahren Daten ergibt (25.11.2023 bis 25.11.2026). Die vollständige Fassung mit allen Zahlen steht in den <a href="/RULES.md">Regeln</a>.</p>
+      <ul class="an-liste">
+        <li><b data-t="bg_1k">Verhältnis zur Schwelle.</b> <span class="dim" data-t="bg_1">Die Bausteine haben verschiedene Einheiten. Erst das Verhältnis zur eigenen Schwelle macht sie vergleichbar. Jeder Baustein lag an 25 bis 33 Prozent der Tage über seiner Schwelle, sie sind also gleich streng.</span></li>
+        <li><b data-t="bg_2k">Schwelle beim oberen Viertel.</b> <span class="dim" data-t="bg_2">„Auffällig“ heißt: höher als an drei von vier Tagen der eigenen Historie. Das ist unempfindlich gegen einzelne Ausreißer. Die Wahl des Viertels ist eine Konvention.</span></li>
+        <li><b data-t="bg_3k">Kappung bei 2,0.</b> <span class="dim" data-t="bg_3">Ein einzelner Ausreißer soll den Pegel nicht bestimmen. Ohne Kappung wäre der Pegel an einzelnen Tagen um bis zu 35 Punkte abgewichen.</span></li>
+        <li><b data-t="bg_4k">Gruppen.</b> <span class="dim" data-t="bg_4">Was dasselbe misst, soll nicht mehrfach zählen. EU-KEV und KEV-Menge laufen fast gleich (Korrelation 0,99), CERT-Bund und NCSC-NL ähnlich (0,72).</span></li>
+        <li><b data-t="bg_5k">Gleiches Gewicht je Gruppe.</b> <span class="dim" data-t="bg_5">Für eine andere Gewichtung gibt es keine belastbare Grundlage. Gleichgewicht ist die Annahme mit den wenigsten Voraussetzungen.</span></li>
+        <li><b data-t="bg_6k">Empfindlichkeit.</b> <span class="dim" data-t="bg_6">Lässt man einen der acht Bausteine mit Archiv weg, ändert sich der Pegel im Mittel um 1 bis 3 Punkte und bleibt an 78 bis 92 Prozent der Tage in derselben Stufe. Kein einzelner Baustein bestimmt den Pegel; deshalb hat jede Gruppe mindestens zwei.</span></li>
+        <li><b data-t="bg_8k">Test mit getrennten Zeiträumen.</b> <span class="dim" data-t="bg_8">Schwellen nur aus den ersten zwei Jahren abgeleitet und am dritten Jahr geprüft: Der Verlauf des Pegels bleibt fast gleich (Korrelation 0,99), sein Niveau läge aber im Mittel 7 Punkte höher. Grund ist ein Sprung im Jahr 2026 bei allem, was Lücken, Warnungen und Ransomware-Einträge zählt; CERT-Bund lag an 92 Prozent der Tage über der Schwelle der Vorjahre. Der Pegel misst also Abweichung von einem Bezugszeitraum. Deshalb bleiben die Schwellen fest und werden nur zu den Terminen im Prüfkalender überprüft.</span></li>
+        <li><b data-t="bg_7k">Grenzen.</b> <span class="dim" data-t="bg_7">Es gibt keine unabhängige Messung der wahren Bedrohung, an der sich der Pegel eichen ließe. Prüfen lässt sich nur, ob er in sich stimmig ist.</span></li>
+      </ul>
+    </details>
+    <details class="akk" id="i-andere"><summary class="mono" data-t="i_andere">andere lagebilder</summary>
+      <p class="dim" data-t="an_intro">Der BSI Cyber Index, der SANS Infocon und die DShield-Daten des SANS Internet Storm Center stecken bereits im Dreier-Pegel, sie sind drei seiner zehn Bausteine. Diese Angebote hier sind nicht enthalten: Sie messen anderes oder in einem anderen Takt, und es lohnt sich, sie daneben zu lesen.</p>
+      <ul class="an-liste">
+        <li><b>Telekom Sicherheitstacho</b> <span class="dim" data-t="an_tacho">Angriffe auf die Honeypots der Telekom in Echtzeit, weltweit. Zeigt Angriffsaktivität aus einem anderen Sensornetz als der DShield-Baustein des Dreier-Pegels; ohne Stufe und ohne Handlungsteil.</span> <a href="https://www.sicherheitstacho.eu/" target="_blank" rel="noopener">sicherheitstacho.eu</a></li>
+        <li><b>Swisscom Cybersecurity Threat Radar</b> <span class="dim" data-t="an_swiss">Jährlicher Bericht zur Bedrohungslage in der Schweiz, als Einordnung von Trends, ohne Tageswerte.</span> <a href="https://www.swisscom.ch/de/about/news/2026/04/27-cybersecurity.html" target="_blank" rel="noopener">swisscom.ch</a></li>
+      </ul>
+      <p class="dim" data-t="an_wir">Was der Dreier-Pegel anders macht: täglich statt jährlich, ein Score nach offenen Regeln, weltweit statt national, mit Rückblick über drei Jahre und einem Teil, der sagt, was zuerst zu patchen ist. Er misst vor allem Meldungen und Warnungen; die Angriffsaktivität geht über zwei Bausteine ein (DShield und Ransomware).</p>
+    </details>
+    <details class="akk" id="i-pruef"><summary class="mono" data-t="i_pruef">prüfkalender</summary>
+      <p class="dim fine" data-t="i_pruef_t">Von Hand gepflegte Angaben (Gründe, Einschätzungen anderer wie der BSI-Lagebericht) können veralten. Darum trägt jede ein Prüfdatum. Bei jedem Lauf prüft ein Skript, ob der Link erreichbar ist (ein Link gilt erst als tot, wenn jeder Versuch 24 Stunden lang fehlschlägt) und ob die Frist abgelaufen ist: 330 Tage bei jährlichen Angaben, 90 Tage bei Gründen, 183 Tage bei den Schwellen des Dreier-Pegels. Ist etwas fällig, wird es gelb markiert und im Projekt öffnet sich automatisch ein Hinweis (Issue). Das Skript prüft nur Frist und Erreichbarkeit, nicht den Inhalt: Das Prüfdatum setzt ein Mensch, der die Quelle gelesen hat. Regeln in RULES.md.</p>
+      <div class="tabelle" role="region" aria-label="Prüfkalender" tabindex="0"><table id="pruef-tabelle"></table></div>
+    </details>
+    <details class="akk" id="i-hinweise"><summary class="mono" data-t="i_hinweise">hinweise</summary>
+      <ul id="hinweise" class="hinw"><li>Kein Ersatz für Warnungen des BSI oder eines CERT.</li><li>KEV ist eine weltweite Liste ausgenutzter Schwachstellen und enthält keine Angaben zu Sektoren oder Betroffenen.</li><li>Die Liste ist für den Abgleich mit dem eigenen Bestand gedacht: Wer verteidigt, weiß selbst, was im Einsatz ist.</li><li>Die Stufe zeigt, wie viele Schwachstellen neu als ausgenutzt gelten, im Vergleich zu den letzten 12 Monaten. Sie gilt allgemein, nicht für einen bestimmten Sektor, und sagt nichts über einzelne Angriffe.</li><li>ENISA-Werte gelten für die EU insgesamt, nicht für Deutschland.</li><li>Der Ausblick nennt eine Schätzung (EPSS) für neue Lücken. Er gehört nicht zur Stufe und ist kein Befund.</li></ul>
+    </details>
+  </section>
+  </details>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <p class="dim" id="fuss" data-t="f_fuss">Ein Projekt von <a href="https://dreierlabs.com" target="_blank" rel="noopener">Dreier Labs</a>. Privates Projekt, keine amtliche Stelle, keine Verbindung zu BSI oder Behörden. Keine Gewähr.</p>
+    <p class="dim fine" data-t="f_dank">Danke an alle, deren offene Daten diese Seite möglich machen: CISA, ENISA, BSI und CERT-Bund, NCSC-NL, SANS ISC, FIRST (EPSS), NIST (NVD), RansomLook, Microsoft, Red Hat, SUSE, Canonical, Debian, AlmaLinux, Rocky Linux, Amazon, Cisco und SAP.</p>
+    <p class="mono" data-t="f_links"><a href="/impressum.html">impressum</a> · <a href="/hinweise.html">hinweise &amp; datenschutz</a> · <a href="/LICENSE">lizenz</a></p>
+  </div>
+</footer>
+<button type="button" id="totop" class="totop" aria-label="Nach oben"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M6 10V2M2.5 5.5 6 2l3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></svg><span id="totopl" data-t="top">Nach oben</span></button>
+<script src="/i18n.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>

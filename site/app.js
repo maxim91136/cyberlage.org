@@ -77,7 +77,7 @@
     window.addEventListener("load", pruefen);
   }
 
-  fetch("data/lage.json", { cache: "no-cache" })
+  fetch("/data/lage.json", { cache: "no-cache" })
     .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(render)
     .catch(function (err) { if (window.console) console.error(err);
@@ -141,7 +141,7 @@
     var hatStufe = d.stufe !== null && d.stufe !== undefined;
     var name = hatStufe ? txt(String(d.stufe)) : null;
     $("stufe-wert").textContent = hatStufe ? name : "null";
-    if (hatStufe && d.pegel && typeof d.pegel.wert === "number") document.title = "Cyberlage · " + name.toUpperCase() + " " + d.pegel.wert;
+    if (hatStufe && d.pegel && typeof d.pegel.wert === "number") document.title = name.toUpperCase() + " " + d.pegel.wert + pick(" · Cyberlage: Cyber-Bedrohungslage heute", " · Cyberlage: cyber threat level today");
     var hp = $("hero-pegel");
     if (hp) { hp.hidden = !hatStufe; if (hatStufe) { hp.className = "hero-pegel mono st-" + d.stufe; hp.textContent = pick("Dreier-Pegel heute: ", "Dreier Gauge today: ") + name.toUpperCase() + (d.pegel && typeof d.pegel.wert === "number" ? " · " + d.pegel.wert + "\u00a0/\u00a0100" : "") + pick("  · Details", "  · details"); } }
     window.DP = hatStufe ? name + (d.pegel && typeof d.pegel.wert === "number" ? " " + d.pegel.wert : "") : "";
@@ -401,8 +401,8 @@
     var b = $("rss-kopieren"); if (!b) return;
     b.addEventListener("click", function () {
       var u = b.getAttribute("data-feed"), t = $("rss-btn"), ok = function () { t.textContent = pick("Kopiert – jetzt im Reader einfügen", "Copied – now paste it into your reader"); };
-      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(u).then(ok, function () { window.location.href = "feed.xml"; });
-      else window.location.href = "feed.xml";
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(u).then(ok, function () { window.location.href = "/feed.xml"; });
+      else window.location.href = "/feed.xml";
     });
   })();
 
@@ -1040,7 +1040,7 @@
     }
     function lade(id) {
       if (daten || laedt) return; laedt = true; box.textContent = ""; box.appendChild(el("p", "dim", pick("Lädt …", "Loading …")));
-      fetch("data/berichte.json", { cache: "no-cache" }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) {
+      fetch("/data/berichte.json", { cache: "no-cache" }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) {
         daten = d; var ziel = id && d.berichte.filter(function (b) { return b.id === id; })[0];
         if (ziel) setzeArt(ziel.art, ziel.id); else fuelle();
       }).catch(function () { laedt = false; box.textContent = ""; box.appendChild(el("p", "dim", pick("Die Berichte ließen sich nicht laden.", "The reports could not be loaded."))); });

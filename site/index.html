@@ -5,13 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <meta name="color-scheme" content="dark">
-<title>Cyberlage · Dreier-Pegel für die Cyber-Bedrohung</title>
+<title>HOCH 65 · Cyberlage: Cyber-Bedrohungslage heute</title>
 <meta name="description" content="Dreier-Pegel am 25.11.2026: hoch, 65 von 100 (aus 10 von 10 Bausteinen). Seismograph der Cyber-Bedrohungslage aus zehn offenen Bausteinen, regelbasiert und nachprüfbar. Ein Werkzeug für alle, die Systeme verteidigen. Ein Projekt von Dreier Labs.">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="icon" href="favicon.ico" sizes="48x48">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#06090b">
 <link rel="canonical" href="https://cyberlage.org/">
+<link rel="alternate" hreflang="de" href="https://cyberlage.org/">
+<link rel="alternate" hreflang="en" href="https://cyberlage.org/en/">
+<link rel="alternate" hreflang="x-default" href="https://cyberlage.org/">
+<!--ld-start--><script type="application/ld+json">[{"@context": "https://schema.org", "@type": "WebSite", "name": "Cyberlage", "url": "https://cyberlage.org/", "inLanguage": "de", "publisher": {"@type": "Organization", "name": "Dreier Labs", "url": "https://dreierlabs.com/"}}, {"@context": "https://schema.org", "@type": "Dataset", "name": "Dreier-Pegel: Tagesstand der Cyber-Bedrohungslage", "description": "Täglicher Score von 0 bis 100 für die Cyber-Bedrohungslage, nach festen Regeln aus zehn offenen Bausteinen berechnet (ausgenutzte Schwachstellen, Warnungen, Angriffsaktivität, externe Einschätzungen). Regeln und Quellen sind veröffentlicht.", "url": "https://cyberlage.org/", "creator": {"@type": "Organization", "name": "Dreier Labs", "url": "https://dreierlabs.com/"}, "isAccessibleForFree": true, "license": "https://cyberlage.org/LICENSE", "dateModified": "2026-11-25", "distribution": [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://cyberlage.org/data/lage.json"}, {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://cyberlage.org/data/berichte.json"}]}]</script><!--ld-end-->
 <link rel="alternate" type="application/rss+xml" title="Cyberlage" href="https://cyberlage.org/feed.xml">
 <meta property="og:title" content="Seismograph der Cyber-Bedrohungslage. Weltweit, regelbasiert, offen belegt.">
 <meta property="og:description" content="Dreier-Pegel am 25.11.2026: hoch, 65 von 100 (aus 10 von 10 Bausteinen). Regelbasiert aus offenen Quellen.">
@@ -21,8 +25,8 @@
 <meta property="og:image" content="https://cyberlage.org/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<link rel="stylesheet" href="style.css">
-<script src="modus.js"></script>
+<link rel="stylesheet" href="/style.css">
+<script src="/modus.js"></script>
 </head>
 <body id="oben">
 <a class="skip" href="#lage" data-t="skip">Zum Inhalt</a>
@@ -33,7 +37,7 @@
   <button type="button" id="tk-p" class="tk-p mono" aria-pressed="false" aria-label="Ticker anhalten">&#10074;&#10074;</button>
 </div>
 <header class="marke">
-  <a class="brand" href="./" aria-label="cyberlage.org, Startseite"><img src="favicon.svg" width="30" height="30" alt="" aria-hidden="true"><span>cyberlage<span class="dim">.org</span></span></a>
+  <a class="brand" href="./" aria-label="cyberlage.org, Startseite"><img src="/favicon.svg" width="30" height="30" alt="" aria-hidden="true"><span>cyberlage<span class="dim">.org</span></span></a>
 </header>
 <nav class="leiste" aria-label="Hauptnavigation">
   <div class="wrap navin">
@@ -53,7 +57,7 @@
     <div class="nav-row nav-u">
     <details class="dd" id="abo"><summary data-t="n_abo">/abo</summary><div class="dd-box dd-l dd-abo">
       <span id="telegram" class="abo-z" hidden><a id="telegram-link" href="#" rel="noopener" data-t="tg_btn">Telegram-Kanal abonnieren</a><small class="dim" data-t="tg_txt">einmal täglich die Tageslage, sofort nur bei Stufenwechsel und Ransomware-Alarm.</small></span>
-      <span class="abo-z"><button type="button" id="rss-kopieren" data-feed="https://cyberlage.org/feed.xml"><span id="rss-btn" data-t="rss_btn">RSS-Feed-Adresse kopieren</span></button><small class="dim"><span data-t="rss_txt">in deinen Feed-Reader einfügen (Feedly, Inoreader, NetNewsWire), ohne Konto.</span> <a href="feed.xml" data-t="rss_roh">Rohdatei</a></small></span>
+      <span class="abo-z"><button type="button" id="rss-kopieren" data-feed="https://cyberlage.org/feed.xml"><span id="rss-btn" data-t="rss_btn">RSS-Feed-Adresse kopieren</span></button><small class="dim"><span data-t="rss_txt">in deinen Feed-Reader einfügen (Feedly, Inoreader, NetNewsWire), ohne Konto.</span> <a href="/feed.xml" data-t="rss_roh">Rohdatei</a></small></span>
     </div></details>
     <details class="dd"><summary data-sec="info">/info</summary><div class="dd-box dd-l">
       <a href="#info" data-offen="i-quellen" data-t="i_quellen">Quellen</a>
@@ -337,11 +341,11 @@
       <div class="grid3" data-t="i_grid">
         <div class="panel pad"><strong>Nur Veröffentlichtes</strong><p class="dim">Was bei wem im Einsatz ist, wissen wir nicht und behaupten es nicht.</p></div>
         <div class="panel pad"><strong>Keine Daten statt Schätzung</strong><p class="dim">Fehlt ein belegter Wert, steht dort „keine Daten“.</p></div>
-        <div class="panel pad"><strong>Regeln offen</strong><p class="dim">Fenster, Schwellen und Herleitung stehen in <a href="RULES.md">RULES.md</a>.</p></div>
+        <div class="panel pad"><strong>Regeln offen</strong><p class="dim">Fenster, Schwellen und Herleitung stehen in <a href="/RULES.md">RULES.md</a>.</p></div>
       </div>
     </details>
     <details class="akk" id="i-begruendung"><summary class="mono" data-t="i_begr">begründung des modells</summary>
-      <p class="dim" data-t="bg_intro">Jede Festlegung im Dreier-Pegel ist eine Entscheidung. Hier steht in Kurzform, warum sie so getroffen wurde und was die Prüfung an drei Jahren Daten ergibt (25.11.2023 bis 25.11.2026). Die vollständige Fassung mit allen Zahlen steht in den <a href="RULES.md">Regeln</a>.</p>
+      <p class="dim" data-t="bg_intro">Jede Festlegung im Dreier-Pegel ist eine Entscheidung. Hier steht in Kurzform, warum sie so getroffen wurde und was die Prüfung an drei Jahren Daten ergibt (25.11.2023 bis 25.11.2026). Die vollständige Fassung mit allen Zahlen steht in den <a href="/RULES.md">Regeln</a>.</p>
       <ul class="an-liste">
         <li><b data-t="bg_1k">Verhältnis zur Schwelle.</b> <span class="dim" data-t="bg_1">Die Bausteine haben verschiedene Einheiten. Erst das Verhältnis zur eigenen Schwelle macht sie vergleichbar. Jeder Baustein lag an 25 bis 33 Prozent der Tage über seiner Schwelle, sie sind also gleich streng.</span></li>
         <li><b data-t="bg_2k">Schwelle beim oberen Viertel.</b> <span class="dim" data-t="bg_2">„Auffällig“ heißt: höher als an drei von vier Tagen der eigenen Historie. Das ist unempfindlich gegen einzelne Ausreißer. Die Wahl des Viertels ist eine Konvention.</span></li>
@@ -376,11 +380,11 @@
   <div class="wrap foot">
     <p class="dim" id="fuss" data-t="f_fuss">Ein Projekt von <a href="https://dreierlabs.com" target="_blank" rel="noopener">Dreier Labs</a>. Privates Projekt, keine amtliche Stelle, keine Verbindung zu BSI oder Behörden. Keine Gewähr.</p>
     <p class="dim fine" data-t="f_dank">Danke an alle, deren offene Daten diese Seite möglich machen: CISA, ENISA, BSI und CERT-Bund, NCSC-NL, SANS ISC, FIRST (EPSS), NIST (NVD), RansomLook, Microsoft, Red Hat, SUSE, Canonical, Debian, AlmaLinux, Rocky Linux, Amazon, Cisco und SAP.</p>
-    <p class="mono" data-t="f_links"><a href="impressum.html">impressum</a> · <a href="hinweise.html">hinweise &amp; datenschutz</a> · <a href="LICENSE">lizenz</a></p>
+    <p class="mono" data-t="f_links"><a href="/impressum.html">impressum</a> · <a href="/hinweise.html">hinweise &amp; datenschutz</a> · <a href="/LICENSE">lizenz</a></p>
   </div>
 </footer>
 <button type="button" id="totop" class="totop" aria-label="Nach oben"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M6 10V2M2.5 5.5 6 2l3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></svg><span id="totopl" data-t="top">Nach oben</span></button>
-<script src="i18n.js"></script>
-<script src="app.js"></script>
+<script src="/i18n.js"></script>
+<script src="/app.js"></script>
 </body>
 </html>

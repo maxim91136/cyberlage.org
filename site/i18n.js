@@ -1,8 +1,11 @@
 (function () {
   "use strict";
   var L = "de";
-  try { var g = localStorage.getItem("lang"); if (g === "de" || g === "en") L = g; else L = (navigator.language || "de").slice(0, 2) === "de" ? "de" : "en"; }
-  catch (e) { L = (navigator.language || "de").slice(0, 2) === "de" ? "de" : "en"; }
+  /* Die Sprache hängt an der Adresse: / ist Deutsch, /en/ ist Englisch (eigene Seite mit hreflang), damit Suchmaschinen beide Fassungen getrennt sehen.
+     Nebenseiten ohne eigene englische Adresse (Hinweise, Impressum) folgen der zuletzt gewählten Sprache. Die Browsersprache entscheidet nichts. */
+  var EN_PFAD = /^\/en(\/|$)/.test(location.pathname), START = EN_PFAD || /^\/(index\.html)?$/.test(location.pathname);
+  if (START) { L = EN_PFAD ? "en" : "de"; try { localStorage.setItem("lang", L); } catch (e) { } }
+  else { try { var g = localStorage.getItem("lang"); if (g === "de" || g === "en") L = g; } catch (e) { } }
 
   // Englische Texte für Elemente mit data-t (Deutsch steht im HTML). Nur eigene, feste Texte.
   var EN = {
@@ -43,7 +46,7 @@
     an_swiss: "Annual report on the threat situation in Switzerland, for trends, without daily values.",
     an_wir: "What the Dreier Gauge does differently: daily instead of yearly, one score under open rules, worldwide instead of national, with a three-year look back and a part that says what to patch first. It mainly measures advisories and warnings; attack activity enters through two components (DShield and ransomware).",
     i_begr: "why the model is built this way", i_begr_n: "Rationale",
-    bg_intro: 'Every setting in the Dreier Gauge is a decision. This is the short version of why it was made and what a check against three years of data shows (25 Nov 2023 to 25 Nov 2026). The full version with all figures is in the <a href="RULES.md">rules</a> (German).',
+    bg_intro: 'Every setting in the Dreier Gauge is a decision. This is the short version of why it was made and what a check against three years of data shows (25 Nov 2023 to 25 Nov 2026). The full version with all figures is in the <a href="/RULES.md">rules</a> (German).',
     bg_1k: "Ratio to threshold.", bg_1: "The components have different units. Only the ratio to their own threshold makes them comparable. Each component was above its threshold on 25 to 33 percent of days, so they are equally strict.",
     bg_2k: "Threshold at the top quarter.", bg_2: "“Notable” means higher than on three out of four days of its own history. This is robust against single outliers. Choosing the quarter is a convention.",
     bg_3k: "Cap at 2.0.", bg_3: "A single outlier should not determine the gauge. Without the cap the gauge would have deviated by up to 35 points on single days.",
@@ -87,9 +90,9 @@
       "<dt>Ransomware</dt><dd>Malware that encrypts data to extort a ransom.</dd>",
     i_grid: '<div class="panel pad"><strong>Published data only</strong><p class="dim">We do not know what is in use where, and we do not claim to.</p></div>' +
       '<div class="panel pad"><strong>No data instead of guesses</strong><p class="dim">If a sourced value is missing, it says “no data”.</p></div>' +
-      '<div class="panel pad"><strong>Open rules</strong><p class="dim">Window, thresholds and derivation are in <a href="RULES.md">RULES.md</a>.</p></div>',
+      '<div class="panel pad"><strong>Open rules</strong><p class="dim">Window, thresholds and derivation are in <a href="/RULES.md">RULES.md</a>.</p></div>',
     f_fuss: 'A project by <a href="https://dreierlabs.com">Dreier Labs</a>. Private project, not an official body, no connection to the BSI or any authority. No warranty.',
-    f_links: '<a href="impressum.html">legal notice</a> · <a href="hinweise.html">notes &amp; privacy</a> · <a href="LICENSE">licence</a>',
+    f_links: '<a href="/impressum.html">legal notice</a> · <a href="/hinweise.html">notes &amp; privacy</a> · <a href="/LICENSE">licence</a>',
     top: "Back to top",
     // hinweise.html
     hw_titel: "Notes and privacy",
@@ -109,13 +112,13 @@
         "<ul><li><strong>niedrig:</strong> weniger als " + e + " neue Einträge</li><li><strong>erhöht:</strong> " + e + " bis " + (h - 1) + "</li><li><strong>hoch:</strong> " + h + " oder mehr</li></ul>",
         "<p><strong>Aufschlag:</strong> Sind unter den neuen Einträgen mindestens " + r + " mit bekannter Ransomware-Nutzung, steigt die Stufe um eine Ebene.</p>",
         "<p><strong>Woher die Schwellen kommen:</strong> aus den letzten " + m + " Monaten des Katalogs (das Anlaufjahr 2022 zählt nicht mit). " + e + " ist das 75. Perzentil, " + h + " das 90. Perzentil der 30-Tage-Zählung (Median " + med + "). Erhöht heißt also: mehr Neuzugänge als in drei von vier üblichen Zeiträumen.</p>",
-        "<p class='dim'>Nicht Teil des Pegels: die Prognose (EPSS) und die ENISA-Zahlen. Sie dienen nur zur Einordnung. Der Pegel misst Aktivität in Katalogen und Warndiensten, keine Zahl von Angriffen. Alle Regeln: <a href='RULES.md'>RULES.md</a>.</p>"].join(""); },
+        "<p class='dim'>Nicht Teil des Pegels: die Prognose (EPSS) und die ENISA-Zahlen. Sie dienen nur zur Einordnung. Der Pegel misst Aktivität in Katalogen und Warndiensten, keine Zahl von Angriffen. Alle Regeln: <a href='/RULES.md'>RULES.md</a>.</p>"].join(""); },
       en: function (f, e, h, r, m, med) { return [
         "<p><strong>How the Dreier Gauge arises:</strong> a score from 0 to 100 from ten components in four groups: exploitation (KEV count, pace to KEV, EU KEV, Microsoft), warnings (CERT-Bund, NCSC-NL), attack activity (DShield, ransomware) and external assessments (BSI Cyber Index, SANS Infocon). Each component is measured against its threshold (top quarter of its history), then averaged per group and across groups. 50 means the rule thresholds are reached on average, 100 twice as far. Levels: below 35 calm, 35 to 49 unremarkable, 50 to 63 tense, 64 to 79 high, from 80 exceptional (provisional).</p><p><strong>Component KEV count:</strong> counted is how many vulnerabilities were newly added to the CISA KEV catalog in the last " + f + " days, worldwide and across all vendors.</p>",
         "<ul><li><strong>low:</strong> fewer than " + e + " new entries</li><li><strong>elevated:</strong> " + e + " to " + (h - 1) + "</li><li><strong>high:</strong> " + h + " or more</li></ul>",
         "<p><strong>Surcharge:</strong> if at least " + r + " of the new entries have known ransomware use, the level goes up by one step.</p>",
         "<p><strong>Where the thresholds come from:</strong> the last " + m + " months of the catalog (the 2022 start-up year is excluded). " + e + " is the 75th percentile and " + h + " the 90th percentile of the 30-day count (median " + med + "). Elevated therefore means more additions than in three out of four typical periods.</p>",
-        "<p class='dim'>Not part of the gauge: the forecast (EPSS) and the ENISA figures. They are for context only. The gauge measures activity in catalogs and warning services, not a number of attacks. Full rules: <a href='RULES.md'>RULES.md</a>.</p>"].join(""); } },
+        "<p class='dim'>Not part of the gauge: the forecast (EPSS) and the ENISA figures. They are for context only. The gauge measures activity in catalogs and warning services, not a number of attacks. Full rules: <a href='/RULES.md'>RULES.md</a>.</p>"].join(""); } },
     ab_info: { de: function (f, g, h, sw, a) { return "Die Prognose blickt auf neue Schwachstellen (CVE) der letzten " + f + " Tage, die noch nicht im KEV stehen: " + g + " geprüft, " + h + " davon mit mindestens " + sw + " % geschätzter Wahrscheinlichkeit, in den nächsten 30 Tagen ausgenutzt zu werden. Die Schätzung stammt von EPSS (FIRST), nicht von uns. Die zehn höchsten stehen hier. Stand: " + a + "."; },
                en: function (f, g, h, sw, a) { return "The forecast looks at new vulnerabilities (CVE) of the last " + f + " days that are not yet in the KEV: " + g + " checked, " + h + " of them with at least " + sw + " % estimated probability of being exploited in the next 30 days. The estimate comes from EPSS (FIRST), not from us. The ten highest are listed here. As of: " + a + "."; } },
     ab_zeile: { de: function (p) { return p + " Wahrscheinlichkeit"; }, en: function (p) { return p + " probability"; } },
@@ -171,17 +174,14 @@
     Array.prototype.forEach.call(document.querySelectorAll("[data-t-ph]"), function (n) {
       var v = EN[n.getAttribute("data-t-ph")]; if (v !== undefined) n.setAttribute("placeholder", v);
     });
-    var tt = { "index": "Cyberlage · Dreier Gauge for the cyber threat", "hinweise": "Notes and privacy – Cyberlage" };
-    document.title = /hinweise/.test(location.pathname) ? tt.hinweise : tt.index;
-    var md = document.querySelector('meta[name="description"]');
-    if (md) md.setAttribute("content", "The cyber situation, derived by rules from exploited vulnerabilities. Open sources, open rules. A project by Dreier Labs.");
+    if (/hinweise/.test(location.pathname)) document.title = "Notes and privacy – Cyberlage";  /* Titel und Beschreibung der Startseite stehen fertig im HTML von /en/ */
   }
   var b = document.getElementById("sprache");
   if (b) {
     b.textContent = L === "de" ? "EN" : "DE";
     b.addEventListener("click", function () {
       try { localStorage.setItem("lang", L === "de" ? "en" : "de"); } catch (e) { }
-      location.reload();
+      if (START) location.href = (L === "de" ? "/en/" : "/") + location.search + location.hash; else location.reload();
     });
   }
 })();

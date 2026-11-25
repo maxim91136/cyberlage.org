@@ -21,7 +21,8 @@ from playwright.sync_api import sync_playwright
 
 SITE = pathlib.Path(__file__).resolve().parent.parent / "site"
 BREITEN = ((390, 844, "Handy"), (1280, 900, "Desktop"))
-SPRACHEN = (("de-DE", "de"), ("en-US", "en"))
+# Sprache hängt an der Adresse. Der Browser meldet absichtlich die jeweils andere Sprache: sie darf nichts entscheiden.
+SPRACHEN = (("en-US", "de", "/"), ("de-DE", "en", "/en/"))
 MUELL = re.compile(r"undefined|NaN|\[object|\bnull\b")
 
 
@@ -152,11 +153,11 @@ def pruefe_alles_offen(pg, p):
 
 
 def pruefe_direktlinks(pg, basis, p):
-    lade(pg, basis + "/?bericht=2025", p)
+    lade(pg, basis + "?bericht=2025", p)
     pg.wait_for_selector("#br-box article", timeout=10000)
     z = pg.evaluate("({offen: document.getElementById('k-berichte').open && document.getElementById('teil1').open, wahl: document.getElementById('br-wahl').value, art: document.querySelector('#br-art [aria-selected=true]').dataset.art})")
     p.ok(z == {"offen": True, "wahl": "2025", "art": "jahr"}, "Direktlink ?bericht=2025 zeigt %s" % z)
-    lade(pg, basis + "/#patches", p)
+    lade(pg, basis + "#patches", p)
     pg.wait_for_timeout(400)
     p.ok(pg.evaluate("document.getElementById('teil2').open"), "#patches klappt Teil 2 nicht auf")
     p.ok(pg.evaluate("location.hash") == "", "#patches bleibt in der Adresse stehen")
@@ -166,13 +167,18 @@ def pruefe_direktlinks(pg, basis, p):
 
 
 def pruefe_sprachknopf(pg, basis, sprache, p):
-    lade(pg, basis + "/", p)
+    lade(pg, basis + "?bericht=2025", p)
     p.ok(pg.evaluate("document.documentElement.lang") == sprache, "Sprache ist %s statt %s" % (pg.evaluate("document.documentElement.lang"), sprache))
     andere = "en" if sprache == "de" else "de"
     pg.click("#sprache")
     pg.wait_for_function("document.documentElement.lang === '%s'" % andere, timeout=10000)
     pg.wait_for_timeout(500)
     p.ok(pg.evaluate("document.getElementById('sprache').textContent.trim().toLowerCase()") == sprache, "Sprachknopf zeigt nach dem Wechsel nicht „%s“" % sprache.upper())
+    pfad = pg.evaluate("location.pathname + location.search")
+    p.ok(pfad == ("/en/" if andere == "en" else "/") + "?bericht=2025", "Sprachknopf führt nach %s" % pfad)
+    kopf = pg.evaluate("({kanon: document.querySelector('link[rel=canonical]').href, titel: document.title, alt: document.querySelectorAll('link[hreflang]').length})")
+    p.ok(kopf["kanon"].endswith("/en/" if andere == "en" else "cyberlage.org/") and kopf["alt"] == 3, "Kopf nach Sprachwechsel: %s" % kopf)
+    p.ok(("threat level" in kopf["titel"]) == (andere == "en"), "Titel passt nicht zur Sprache: %s" % kopf["titel"])
     p.ok(rand(pg) <= 1, "nach Sprachwechsel %d px über dem Rand" % rand(pg))
 
 
@@ -187,7 +193,7 @@ def main():
     p = Pruefer()
     with sync_playwright() as pw:
         browser = pw.chromium.launch()
-        for locale, sprache in SPRACHEN:
+        for locale, sprache, pfad in SPRACHEN:
             for breite, hoehe, name in BREITEN:
                 p.wo = "%s %s" % (name, sprache.upper())
                 ctx = browser.new_context(viewport={"width": breite, "height": hoehe}, locale=locale)
@@ -197,15 +203,16 @@ def main():
                 pg.on("console", lambda m, s=skript: s.append(m.text[:200]) if m.type == "error" and "favicon" not in m.text else None)
                 schritte = (("Klappen", lambda: pruefe_klappen(pg, p)), ("Bereiche", lambda: pruefe_bereiche(pg, p)), ("Berichte", lambda: pruefe_berichte(pg, p)),
                             ("Reiter", lambda: pruefe_reiter(pg, p)), ("Alles offen", lambda: pruefe_alles_offen(pg, p)),
-                            ("Direktlinks", lambda: pruefe_direktlinks(pg, basis, p)), ("Sprachknopf", lambda: pruefe_sprachknopf(pg, basis, sprache, p)))
+                            ("Direktlinks", lambda: pruefe_direktlinks(pg, basis + pfad, p)), ("Sprachknopf", lambda: pruefe_sprachknopf(pg, basis + pfad, sprache, p)))
                 try:
-                    lade(pg, basis + "/", p)
+                    lade(pg, basis + pfad, p)
+                    p.ok(pg.evaluate("document.documentElement.lang") == sprache, "Sprache der Seite %s ist %s" % (pfad, pg.evaluate("document.documentElement.lang")))
                     for titel, schritt in schritte:
                         try:
                             schritt()
                         except Exception as e:  # ein Schritt, der abbricht, ist ein Befund; die übrigen laufen weiter
                             p.ok(False, "%s abgebrochen: %s" % (titel, str(e).splitlines()[0][:200]))
-                            lade(pg, basis + "/", p)
+                            lade(pg, basis + pfad, p)
                 except Exception as e:
                     p.ok(False, "Seite nicht ladbar: %s" % str(e).splitlines()[0][:200])
                 p.ok(not skript, "Skriptfehler: %s" % skript[:3])

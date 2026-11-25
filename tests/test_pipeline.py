@@ -1162,5 +1162,36 @@ class BerichtTests(unittest.TestCase):
         self.assertIn("2026-02", ids)
 
 
+class SuchmaschinenTests(unittest.TestCase):
+    LAGE = {"stand": "2026-11-25", "stufe": "hoch", "pegel": {"wert": 65, "signale": 10, "von": 10}, "kev": {"neu_7_tage": 19, "neu_30_tage": 47},
+            "radar_skala": {"stufen": [{"ampel": "hoch", "name": "hoch", "name_en": "high"}]}}
+    KOPF = ('<html lang="de"><title>x</title><meta name="description" content="a"><meta property="og:description" content="a"><meta property="og:title" content="a">'
+            '<meta property="og:url" content="https://cyberlage.org/"><link rel="canonical" href="https://cyberlage.org/"><!--ld-start--><!--ld-end-->'
+            '<a id="hero-pegel" class="x">alt</a><div class="stufe mono" id="stufe-wert">hoch</div><!--ssr-start-->de<!--ssr-end-->')
+
+    def test_titel_mit_tagesstand_vorn(self):
+        import prerender
+        self.assertEqual(prerender.titel(self.LAGE), "HOCH 65 · Cyberlage: Cyber-Bedrohungslage heute")
+        self.assertEqual(prerender.titel(self.LAGE, en=True), "HIGH 65 · Cyberlage: cyber threat level today")
+        self.assertEqual(prerender.titel({"stand": "2026-11-25"}), "Cyberlage: Cyber-Bedrohungslage heute")
+
+    def test_englische_seite_hat_eigene_adresse(self):
+        import prerender
+        en = prerender.englisch(self.KOPF, self.LAGE)
+        self.assertIn('<html lang="en">', en)
+        self.assertIn('<link rel="canonical" href="https://cyberlage.org/en/">', en)
+        self.assertIn("<title>HIGH 65 · Cyberlage: cyber threat level today</title>", en)
+        self.assertIn("Dreier Gauge on 2026-11-25: high, 65 out of 100", en)
+        self.assertIn('"@type": "Dataset"', en)
+        self.assertNotIn("<!--ssr-start-->de<", en)
+
+    def test_sitemap_nennt_beide_sprachen_ohne_html_endung(self):
+        import prerender
+        sm = prerender.sitemap(self.LAGE)
+        self.assertEqual(sm.count("<loc>"), 4)
+        self.assertIn("<loc>https://cyberlage.org/en/</loc><lastmod>2026-11-25</lastmod>", sm)
+        self.assertNotIn(".html", sm)
+
+
 if __name__ == "__main__":
     unittest.main()
