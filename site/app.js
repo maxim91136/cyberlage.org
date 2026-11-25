@@ -590,7 +590,8 @@
     box.appendChild(el("h3", "mono rd-t", pick("Was betreue ich?", "What do I look after?")));
     box.appendChild(el("p", "dim", pick("Bereich wählen: Die Seite zeigt die Hersteller dieses Bereichs mit Zahlen und Patch-Tag und darunter, was dort gerade angegriffen wird. Gezeigt werden Lücken, die in den letzten " + (d.fenster_tage || 30) + " Tagen als nachweislich angegriffen in den CISA-KEV kamen, zugeordnet nach Hersteller und Produkt.",
       "Pick an area: the site shows that area's vendors with figures and patch day and, below, what is being attacked there. Shown are flaws added to the CISA KEV as proven attacked in the last " + (d.fenster_tage || 30) + " days, assigned by vendor and product.")));
-    var wahl = lsGet("cl_bereich"); if (!bl.some(function (b) { return b.id === wahl; })) wahl = (bl.filter(function (b) { return b.anzahl; })[0] || bl[0]).id;
+    var wahl = lsGet("cl_bereich"); if (wahl !== "alle" && !bl.some(function (b) { return b.id === wahl; })) wahl = "alle";
+    var bname = {}; bl.forEach(function (b) { bname[b.id] = pick(b.name, b.name_en); });
     var bt = el("div", "p-btns mono b-btns"); bt.setAttribute("role", "group"); bt.setAttribute("aria-label", pick("Bereich", "Area")); box.appendChild(bt);
     var info = el("p", "mono dim fine"), ul = el("ul", "b-liste"); box.appendChild(info);
     var zbox = el("div", "b-zu"); box.appendChild(zbox);
@@ -615,6 +616,7 @@
     function zeigeHersteller() {
       hbox.textContent = "";
       var liste = KAT[wahl];
+      if (wahl === "alle") { hbox.appendChild(el("p", "dim fine", pick("Hersteller mit Zahlen und Patch-Tag erscheinen, sobald ein Bereich gewählt ist.", "Vendors with figures and patch day appear once an area is picked."))); return; }
       if (!liste) {
         if (wahl !== "sonstige") { hbox.appendChild(el("h4", "mono", pick("Hersteller in diesem Bereich", "Vendors in this area"))); hbox.appendChild(el("p", "dim fine", pick("Für diesen Bereich ist noch keine Hersteller-Quelle angebunden. Maßgeblich ist die Liste der angegriffenen Lücken darunter.", "No vendor source is connected for this area yet. The list of attacked flaws below is what counts."))); }
         return;
@@ -650,7 +652,7 @@
     var prl = (((d.patches || {}).prioritaet || {}).liste) || [];
     function zeigeZuerstBereich() {
       zbox.textContent = "";
-      var mein = prl.filter(function (p) { return p.bereich === wahl; });
+      var mein = wahl === "alle" ? prl : prl.filter(function (p) { return p.bereich === wahl; });
       zbox.appendChild(el("h4", "mono b-h4", pick("Diese Woche zuerst patchen", "Patch first this week")));
       if (!mein.length) { zbox.appendChild(el("p", "dim fine", pick("Für diesen Bereich steht diese Woche nichts in der Rangliste. Die Rangliste nimmt nur Meldungen aus angebundenen Quellen auf.", "Nothing for this area in this week's ranking. The ranking only includes advisories from connected sources."))); return; }
       var ol = el("ol", "b-liste b-ol"); zbox.appendChild(ol);
@@ -659,7 +661,7 @@
         var mk = { 1: "KEV", 2: pick("ausgenutzt", "exploited"), 3: "EPSS", 4: pick("kritisch", "critical") }[p.stufe];
         if (mk) { li.appendChild(document.createTextNode(" ")); li.appendChild(el("span", "fz-mk mono", mk)); }
         li.appendChild(document.createTextNode(" · " + dx(String(p.titel || "").replace(/^[A-Z]+-[\d:-]+:\s*/, "").slice(0, 90))));
-        li.appendChild(el("span", "mono dim", " · " + p.quelle + " · " + datum(p.datum)));
+        li.appendChild(el("span", "mono dim", " · " + p.quelle + " · " + datum(p.datum) + (wahl === "alle" && bname[p.bereich] ? " · " + bname[p.bereich] : "")));
         ol.appendChild(li);
       });
       if (mein.length > 5) zbox.appendChild(el("p", "mono dim fine", pick("und " + (mein.length - 5) + " weitere in der Liste „Diese Woche zuerst“ darunter", "and " + (mein.length - 5) + " more in the list “This week first” below")));
@@ -668,18 +670,32 @@
       zeigeZuerstBereich();
       zeigeHersteller();
       Array.prototype.forEach.call(bt.children, function (b) { b.setAttribute("aria-pressed", String(b.dataset.b === wahl)); });
-      var b = bl.filter(function (x) { return x.id === wahl; })[0], mein = neu.filter(function (e) { return e.bereich === wahl; });
+      var b = wahl === "alle" ? { name: "Alle Bereiche", name_en: "All areas", fuer: "die Rangliste über alles, ohne Filter", fuer_en: "the ranking across everything, unfiltered", anzahl: bl.reduce(function (n, x) { return n + x.anzahl; }, 0), anzahl_7: bl.reduce(function (n, x) { return n + (x.anzahl_7 || 0); }, 0) }
+        : bl.filter(function (x) { return x.id === wahl; })[0], mein = wahl === "alle" ? neu.filter(function (e) { return e.bereich; }) : neu.filter(function (e) { return e.bereich === wahl; });
       info.textContent = (pick(b.fuer, b.fuer_en) ? pick(b.name, b.name_en) + ": " + pick(b.fuer, b.fuer_en) + ". " : "") + pick(b.anzahl + " in " + (d.fenster_tage || 30) + " Tagen, davon " + b.anzahl_7 + " in den letzten 7.", b.anzahl + " in " + (d.fenster_tage || 30) + " days, " + b.anzahl_7 + " of them in the last 7.");
       ul.textContent = "";
       if (!mein.length) { ul.appendChild(el("li", "dim", pick("In diesem Bereich kam in den letzten " + (d.fenster_tage || 30) + " Tagen nichts neu als angegriffen in den Katalog. Das heißt nicht, dass es nichts zu patchen gibt.", "Nothing in this area was newly listed as attacked in the last " + (d.fenster_tage || 30) + " days. That does not mean there is nothing to patch."))); return; }
       mein.forEach(function (e) {
         var li = el("li", ""); li.appendChild(el("span", "mono dim", datum(e.hinzugefuegt) + " ")); li.appendChild(link(e.link, e.cve));
         li.appendChild(document.createTextNode(" · " + e.hersteller + " " + e.produkt));
+        if (wahl === "alle" && bname[e.bereich]) li.appendChild(el("span", "mono dim", " · " + bname[e.bereich]));
         if (e.ransomware_bekannt) { li.appendChild(document.createTextNode(" ")); li.appendChild(el("span", "fz-mk mono rw", "Ransomware")); }
         li.appendChild(el("span", "mono dim", " · " + pick("Frist ", "deadline ") + datum(e.frist)));
         ul.appendChild(li);
       });
+      /* Ohne Filter ist die Liste lang: die ersten zehn zeigen, der Rest per Knopf */
+      var alt = box.querySelector(".b-mehr"); if (alt) alt.parentNode.removeChild(alt);
+      if (wahl === "alle" && mein.length > 10) {
+        Array.prototype.forEach.call(ul.children, function (li, i) { li.hidden = i >= 10; });
+        var mb = el("button", "mono b-mehr", pick("alle " + mein.length + " zeigen", "show all " + mein.length)); mb.type = "button";
+        mb.addEventListener("click", function () { Array.prototype.forEach.call(ul.children, function (li) { li.hidden = false; }); mb.parentNode.removeChild(mb); });
+        ul.parentNode.insertBefore(mb, ul.nextSibling);
+      }
     }
+    (function () {
+      var k = el("button", "", pick("Alle", "All") + " " + bl.reduce(function (n, x) { return n + x.anzahl; }, 0)); k.type = "button"; k.dataset.b = "alle";
+      k.addEventListener("click", function () { wahl = "alle"; lsSet("cl_bereich", wahl); zeige(); }); bt.appendChild(k);
+    })();
     bl.forEach(function (b) {
       var k = el("button", "", pick(b.name, b.name_en) + " " + b.anzahl); k.type = "button"; k.dataset.b = b.id;
       k.addEventListener("click", function () { wahl = b.id; lsSet("cl_bereich", wahl); zeige(); }); bt.appendChild(k);

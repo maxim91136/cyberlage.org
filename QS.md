@@ -33,6 +33,8 @@ Steve soll nicht zwischen den Chats vermitteln müssen. Wer am Repo arbeitet, li
 
 - **Zeitfenster im Fazit (Bau-Chat, 25.11. nachts, Auftrag von Steve):** Neue Zeile „Zeitfenster“ im Fazit über „Zuerst patchen“: Tempo bis KEV in Tagen (Median) und Anteil innerhalb von 30 Tagen, mit Sprung zum Verlauf im Rückblick. Nur Anzeige vorhandener Werte (`tempo.wert`, `radar.zeit_bis_kev.jetzt.anteil_30`), keine neue Regel. Lokal geprüft bei 390 und 1280 px, Deutsch und Englisch.
 
+- **„Was betreue ich?“: Knopf „Alle“ (Bau-Chat, 25.11. nachts, Auftrag von Steve):** Erster Knopf „Alle N“ zeigt die Rangliste „Diese Woche zuerst patchen“ und die angegriffenen Lücken über alle Bereiche, je Eintrag mit Bereichsnamen; die lange Liste zeigt zuerst zehn, der Rest per Knopf. „Alle“ ist die Vorgabe, solange kein Bereich gewählt wurde. Hersteller-Kacheln erscheinen erst nach Wahl eines Bereichs. Nur Anzeige, keine Regel geändert. Lokal geprüft bei 390 und 1280 px, Deutsch und Englisch.
+
 ## Entscheidungen von Steve
 
 - **Keine Trägheitsregel (25.11. abends).** Die Stufe wechselt genau an der Grenze, auch wenn der Pegel um einen Punkt pendelt („irgendwo muss er ja umswitchen“). Steht in RULES.md unter „Logbuch“. Nicht erneut vorschlagen.
