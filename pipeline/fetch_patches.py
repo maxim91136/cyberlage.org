@@ -34,7 +34,7 @@ MONAT_ID = re.compile(r"^(\d{4})-(" + "|".join(MONATE) + r")$")
 SCHWEREN = ("Critical", "Important", "Moderate", "Low")
 BEHALTEN_MONATE = 36
 HISTORIE_MONATE = 12  # Vergleichsbasis für die Bewertung
-SCHEMA = 4  # erhöhen, wenn sich die Zählweise ändert: dann werden alle Monate neu geholt
+SCHEMA = 5  # erhöhen, wenn sich die Zählweise ändert: dann werden alle Monate neu geholt
 
 
 class QuellFehler(Exception):
@@ -60,8 +60,10 @@ def patch_stand(v):
     kbs = []
     for r in rems:
         if r.get("Type") == 2:
-            kb = re.sub(r"\D", "", _wert(r.get("Description")))
-            if len(kb) >= 6 and kb not in kbs:
+            quelle = " ".join([_wert(r.get("Description")), str(r.get("URL") or ""), str(r.get("FixedBuild") or "")])
+            m = re.search(r"\bKB\s*(\d{6,8})\b", quelle, re.I) or re.search(r"(?<![\d.])(\d{6,8})(?![\d.])", quelle)
+            kb = m.group(1) if m else ""
+            if kb and kb not in kbs:
                 kbs.append(kb)
     if any(r.get("Type") == 2 for r in rems):
         return "ja", kbs[:3]
@@ -578,7 +580,8 @@ def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=8):
             kand.append({"stufe": 1, "epss": None, "quelle": q["name"], "titel": x["titel"], "cves": neue,
                          "grund": "Schließt %d Lücke(n) aus dem CISA-KEV: nachweislich angegriffen." % len(neue),
                          "grund_en": "Closes %d flaw(s) from the CISA KEV: proven to be attacked." % len(neue),
-                         "patch": "ja", "patch_text": "Das Update liegt vor (Meldung des Herstellers)", "patch_text_en": "The update is available (vendor advisory)", "betrifft": q["name"], "datum": x["datum"], "link": x["link"]})
+                         **({"patch": "ja", "patch_text": "Das Update liegt vor (Meldung des Herstellers)", "patch_text_en": "The update is available (vendor advisory)"} if q.get("typ") != "hersteller" else
+                            {"patch": "pruefen", "patch_text": "Fix-Stand im Advisory prüfen", "patch_text_en": "Check fix status in the advisory"}), "betrifft": q["name"], "datum": x["datum"], "link": x["link"]})
         for x in q.get("letzte", []):
             if x.get("schwere") != "kritisch" or q.get("typ") != "hersteller":
                 continue
