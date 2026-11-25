@@ -35,7 +35,7 @@ def baustein(lage):
     if sig:
         zeilen.append('<p class="panel pad"><b>Bausteine des Dreier-Pegels</b> (Messwert im Verhältnis zur Schwelle, 1,0 = Schwelle erreicht): '
                       + "; ".join("%s %s" % (e(x["name"]), zahl(x["ausschlag"])) for x in sig)
-                      + '. Stufen: unter 30 ruhig, 30 bis 49 unauffällig, 50 bis 63 angespannt, 64 bis 79 hoch, ab 80 außergewöhnlich.</p>')
+                      + '. Stufen: unter 35 ruhig, 35 bis 49 unauffällig, 50 bis 63 angespannt, 64 bis 79 hoch, ab 80 außergewöhnlich.</p>')
     zeilen.append('<p class="panel pad">Die Zahlen stehen als Rohdaten unter <a href="data/lage.json">data/lage.json</a>, die Regeln unter <a href="RULES.md">RULES.md</a>. Für die Ansicht mit Verlauf und Listen wird JavaScript benötigt.</p>')
     return "".join(zeilen)
 

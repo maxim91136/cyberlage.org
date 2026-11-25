@@ -1,9 +1,9 @@
 {
   "status": "vorlaeufig",
-  "geprueft_am": "2026-11-24",
+  "geprueft_am": "2026-11-25",
   "stufen": [
     {
-      "bis": 30,
+      "bis": 35,
       "name": "ruhig",
       "name_en": "calm",
       "satz": "Die Bausteine liegen im Schnitt klar unter ihren Regelschwellen.",
@@ -95,5 +95,6 @@
       "de": "SANS meldet erhöhte Aktivität im Netz: Perimeter und Protokolle enger beobachten.",
       "en": "SANS reports raised activity on the internet: watch perimeter and logs more closely."
     }
-  }
+  },
+  "grundlage_grenzen": "Grenze ruhig/unauffällig am 25.11.2026 von 30 auf 35 gesetzt: Der über 36 Monate rückgerechnete Pegel aus neun Bausteinen lag zwischen 28 und 71; unter 35 liegen die ruhigsten rund 15 Prozent der Tage, unter 30 weniger als 1 Prozent. Die übrigen Grenzen (50, 64, 80) bleiben: 50 heißt Schwellen im Schnitt erreicht, ab 64 liegen die obersten rund 5 Prozent der Tage, 80 wurde in 36 Monaten nicht erreicht."
 }
