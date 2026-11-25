@@ -516,7 +516,7 @@ def parse_sap(html_text, monat_url):
             continue
         titel = re.sub(r"\s+", " ", re.sub(r"\b(Product|Version)\b.*", "", blk[c.start():], flags=re.S)).strip(" []")
         nr += 1
-        out.append({"id": "SAP-%s-%02d" % (tag.strftime("%Y-%m"), nr), "datum": tag, "titel": titel[:140], "link": monat_url,
+        out.append({"id": "SAP-%s-%02d" % (tag.strftime("%Y-%m"), nr), "datum": tag, "titel": re.sub(r"^(CVE-[\d-]+)\s*\]", r"[\1]", titel)[:140], "link": monat_url,
                     "schwere": {"hot news": "kritisch", "critical": "kritisch", "high": "hoch", "medium": "mittel", "low": "niedrig"}[sev.group(1).lower()],
                     "cves": sorted(set(CVE_RE.findall(blk))), "cvss": float(sev.group(2))})
     return out
