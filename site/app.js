@@ -101,6 +101,17 @@
         [[pick("Lage", "Situation"), pick(f.stufe_satz, f.stufe_satz_en), ""], [pick("Treiber", "Drivers"), pick(f.treiber, f.treiber_en), ""], [pick("Empfehlung", "Advice"), pick(f.hinweis, f.hinweis_en), "fh"]].forEach(function (z) {
           dl.appendChild(el("dt", "mono", z[0])); dl.appendChild(el("dd", z[2], z[1]));
         });
+        var tp = d.tempo || {}, zj = ((d.radar || {}).zeit_bis_kev || {}).jetzt || {};
+        if (typeof tp.wert === "number") {
+          dl.appendChild(el("dt", "mono", pick("Zeitfenster", "Time window")));
+          var dz = el("dd", "fz-zeit"), tg = tp.wert.toLocaleString(window.I18N.locale, { maximumFractionDigits: 1 });
+          dz.appendChild(el("strong", "mono", tg + " " + (tp.wert === 1 ? pick("Tag", "day") : pick("Tage", "days"))));
+          dz.appendChild(document.createTextNode(pick(" im Median: Wird eine neue Lücke angegriffen, steht sie so schnell nach ihrer Veröffentlichung auf der KEV-Liste", " median: when a new flaw is attacked, this is how soon after publication it is on the KEV list")
+            + (typeof zj.anteil_30 === "number" ? pick(", ", ", ") + Math.round(zj.anteil_30 * 100) + pick(" % innerhalb von 30 Tagen", "% within 30 days") : "")
+            + (tp.fenster_tage ? pick(" (KEV-Aufnahmen der letzten " + tp.fenster_tage + " Tage)", " (KEV additions of the last " + tp.fenster_tage + " days)") : "") + ". "));
+          var zl = el("a", "", pick("Verlauf", "History")); zl.href = "#rueckblick"; zl.setAttribute("data-offen", "k-r-tempo"); dz.appendChild(zl);
+          dl.appendChild(dz);
+        }
         var top = ((((d.patches || {}).prioritaet || {}).liste) || []).slice(0, 3);
         if (top.length) {
           dl.appendChild(el("dt", "mono", pick("Zuerst patchen", "Patch first")));

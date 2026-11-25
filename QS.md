@@ -31,6 +31,8 @@ Steve soll nicht zwischen den Chats vermitteln müssen. Wer am Repo arbeitet, li
 
 - **Logbuch, Titel „Wettrennen“ berichtigt (Bau-Chat, 25.11. nachts, Entscheidung Steve: direkt ändern):** „als in den zwei Jahren davor“ statt „drei“; die Daten umfassen drei Jahre, verglichen wird mit den zwei davor. Einmalige Ausnahme am Tag der Anlage, die Regel „Einträge nicht ändern“ gilt weiter.
 
+- **Zeitfenster im Fazit (Bau-Chat, 25.11. nachts, Auftrag von Steve):** Neue Zeile „Zeitfenster“ im Fazit über „Zuerst patchen“: Tempo bis KEV in Tagen (Median) und Anteil innerhalb von 30 Tagen, mit Sprung zum Verlauf im Rückblick. Nur Anzeige vorhandener Werte (`tempo.wert`, `radar.zeit_bis_kev.jetzt.anteil_30`), keine neue Regel. Lokal geprüft bei 390 und 1280 px, Deutsch und Englisch.
+
 ## Entscheidungen von Steve
 
 - **Keine Trägheitsregel (25.11. abends).** Die Stufe wechselt genau an der Grenze, auch wenn der Pegel um einen Punkt pendelt („irgendwo muss er ja umswitchen“). Steht in RULES.md unter „Logbuch“. Nicht erneut vorschlagen.

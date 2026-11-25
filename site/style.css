@@ -639,3 +639,4 @@ th.th-s{cursor:pointer;user-select:none;white-space:nowrap}th.th-s:hover,th.th-s
 .br-fuss{font-size:12px;margin:0;border-top:1px solid var(--line);padding-top:10px}
 .br-leg2{font-size:13px;margin:-8px 0 16px;max-width:760px}
 @media(max-width:520px){.br{padding:14px 12px 10px}.br-tab table{font-size:13px}.br-tab td,.br-tab th{padding:7px 8px}.br-tab th{letter-spacing:0}}
+.fz-zeit strong{color:var(--amber);font-size:17px;white-space:nowrap}
