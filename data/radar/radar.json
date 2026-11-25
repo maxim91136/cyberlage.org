@@ -1,5 +1,5 @@
 {
- "abgerufen_am": "2026-11-24T23:51:48+00:00",
+ "abgerufen_am": "2026-11-25T00:14:48+00:00",
  "zeit_bis_kev": {
   "verlauf": [
    {
@@ -417,34 +417,29 @@
    }
   ],
   "jetzt": {
-   "bis": "2026-11-24",
-   "n": 112,
-   "n_frisch": 102,
+   "bis": "2026-11-25",
+   "n": 109,
+   "n_frisch": 100,
    "median_frisch": 5.0,
-   "anteil_30": 0.723
+   "anteil_30": 0.734
   },
   "vor_12_monaten": {
-   "bis": "2025-11-24",
+   "bis": "2025-11-25",
    "n": 58,
    "n_frisch": 43,
    "median_frisch": 11,
    "anteil_30": 0.414
   },
   "vor_24_monaten": {
-   "bis": "2024-11-24",
+   "bis": "2024-11-25",
    "n": 65,
-   "n_frisch": 47,
-   "median_frisch": 6,
-   "anteil_30": 0.462
+   "n_frisch": 46,
+   "median_frisch": 6.0,
+   "anteil_30": 0.446
   },
   "frisch_tage": 365,
   "ohne_datum": 1,
   "tempo_reihe": [
-   {
-    "stand": "2025-10-20",
-    "wert": 10,
-    "n": 37
-   },
    {
     "stand": "2025-10-21",
     "wert": 10,
@@ -2444,6 +2439,11 @@
     "stand": "2026-11-24",
     "wert": 5.0,
     "n": 102
+   },
+   {
+    "stand": "2026-11-25",
+    "wert": 5.0,
+    "n": 100
    }
   ]
  },
@@ -2468,7 +2468,7 @@
  },
  "sans": {
   "status": "green",
-  "abgerufen_am": "2026-11-24T23:51:48+00:00"
+  "abgerufen_am": "2026-11-25T00:14:47+00:00"
  },
  "ncsc": {
   "advisories_30": 25,
@@ -2479,7 +2479,8 @@
   "gelistet": 5
  },
  "feodo_serie": {
-  "2026-11-24": 1
+  "2026-11-24": 1,
+  "2026-11-25": 1
  },
  "einschaetzungen": [
   {
