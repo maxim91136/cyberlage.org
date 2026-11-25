@@ -29,20 +29,23 @@
 </header>
 <nav class="leiste" aria-label="Hauptnavigation">
   <div class="wrap navin">
-    <a href="#info" class="faq-nav" data-offen="i-faq">/faq</a>
-    <span class="nav-grp" aria-hidden="true">LAGE</span>
-    <a href="#lage" data-sec="lage">/lage</a>
-    <a href="#radar" data-sec="radar" data-t="n_radar">/radar</a>
-    <a href="#signale" data-sec="signale" data-t="n_signale">/signale</a>
-    <a href="#rueckblick" data-sec="rueckblick" data-t="n_rueck">/rückblick</a>
-    <span class="nav-grp" aria-hidden="true">HANDELN</span>
-    <a href="#patches" data-sec="patches" data-t="n_patches" class="nav-wichtig">/patches</a>
-    <a href="#neu" data-sec="neu" data-t="n_neu">/neu</a>
-    <details class="dd" id="abo"><summary data-t="n_abo">/abo</summary><div class="dd-box dd-abo">
+    <div class="nav-row nav-g1"><span class="nav-grp" aria-hidden="true" data-t="g_lage">LAGE</span>
+      <a href="#lage" data-sec="lage">/lage</a>
+      <a href="#radar" data-sec="radar" data-t="n_radar">/radar</a>
+      <a href="#signale" data-sec="signale" data-t="n_signale">/signale</a>
+      <a href="#rueckblick" data-sec="rueckblick" data-t="n_rueck">/rückblick</a>
+    </div>
+    <div class="nav-row nav-g2"><span class="nav-grp nav-grp2" aria-hidden="true" data-t="g_handeln">HANDELN</span>
+      <a href="#patches" data-sec="patches" data-t="n_patches">/patches</a>
+      <a href="#neu" data-sec="neu" data-t="n_neu">/neu</a>
+    </div>
+    <div class="nav-row nav-u">
+      <a href="#info" class="faq-nav" data-offen="i-faq">/faq</a>
+    <details class="dd" id="abo"><summary data-t="n_abo">/abo</summary><div class="dd-box dd-l dd-abo">
       <span id="telegram" class="abo-z" hidden><a id="telegram-link" href="#" rel="noopener" data-t="tg_btn">Telegram-Kanal abonnieren</a><small class="dim" data-t="tg_txt">einmal täglich die Tageslage, sofort nur bei Stufenwechsel und Ransomware-Alarm.</small></span>
       <span class="abo-z"><button type="button" id="rss-kopieren" data-feed="https://cyberlage.org/feed.xml"><span id="rss-btn" data-t="rss_btn">RSS-Feed-Adresse kopieren</span></button><small class="dim"><span data-t="rss_txt">in deinen Feed-Reader einfügen (Feedly, Inoreader, NetNewsWire), ohne Konto.</span> <a href="feed.xml" data-t="rss_roh">Rohdatei</a></small></span>
     </div></details>
-    <details class="dd"><summary data-sec="info">/info</summary><div class="dd-box">
+    <details class="dd"><summary data-sec="info">/info</summary><div class="dd-box dd-l">
       <a href="#info" data-offen="i-quellen" data-t="i_quellen">Quellen</a>
       <a href="#info" data-offen="i-begriffe" data-t="i_begriffe">Begriffe</a>
       <a href="#info" data-offen="i-faq" data-t="i_faq">FAQ</a>
@@ -50,10 +53,10 @@
       <a href="#info" data-offen="i-pruef" data-t="i_pruef">Prüfkalender</a>
       <a href="#info" data-offen="i-hinweise" data-t="i_hinweise">Hinweise</a>
     </div></details>
-    <button type="button" id="modus" class="spr mono" aria-pressed="false">ALARM □</button>
-    <button type="button" id="sprache" class="spr mono" aria-label="Sprache wechseln / Change language">EN</button>
-  </div>
-</nav>
+      <button type="button" id="modus" class="spr mono" aria-pressed="false">ALARM □</button>
+      <button type="button" id="sprache" class="spr mono" aria-label="Sprache wechseln / Change language">EN</button>
+    </div>
+  </nav>
 
 <main>
   <section class="wrap hero">

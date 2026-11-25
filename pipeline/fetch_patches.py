@@ -81,11 +81,12 @@ def fix_liste(v, produkte):
         kb = m.group(1) if m else ""
         fams = sorted({familie(produkte.get(str(pid), "")) for pid in (r.get("ProductID") or [])} - {"Sonstige"})[:2]
         fuer = ", ".join(fams)
-        schluessel = (kb, fuer, "" if kb else _wert(r.get("Description"))[:40])
+        build = "" if kb else str(r.get("FixedBuild") or "")[:40]
+        schluessel = (kb, fuer, build, "" if kb or build else _wert(r.get("Description"))[:40])
         if schluessel in gesehen:
             continue
         gesehen.add(schluessel)
-        out.append({"kb": kb, "fuer": fuer, "text": "" if kb else _wert(r.get("Description"))[:90], "url": "" if kb else str(r.get("URL") or "")[:200]})
+        out.append({"kb": kb, "build": build, "fuer": fuer, "text": "" if kb else _wert(r.get("Description"))[:90], "url": "" if kb else str(r.get("URL") or "")[:200]})
         if len(out) >= 4:
             break
     return out
@@ -220,6 +221,14 @@ def verdichte_dokument(doc, kev_cves=()):
     }
 
 
+def _krit(n):
+    return "die als kritisch eingestufte Lücke" if n == 1 else "die %d als kritisch eingestuften Lücken" % n
+
+
+def _krit_en(n):
+    return "the flaw rated critical" if n == 1 else "the %d flaws rated critical" % n
+
+
 def bewerte(monat, vorherige):
     """Feste Regeln, keine Vorhersage: Größe gegen den Median der bis zu 12 Vormonate, dazu Dringlichkeit nach Ausnutzung."""
     zahlen = [m["cves"] for m in vorherige[-HISTORIE_MONATE:] if isinstance(m.get("cves"), int)]
@@ -234,18 +243,19 @@ def bewerte(monat, vorherige):
     n_aus = monat["ausgenutzt"]
     if n_aus > 0:
         stufe = "dringend"
+        fam = sorted({f for k in monat.get("kandidaten", []) if k.get("ausgenutzt") for f in k.get("familien", [])})[:3]
+        wo = " (betrifft: %s)" % ", ".join(fam) if fam else ""
+        wo_en = " (affects: %s)" % ", ".join(fam) if fam else ""
         erst = "den Patch für die bereits ausgenutzte Lücke" if n_aus == 1 else "die Patches für die %d bereits ausgenutzten Lücken" % n_aus
         erst_en = "the patch for the already exploited flaw" if n_aus == 1 else "the patches for the %d already exploited flaws" % n_aus
-        dann = "" if kritisch == 0 else (", danach den Patch für die als kritisch eingestufte Lücke" if kritisch == 1 else ", danach die Patches für die %d als kritisch eingestuften" % kritisch)
-        dann_en = "" if kritisch == 0 else (", then the patch for the flaw rated critical" if kritisch == 1 else ", then the patches for the %d rated critical" % kritisch)
-        empf = "Zuerst %s einspielen%s." % (erst, dann)
-        empf_en = "Apply %s first%s." % (erst_en, dann_en)
+        dann = "" if kritisch == 0 else " Danach die monatlichen Sammelupdates für Windows und Office einspielen: Sie enthalten auch %s." % _krit(kritisch)
+        dann_en = "" if kritisch == 0 else " Then apply the monthly cumulative updates for Windows and Office: they also contain %s." % _krit_en(kritisch)
+        empf = "Zuerst %s einspielen%s.%s" % (erst, wo, dann)
+        empf_en = "Apply %s first%s.%s" % (erst_en, wo_en, dann_en)
     elif kritisch > 0:
         stufe = "zeitnah"
-        was = "Den Patch für die als kritisch eingestufte Lücke" if kritisch == 1 else "Die Patches für die %d als kritisch eingestuften Lücken" % kritisch
-        was_en = "The patch for the flaw rated critical" if kritisch == 1 else "The patches for the %d flaws rated critical" % kritisch
-        empf = "%s zeitnah einspielen, den Rest im normalen Zyklus." % was
-        empf_en = "%s should be applied promptly, the rest in the normal cycle." % was_en
+        empf = "Die monatlichen Sammelupdates für Windows und Office zeitnah einspielen: Sie enthalten auch %s." % _krit(kritisch)
+        empf_en = "Apply the monthly cumulative updates for Windows and Office promptly: they also contain %s." % _krit_en(kritisch)
     else:
         stufe = "normal"
         empf = "Im normalen Patchzyklus einspielen."
@@ -606,7 +616,7 @@ def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=8):
             else:
                 pt, pt_en = "Patch-Stand bei Microsoft prüfen", "Check patch status with Microsoft"
             kand.append({"stufe": stufe, "epss": e, "quelle": "Microsoft", "titel": k["titel"], "cves": [k["cve"]], "grund": g, "grund_en": ge,
-                         "patch": pst, "patch_text": pt, "patch_text_en": pt_en, "patch_link": k.get("fix_url") or "", "fixe": k.get("fixe") or [],
+                         "patch": pst, "patch_text": pt, "patch_text_en": pt_en, "patch_link": k.get("fix_url") or "", "fixe": k.get("fixe") or [], "monat": m.get("id"),
                          "betrifft": ", ".join(k["familien"]), "datum": str(m.get("erste_veroeffentlichung"))[:10],
                          "link": "https://msrc.microsoft.com/update-guide/vulnerability/" + k["cve"]})
     for q in (hersteller or {}).get("quellen", {}).values():

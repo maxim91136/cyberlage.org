@@ -23,7 +23,7 @@
   if (knopf) {
     var weich = !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
     knopf.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: weich ? "smooth" : "auto" }); });
-    var navLinks = Array.prototype.slice.call(document.querySelectorAll(".navin > a[data-sec], .navin summary[data-sec]"));
+    var navLinks = Array.prototype.slice.call(document.querySelectorAll(".navin a[data-sec], .navin summary[data-sec]"));
     var abschnitte = navLinks.map(function (a) { return document.getElementById(a.getAttribute("data-sec")); });
     var ticks = false;
     var pruefen = function () {
@@ -372,10 +372,11 @@
         li.appendChild(el("div", "p-w", pick("Warum zuerst: ", "Why first: ") + pick(k.grund, k.grund_en)));
         var fx = el("div", "p-fix"); fx.appendChild(el("b", "mono", pick("Lösung: ", "Fix: ")));
         var teile = [];
-        (k.fixe || []).forEach(function (f) { if (f.kb) teile.push("KB" + f.kb + (f.fuer ? " (" + f.fuer + ")" : "")); else if (f.text && f.text.toLowerCase() !== "release notes") teile.push(f.text + (f.fuer ? " (" + f.fuer + ")" : "")); });
+        (k.fixe || []).forEach(function (f) { if (f.kb) teile.push("KB" + f.kb + (f.fuer ? " (" + f.fuer + ")" : "")); else if (f.build) teile.push(pick("Version ", "version ") + f.build + (f.fuer ? " (" + f.fuer + ")" : "")); else if (f.text && f.text.toLowerCase() !== "release notes") teile.push(f.text + (f.fuer ? " (" + f.fuer + ")" : "")); });
         fx.appendChild(document.createTextNode(teile.length ? teile.join(", ") : pick(k.patch_text, k.patch_text_en)));
         if (k.patch_link && /^https:\/\//.test(k.patch_link)) { fx.appendChild(document.createTextNode(" · ")); fx.appendChild(link(k.patch_link, pick("Fix-Seite", "fix page"))); }
         li.appendChild(fx);
+        if (k.monat) li.appendChild(el("div", "p-w mono dim", pick("Enthalten im Microsoft Patch Day ", "Included in the Microsoft Patch Day ") + monatName(k.monat) + pick(" (Sammelupdate des Monats; Nachträge sind Out-of-Band-Updates)", " (the month's cumulative update; later additions are out-of-band updates)")));
         ol.appendChild(li);
       });
       box.appendChild(ol);

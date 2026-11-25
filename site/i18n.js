@@ -7,6 +7,7 @@
   // Englische Texte für Elemente mit data-t (Deutsch steht im HTML). Nur eigene, feste Texte.
   var EN = {
     skip: "Skip to content",
+    g_lage: "SITUATION", g_handeln: "ACT",
     tl_h: "## part 1 · situation", tl_intro: "How tense is the global cyber situation? Dreier Gauge, Dreier Pace and radar measure it, the signals and the history back it up.", sw_h: "## part 2 · act: flaws & patches", sw_intro: "This is not about the situation but about what you can do: which flaws to patch first, and with what.",
     sw_1: "reported", sw_1t: "new flaws, warnings, forecast", sw_2: "attacked", sw_2t: "proven exploited (KEV)", sw_3: "patch", sw_3t: "what first, with which update",
     beta: "",
