@@ -211,10 +211,51 @@ def hole_dshield(jetzt, lade=lade, pause=1.0):
     return "DShield: %d Tage, %s bis %s, Antwortbeginn: %s" % (len(tage), min(tage), max(tage), (roh or "")[:160].replace("\n", " "))
 
 
+RANSOM_URL = "https://www.ransomlook.io/api/posts?days=%d"
+
+
+def parse_ransom(daten):
+    """Antwort von RansomLook -> {Datum: Zahl der Einträge}. Gespeichert wird nur die Zahl je Tag, keine Namen.
+    Die Struktur wird nicht vorausgesetzt: gezählt wird jedes Objekt mit einem Feld 'discovered'."""
+    tage = {}
+
+    def lauf(x):
+        if isinstance(x, dict):
+            d = str(x.get("discovered") or "")[:10]
+            if re.match(r"\d{4}-\d\d-\d\d$", d):
+                tage[d] = tage.get(d, 0) + 1
+            for v in x.values():
+                if isinstance(v, (dict, list)):
+                    lauf(v)
+        elif isinstance(x, list):
+            for v in x:
+                lauf(v)
+    lauf(daten)
+    return tage
+
+
+def hole_ransom(jetzt, lade=lade):
+    alt = lese("ransomware.json")
+    tage = dict(alt.get("tage", {}))
+    n = 14 if len(tage) > 400 else TAGE
+    antwort = lade(RANSOM_URL % n, timeout=180)
+    neu = parse_ransom(json.loads(antwort))
+    if not neu:
+        raise ValueError("keine Einträge, Antwort begann mit: %s" % antwort[:200].decode("utf-8", "replace"))
+    aeltester = min(neu)
+    for d, z in neu.items():
+        if d != aeltester or d not in tage:   # der älteste Tag der Antwort ist meist angeschnitten
+            tage[d] = z
+    schreibe("ransomware.json", {"quelle": "RansomLook (offenes Projekt, beobachtet Leak-Seiten von Ransomware-Gruppen)", "quelle_url": "https://www.ransomlook.io/",
+                                 "hinweis": "Je Tag die Zahl neu entdeckter Einträge auf Leak-Seiten. Das sind Behauptungen der Täter, keine bestätigten Vorfälle. Gespeichert wird nur die Zahl, keine Namen.",
+                                 "abgerufen_am": jetzt.isoformat(timespec="seconds"), "tage": tage})
+    return "RansomLook: %d Tage, %s bis %s, Summe %d, Antwort %d Bytes, Beginn: %s" % (len(tage), min(tage), max(tage), sum(tage.values()), len(antwort), antwort[:120].decode("utf-8", "replace").replace("\n", " "))
+
+
 def main(argv):
     jetzt = datetime.now(timezone.utc)
     rc = 0
-    for name, fn in (("cert", hole_cert), ("ncsc", hole_ncsc), ("eu", hole_eu), ("ms", hole_ms), ("dshield", hole_dshield)):
+    for name, fn in (("cert", hole_cert), ("ncsc", hole_ncsc), ("eu", hole_eu), ("ms", hole_ms), ("dshield", hole_dshield), ("ransom", hole_ransom)):
         if argv and name not in argv:
             continue
         try:
