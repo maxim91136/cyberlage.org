@@ -547,3 +547,9 @@ html[lang=en] #teil3 .akk>summary::after{content:"OPEN +"}html[lang=en] #teil3 .
 #teil3 .akk>*:not(summary){margin-left:2px;margin-right:2px}
 #teil3 .akk>summary{text-transform:lowercase}
 @media (max-width:600px){#teil3 .akk>summary{font-size:16px}.sek>summary h2{font-size:16px}.sek.sub>summary h3{font-size:14px}}
+/* Einheitliche Kanten und Überschriften (Rest aus der Durchsicht) */
+#patches .sek>summary h2,#k-patches>summary h2{font-size:18px}
+.blau,.rd-score,.akk,.p-rang>li,.p-fix,.pk,.tabelle,input.filter,.totop,.tabs button{border-radius:var(--r2)}
+.blau{overflow:hidden}.tabelle{overflow:auto}
+.p-badge,.kc-a,.nav-grp{border-radius:5px}
+@media (max-width:600px){#patches .sek>summary h2,#k-patches>summary h2{font-size:16px}}
