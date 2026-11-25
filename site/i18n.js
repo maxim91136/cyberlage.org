@@ -163,3 +163,11 @@
     });
   }
 })();
+(function () {
+  // Alle Links nach außen und auf Rohdateien öffnen in einem neuen Tab, die Seite selbst bleibt stehen
+  document.addEventListener("click", function (e) {
+    var l = e.target.closest && e.target.closest("a[href]"); if (!l) return;
+    var h = l.getAttribute("href") || "";
+    if ((/^https?:\/\//i.test(h) && l.hostname !== location.hostname) || /\.(json|xml|csv|ics)(\?|$)/i.test(h)) { l.target = "_blank"; l.rel = "noopener"; }
+  }, true);
+})();
