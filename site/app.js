@@ -578,6 +578,7 @@
     var wahl = lsGet("cl_bereich"); if (!bl.some(function (b) { return b.id === wahl; })) wahl = (bl.filter(function (b) { return b.anzahl; })[0] || bl[0]).id;
     var bt = el("div", "p-btns mono b-btns"); bt.setAttribute("role", "group"); bt.setAttribute("aria-label", pick("Bereich", "Area")); box.appendChild(bt);
     var info = el("p", "mono dim fine"), ul = el("ul", "b-liste"); box.appendChild(info);
+    var zbox = el("div", "b-zu"); box.appendChild(zbox);
     box.appendChild(el("h4", "mono b-h4", pick("Gerade angegriffen (CISA-KEV, 30 Tage)", "Under attack now (CISA KEV, 30 days)"))); box.appendChild(ul);
     box.appendChild(el("p", "mono dim fine", pick("Reine Zuordnung nach Namen, feste Regeln in RULES.md. Was bei dir im Einsatz ist, weiß die Seite nicht: eigenes Inventar prüfen. Frist = Frist der CISA für US-Behörden, als Anhalt. Die Auswahl bleibt nur in diesem Browser.",
       "Assignment by name only, fixed rules in RULES.md. The site does not know what you run: check your own inventory. Deadline = CISA deadline for US agencies, as a guide. Your choice stays in this browser only.")));
@@ -625,7 +626,25 @@
         gr.appendChild(k);
       });
     }
+    var prl = (((d.patches || {}).prioritaet || {}).liste) || [];
+    function zeigeZuerstBereich() {
+      zbox.textContent = "";
+      var mein = prl.filter(function (p) { return p.bereich === wahl; });
+      zbox.appendChild(el("h4", "mono b-h4", pick("Diese Woche zuerst patchen", "Patch first this week")));
+      if (!mein.length) { zbox.appendChild(el("p", "dim fine", pick("Für diesen Bereich steht diese Woche nichts in der Rangliste. Die Rangliste nimmt nur Meldungen aus angebundenen Quellen auf.", "Nothing for this area in this week's ranking. The ranking only includes advisories from connected sources."))); return; }
+      var ol = el("ol", "b-liste b-ol"); zbox.appendChild(ol);
+      mein.slice(0, 5).forEach(function (p) {
+        var li = el("li", ""); li.appendChild(link(p.link, p.cves && p.cves.length ? p.cves[0] : dx(p.titel)));
+        var mk = { 1: "KEV", 2: pick("ausgenutzt", "exploited"), 3: "EPSS", 4: pick("kritisch", "critical") }[p.stufe];
+        if (mk) { li.appendChild(document.createTextNode(" ")); li.appendChild(el("span", "fz-mk mono", mk)); }
+        li.appendChild(document.createTextNode(" · " + dx(String(p.titel || "").replace(/^[A-Z]+-[\d:-]+:\s*/, "").slice(0, 90))));
+        li.appendChild(el("span", "mono dim", " · " + p.quelle + " · " + datum(p.datum)));
+        ol.appendChild(li);
+      });
+      if (mein.length > 5) zbox.appendChild(el("p", "mono dim fine", pick("und " + (mein.length - 5) + " weitere in der Liste „Diese Woche zuerst“ darunter", "and " + (mein.length - 5) + " more in the list “This week first” below")));
+    }
     function zeige() {
+      zeigeZuerstBereich();
       zeigeHersteller();
       Array.prototype.forEach.call(bt.children, function (b) { b.setAttribute("aria-pressed", String(b.dataset.b === wahl)); });
       var b = bl.filter(function (x) { return x.id === wahl; })[0], mein = neu.filter(function (e) { return e.bereich === wahl; });
