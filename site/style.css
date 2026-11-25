@@ -448,3 +448,8 @@ html[lang=en] .sek>summary::after{content:"\25B8  show"}html[lang=en] .sek[open]
 .t-k:hover,.t-alle:hover,.t-k:focus-visible,.t-alle:focus-visible{border-color:var(--green)}
 .t-alle{display:block;margin:12px 0 0}
 @media print{.t-k,.t-alle{display:none}}
+
+.subnav{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px}
+.subnav a{padding:6px 12px;border:1px solid var(--line);text-decoration:none;color:inherit;font-size:14px}
+.subnav a:hover,.subnav a:focus-visible{border-color:var(--green);color:var(--green)}
+@media print{.subnav{display:none}}
