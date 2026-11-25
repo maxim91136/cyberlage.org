@@ -1,5 +1,5 @@
 {
- "abgerufen_am": "2026-11-25T07:27:57+00:00",
+ "abgerufen_am": "2026-11-25T07:39:12+00:00",
  "zeit_bis_kev": {
   "verlauf": [
    {
@@ -2460,15 +2460,15 @@
   "reif_nach_tagen": 30
  },
  "europa": {
-  "eu_eintraege": 77,
+  "eu_eintraege": 78,
   "auch_im_cisa": 76,
-  "nur_eu": 1,
+  "nur_eu": 2,
   "median_abstand_tage": 0.0,
-  "eu_datum_frueher": 4
+  "eu_datum_frueher": 5
  },
  "sans": {
   "status": "green",
-  "abgerufen_am": "2026-11-25T07:27:56+00:00"
+  "abgerufen_am": "2026-11-25T07:39:11+00:00"
  },
  "ncsc": {
   "advisories_30": 25,

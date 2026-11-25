@@ -3,8 +3,8 @@
   "quelle": "EU-KEV über die EU-Schwachstellendatenbank (EUVD) von ENISA",
   "quelle_url": "https://euvd.enisa.europa.eu/",
   "hinweis": "Lizenz nicht ausdrücklich geklärt. Nur Kennung, CVE, Hersteller, Werte, Datum und Link.",
-  "abgerufen_am": "2026-11-25T07:25:55+00:00",
-  "anzahl": 77
+  "abgerufen_am": "2026-11-25T07:37:03+00:00",
+  "anzahl": 78
  },
  "eintraege": [
   {
@@ -62,6 +62,20 @@
    "cvss": 9.8,
    "epss": 49.8,
    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-131722"
+  },
+  {
+   "id": "EUVD-2026-131451",
+   "cve": [
+    "CVE-2026-127057"
+   ],
+   "hersteller": [
+    "Danfoss"
+   ],
+   "ausgenutzt_seit": "2026-11-20",
+   "veroeffentlicht": "2026-11-20",
+   "cvss": 9.9,
+   "epss": 0.69,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-131451"
   },
   {
    "id": "EUVD-2026-130196",
@@ -540,20 +554,6 @@
    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-107260"
   },
   {
-   "id": "EUVD-2026-108511",
-   "cve": [
-    "CVE-2026-114625"
-   ],
-   "hersteller": [
-    "Arista Networks"
-   ],
-   "ausgenutzt_seit": "2026-10-23",
-   "veroeffentlicht": "2026-10-22",
-   "cvss": 9.4,
-   "epss": 7.67,
-   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-108511"
-  },
-  {
    "id": "EUVD-2026-100780",
    "cve": [
     "CVE-2026-110447"
@@ -566,6 +566,20 @@
    "cvss": 9.2,
    "epss": 76.15,
    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-100780"
+  },
+  {
+   "id": "EUVD-2026-108511",
+   "cve": [
+    "CVE-2026-114625"
+   ],
+   "hersteller": [
+    "Arista Networks"
+   ],
+   "ausgenutzt_seit": "2026-10-21",
+   "veroeffentlicht": "2026-10-22",
+   "cvss": 9.4,
+   "epss": 7.67,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-108511"
   },
   {
    "id": "EUVD-2026-85370",

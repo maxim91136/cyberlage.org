@@ -1307,7 +1307,7 @@
   "cert_bund": {
     "quelle": "CERT-Bund / BSI Warn- und Informationsdienst",
     "quelle_url": "https://wid.cert-bund.de/",
-    "abgerufen_am": "2026-11-25T07:25:55+00:00",
+    "abgerufen_am": "2026-11-25T07:37:03+00:00",
     "fenster_tage": 30,
     "daten_seit": "2026-11-23",
     "kritisch_7_tage": 7,
@@ -1640,10 +1640,10 @@
   "eu_kev": {
     "quelle": "EU-KEV über die EU-Schwachstellendatenbank (EUVD) von ENISA",
     "quelle_url": "https://euvd.enisa.europa.eu/",
-    "abgerufen_am": "2026-11-25T07:25:55+00:00",
+    "abgerufen_am": "2026-11-25T07:37:03+00:00",
     "fenster_tage": 30,
     "daten_seit": "2026-08-07",
-    "neu_30_tage": 36,
+    "neu_30_tage": 37,
     "liste": [
       {
         "id": "EUVD-2026-129432",
@@ -1700,6 +1700,20 @@
         "cvss": 9.8,
         "epss": 49.8,
         "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-131722"
+      },
+      {
+        "id": "EUVD-2026-131451",
+        "cve": [
+          "CVE-2026-127057"
+        ],
+        "hersteller": [
+          "Danfoss"
+        ],
+        "ausgenutzt_seit": "2026-11-20",
+        "veroeffentlicht": "2026-11-20",
+        "cvss": 9.9,
+        "epss": 0.69,
+        "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-131451"
       },
       {
         "id": "EUVD-2026-130196",
@@ -2152,7 +2166,7 @@
     ]
   },
   "ausblick": {
-    "abgerufen_am": "2026-11-25T07:25:57+00:00",
+    "abgerufen_am": "2026-11-25T07:37:06+00:00",
     "fenster_tage": 14,
     "geprueft": 7082,
     "schwelle_hoch": 0.1,
@@ -2266,7 +2280,7 @@
       "online": 1,
       "gelistet": 5
     },
-    "abgerufen_am": "2026-11-25T07:27:57+00:00",
+    "abgerufen_am": "2026-11-25T07:39:12+00:00",
     "zeit_bis_kev": {
       "verlauf": [
         {
@@ -4566,15 +4580,15 @@
       "reif_nach_tagen": 30
     },
     "europa": {
-      "eu_eintraege": 77,
+      "eu_eintraege": 78,
       "auch_im_cisa": 76,
-      "nur_eu": 1,
+      "nur_eu": 2,
       "median_abstand_tage": 0.0,
-      "eu_datum_frueher": 4
+      "eu_datum_frueher": 5
     },
     "sans": {
       "status": "green",
-      "abgerufen_am": "2026-11-25T07:27:56+00:00"
+      "abgerufen_am": "2026-11-25T07:39:11+00:00"
     },
     "ncsc": {
       "advisories_30": 25,
@@ -4851,9 +4865,9 @@
           "geprueft_am": "2026-11-23",
           "erreichbar": false,
           "status": 404,
-          "fehler_in_folge": 28,
+          "fehler_in_folge": 29,
           "erster_fehler_um": "2026-11-24T16:15:10+00:00",
-          "link_geprueft_um": "2026-11-25T07:36:15+00:00",
+          "link_geprueft_um": "2026-11-25T07:52:30+00:00",
           "faellig_am": "2027-05-25",
           "faellig": false,
           "link_tot": false
@@ -4866,9 +4880,9 @@
           "geprueft_am": "2026-11-24",
           "erreichbar": false,
           "status": 404,
-          "fehler_in_folge": 24,
+          "fehler_in_folge": 25,
           "erster_fehler_um": "2026-11-24T22:03:12+00:00",
-          "link_geprueft_um": "2026-11-25T07:36:15+00:00",
+          "link_geprueft_um": "2026-11-25T07:52:30+00:00",
           "faellig_am": "2027-02-22",
           "faellig": false,
           "link_tot": false
@@ -4898,7 +4912,7 @@
       "lizenz": "CC0 1.0 (laut LICENSE-Datei von cisagov/kev-data)",
       "quelle_abruf": "cisa.gov",
       "veroeffentlicht_am": "2026-11-24T17:47:46.199Z",
-      "abgerufen_am": "2026-11-25T07:25:55+00:00",
+      "abgerufen_am": "2026-11-25T07:37:03+00:00",
       "name_en": "CISA Known Exploited Vulnerabilities",
       "lizenz_en": "CC0 1.0 (per the LICENSE file of cisagov/kev-data)"
     },
@@ -4915,7 +4929,7 @@
       "name": "CERT-Bund / BSI Warn- und Informationsdienst",
       "link": "https://wid.cert-bund.de/",
       "lizenz": "nur Titel und Links, Nutzungsbedingungen des BSI beachten",
-      "abgerufen_am": "2026-11-25T07:25:55+00:00",
+      "abgerufen_am": "2026-11-25T07:37:03+00:00",
       "name_en": "CERT-Bund / BSI Warning and Information Service",
       "lizenz_en": "titles and links only, observe the BSI terms of use"
     },
@@ -4924,7 +4938,7 @@
       "name": "EU-KEV (EUVD von ENISA)",
       "link": "https://euvd.enisa.europa.eu/",
       "lizenz": "Lizenz nicht ausdrücklich geklärt",
-      "abgerufen_am": "2026-11-25T07:25:55+00:00",
+      "abgerufen_am": "2026-11-25T07:37:03+00:00",
       "name_en": "EU-KEV (EUVD by ENISA)",
       "lizenz_en": "licence not explicitly clarified"
     },
@@ -4933,7 +4947,7 @@
       "name": "EPSS (FIRST)",
       "link": "https://www.first.org/epss/",
       "lizenz": "kostenlos mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T07:25:57+00:00",
+      "abgerufen_am": "2026-11-25T07:37:06+00:00",
       "name_en": "EPSS (FIRST)",
       "lizenz_en": "free to use with attribution"
     },
@@ -4942,7 +4956,7 @@
       "name": "NVD (NIST)",
       "link": "https://nvd.nist.gov/",
       "lizenz": "gemeinfrei, nur Veröffentlichungsdatum und CVSS-Wert",
-      "abgerufen_am": "2026-11-25T07:25:57+00:00",
+      "abgerufen_am": "2026-11-25T07:37:06+00:00",
       "name_en": "NVD (NIST)",
       "lizenz_en": "public domain, only publication date and CVSS score"
     },
@@ -4951,7 +4965,7 @@
       "name": "CVE-Liste (CVE Program, MITRE)",
       "link": "https://github.com/CVEProject/cvelistV5",
       "lizenz": "CVE Terms of Use: frei nutzbar mit Quellenangabe, nur Veröffentlichungsdatum",
-      "abgerufen_am": "2026-11-25T07:27:57+00:00",
+      "abgerufen_am": "2026-11-25T07:39:12+00:00",
       "name_en": "CVE List (CVE Program, MITRE)",
       "lizenz_en": "CVE Terms of Use: free to use with attribution, only publication date"
     },
@@ -4960,7 +4974,7 @@
       "name": "Feodo Tracker (abuse.ch)",
       "link": "https://feodotracker.abuse.ch/",
       "lizenz": "CC0, nur die Zahl aktiver Steuerserver",
-      "abgerufen_am": "2026-11-25T07:27:57+00:00",
+      "abgerufen_am": "2026-11-25T07:39:12+00:00",
       "name_en": "Feodo Tracker (abuse.ch)",
       "lizenz_en": "CC0, only the number of active command servers"
     },
@@ -4969,14 +4983,14 @@
       "name": "NCSC-NL Beveiligingsadviezen",
       "link": "https://advisories.ncsc.nl/",
       "lizenz": "Lizenz nicht geprüft, nur Zahl der Advisories mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T07:27:57+00:00"
+      "abgerufen_am": "2026-11-25T07:39:12+00:00"
     },
     {
       "id": "sans",
       "name": "SANS Internet Storm Center (Infocon)",
       "link": "https://isc.sans.edu/",
       "lizenz": "Creative Commons laut Fußzeile des ISC, nur Ampelstatus mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T07:27:56+00:00",
+      "abgerufen_am": "2026-11-25T07:39:11+00:00",
       "name_en": "SANS Internet Storm Center (Infocon)",
       "lizenz_en": "Creative Commons per the ISC footer, only the traffic-light status with attribution"
     }
@@ -7065,7 +7079,7 @@
         "quelle": "Microsoft Security Response Center (CVRF 3.0)",
         "quelle_url": "https://msrc.microsoft.com/update-guide",
         "listen_url": "https://api.msrc.microsoft.com/cvrf/v3.0/updates",
-        "abgerufen_am": "2026-11-25T07:27:57+00:00",
+        "abgerufen_am": "2026-11-25T07:39:13+00:00",
         "hinweis": "Zählung je CVE; Chromium-Lücken im Edge und Linux-Paketlücken von Azure Linux sind ausgenommen und getrennt ausgewiesen. Schweregrad, Ausnutzung und Bekanntheit stammen vom Hersteller.",
         "fehler": []
       },
@@ -7074,7 +7088,7 @@
           "id": "2025-Nov",
           "erste_veroeffentlichung": "2025-11-11T08:00:00",
           "aktuell": "2026-11-21T01:14:05",
-          "schema": 9,
+          "schema": 10,
           "cves": 75,
           "davon_chromium_ausgenommen": 11,
           "davon_azure_linux_ausgenommen": 103,
@@ -7108,8 +7122,8 @@
           },
           "familien": {
             "Windows 11": 39,
-            "Windows Server": 36,
             "Windows 10": 36,
+            "Windows Server": 36,
             "Cloud und Dienste": 21,
             "Office und SharePoint": 14,
             "Entwicklung und Server": 6,
@@ -7174,7 +7188,7 @@
           "id": "2025-Dec",
           "erste_veroeffentlichung": "2025-12-09T00:00:00",
           "aktuell": "2026-11-21T01:14:39",
-          "schema": 9,
+          "schema": 10,
           "cves": 72,
           "davon_chromium_ausgenommen": 18,
           "davon_azure_linux_ausgenommen": 265,
@@ -7275,7 +7289,7 @@
           "id": "2026-Jan",
           "erste_veroeffentlichung": "2026-01-13T08:00:00",
           "aktuell": "2026-11-21T01:15:28",
-          "schema": 9,
+          "schema": 10,
           "cves": 133,
           "davon_chromium_ausgenommen": 13,
           "davon_azure_linux_ausgenommen": 200,
@@ -7414,7 +7428,7 @@
           "id": "2026-Feb",
           "erste_veroeffentlichung": "2026-02-10T08:00:00",
           "aktuell": "2026-11-21T01:11:37",
-          "schema": 9,
+          "schema": 10,
           "cves": 64,
           "davon_chromium_ausgenommen": 17,
           "davon_azure_linux_ausgenommen": 136,
@@ -7594,7 +7608,7 @@
           "id": "2026-Mar",
           "erste_veroeffentlichung": "2026-03-10T07:00:00",
           "aktuell": "2026-11-21T01:20:27",
-          "schema": 9,
+          "schema": 10,
           "cves": 116,
           "davon_chromium_ausgenommen": 74,
           "davon_azure_linux_ausgenommen": 349,
@@ -7628,8 +7642,8 @@
           },
           "familien": {
             "Windows Server": 45,
-            "Windows 11": 44,
             "Windows 10": 44,
+            "Windows 11": 44,
             "Sonstige": 35,
             "Cloud und Dienste": 20,
             "Azure Linux": 19,
@@ -7655,7 +7669,7 @@
           "id": "2026-Apr",
           "erste_veroeffentlichung": "2026-04-14T07:00:00",
           "aktuell": "2026-11-21T01:15:37",
-          "schema": 9,
+          "schema": 10,
           "cves": 202,
           "davon_chromium_ausgenommen": 109,
           "davon_azure_linux_ausgenommen": 470,
@@ -7795,7 +7809,7 @@
           "id": "2026-May",
           "erste_veroeffentlichung": "2026-05-12T07:00:00",
           "aktuell": "2026-11-23T19:04:10",
-          "schema": 9,
+          "schema": 10,
           "cves": 163,
           "davon_chromium_ausgenommen": 368,
           "davon_azure_linux_ausgenommen": 671,
@@ -7937,7 +7951,7 @@
           "id": "2026-Jun",
           "erste_veroeffentlichung": "2026-06-09T07:00:00",
           "aktuell": "2026-11-21T01:20:45",
-          "schema": 9,
+          "schema": 10,
           "cves": 222,
           "davon_chromium_ausgenommen": 543,
           "davon_azure_linux_ausgenommen": 625,
@@ -7998,7 +8012,7 @@
           "id": "2026-Jul",
           "erste_veroeffentlichung": "2026-07-14T07:00:00",
           "aktuell": "2026-11-23T14:05:47",
-          "schema": 9,
+          "schema": 10,
           "cves": 664,
           "davon_chromium_ausgenommen": 868,
           "davon_azure_linux_ausgenommen": 633,
@@ -8171,7 +8185,7 @@
           "id": "2026-Aug",
           "erste_veroeffentlichung": "2026-08-11T07:00:00",
           "aktuell": "2026-11-21T14:03:39",
-          "schema": 9,
+          "schema": 10,
           "cves": 497,
           "davon_chromium_ausgenommen": 312,
           "davon_azure_linux_ausgenommen": 1030,
@@ -8277,7 +8291,7 @@
           "id": "2026-Sep",
           "erste_veroeffentlichung": "2026-09-08T07:00:00",
           "aktuell": "2026-11-23T19:04:44",
-          "schema": 9,
+          "schema": 10,
           "cves": 1008,
           "davon_chromium_ausgenommen": 437,
           "davon_azure_linux_ausgenommen": 1924,
@@ -8421,7 +8435,7 @@
           "id": "2026-Oct",
           "erste_veroeffentlichung": "2026-10-13T07:00:00",
           "aktuell": "2026-11-24T01:27:08",
-          "schema": 9,
+          "schema": 10,
           "cves": 1487,
           "davon_chromium_ausgenommen": 739,
           "davon_azure_linux_ausgenommen": 1683,
@@ -8480,6 +8494,7 @@
               "ausgenutzt": true,
               "oeffentlich": false,
               "kev": true,
+              "cvss": 8.8,
               "fix_roh": [
                 {
                   "Description": "5126836",
@@ -8585,6 +8600,7 @@
               "ausgenutzt": false,
               "oeffentlich": true,
               "kev": true,
+              "cvss": 9.8,
               "fix_roh": [
                 {
                   "Description": "Release Notes",
@@ -8686,6 +8702,7 @@
               "ausgenutzt": false,
               "oeffentlich": true,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -8742,6 +8759,7 @@
               "ausgenutzt": false,
               "oeffentlich": true,
               "kev": false,
+              "cvss": 5.3,
               "fix_roh": [],
               "patch": "ja",
               "kb": [],
@@ -8793,6 +8811,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 9.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -8849,6 +8868,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [],
@@ -8892,6 +8912,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -8945,6 +8966,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [],
@@ -8988,6 +9010,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 7.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -9044,6 +9067,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 9.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -9099,6 +9123,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -9155,6 +9180,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 7.0,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -9211,6 +9237,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -9267,6 +9294,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -9323,6 +9351,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [],
@@ -9366,6 +9395,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [],
@@ -9409,6 +9439,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [],
@@ -9452,6 +9483,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.1,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -9480,6 +9512,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 9.1,
               "fix_roh": [],
               "patch": "unbekannt",
               "kb": [],
@@ -9497,6 +9530,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 9.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -9553,6 +9587,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -9606,6 +9641,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -9662,6 +9698,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 7.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -9709,6 +9746,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 7.5,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -9765,6 +9803,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 7.2,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -9821,6 +9860,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [],
@@ -9873,6 +9913,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [],
@@ -9924,6 +9965,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [],
@@ -9975,6 +10017,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 7.5,
               "fix_roh": [],
               "patch": "ja",
               "kb": [],
@@ -10026,6 +10069,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 7.7,
               "fix_roh": [],
               "patch": "unbekannt",
               "kb": [],
@@ -10043,6 +10087,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.1,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -10099,6 +10144,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.1,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -10155,6 +10201,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -10211,6 +10258,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -10240,6 +10288,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 10.0,
               "fix_roh": [],
               "patch": "unbekannt",
               "kb": [],
@@ -10257,6 +10306,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 9.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [],
@@ -10292,6 +10342,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": null,
               "fix_roh": [],
               "patch": "ja",
               "kb": [],
@@ -10316,6 +10367,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 9.6,
               "fix_roh": [],
               "patch": "unbekannt",
               "kb": [],
@@ -10333,6 +10385,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 7.5,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -10389,6 +10442,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.1,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -10494,7 +10548,7 @@
           "id": "2026-Nov",
           "erste_veroeffentlichung": "2026-11-10T08:00:00",
           "aktuell": "2026-11-24T08:00:00",
-          "schema": 9,
+          "schema": 10,
           "cves": 1113,
           "davon_chromium_ausgenommen": 403,
           "davon_azure_linux_ausgenommen": 934,
@@ -10546,6 +10600,7 @@
               "ausgenutzt": true,
               "oeffentlich": false,
               "kev": true,
+              "cvss": 6.5,
               "fix_roh": [
                 {
                   "Description": "Release Notes",
@@ -10623,6 +10678,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.1,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -10679,6 +10735,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 10.0,
               "fix_roh": [],
               "patch": "unbekannt",
               "kb": [],
@@ -10696,6 +10753,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 9.6,
               "fix_roh": [],
               "patch": "unbekannt",
               "kb": [],
@@ -10711,6 +10769,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 10.0,
               "fix_roh": [],
               "patch": "ja",
               "kb": [],
@@ -10737,6 +10796,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 9.3,
               "fix_roh": [],
               "patch": "unbekannt",
               "kb": [],
@@ -10754,6 +10814,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [],
@@ -10797,6 +10858,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [],
@@ -10848,6 +10910,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [],
@@ -10899,6 +10962,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [],
@@ -10950,6 +11014,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [],
@@ -11001,6 +11066,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [],
@@ -11052,6 +11118,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [],
@@ -11095,6 +11162,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 9.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [],
@@ -11138,6 +11206,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 9.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -11193,6 +11262,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 7.5,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -11249,6 +11319,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 7.5,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -11305,6 +11376,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.2,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -11333,6 +11405,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 9.1,
               "fix_roh": [],
               "patch": "unbekannt",
               "kb": [],
@@ -11348,6 +11421,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 7.5,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -11404,6 +11478,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 7.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -11460,6 +11535,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 7.5,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -11515,6 +11591,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 7.0,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -11571,6 +11648,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 7.5,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -11627,6 +11705,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.1,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -11683,6 +11762,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 6.4,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -11739,6 +11819,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 7.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -11795,6 +11876,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": null,
               "fix_roh": [],
               "patch": "ja",
               "kb": [],
@@ -11821,6 +11903,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [],
@@ -11864,6 +11947,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.1,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -11920,6 +12004,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 9.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -11976,6 +12061,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 7.5,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -12032,6 +12118,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -12088,6 +12175,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -12144,6 +12232,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -12172,6 +12261,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 9.6,
               "fix_roh": [],
               "patch": "unbekannt",
               "kb": [],
@@ -12189,6 +12279,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 9.1,
               "fix_roh": [],
               "patch": "unbekannt",
               "kb": [],
@@ -12206,6 +12297,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -12259,6 +12351,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -12312,6 +12405,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "cvss": 8.8,
               "fix_roh": [],
               "patch": "ja",
               "kb": [
@@ -12408,7 +12502,7 @@
     },
     "prioritaet": {
       "stand": "2026-11-25",
-      "regeln": "Nur Lücken, für die ein Patch vorliegt oder im Advisory zu prüfen ist. 1 im CISA-KEV, 2 vom Hersteller als ausgenutzt gemeldet, 3 EPSS ab 10 %, 4 vom Hersteller als kritisch eingestuft",
+      "regeln": "Nur Lücken, für die ein Patch vorliegt oder im Advisory zu prüfen ist. Stufe 1 im CISA-KEV, 2 vom Hersteller als ausgenutzt gemeldet, 3 EPSS ab 10 %, 4 vom Hersteller als kritisch eingestuft. Innerhalb einer Stufe nach EPSS, dann nach CVSS, dann nach Kennung",
       "gesamt": 49,
       "liste": [
         {
@@ -12455,6 +12549,15 @@
           "betrifft": "Cloud und Dienste, Office und SharePoint",
           "datum": "2026-11-10",
           "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-124194",
+          "cvss": [
+            {
+              "cve": "CVE-2026-124194",
+              "score": 6.5
+            }
+          ],
+          "cvss_max": 6.5,
+          "stufe_name": "im CISA-KEV, nachweislich angegriffen",
+          "stufe_name_en": "in the CISA KEV, proven attacked",
           "rang": 1
         },
         {
@@ -12473,26 +12576,70 @@
           "betrifft": "Ubuntu Security Notices",
           "datum": "2026-11-23",
           "link": "https://ubuntu.com/security/notices/USN-9186-1",
+          "cvss": [
+            {
+              "cve": "CVE-2025-24813",
+              "score": 10.0
+            }
+          ],
+          "cvss_max": 10.0,
+          "stufe_name": "im CISA-KEV, nachweislich angegriffen",
+          "stufe_name_en": "in the CISA KEV, proven attacked",
           "rang": 2
         },
         {
           "stufe": 1,
           "epss": null,
           "quelle": "Red Hat Security Advisories",
-          "titel": "RHSA-2026:98609",
+          "titel": "RHSA-2026:102909",
           "cves": [
-            "CVE-2026-109618",
-            "CVE-2026-109619"
+            "CVE-2026-97229"
           ],
-          "grund": "Schließt 2 Lücke(n) aus dem CISA-KEV: nachweislich angegriffen.",
-          "grund_en": "Closes 2 flaw(s) from the CISA KEV: proven to be attacked.",
+          "grund": "Schließt 1 Lücke(n) aus dem CISA-KEV: nachweislich angegriffen.",
+          "grund_en": "Closes 1 flaw(s) from the CISA KEV: proven to be attacked.",
           "patch": "ja",
           "patch_text": "Paket-Update liegt vor (dnf/yum), Version steht in der Meldung",
           "patch_text_en": "Package update available (dnf/yum), version is in the advisory",
           "betrifft": "Red Hat Security Advisories",
-          "datum": "2026-11-11",
-          "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:98609.json",
+          "datum": "2026-11-24",
+          "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102909.json",
+          "cvss": [
+            {
+              "cve": "CVE-2026-97229",
+              "score": 10.0
+            }
+          ],
+          "cvss_max": 10.0,
+          "stufe_name": "im CISA-KEV, nachweislich angegriffen",
+          "stufe_name_en": "in the CISA KEV, proven attacked",
           "rang": 3
+        },
+        {
+          "stufe": 1,
+          "epss": null,
+          "quelle": "Cisco Security Advisories",
+          "titel": "Cisco Expressway Series Remote Code Execution Vulnerability",
+          "cves": [
+            "CVE-2026-76466"
+          ],
+          "grund": "Schließt 1 Lücke(n) aus dem CISA-KEV: nachweislich angegriffen.",
+          "grund_en": "Closes 1 flaw(s) from the CISA KEV: proven to be attacked.",
+          "patch": "pruefen",
+          "patch_text": "Fix-Stand im Advisory prüfen",
+          "patch_text_en": "Check fix status in the advisory",
+          "betrifft": "Cisco Security Advisories",
+          "datum": "2026-11-23",
+          "link": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-vcs-static-cred-hr7EWZ8t",
+          "cvss": [
+            {
+              "cve": "CVE-2026-76466",
+              "score": 9.8
+            }
+          ],
+          "cvss_max": 9.8,
+          "stufe_name": "im CISA-KEV, nachweislich angegriffen",
+          "stufe_name_en": "in the CISA KEV, proven attacked",
+          "rang": 4
         },
         {
           "stufe": 1,
@@ -12510,24 +12657,15 @@
           "betrifft": "Red Hat Security Advisories",
           "datum": "2026-11-23",
           "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102223.json",
-          "rang": 4
-        },
-        {
-          "stufe": 1,
-          "epss": null,
-          "quelle": "Cisco Security Advisories",
-          "titel": "Cisco BroadWorks Out-of-Band Blind XML External Entity Injection Vulnerability",
-          "cves": [
-            "CVE-2026-20320"
+          "cvss": [
+            {
+              "cve": "CVE-2026-111497",
+              "score": 9.2
+            }
           ],
-          "grund": "Schließt 1 Lücke(n) aus dem CISA-KEV: nachweislich angegriffen.",
-          "grund_en": "Closes 1 flaw(s) from the CISA KEV: proven to be attacked.",
-          "patch": "pruefen",
-          "patch_text": "Fix-Stand im Advisory prüfen",
-          "patch_text_en": "Check fix status in the advisory",
-          "betrifft": "Cisco Security Advisories",
-          "datum": "2026-11-13",
-          "link": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-bworks-xxe-uwUd7CEt",
+          "cvss_max": 9.2,
+          "stufe_name": "im CISA-KEV, nachweislich angegriffen",
+          "stufe_name_en": "in the CISA KEV, proven attacked",
           "rang": 5
         },
         {
@@ -12546,6 +12684,15 @@
           "betrifft": "Ubuntu Security Notices",
           "datum": "2026-11-12",
           "link": "https://ubuntu.com/security/notices/USN-9066-1",
+          "cvss": [
+            {
+              "cve": "CVE-2026-53266",
+              "score": 8.8
+            }
+          ],
+          "cvss_max": 8.8,
+          "stufe_name": "im CISA-KEV, nachweislich angegriffen",
+          "stufe_name_en": "in the CISA KEV, proven attacked",
           "rang": 6
         },
         {
@@ -12564,15 +12711,24 @@
           "betrifft": "Ubuntu Security Notices",
           "datum": "2026-11-24",
           "link": "https://ubuntu.com/security/notices/USN-9192-1",
+          "cvss": [
+            {
+              "cve": "CVE-2026-53362",
+              "score": 7.8
+            }
+          ],
+          "cvss_max": 7.8,
+          "stufe_name": "im CISA-KEV, nachweislich angegriffen",
+          "stufe_name_en": "in the CISA KEV, proven attacked",
           "rang": 7
         },
         {
           "stufe": 1,
           "epss": null,
           "quelle": "Cisco Security Advisories",
-          "titel": "Cisco Expressway Series Remote Code Execution Vulnerability",
+          "titel": "Cisco BroadWorks Out-of-Band Blind XML External Entity Injection Vulnerability",
           "cves": [
-            "CVE-2026-76466"
+            "CVE-2026-20320"
           ],
           "grund": "Schließt 1 Lücke(n) aus dem CISA-KEV: nachweislich angegriffen.",
           "grund_en": "Closes 1 flaw(s) from the CISA KEV: proven to be attacked.",
@@ -12580,8 +12736,17 @@
           "patch_text": "Fix-Stand im Advisory prüfen",
           "patch_text_en": "Check fix status in the advisory",
           "betrifft": "Cisco Security Advisories",
-          "datum": "2026-11-23",
-          "link": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-vcs-static-cred-hr7EWZ8t",
+          "datum": "2026-11-13",
+          "link": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-bworks-xxe-uwUd7CEt",
+          "cvss": [
+            {
+              "cve": "CVE-2026-20320",
+              "score": 7.5
+            }
+          ],
+          "cvss_max": 7.5,
+          "stufe_name": "im CISA-KEV, nachweislich angegriffen",
+          "stufe_name_en": "in the CISA KEV, proven attacked",
           "rang": 8
         },
         {
@@ -12636,6 +12801,15 @@
           "betrifft": "Windows 10, Windows 11, Windows Server",
           "datum": "2026-11-10",
           "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-116928",
+          "cvss": [
+            {
+              "cve": "CVE-2026-116928",
+              "score": 9.8
+            }
+          ],
+          "cvss_max": 9.8,
+          "stufe_name": "vom Hersteller als kritisch eingestuft",
+          "stufe_name_en": "rated critical by the vendor",
           "rang": 9
         },
         {
@@ -12690,6 +12864,15 @@
           "betrifft": "Windows 10, Windows 11",
           "datum": "2026-11-10",
           "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-112967",
+          "cvss": [
+            {
+              "cve": "CVE-2026-112967",
+              "score": 9.8
+            }
+          ],
+          "cvss_max": 9.8,
+          "stufe_name": "vom Hersteller als kritisch eingestuft",
+          "stufe_name_en": "rated critical by the vendor",
           "rang": 10
         },
         {
@@ -12720,6 +12903,15 @@
           "betrifft": "Exchange",
           "datum": "2026-11-10",
           "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118207",
+          "cvss": [
+            {
+              "cve": "CVE-2026-118207",
+              "score": 8.8
+            }
+          ],
+          "cvss_max": 8.8,
+          "stufe_name": "vom Hersteller als kritisch eingestuft",
+          "stufe_name_en": "rated critical by the vendor",
           "rang": 11
         },
         {
@@ -12774,6 +12966,15 @@
           "betrifft": "Cloud und Dienste, Office und SharePoint",
           "datum": "2026-11-10",
           "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-111285",
+          "cvss": [
+            {
+              "cve": "CVE-2026-111285",
+              "score": 8.8
+            }
+          ],
+          "cvss_max": 8.8,
+          "stufe_name": "vom Hersteller als kritisch eingestuft",
+          "stufe_name_en": "rated critical by the vendor",
           "rang": 12
         },
         {
@@ -12820,6 +13021,15 @@
           "betrifft": "Cloud und Dienste, Office und SharePoint",
           "datum": "2026-11-10",
           "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-110043",
+          "cvss": [
+            {
+              "cve": "CVE-2026-110043",
+              "score": 8.8
+            }
+          ],
+          "cvss_max": 8.8,
+          "stufe_name": "vom Hersteller als kritisch eingestuft",
+          "stufe_name_en": "rated critical by the vendor",
           "rang": 13
         },
         {
@@ -12874,6 +13084,15 @@
           "betrifft": "Cloud und Dienste, Office und SharePoint",
           "datum": "2026-11-10",
           "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-110047",
+          "cvss": [
+            {
+              "cve": "CVE-2026-110047",
+              "score": 8.8
+            }
+          ],
+          "cvss_max": 8.8,
+          "stufe_name": "vom Hersteller als kritisch eingestuft",
+          "stufe_name_en": "rated critical by the vendor",
           "rang": 14
         },
         {
@@ -12928,6 +13147,15 @@
           "betrifft": "Cloud und Dienste, Office und SharePoint",
           "datum": "2026-11-10",
           "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-110067",
+          "cvss": [
+            {
+              "cve": "CVE-2026-110067",
+              "score": 8.8
+            }
+          ],
+          "cvss_max": 8.8,
+          "stufe_name": "vom Hersteller als kritisch eingestuft",
+          "stufe_name_en": "rated critical by the vendor",
           "rang": 15
         },
         {
@@ -12982,6 +13210,15 @@
           "betrifft": "Cloud und Dienste, Office und SharePoint",
           "datum": "2026-11-10",
           "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-110068",
+          "cvss": [
+            {
+              "cve": "CVE-2026-110068",
+              "score": 8.8
+            }
+          ],
+          "cvss_max": 8.8,
+          "stufe_name": "vom Hersteller als kritisch eingestuft",
+          "stufe_name_en": "rated critical by the vendor",
           "rang": 16
         },
         {
@@ -13036,6 +13273,15 @@
           "betrifft": "Cloud und Dienste, Office und SharePoint",
           "datum": "2026-11-10",
           "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-111289",
+          "cvss": [
+            {
+              "cve": "CVE-2026-111289",
+              "score": 8.8
+            }
+          ],
+          "cvss_max": 8.8,
+          "stufe_name": "vom Hersteller als kritisch eingestuft",
+          "stufe_name_en": "rated critical by the vendor",
           "rang": 17
         },
         {
@@ -13082,6 +13328,15 @@
           "betrifft": "Cloud und Dienste, Office und SharePoint",
           "datum": "2026-11-10",
           "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-111309",
+          "cvss": [
+            {
+              "cve": "CVE-2026-111309",
+              "score": 8.8
+            }
+          ],
+          "cvss_max": 8.8,
+          "stufe_name": "vom Hersteller als kritisch eingestuft",
+          "stufe_name_en": "rated critical by the vendor",
           "rang": 18
         },
         {
@@ -13136,6 +13391,15 @@
           "betrifft": "Cloud und Dienste, Office und SharePoint",
           "datum": "2026-11-10",
           "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118292",
+          "cvss": [
+            {
+              "cve": "CVE-2026-118292",
+              "score": 8.8
+            }
+          ],
+          "cvss_max": 8.8,
+          "stufe_name": "vom Hersteller als kritisch eingestuft",
+          "stufe_name_en": "rated critical by the vendor",
           "rang": 19
         },
         {
@@ -13190,6 +13454,15 @@
           "betrifft": "Cloud und Dienste, Office und SharePoint",
           "datum": "2026-11-10",
           "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118296",
+          "cvss": [
+            {
+              "cve": "CVE-2026-118296",
+              "score": 8.8
+            }
+          ],
+          "cvss_max": 8.8,
+          "stufe_name": "vom Hersteller als kritisch eingestuft",
+          "stufe_name_en": "rated critical by the vendor",
           "rang": 20
         },
         {
@@ -13244,6 +13517,15 @@
           "betrifft": "Windows 10, Windows 11, Windows Server",
           "datum": "2026-11-10",
           "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118146",
+          "cvss": [
+            {
+              "cve": "CVE-2026-118146",
+              "score": 8.8
+            }
+          ],
+          "cvss_max": 8.8,
+          "stufe_name": "vom Hersteller als kritisch eingestuft",
+          "stufe_name_en": "rated critical by the vendor",
           "rang": 21
         },
         {
@@ -13298,6 +13580,15 @@
           "betrifft": "Windows 10, Windows 11, Windows Server",
           "datum": "2026-11-10",
           "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118148",
+          "cvss": [
+            {
+              "cve": "CVE-2026-118148",
+              "score": 8.8
+            }
+          ],
+          "cvss_max": 8.8,
+          "stufe_name": "vom Hersteller als kritisch eingestuft",
+          "stufe_name_en": "rated critical by the vendor",
           "rang": 22
         },
         {
@@ -13344,6 +13635,15 @@
           "betrifft": "Windows 10, Windows 11",
           "datum": "2026-11-10",
           "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114169",
+          "cvss": [
+            {
+              "cve": "CVE-2026-114169",
+              "score": 8.8
+            }
+          ],
+          "cvss_max": 8.8,
+          "stufe_name": "vom Hersteller als kritisch eingestuft",
+          "stufe_name_en": "rated critical by the vendor",
           "rang": 23
         },
         {
@@ -13398,6 +13698,15 @@
           "betrifft": "Cloud und Dienste, Office und SharePoint",
           "datum": "2026-11-10",
           "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118297",
+          "cvss": [
+            {
+              "cve": "CVE-2026-118297",
+              "score": 8.8
+            }
+          ],
+          "cvss_max": 8.8,
+          "stufe_name": "vom Hersteller als kritisch eingestuft",
+          "stufe_name_en": "rated critical by the vendor",
           "rang": 24
         }
       ],
@@ -13406,7 +13715,7 @@
     "hersteller": {
       "meta": {
         "hinweis": "Nur Zählung und Verweise auf die Meldungen der Hersteller. Schweregrade stammen von den Herstellern und fehlen, wo sie nicht geliefert werden.",
-        "abgerufen_am": "2026-11-25T07:27:57+00:00"
+        "abgerufen_am": "2026-11-25T07:39:13+00:00"
       },
       "quellen": {
         "ubuntu": {
@@ -13570,7 +13879,7 @@
               "schwere": null
             }
           ],
-          "abgerufen_am": "2026-11-25T07:27:57+00:00",
+          "abgerufen_am": "2026-11-25T07:39:13+00:00",
           "status": "ok"
         },
         "debian": {
@@ -13659,7 +13968,7 @@
               "schwere": null
             }
           ],
-          "abgerufen_am": "2026-11-25T07:27:57+00:00",
+          "abgerufen_am": "2026-11-25T07:39:13+00:00",
           "status": "ok"
         },
         "redhat": {
@@ -13668,8 +13977,62 @@
           "typ": "distribution",
           "url": "https://access.redhat.com/security/security-updates/",
           "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link",
-          "im_kev_30": 17,
+          "im_kev_30": 13,
           "im_kev_meldungen": [
+            {
+              "id": "RHSA-2026:102909",
+              "datum": "2026-11-24",
+              "titel": "RHSA-2026:102909",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102909.json",
+              "cves_kev": [
+                "CVE-2026-97229"
+              ]
+            },
+            {
+              "id": "RHSA-2026:102883",
+              "datum": "2026-11-24",
+              "titel": "RHSA-2026:102883",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102883.json",
+              "cves_kev": [
+                "CVE-2026-97229"
+              ]
+            },
+            {
+              "id": "RHSA-2026:102869",
+              "datum": "2026-11-24",
+              "titel": "RHSA-2026:102869",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102869.json",
+              "cves_kev": [
+                "CVE-2026-97229"
+              ]
+            },
+            {
+              "id": "RHSA-2026:102715",
+              "datum": "2026-11-24",
+              "titel": "RHSA-2026:102715",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102715.json",
+              "cves_kev": [
+                "CVE-2026-97229"
+              ]
+            },
+            {
+              "id": "RHSA-2026:102714",
+              "datum": "2026-11-24",
+              "titel": "RHSA-2026:102714",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102714.json",
+              "cves_kev": [
+                "CVE-2026-97229"
+              ]
+            },
+            {
+              "id": "RHSA-2026:102534",
+              "datum": "2026-11-24",
+              "titel": "RHSA-2026:102534",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102534.json",
+              "cves_kev": [
+                "CVE-2026-97229"
+              ]
+            },
             {
               "id": "RHSA-2026:102223",
               "datum": "2026-11-23",
@@ -13687,142 +14050,87 @@
               "cves_kev": [
                 "CVE-2026-111497"
               ]
-            },
-            {
-              "id": "RHSA-2026:100552",
-              "datum": "2026-11-17",
-              "titel": "RHSA-2026:100552",
-              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:100552.json",
-              "cves_kev": [
-                "CVE-2026-111497"
-              ]
-            },
-            {
-              "id": "RHSA-2026:99044",
-              "datum": "2026-11-11",
-              "titel": "RHSA-2026:99044",
-              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:99044.json",
-              "cves_kev": [
-                "CVE-2026-111497"
-              ]
-            },
-            {
-              "id": "RHSA-2026:98609",
-              "datum": "2026-11-11",
-              "titel": "RHSA-2026:98609",
-              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:98609.json",
-              "cves_kev": [
-                "CVE-2026-109618",
-                "CVE-2026-109619"
-              ]
-            },
-            {
-              "id": "RHSA-2026:98522",
-              "datum": "2026-11-11",
-              "titel": "RHSA-2026:98522",
-              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:98522.json",
-              "cves_kev": [
-                "CVE-2026-111497"
-              ]
-            },
-            {
-              "id": "RHSA-2026:96282",
-              "datum": "2026-11-11",
-              "titel": "RHSA-2026:96282",
-              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:96282.json",
-              "cves_kev": [
-                "CVE-2026-111497"
-              ]
-            },
-            {
-              "id": "RHSA-2026:95755",
-              "datum": "2026-11-11",
-              "titel": "RHSA-2026:95755",
-              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:95755.json",
-              "cves_kev": [
-                "CVE-2026-111497"
-              ]
             }
           ],
-          "neu_7": 295,
+          "neu_7": 452,
           "neu_30": 1000,
-          "kritisch_30": 141,
-          "hoch_30": 706,
-          "cves_30": 1950,
+          "kritisch_30": 147,
+          "hoch_30": 695,
+          "cves_30": 1924,
           "schwere_bekannt": true,
           "letzte": [
             {
-              "id": "RHSA-2026:102823",
+              "id": "RHSA-2026:103450",
+              "datum": "2026-11-25",
+              "titel": "RHSA-2026:103450",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:103450.json",
+              "schwere": "kritisch"
+            },
+            {
+              "id": "RHSA-2026:103408",
               "datum": "2026-11-24",
-              "titel": "RHSA-2026:102823",
-              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102823.json",
-              "schwere": "kritisch"
+              "titel": "RHSA-2026:103408",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:103408.json",
+              "schwere": "hoch"
             },
             {
-              "id": "RHSA-2026:102713",
+              "id": "RHSA-2026:103395",
               "datum": "2026-11-24",
-              "titel": "RHSA-2026:102713",
-              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102713.json",
+              "titel": "RHSA-2026:103395",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:103395.json",
+              "schwere": "mittel"
+            },
+            {
+              "id": "RHSA-2026:103381",
+              "datum": "2026-11-24",
+              "titel": "RHSA-2026:103381",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:103381.json",
+              "schwere": "mittel"
+            },
+            {
+              "id": "RHSA-2026:103380",
+              "datum": "2026-11-24",
+              "titel": "RHSA-2026:103380",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:103380.json",
               "schwere": "kritisch"
             },
             {
-              "id": "RHSA-2026:102696",
-              "datum": "2026-11-23",
-              "titel": "RHSA-2026:102696",
-              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102696.json",
-              "schwere": "kritisch"
-            },
-            {
-              "id": "RHSA-2026:102695",
-              "datum": "2026-11-23",
-              "titel": "RHSA-2026:102695",
-              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102695.json",
-              "schwere": "kritisch"
-            },
-            {
-              "id": "RHSA-2026:102684",
-              "datum": "2026-11-23",
-              "titel": "RHSA-2026:102684",
-              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102684.json",
-              "schwere": "kritisch"
-            },
-            {
-              "id": "RHSA-2026:102300",
-              "datum": "2026-11-23",
-              "titel": "RHSA-2026:102300",
-              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102300.json",
-              "schwere": "kritisch"
-            },
-            {
-              "id": "RHSA-2026:102294",
-              "datum": "2026-11-23",
-              "titel": "RHSA-2026:102294",
-              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102294.json",
+              "id": "RHSA-2026:103378",
+              "datum": "2026-11-24",
+              "titel": "RHSA-2026:103378",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:103378.json",
               "schwere": "hoch"
             },
             {
-              "id": "RHSA-2026:102293",
-              "datum": "2026-11-23",
-              "titel": "RHSA-2026:102293",
-              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102293.json",
+              "id": "RHSA-2026:103375",
+              "datum": "2026-11-24",
+              "titel": "RHSA-2026:103375",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:103375.json",
               "schwere": "hoch"
             },
             {
-              "id": "RHSA-2026:102288",
-              "datum": "2026-11-23",
-              "titel": "RHSA-2026:102288",
-              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102288.json",
+              "id": "RHSA-2026:103374",
+              "datum": "2026-11-24",
+              "titel": "RHSA-2026:103374",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:103374.json",
               "schwere": "hoch"
             },
             {
-              "id": "RHSA-2026:102286",
-              "datum": "2026-11-23",
-              "titel": "RHSA-2026:102286",
-              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:102286.json",
+              "id": "RHSA-2026:103373",
+              "datum": "2026-11-24",
+              "titel": "RHSA-2026:103373",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:103373.json",
               "schwere": "hoch"
+            },
+            {
+              "id": "RHSA-2026:103325",
+              "datum": "2026-11-24",
+              "titel": "RHSA-2026:103325",
+              "link": "https://access.redhat.com/hydra/rest/securitydata/csaf/RHSA-2026:103325.json",
+              "schwere": "mittel"
             }
           ],
-          "abgerufen_am": "2026-11-25T07:27:57+00:00",
+          "abgerufen_am": "2026-11-25T07:39:13+00:00",
           "status": "ok"
         },
         "cisco": {
@@ -13976,7 +14284,7 @@
               "schwere": "kritisch"
             }
           ],
-          "abgerufen_am": "2026-11-25T07:27:57+00:00",
+          "abgerufen_am": "2026-11-25T07:39:13+00:00",
           "status": "ok"
         }
       }
