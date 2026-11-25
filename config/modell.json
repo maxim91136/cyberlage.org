@@ -1,0 +1,94 @@
+{
+  "version": "v1",
+  "status": "entwurf",
+  "geprueft_am": "2026-11-25",
+  "obergrenze": 2.0,
+  "regel": "Pegel = Mittelwert der Gruppenwerte; Gruppenwert = Mittelwert der Ausschläge der aktiven Bausteine der Gruppe (je höchstens obergrenze), umgerechnet auf 0 bis 100. Gruppen ohne Messwert zählen nicht mit.",
+  "gruppen": [
+    {
+      "id": "ausnutzung",
+      "name": "Ausnutzung",
+      "name_en": "Exploitation"
+    },
+    {
+      "id": "extern",
+      "name": "Externe Einschätzungen",
+      "name_en": "External assessments"
+    },
+    {
+      "id": "warnungen",
+      "name": "Warnungen",
+      "name_en": "Warnings"
+    }
+  ],
+  "bausteine": [
+    {
+      "id": "kev_menge",
+      "signal": "KEV count",
+      "name": "KEV-Menge",
+      "name_en": "KEV count",
+      "gruppe": "ausnutzung",
+      "status": "aktiv",
+      "historie": "36 Monate"
+    },
+    {
+      "id": "tempo",
+      "signal": "KEV pace",
+      "name": "Tempo bis KEV",
+      "name_en": "Pace to KEV",
+      "gruppe": "ausnutzung",
+      "status": "aktiv",
+      "historie": "36 Monate"
+    },
+    {
+      "id": "bsi",
+      "signal": "BSI Cyber Index",
+      "name": "BSI Cyber Index",
+      "name_en": "BSI Cyber Index",
+      "gruppe": "extern",
+      "status": "aktiv",
+      "historie": "nur ab Live-Start"
+    },
+    {
+      "id": "sans",
+      "signal": "SANS Infocon",
+      "name": "SANS Infocon",
+      "name_en": "SANS Infocon",
+      "gruppe": "extern",
+      "status": "aktiv",
+      "historie": "nur ab Live-Start"
+    },
+    {
+      "id": "cert_bund",
+      "name": "CERT-Bund: kritische und hohe Warnungen (7 Tage)",
+      "name_en": "CERT-Bund: critical and high warnings (7 days)",
+      "gruppe": "warnungen",
+      "status": "beobachtung",
+      "historie": "ab 23.11.2026"
+    },
+    {
+      "id": "eu_kev",
+      "name": "EU-KEV: neu als ausgenutzt gemeldet (30 Tage)",
+      "name_en": "EU KEV: newly reported as exploited (30 days)",
+      "gruppe": "ausnutzung",
+      "status": "beobachtung",
+      "historie": "ab 07.08.2026"
+    },
+    {
+      "id": "ms_ausgenutzt",
+      "name": "Microsoft: ausgenutzte Lücken im letzten Patch Day",
+      "name_en": "Microsoft: exploited flaws in the latest patch day",
+      "gruppe": "ausnutzung",
+      "status": "beobachtung",
+      "historie": "12 Monate"
+    },
+    {
+      "id": "ncsc_nl",
+      "name": "NCSC-NL: Advisories (30 Tage)",
+      "name_en": "NCSC-NL: advisories (30 days)",
+      "gruppe": "warnungen",
+      "status": "beobachtung",
+      "historie": "ab Live-Start"
+    }
+  ]
+}

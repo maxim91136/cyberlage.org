@@ -913,16 +913,31 @@ class SapTests(unittest.TestCase):
         self.assertEqual(r[1]["cves"], ["CVE-2026-0002"])
 
 
-class PegelRueckTests(unittest.TestCase):
-    def test_rueckrechnung_mittelt_vorhandene_bausteine(self):
-        import score
-        kev = [{"stand": "2026-01-01", "wert": 25}, {"stand": "2026-01-02", "wert": 50}]
-        tempo = [{"stand": "2026-01-01", "wert": 5.0}]
-        r = score.pegel_rueckrechnung(kev, 25, tempo, 5)
-        self.assertEqual(r[0]["signale"], 2)
-        self.assertEqual(r[0]["wert"], 50)          # beide Ausschläge 1,0 -> 50
-        self.assertEqual(r[1]["signale"], 1)
-        self.assertEqual(r[1]["wert"], 100)         # 50/25 = 2,0 (Obergrenze) -> 100
+class ModellTests(unittest.TestCase):
+    CFG = {"obergrenze": 2.0, "gruppen": [{"id": "a", "name": "A", "name_en": "A"}, {"id": "b", "name": "B", "name_en": "B"}],
+           "bausteine": [{"id": "x", "gruppe": "a", "status": "aktiv"}, {"id": "y", "gruppe": "a", "status": "aktiv"},
+                         {"id": "z", "gruppe": "b", "status": "aktiv"}, {"id": "w", "gruppe": "b", "status": "beobachtung"}]}
+
+    def test_score_mittelt_je_gruppe_und_ignoriert_beobachtung(self):
+        import modell
+        s = modell.score({"x": 1.0, "y": 3.0, "z": 0.5, "w": 2.0}, self.CFG)  # x,y -> (1+2)/2=1,5 ; z 0,5 ; Mittel 1,0 -> 50
+        self.assertEqual(s["wert"], 50)
+        self.assertEqual((s["signale"], s["von"]), (3, 3))
+
+    def test_gruppe_ohne_messwert_zaehlt_nicht(self):
+        import modell
+        s = modell.score({"x": 1.0}, self.CFG)
+        self.assertEqual(s["wert"], 50)
+        self.assertEqual(len(s["gruppen"]), 1)
+        self.assertIsNone(modell.score({}, self.CFG))
+
+    def test_rueckrechnung(self):
+        import modell
+        cfg = {"obergrenze": 2.0, "gruppen": [{"id": "a", "name": "A", "name_en": "A"}],
+               "bausteine": [{"id": "kev_menge", "gruppe": "a", "status": "aktiv"}, {"id": "tempo", "gruppe": "a", "status": "aktiv"}]}
+        r = modell.rueckrechnung([{"stand": "2026-01-01", "wert": 25}, {"stand": "2026-01-02", "wert": 50}], 25, [{"stand": "2026-01-01", "wert": 5.0}], 5, cfg)
+        self.assertEqual((r[0]["wert"], r[0]["signale"]), (50, 2))
+        self.assertEqual((r[1]["wert"], r[1]["signale"]), (100, 1))
         self.assertTrue(r[0]["rueck"])
 
 

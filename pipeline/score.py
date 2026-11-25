@@ -168,26 +168,6 @@ def fazit(score, kev_stufe, cfg, tempo_stufe=None):
             "tempo_stufe": tempo_stufe, "text": text, "text_en": text_en, "hinweis": hint["hinweis"], "hinweis_en": hint["hinweis_en"], "stand": cfg.get("geprueft_am")}
 
 
-def pegel_rueckrechnung(kev_reihe, erhoeht_ab, tempo_reihe, tempo_erhoeht_bis, obergrenze=2.0):
-    """Rückgerechneter Dreier-Pegel aus den Bausteinen, für die es Historie gibt: KEV-Menge und Tempo bis KEV.
-    BSI Cyber Index (jährlich, von Hand) und SANS Infocon (nur heutiger Stand) haben keine Tagesreihe und fehlen darin.
-    Rechnung wie beim Live-Wert: Mittelwert der Ausschläge (höchstens `obergrenze`), umgerechnet auf 0 bis 100.
-    Gibt eine Liste {stand, wert, signale, von, rueck} zurück."""
-    import statistics
-    tempo = {p["stand"]: p["wert"] for p in tempo_reihe or []}
-    out = []
-    for p in kev_reihe:
-        d = p["stand"]
-        werte = []
-        if erhoeht_ab:
-            werte.append(min(p["wert"] / erhoeht_ab, obergrenze))
-        if d in tempo and tempo_erhoeht_bis:
-            werte.append(min(tempo_erhoeht_bis / max(tempo[d], 1.0), obergrenze))
-        if werte:
-            out.append({"stand": d, "wert": round(sum(werte) / len(werte) / obergrenze * 100), "signale": len(werte), "von": 5, "rueck": True})
-    return out
-
-
 def lese_optional(pfad):
     try:
         return json.loads(Path(pfad).read_text(encoding="utf-8"))
@@ -367,14 +347,27 @@ def main(argv):
     if ergebnis.get("radar") and (ergebnis["radar"].get("konsens") or {}).get("score"):
         sp = WURZEL / "data" / "radar" / "score.json"
         rs = ergebnis["radar"]["konsens"]["score"]
+        import modell
+        mcfg = lese_optional(WURZEL / "config" / "modell.json")
+        aus = {x["name_en"]: x.get("ausschlag") for x in ergebnis["radar"]["konsens"]["signale"]}
+        einzel = {b["id"]: aus.get(b.get("signal")) for b in mcfg["bausteine"] if b["status"] == "aktiv"}
+        ms = modell.score(einzel, mcfg)
+        if ms:
+            rs.update(wert=ms["wert"], signale=ms["signale"], von=ms["von"], gruppen=ms["gruppen"], modell=mcfg["version"])
+        beob = modell.beobachtung_heute(stand, lese_optional(WURZEL / "data" / "bsi" / "warnungen.json"), lese_optional(WURZEL / "data" / "eu" / "kev.json"),
+                                        lese_optional(WURZEL / "data" / "patches" / "microsoft.json"), ergebnis["radar"].get("ncsc"))
+        bp = WURZEL / "data" / "radar" / "bausteine.json"
+        bp.write_text(json.dumps(modell.speichern(lese_optional(bp), stand, mcfg["version"], einzel, beob), ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+        rs["beobachtung"] = [dict(b, wert=beob.get(b["id"])) for b in mcfg["bausteine"] if b["status"] == "beobachtung"]
+        rs["modell_gruppen"] = [dict(g, bausteine=[{k: b[k] for k in ("id", "name", "name_en", "status", "historie")} | {"ausschlag": einzel.get(b["id"])} for b in mcfg["bausteine"] if b["gruppe"] == g["id"] and b["status"] == "aktiv"]) for g in mcfg["gruppen"]]
         sr = [p for p in (lese_optional(sp) or {}).get("reihe", []) if p["stand"] != stand.isoformat()]
-        sr.append({"stand": stand.isoformat(), "wert": rs["wert"], "signale": rs["signale"], "von": rs["von"]})
+        sr.append({"stand": stand.isoformat(), "wert": rs["wert"], "signale": rs["signale"], "von": rs["von"], "modell": rs.get("modell")})
         sp.write_text(json.dumps({"meta": {"name": "Dreier-Pegel (Gesamtscore)", "hinweis": "Tagesstand live gespeichert, keine Rückrechnung möglich, weil die externen Signale keine Historie haben"},
                                   "reihe": sr}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
         rs["live_seit"] = sr[0]["stand"]
         rs["reihe"] = sr[-90:]
         rtempo = (ergebnis["radar"].get("zeit_bis_kev") or {}).get("tempo_reihe") or []
-        alt = pegel_rueckrechnung(reihe, regeln.get("erhoeht_ab"), rtempo, (regeln.get("tempo") or {}).get("erhoeht_bis"))
+        alt = modell.rueckrechnung(reihe, regeln.get("erhoeht_ab"), rtempo, (regeln.get("tempo") or {}).get("erhoeht_bis"), mcfg)
         live = {x["stand"] for x in sr}
         rs["reihe_voll"] = [x for x in alt if x["stand"] not in live] + [dict(x, rueck=False) for x in sr]
     import fetch_radar
@@ -415,7 +408,7 @@ def main(argv):
         ergebnis["stufe_begruendung"] = "Gesamtscore %s von 100 aus %s von %s Bausteinen." % (rsc["wert"], rsc["signale"], rsc["von"])
         ergebnis["stufe_begruendung_en"] = "Overall score %s of 100 from %s of %s components." % (rsc["wert"], rsc["signale"], rsc["von"])
         ergebnis["pegel"] = {"wert": rsc["wert"], "signale": rsc["signale"], "von": rsc["von"], "stufe": rsc["stufe"], "status": stufen_cfg.get("status"),
-                             "live_seit": rsc.get("live_seit"), "reihe": rsc.pop("reihe_voll", rsc.get("reihe", []))}
+                             "live_seit": rsc.get("live_seit"), "modell": rsc.get("modell"), "reihe": rsc.pop("reihe_voll", rsc.get("reihe", []))}
     else:
         ergebnis["stufe"], ergebnis["stufe_begruendung"], ergebnis["stufe_begruendung_en"], ergebnis["pegel"] = None, "Der Gesamtscore ist noch nicht berechenbar.", "The overall score cannot be computed yet.", None
     ziel = WURZEL / "site" / "data" / "lage.json"

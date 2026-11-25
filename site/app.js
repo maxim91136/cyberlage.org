@@ -742,6 +742,31 @@
     box.hidden = false;
   }
 
+  function zeigeModell(sc) {
+    var box = $("rd-modell"); if (!box) return; box.textContent = "";
+    if (!sc || !sc.modell_gruppen) return;
+    box.appendChild(el("h4", "mono rd-t", pick("Aufbau · Modell ", "Structure · model ") + (sc.modell || "")));
+    var ul = el("ul", "p-liste");
+    sc.modell_gruppen.forEach(function (g) {
+      if (!g.bausteine.length) return;
+      var li = el("li", ""); li.appendChild(el("b", "mono", pick(g.name, g.name_en) + ": "));
+      li.appendChild(document.createTextNode(g.bausteine.map(function (b) { return pick(b.name, b.name_en) + (typeof b.ausschlag === "number" ? " " + b.ausschlag.toLocaleString(window.I18N.locale, { maximumFractionDigits: 2 }) : " –"); }).join(" · ")));
+      ul.appendChild(li);
+    });
+    box.appendChild(ul);
+    box.appendChild(el("p", "mono dim fine", pick("Je Gruppe wird gemittelt, dann über die Gruppen. So wiegt ein Thema nicht doppelt, nur weil mehrere Bausteine dazu messen.", "Averaged within each group, then across groups, so one topic does not weigh double just because several components measure it.")));
+    if (sc.beobachtung && sc.beobachtung.length) {
+      var d = el("details", "rd-det"); d.appendChild(el("summary", "mono", pick("In Beobachtung (zählt noch nicht): " + sc.beobachtung.length, "Under observation (does not count yet): " + sc.beobachtung.length)));
+      var u2 = el("ul", "p-liste");
+      sc.beobachtung.forEach(function (b) {
+        u2.appendChild(el("li", "", pick(b.name, b.name_en) + ": " + (b.wert === null || b.wert === undefined ? "–" : zahl(b.wert)) + " · " + pick("Historie: ", "history: ") + b.historie));
+      });
+      d.appendChild(u2);
+      d.appendChild(el("p", "mono dim fine", pick("Diese Bausteine werden täglich gespeichert. Nach etwa 90 Tagen entscheiden wir, ob sie mit eigener Schwelle in das Modell aufgenommen werden (neue Version, Verlauf wird rückwirkend neu gerechnet, soweit Historie da ist).", "These components are stored daily. After about 90 days we decide whether to add them with their own threshold to the model (new version, history recomputed where data exists).")));
+      box.appendChild(d);
+    }
+  }
+
   function zeigeKonsens(r) {
     var k = r && r.konsens, box = $("rd-signale"); box.textContent = "";
     if (!k || !k.bewertet) { $("rd-kon").textContent = txt("keine"); return; }
@@ -775,6 +800,7 @@
         sk.hidden = false;
       }
     }
+    zeigeModell(k.score);
     zeichneScope(k.signale || []);
     (k.signale || []).forEach(function (s) {
       var b = el("div", "sg"), st = s.erhoeht === true ? ["●", "an"] : (s.erhoeht === false ? ["○", "aus"] : ["–", "kn"]);

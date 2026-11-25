@@ -1,1 +1,1 @@
-{"meta":{"name":"Dreier-Pegel (Gesamtscore)","hinweis":"Tagesstand live gespeichert, keine Rückrechnung möglich, weil die externen Signale keine Historie haben"},"reihe":[{"stand":"2026-11-24","wert":55,"signale":4,"von":5},{"stand":"2026-11-25","wert":54,"signale":4,"von":4}]}
+{"meta":{"name":"Dreier-Pegel (Gesamtscore)","hinweis":"Tagesstand live gespeichert, keine Rückrechnung möglich, weil die externen Signale keine Historie haben"},"reihe":[{"stand":"2026-11-24","wert":55,"signale":4,"von":5},{"stand":"2026-11-25","wert":54,"signale":4,"von":4,"modell":"v1"}]}
