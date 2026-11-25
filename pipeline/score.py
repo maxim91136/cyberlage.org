@@ -52,7 +52,6 @@ QUELLEN_EN = {
     "eu_kev": ("EU-KEV (EUVD by ENISA)", "licence not explicitly clarified"),
     "epss": ("EPSS (FIRST)", "free to use with attribution"),
     "nvd": ("NVD (NIST)", "public domain, only publication date and CVSS score"),
-    "feodo": ("Feodo Tracker (abuse.ch)", "CC0, only the number of active command servers"),
     "cvelist": ("CVE List (CVE Program, MITRE)", "CVE Terms of Use: free to use with attribution, only publication date"),
     "sans": ("SANS Internet Storm Center (Infocon)", "Creative Commons per the ISC footer, only the traffic-light status with attribution"),
 }
@@ -169,15 +168,13 @@ def fazit(score, kev_stufe, cfg, tempo_stufe=None):
             "tempo_stufe": tempo_stufe, "text": text, "text_en": text_en, "hinweis": hint["hinweis"], "hinweis_en": hint["hinweis_en"], "stand": cfg.get("geprueft_am")}
 
 
-def pegel_rueckrechnung(kev_reihe, erhoeht_ab, tempo_reihe, tempo_erhoeht_bis, feodo_serie, obergrenze=2.0):
-    """Rückgerechneter Dreier-Pegel aus den Bausteinen, für die es Historie gibt: KEV-Menge, Tempo bis KEV, Feodo.
+def pegel_rueckrechnung(kev_reihe, erhoeht_ab, tempo_reihe, tempo_erhoeht_bis, obergrenze=2.0):
+    """Rückgerechneter Dreier-Pegel aus den Bausteinen, für die es Historie gibt: KEV-Menge und Tempo bis KEV.
     BSI Cyber Index (jährlich, von Hand) und SANS Infocon (nur heutiger Stand) haben keine Tagesreihe und fehlen darin.
     Rechnung wie beim Live-Wert: Mittelwert der Ausschläge (höchstens `obergrenze`), umgerechnet auf 0 bis 100.
     Gibt eine Liste {stand, wert, signale, von, rueck} zurück."""
     import statistics
     tempo = {p["stand"]: p["wert"] for p in tempo_reihe or []}
-    feodo = {k: v for k, v in (feodo_serie or {}).items()}
-    tage_f = sorted(feodo)
     out = []
     for p in kev_reihe:
         d = p["stand"]
@@ -186,12 +183,6 @@ def pegel_rueckrechnung(kev_reihe, erhoeht_ab, tempo_reihe, tempo_erhoeht_bis, f
             werte.append(min(p["wert"] / erhoeht_ab, obergrenze))
         if d in tempo and tempo_erhoeht_bis:
             werte.append(min(tempo_erhoeht_bis / max(tempo[d], 1.0), obergrenze))
-        if d in feodo:
-            davor = [feodo[k] for k in tage_f if k < d][-90:]
-            if len(davor) >= 30:
-                med = statistics.median(davor)
-                if med:
-                    werte.append(min(feodo[d] / (1.25 * med), obergrenze))
         if werte:
             out.append({"stand": d, "wert": round(sum(werte) / len(werte) / obergrenze * 100), "signale": len(werte), "von": 5, "rueck": True})
     return out
@@ -253,7 +244,7 @@ def zusatz_radar(daten):
         return None
     z = dict(daten["zeit_bis_kev"])
     z["verlauf"] = z.get("verlauf", [])[-36:]
-    return {"feodo": daten.get("feodo"), "feodo_serie": daten.get("feodo_serie") or {}, "abgerufen_am": daten.get("abgerufen_am"), "zeit_bis_kev": z, "trefferquote": daten.get("trefferquote"),
+    return {"abgerufen_am": daten.get("abgerufen_am"), "zeit_bis_kev": z, "trefferquote": daten.get("trefferquote"),
             "europa": daten.get("europa"), "sans": daten.get("sans"), "ncsc": daten.get("ncsc"),
             "einschaetzungen": daten.get("einschaetzungen") or [], "gruende": daten.get("gruende") or []}
 
@@ -288,7 +279,7 @@ def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None, telegram_link=None, 
     if ergebnis.get("radar"):
         import fetch_radar
         r = ergebnis["radar"]
-        r["konsens"] = fetch_radar.konsens(ergebnis["stufe"], r["zeit_bis_kev"], r["einschaetzungen"], r.get("sans"), r.pop("feodo_serie", {}),
+        r["konsens"] = fetch_radar.konsens(ergebnis["stufe"], r["zeit_bis_kev"], r["einschaetzungen"], r.get("sans"),
                                        len(fenster), regeln.get("erhoeht_ab"), tempo_cfg=regeln.get("tempo"))
         r["pruefung"] = lese_optional(WURZEL / "data" / "radar" / "pruefung.json")
 
@@ -338,9 +329,6 @@ def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None, telegram_link=None, 
         ab = ergebnis["radar"]["abgerufen_am"]
         ergebnis["quellen"].append({"id": "cvelist", "name": "CVE-Liste (CVE Program, MITRE)", "link": "https://github.com/CVEProject/cvelistV5",
                                     "lizenz": "CVE Terms of Use: frei nutzbar mit Quellenangabe, nur Veröffentlichungsdatum", "abgerufen_am": ab})
-        if ergebnis["radar"].get("feodo"):
-            ergebnis["quellen"].append({"id": "feodo", "name": "Feodo Tracker (abuse.ch)", "link": "https://feodotracker.abuse.ch/",
-                                        "lizenz": "CC0, nur die Zahl aktiver Steuerserver", "abgerufen_am": ab})
         if ergebnis["radar"].get("ncsc"):
             ergebnis["quellen"].append({"id": "ncsc", "name": "NCSC-NL Beveiligingsadviezen", "link": "https://advisories.ncsc.nl/",
                                         "lizenz": "Lizenz nicht geprüft, nur Zahl der Advisories mit Quellenangabe", "abgerufen_am": ergebnis["radar"]["abgerufen_am"]})
@@ -386,8 +374,7 @@ def main(argv):
         rs["live_seit"] = sr[0]["stand"]
         rs["reihe"] = sr[-90:]
         rtempo = (ergebnis["radar"].get("zeit_bis_kev") or {}).get("tempo_reihe") or []
-        alt = pegel_rueckrechnung(reihe, regeln.get("erhoeht_ab"), rtempo, (regeln.get("tempo") or {}).get("erhoeht_bis"),
-                                  lese_optional(WURZEL / "data" / "radar" / "feodo.json"))
+        alt = pegel_rueckrechnung(reihe, regeln.get("erhoeht_ab"), rtempo, (regeln.get("tempo") or {}).get("erhoeht_bis"))
         live = {x["stand"] for x in sr}
         rs["reihe_voll"] = [x for x in alt if x["stand"] not in live] + [dict(x, rueck=False) for x in sr]
     import fetch_radar

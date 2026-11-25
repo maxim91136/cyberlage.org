@@ -393,22 +393,11 @@ class KonsensTests(unittest.TestCase):
     BSI = [{"wert": "170", "basis": "100"}]
 
     def test_zaehlt_unabhaengige_signale(self):
-        k = fetch_radar.konsens("hoch", self.ZEIT, self.BSI, {"status": "green"}, {})
-        self.assertEqual((k["erhoeht"], k["bewertet"]), (1, 2))  # nur externe zählen: BSI ja, SANS nein, Feodo ohne 30 Messtage
+        k = fetch_radar.konsens("hoch", self.ZEIT, self.BSI, {"status": "green"})
+        self.assertEqual((k["erhoeht"], k["bewertet"]), (1, 2))  # nur externe zählen: BSI ja, SANS nein
         namen = {s["name"]: s["erhoeht"] for s in k["signale"]}
         self.assertTrue(namen["KEV-Menge"] and namen["Tempo bis KEV"] and namen["BSI Cyber Index"])
         self.assertFalse(namen["SANS Infocon"])
-        self.assertIsNone(namen["Botnetz-Server (Feodo)"])
-
-    def test_feodo_ab_30_tagen_und_luecken_bleiben_offen(self):
-        serie = {f"2026-10-{i:02d}": 100 for i in range(1, 31)}
-        serie["2026-11-01"] = 150
-        k = fetch_radar.konsens("niedrig", {}, [], None, serie)
-        namen = {s["name"]: s["erhoeht"] for s in k["signale"]}
-        self.assertTrue(namen["Botnetz-Server (Feodo)"])
-        self.assertFalse(namen["KEV-Menge"])
-        self.assertIsNone(namen["Tempo bis KEV"]); self.assertIsNone(namen["BSI Cyber Index"]); self.assertIsNone(namen["SANS Infocon"])
-        self.assertEqual((k["erhoeht"], k["bewertet"]), (1, 1))  # nur Feodo ist extern und bewertbar
 
 
 class FeedTests(unittest.TestCase):
@@ -441,13 +430,12 @@ class NcscTests(unittest.TestCase):
 class AusschlagTests(unittest.TestCase):
     def test_ausschlag_und_englische_stufe(self):
         import fetch_radar
-        k = fetch_radar.konsens("hoch", {}, [{"wert": "170", "basis": "100"}], {"status": "yellow"}, {}, 36, 25)
+        k = fetch_radar.konsens("hoch", {}, [{"wert": "170", "basis": "100"}], {"status": "yellow"}, 36, 25)
         d = {x["name_en"]: x for x in k["signale"]}
         self.assertEqual(d["KEV count"]["ausschlag"], 1.44)
         self.assertEqual(d["KEV count"]["grund_en"], "level high")
         self.assertEqual(d["BSI Cyber Index"]["ausschlag"], 1.42)
         self.assertEqual(d["SANS Infocon"]["ausschlag"], 1.1)
-        self.assertIsNone(d["Botnet servers (Feodo)"]["ausschlag"])
 
 
 class PegelTests(unittest.TestCase):
@@ -731,7 +719,7 @@ class TempoTests(unittest.TestCase):
 
     def test_konsens_mit_tempo(self):
         zeit = {"jetzt": {"n_frisch": 50, "median_frisch": 4.0}, "vor_12_monaten": {"n_frisch": 50, "median_frisch": 11.0}}
-        k = fetch_radar.konsens("hoch", zeit, [], None, {}, 39, 25, tempo_cfg=self.CFG)
+        k = fetch_radar.konsens("hoch", zeit, [], None, 39, 25, tempo_cfg=self.CFG)
         namen = {x["name_en"]: x for x in k["signale"]}
         self.assertIn("KEV pace", namen)
         self.assertTrue(namen["KEV pace"]["erhoeht"])
@@ -925,36 +913,12 @@ class SapTests(unittest.TestCase):
         self.assertEqual(r[1]["cves"], ["CVE-2026-0002"])
 
 
-class FeodoRueckTests(unittest.TestCase):
-    CSV = ('################\n# Last updated\n#\n"first_seen_utc","dst_ip","dst_port","c2_status","last_online","malware"\n'
-           '"2026-11-01 10:00:00","1.2.3.4","443","offline","2026-11-10","Emotet"\n'
-           '"2026-11-05 10:00:00","5.6.7.8","443","online","2026-11-24","QakBot"\n')
-
-    def test_rueckrechnung_zaehlt_aktive_je_tag(self):
-        import fetch_radar
-        from datetime import date
-        r = fetch_radar.parse_feodo_alle(self.CSV, date(2026, 11, 25), tage=30)
-        self.assertEqual(r["2026-11-03"], 1)
-        self.assertEqual(r["2026-11-08"], 2)
-        self.assertEqual(r["2026-11-12"], 1)
-        self.assertEqual(r["2026-10-30"], 0)
-
-    def test_messungen_werden_nicht_ueberschrieben(self):
-        import fetch_radar
-        from datetime import date
-        serie = {"2026-11-24": 7}
-        gef = fetch_radar.feodo_rueckrechnen(serie, self.CSV, date(2026, 11, 25))
-        self.assertEqual(serie["2026-11-24"], 7)
-        self.assertNotIn("2026-11-24", gef)
-        self.assertGreaterEqual(len(serie), 100)
-
-
 class PegelRueckTests(unittest.TestCase):
     def test_rueckrechnung_mittelt_vorhandene_bausteine(self):
         import score
         kev = [{"stand": "2026-01-01", "wert": 25}, {"stand": "2026-01-02", "wert": 50}]
         tempo = [{"stand": "2026-01-01", "wert": 5.0}]
-        r = score.pegel_rueckrechnung(kev, 25, tempo, 5, {})
+        r = score.pegel_rueckrechnung(kev, 25, tempo, 5)
         self.assertEqual(r[0]["signale"], 2)
         self.assertEqual(r[0]["wert"], 50)          # beide Ausschläge 1,0 -> 50
         self.assertEqual(r[1]["signale"], 1)

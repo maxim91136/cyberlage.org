@@ -267,8 +267,8 @@
     });
     var t = document.createElementNS(NS, "title"); t.textContent = pick("Verlauf des Dreier-Pegels, zuletzt " + v[v.length - 1].wert + " von 100.", "Dreier Gauge over time, latest " + v[v.length - 1].wert + " of 100."); svg.insertBefore(t, svg.firstChild);
     var nr = v.filter(function (p) { return p.rueck; }).length;
-    leg.textContent = (nr ? pick("Gedämpfte Linie: rückgerechnet für " + nr + " Tage aus den Bausteinen mit Historie (KEV-Menge, Tempo bis KEV, Botnetz-Server); BSI Cyber Index und SANS Infocon haben keine Tagesreihe und fehlen darin, die Zahl der beteiligten Bausteine steht im Tooltip. Helle Linie: live gemessen seit " + datum(sc.live_seit || v[0].stand) + " mit allen verfügbaren Bausteinen, der Übergang kann springen. ",
-        "Dimmed line: back-calculated for " + nr + " days from the components with history (KEV count, pace to KEV, botnet servers); BSI Cyber Index and SANS Infocon have no daily series and are missing from it, the number of components taking part is in the tooltip. Bright line: measured live since " + datum(sc.live_seit || v[0].stand) + " with all available components, the junction may jump. ")
+    leg.textContent = (nr ? pick("Gedämpfte Linie: rückgerechnet für " + nr + " Tage aus den Bausteinen mit Historie (KEV-Menge, Tempo bis KEV); BSI Cyber Index und SANS Infocon haben keine Tagesreihe und fehlen darin, die Zahl der beteiligten Bausteine steht im Tooltip. Helle Linie: live gemessen seit " + datum(sc.live_seit || v[0].stand) + " mit allen verfügbaren Bausteinen, der Übergang kann springen. ",
+        "Dimmed line: back-calculated for " + nr + " days from the components with history (KEV count, pace to KEV); BSI Cyber Index and SANS Infocon have no daily series and are missing from it, the number of components taking part is in the tooltip. Bright line: measured live since " + datum(sc.live_seit || v[0].stand) + " with all available components, the junction may jump. ")
       : pick("Eine Messung pro Tag, seit " + datum(sc.live_seit || v[0].stand) + ". ", "One reading per day, since " + datum(sc.live_seit || v[0].stand) + ". ")) +
       pick("Experiment, nicht objektiv. Strichlinien: Stufengrenzen 30, 50, 64, 80.", "Experiment, not objective. Dashed lines: level limits 30, 50, 64, 80.");
   }
@@ -780,13 +780,7 @@
       var b = el("div", "sg"), st = s.erhoeht === true ? ["●", "an"] : (s.erhoeht === false ? ["○", "aus"] : ["–", "kn"]);
       b.appendChild(el("span", "p mono " + st[1], st[0]));
       b.appendChild(el("span", "n", pick(s.name, s.name_en) + (s.art === "eigen" ? pick(" (eigen)", " (own)") : "") + " · " + (s.erhoeht === true ? pick("erhöht", "elevated") : (s.erhoeht === false ? pick("normal", "normal") : pick("noch keine Aussage", "no rating yet")))));
-      var feodoOffen = s.erhoeht === null && /Feodo/.test(s.name_en || "") && typeof k.messtage_feodo === "number";
-      if (feodoOffen) {
-        var fehlt = Math.max(1, 31 - k.messtage_feodo), ab = new Date(Date.parse(r.abgerufen_am) + fehlt * 86400000);
-        b.appendChild(el("span", "g", pick("Messreihe im Aufbau: " + k.messtage_feodo + " von 31 Tagen, zählt ab etwa " + datum(ab.toISOString()) + ". Die Quelle liefert nur den heutigen Stand, die Historie sammeln wir selbst; ohne sie wäre der Vergleich mit dem 90-Tage-Median geraten.",
-          "Series being built: " + k.messtage_feodo + " of 31 days, counts from about " + datum(ab.toISOString()) + ". The source only provides today's reading, we collect the history ourselves; without it the comparison with the 90-day median would be a guess.")));
-      } else
-      b.appendChild(el("span", "g", typeof s.ausschlag === "number" ? pick("Ausschlag ", "reading ") + s.ausschlag.toLocaleString(window.I18N.locale, { minimumFractionDigits: 1, maximumFractionDigits: 2 }) + pick("-fache der Schwelle", "x the threshold") : pick("noch kein Messwert", "no reading yet")));
+b.appendChild(el("span", "g", typeof s.ausschlag === "number" ? pick("Ausschlag ", "reading ") + s.ausschlag.toLocaleString(window.I18N.locale, { minimumFractionDigits: 1, maximumFractionDigits: 2 }) + pick("-fache der Schwelle", "x the threshold") : pick("noch kein Messwert", "no reading yet")));
       box.appendChild(b);
     });
   }
@@ -846,7 +840,6 @@
       var sn = { green: ["ruhig (grün)", "calm (green)"], yellow: ["erhöht (gelb)", "raised (yellow)"], orange: ["hoch (orange)", "high (orange)"], red: ["kritisch (rot)", "critical (red)"] }[r.sans.status] || ["–", "–"];
       kachel({ gr: "score", nat: "eins", quelle: "extern", sig: "SANS Infocon", name: "SANS Infocon", url: "https://isc.sans.edu/", wert: pick(sn[0], sn[1]), misst: pick("Scans und Ausbrüche im Netz", "scans and outbreaks across the internet"), stand: tg + datum(r.sans.abgerufen_am) + " · live" });
     }
-    if (r.feodo) kachel({ gr: "score", nat: "mess", quelle: "extern", sig: "Botnet servers (Feodo)", name: pick("Botnetz-Server (Feodo)", "Botnet servers (Feodo)"), url: "https://feodotracker.abuse.ch/", wert: zahl(r.feodo.online), einheit: pick(" aktiv", " active"), misst: pick("aktive Steuerserver, abuse.ch", "active command servers, abuse.ch"), stand: pick("täglich · ", "daily · ") + ((r.konsens && r.konsens.messtage_feodo) || 0) + pick(" Messtage · abgerufen ", " days of data · fetched ") + datum(r.abgerufen_am) });
     if (typeof t.prognosen === "number") kachel({ gr: "ktx", nat: "mess", quelle: "eigen", name: pick("Trefferquote Prognose", "Forecast hit rate"), wert: typeof t.quote_reif === "number" ? proz(t.quote_reif) : "–", misst: pick("Prognosen: ", "forecasts: ") + t.prognosen + pick(", eingetreten: ", ", occurred: ") + t.eingetreten, stand: (typeof t.quote_reif === "number" ? "" : pick("erste Quote nach 30 Tagen · ", "first rate after 30 days · ")) + pick("eigener Abgleich EPSS gegen KEV · Stand ", "own comparison EPSS vs KEV · as of ") + datum(r.abgerufen_am) });
     if (e) kachel({ gr: "ktx", nat: "mess", quelle: "eigen", name: "EU-KEV", wert: e.auch_im_cisa + "/" + e.eu_eintraege, misst: pick("EU-Einträge, die auch im CISA-KEV stehen", "EU entries also in CISA KEV"), stand: pick("eigener Abgleich EUVD (ENISA) gegen CISA-KEV · abgerufen ", "own comparison EUVD (ENISA) vs CISA KEV · retrieved ") + datum((d.eu_kev || {}).abgerufen_am || r.abgerufen_am) });
     if (r.ncsc) kachel({ gr: "ktx", nat: "mess", quelle: "extern", name: "NCSC-NL", url: "https://advisories.ncsc.nl/", wert: zahl(r.ncsc.advisories_30), einheit: pick(" Advisories", " advisories"), misst: zahl(r.ncsc.hoch_hoch_30) + pick(" davon mit Kans und Schade hoch", " rated likelihood and damage high"), stand: pick("30 Tage · ", "30 days · ") + tg + datum(r.abgerufen_am) });
