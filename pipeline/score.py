@@ -484,6 +484,14 @@ def main(argv):
                          "live": {x["stand"]: [x["wert"], x["signale"]] for x in lang if x.get("wert") is not None}}
         del pg["reihe"]
     ziel.write_text(json.dumps(ergebnis, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+    # Kleine Statusdatei für die Überwachung: Stand, Pegel und ob alle Bausteine einen Wert haben
+    sig = [x for x in ((ergebnis.get("radar") or {}).get("konsens") or {}).get("signale", [])]
+    fehlend = [x["name"] for x in sig if not isinstance(x.get("ausschlag"), (int, float))]
+    pgs = ergebnis.get("pegel") or {}
+    status = {"stand": ergebnis.get("stand"), "abgerufen_am": (ergebnis.get("radar") or {}).get("abgerufen_am"), "stufe": ergebnis.get("stufe"),
+              "pegel": pgs.get("wert"), "bausteine": pgs.get("signale"), "von": pgs.get("von"), "fehlend": fehlend,
+              "vollstaendig": bool(pgs.get("von")) and pgs.get("signale") == pgs.get("von") and not fehlend}
+    (WURZEL / "site" / "data" / "status.json").write_text(json.dumps(status, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     print(f"OK: {ziel.relative_to(WURZEL)} (Stand {stand}, Dreier-Pegel: {ergebnis['stufe']}, KEV-Menge: {ergebnis['kev_stufe']})")
     return 0
 
