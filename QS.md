@@ -26,6 +26,7 @@ Steve soll nicht zwischen den Chats vermitteln müssen. Wer am Repo arbeitet, li
 
 ## Entscheidungen von Steve
 
+- 25.11.2026: Jede Tabelle muss sortierbar und filterbar sein. Umgesetzt allgemein in `site/app.js` (`tabelleAusbauen`): Klick auf den Spaltenkopf sortiert, ab sechs Zeilen kommt ein Filterfeld. Neue Tabellen brauchen dafür nur `<thead>` und `<tbody>`.
 - 25.11.2026: Die Patch-Seite soll mehr Rollen bedienen (Admins, Netzwerk, Anwendungsverantwortliche, SOC). Priorisierung macht die QS; gebaut wird nur, was echten Mehrwert hat. Zwei Sichten (Lage/Handeln) statt freier Anpassung.
 - 25.11.2026: Radar und Bausteine-Vergleich stehen oben und offen. Am Radar selbst nichts ändern. Schwenk: eine Minute je Umlauf.
 - 25.11.2026: Kopfbereich zentriert, Blue-Team-Abzeichen unter dem Pegel-Kasten.
