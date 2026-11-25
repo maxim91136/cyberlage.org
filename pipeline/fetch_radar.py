@@ -271,24 +271,27 @@ def parse_feodo_alle(text, heute, tage=FEODO_RUECK_TAGE):
     kopf, zeilen = None, []
     for z in text.splitlines():
         z = z.strip()
-        if not z:
+        if not z or z.startswith("#"):
             continue
-        if z.startswith("#"):
-            if "first_seen" in z and "last_online" in z:
-                kopf = [c.strip().strip('"') for c in z.lstrip("# ").split(",")]
+        if kopf is None and "first_seen" in z and "last_online" in z:
+            kopf = [c.strip().strip('"') for c in z.split(",")]  # die Kopfzeile ist in der echten Datei keine Kommentarzeile
             continue
         zeilen.append(z)
     if not kopf:
         raise ValueError("Feodo-Liste ohne Kopfzeile")
-    i0, i1 = kopf.index("first_seen_utc") if "first_seen_utc" in kopf else kopf.index("first_seen"), kopf.index("last_online")
+    i0 = kopf.index("first_seen_utc") if "first_seen_utc" in kopf else kopf.index("first_seen")
+    i1, ist = kopf.index("last_online"), (kopf.index("c2_status") if "c2_status" in kopf else None)
     von_bis = []
     for row in csv.reader(zeilen):
         try:
             a = datetime.strptime(row[i0].strip()[:10], "%Y-%m-%d").date()
-            b = datetime.strptime(row[i1].strip()[:10], "%Y-%m-%d").date() if row[i1].strip() else heute
+            if row[i1].strip():
+                b = datetime.strptime(row[i1].strip()[:10], "%Y-%m-%d").date()
+            else:  # ohne last_online: nur online bis heute, sonst nur am Tag der ersten Sichtung
+                b = heute if ist is not None and row[ist].strip().lower() == "online" else a
         except (ValueError, IndexError):
             continue
-        von_bis.append((a, b))
+        von_bis.append((a, max(a, b)))
     if not von_bis:
         raise ValueError("Feodo-Liste ohne lesbare Einträge")
     out = {}

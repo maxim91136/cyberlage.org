@@ -926,7 +926,7 @@ class SapTests(unittest.TestCase):
 
 
 class FeodoRueckTests(unittest.TestCase):
-    CSV = ('################\n# first_seen_utc,dst_ip,dst_port,c2_status,last_online,malware\n################\n'
+    CSV = ('################\n# Last updated\n#\n"first_seen_utc","dst_ip","dst_port","c2_status","last_online","malware"\n'
            '"2026-11-01 10:00:00","1.2.3.4","443","offline","2026-11-10","Emotet"\n'
            '"2026-11-05 10:00:00","5.6.7.8","443","online","2026-11-24","QakBot"\n')
 
