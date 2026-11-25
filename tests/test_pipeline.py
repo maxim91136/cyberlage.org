@@ -532,7 +532,7 @@ class RadarStufenTests(unittest.TestCase):
         f = score.fazit({"wert": 61}, "hoch", self.cfg)
         self.assertEqual(f["stufe"], "angespannt")
         self.assertIn("KEV-Menge liegt weit über dem Üblichen", f["text"])
-        self.assertTrue(f["text"].startswith("Die Signale liegen im Schnitt über"))  # Stufe des Gesamtscores zuerst, dann die Bausteine
+        self.assertTrue(f["text"].startswith("Die Bausteine liegen im Schnitt über"))  # Stufe des Gesamtscores zuerst, dann die Bausteine
         self.assertEqual(f["status"], "vorlaeufig")
         self.assertIsNone(score.fazit(None, "hoch", self.cfg))
         self.assertIsNone(score.fazit({"wert": 61}, "unbekannt", self.cfg))
