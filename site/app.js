@@ -546,6 +546,7 @@
     if (!pr) { box.hidden = true; return; }
     box.textContent = "";
     box.appendChild(el("h3", "mono rd-t", pick("Diese Woche zuerst", "This week first")));
+    box.appendChild(el("p", "mono dim fine", pick("KEV: nachweislich ausgenutzt (CISA) · EPSS: Wahrscheinlichkeit einer Ausnutzung in 30 Tagen · CVSS: Schwere von 0 bis 10", "KEV: proven to be exploited (CISA) · EPSS: probability of exploitation within 30 days · CVSS: severity from 0 to 10")));
     if (!pr.liste.length) {
       box.appendChild(el("p", "", pick("Aktuell nichts, was nach unseren Regeln vorgezogen werden muss: keine Lücke aus den Patches der letzten Wochen steht im CISA-KEV, wird vom Hersteller als ausgenutzt gemeldet oder hat eine hohe Ausnutzungswahrscheinlichkeit. Der normale Patchzyklus genügt.", "Currently nothing that needs to be moved up by our rules: no flaw from the recent patches is in the CISA KEV, reported as exploited by the vendor or has a high likelihood of exploitation. The normal patch cycle is enough.")));
     } else {
@@ -564,7 +565,9 @@
         var bw = [];
         (k.cvss || []).forEach(function (c) { bw.push("CVSS " + String(c.score).replace(".", pick(",", ".")) + ((k.cves || []).length > 1 || k.cvss.length > 1 ? " (" + c.cve + ")" : "")); });
         if (typeof k.epss === "number") bw.push("EPSS " + Math.round(k.epss * 100) + " %");
-        li.appendChild(el("div", "p-w mono", pick("Bewertung: ", "Scores: ") + (bw.length ? bw.join(" · ") : pick("CVSS noch nicht verfügbar", "CVSS not available yet")) + (k.cves && k.cves.length > 3 ? " …" : "")));
+        var bwz = el("div", "p-w mono", pick("Bewertung: ", "Scores: ") + (bw.length ? bw.join(" · ") : pick("CVSS noch nicht verfügbar", "CVSS not available yet")) + (k.cves && k.cves.length > 3 ? " …" : ""));
+        bwz.title = pick("CVSS: Schwere einer Lücke von 0 bis 10, vergeben vom Hersteller oder der NVD. EPSS: geschätzte Wahrscheinlichkeit, dass die Lücke in den nächsten 30 Tagen ausgenutzt wird (FIRST). KEV: Liste nachweislich ausgenutzter Lücken (CISA).", "CVSS: severity of a flaw from 0 to 10, assigned by the vendor or the NVD. EPSS: estimated probability that the flaw is exploited within the next 30 days (FIRST). KEV: list of flaws proven to be exploited (CISA).");
+        li.appendChild(bwz);
         det.appendChild(el("div", "p-w mono dim fine", pick("Rang " + k.rang + ": Stufe " + k.stufe + " von 4 (", "Rank " + k.rang + ": level " + k.stufe + " of 4 (") + pick(k.stufe_name, k.stufe_name_en) + pick("). Innerhalb der Stufe zählt EPSS, dann CVSS.", "). Within a level EPSS counts, then CVSS.")));
         var fx = el("div", "p-fix"); fx.appendChild(el("b", "mono", pick("Lösung: ", "Fix: ")));
         var teile = [];

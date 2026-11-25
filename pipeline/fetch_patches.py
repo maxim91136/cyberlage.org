@@ -862,8 +862,8 @@ def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=24, cvss=None):
                 continue
             gesehen.update(neue)
             kand.append({"stufe": 1, "epss": None, "quelle": q["name"], "titel": x["titel"], "cves": neue,
-                         "grund": "Schließt %d Lücke(n) aus dem CISA-KEV: nachweislich angegriffen." % len(neue),
-                         "grund_en": "Closes %d flaw(s) from the CISA KEV: proven to be attacked." % len(neue),
+                         "grund": ("Schließt 1 Lücke aus dem CISA-KEV: nachweislich angegriffen." if len(neue) == 1 else "Schließt %d Lücken aus dem CISA-KEV: nachweislich angegriffen." % len(neue)),
+                         "grund_en": ("Closes 1 flaw from the CISA KEV: proven to be attacked." if len(neue) == 1 else "Closes %d flaws from the CISA KEV: proven to be attacked." % len(neue)),
                          **({"patch": "ja", "patch_text": "Paket-Update liegt vor (" + _pm(q["name"]) + "), Version steht in der Meldung", "patch_text_en": "Package update available (" + _pm(q["name"]) + "), version is in the advisory"} if q.get("typ") != "hersteller" else
                             {"patch": "pruefen", "patch_text": "Fix-Stand im Advisory prüfen", "patch_text_en": "Check fix status in the advisory"}), "betrifft": q["name"], "datum": x["datum"], "link": x["link"]})
         for x in q.get("letzte", []):

@@ -95,7 +95,7 @@ def patch_nachrichten(lage, alt, jetzt):
             nachrichten.append(f"<b>Microsoft Patch Day {e(k)}</b>\n" + "\n".join(zeilen) + f"\nNicht mitgezählt: Chromium (Edge) und Azure-Linux-Paketlücken.\n{SEITE}/#patches")
         elif frueher is not None and len(m.get("nachtraege") or []) > frueher.get("nachtraege", 0):
             x = m["nachtraege"][-1]
-            nachrichten.append(f"<b>Microsoft {e(k)}: Nachtrag (Out-of-Band)</b>\n{zahl(x.get('neue_cves'))} neue Lücke(n), davon {zahl(x.get('ausgenutzt_neu'))} ausgenutzt\n{SEITE}/#patches")
+            nachrichten.append(f"<b>Microsoft {e(k)}: Nachtrag (Out-of-Band)</b>\n{zahl(x.get('neue_cves'))} {'neue Lücke' if x.get('neue_cves') == 1 else 'neue Lücken'}, davon {zahl(x.get('ausgenutzt_neu'))} ausgenutzt\n{SEITE}/#patches")
     return nachrichten, neu
 
 
