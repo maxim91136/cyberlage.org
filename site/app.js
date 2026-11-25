@@ -64,7 +64,7 @@
       ticks = false;
       knopf.classList.toggle("on", window.scrollY > window.innerHeight * 1.2);
       var aktiv = -1, grenze = window.scrollY + 120;
-      abschnitte.forEach(function (sec, i) { if (sec && sec.offsetParent !== null && sec.getBoundingClientRect().top + window.scrollY <= grenze) aktiv = i; });
+      abschnitte.forEach(function (sec, i) { if (!sec || sec.offsetParent === null) return; var r = sec.getBoundingClientRect(); if (r.top <= 120 && r.bottom > 120) aktiv = i; });
       navLinks.forEach(function (a, i) { if (i === aktiv) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current"); a.classList.toggle("aktiv", i === aktiv); });
     };
     window.addEventListener("scroll", function () { if (!ticks) { ticks = true; requestAnimationFrame(pruefen); } }, { passive: true });
@@ -242,7 +242,7 @@
     };
     [0, Math.round(max / 2), max].forEach(function (n) {
       mk("line", { x1: L, x2: B - R, y1: y(n), y2: y(n), stroke: "#1d262e" });
-      mk("text", { x: L - 6, y: y(n) + 4, "text-anchor": "end", fill: "#8a99a6", "font-size": 11, "font-family": "ui-monospace,monospace" }, String(n));
+      mk("text", { x: L - 6, y: y(n) + 4, "text-anchor": "end", fill: "#8a99a6", "font-size": 12, "font-family": "ui-monospace,monospace" }, String(n));
     });
     v.forEach(function (p, i) {
       var t = mk("rect", { x: L + i * w + 1, y: y(p.neu), width: Math.max(w - 2, 1), height: y(0) - y(p.neu), fill: farbe[p.stufe] || "#8a99a6" });
@@ -251,10 +251,10 @@
     [["erhoeht_ab", "erhöht ab", "#e3b341"], ["hoch_ab", "hoch ab", "#ff8a7a"]].forEach(function (c) {
       if (typeof sw[c[0]] !== "number") return;
       mk("line", { x1: L, x2: B - R + 2, y1: y(sw[c[0]]), y2: y(sw[c[0]]), stroke: c[2], "stroke-dasharray": "5 4" });
-      mk("text", { x: B - R + 6, y: y(sw[c[0]]) + 4, "text-anchor": "start", fill: c[2], "font-size": 11, "font-family": "ui-monospace,monospace" }, txt(c[0] === "hoch_ab" ? "hoch" : "erhoeht") + " " + sw[c[0]]);
+      mk("text", { x: B - R + 6, y: y(sw[c[0]]) + 4, "text-anchor": "start", fill: c[2], "font-size": 12, "font-family": "ui-monospace,monospace" }, txt(c[0] === "hoch_ab" ? "hoch" : "erhoeht") + " " + sw[c[0]]);
     });
     [0, Math.floor(v.length / 2), v.length - 1].forEach(function (i) {
-      mk("text", { x: L + i * w + w / 2, y: H - 8, "text-anchor": i === 0 ? "start" : (i === v.length - 1 ? "end" : "middle"), fill: "#8a99a6", "font-size": 11, "font-family": "ui-monospace,monospace" }, datum(v[i].stand));
+      mk("text", { x: L + i * w + w / 2, y: H - 8, "text-anchor": i === 0 ? "start" : (i === v.length - 1 ? "end" : "middle"), fill: "#8a99a6", "font-size": 12, "font-family": "ui-monospace,monospace" }, datum(v[i].stand));
     });
     var zahlen = v.map(function (p) { return p.neu; });
     var s = $("verlauf-titel");
@@ -277,7 +277,7 @@
     var mk = function (tag, a, t) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); if (t !== undefined) e.textContent = t; svg.appendChild(e); return e; };
     var y = function (n) { return T + (H - T - U) * (1 - n / 100); };
     var x = function (i) { return v.length < 2 ? (L + B - R) / 2 : L + i * (B - L - R) / (v.length - 1); };
-    var mono = { "font-size": 11, "font-family": "ui-monospace,monospace", fill: "#8a99a6" };
+    var mono = { "font-size": 12, "font-family": "ui-monospace,monospace", fill: "#8a99a6" };
     [0, 50, 100].forEach(function (n) {
       mk("line", { x1: L, x2: B - R, y1: y(n), y2: y(n), stroke: n === 50 ? "#263340" : "#1d262e", "stroke-dasharray": n === 50 ? "4 4" : "0" });
       mk("text", Object.assign({ x: L - 6, y: y(n) + 4, "text-anchor": "end" }, mono), String(n));
@@ -787,7 +787,7 @@
     var NS = "http://www.w3.org/2000/svg", W = 540, bo = sc.beobachtung || [], H = 36 + (bs.length + bo.length) * 34, X0 = 150, X1 = 500, max = 2;
     var svg = document.createElementNS(NS, "svg"); svg.setAttribute("viewBox", "0 0 " + W + " " + H); svg.setAttribute("width", "100%"); svg.setAttribute("role", "img"); svg.setAttribute("class", "rd-balken");
     var mk = function (tag, a, t) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); if (t !== undefined) e.textContent = t; svg.appendChild(e); return e; };
-    var mono = { "font-family": "ui-monospace,Menlo,Consolas,monospace", "font-size": "11", fill: "#9aa7b4" };
+    var mono = { "font-family": "ui-monospace,Menlo,Consolas,monospace", "font-size": "12", fill: "#9aa7b4" };
     var xs = function (v) { return X0 + (Math.min(v, max) / max) * (X1 - X0); };
     mk("title", {}, pick("Bausteine als Balken, Schwelle bei 1,0", "Components as bars, threshold at 1.0"));
     bs.forEach(function (b, i) {
@@ -866,9 +866,12 @@
           seg.title = pick(x.name, x.name_en) + " (" + von + "–" + (bis === 100 ? 100 : bis - 1) + ")"; bar.appendChild(seg); von = bis;
         });
         var mk = el("i", "mk"); mk.style.left = Math.max(0, Math.min(100, sc.wert)) + "%"; bar.appendChild(mk);
+        var mz = el("b", "mkz mono", String(sc.wert)); mz.style.left = Math.max(2, Math.min(98, sc.wert)) + "%"; bar.appendChild(mz);
         var zt = el("div", "skz mono"); [0, 30, 50, 64, 80, 100].forEach(function (n) { var t = el("span", "", String(n)); t.style.left = n + "%"; zt.appendChild(t); });
-        sk.appendChild(bar); sk.appendChild(zt);
-        sk.appendChild(el("p", "mono dim fine", pick("Stufen: ruhig, unauffällig, angespannt, hoch, außergewöhnlich. Grenzen vorläufig.", "Levels: calm, unremarkable, tense, high, exceptional. Limits provisional.")));
+        var nm = el("div", "skn mono"), v0 = 0;
+        kal.stufen.forEach(function (x) { var b2 = Math.min(x.bis, 100), t = el("span", x.ampel === ampel ? "akt" : "", pick(x.name, x.name_en)); t.style.width = (b2 - v0) + "%"; nm.appendChild(t); v0 = b2; });
+        sk.appendChild(bar); sk.appendChild(zt); sk.appendChild(nm);
+        sk.appendChild(el("p", "mono dim fine skt", pick("Stufen: ruhig, unauffällig, angespannt, hoch, außergewöhnlich. Grenzen vorläufig.", "Levels: calm, unremarkable, tense, high, exceptional. Limits provisional.")));
         sk.hidden = false;
       }
     }
@@ -987,14 +990,14 @@ b.appendChild(el("span", "g", typeof s.ausschlag === "number" ? pick("Messwert: 
     var y = function (p) { return T + (H - T - U) * (1 - p); }, w = (B - L - R) / v.length;
     [0, 0.5, 1].forEach(function (p) {
       mk("line", { x1: L, x2: B - R, y1: y(p), y2: y(p), stroke: "#1d262e" });
-      mk("text", { x: L - 6, y: y(p) + 4, "text-anchor": "end", fill: "#8a99a6", "font-size": 11, "font-family": "ui-monospace,monospace" }, Math.round(p * 100) + " %");
+      mk("text", { x: L - 6, y: y(p) + 4, "text-anchor": "end", fill: "#8a99a6", "font-size": 12, "font-family": "ui-monospace,monospace" }, Math.round(p * 100) + " %");
     });
     v.forEach(function (p, i) {
       var t = mk("rect", { x: L + i * w + 1, y: y(p.anteil_30), width: Math.max(w - 2, 1), height: y(0) - y(p.anteil_30), fill: i === v.length - 1 ? "#ff8a7a" : "#3fae7a" });
       t.appendChild(document.createElementNS(NS, "title")).textContent = p.monat + ": " + Math.round(p.anteil_30 * 100) + " % (" + p.n + ")";
     });
     [0, Math.floor(v.length / 2), v.length - 1].forEach(function (i) {
-      mk("text", { x: L + i * w + w / 2, y: H - 8, "text-anchor": i === 0 ? "start" : (i === v.length - 1 ? "end" : "middle"), fill: "#8a99a6", "font-size": 11, "font-family": "ui-monospace,monospace" }, v[i].monat);
+      mk("text", { x: L + i * w + w / 2, y: H - 8, "text-anchor": i === 0 ? "start" : (i === v.length - 1 ? "end" : "middle"), fill: "#8a99a6", "font-size": 12, "font-family": "ui-monospace,monospace" }, v[i].monat);
     });
     $("rd-chart-titel").textContent = pick("Anteil der KEV-Aufnahmen binnen 30 Tagen nach Veröffentlichung, je Monat, " + v[0].monat + " bis " + v[v.length - 1].monat + ", zuletzt " + Math.round(v[v.length - 1].anteil_30 * 100) + " %",
       "Share of KEV additions within 30 days of publication, per month, " + v[0].monat + " to " + v[v.length - 1].monat + ", latest " + Math.round(v[v.length - 1].anteil_30 * 100) + " %");

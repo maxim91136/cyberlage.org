@@ -553,3 +553,12 @@ html[lang=en] #teil3 .akk>summary::after{content:"OPEN +"}html[lang=en] #teil3 .
 .blau{overflow:hidden}.tabelle{overflow:auto}
 .p-badge,.kc-a,.nav-grp{border-radius:5px}
 @media (max-width:600px){#patches .sek>summary h2,#k-patches>summary h2{font-size:16px}}
+/* Aus der dritten Durchsicht: Skala beschriftet, Mindestschrift 12 px, Empfehlung in Textfarbe */
+.ska .mkz{position:absolute;top:-24px;transform:translateX(-50%);font-size:13px;color:#fff;background:#0d1117;border:1px solid #fff;border-radius:5px;padding:0 5px;line-height:17px}
+.rd-skala{margin-top:26px}
+.skn{display:flex;margin-top:2px;font-size:12px;color:var(--dim)}.skn span{text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.skn .akt{color:var(--text);font-weight:700}
+.skt{display:none}
+@media (max-width:700px){.skn{display:none}.skt{display:block}}
+.skz,.kc-s,.nav-grp,.nav-row .nav-grp{font-size:12px}.kc-a{font-size:11px}
+.teil>summary::after,.sek>summary::after,#teil3 .akk>summary::after{font-size:12px;letter-spacing:.1em}.sek.sub>summary::after{font-size:11px}
+.fz-dl dd.fh{color:var(--text)}.fz-dl dt{font-size:12px}.fz-dl dt:last-of-type{color:var(--green)}
