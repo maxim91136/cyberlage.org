@@ -510,7 +510,12 @@ def main(argv):
                 return next((x["ampel"] for x in skala if w < x["bis"]), skala[-1]["ampel"])
             namen = {x["ampel"]: (x["name"], x["name_en"]) for x in skala}
             live = [x for x in (lese_optional(WURZEL / "data" / "radar" / "score.json") or {}).get("reihe", []) if isinstance(x.get("wert"), (int, float))]
-            if modell.logbuch_stufenwechsel(lb, sorted(live, key=lambda x: x["stand"]), _stufe, namen):
+            live = sorted(live, key=lambda x: x["stand"])
+            ohne = [x["name"] for x in ((ergebnis.get("radar") or {}).get("konsens") or {}).get("signale", []) if not isinstance(x.get("ausschlag"), (int, float))]
+            neu = modell.logbuch_stufenwechsel(lb, live, _stufe, namen) + modell.logbuch_hoechststand(lb, live)
+            if ergebnis.get("stand") and (ergebnis.get("pegel") or {}).get("von"):
+                neu += modell.logbuch_ausfall(lb, ergebnis["stand"], ohne)
+            if neu:
                 lbp.write_text(json.dumps(lb, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     except Exception as e:  # das Logbuch darf den Lauf nicht aufhalten
         print("Hinweis: Logbuch nicht fortgeschrieben:", e)

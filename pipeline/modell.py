@@ -208,3 +208,41 @@ def logbuch_stufenwechsel(logbuch, live_reihe, stufe_von, namen):
     if neu:
         logbuch.setdefault("eintraege", []).extend(neu)
     return neu
+
+
+def _lb_juenger(logbuch, praefix, stand, tage=7):
+    """Gibt es einen Eintrag mit diesem Schlüsselanfang, der höchstens `tage` Tage vor `stand` liegt?"""
+    from datetime import date
+    s = date.fromisoformat(stand)
+    return any((e.get("schluessel") or "").startswith(praefix) and 0 <= (s - date.fromisoformat(e["datum"])).days <= tage
+               for e in logbuch.get("eintraege", []))
+
+
+def logbuch_ausfall(logbuch, stand, fehlend):
+    """Trägt Bausteine ohne Wert als Ereignis ein, je Baustein höchstens einmal in sieben Tagen."""
+    neu = []
+    for name in fehlend:
+        if _lb_juenger(logbuch, "ausfall:" + name, stand):
+            continue
+        neu.append({"datum": stand, "art": "ereignis", "schluessel": "ausfall:" + name,
+                    "titel": "Baustein ohne Wert: %s" % name, "titel_en": "Component without a value: %s" % name,
+                    "text": "Die Quelle lieferte keinen Wert. Der Baustein zählt so lange nicht mit, der Pegel wird aus den übrigen gerechnet.",
+                    "text_en": "The source delivered no value. The component does not count until it does, the gauge is computed from the others.",
+                    "belege": [], "belege_en": []})
+    logbuch.setdefault("eintraege", []).extend(neu)
+    return neu
+
+
+def logbuch_hoechststand(logbuch, live_reihe, mindest=30):
+    """Trägt einen neuen Höchststand der gespeicherten Tagesstände ein: erst ab `mindest` Tagen Reihe, höchstens einmal in sieben Tagen."""
+    if len(live_reihe) < mindest:
+        return []
+    letzter, davor = live_reihe[-1], max(x["wert"] for x in live_reihe[:-1])
+    if letzter["wert"] <= davor or _lb_juenger(logbuch, "hoechst", letzter["stand"]):
+        return []
+    e = {"datum": letzter["stand"], "art": "ereignis", "schluessel": "hoechst:%d" % letzter["wert"],
+         "titel": "Höchststand: Dreier-Pegel bei %d" % letzter["wert"], "titel_en": "New high: Dreier Gauge at %d" % letzter["wert"],
+         "text": "Höchster gespeicherter Tagesstand seit %s. Bisher höchster Wert: %d." % (live_reihe[0]["stand"], davor),
+         "text_en": "Highest stored daily value since %s. Previous high: %d." % (live_reihe[0]["stand"], davor), "belege": [], "belege_en": []}
+    logbuch.setdefault("eintraege", []).append(e)
+    return [e]

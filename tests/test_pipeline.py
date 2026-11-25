@@ -1108,5 +1108,25 @@ class LogbuchTests(unittest.TestCase):
         self.assertEqual(modell.logbuch_stufenwechsel(lb, reihe, stufe, namen), [])  # zweiter Lauf trägt nichts doppelt ein
 
 
+    def test_ausfall_einmal_in_sieben_tagen(self):
+        import modell
+        lb = {"eintraege": []}
+        self.assertEqual(len(modell.logbuch_ausfall(lb, "2026-12-01", ["Ransomware"])), 1)
+        self.assertEqual(modell.logbuch_ausfall(lb, "2026-12-03", ["Ransomware"]), [])
+        self.assertEqual(len(modell.logbuch_ausfall(lb, "2026-12-09", ["Ransomware"])), 1)
+
+    def test_hoechststand_erst_ab_dreissig_tagen(self):
+        import modell
+        from datetime import date, timedelta
+        reihe = [{"stand": (date(2026, 11, 25) + timedelta(days=i)).isoformat(), "wert": 60} for i in range(30)]
+        reihe[-1]["wert"] = 71
+        self.assertEqual(modell.logbuch_hoechststand({"eintraege": []}, reihe[:10] + [reihe[-1]]), [])
+        lb = {"eintraege": []}
+        e = modell.logbuch_hoechststand(lb, reihe)
+        self.assertEqual(e[0]["schluessel"], "hoechst:71")
+        self.assertIn("Bisher höchster Wert: 60", e[0]["text"])
+        self.assertEqual(modell.logbuch_hoechststand(lb, reihe), [])
+
+
 if __name__ == "__main__":
     unittest.main()
