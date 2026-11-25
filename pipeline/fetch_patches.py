@@ -437,6 +437,9 @@ def parse_redhat(daten):
         pakete = []
         for pk in n.get("released_packages") or []:
             name = re.sub(r"-\d.*$", "", str(pk).split(":")[0]).strip()
+            name = re.sub(r"^registry\.redhat\.io/", "", name)
+            if name.endswith(("-debuginfo", "-debugsource")):
+                continue
             if name and name not in pakete:
                 pakete.append(name)
         titel = rid if not pakete else "%s: %s%s" % (rid, ", ".join(pakete[:3]), " und weitere" if len(pakete) > 3 else "")
