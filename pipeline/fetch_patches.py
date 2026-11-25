@@ -34,7 +34,7 @@ MONAT_ID = re.compile(r"^(\d{4})-(" + "|".join(MONATE) + r")$")
 SCHWEREN = ("Critical", "Important", "Moderate", "Low")
 BEHALTEN_MONATE = 36
 HISTORIE_MONATE = 12  # Vergleichsbasis für die Bewertung
-SCHEMA = 5  # erhöhen, wenn sich die Zählweise ändert: dann werden alle Monate neu geholt
+SCHEMA = 6  # erhöhen, wenn sich die Zählweise ändert: dann werden alle Monate neu geholt
 
 
 class QuellFehler(Exception):
@@ -68,6 +68,14 @@ def patch_stand(v):
     if any(r.get("Type") == 2 for r in rems):
         return "ja", kbs[:3]
     return "nein", []
+
+
+def fix_hinweis(v):
+    """Erster Hersteller-Fix (Typ 2) mit Beschreibung und Link, wenn keine KB-Nummer erkennbar ist."""
+    for r in v.get("Remediations") or []:
+        if r.get("Type") == 2:
+            return _wert(r.get("Description"))[:90], str(r.get("URL") or "")[:200]
+    return "", ""
 
 
 def sammle_produkte(knoten, out=None):
@@ -128,7 +136,7 @@ def verdichte_dokument(doc, kev_cves=()):
             continue
         gesehen.add(cve)
         titel = _wert(v.get("Title"))
-        if titel.lower().startswith("chromium"):
+        if titel.lower().startswith("chromium") or "in google chrome prior to" in titel.lower():
             chromium += 1  # Edge übernimmt Chromium-Lücken; getrennt gezählt, damit sie die Monatszahl nicht verzerren
             continue
         betroffen = set()
@@ -151,6 +159,7 @@ def verdichte_dokument(doc, kev_cves=()):
                 ex_text = text
         schwere[sev if sev in SCHWEREN else "unbekannt"] += 1
         patch, kbs = patch_stand(v)
+        fix_t, fix_u = fix_hinweis(v)
         if patch == "nein":
             ohne_fix.append(cve)
         ist_aus = bool(re.search(r"Exploited:\s*Yes", ex_text, re.I))
@@ -161,7 +170,7 @@ def verdichte_dokument(doc, kev_cves=()):
                 for pid in st.get("ProductID") or []:
                     fam_c.add(familie(produkte.get(str(pid), "")))
             kandidaten.append({"cve": cve, "titel": titel[:120], "schwere": sev, "ausgenutzt": ist_aus, "oeffentlich": ist_oeff, "kev": cve in kev,
-                               "patch": patch, "kb": kbs, "familien": sorted(fam_c - {"Sonstige"})[:3]})
+                               "patch": patch, "kb": kbs, "fix_text": fix_t, "fix_url": fix_u, "familien": sorted(fam_c - {"Sonstige"})[:3]})
         if imp:
             auswirkung[imp] = auswirkung.get(imp, 0) + 1
         if re.search(r"Exploited:\s*Yes", ex_text, re.I):
@@ -557,12 +566,13 @@ def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=8):
                              "link": "https://msrc.microsoft.com/update-guide/vulnerability/" + k["cve"]})
                 continue
             if pst == "ja":
-                pt = "Patch liegt vor" + (": KB" + ", KB".join(kb) if kb else "")
-                pt_en = "Patch available" + (": KB" + ", KB".join(kb) if kb else "")
+                ft = k.get("fix_text") or ""
+                pt = "Patch liegt vor" + (": KB" + ", KB".join(kb) if kb else (": " + ft if ft else ""))
+                pt_en = "Patch available" + (": KB" + ", KB".join(kb) if kb else (": " + ft if ft else ""))
             else:
                 pt, pt_en = "Patch-Stand bei Microsoft prüfen", "Check patch status with Microsoft"
             kand.append({"stufe": stufe, "epss": e, "quelle": "Microsoft", "titel": k["titel"], "cves": [k["cve"]], "grund": g, "grund_en": ge,
-                         "patch": pst, "patch_text": pt, "patch_text_en": pt_en,
+                         "patch": pst, "patch_text": pt, "patch_text_en": pt_en, "patch_link": k.get("fix_url") or "",
                          "betrifft": ", ".join(k["familien"]), "datum": str(m.get("erste_veroeffentlichung"))[:10],
                          "link": "https://msrc.microsoft.com/update-guide/vulnerability/" + k["cve"]})
     for q in (hersteller or {}).get("quellen", {}).values():

@@ -369,7 +369,7 @@
         li.appendChild(kopf);
         li.appendChild(el("div", "p-t", k.titel + (k.betrifft && k.betrifft !== k.quelle ? " (" + k.betrifft + ")" : "")));
         li.appendChild(el("div", "p-w", pick("Warum zuerst: ", "Why first: ") + pick(k.grund, k.grund_en)));
-        if (k.patch_text) li.appendChild(el("div", "p-w", pick("Patch: ", "Patch: ") + pick(k.patch_text, k.patch_text_en)));
+        if (k.patch_text) { var pw = el("div", "p-w", "Patch: " + pick(k.patch_text, k.patch_text_en)); if (k.patch_link && /^https:\/\//.test(k.patch_link)) { pw.appendChild(document.createTextNode(" · ")); pw.appendChild(link(k.patch_link, pick("Fix-Seite", "fix page"))); } li.appendChild(pw); }
         ol.appendChild(li);
       });
       box.appendChild(ol);
