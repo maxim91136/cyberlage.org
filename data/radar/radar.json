@@ -1,5 +1,5 @@
 {
- "abgerufen_am": "2026-11-25T12:14:35+00:00",
+ "abgerufen_am": "2026-11-25T12:56:09+00:00",
  "zeit_bis_kev": {
   "verlauf": [
    {
@@ -5968,7 +5968,7 @@
  },
  "sans": {
   "status": "green",
-  "abgerufen_am": "2026-11-25T12:14:33+00:00"
+  "abgerufen_am": "2026-11-25T12:56:07+00:00"
  },
  "ncsc": {
   "advisories_30": 25,
@@ -5984,8 +5984,8 @@
    "vorher": "+50 %",
    "vorher_en": "+50 %",
    "stand": "2026-11-19",
-   "misst": "Angriffsfläche, Gefährdung und Schaden in einer Zahl, Deutschland. Teilwerte: Angriffsfläche 349 (2. Quartal, +117 %), Gefährdung 123 (+9 %), Schaden 168 (+33 %)",
-   "misst_en": "Attack surface, threat and damage in one number, Germany. Sub-scores: attack surface 349 (Q2, +117%), threat 123 (+9%), impact 168 (+33%)",
+   "misst": "Angriffsfläche, Gefährdung und Schaden in einer Zahl, Deutschland. Der Gesamtwert 170 stammt so vom BSI, wir rechnen ihn nicht aus den Teilwerten nach. Teilwerte: Angriffsfläche 349 (2. Quartal, +117 %), Gefährdung 123 (+9 %), Schaden 168 (+33 %)",
+   "misst_en": "Attack surface, threat and damage in one number, Germany. The overall value of 170 is taken as published by the BSI, we do not recompute it from the sub-scores. Sub-scores: attack surface 349 (Q2, +117%), threat 123 (+9%), impact 168 (+33%)",
    "link": "https://www.bsi-lagebericht.de/node/3",
    "beleg": "https://www.bsi-lagebericht.de/node/3",
    "geprueft_am": "2026-11-24",

@@ -1307,14 +1307,46 @@
   "cert_bund": {
     "quelle": "CERT-Bund / BSI Warn- und Informationsdienst",
     "quelle_url": "https://wid.cert-bund.de/",
-    "abgerufen_am": "2026-11-25T12:12:34+00:00",
+    "abgerufen_am": "2026-11-25T12:53:33+00:00",
     "fenster_tage": 30,
     "daten_seit": "2026-11-23",
     "kritisch_7_tage": 10,
-    "hoch_7_tage": 268,
+    "hoch_7_tage": 273,
     "kritisch_30_tage": 10,
-    "hoch_30_tage": 268,
+    "hoch_30_tage": 273,
     "liste": [
+      {
+        "id": "WID-SEC-2026-4798",
+        "schwere": "hoch",
+        "status": "neu",
+        "titel": "Valkey: Mehrere Schwachstellen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4798"
+      },
+      {
+        "id": "WID-SEC-2026-4797",
+        "schwere": "hoch",
+        "status": "neu",
+        "titel": "IBM i: Schwachstelle ermöglicht Codeausführung",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4797"
+      },
+      {
+        "id": "WID-SEC-2026-4796",
+        "schwere": "hoch",
+        "status": "neu",
+        "titel": "Gogs: Mehrere Schwachstellen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4796"
+      },
+      {
+        "id": "WID-SEC-2026-4794",
+        "schwere": "hoch",
+        "status": "neu",
+        "titel": "MID Innovator: Mehrere Schwachstellen ermöglichen nicht spezifizierten Angriff",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4794"
+      },
       {
         "id": "WID-SEC-2026-4791",
         "schwere": "hoch",
@@ -1602,45 +1634,13 @@
         "titel": "Linux Kernel: Mehrere Schwachstellen",
         "datum": "2026-11-25",
         "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4461"
-      },
-      {
-        "id": "WID-SEC-2026-4435",
-        "schwere": "hoch",
-        "status": "update",
-        "titel": "MIT Kerberos: Mehrere Schwachstellen",
-        "datum": "2026-11-25",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4435"
-      },
-      {
-        "id": "WID-SEC-2026-4417",
-        "schwere": "hoch",
-        "status": "update",
-        "titel": "Google Chrome / Microsoft Edge: Mehrere Schwachstellen",
-        "datum": "2026-11-25",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4417"
-      },
-      {
-        "id": "WID-SEC-2026-4416",
-        "schwere": "kritisch",
-        "status": "update",
-        "titel": "Ruby: Mehrere Schwachstellen ermöglichen Codeausführung",
-        "datum": "2026-11-25",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4416"
-      },
-      {
-        "id": "WID-SEC-2026-4402",
-        "schwere": "hoch",
-        "status": "update",
-        "titel": "Red Hat Enterprise Linux (yggdrasil-worker-package-manager): Schwachstelle ermöglicht Privilegieneskalation",
-        "datum": "2026-11-25",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4402"
       }
     ]
   },
   "eu_kev": {
     "quelle": "EU-KEV über die EU-Schwachstellendatenbank (EUVD) von ENISA",
     "quelle_url": "https://euvd.enisa.europa.eu/",
-    "abgerufen_am": "2026-11-25T12:12:34+00:00",
+    "abgerufen_am": "2026-11-25T12:53:33+00:00",
     "fenster_tage": 30,
     "daten_seit": "2026-08-07",
     "neu_30_tage": 38,
@@ -2180,9 +2180,9 @@
     ]
   },
   "ausblick": {
-    "abgerufen_am": "2026-11-25T12:12:36+00:00",
+    "abgerufen_am": "2026-11-25T12:53:36+00:00",
     "fenster_tage": 14,
-    "geprueft": 7030,
+    "geprueft": 6995,
     "schwelle_hoch": 0.1,
     "hoch_wahrscheinlich": 15,
     "epss_datum": "2026-11-24",
@@ -2290,7 +2290,7 @@
     ]
   },
   "radar": {
-    "abgerufen_am": "2026-11-25T12:14:35+00:00",
+    "abgerufen_am": "2026-11-25T12:56:09+00:00",
     "zeit_bis_kev": {
       "verlauf": [
         {
@@ -4593,7 +4593,7 @@
     },
     "sans": {
       "status": "green",
-      "abgerufen_am": "2026-11-25T12:14:33+00:00"
+      "abgerufen_am": "2026-11-25T12:56:07+00:00"
     },
     "ncsc": {
       "advisories_30": 25,
@@ -4609,8 +4609,8 @@
         "vorher": "+50 %",
         "vorher_en": "+50 %",
         "stand": "2026-11-19",
-        "misst": "Angriffsfläche, Gefährdung und Schaden in einer Zahl, Deutschland. Teilwerte: Angriffsfläche 349 (2. Quartal, +117 %), Gefährdung 123 (+9 %), Schaden 168 (+33 %)",
-        "misst_en": "Attack surface, threat and damage in one number, Germany. Sub-scores: attack surface 349 (Q2, +117%), threat 123 (+9%), impact 168 (+33%)",
+        "misst": "Angriffsfläche, Gefährdung und Schaden in einer Zahl, Deutschland. Der Gesamtwert 170 stammt so vom BSI, wir rechnen ihn nicht aus den Teilwerten nach. Teilwerte: Angriffsfläche 349 (2. Quartal, +117 %), Gefährdung 123 (+9 %), Schaden 168 (+33 %)",
+        "misst_en": "Attack surface, threat and damage in one number, Germany. The overall value of 170 is taken as published by the BSI, we do not recompute it from the sub-scores. Sub-scores: attack surface 349 (Q2, +117%), threat 123 (+9%), impact 168 (+33%)",
         "link": "https://www.bsi-lagebericht.de/node/3",
         "beleg": "https://www.bsi-lagebericht.de/node/3",
         "geprueft_am": "2026-11-24",
@@ -5033,9 +5033,9 @@
           "geprueft_am": "2026-11-23",
           "erreichbar": false,
           "status": 404,
-          "fehler_in_folge": 44,
+          "fehler_in_folge": 45,
           "erster_fehler_um": "2026-11-24T16:15:10+00:00",
-          "link_geprueft_um": "2026-11-25T12:23:26+00:00",
+          "link_geprueft_um": "2026-11-25T12:57:53+00:00",
           "faellig_am": "2027-05-25",
           "faellig": false,
           "link_tot": false
@@ -5048,9 +5048,9 @@
           "geprueft_am": "2026-11-24",
           "erreichbar": false,
           "status": 404,
-          "fehler_in_folge": 40,
+          "fehler_in_folge": 41,
           "erster_fehler_um": "2026-11-24T22:03:12+00:00",
-          "link_geprueft_um": "2026-11-25T12:23:26+00:00",
+          "link_geprueft_um": "2026-11-25T12:57:53+00:00",
           "faellig_am": "2027-02-22",
           "faellig": false,
           "link_tot": false
@@ -5063,9 +5063,9 @@
           "geprueft_am": "2026-11-25",
           "erreichbar": false,
           "status": 404,
-          "fehler_in_folge": 5,
+          "fehler_in_folge": 6,
           "erster_fehler_um": "2026-11-25T10:53:06+00:00",
-          "link_geprueft_um": "2026-11-25T12:23:26+00:00",
+          "link_geprueft_um": "2026-11-25T12:57:53+00:00",
           "faellig_am": "2027-02-23",
           "faellig": false,
           "link_tot": false
@@ -5095,7 +5095,7 @@
       "lizenz": "CC0 1.0 (laut LICENSE-Datei von cisagov/kev-data)",
       "quelle_abruf": "cisa.gov",
       "veroeffentlicht_am": "2026-11-24T17:47:46.199Z",
-      "abgerufen_am": "2026-11-25T12:12:34+00:00",
+      "abgerufen_am": "2026-11-25T12:53:33+00:00",
       "name_en": "CISA Known Exploited Vulnerabilities",
       "lizenz_en": "CC0 1.0 (per the LICENSE file of cisagov/kev-data)"
     },
@@ -5112,7 +5112,7 @@
       "name": "CERT-Bund / BSI Warn- und Informationsdienst",
       "link": "https://wid.cert-bund.de/",
       "lizenz": "nur Titel und Links, Nutzungsbedingungen des BSI beachten",
-      "abgerufen_am": "2026-11-25T12:12:34+00:00",
+      "abgerufen_am": "2026-11-25T12:53:33+00:00",
       "name_en": "CERT-Bund / BSI Warning and Information Service",
       "lizenz_en": "titles and links only, observe the BSI terms of use"
     },
@@ -5121,7 +5121,7 @@
       "name": "EU-KEV (EUVD von ENISA)",
       "link": "https://euvd.enisa.europa.eu/",
       "lizenz": "Lizenz nicht ausdrücklich geklärt",
-      "abgerufen_am": "2026-11-25T12:12:34+00:00",
+      "abgerufen_am": "2026-11-25T12:53:33+00:00",
       "name_en": "EU-KEV (EUVD by ENISA)",
       "lizenz_en": "licence not explicitly clarified"
     },
@@ -5130,7 +5130,7 @@
       "name": "EPSS (FIRST)",
       "link": "https://www.first.org/epss/",
       "lizenz": "kostenlos mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T12:12:36+00:00",
+      "abgerufen_am": "2026-11-25T12:53:36+00:00",
       "name_en": "EPSS (FIRST)",
       "lizenz_en": "free to use with attribution"
     },
@@ -5139,7 +5139,7 @@
       "name": "NVD (NIST)",
       "link": "https://nvd.nist.gov/",
       "lizenz": "gemeinfrei, nur Veröffentlichungsdatum und CVSS-Wert",
-      "abgerufen_am": "2026-11-25T12:12:36+00:00",
+      "abgerufen_am": "2026-11-25T12:53:36+00:00",
       "name_en": "NVD (NIST)",
       "lizenz_en": "public domain, only publication date and CVSS score"
     },
@@ -5148,7 +5148,7 @@
       "name": "CVE-Liste (CVE Program, MITRE)",
       "link": "https://github.com/CVEProject/cvelistV5",
       "lizenz": "CVE Terms of Use: frei nutzbar mit Quellenangabe, nur Veröffentlichungsdatum",
-      "abgerufen_am": "2026-11-25T12:14:35+00:00",
+      "abgerufen_am": "2026-11-25T12:56:09+00:00",
       "name_en": "CVE List (CVE Program, MITRE)",
       "lizenz_en": "CVE Terms of Use: free to use with attribution, only publication date"
     },
@@ -5157,14 +5157,14 @@
       "name": "NCSC-NL Beveiligingsadviezen",
       "link": "https://advisories.ncsc.nl/",
       "lizenz": "Lizenz nicht geprüft, nur Zahl der Advisories mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T12:14:35+00:00"
+      "abgerufen_am": "2026-11-25T12:56:09+00:00"
     },
     {
       "id": "sans",
       "name": "SANS Internet Storm Center (Infocon)",
       "link": "https://isc.sans.edu/",
       "lizenz": "Creative Commons laut Fußzeile des ISC, nur Ampelstatus mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T12:14:33+00:00",
+      "abgerufen_am": "2026-11-25T12:56:07+00:00",
       "name_en": "SANS Internet Storm Center (Infocon)",
       "lizenz_en": "Creative Commons per the ISC footer, only the traffic-light status with attribution"
     }
@@ -7253,7 +7253,7 @@
         "quelle": "Microsoft Security Response Center (CVRF 3.0)",
         "quelle_url": "https://msrc.microsoft.com/update-guide",
         "listen_url": "https://api.msrc.microsoft.com/cvrf/v3.0/updates",
-        "abgerufen_am": "2026-11-25T12:14:35+00:00",
+        "abgerufen_am": "2026-11-25T12:56:09+00:00",
         "hinweis": "Zählung je CVE; Chromium-Lücken im Edge und Linux-Paketlücken von Azure Linux sind ausgenommen und getrennt ausgewiesen. Schweregrad, Ausnutzung und Bekanntheit stammen vom Hersteller.",
         "fehler": []
       },
@@ -14015,7 +14015,7 @@
     "hersteller": {
       "meta": {
         "hinweis": "Nur Zählung und Verweise auf die Meldungen der Hersteller. Schweregrade stammen von den Herstellern und fehlen, wo sie nicht geliefert werden.",
-        "abgerufen_am": "2026-11-25T12:14:35+00:00"
+        "abgerufen_am": "2026-11-25T12:56:09+00:00"
       },
       "quellen": {
         "ubuntu": {
@@ -14179,7 +14179,7 @@
               "schwere": null
             }
           ],
-          "abgerufen_am": "2026-11-25T12:14:35+00:00",
+          "abgerufen_am": "2026-11-25T12:56:09+00:00",
           "status": "ok"
         },
         "debian": {
@@ -14268,7 +14268,7 @@
               "schwere": null
             }
           ],
-          "abgerufen_am": "2026-11-25T12:14:35+00:00",
+          "abgerufen_am": "2026-11-25T12:56:09+00:00",
           "status": "ok"
         },
         "redhat": {
@@ -14277,7 +14277,7 @@
           "typ": "distribution",
           "url": "https://access.redhat.com/security/security-updates/",
           "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link",
-          "im_kev_30": 13,
+          "im_kev_30": 100,
           "im_kev_meldungen": [
             {
               "id": "RHSA-2026:102909",
@@ -14353,10 +14353,10 @@
             }
           ],
           "neu_7": 452,
-          "neu_30": 1000,
-          "kritisch_30": 147,
-          "hoch_30": 695,
-          "cves_30": 1924,
+          "neu_30": 1899,
+          "kritisch_30": 296,
+          "hoch_30": 1343,
+          "cves_30": 2926,
           "schwere_bekannt": true,
           "letzte": [
             {
@@ -14430,7 +14430,7 @@
               "schwere": "mittel"
             }
           ],
-          "abgerufen_am": "2026-11-25T12:14:35+00:00",
+          "abgerufen_am": "2026-11-25T12:56:09+00:00",
           "status": "ok"
         },
         "cisco": {
@@ -14584,7 +14584,7 @@
               "schwere": "kritisch"
             }
           ],
-          "abgerufen_am": "2026-11-25T12:14:35+00:00",
+          "abgerufen_am": "2026-11-25T12:56:09+00:00",
           "status": "ok"
         },
         "sap": {
@@ -14673,7 +14673,7 @@
               "schwere": "hoch"
             }
           ],
-          "abgerufen_am": "2026-11-25T12:14:35+00:00",
+          "abgerufen_am": "2026-11-25T12:56:09+00:00",
           "status": "ok"
         }
       }

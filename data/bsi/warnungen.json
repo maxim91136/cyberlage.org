@@ -3,10 +3,58 @@
   "quelle": "CERT-Bund / BSI Warn- und Informationsdienst",
   "quelle_url": "https://wid.cert-bund.de/",
   "hinweis": "Nur Kennung, Schweregrad, Titel, Datum und Link. Beschreibungstexte werden nicht übernommen.",
-  "abgerufen_am": "2026-11-25T12:12:34+00:00",
-  "anzahl": 524
+  "abgerufen_am": "2026-11-25T12:53:33+00:00",
+  "anzahl": 531
  },
  "eintraege": [
+  {
+   "id": "WID-SEC-2026-4798",
+   "schwere": "hoch",
+   "status": "neu",
+   "titel": "Valkey: Mehrere Schwachstellen",
+   "datum": "2026-11-25",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4798"
+  },
+  {
+   "id": "WID-SEC-2026-4797",
+   "schwere": "hoch",
+   "status": "neu",
+   "titel": "IBM i: Schwachstelle ermöglicht Codeausführung",
+   "datum": "2026-11-25",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4797"
+  },
+  {
+   "id": "WID-SEC-2026-4796",
+   "schwere": "hoch",
+   "status": "neu",
+   "titel": "Gogs: Mehrere Schwachstellen",
+   "datum": "2026-11-25",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4796"
+  },
+  {
+   "id": "WID-SEC-2026-4795",
+   "schwere": "mittel",
+   "status": "neu",
+   "titel": "Argo CD: Mehrere Schwachstellen",
+   "datum": "2026-11-25",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4795"
+  },
+  {
+   "id": "WID-SEC-2026-4794",
+   "schwere": "hoch",
+   "status": "neu",
+   "titel": "MID Innovator: Mehrere Schwachstellen ermöglichen nicht spezifizierten Angriff",
+   "datum": "2026-11-25",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4794"
+  },
+  {
+   "id": "WID-SEC-2026-4793",
+   "schwere": "mittel",
+   "status": "neu",
+   "titel": "Roundcube: Mehrere Schwachstellen",
+   "datum": "2026-11-25",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4793"
+  },
   {
    "id": "WID-SEC-2026-4792",
    "schwere": "mittel",
@@ -1582,6 +1630,14 @@
    "titel": "vim: Mehrere Schwachstellen ermöglichen Codeausführung",
    "datum": "2026-11-25",
    "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-1548"
+  },
+  {
+   "id": "WID-SEC-2026-1530",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Linux Kernel (Fragnesia): Schwachstelle ermöglicht Erlangen von Administratorrechten",
+   "datum": "2026-11-25",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-1530"
   },
   {
    "id": "WID-SEC-2026-1448",
