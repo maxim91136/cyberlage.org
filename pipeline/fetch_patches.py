@@ -508,18 +508,17 @@ def parse_sap(html_text, monat_url):
     # Nur der Teil bis zu den Aktualisierungen älterer Hinweise zählt als neu am Patch Day.
     ende = re.search(r"(previously released security notes? (?:was|were) updated|Update to Security Note released on)", kopf)
     neu = kopf[m.end(): ende.start() if ende else len(kopf)]
-    blocke = re.split(r"(?=\[CVE-\d{4}-\d{4,7})|(?<=\d{7}) (?=CVE-\d{4}-\d{4,7})", neu)
-    out, nr = [], 0
-    for b in blocke:
-        c = CVE_RE.search(b)
+    out, nr, start = [], 0, 0
+    for sev in re.finditer(r"\b(Hot News|Critical|High|Medium|Low)\s*(\d{1,2}\.\d)\b", neu):
+        blk, start = neu[start:sev.end()], sev.end()
+        c = CVE_RE.search(blk)
         if not c:
             continue
-        sev = re.search(r"\b(Hot News|Critical|High|Medium|Low)\s*(\d{1,2}\.\d)", b)
-        titel = re.sub(r"\s+", " ", re.sub(r"(Product|Version|Hot News|Critical|High|Medium|Low)\b.*", "", b, flags=re.S)).replace("]", "] ", 1).replace("]  ", "] ").strip(" []")
+        titel = re.sub(r"\s+", " ", re.sub(r"\b(Product|Version)\b.*", "", blk[c.start():], flags=re.S)).strip(" []")
         nr += 1
-        out.append({"id": "SAP-%s-%02d" % (tag.strftime("%Y-%m"), nr), "datum": tag, "titel": titel[:140] or c.group(0), "link": monat_url,
-                    "schwere": {"hot news": "kritisch", "critical": "kritisch", "high": "hoch", "medium": "mittel", "low": "niedrig"}.get(sev.group(1).lower()) if sev else None,
-                    "cves": sorted(set(CVE_RE.findall(b))), "cvss": float(sev.group(2)) if sev else None})
+        out.append({"id": "SAP-%s-%02d" % (tag.strftime("%Y-%m"), nr), "datum": tag, "titel": titel[:140], "link": monat_url,
+                    "schwere": {"hot news": "kritisch", "critical": "kritisch", "high": "hoch", "medium": "mittel", "low": "niedrig"}[sev.group(1).lower()],
+                    "cves": sorted(set(CVE_RE.findall(blk))), "cvss": float(sev.group(2))})
     return out
 
 
