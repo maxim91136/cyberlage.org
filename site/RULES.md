@@ -129,3 +129,35 @@ Der Dreier-Pegel ist modular: ein Modell, neun Bausteine in vier Gruppen. Rechen
 **Schwellen:** Jede Schwelle ist das 75. Perzentil (oberes Viertel) der eigenen Historie des Bausteins, täglich gemessen über 36 Monate bis 25.11.2026 (NCSC-NL: seit Juni 2024): KEV-Menge 25, Tempo bis KEV 5 Tage, EU-KEV 26, Microsoft 3, CERT-Bund 126, NCSC-NL 43, DShield 175.000. Grundlagen stehen in `config/modell.json` und `config/regeln.json`. Das Jahr 2026 liegt bei den Warnungen deutlich über den Vorjahren (CERT-Bund etwa dreimal so viele kritische und hohe Warnungen wie 2024); die Schwellen bleiben bewusst auf 36 Monate bezogen, damit dieser Anstieg sichtbar ist. **Erstdatum:** CERT-Bund und NCSC-NL nennen bei aktualisierten Meldungen nur das Datum der Aktualisierung. Die Kennungen werden je Jahr fortlaufend vergeben; als Erstdatum einer Meldung gilt deshalb das früheste Datum unter ihr selbst und allen Meldungen mit höherer Nummer desselben Jahres. Das ist eine Obergrenze aus echten Daten, keine Schätzung von Werten. **Microsoft:** Die Kennzeichnung „ausgenutzt“ ist der Stand des Monatsberichts beim Abruf.
 
 **Fortschreibung:** Täglich werden die Einzelwerte gespeichert (`data/radar/bausteine.json`). Ändern sich Schwellen oder Bausteine, wird der Verlauf aus den Archivdaten neu gerechnet; es gibt immer nur ein gültiges Modell.
+
+## Begründung der Modellentscheidungen
+
+Jede Festlegung im Dreier-Pegel ist eine Entscheidung. Hier steht, warum sie so getroffen wurde und was eine Prüfung an den Daten ergibt. Prüfzeitraum: 25.11.2023 bis 25.11.2026 (1.097 Tage), rückgerechnete Reihe ohne die Gruppe Externe Einschätzungen, gerechnet am 25.11.2026.
+
+| Entscheidung | Begründung | Prüfung an den Daten |
+|---|---|---|
+| Messwert im Verhältnis zur Schwelle (Ausschlag) | Die Bausteine haben verschiedene Einheiten (Lücken, Tage, Warnungen, Adressen). Erst das Verhältnis zur eigenen Schwelle macht sie vergleichbar. | Jeder Baustein lag an 25 bis 33 Prozent der Tage an oder über seiner Schwelle, die Bausteine sind also gleich streng. |
+| Schwelle = 75. Perzentil der eigenen Historie | „Auffällig“ heißt: höher als an drei von vier Tagen. Das Perzentil ist unempfindlich gegen einzelne Ausreißer, anders als Mittelwert plus Standardabweichung. Die Wahl von 75 ist eine Konvention, kein Naturgesetz. | Siehe oben: 25 bis 33 Prozent der Tage über der Schwelle, wie beabsichtigt. |
+| Kappung des Ausschlags bei 2,0 | Ein einzelner Ausreißer soll den Pegel nicht bestimmen. | An 18 Prozent der Tage war mindestens ein Baustein gekappt. Ohne Kappung wäre der Pegel bis 123 gestiegen und an einzelnen Tagen um bis zu 70 Punkte abgewichen. Mit Kappung bei 1,5 oder 3,0 weicht er im Mittel um 1,5 Punkte ab. |
+| Gruppen, erst je Gruppe mitteln | Mehrere Bausteine, die dasselbe messen, sollen nicht mehrfach zählen. | EU-KEV und KEV-Menge korrelieren mit 0,99, CERT-Bund und NCSC-NL mit 0,72. Ohne Gruppen wiche der Pegel im Mittel um 3,6 und höchstens um 17 Punkte ab. |
+| Gruppen gleich gewichtet | Es gibt keine belastbare Grundlage, eine Frage (was wird angegriffen, wovor wird gewarnt, wie viel wird angegriffen, wie schätzen andere ein) höher zu gewichten als eine andere. Gleichgewicht ist die Annahme mit den wenigsten Voraussetzungen. | Nicht prüfbar, weil es keine unabhängige Messung der „wahren“ Lage gibt. |
+| Fenster: 30 Tage für Zählungen, 7 Tage für DShield | 30 Tage glätten Wochentage und Patch-Zyklen. DShield liefert Tageswerte mit hohem Grundrauschen, 7 Tage glätten den Wochenrhythmus und reagieren trotzdem zügig. | DShield: Median 153.956, 75. Perzentil 175.109 im 7-Tage-Mittel. |
+| DShield zählt Quellen, nicht Meldungen | Die Zahl der Meldungen hängt davon ab, wie viele Sensoren gerade melden (zwischen rund 1.100 und 3.900 Ziele je Halbjahr). Die Zahl der angreifenden Adressen ist davon weitgehend unabhängig. | Halbjahres-Mediane der Quellen zwischen 135.000 und 171.000, ohne Sprung beim Wechsel der Sensorzahl. |
+| Stufengrenzen 35, 50, 64, 80 | 50 heißt: Schwellen im Schnitt erreicht. 35 und 64 trennen die ruhigsten rund 15 und die obersten rund 5 Prozent der Tage ab. 80 ist für Ausnahmen reserviert. | Spanne der Reihe 28 bis 71; 80 wurde nie erreicht. |
+
+**Empfindlichkeit: Was passiert, wenn ein Baustein fehlt?** Jeder Baustein wurde einmal weggelassen und der Pegel neu gerechnet.
+
+| Ohne | Korrelation mit dem vollen Pegel | Mittlere Abweichung (Punkte) | Größte Abweichung | Gleiche Stufe an |
+|---|---|---|---|---|
+| KEV-Menge | 0,99 | 1,0 | 3 | 90 % der Tage |
+| EU-KEV | 0,99 | 1,1 | 4 | 90 % |
+| Tempo bis KEV | 0,98 | 1,6 | 8 | 85 % |
+| NCSC-NL | 0,97 | 1,9 | 8 | 83 % |
+| Microsoft | 0,97 | 2,1 | 6 | 86 % |
+| CERT-Bund | 0,95 | 2,4 | 8 | 84 % |
+| DShield | 0,84 | 5,4 | 25 | 61 % |
+
+Ergebnis: Sechs Bausteine sind einzeln ersetzbar, der Pegel bleibt ohne sie fast gleich. DShield hat den größten Einfluss, weil es als einziger Baustein eine ganze Gruppe trägt. Das ist die bekannte Schwachstelle des Modells: Fällt DShield aus, verliert der Pegel die Sicht auf Angriffsaktivität. Ein zweiter Baustein in dieser Gruppe würde das beheben.
+
+**Grenzen des Modells.** (1) Es gibt keine unabhängige Messung der tatsächlichen Bedrohung, an der sich der Pegel eichen ließe; geprüft werden kann nur seine innere Stimmigkeit. (2) Sieben Bausteine zählen Meldungen und Warnungen, nur einer misst Angriffsaktivität. (3) Die Schwellen beziehen sich auf 36 Monate; steigt das Niveau dauerhaft, steht der Pegel länger im oberen Bereich. (4) BSI Cyber Index und SANS Infocon haben kein Tagesarchiv und fehlen in der rückgerechneten Reihe. (5) Erstdaten bei CERT-Bund und NCSC-NL sind aus der fortlaufenden Kennung abgeleitet.
+

@@ -58,6 +58,7 @@
       <a href="#info" data-offen="i-begriffe" data-t="i_begriffe">Begriffe</a>
       <a href="#info" data-offen="i-faq" data-t="i_faq">FAQ</a>
       <a href="#info" data-offen="i-methode" data-t="i_methode">Methode</a>
+      <a href="#info" data-offen="i-begruendung" data-t="i_begr_n">Begründung</a>
       <a href="#info" data-offen="i-andere" data-t="i_andere_n">Andere Lagebilder</a>
       <a href="#info" data-offen="i-pruef" data-t="i_pruef">Prüfkalender</a>
       <a href="#info" data-offen="i-hinweise" data-t="i_hinweise">Hinweise</a>
@@ -310,6 +311,18 @@
         <div class="panel pad"><strong>Keine Daten statt Schätzung</strong><p class="dim">Fehlt ein belegter Wert, steht dort „keine Daten“.</p></div>
         <div class="panel pad"><strong>Regeln offen</strong><p class="dim">Fenster, Schwellen und Herleitung stehen in <a href="RULES.md">RULES.md</a>.</p></div>
       </div>
+    </details>
+    <details class="akk" id="i-begruendung"><summary class="mono" data-t="i_begr">begründung des modells</summary>
+      <p class="dim" data-t="bg_intro">Jede Festlegung im Dreier-Pegel ist eine Entscheidung. Hier steht in Kurzform, warum sie so getroffen wurde und was die Prüfung an drei Jahren Daten ergibt (25.11.2023 bis 25.11.2026). Die vollständige Fassung mit allen Zahlen steht in den <a href="RULES.md">Regeln</a>.</p>
+      <ul class="an-liste">
+        <li><b data-t="bg_1k">Verhältnis zur Schwelle.</b> <span class="dim" data-t="bg_1">Die Bausteine haben verschiedene Einheiten. Erst das Verhältnis zur eigenen Schwelle macht sie vergleichbar. Jeder Baustein lag an 25 bis 33 Prozent der Tage über seiner Schwelle, sie sind also gleich streng.</span></li>
+        <li><b data-t="bg_2k">Schwelle beim oberen Viertel.</b> <span class="dim" data-t="bg_2">„Auffällig“ heißt: höher als an drei von vier Tagen der eigenen Historie. Das ist unempfindlich gegen einzelne Ausreißer. Die Wahl des Viertels ist eine Konvention.</span></li>
+        <li><b data-t="bg_3k">Kappung bei 2,0.</b> <span class="dim" data-t="bg_3">Ein einzelner Ausreißer soll den Pegel nicht bestimmen. Ohne Kappung wäre der Pegel an einzelnen Tagen um bis zu 70 Punkte abgewichen.</span></li>
+        <li><b data-t="bg_4k">Gruppen.</b> <span class="dim" data-t="bg_4">Was dasselbe misst, soll nicht mehrfach zählen. EU-KEV und KEV-Menge laufen fast gleich (Korrelation 0,99), CERT-Bund und NCSC-NL ähnlich (0,72).</span></li>
+        <li><b data-t="bg_5k">Gleiches Gewicht je Gruppe.</b> <span class="dim" data-t="bg_5">Für eine andere Gewichtung gibt es keine belastbare Grundlage. Gleichgewicht ist die Annahme mit den wenigsten Voraussetzungen.</span></li>
+        <li><b data-t="bg_6k">Empfindlichkeit.</b> <span class="dim" data-t="bg_6">Lässt man einen Baustein weg, ändert sich der Pegel bei sechs von sieben geprüften im Mittel um 1 bis 2,4 Punkte. DShield hat den größten Einfluss (im Mittel 5,4 Punkte), weil es als einziger Baustein eine ganze Gruppe trägt.</span></li>
+        <li><b data-t="bg_7k">Grenzen.</b> <span class="dim" data-t="bg_7">Es gibt keine unabhängige Messung der wahren Bedrohung, an der sich der Pegel eichen ließe. Prüfen lässt sich nur, ob er in sich stimmig ist.</span></li>
+      </ul>
     </details>
     <details class="akk" id="i-andere"><summary class="mono" data-t="i_andere">andere lagebilder</summary>
       <p class="dim" data-t="an_intro">Der BSI Cyber Index, der SANS Infocon und die DShield-Daten des SANS Internet Storm Center stecken bereits im Dreier-Pegel, sie sind drei seiner neun Bausteine. Diese Angebote hier sind nicht enthalten: Sie messen anderes oder in einem anderen Takt, und es lohnt sich, sie daneben zu lesen.</p>
