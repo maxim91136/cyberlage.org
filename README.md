@@ -56,7 +56,7 @@ Die Seite zeigt Zahlen aus öffentlichen Quellen. Sie ersetzt keine Warnung des 
 
 ## Lizenz
 
-Alle Rechte vorbehalten, siehe [LICENSE](LICENSE). Das Repository ist öffentlich, damit alles nachprüfbar ist; eine Weiterverwendung braucht die Zustimmung des Rechteinhabers. Die Namen „Cyberlage“ und „Dreier-Pegel“ sind nicht freigegeben. Daten Dritter bleiben bei ihren Urhebern.
+Alle Rechte vorbehalten, siehe [LICENSE](LICENSE). Regeln, Rohdaten und Quellenliste sind auf cyberlage.org öffentlich, damit alles nachprüfbar ist; das Repository selbst ist privat. Eine Weiterverwendung braucht die Zustimmung des Rechteinhabers. Die Namen „Cyberlage“ und „Dreier-Pegel“ sind nicht freigegeben. Daten Dritter bleiben bei ihren Urhebern.
 
 ## Dank
 

@@ -18,7 +18,7 @@ def baustein(lage):
         f'<p class="panel pad"><b>Die globale Cyberlage, Stand {e(lage["stand"])}, Dreier-Pegel: {e(NAME.get(lage.get("stufe"), "keine Bewertung"))}.</b> '
         f'{e(lage.get("stufe_begruendung") or "")} Neu im CISA-Katalog ausgenutzter Schwachstellen: {e(k["neu_7_tage"])} in 7 Tagen, {e(k["neu_30_tage"])} in 30 Tagen. '
         'Regelbasiert und offen belegt. Ein privates Projekt von Dreier Labs, keine amtliche Stelle.</p>',
-        '<p class="panel pad">Die Zahlen stehen als Rohdaten unter <a href="data/lage.json">data/lage.json</a>, die Regeln auf <a href="https://github.com/maxim91136/cyberlage.org/blob/main/RULES.md">GitHub</a>. Für die Ansicht mit Verlauf und Listen wird JavaScript benötigt.</p>',
+        '<p class="panel pad">Die Zahlen stehen als Rohdaten unter <a href="data/lage.json">data/lage.json</a>, die Regeln unter <a href="RULES.md">RULES.md</a>. Für die Ansicht mit Verlauf und Listen wird JavaScript benötigt.</p>',
     ]
     return "".join(zeilen)
 
@@ -54,6 +54,7 @@ def main():
         return 1
     pfad.write_text(neu, encoding="utf-8")
     (WURZEL / "site" / "RULES.md").write_text((WURZEL / "RULES.md").read_text(encoding="utf-8"), encoding="utf-8")  # Regeln auch unter cyberlage.org/RULES.md
+    (WURZEL / "site" / "data" / "sources.csv").write_text((WURZEL / "data" / "sources.csv").read_text(encoding="utf-8"), encoding="utf-8")  # Quellenliste öffentlich
     (WURZEL / "site" / "LICENSE").write_text((WURZEL / "LICENSE").read_text(encoding="utf-8"), encoding="utf-8")
     print("OK: site/index.html (Text für Crawler)")
     return 0

@@ -2,8 +2,8 @@ Copyright (c) 2026 Steve Dreier, Dreier Labs. Alle Rechte vorbehalten. All right
 
 DEUTSCH
 
-Dieses Repository ist öffentlich einsehbar, damit jede Zahl und jede Regel von cyberlage.org nachprüfbar ist.
-Öffentlich einsehbar heißt nicht frei verwendbar.
+Regeln, Rohdaten und Quellenliste von cyberlage.org sind öffentlich einsehbar (RULES.md, data/), damit jede Zahl
+nachprüfbar ist. Öffentlich einsehbar heißt nicht frei verwendbar. Der übrige Quelltext ist nicht veröffentlicht.
 
 1. Code, Texte, Regeln, Modell und Gestaltung (Quelltext, RULES.md, der "Dreier-Pegel" mit seinen Bausteinen,
    Schwellen und Stufen, das Erscheinungsbild der Seite) dürfen gelesen, zitiert und zur Prüfung lokal ausgeführt werden.
@@ -21,7 +21,8 @@ Anfragen: siehe https://cyberlage.org/impressum.html
 
 ENGLISH
 
-This repository is public so that every number and rule on cyberlage.org can be verified. Public does not mean free to use.
+The rules, raw data and source list of cyberlage.org are public (RULES.md, data/) so that every number can be verified.
+Public does not mean free to use. The remaining source code is not published.
 
 1. Code, texts, rules, model and design (source code, RULES.md, the "Dreier-Pegel" / "Dreier Gauge" with its components,
    thresholds and levels, the look of the site) may be read, quoted and run locally for verification.
