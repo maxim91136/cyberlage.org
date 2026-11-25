@@ -37,6 +37,7 @@
 </header>
 <nav class="leiste" aria-label="Hauptnavigation">
   <div class="wrap navin">
+    <div class="nav-links">
     <div class="nav-row nav-g1"><span class="nav-grp" aria-hidden="true" data-t="g_lage">LAGE</span>
       <a href="#lage" data-sec="lage">/lage</a>
       <a href="#radar" data-sec="radar" data-t="n_radar">/radar</a>
@@ -47,6 +48,7 @@
       <a href="#patches" data-sec="patches" data-t="n_patches">/patches</a>
       <a href="#termine" data-sec="termine" data-t="n_termine">/termine</a>
       <a href="#neu" data-sec="neu" data-t="n_neu">/neu</a>
+    </div>
     </div>
     <div class="nav-row nav-u">
     <details class="dd" id="abo"><summary data-t="n_abo">/abo</summary><div class="dd-box dd-l dd-abo">
@@ -81,7 +83,7 @@
     <div class="verbund">
     <div class="panel lage" id="lage-box">
       <p class="lbl" data-t="l_stufe">dreier-pegel · von dreier labs · weltweit</p>
-      <div class="stufe mono" id="stufe-wert">hoch</div>
+      <div class="stufe-zeile"><div class="stufe mono" id="stufe-wert">hoch</div><div class="stufe-zahl mono" id="stufe-zahl" hidden></div></div>
       <div class="stufe-text" id="stufe-text" hidden></div>
       <p class="schlag" id="stufe-begr"></p>
       <div class="rd-skala" id="rd-skala" hidden></div>

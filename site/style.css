@@ -642,3 +642,23 @@ th.th-s{cursor:pointer;user-select:none;white-space:nowrap}th.th-s:hover,th.th-s
 .fz-zeit strong{color:var(--amber);font-size:17px;white-space:nowrap}
 .b-mehr{background:none;border:1px solid var(--line);color:var(--green);font-size:13px;padding:7px 12px;min-height:36px;cursor:pointer;margin:8px 0 4px}.b-mehr:hover{border-color:var(--green)}
 .b-z{color:var(--dim);font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;margin-left:2px}.b-z b{font-weight:600}.b-z b:not(.rw){color:var(--dim)}.b-leg{margin:0 0 8px}
+/* Kopf des Pegels: Stufe und Zahl in einer Zeile, darunter Skala, Abstand und Verlauf ohne eigenen Kasten */
+.stufe-zeile{display:flex;align-items:baseline;flex-wrap:wrap;gap:0 .32em}
+.stufe-zahl{font-size:clamp(46px,13vw,78px);line-height:1;font-weight:600;color:var(--st,var(--text));letter-spacing:-.02em;margin-top:6px;opacity:.92}
+.stufe-zahl small{font-size:.24em;font-weight:400;color:var(--dim);letter-spacing:0;margin-left:.5em}
+.stufe-zahl small.sz-n{display:block;font-size:13px;margin:6px 0 0}
+.lage .rd-score,.lage .rd-score[class*="ra-"]{border:none;background:none;padding:0;margin:14px 0 0;display:block}
+.lage .rd-score .st{flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 24px;font-size:13px}
+.lage .rd-score .spark-w{margin-top:0}
+.lage .rd-skala{margin-top:34px}
+.ska.lauf .mk,.ska.lauf .mkz{transition:left 1.5s cubic-bezier(.22,1.25,.36,1)}
+@media (prefers-reduced-motion:reduce){.ska.lauf .mk,.ska.lauf .mkz{transition:none}}
+/* Menü am Handy: drei Zeilen bleiben (alles sichtbar), nur enger gesetzt */
+.nav-links{display:contents}
+@media (max-width:899px){
+  .marke{padding:10px 18px 6px}
+  .navin{padding-top:0;padding-bottom:0}
+  .nav-row{padding:1px 0}
+  .nav-row>a,.nav-row .dd>summary{padding-top:6px;padding-bottom:6px}
+  .hero{padding-top:16px}
+}

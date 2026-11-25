@@ -1146,12 +1146,13 @@
     ["ruhig", "unauffaellig", "angespannt", "hoch", "ausserordentlich"].forEach(function (a) { [sb, rb, fzb].forEach(function (n) { if (n) n.classList.remove("ra-" + a); }); });
     if (ampel) [sb, rb, fzb].forEach(function (n) { if (n) n.classList.add("ra-" + ampel); });
     if (sc) {
-      var gr = el("div", "sw mono", String(sc.wert)); gr.appendChild(el("small", "", " / 100")); sb.appendChild(gr);
+      var szl = $("stufe-zahl");
+      if (szl) {
+        szl.textContent = ""; szl.appendChild(document.createTextNode(String(sc.wert))); szl.appendChild(el("small", "", " / 100"));
+        if (sc.signale < sc.von) szl.appendChild(el("small", "sz-n", pick("aus " + sc.signale + " von " + sc.von + " Bausteinen", "from " + sc.signale + " of " + sc.von + " components")));
+        szl.setAttribute("aria-label", pick("Dreier-Pegel " + sc.wert + " von 100", "Dreier Gauge " + sc.wert + " out of 100")); szl.hidden = false;
+      }
       var tx = el("div", "st");
-      tx.appendChild(el("b", "mono", pick("Dreier-Pegel · Gesamtscore", "Dreier Gauge · overall score")));
-      tx.appendChild(el("span", "", pick(
-        "Aus " + sc.signale + " von " + sc.von + " Bausteinen, je Gruppe gemittelt. 50 heißt: die Regelschwellen sind im Schnitt erreicht, 100: im Schnitt doppelt so weit. Kein objektives Maß, die Grenzen sind vorläufig.",
-        "From " + sc.signale + " of " + sc.von + " components, averaged per group. 50 means the rule thresholds are reached on average, 100 twice as far. Not an objective measure, the limits are provisional.")));
       var st0 = (d_skala && d_skala.stufen) || [], ix = -1; st0.forEach(function (x, i) { if (ix < 0 && sc.wert < x.bis) ix = i; });
       if (ix >= 0) {
         var teile = [];
@@ -1168,12 +1169,11 @@
           var pl = document.createElementNS(NSs, "polyline"); pl.setAttribute("fill", "none"); pl.setAttribute("stroke", "currentColor"); pl.setAttribute("stroke-width", "1.6");
           pl.setAttribute("points", a9.map(function (v, i) { return (i * (Ws - 4) / (a9.length - 1) + 2).toFixed(1) + "," + (Hs - 4 - (v - mn) / sp * (Hs - 8)).toFixed(1); }).join(" ")); sv.appendChild(pl);
           var w9 = el("div", "spark-w mono"); w9.appendChild(sv);
-          w9.appendChild(el("span", "dim", pick("Verlauf 90 Tage: zwischen " + mn + " und " + mx + " (rückgerechnet ohne BSI Cyber Index und SANS, daher nicht gleich dem Wert links)", "90-day course: between " + mn + " and " + mx + " (recalculated without BSI Cyber Index and SANS, so not equal to the value on the left)")));
+          w9.appendChild(el("span", "dim", pick("90 Tage: " + mn + " bis " + mx + " · ohne BSI und SANS zurückgerechnet", "90 days: " + mn + " to " + mx + " · back-calculated without BSI and SANS")));
           tx.appendChild(w9);
         }
       }
-      tx.appendChild(el("span", "mono dim", pick("Stand: ", "as of: ") + datum(r.abgerufen_am)));
-      sb.appendChild(tx); sb.hidden = false;
+      sb.appendChild(tx); sb.hidden = !tx.children.length;
       var sbg = $("stufe-begr"); if (sbg) sbg.hidden = true;
       var sk = $("rd-skala"), kal = d_skala;
       if (sk && kal && kal.stufen) {
@@ -1183,8 +1183,14 @@
           var bis = Math.min(x.bis, 100), seg = el("span", "sg ra-" + x.ampel); seg.style.width = (bis - von) + "%";
           seg.title = pick(x.name, x.name_en) + " (" + von + "–" + (bis === 100 ? 100 : bis - 1) + ")"; bar.appendChild(seg); von = bis;
         });
-        var mk = el("i", "mk"); mk.style.left = Math.max(0, Math.min(100, sc.wert)) + "%"; bar.appendChild(mk);
-        var mz = el("b", "mkz mono", String(sc.wert)); mz.style.left = Math.max(2, Math.min(98, sc.wert)) + "%"; bar.appendChild(mz);
+        var mk = el("i", "mk"), mz = el("b", "mkz mono", String(sc.wert)), zl1 = Math.max(0, Math.min(100, sc.wert)) + "%", zl2 = Math.max(2, Math.min(98, sc.wert)) + "%";
+        var ruhe = window.__zeigerLief || (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+        bar.appendChild(mk); bar.appendChild(mz);
+        if (ruhe) { mk.style.left = zl1; mz.style.left = zl2; }
+        else {
+          window.__zeigerLief = true; mk.style.left = "0%"; mz.style.left = "2%"; bar.classList.add("lauf");
+          requestAnimationFrame(function () { requestAnimationFrame(function () { mk.style.left = zl1; mz.style.left = zl2; }); });
+        }
         var zt = el("div", "skz mono"); [0].concat(kal.stufen.map(function (x) { return Math.min(x.bis, 100); })).forEach(function (n) { var t = el("span", "", String(n)); t.style.left = n + "%"; zt.appendChild(t); });
         var nm = el("div", "skn mono"), v0 = 0;
         kal.stufen.forEach(function (x) { var b2 = Math.min(x.bis, 100), t = el("span", x.ampel === ampel ? "akt" : "", pick(x.name, x.name_en)); t.style.width = (b2 - v0) + "%"; nm.appendChild(t); v0 = b2; });
