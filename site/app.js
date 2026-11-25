@@ -238,6 +238,10 @@
     if (!svg) return;
     svg.textContent = "";
     var v = sc && sc.reihe || [];
+    if (!v.length && sc && sc.reihe_k) {
+      var rk = sc.reihe_k, t0 = Date.parse(rk.start + "T00:00:00Z");
+      v = rk.a.map(function (a, i) { var st = new Date(t0 + i * 86400000).toISOString().slice(0, 10), lv = rk.live[st]; return { stand: st, ausnutzung: a, n: rk.n[i], wert: lv ? lv[0] : null, signale: lv ? lv[1] : null }; });
+    }
     if (!v.length) { leg.textContent = txt("keine"); return; }
     var B = Math.max(300, Math.round(svg.getBoundingClientRect().width)) || 1000, H = B < 600 ? 190 : 230, L = 30, R = 16, T = 12, U = 28;
     svg.setAttribute("viewBox", "0 0 " + B + " " + H);

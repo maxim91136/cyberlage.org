@@ -419,8 +419,8 @@ def main(argv):
         ergebnis["tempo"] = {"wert": tj.get("median_frisch"), "n": tj.get("n_frisch"), "fenster_tage": tcfg.get("fenster_tage", 90),
                              "stufe": fetch_radar.tempo_stufe(tj.get("median_frisch"), tj.get("n_frisch"), tcfg),
                              "marken": {"erhoeht_bis": tcfg["erhoeht_bis"], "hoch_bis": tcfg["hoch_bis"]},
-                             "stand": stand.isoformat(), "reihe": zk.get("tempo_reihe", [])[-400:]}
-        zk["tempo_reihe"] = zk.get("tempo_reihe", [])[-400:]
+                             "stand": stand.isoformat(), "reihe": zk.get("tempo_reihe", [])[-90:]}
+        zk.pop("tempo_reihe", None)  # steht gekürzt unter tempo.reihe, vollständig in data/radar/radar.json
     stufen_cfg = lese_optional(WURZEL / "config" / "radar_stufen.json")
     rsc = ((ergebnis.get("radar") or {}).get("konsens") or {}).get("score")
     if rsc and stufen_cfg:
@@ -452,7 +452,7 @@ def main(argv):
     if hers and hers.get("quellen"):
         ergebnis.setdefault("patches", {})["hersteller"] = {"meta": hers.get("meta"), "quellen": {k: {f: w for f, w in q.items() if f != "reihe"} for k, q in hers["quellen"].items()}}
     ergebnis["kev_menge"] = {"wert": reihe[-1]["wert"], "stufe": ergebnis["stufe"], "marken": {"erhoeht_ab": regeln.get("erhoeht_ab"), "hoch_ab": regeln.get("hoch_ab")},
-                             "live_seit": next((p["stand"] for p in reihe if p["quelle"] == "live"), None), "reihe": reihe[-400:]}
+                             "live_seit": next((p["stand"] for p in reihe if p["quelle"] == "live"), None), "reihe": reihe[-90:]}
     # Der Dreier-Pegel ist der Gesamtscore aus allen Bausteinen (KEV-Menge, Tempo bis KEV, externe Signale).
     ergebnis["kev_stufe"] = ergebnis["stufe"]
     if rsc and rsc.get("stufe"):
@@ -465,7 +465,14 @@ def main(argv):
         ergebnis["stufe"], ergebnis["stufe_begruendung"], ergebnis["stufe_begruendung_en"], ergebnis["pegel"] = None, "Der Gesamtscore ist noch nicht berechenbar.", "The overall score cannot be computed yet.", None
     ziel = WURZEL / "site" / "data" / "lage.json"
     ziel.parent.mkdir(parents=True, exist_ok=True)
-    ziel.write_text(json.dumps(ergebnis, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    # Schlanke Ausgabe: die lange Tagesreihe des Pegels spaltenweise (ein Wert je Tag ab "start"), ohne Einrückung
+    pg = ergebnis.get("pegel") or {}
+    lang = pg.get("reihe") or []
+    if len(lang) > 1 and all(date.fromisoformat(lang[i + 1]["stand"]) - date.fromisoformat(lang[i]["stand"]) == timedelta(days=1) for i in range(len(lang) - 1)):
+        pg["reihe_k"] = {"start": lang[0]["stand"], "a": [x["ausnutzung"] for x in lang], "n": [x["n"] for x in lang],
+                         "live": {x["stand"]: [x["wert"], x["signale"]] for x in lang if x.get("wert") is not None}}
+        del pg["reihe"]
+    ziel.write_text(json.dumps(ergebnis, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     print(f"OK: {ziel.relative_to(WURZEL)} (Stand {stand}, Dreier-Pegel: {ergebnis['stufe']}, KEV-Menge: {ergebnis['kev_stufe']})")
     return 0
 
