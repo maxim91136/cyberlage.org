@@ -36,7 +36,9 @@
   document.addEventListener("click", function (e) {
     var l = e.target.closest && e.target.closest("a[href^='#']"); if (!l) return;
     var ziel = document.getElementById(l.getAttribute("href").slice(1)); aufklappen(ziel);
-    if (l.hasAttribute("data-offen") || (l.closest && l.closest(".dd-box"))) return;
+    var off = l.getAttribute("data-offen"), od = off && document.getElementById(off);
+    if (od) { aufklappen(od); od.open = true; setTimeout(function () { od.scrollIntoView(); ohneZiel(); }, 60); return; }
+    if (l.closest && l.closest(".dd-box")) return;
     if (ziel && ziel.scrollIntoView) setTimeout(function () { ziel.scrollIntoView(); ohneZiel(); }, 60);
   });
   // Klappen: jeder Besuch beginnt zugeklappt; beim Öffnen die Grafiken in der richtigen Breite neu zeichnen
@@ -86,7 +88,8 @@
 
   function render(d) {
     var kq0 = (d.quellen || []).filter(function (q) { return q.id === "cisa-kev"; })[0] || {};
-    $("stand").textContent = datum(kq0.abgerufen_am || d.stand);
+    $("stand").textContent = datum((d.radar && d.radar.abgerufen_am) || kq0.abgerufen_am || d.stand);
+    window.__pegel = d.pegel || null;
     var fz = $("fazit"), f = d.fazit;
     if (fz && f) {
       fz.textContent = "";
@@ -102,6 +105,8 @@
         fz.appendChild(el("p", "ft", pick(f.text, f.text_en)));
         fz.appendChild(el("p", "fh", pick("Für Verteidiger: ", "For defenders: ") + pick(f.hinweis, f.hinweis_en)));
       }
+      var bg = el("p", "mono dim fine", pick("KEV: Liste nachweislich ausgenutzter Lücken der US-Behörde CISA · CERT-Bund: Warndienst des BSI · „2,6-fach“: Messwert im Verhältnis zur Schwelle des Bausteins (1,0 = Schwelle erreicht) · ", "KEV: list of flaws proven to be exploited, kept by the US agency CISA · CERT-Bund: warning service of the German BSI · “2.6x”: reading relative to the component's threshold (1.0 = threshold reached) · "));
+      var bl = el("a", "", pick("alle Begriffe", "all terms")); bl.href = "#info"; bl.setAttribute("data-offen", "i-begriffe"); bg.appendChild(bl); fz.appendChild(bg);
       fz.appendChild(el("p", "mono dim fine", pick("Feste Sätze nach Regeln, keine Vorhersage. Stufen des Dreier-Pegels geprüft am ", "Fixed sentences by rule, no forecast. Dreier Gauge levels checked on ") + datum(f.stand) + "."));
       fz.hidden = false; var fv = $("fazit-verk"); if (fv) fv.hidden = false;
     }
@@ -858,6 +863,15 @@
       tx.appendChild(el("span", "", pick(
         "Aus " + sc.signale + " von " + sc.von + " Bausteinen, je Gruppe gemittelt. 50 heißt: die Regelschwellen sind im Schnitt erreicht, 100: im Schnitt doppelt so weit. Kein objektives Maß, die Grenzen sind vorläufig.",
         "From " + sc.signale + " of " + sc.von + " components, averaged per group. 50 means the rule thresholds are reached on average, 100 twice as far. Not an objective measure, the limits are provisional.")));
+      var st0 = (d_skala && d_skala.stufen) || [], ix = -1; st0.forEach(function (x, i) { if (ix < 0 && sc.wert < x.bis) ix = i; });
+      if (ix >= 0) {
+        var teile = [];
+        if (ix < st0.length - 1) teile.push(pick((st0[ix].bis - sc.wert) + (st0[ix].bis - sc.wert === 1 ? " Punkt" : " Punkte") + " bis „" + st0[ix + 1].name + "“", (st0[ix].bis - sc.wert) + (st0[ix].bis - sc.wert === 1 ? " point" : " points") + " to “" + st0[ix + 1].name_en + "”"));
+        if (ix > 0) teile.push(pick((sc.wert - st0[ix - 1].bis + 1) + " über der Grenze zu „" + st0[ix - 1].name + "“", (sc.wert - st0[ix - 1].bis + 1) + " above the limit to “" + st0[ix - 1].name_en + "”"));
+        var lv = ((window.__pegel || {}).reihe_k || {}).live || {}, tg = Object.keys(lv).sort(), gest = tg.length > 1 ? lv[tg[tg.length - 2]][0] : null;
+        if (typeof gest === "number") teile.push(pick("am Vortag " + gest, "previous day " + gest));
+        if (teile.length) tx.appendChild(el("span", "mono", pick("Abstand: ", "Margin: ") + teile.join(" · ")));
+      }
       tx.appendChild(el("span", "mono dim", pick("Stand: ", "as of: ") + datum(r.abgerufen_am)));
       sb.appendChild(tx); sb.hidden = false;
       var sbg = $("stufe-begr"); if (sbg) sbg.hidden = true;
