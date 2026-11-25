@@ -464,7 +464,6 @@ html[lang=en] .sek>summary::after{content:"\25B8  show"}html[lang=en] .sek[open]
 .lage .rd-score{margin-top:12px}
 
 .fr-over{color:#ff8a7a}.fr-bald{color:#e3b341}
-.navin{flex-wrap:wrap}.navin .nav-row{flex-wrap:wrap}
 .umbau{color:#e3b341;border:1px dashed #e3b341;padding:6px 10px;font-size:13px;margin:8px 0;display:inline-block}
 .rd-balken{max-width:680px;display:block}
 .hero-pegel{display:inline-block;margin:10px 0 2px;padding:7px 12px;border:1px solid var(--st,#e3b341);color:var(--st,#e3b341);text-decoration:none;font-weight:700;font-size:15px;letter-spacing:.02em}
@@ -520,3 +519,5 @@ html[lang=en] .teil>summary::after,html[lang=en] .sek>summary::after{content:"OP
 .teil section.wrap{margin-top:0;padding-bottom:0}.teil>div.wrap{margin-top:14px}.teil[open]{padding-bottom:10px}
 @media (max-width:600px){.teil>summary.wrap{width:calc(100% - 36px);padding:14px}.teil>summary::after,.sek>summary::after{letter-spacing:.08em;padding:3px 6px}}
 @media print{.teil>summary::after,.sek>summary::after{display:none}}
+/* Navigation zwischen 900 und 1240 px: eine Zeile, ohne Gruppenschilder, enger gesetzt */
+@media (min-width:900px) and (max-width:1239px){.navin{gap:0 12px;flex-wrap:nowrap}.nav-row{gap:2px 11px}.nav-row .nav-grp{display:none}.nav-row>a,.nav-row .dd>summary{font-size:14.5px}.nav-g1,.nav-g2{padding-right:12px!important}.navin button,.navin .sprache{font-size:12px;padding:4px 8px}}

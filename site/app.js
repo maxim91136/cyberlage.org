@@ -24,26 +24,21 @@
     for (var n = el0; n; n = n.parentElement) if (n.tagName === "DETAILS") n.open = true;
     var d = el0.querySelector && el0.querySelector(":scope > details.sek"); if (d) d.open = true;
   }
+  function ohneZiel() { try { history.replaceState(null, "", location.pathname + location.search); } catch (e) { /* ältere Browser */ } }
   function oeffne() {
-    var id = (location.hash || "").slice(1); if (id) aufklappen(document.getElementById(id));
+    var id = (location.hash || "").slice(1), z = id && document.getElementById(id); if (!z) return;
+    aufklappen(z); setTimeout(function () { z.scrollIntoView(); ohneZiel(); }, 60);
   }
   window.addEventListener("hashchange", oeffne);
   document.addEventListener("click", function (e) {
     var l = e.target.closest && e.target.closest("a[href^='#']"); if (!l) return;
     var ziel = document.getElementById(l.getAttribute("href").slice(1)); aufklappen(ziel);
-    if (ziel && ziel.scrollIntoView) setTimeout(function () { ziel.scrollIntoView(); }, 0);
+    if (ziel && ziel.scrollIntoView) setTimeout(function () { ziel.scrollIntoView(); ohneZiel(); }, 60);
   });
-  // Klappen: Zustand nur im Browser merken; beim Öffnen die Grafiken in der richtigen Breite neu zeichnen
-  var KL = "klappen";
-  try {
-    var gem = JSON.parse(localStorage.getItem(KL) || "{}");
-    Object.keys(gem).forEach(function (id) { var d = document.getElementById(id); if (d && d.tagName === "DETAILS") d.open = !!gem[id]; });
-  } catch (e) { /* ohne Speicher gilt die Vorgabe */ }
+  // Klappen: jeder Besuch beginnt zugeklappt; beim Öffnen die Grafiken in der richtigen Breite neu zeichnen
+  try { localStorage.removeItem("klappen"); } catch (e) { /* egal */ }
   document.addEventListener("toggle", function (e) {
     var d = e.target; if (!d || d.tagName !== "DETAILS") return;
-    if (d.id && (d.classList.contains("teil") || d.classList.contains("sek"))) {
-      try { var g = JSON.parse(localStorage.getItem(KL) || "{}"); g[d.id] = d.open; localStorage.setItem(KL, JSON.stringify(g)); } catch (e2) { /* egal */ }
-    }
     if (d.open && window.neuZeichnen) window.neuZeichnen();
   }, true);
   window.addEventListener("load", oeffne);
