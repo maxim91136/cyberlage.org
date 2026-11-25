@@ -3,8 +3,8 @@
   "quelle": "CERT-Bund / BSI Warn- und Informationsdienst",
   "quelle_url": "https://wid.cert-bund.de/",
   "hinweis": "Nur Kennung, Schweregrad, Titel, Datum und Link. Beschreibungstexte werden nicht übernommen.",
-  "abgerufen_am": "2026-11-25T10:31:07+00:00",
-  "anzahl": 434
+  "abgerufen_am": "2026-11-25T10:41:49+00:00",
+  "anzahl": 435
  },
  "eintraege": [
   {
@@ -54,6 +54,14 @@
    "titel": "Apache Tomcat: Mehrere Schwachstellen",
    "datum": "2026-11-25",
    "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4696"
+  },
+  {
+   "id": "WID-SEC-2026-4686",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Drupal Core: Mehrere Schwachstellen ermöglichen Codeausführung",
+   "datum": "2026-11-25",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4686"
   },
   {
    "id": "WID-SEC-2026-4234",
