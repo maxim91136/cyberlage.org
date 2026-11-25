@@ -126,7 +126,8 @@
   </section>
 
   <section id="signale" class="wrap" aria-labelledby="h-sig">
-    <h2 id="h-sig" class="mono" data-t="rd_sig_h">## signale</h2>
+    <details class="sek">
+      <summary><h2 id="h-sig" class="mono" data-t="rd_sig_h">## signale</h2></summary>
     <p class="dim" data-t="rd_sig_intro">Jedes Signal einmal, mit Wert, Regel und Zeitraum. Messungen sind Zählungen aus offenen Rohdaten, Einschätzungen sind Urteile anderer Stellen.</p>
     <h3 class="mono rd-gr" data-t="rd_g_score">Im Radar-Score: Signale mit Regelschwelle</h3>
     <div class="rd-kacheln" id="rd-k-score"></div>
@@ -138,10 +139,12 @@
       <h4 class="mono rd-t" data-t="rd_tr_h">Trefferquote der Prognose</h4><p id="rd-treffer"></p>
       <h4 class="mono rd-t" data-t="rd_eu_h">EU-KEV und CISA-KEV</h4><p id="rd-eu"></p>
     </details>
+    </details>
   </section>
 
   <section id="rueckblick" class="wrap" aria-labelledby="h-rueck">
-    <h2 id="h-rueck" class="mono" data-t="r_h">## rückblick</h2>
+    <details class="sek">
+      <summary><h2 id="h-rueck" class="mono" data-t="r_h">## rückblick</h2></summary>
     <div class="panel pad">
       <h3 class="mono rd-t" data-t="r_pegel">Dreier-Pegel im Verlauf</h3>
       <svg id="verlauf" role="img" aria-labelledby="verlauf-titel" viewBox="0 0 1000 220" width="100%" preserveAspectRatio="xMidYMid meet"><title id="verlauf-titel">Verlauf der neu aufgenommenen Schwachstellen</title></svg>
@@ -164,6 +167,7 @@
       <p class="mono dim fine" id="rd-pruef"></p>
       <p class="mono dim fine" data-t="rd_warum_n">Das ist der langfristige Hintergrund, nicht der Tagesstand. Von Hand gepflegt, jeweils mit Quelle und Prüfdatum. Geopolitische Spannungen messen wir nicht.</p>
     </div>
+    </details>
   </section>
 
   <section id="schwach" class="wrap grp" aria-labelledby="h-schwach">
@@ -182,6 +186,7 @@
     <div class="panel pad p-werk" id="p-werk"></div>
     <div class="panel pad pt pz" id="p-zuerst" hidden></div>
     <div class="panel pad pt" id="p-ms" hidden></div>
+    <div class="panel pad pt" id="p-edge" hidden></div>
     <div class="panel pad pt" id="p-hs" hidden></div>
   </section>
 

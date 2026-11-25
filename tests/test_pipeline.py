@@ -899,3 +899,25 @@ class CvssTests(unittest.TestCase):
         self.assertEqual([k["cves"][0] for k in r["liste"]], ["CVE-B", "CVE-A"])
         self.assertEqual(r["liste"][0]["cvss"], [{"cve": "CVE-B", "score": 9.0}])
         self.assertEqual(r["liste"][0]["stufe_name"], "im CISA-KEV, nachweislich angegriffen")
+
+
+class OhnePatchChromiumTests(unittest.TestCase):
+    def test_kev_kein_patch_erkannt(self):
+        a = kev_roh("CVE-2026-1", datum="2026-11-20"); a["requiredAction"] = "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable."
+        b = kev_roh("CVE-2026-2", datum="2026-11-20"); b["requiredAction"] = "Apply updates per vendor instructions."
+        meta, e = fetch_kev.pruefe_und_verdichte(roh(a, b))
+        d = {x["cve"]: x for x in e}
+        self.assertTrue(d["CVE-2026-1"].get("kein_patch"))
+        self.assertNotIn("kein_patch", d["CVE-2026-2"])
+
+    def test_chromium_getrennt_mit_version(self):
+        doc = {"DocumentTracking": {"Identification": {"ID": {"Value": "2026-Nov"}}, "InitialReleaseDate": "2026-11-10T08:00:00"}, "ProductTree": {}, "Vulnerability": [
+            {"CVE": "CVE-C1", "Title": {"Value": "Use after free in XML in Google Chrome prior to 157.0.8103.50 allowed x"}, "Threats": [{"Type": 1, "Description": {"Value": "Exploited:Yes"}}],
+             "Remediations": [{"Type": 2, "FixedBuild": "157.0.3300.20", "Description": {"Value": "Release Notes"}}]},
+            {"CVE": "CVE-C2", "Title": {"Value": "Chromium: CVE-x Heap overflow"}, "Remediations": [{"Type": 2, "FixedBuild": "156.0.3200.1"}]}]}
+        r = fetch_patches.verdichte_dokument(doc, [])
+        self.assertEqual(r["cves"], 0)
+        self.assertEqual(r["chromium"]["anzahl"], 2)
+        self.assertEqual(r["chromium"]["edge"], "157.0.3300.20")
+        self.assertEqual(r["chromium"]["chrome"], "157.0.8103.50")
+        self.assertEqual([x["cve"] for x in r["chromium"]["kev"]], ["CVE-C1"])

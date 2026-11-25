@@ -34,7 +34,7 @@ MONAT_ID = re.compile(r"^(\d{4})-(" + "|".join(MONATE) + r")$")
 SCHWEREN = ("Critical", "Important", "Moderate", "Low")
 BEHALTEN_MONATE = 36
 HISTORIE_MONATE = 12  # Vergleichsbasis für die Bewertung
-SCHEMA = 10  # erhöhen, wenn sich die Zählweise ändert: dann werden alle Monate neu geholt
+SCHEMA = 11  # erhöhen, wenn sich die Zählweise ändert: dann werden alle Monate neu geholt
 
 
 class QuellFehler(Exception):
@@ -49,6 +49,14 @@ def lade_json(url):
 
 def _wert(x):
     return x.get("Value", "") if isinstance(x, dict) else (x or "")
+
+
+def _vt(txt):
+    """Versionsstring "157.0.8103.50" -> Tupel von Zahlen für den Vergleich; leer bei ungültig."""
+    try:
+        return tuple(int(x) for x in str(txt).strip().split("."))
+    except ValueError:
+        return ()
 
 
 def patch_stand(v):
@@ -157,6 +165,7 @@ def verdichte_dokument(doc, kev_cves=()):
     auswirkung, fam = {}, {}
     ausgenutzt, oeffentlich, in_kev, cves, chromium, azure_linux, kandidaten = [], [], [], [], 0, 0, []
     ohne_fix = []
+    chrom = {"edge": "", "chrome": "", "kev": []}
     gesehen = set()
     for v in doc.get("Vulnerability") or []:
         cve = v.get("CVE")
@@ -166,6 +175,16 @@ def verdichte_dokument(doc, kev_cves=()):
         titel = _wert(v.get("Title"))
         if titel.lower().startswith("chromium") or "in google chrome prior to" in titel.lower():
             chromium += 1  # Edge übernimmt Chromium-Lücken; getrennt gezählt, damit sie die Monatszahl nicht verzerren
+            for r in v.get("Remediations") or []:
+                fb = str(r.get("FixedBuild") or "").strip()
+                if r.get("Type") == 2 and _vt(fb) and (not chrom["edge"] or _vt(fb) > _vt(chrom["edge"])):
+                    chrom["edge"] = fb
+            mv = re.search(r"prior to ([\d.]{5,})", titel)
+            if mv and _vt(mv.group(1)) and (not chrom["chrome"] or _vt(mv.group(1)) > _vt(chrom["chrome"])):
+                chrom["chrome"] = mv.group(1)
+            ex_c = " ".join(_wert(t.get("Description")) for t in (v.get("Threats") or []) if t.get("Type") == 1)
+            if cve in kev or re.search(r"Exploited:\s*Yes", ex_c, re.I):
+                chrom["kev"].append({"cve": cve, "titel": titel[:110]})
             continue
         betroffen = set()
         for st in v.get("ProductStatuses") or []:
@@ -221,6 +240,7 @@ def verdichte_dokument(doc, kev_cves=()):
         "schwere": schwere,
         "ausgenutzt": len(ausgenutzt), "ausgenutzt_cves": sorted(ausgenutzt)[:25],
         "oeffentlich_bekannt": len(oeffentlich), "oeffentlich_cves": sorted(oeffentlich)[:25],
+        "chromium": {"anzahl": chromium, "edge": chrom["edge"], "chrome": chrom["chrome"], "kev": chrom["kev"][:5]},
         "ohne_fix": len(ohne_fix), "ohne_fix_cves": sorted(ohne_fix)[:25],
         "im_kev": len(in_kev), "im_kev_cves": sorted(in_kev)[:25],
         "auswirkung": dict(sorted(auswirkung.items(), key=lambda kv: -kv[1])[:8]),
@@ -710,6 +730,26 @@ def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=24, cvss=None):
             "gesamt": len(kand), "liste": kand[:maximum], "ohne_patch": sorted(ohne, key=lambda k: (k["stufe"], k["cves"][0]))[:6]}
 
 
+def kev_ohne_patch(heute, tage=60):
+    """KEV-Einträge der letzten Tage, bei denen CISA nur Abmilderung oder Abschalten nennt (kein Patch genannt)."""
+    try:
+        kev = json.loads((WURZEL / "data" / "kev" / "kev.json").read_text(encoding="utf-8"))
+        out = []
+        for x in kev["eintraege"]:
+            if not x.get("kein_patch"):
+                continue
+            try:
+                alter = (heute - datetime.fromisoformat(x["hinzugefuegt"]).date()).days
+            except (TypeError, ValueError):
+                continue
+            if 0 <= alter <= tage:
+                out.append({"cve": x["cve"], "hersteller": x["hersteller"], "produkt": x["produkt"], "datum": x["hinzugefuegt"], "aktion": x.get("aktion", ""),
+                            "link": "https://nvd.nist.gov/vuln/detail/" + x["cve"]})
+        return sorted(out, key=lambda e: (e["datum"], e["cve"]), reverse=True)[:10]
+    except (OSError, ValueError, KeyError):
+        return []
+
+
 def kev_cves():
     try:
         kev = json.loads((WURZEL / "data" / "kev" / "kev.json").read_text(encoding="utf-8"))
@@ -756,6 +796,7 @@ def main():
         except Exception as e:
             print("CVSS: Fehler (%s)" % e)
         pr = priorisiere(monate, hs, kev, epss, jetzt.date(), cvss=cache)
+        pr["ohne_patch_kev"] = kev_ohne_patch(jetzt.date())
         PRIO_DATEI.write_text(json.dumps(pr, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
         print("Priorität: %d Einträge insgesamt, %d angezeigt, EPSS für %d Kandidaten" % (pr["gesamt"], len(pr["liste"]), len(epss)))
     except Exception as e:

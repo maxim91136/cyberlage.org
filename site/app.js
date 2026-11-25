@@ -19,6 +19,17 @@
     return e;
   };
 
+  function oeffne() {
+    var id = (location.hash || "").slice(1), sec = id && document.getElementById(id), d = sec && sec.querySelector("details.sek");
+    if (d) d.open = true;
+  }
+  window.addEventListener("hashchange", oeffne);
+  document.addEventListener("click", function (e) {
+    var l = e.target.closest && e.target.closest("a[href^='#']"); if (!l) return;
+    var sec = document.getElementById(l.getAttribute("href").slice(1)), d = sec && sec.querySelector("details.sek"); if (d) d.open = true;
+  });
+  window.addEventListener("load", oeffne);
+
   var knopf = $("totop");
   if (knopf) {
     var weich = !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
@@ -386,7 +397,7 @@
   function zeigeTermine() {
     var host = $("t-liste"); if (!host) return;
     host.textContent = "";
-    termine(new Date(), 8).forEach(function (g) {
+    termine(new Date(), 6).forEach(function (g) {
       var row = el("div", "t-row" + (g.tage <= 1 ? " t-nah" : ""));
       row.appendChild(el("span", "mono t-d", new Date(g.zeit).toLocaleDateString(window.I18N.locale, { timeZone: "UTC", weekday: "short", day: "numeric", month: "numeric", year: "numeric" })));
       row.appendChild(el("span", "mono t-c", inTagen(g.tage)));
@@ -441,7 +452,7 @@
     if (!pr.liste.length) {
       box.appendChild(el("p", "", pick("Aktuell nichts, was nach unseren Regeln vorgezogen werden muss: keine Lücke aus den Patches der letzten Wochen steht im CISA-KEV, wird vom Hersteller als ausgenutzt gemeldet oder hat eine hohe Ausnutzungswahrscheinlichkeit. Der normale Patchzyklus genügt.", "Currently nothing that needs to be moved up by our rules: no flaw from the recent patches is in the CISA KEV, reported as exploited by the vendor or has a high likelihood of exploitation. The normal patch cycle is enough.")));
     } else {
-      var ol = el("ol", "p-rang"), olRest = el("ol", "p-rang"); olRest.start = 9;
+      var ol = el("ol", "p-rang"), olRest = el("ol", "p-rang"); olRest.start = 6;
       pr.liste.forEach(function (k, idx) {
         var li = el("li", "p-r" + k.stufe);
         var kopf = el("div", "p-rk");
@@ -450,44 +461,50 @@
         kopf.appendChild(el("span", "mono dim", " · " + datum(k.datum)));
         li.appendChild(kopf);
         li.appendChild(el("div", "p-t", k.titel));
-        if (k.betrifft && k.betrifft !== k.quelle) li.appendChild(el("div", "p-w", pick("Betrifft: ", "Affects: ") + k.betrifft));
-        li.appendChild(el("div", "p-w", pick("Warum zuerst: ", "Why first: ") + pick(k.grund, k.grund_en)));
+        var det = el("details", "p-det"); det.appendChild(el("summary", "mono", pick("Warum Platz " + k.rang + "? Details", "Why rank " + k.rang + "? Details")));
+        if (k.betrifft && k.betrifft !== k.quelle) det.appendChild(el("div", "p-w", pick("Betrifft: ", "Affects: ") + k.betrifft));
+        det.appendChild(el("div", "p-w", pick("Warum zuerst: ", "Why first: ") + pick(k.grund, k.grund_en)));
         var bw = [];
         (k.cvss || []).forEach(function (c) { bw.push("CVSS " + String(c.score).replace(".", pick(",", ".")) + ((k.cves || []).length > 1 || k.cvss.length > 1 ? " (" + c.cve + ")" : "")); });
         if (typeof k.epss === "number") bw.push("EPSS " + Math.round(k.epss * 100) + " %");
         li.appendChild(el("div", "p-w mono", pick("Bewertung: ", "Scores: ") + (bw.length ? bw.join(" · ") : pick("CVSS noch nicht verfügbar", "CVSS not available yet")) + (k.cves && k.cves.length > 3 ? " …" : "")));
-        li.appendChild(el("div", "p-w mono dim fine", pick("Rang " + k.rang + ": Stufe " + k.stufe + " von 4 (", "Rank " + k.rang + ": level " + k.stufe + " of 4 (") + pick(k.stufe_name, k.stufe_name_en) + pick("). Innerhalb der Stufe zählt EPSS, dann CVSS.", "). Within a level EPSS counts, then CVSS.")));
+        det.appendChild(el("div", "p-w mono dim fine", pick("Rang " + k.rang + ": Stufe " + k.stufe + " von 4 (", "Rank " + k.rang + ": level " + k.stufe + " of 4 (") + pick(k.stufe_name, k.stufe_name_en) + pick("). Innerhalb der Stufe zählt EPSS, dann CVSS.", "). Within a level EPSS counts, then CVSS.")));
         var fx = el("div", "p-fix"); fx.appendChild(el("b", "mono", pick("Lösung: ", "Fix: ")));
         var teile = [];
         teile = fixTeile(k.fixe);
         fx.appendChild(document.createTextNode(teile.length ? teile.join(", ") : pick(k.patch_text, k.patch_text_en)));
         if (k.patch_link && /^https:\/\//.test(k.patch_link)) { fx.appendChild(document.createTextNode(" · ")); fx.appendChild(link(k.patch_link, /OfficeSecurityReleases/.test(k.patch_link) ? pick("Office-Release-Notes", "Office release notes") : pick("Fix-Seite", "fix page"))); }
         li.appendChild(fx);
-        if (k.monat) li.appendChild(el("div", "p-w mono dim", pick("Enthalten im Microsoft Patch Day ", "Included in the Microsoft Patch Day ") + monatName(k.monat) + pick(" (Sammelupdate des Monats; Nachträge sind Out-of-Band-Updates)", " (the month's cumulative update; later additions are out-of-band updates)")));
+        if (k.monat) det.appendChild(el("div", "p-w mono dim", pick("Enthalten im Microsoft Patch Day ", "Included in the Microsoft Patch Day ") + monatName(k.monat) + pick(" (Sammelupdate des Monats; Nachträge sind Out-of-Band-Updates)", " (the month's cumulative update; later additions are out-of-band updates)")));
+        li.appendChild(det);
         li.setAttribute("data-i", idx); li.setAttribute("data-k", pzKey(k));
         var lb = el("label", "p-ok mono"), cb = document.createElement("input"); cb.type = "checkbox"; cb.setAttribute("data-k", pzKey(k));
         lb.appendChild(cb); lb.appendChild(document.createTextNode(" " + pick("erledigt", "done"))); kopf.appendChild(lb);
         li.setAttribute("data-t", li.textContent.toLowerCase());
-        (idx < 8 ? ol : olRest).appendChild(li);
+        (idx < 5 ? ol : olRest).appendChild(li);
       });
       box.appendChild(ol);
       if (olRest.children.length) {
         var dt = el("details", "p-mehr"); dt.appendChild(el("summary", "mono", pick("Weitere ", "Another ") + olRest.children.length + pick(" Einträge dieser Woche", " entries this week"))); dt.appendChild(olRest); box.appendChild(dt);
       }
-      if (pr.ohne_patch && pr.ohne_patch.length) {
-        box.appendChild(el("h4", "mono rd-t", pick("Angegriffen, aber noch kein Patch", "Attacked, but no patch yet")));
-        box.appendChild(el("p", "mono dim fine", pick("Für diese Lücken meldet Microsoft nur Umgehung oder Abmilderung, keinen Patch. Hier hilft die Gegenmaßnahme im Hersteller-Hinweis.", "For these flaws Microsoft lists only a workaround or mitigation, no patch. The countermeasure in the vendor note applies.")));
-        var ul = el("ul", "p-rang");
-        pr.ohne_patch.forEach(function (k) {
-          var li = el("li", "p-r" + k.stufe), kopf = el("div", "p-rk");
-          kopf.appendChild(el("span", "mono p-q", k.quelle)); kopf.appendChild(link(k.link, k.cves[0]));
-          li.appendChild(kopf); li.appendChild(el("div", "p-t", k.titel)); li.appendChild(el("div", "p-w", pick(k.grund, k.grund_en)));
-          li.setAttribute("data-t", li.textContent.toLowerCase());
-          ul.appendChild(li);
-        });
-        box.appendChild(ul);
-      }
     }
+    var op = el("div", "p-op"); op.appendChild(el("h4", "mono rd-t", pick("Angegriffen, aber noch kein Patch", "Attacked, but no patch yet")));
+    op.appendChild(el("p", "mono dim fine", pick("Lücken, für die der Hersteller nur eine Umgehung oder Abmilderung meldet (Microsoft) oder CISA im KEV nur Abmilderung oder Abschalten des Produkts verlangt. Hier hilft kein Update, sondern die Gegenmaßnahme im Hinweis.", "Flaws for which the vendor lists only a workaround or mitigation (Microsoft) or CISA's KEV asks only for mitigation or discontinuing the product. No update helps here, the countermeasure in the notice does.")));
+    var opl = (pr.ohne_patch || []).map(function (k) { return { cve: k.cves[0], wer: k.quelle, was: k.titel, datum: k.datum, aktion: pick("Microsoft nennt nur Umgehung oder Abmilderung.", "Microsoft lists only a workaround or mitigation."), link: k.link }; })
+      .concat((pr.ohne_patch_kev || []).map(function (k) { return { cve: k.cve, wer: "CISA-KEV", was: k.hersteller + " " + k.produkt, datum: k.datum, aktion: k.aktion, link: k.link }; }));
+    if (!opl.length) op.appendChild(el("p", "", pick("Aktuell keine solche Lücke in den letzten 60 Tagen.", "Currently no such flaw in the last 60 days.")));
+    else {
+      var ul = el("ul", "p-rang");
+      opl.forEach(function (k) {
+        var li = el("li", "p-r1 p-ohne"), kopf = el("div", "p-rk");
+        kopf.appendChild(el("span", "mono p-q", k.wer)); kopf.appendChild(link(k.link, k.cve)); kopf.appendChild(el("span", "mono dim", " · " + datum(k.datum)));
+        li.appendChild(kopf); li.appendChild(el("div", "p-t", k.was));
+        if (k.aktion) li.appendChild(el("div", "p-w mono dim fine", k.aktion));
+        li.setAttribute("data-t", li.textContent.toLowerCase()); ul.appendChild(li);
+      });
+      op.appendChild(ul);
+    }
+    box.appendChild(op);
     box.appendChild(el("p", "mono dim fine", pick("Reihenfolge nach festen Regeln: 1. im CISA-KEV, 2. vom Hersteller als ausgenutzt gemeldet, 3. EPSS ab 10 %, 4. vom Hersteller als kritisch eingestuft. Berücksichtigt: Microsoft Patch Day der letzten 30 Tage, Linux-Meldungen und Cisco der letzten 14 Tage (Linux nur mit KEV-Bezug). Stand ", "Order by fixed rules: 1. in the CISA KEV, 2. reported as exploited by the vendor, 3. EPSS from 10%, 4. rated critical by the vendor. Considered: Microsoft patch day of the last 30 days, Linux advisories and Cisco of the last 14 days (Linux only with a KEV link). As of ") + datum(pr.stand) + pick(". Das ist keine Vorhersage und ersetzt keine Prüfung in Ihrem eigenen System.", ". This is no forecast and does not replace a check in your own system.")));
     box.hidden = false;
     werkzeuge(pr);
@@ -559,6 +576,27 @@
     knopf(pick("Haken zurücksetzen", "Reset ticks"), function () { erledigt = {}; lsSet("cl_erledigt", "{}"); anwenden(); return pick("zurückgesetzt", "reset"); });
     anwenden();
   }
+  function zeigeEdge(m) {
+    var box = $("p-edge"); if (!box) return;
+    var c = m.chromium || { anzahl: m.davon_chromium_ausgenommen };
+    if (!c.anzahl) { box.hidden = true; return; }
+    box.textContent = "";
+    box.appendChild(el("h3", "mono rd-t", pick("Edge und Chrome (Chromium)", "Edge and Chrome (Chromium)")));
+    box.appendChild(el("p", "", pick(zahl(c.anzahl) + " Chromium-Lücken im " + monatName(m.id) + ". Sie kommen laufend mit den Browser-Updates, nicht nur am Patch Day, und stehen deshalb nicht in der Zahl oben.", zahl(c.anzahl) + " Chromium flaws in " + monatName(m.id) + ". They arrive continuously with browser updates, not only on patch day, and are therefore not in the figure above.")));
+    if (c.edge || c.chrome) {
+      var fx = el("div", "p-fix"); fx.appendChild(el("b", "mono", pick("Lösung: ", "Fix: ")));
+      fx.appendChild(document.createTextNode((c.edge ? pick("Edge mindestens Version ", "Edge at least version ") + c.edge : "") + (c.edge && c.chrome ? " · " : "") + (c.chrome ? pick("Chrome mindestens Version ", "Chrome at least version ") + c.chrome : "") + pick(", Browser danach neu starten.", ", then restart the browser.")));
+      box.appendChild(fx);
+    }
+    if (c.kev && c.kev.length) {
+      var ex = el("p", "mono fine", pick("Davon als ausgenutzt gemeldet: ", "Reported as exploited: "));
+      c.kev.forEach(function (x, i) { if (i) ex.appendChild(document.createTextNode(", ")); ex.appendChild(link("https://msrc.microsoft.com/update-guide/vulnerability/" + x.cve, x.cve)); });
+      box.appendChild(ex);
+    } else if (c.edge || c.chrome) box.appendChild(el("p", "mono dim fine", pick("Keine davon als ausgenutzt gemeldet.", "None of them reported as exploited.")));
+    var q = el("p", "mono dim fine", pick("Quellen: Microsoft (Edge-Fixversion je CVE), Titel der Chromium-Meldungen (Chrome-Version). Mehr: ", "Sources: Microsoft (Edge fix version per CVE), titles of the Chromium notices (Chrome version). More: "));
+    q.appendChild(link("https://learn.microsoft.com/deployedge/microsoft-edge-relnotes-security", pick("Edge-Sicherheitsupdates", "Edge security updates"))); q.appendChild(document.createTextNode(" · ")); q.appendChild(link("https://chromereleases.googleblog.com/", "Chrome Releases"));
+    box.appendChild(q); box.hidden = false;
+  }
   function zeigeMicrosoft(ms) {
     var box = $("p-ms"); if (!box) return;
     var monate = ms && ms.monate ? Object.keys(ms.monate).map(function (k) { return ms.monate[k]; }) : [];
@@ -598,19 +636,22 @@
       m.ausgenutzt_cves.forEach(function (c, i) { if (i) ex.appendChild(document.createTextNode(", ")); ex.appendChild(link("https://msrc.microsoft.com/update-guide/vulnerability/" + c, c)); });
       box.appendChild(ex);
     }
+    if (m.nachtraege && m.nachtraege.length) {
+      var n = el("p", "mono fine", pick("Nachträge (Out-of-Band): ", "Later additions (out of band): ") + m.nachtraege.map(function (x) { return datum(x.am) + ": " + x.neue_cves + pick(" neue Lücken", " new flaws") + (x.ausgenutzt_neu ? " (" + x.ausgenutzt_neu + pick(" ausgenutzt", " exploited") + ")" : ""); }).join("; "));
+      box.appendChild(n);
+    }
+    var det = el("details", "p-det"); det.appendChild(el("summary", "mono", pick("Zahlen, Produkte und Verlauf", "Figures, products and history")));
     var kv = el("div", "p-cols");
     var fam = el("div", ""); fam.appendChild(el("h4", "mono", pick("Betroffene Produkte (Anzahl CVEs)", "Affected products (CVE count)")));
     Object.keys(m.familien || {}).slice(0, 6).forEach(function (k) { fam.appendChild(el("div", "p-z mono", k + ": " + m.familien[k])); });
     var au = el("div", ""); au.appendChild(el("h4", "mono", pick("Art der Auswirkung", "Impact type")));
     Object.keys(m.auswirkung || {}).slice(0, 6).forEach(function (k) { au.appendChild(el("div", "p-z mono", k + ": " + m.auswirkung[k])); });
-    kv.appendChild(fam); kv.appendChild(au); box.appendChild(kv);
-    if (m.nachtraege && m.nachtraege.length) {
-      var n = el("p", "mono fine", pick("Nachträge (Out-of-Band): ", "Later additions (out of band): ") + m.nachtraege.map(function (x) { return datum(x.am) + ": " + x.neue_cves + pick(" neue Lücken", " new flaws") + (x.ausgenutzt_neu ? " (" + x.ausgenutzt_neu + pick(" ausgenutzt", " exploited") + ")" : ""); }).join("; "));
-      box.appendChild(n);
-    }
-    box.appendChild(el("p", "mono dim fine", pick("Nicht mitgezählt: ", "Not counted: ") + zahl(m.davon_chromium_ausgenommen) + pick(" Chromium-Lücken im Edge und ", " Chromium flaws in Edge and ") + zahl(m.davon_azure_linux_ausgenommen) + pick(" Paketlücken von Azure Linux. Schweregrad, Ausnutzung und Bekanntheit stammen von Microsoft.", " package flaws of Azure Linux. Severity, exploitation and disclosure come from Microsoft.")));
-    zeichneMonate(box, monate);
-    box.appendChild(el("p", "mono dim fine", pick("CVEs je Patch Day, letzte ", "CVEs per patch day, last ") + monate.length + pick(" Monate. Gelb: mindestens eine ausgenutzte Lücke.", " months. Yellow: at least one exploited flaw.")));
+    kv.appendChild(fam); kv.appendChild(au); det.appendChild(kv);
+    det.appendChild(el("p", "mono dim fine", pick("Nicht mitgezählt: ", "Not counted: ") + zahl(m.davon_azure_linux_ausgenommen) + pick(" Paketlücken von Azure Linux (Linux-Pakete in Microsofts Cloud-Distribution, kein Windows und kein Office) und die Chromium-Lücken für Edge, siehe Block unten. Schweregrad, Ausnutzung und Bekanntheit stammen von Microsoft.", " package flaws of Azure Linux (Linux packages in Microsoft's cloud distribution, not Windows or Office) and the Chromium flaws for Edge, see the block below. Severity, exploitation and disclosure come from Microsoft.")));
+    zeigeEdge(m);
+    zeichneMonate(det, monate);
+    det.appendChild(el("p", "mono dim fine", pick("CVEs je Patch Day, letzte ", "CVEs per patch day, last ") + monate.length + pick(" Monate. Gelb: mindestens eine ausgenutzte Lücke.", " months. Yellow: at least one exploited flaw.")));
+    box.appendChild(det);
     box.hidden = false;
   }
   function zeigeHersteller(hs) {

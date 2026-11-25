@@ -431,3 +431,15 @@ html.alarm .tk-l{background:#ff5b6b}
   .p-mehr:not([open])>*:not(summary){display:block!important}
   .p-rang li{break-inside:avoid}
 }
+
+/* Zuklappbare Abschnitte und kompakte Einträge */
+.sek>summary{cursor:pointer;list-style:none;display:flex;align-items:baseline;gap:10px}
+.sek>summary::-webkit-details-marker{display:none}
+.sek>summary h2{margin:0}
+.sek>summary::after{content:"\25B8  anzeigen";color:var(--green);font:13px ui-monospace,monospace;white-space:nowrap}
+.sek[open]>summary::after{content:"\25BE  zuklappen"}
+html[lang=en] .sek>summary::after{content:"\25B8  show"}html[lang=en] .sek[open]>summary::after{content:"\25BE  hide"}
+.p-det{margin-top:6px}.p-det>summary{cursor:pointer;color:var(--dim);font-size:13px;padding:4px 0}
+.p-ohne{border-left-color:#e3b341}
+.p-op{margin-top:16px}
+@media print{.sek>summary::after{display:none}.p-det:not([open])>*:not(summary){display:block!important}}
