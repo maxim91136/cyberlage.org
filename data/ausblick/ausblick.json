@@ -1,9 +1,9 @@
 {
-  "abgerufen_am": "2026-11-25T15:00:11+00:00",
+  "abgerufen_am": "2026-11-25T15:44:56+00:00",
   "fenster_tage": 14,
-  "geprueft": 7874,
+  "geprueft": 7855,
   "schwelle_hoch": 0.1,
-  "hoch_wahrscheinlich": 18,
+  "hoch_wahrscheinlich": 17,
   "epss_datum": "2026-11-25",
   "liste": [
     {
@@ -167,11 +167,6 @@
       "cve": "CVE-2026-121810",
       "epss": 0.18075,
       "veroeffentlicht": "2026-11-18"
-    },
-    {
-      "cve": "CVE-2026-119618",
-      "epss": 0.15822,
-      "veroeffentlicht": "2026-11-11"
     },
     {
       "cve": "CVE-2026-113425",

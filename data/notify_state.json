@@ -2332,6 +2332,7 @@
    "WID-SEC-2022-1243"
   ],
   "eu": [
+   "EUVD-2026-112215",
    "EUVD-2025-35527",
    "EUVD-2026-129432",
    "EUVD-2026-129010",
@@ -2426,7 +2427,8 @@
   ],
   "eu": [
    "• Danfoss – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-131451\">CVE-2026-127057</a>",
-   "• Crocoblock – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2025-35527\">CVE-2025-49931</a>"
+   "• Crocoblock – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2025-35527\">CVE-2025-49931</a>",
+   "• Juniper Networks – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-112215\">CVE-2026-103406</a>"
   ]
  },
  "patches": {
