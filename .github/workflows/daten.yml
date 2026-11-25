@@ -43,7 +43,11 @@ jobs:
       - name: Radar rechnen (CVE-Liste, SANS, Trefferquote)
         run: python pipeline/fetch_radar.py
         continue-on-error: true
-      - name: Patch-Berichte (Microsoft MSRC)
+      - name: Uhrzeit für den Patch-Takt
+        id: zeit
+        run: echo "stunde=$(date -u +%H)" >> "$GITHUB_OUTPUT"
+      - name: Patch-Berichte (Microsoft MSRC, Linux, Cisco; alle 6 Stunden und bei Handstart)
+        if: github.event_name == 'workflow_dispatch' || contains(fromJSON('["04","05","10","11","16","17","22","23"]'), steps.zeit.outputs.stunde)
         continue-on-error: true
         timeout-minutes: 15
         run: python pipeline/fetch_patches.py
