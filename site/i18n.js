@@ -36,7 +36,7 @@
     k_zuerst: "This week first",
     f_dank: "Thanks to everyone whose open data makes this site possible: CISA, ENISA, BSI and CERT-Bund, NCSC-NL, SANS ISC, FIRST (EPSS), NIST (NVD), Microsoft, Red Hat, SUSE, Canonical, Debian, AlmaLinux, Rocky Linux, Amazon, Cisco and SAP.",
     i_andere: "other situation pictures", i_andere_n: "Other situation pictures",
-    an_intro: "The Dreier Gauge is not the only situation picture. These offerings measure something else or at a different pace, and are worth reading alongside.",
+    an_intro: "The BSI Cyber Index and the SANS Infocon are already part of the Dreier Gauge, two of its eight components. The offerings here are not included: they measure something else or at a different pace, and are worth reading alongside.",
     an_bsi: "Official figure for Germany from attack surface, threat and impact (2024 = 100). Published in the annual report, with quarterly values. It is one component of the Dreier Gauge.",
     an_tacho: "Attacks on Deutsche Telekom's honeypots in real time, worldwide. Shows attack activity that the Dreier Gauge does not measure; without a level and without an action part.",
     an_sans: "Daily status “Infocon” and analyses from a worldwide sensor network. The Infocon is one component of the Dreier Gauge.",
