@@ -45,20 +45,20 @@
   ],
   "pegel": {
     "niedrig": {
-      "satz": "Die KEV-Menge steht auf niedrig: Es kommt weniger Neues in den KEV-Katalog als üblich.",
-      "satz_en": "The KEV count is low: less new in the KEV catalog than usual.",
+      "satz": "Die KEV-Menge liegt unter dem Üblichen: Es kommt weniger Neues in den KEV-Katalog.",
+      "satz_en": "The KEV count is below the usual: less new in the KEV catalog.",
       "hinweis": "Routine genügt: KEV-Liste regelmäßig mit dem eigenen Bestand abgleichen.",
       "hinweis_en": "Routine is enough: compare the KEV list with your own inventory regularly."
     },
     "erhöht": {
-      "satz": "Die KEV-Menge steht auf erhöht: Es kommt mehr Neues in den KEV-Katalog als üblich.",
-      "satz_en": "The KEV count is elevated: more new in the KEV catalog than usual.",
+      "satz": "Die KEV-Menge liegt über dem Üblichen: Es kommt mehr Neues in den KEV-Katalog.",
+      "satz_en": "The KEV count is above the usual: more new in the KEV catalog.",
       "hinweis": "Die KEV-Liste täglich mit dem eigenen Bestand abgleichen und aus dem Internet erreichbare Systeme zuerst patchen.",
       "hinweis_en": "Compare the KEV list with your own inventory daily and patch internet-facing systems first."
     },
     "hoch": {
-      "satz": "Die KEV-Menge steht auf hoch: Es kommt deutlich mehr Neues in den KEV-Katalog als üblich.",
-      "satz_en": "The KEV count is high: clearly more new in the KEV catalog than usual.",
+      "satz": "Die KEV-Menge liegt weit über dem Üblichen: Es kommt deutlich mehr Neues in den KEV-Katalog.",
+      "satz_en": "The KEV count is far above the usual: clearly more new in the KEV catalog.",
       "hinweis": "Die KEV-Liste täglich abgleichen, aus dem Internet erreichbare Systeme zuerst patchen und Patchfristen verkürzen.",
       "hinweis_en": "Compare the KEV list daily, patch internet-facing systems first and shorten patch deadlines."
     }
@@ -66,16 +66,16 @@
   "grundlage": "Der Radar-Score ist 50, wenn die Signale im Schnitt ihre Regelschwelle erreichen, und 100 bei im Schnitt doppelter Schwelle. Die Stufen hängen an der KEV-Menge, gemessen an ihrer Verteilung der letzten 36 Monate (30-Tage-Zählung, 1098 Tage, Höchstwert 47): 28 entspricht dem 25. Perzentil (14 Einträge), 38 dem Median (19), 50 dem 75. Perzentil (25, Schwelle erhöht), 64 dem 90. Perzentil (32, Schwelle hoch), 80 etwa dem 98. Perzentil (40 Einträge). Gerundet auf 30, 50, 64 und 80. Vorläufig, weil der Radar-Score selbst noch keine eigene Verteilung hat; nach etwa 90 Tagen Tagesstand werden die Stufen aus seiner eigenen Verteilung neu abgeleitet.",
   "tempo": {
     "niedrig": {
-      "satz": "Das Tempo bis KEV ist niedrig: Neue Lücken kommen nicht schneller in den KEV als üblich.",
-      "satz_en": "The pace to KEV is low: new flaws are not reaching the KEV faster than usual."
+      "satz": "Das Tempo bis KEV ist unauffällig: Neue Lücken kommen nicht schneller in den KEV als üblich.",
+      "satz_en": "The pace to KEV is unremarkable: new flaws are not reaching the KEV faster than usual."
     },
     "erhoeht": {
-      "satz": "Das Tempo bis KEV ist erhöht: Neue Lücken kommen schneller in den KEV als in drei Vierteln der letzten 36 Monate.",
-      "satz_en": "The pace to KEV is elevated: new flaws reach the KEV faster than in three quarters of the last 36 months."
+      "satz": "Das Tempo bis KEV liegt über dem Üblichen: Neue Lücken kommen schneller in den KEV als in drei Vierteln der letzten 36 Monate.",
+      "satz_en": "The pace to KEV is above the usual: new flaws reach the KEV faster than in three quarters of the last 36 months."
     },
     "hoch": {
-      "satz": "Das Tempo bis KEV ist hoch: Neue Lücken kommen so schnell in den KEV wie nur in jedem zehnten der letzten 36 Monate.",
-      "satz_en": "The pace to KEV is high: new flaws reach the KEV as fast as in only one in ten of the last 36 months."
+      "satz": "Das Tempo bis KEV ist ungewöhnlich schnell: Neue Lücken kommen so schnell in den KEV wie nur in jedem zehnten der letzten 36 Monate.",
+      "satz_en": "The pace to KEV is unusually fast: new flaws reach the KEV as fast as in only one in ten of the last 36 months."
     }
   }
 }

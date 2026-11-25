@@ -261,7 +261,7 @@
         var c = mk("circle", { cx: x(i), cy: y(v[i].wert), r: 3.2, fill: "#6fe0a0" });
         c.appendChild(document.createElementNS(NS, "title")).textContent = datum(v[i].stand) + ": " + v[i].wert + " (" + v[i].signale + "/" + sc.von_bausteine + pick(" Bausteine", " components") + ")";
       });
-      mk("text", Object.assign({ x: Math.min(x(i0) + 6, B - R - 100), y: T + 10 }, mono, { fill: "#6fe0a0" }), pick("ab hier alle Bausteine", "all components from here"));
+      mk("text", Object.assign({ x: x(i0) - 6, y: T + 10, "text-anchor": "end" }, mono, { fill: "#6fe0a0" }), pick("ab hier alle Bausteine", "all components from here"));
     }
     var pk = v.length > 120 ? [0, Math.floor(v.length / 3), Math.floor(2 * v.length / 3)] : [0];
     pk.forEach(function (i) { mk("text", Object.assign({ x: x(i), y: H - 8, "text-anchor": "start" }, mono), datum(v[i].stand)); });
@@ -431,7 +431,7 @@
     var hinweis = pick("Erinnerung am Vortag um 9 Uhr (Standard des Kalenders). Termin nach den Regeln des Herstellers, ohne Gewähr.", "Reminder the day before at 9:00 (calendar default). Date from the vendor's rules, without guarantee.");
     termine(new Date(), 6).forEach(function (g) {
       var row = el("div", "t-row" + (g.tage <= 1 ? " t-nah" : ""));
-      row.appendChild(el("span", "mono t-d", new Date(g.zeit).toLocaleDateString(window.I18N.locale, { timeZone: "UTC", weekday: "short", day: "numeric", month: "numeric", year: "numeric" })));
+      row.appendChild(el("span", "mono t-d", new Date(g.zeit).toLocaleDateString(window.I18N.locale, { timeZone: "UTC", weekday: "short", day: "2-digit", month: "2-digit", year: "numeric" })));
       row.appendChild(el("span", "mono t-c", inTagen(g.tage)));
       var w = el("span", "t-n");
       g.ev.forEach(function (e, i) { if (i) w.appendChild(document.createTextNode(" · ")); w.appendChild(link(e.l, e.n)); });
@@ -655,11 +655,11 @@
     var m = monate[monate.length - 1], b = m.bewertung || {};
     box.textContent = "";
     var kopf = el("h3", "mono rd-t", pick("Microsoft Patch Day · ", "Microsoft patch day · ") + monatName(m.id)); box.appendChild(kopf);
-    var sub = el("p", "mono dim fine", pick("veröffentlicht ", "released ") + datum(m.erste_veroeffentlichung) + pick(" · Stand der Daten ", " · data as of ") + datum(m.aktuell) + pick(" · abgerufen ", " · retrieved ") + datum(ms.meta && ms.meta.abgerufen_am) + pick(" · Quelle: ", " · source: "));
+    var sub = el("p", "mono dim fine", pick("veröffentlicht ", "released ") + datum(String(m.erste_veroeffentlichung).slice(0, 10)) + pick(" · Stand der Daten ", " · data as of ") + datum(m.aktuell) + pick(" · abgerufen ", " · retrieved ") + datum(ms.meta && ms.meta.abgerufen_am) + pick(" · Quelle: ", " · source: "));
     sub.appendChild(link((ms.meta && ms.meta.quelle_url) || "https://msrc.microsoft.com/update-guide", "Microsoft Security Response Center")); box.appendChild(sub);
     var dr = { dringend: ["pr-rot", pick("dringend", "urgent")], zeitnah: ["pr-gelb", pick("zeitnah", "prompt")], normal: ["pr-gruen", pick("normal", "normal")] }[b.dringlichkeit] || ["", ""];
     var bw = el("div", "p-bew"); bw.appendChild(el("span", "p-badge " + dr[0], dr[1]));
-    bw.appendChild(el("span", "", pick(b.groesse, b.groesse_en) + (b.verhaeltnis_median ? " · " + b.verhaeltnis_median.toLocaleString(window.I18N.locale) + pick("-fach des Medians der Vormonate (", "x the median of earlier months (") + zahl(b.median_vormonate) + ")" : "")));
+    bw.appendChild(el("span", "", pick(b.groesse, b.groesse_en) + (b.verhaeltnis_median ? " · " + pick("das ", "") + b.verhaeltnis_median.toLocaleString(window.I18N.locale) + pick("-Fache des Medians der Vormonate (", "x the median of earlier months (") + zahl(b.median_vormonate) + ")" : "")));
     box.appendChild(bw);
     var g = el("div", "p-kpis");
     g.appendChild(kpi(zahl(m.cves), "CVEs")); g.appendChild(kpi(zahl(m.schwere.Critical), pick("kritisch", "critical")));
@@ -769,7 +769,7 @@
   function zeigeKonsens(r) {
     var k = r && r.konsens, box = $("rd-signale"); box.textContent = "";
     if (!k || !k.bewertet) { $("rd-kon").textContent = txt("keine"); return; }
-    var satz = pick(k.erhoeht + " von " + k.bewertet + " externen Signalen zeigen erhöht.", k.erhoeht + " of " + k.bewertet + " external signals show elevated.");
+    var satz = pick(k.erhoeht + " von " + k.bewertet + (k.bewertet === 1 ? " externem Signal liegt" : " externen Signalen liegen") + " an oder über der Schwelle.", k.erhoeht + " of " + k.bewertet + " external " + (k.bewertet === 1 ? "signal is" : "signals are") + " at or above the threshold.");
     $("rd-kon").textContent = satz + " " + pick("Stand ", "As of ") + datum(r.abgerufen_am) + ".";
     var sc = k.score, sb = $("rd-score"); sb.textContent = "";
     var ampel = (sc.stufe && sc.stufe.ampel) || "", rb = $("radar"), fzb = $("fazit");
@@ -804,8 +804,8 @@
     (k.signale || []).forEach(function (s) {
       var b = el("div", "sg"), st = s.erhoeht === true ? ["●", "an"] : (s.erhoeht === false ? ["○", "aus"] : ["–", "kn"]);
       b.appendChild(el("span", "p mono " + st[1], st[0]));
-      b.appendChild(el("span", "n", pick(s.name, s.name_en) + (s.art === "eigen" ? pick(" (eigen)", " (own)") : "") + " · " + (s.erhoeht === true ? pick("erhöht", "elevated") : (s.erhoeht === false ? pick("normal", "normal") : pick("noch keine Aussage", "no rating yet")))));
-b.appendChild(el("span", "g", typeof s.ausschlag === "number" ? pick("Ausschlag ", "reading ") + s.ausschlag.toLocaleString(window.I18N.locale, { minimumFractionDigits: 1, maximumFractionDigits: 2 }) + pick("-fache der Schwelle", "x the threshold") : pick("noch kein Messwert", "no reading yet")));
+      b.appendChild(el("span", "n", pick(s.name, s.name_en) + (s.art === "eigen" ? pick(" (eigen)", " (own)") : "") + " · " + (s.erhoeht === true ? pick("an oder über der Schwelle", "at or above threshold") : (s.erhoeht === false ? pick("unter der Schwelle", "below threshold") : pick("noch keine Aussage", "no rating yet")))));
+b.appendChild(el("span", "g", typeof s.ausschlag === "number" ? pick("Messwert: das ", "reading: ") + s.ausschlag.toLocaleString(window.I18N.locale, { minimumFractionDigits: 1, maximumFractionDigits: 2 }) + pick("-Fache der Schwelle", "x the threshold") : pick("noch kein Messwert", "no reading yet")));
       box.appendChild(b);
     });
   }

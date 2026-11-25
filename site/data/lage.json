@@ -7141,8 +7141,8 @@
     "ampel": "angespannt",
     "kev_stufe": "hoch",
     "tempo_stufe": "erhoeht",
-    "text": "Die Signale liegen im Schnitt über ihren Regelschwellen, aber nicht klar darüber. Die KEV-Menge steht auf hoch: Es kommt deutlich mehr Neues in den KEV-Katalog als üblich. Das Tempo bis KEV ist erhöht: Neue Lücken kommen schneller in den KEV als in drei Vierteln der letzten 36 Monate.",
-    "text_en": "On average the signals are above their rule thresholds, but not by a wide margin. The KEV count is high: clearly more new in the KEV catalog than usual. The pace to KEV is elevated: new flaws reach the KEV faster than in three quarters of the last 36 months.",
+    "text": "Die Signale liegen im Schnitt über ihren Regelschwellen, aber nicht klar darüber. Die KEV-Menge liegt weit über dem Üblichen: Es kommt deutlich mehr Neues in den KEV-Katalog. Das Tempo bis KEV liegt über dem Üblichen: Neue Lücken kommen schneller in den KEV als in drei Vierteln der letzten 36 Monate.",
+    "text_en": "On average the signals are above their rule thresholds, but not by a wide margin. The KEV count is far above the usual: clearly more new in the KEV catalog. The pace to KEV is above the usual: new flaws reach the KEV faster than in three quarters of the last 36 months.",
     "hinweis": "Die KEV-Liste täglich abgleichen, aus dem Internet erreichbare Systeme zuerst patchen und Patchfristen verkürzen.",
     "hinweis_en": "Compare the KEV list daily, patch internet-facing systems first and shorten patch deadlines.",
     "stand": "2026-11-24"

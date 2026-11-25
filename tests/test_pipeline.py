@@ -531,7 +531,7 @@ class RadarStufenTests(unittest.TestCase):
         import score
         f = score.fazit({"wert": 61}, "hoch", self.cfg)
         self.assertEqual(f["stufe"], "angespannt")
-        self.assertIn("KEV-Menge steht auf hoch", f["text"])
+        self.assertIn("KEV-Menge liegt weit über dem Üblichen", f["text"])
         self.assertTrue(f["text"].startswith("Die Signale liegen im Schnitt über"))  # Stufe des Gesamtscores zuerst, dann die Bausteine
         self.assertEqual(f["status"], "vorlaeufig")
         self.assertIsNone(score.fazit(None, "hoch", self.cfg))
@@ -730,7 +730,7 @@ class TempoTests(unittest.TestCase):
         import score
         cfg = json.loads((Path(__file__).resolve().parent.parent / "config" / "radar_stufen.json").read_text(encoding="utf-8"))
         f = score.fazit({"wert": 61}, "niedrig", cfg, "hoch")
-        self.assertIn("Tempo bis KEV ist hoch", f["text"])
+        self.assertIn("Tempo bis KEV ist ungewöhnlich schnell", f["text"])
         self.assertEqual(f["hinweis"], cfg["pegel"]["hoch"]["hinweis"])  # die höhere der beiden Stufen bestimmt den Hinweis
 
 

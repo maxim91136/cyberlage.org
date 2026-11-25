@@ -192,7 +192,7 @@
     <h2 id="h-termine" class="mono" data-t="t_h">## termine: patch-kalender</h2>
     <p class="dim" data-t="t_intro">Die nächsten Patch-Termine der großen Hersteller, nach deren veröffentlichten Regeln berechnet. So weißt du im Voraus, wann du Wartungsfenster und Zeit einplanen musst.</p>
     <div class="panel pad" id="t-liste"></div>
-    <p class="mono dim fine" data-t="t_quelle">Regeln: Microsoft, Adobe und SAP veröffentlichen in der Regel am zweiten Dienstag des Monats (Microsoft meist um 19 Uhr MEZ). Oracle: Critical Patch Update am dritten Dienstag von Januar, April, Juli und Oktober, in den übrigen Monaten (außer Januar, April, Juli, Oktober) ein Critical Security Patch Update am dritten Dienstag; Oracle kündigt jeden Termin am Donnerstag davor an. Außerplanmäßige Updates (Out-of-Band) sind nicht vorhersehbar und erscheinen im Ticker. Termine ohne Gewähr, maßgeblich ist die Seite des Herstellers.</p>
+    <p class="mono dim fine" data-t="t_quelle">Regeln: Microsoft, Adobe und SAP veröffentlichen in der Regel am zweiten Dienstag des Monats (Microsoft meist um 19 Uhr MEZ). Oracle: Critical Patch Update am dritten Dienstag von Januar, April, Juli und Oktober, in den übrigen Monaten ein Critical Security Patch Update am dritten Dienstag; Oracle kündigt jeden Termin am Donnerstag davor an. Außerplanmäßige Updates (Out-of-Band) sind nicht vorhersehbar und erscheinen im Ticker. Termine ohne Gewähr, maßgeblich ist die Seite des Herstellers.</p>
   </section>
 
   <section id="neu" class="wrap" aria-labelledby="h-neu">
@@ -259,6 +259,8 @@
     <details class="akk" id="i-faq"><summary class="mono" data-t="i_faq">faq</summary>
       <h4 class="mono faq-q" data-t="f1q">Was ist der Dreier-Pegel?</h4>
       <p class="dim faq-a" data-t="f1a">Unser eigener Score, kein Standard und keine Norm. Er fasst mehrere Bausteine zu einer Zahl von 0 bis 100 zusammen und leitet daraus eine Stufe ab: ruhig, unauffällig, angespannt, hoch oder außergewöhnlich. 50 heißt: die Regelschwellen der Bausteine sind im Schnitt erreicht. Er misst Aktivität und Signale, nicht die Zahl der Angriffe, und sagt nichts voraus.</p>
+      <h4 class="mono faq-q" data-t="f1cq">Warum heißt er „Dreier“-Pegel?</h4>
+      <p class="dim faq-a" data-t="f1ca">Der Name kommt von Dreier Labs, dem Projekt hinter Cyberlage, und hat nichts mit der Zahl der Stufen zu tun: Der Pegel hat fünf Stufen (ruhig, unauffällig, angespannt, hoch, außergewöhnlich).</p>
       <h4 class="mono faq-q" data-t="f1bq">Aus welchen Bausteinen besteht er?</h4>
       <p class="dim faq-a" data-t="f1ba">Aus vier Bausteinen, gleich gewichtet: (1) KEV-Menge: wie viele Schwachstellen in 30 Tagen neu in den CISA-KEV kamen. (2) Tempo bis KEV: gleitender 90-Tage-Median der Tage von der Veröffentlichung einer Lücke bis zur Aufnahme, je kürzer, desto höher. (3) BSI Cyber Index. (4) SANS Infocon. Jeder Baustein hat eine feste Regelschwelle; der Ausschlag ist der Messwert im Verhältnis zur Schwelle (höchstens doppelt). Ein Baustein ohne Messwert zählt nicht mit, die Zahl der beteiligten steht dabei. KEV-Menge und Tempo stammen aus demselben Katalog, es sind verschiedene Achsen.</p>
       <h4 class="mono faq-q" data-t="f2q">Woher kommen die Daten?</h4>
