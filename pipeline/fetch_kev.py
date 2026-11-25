@@ -8,7 +8,6 @@ Schlägt die Prüfung fehl, bleibt die bisherige Datei unverändert.
 Nur Standardbibliothek. Aufruf: python pipeline/fetch_kev.py
 """
 import json
-import re
 import os
 import sys
 import tempfile
@@ -63,10 +62,7 @@ def pruefe_und_verdichte(roh):
         if v["cveID"] in gesehen:
             raise PruefFehler(f"Doppelter Eintrag: {v['cveID']}")
         gesehen.add(v["cveID"])
-        aktion = str(v.get("requiredAction") or "")
-        kein_patch = bool(re.search(r"mitigat|discontinue", aktion, re.I)) and not re.search(r"apply updates|\bpatch", aktion, re.I)
         eintraege.append({
-            **({"kein_patch": True, "aktion": " ".join(aktion.split())[:200]} if kein_patch else {}),
             "cve": v["cveID"],
             "hersteller": v["vendorProject"].strip(),
             "produkt": v["product"].strip(),

@@ -902,14 +902,6 @@ class CvssTests(unittest.TestCase):
 
 
 class OhnePatchChromiumTests(unittest.TestCase):
-    def test_kev_kein_patch_erkannt(self):
-        a = kev_roh("CVE-2026-1", datum="2026-11-20"); a["requiredAction"] = "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable."
-        b = kev_roh("CVE-2026-2", datum="2026-11-20"); b["requiredAction"] = "Apply updates per vendor instructions."
-        meta, e = fetch_kev.pruefe_und_verdichte(roh(a, b))
-        d = {x["cve"]: x for x in e}
-        self.assertTrue(d["CVE-2026-1"].get("kein_patch"))
-        self.assertNotIn("kein_patch", d["CVE-2026-2"])
-
     def test_chromium_getrennt_mit_version(self):
         doc = {"DocumentTracking": {"Identification": {"ID": {"Value": "2026-Nov"}}, "InitialReleaseDate": "2026-11-10T08:00:00"}, "ProductTree": {}, "Vulnerability": [
             {"CVE": "CVE-C1", "Title": {"Value": "Use after free in XML in Google Chrome prior to 157.0.8103.50 allowed x"}, "Threats": [{"Type": 1, "Description": {"Value": "Exploited:Yes"}}],

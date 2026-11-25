@@ -730,26 +730,6 @@ def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=24, cvss=None):
             "gesamt": len(kand), "liste": kand[:maximum], "ohne_patch": sorted(ohne, key=lambda k: (k["stufe"], k["cves"][0]))[:6]}
 
 
-def kev_ohne_patch(heute, tage=60):
-    """KEV-Einträge der letzten Tage, bei denen CISA nur Abmilderung oder Abschalten nennt (kein Patch genannt)."""
-    try:
-        kev = json.loads((WURZEL / "data" / "kev" / "kev.json").read_text(encoding="utf-8"))
-        out = []
-        for x in kev["eintraege"]:
-            if not x.get("kein_patch"):
-                continue
-            try:
-                alter = (heute - datetime.fromisoformat(x["hinzugefuegt"]).date()).days
-            except (TypeError, ValueError):
-                continue
-            if 0 <= alter <= tage:
-                out.append({"cve": x["cve"], "hersteller": x["hersteller"], "produkt": x["produkt"], "datum": x["hinzugefuegt"], "aktion": x.get("aktion", ""),
-                            "link": "https://nvd.nist.gov/vuln/detail/" + x["cve"]})
-        return sorted(out, key=lambda e: (e["datum"], e["cve"]), reverse=True)[:10]
-    except (OSError, ValueError, KeyError):
-        return []
-
-
 def kev_cves():
     try:
         kev = json.loads((WURZEL / "data" / "kev" / "kev.json").read_text(encoding="utf-8"))
@@ -796,7 +776,6 @@ def main():
         except Exception as e:
             print("CVSS: Fehler (%s)" % e)
         pr = priorisiere(monate, hs, kev, epss, jetzt.date(), cvss=cache)
-        pr["ohne_patch_kev"] = kev_ohne_patch(jetzt.date())
         PRIO_DATEI.write_text(json.dumps(pr, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
         print("Priorität: %d Einträge insgesamt, %d angezeigt, EPSS für %d Kandidaten" % (pr["gesamt"], len(pr["liste"]), len(epss)))
     except Exception as e:

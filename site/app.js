@@ -489,10 +489,10 @@
       }
     }
     var op = el("div", "p-op"); op.appendChild(el("h4", "mono rd-t", pick("Angegriffen, aber noch kein Patch", "Attacked, but no patch yet")));
-    op.appendChild(el("p", "mono dim fine", pick("Lücken, für die der Hersteller nur eine Umgehung oder Abmilderung meldet (Microsoft) oder CISA im KEV nur Abmilderung oder Abschalten des Produkts verlangt. Hier hilft kein Update, sondern die Gegenmaßnahme im Hinweis.", "Flaws for which the vendor lists only a workaround or mitigation (Microsoft) or CISA's KEV asks only for mitigation or discontinuing the product. No update helps here, the countermeasure in the notice does.")));
+    op.appendChild(el("p", "mono dim fine", pick("Lücken, für die der Hersteller selbst nur eine Umgehung oder Abmilderung meldet. Hier hilft kein Update, sondern die Gegenmaßnahme im Hinweis. Belegen können wir das nur dort, wo der Hersteller es angibt (derzeit Microsoft). Der CISA-KEV nennt keinen Patch-Stand, und viele Lücken ohne öffentlichen Patch bleiben deshalb unsichtbar.", "Flaws for which the vendor itself lists only a workaround or mitigation. No update helps here, the countermeasure in the notice does. We can only show this where the vendor states it (currently Microsoft). The CISA KEV gives no patch status, so many flaws without a public patch remain invisible here.")));
     var opl = (pr.ohne_patch || []).map(function (k) { return { cve: k.cves[0], wer: k.quelle, was: k.titel, datum: k.datum, aktion: pick("Microsoft nennt nur Umgehung oder Abmilderung.", "Microsoft lists only a workaround or mitigation."), link: k.link }; })
-      .concat((pr.ohne_patch_kev || []).map(function (k) { return { cve: k.cve, wer: "CISA-KEV", was: k.hersteller + " " + k.produkt, datum: k.datum, aktion: k.aktion, link: k.link }; }));
-    if (!opl.length) op.appendChild(el("p", "", pick("Aktuell keine solche Lücke in den letzten 60 Tagen.", "Currently no such flaw in the last 60 days.")));
+      ;
+    if (!opl.length) op.appendChild(el("p", "", pick("Aktuell meldet Microsoft keine ausgenutzte oder kritische Lücke ohne Patch.", "Currently Microsoft reports no exploited or critical flaw without a patch.")));
     else {
       var ul = el("ul", "p-rang");
       opl.forEach(function (k) {
