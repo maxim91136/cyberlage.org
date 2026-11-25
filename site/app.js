@@ -33,6 +33,7 @@
   document.addEventListener("click", function (e) {
     var l = e.target.closest && e.target.closest("a[href^='#']"); if (!l) return;
     var ziel = document.getElementById(l.getAttribute("href").slice(1)); aufklappen(ziel);
+    if (l.hasAttribute("data-offen") || (l.closest && l.closest(".dd-box"))) return;
     if (ziel && ziel.scrollIntoView) setTimeout(function () { ziel.scrollIntoView(); ohneZiel(); }, 60);
   });
   // Klappen: jeder Besuch beginnt zugeklappt; beim Öffnen die Grafiken in der richtigen Breite neu zeichnen
@@ -213,7 +214,7 @@
         e.preventDefault();
         var tab = a.getAttribute("data-tab"), offen = a.getAttribute("data-offen"), ziel = document.querySelector(a.getAttribute("href"));
         if (tab) waehleTab(tab);
-        if (offen) { var d = $(offen); if (d) d.open = true; ziel = d || ziel; }
+        if (offen) { var d = $(offen); if (d) { aufklappen(d); d.open = true; } ziel = d || ziel; }
         menues.forEach(function (m) { m.open = false; });
         if (ziel) ziel.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
       });
