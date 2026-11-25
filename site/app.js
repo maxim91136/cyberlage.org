@@ -805,10 +805,11 @@
       var tx = el("div", "st");
       tx.appendChild(el("b", "mono", pick("Dreier-Pegel · Gesamtscore", "Dreier Gauge · overall score")));
       tx.appendChild(el("span", "", pick(
-        "Gleich gewichteter Mittelwert der Ausschläge von " + sc.signale + " von " + sc.von + " Signalen. 50 heißt: die Regelschwellen sind im Schnitt erreicht, 100: im Schnitt doppelt so weit. Die Zeiträume der Signale sind verschieden, Messungen und Einschätzungen gemischt. Kein objektives Maß, die Grenzen sind vorläufig. Tagesstand wird ab " + datum(sc.live_seit) + " gespeichert.",
-        "Equally weighted mean of the readings of " + sc.signale + " of " + sc.von + " signals. 50 means the rule thresholds are reached on average, 100 twice as far. The signals cover different periods, measurements and assessments are mixed. Not an objective measure, the limits are provisional. The daily value is stored from " + datum(sc.live_seit) + ".")));
+        "Aus " + sc.signale + " von " + sc.von + " Bausteinen, je Gruppe gemittelt. 50 heißt: die Regelschwellen sind im Schnitt erreicht, 100: im Schnitt doppelt so weit. Kein objektives Maß, die Grenzen sind vorläufig.",
+        "From " + sc.signale + " of " + sc.von + " components, averaged per group. 50 means the rule thresholds are reached on average, 100 twice as far. Not an objective measure, the limits are provisional.")));
       tx.appendChild(el("span", "mono dim", pick("Stand: ", "as of: ") + datum(r.abgerufen_am)));
       sb.appendChild(tx); sb.hidden = false;
+      var sbg = $("stufe-begr"); if (sbg) sbg.hidden = true;
       var sk = $("rd-skala"), kal = d_skala;
       if (sk && kal && kal.stufen) {
         sk.textContent = "";
