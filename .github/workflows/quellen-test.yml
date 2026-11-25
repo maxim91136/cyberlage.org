@@ -1,0 +1,21 @@
+name: quellen-test
+on:
+  workflow_dispatch:
+    inputs:
+      quellen:
+        description: "Kennungen der Quellen, durch Leerzeichen getrennt (leer: alle)"
+        default: "fortinet paloalto mozilla oracle"
+permissions:
+  contents: read
+jobs:
+  pruefen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: "3.12" }
+      - name: Quellen abrufen (nichts wird gespeichert)
+        env:
+          QUELLEN: ${{ inputs.quellen }}
+        run: python pipeline/quellen_test.py $QUELLEN

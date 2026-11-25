@@ -603,6 +603,64 @@ def parse_amazon(xml_bytes):
     return out
 
 
+FEEDS = {  # Hersteller mit offenem RSS- oder Atom-Feed: Adressen (erste, die antwortet, zählt weiter mit), Kennungsmuster
+    "fortinet": (["https://www.fortiguard.com/rss/ir.xml", "https://filestore.fortinet.com/fortiguard/rss/ir.xml"], r"FG-IR-\d+-\d+"),
+    "paloalto": (["https://security.paloaltonetworks.com/rss.xml"], r"PAN-SA-\d{4}-\d+|CVE-\d{4}-\d+"),
+    "oracle": (["https://www.oracle.com/ocom/groups/public/@otn/documents/webcontent/rss-otn-sec.xml"], r"CVE-\d{4}-\d+"),
+}
+MOZILLA_URL = "https://www.mozilla.org/en-US/security/advisories/"
+_MONATE_EN = {m: i + 1 for i, m in enumerate(["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"])}
+_SEV_FEED = {"critical": "kritisch", "high": "hoch", "important": "hoch", "medium": "mittel", "moderate": "mittel", "low": "niedrig"}
+
+
+def parse_feed(xml_bytes, name, id_muster=None):
+    """RSS (item) oder Atom (entry). Schweregrad nur, wenn der Feed ihn ausdrücklich nennt ('Severity: …'); sonst None."""
+    try:
+        wurzel = ET.fromstring(xml_bytes)
+    except ET.ParseError as e:
+        raise QuellFehler("%s-Feed kein gültiges XML: %s" % (name, e))
+    out = []
+    for it in wurzel.iter():
+        if _tag(it) not in ("item", "entry"):
+            continue
+        titel = re.sub(r"\s+", " ", html.unescape(_kind(it, "title"))).strip()
+        link = _kind(it, "link")
+        if not link:
+            for k in it:
+                if _tag(k) == "link" and k.get("href"):
+                    link = k.get("href")
+                    break
+        datum = _datum(_kind(it, "pubDate") or _kind(it, "published") or _kind(it, "updated") or _kind(it, "date"))
+        text = re.sub(r"<[^>]+>", " ", html.unescape(" ".join((k.text or "") for k in it.iter())))
+        if not datum or not titel:
+            continue
+        m = re.search(r"Severity:?\s*\(?(Critical|High|Important|Medium|Moderate|Low)\b", text, re.I)
+        kid = re.search(id_muster, titel + " " + link) if id_muster else None
+        out.append({"id": kid.group(0) if kid else (link.rstrip("/").rsplit("/", 1)[-1] or titel)[:80], "datum": datum, "titel": titel[:200], "link": link.strip(),
+                    "schwere": _SEV_FEED.get(m.group(1).lower()) if m else None, "cves": sorted(set(CVE_RE.findall(text)))})
+    return list({i["id"]: i for i in out}.values())
+
+
+def parse_mozilla(html_text):
+    """Übersichtsseite der Mozilla Foundation Security Advisories: Datumsüberschrift, darunter die Meldungen des Tages. Ohne Schweregrad und CVEs (stehen nur in den Einzelmeldungen)."""
+    out, datum = [], None
+    for m in re.finditer(r">\s*([A-Z][a-z]+)\s+(\d{1,2}),\s+(\d{4})\s*<|href=\"([^\"]*mfsa(\d{4}-\d+)[^\"]*)\"[^>]*>(.*?)</a>", html_text, re.S):
+        if m.group(1):
+            mon = _MONATE_EN.get(m.group(1).lower())
+            if mon:
+                try:
+                    datum = datetime(int(m.group(3)), mon, int(m.group(2))).date()
+                except ValueError:
+                    pass
+            continue
+        if not datum:
+            continue
+        titel = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", m.group(6)))).strip()
+        link = m.group(4) if m.group(4).startswith("http") else "https://www.mozilla.org" + m.group(4)
+        out.append({"id": "MFSA " + m.group(5), "datum": datum, "titel": titel if titel.upper().startswith("MFSA") else "MFSA %s %s" % (m.group(5), titel), "link": link, "schwere": None, "cves": []})
+    return list({i["id"]: i for i in out}.values())
+
+
 def _mehrere(urls, parse, lade, name):
     """Mehrere Feeds derselben Quelle: was erreichbar ist, zählt; doppelte Kennungen nur einmal."""
     alle, fehler = {}, []
@@ -634,15 +692,19 @@ def verdichte_quelle(items, heute, kev=()):
 
 
 QUELLEN = [
-    {"id": "ubuntu", "name": "Ubuntu Security Notices", "typ": "distribution", "url": "https://ubuntu.com/security/notices", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
-    {"id": "debian", "name": "Debian Security Advisories", "typ": "distribution", "url": "https://www.debian.org/security/", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
-    {"id": "redhat", "name": "Red Hat Security Advisories", "typ": "distribution", "url": "https://access.redhat.com/security/security-updates/", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
-    {"id": "suse", "name": "SUSE Security Updates", "typ": "distribution", "url": "https://www.suse.com/support/update/", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
-    {"id": "alma", "name": "AlmaLinux Errata", "typ": "distribution", "url": "https://errata.almalinux.org/", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
-    {"id": "rocky", "name": "Rocky Linux Errata", "typ": "distribution", "url": "https://errata.rockylinux.org/", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
-    {"id": "amazon", "name": "Amazon Linux Security Center", "typ": "distribution", "url": "https://alas.aws.amazon.com/", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
-    {"id": "sap", "name": "SAP Security Patch Day", "typ": "hersteller", "url": "https://support.sap.com/en/my-support/knowledge-base/security-notes-news.html", "lizenz": "Öffentliche Monatsseite ohne Konto; nur Zählung, CVE, Priorität, Link. Die Sicherheitshinweise selbst liegen hinter SAP for Me."},
-    {"id": "cisco", "name": "Cisco Security Advisories", "typ": "hersteller", "url": "https://sec.cloudapps.cisco.com/security/center/publicationListing.x", "lizenz": "Feed nennt nur ein Urheberrecht, keine Nutzungsbedingungen; nur Zählung, Kennung, Titel, Datum, Link"},
+    {"id": "ubuntu", "bereich": "linux", "name": "Ubuntu Security Notices", "typ": "distribution", "url": "https://ubuntu.com/security/notices", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
+    {"id": "debian", "bereich": "linux", "name": "Debian Security Advisories", "typ": "distribution", "url": "https://www.debian.org/security/", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
+    {"id": "redhat", "bereich": "linux", "name": "Red Hat Security Advisories", "typ": "distribution", "url": "https://access.redhat.com/security/security-updates/", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
+    {"id": "suse", "bereich": "linux", "name": "SUSE Security Updates", "typ": "distribution", "url": "https://www.suse.com/support/update/", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
+    {"id": "alma", "bereich": "linux", "name": "AlmaLinux Errata", "typ": "distribution", "url": "https://errata.almalinux.org/", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
+    {"id": "rocky", "bereich": "linux", "name": "Rocky Linux Errata", "typ": "distribution", "url": "https://errata.rockylinux.org/", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
+    {"id": "amazon", "bereich": "linux", "name": "Amazon Linux Security Center", "typ": "distribution", "url": "https://alas.aws.amazon.com/", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
+    {"id": "sap", "bereich": "anwendungen", "name": "SAP Security Patch Day", "typ": "hersteller", "url": "https://support.sap.com/en/my-support/knowledge-base/security-notes-news.html", "lizenz": "Öffentliche Monatsseite ohne Konto; nur Zählung, CVE, Priorität, Link. Die Sicherheitshinweise selbst liegen hinter SAP for Me."},
+    {"id": "cisco", "bereich": "netzwerk", "name": "Cisco Security Advisories", "typ": "hersteller", "url": "https://sec.cloudapps.cisco.com/security/center/publicationListing.x", "lizenz": "Feed nennt nur ein Urheberrecht, keine Nutzungsbedingungen; nur Zählung, Kennung, Titel, Datum, Link"},
+    {"id": "fortinet", "bereich": "netzwerk", "name": "Fortinet PSIRT Advisories", "typ": "hersteller", "url": "https://www.fortiguard.com/psirt", "lizenz": "Öffentlicher Feed des Herstellers, Nutzungsbedingungen nicht ausdrücklich geklärt; nur Zählung, Kennung, Titel, Datum, Link"},
+    {"id": "paloalto", "bereich": "netzwerk", "name": "Palo Alto Networks Security Advisories", "typ": "hersteller", "url": "https://security.paloaltonetworks.com/", "lizenz": "Öffentlicher Feed des Herstellers, Nutzungsbedingungen nicht ausdrücklich geklärt; nur Zählung, Kennung, Titel, Datum, Link"},
+    {"id": "mozilla", "bereich": "arbeitsplatz", "name": "Mozilla Security Advisories (Firefox, Thunderbird)", "typ": "hersteller", "url": "https://www.mozilla.org/en-US/security/advisories/", "lizenz": "Öffentliche Übersichtsseite (Inhalte unter CC BY-SA); nur Zählung, Kennung, Titel, Datum, Link"},
+    {"id": "oracle", "bereich": "anwendungen", "name": "Oracle Security Alerts", "typ": "hersteller", "url": "https://www.oracle.com/security-alerts/", "lizenz": "Öffentlicher Feed des Herstellers, Nutzungsbedingungen nicht ausdrücklich geklärt; nur Zählung, Kennung, Titel, Datum, Link"},
 ]
 
 
@@ -720,6 +782,19 @@ def hole_quelle(qid, heute, lade=lade_roh):
         return list(alle.values())
     if qid == "cisco":
         return parse_cisco(lade(CISCO_URL))
+    if qid in FEEDS:
+        urls, muster = FEEDS[qid]
+        fehler = None
+        for u in urls:  # Ausweichadresse nur, wenn die erste nicht antwortet oder nichts liefert
+            try:
+                items = parse_feed(lade(u), qid, muster)
+                if items:
+                    return items
+            except Exception as e:
+                fehler = e
+        raise QuellFehler("%s: %s" % (qid, fehler or "keine Einträge erkannt"))
+    if qid == "mozilla":
+        return parse_mozilla(lade(MOZILLA_URL).decode("utf-8", "replace"))
     raise QuellFehler("unbekannte Quelle " + qid)
 
 

@@ -687,6 +687,39 @@ class HerstellerPatchTests(unittest.TestCase):
         self.assertEqual((b["netzwerk"]["anzahl"], b["netzwerk"]["anzahl_7"], b["arbeitsplatz"]["anzahl"], b["arbeitsplatz"]["anzahl_7"], b["windows"]["anzahl"]), (1, 1, 1, 0, 0))
         self.assertNotIn("bereiche", score.werte_aus(kev, REGELN_FREI, [], date(2026, 11, 23)))
 
+    def test_feed_rss_und_atom(self):
+        rss = b"""<rss><channel><item><title>PAN-SA-2026-0004 Chromium: Monthly Vulnerability Update (Severity: MEDIUM)</title><link>https://security.paloaltonetworks.com/PAN-SA-2026-0004</link>
+          <pubDate>Wed, 18 Nov 2026 17:00:00 GMT</pubDate><description>Fixes CVE-2026-1111 and CVE-2026-2222</description></item>
+          <item><title>ohne Datum</title><link>https://x.example/1</link></item></channel></rss>"""
+        r = fetch_patches.parse_feed(rss, "paloalto", fetch_patches.FEEDS["paloalto"][1])
+        self.assertEqual(len(r), 1)
+        self.assertEqual((r[0]["id"], r[0]["schwere"], r[0]["cves"], r[0]["datum"].isoformat()), ("PAN-SA-2026-0004", "mittel", ["CVE-2026-1111", "CVE-2026-2222"], "2026-11-18"))
+        atom = b"""<feed xmlns="http://www.w3.org/2005/Atom"><entry><title>FG-IR-26-123 Buffer overflow in FortiOS</title><link href="https://fortiguard.fortinet.com/psirt/FG-IR-26-123"/><updated>2026-11-20T10:00:00Z</updated><summary>text</summary></entry></feed>"""
+        r = fetch_patches.parse_feed(atom, "fortinet", fetch_patches.FEEDS["fortinet"][1])
+        self.assertEqual((r[0]["id"], r[0]["link"], r[0]["schwere"], r[0]["cves"]), ("FG-IR-26-123", "https://fortiguard.fortinet.com/psirt/FG-IR-26-123", None, []))
+        with self.assertRaises(fetch_patches.QuellFehler):
+            fetch_patches.parse_feed(b"<html>kaputt", "x")
+
+    def test_mozilla_uebersicht(self):
+        seite = """<h2 class="c-h">November 17, 2026</h2><ul><li class="level-item"><a href="/en-US/security/advisories/mfsa2026-91/"><span class="level high">MFSA 2026-91</span> Security Vulnerabilities fixed in Firefox 158</a></li>
+          <li><a href="/en-US/security/advisories/mfsa2026-90/">MFSA 2026-90 Security Vulnerabilities fixed in Thunderbird 158</a></li></ul><h2>October 20, 2026</h2><ul><li><a href="/en-US/security/advisories/mfsa2026-80/">MFSA 2026-80 Firefox ESR 140.16</a></li></ul>"""
+        r = fetch_patches.parse_mozilla(seite)
+        self.assertEqual([(i["id"], i["datum"].isoformat()) for i in r], [("MFSA 2026-91", "2026-11-17"), ("MFSA 2026-90", "2026-11-17"), ("MFSA 2026-80", "2026-10-20")])
+        self.assertEqual(r[0]["titel"], "MFSA 2026-91 Security Vulnerabilities fixed in Firefox 158")
+        self.assertEqual(r[0]["link"], "https://www.mozilla.org/en-US/security/advisories/mfsa2026-91/")
+        self.assertEqual(fetch_patches.parse_mozilla("<p>nichts</p>"), [])
+
+    def test_neue_quellen_fallen_weich_aus(self):
+        def lade(url):
+            if "paloaltonetworks" in url:
+                return b"<rss><channel><item><title>CVE-2026-0233 ADEM (Severity: HIGH)</title><link>https://security.paloaltonetworks.com/CVE-2026-0233</link><pubDate>Fri, 20 Nov 2026 17:00:00 GMT</pubDate></item></channel></rss>"
+            raise OSError("aus")
+        heute = date(2026, 11, 23)
+        self.assertEqual(len(fetch_patches.hole_quelle("paloalto", heute, lade)), 1)
+        with self.assertRaises(fetch_patches.QuellFehler):
+            fetch_patches.hole_quelle("fortinet", heute, lade)
+        self.assertTrue(all(q.get("bereich") for q in fetch_patches.QUELLEN))
+
     def test_redhat_container_titel(self):
         r = fetch_patches.parse_redhat([{"RHSA": "RHSA-2026:7", "released_on": "2026-11-23T00:00:00Z", "CVEs": [],
                                          "released_packages": ["registry.redhat.io/exploit-intelligence/agent-client-rhel9@sha256:abc123", "ruby-3.3.1-1.el9", "ruby-debuginfo-3.3.1-1.el9"]}])
