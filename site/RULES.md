@@ -159,5 +159,18 @@ Jede Festlegung im Dreier-Pegel ist eine Entscheidung. Hier steht, warum sie so 
 
 Ergebnis: Sechs Bausteine sind einzeln ersetzbar, der Pegel bleibt ohne sie fast gleich. DShield hat den größten Einfluss, weil es als einziger Baustein eine ganze Gruppe trägt. Das ist die bekannte Schwachstelle des Modells: Fällt DShield aus, verliert der Pegel die Sicht auf Angriffsaktivität. Ein zweiter Baustein in dieser Gruppe würde das beheben.
 
-**Grenzen des Modells.** (1) Es gibt keine unabhängige Messung der tatsächlichen Bedrohung, an der sich der Pegel eichen ließe; geprüft werden kann nur seine innere Stimmigkeit. (2) Sieben Bausteine zählen Meldungen und Warnungen, nur einer misst Angriffsaktivität. (3) Die Schwellen beziehen sich auf 36 Monate; steigt das Niveau dauerhaft, steht der Pegel länger im oberen Bereich. (4) BSI Cyber Index und SANS Infocon haben kein Tagesarchiv und fehlen in der rückgerechneten Reihe. (5) Erstdaten bei CERT-Bund und NCSC-NL sind aus der fortlaufenden Kennung abgeleitet.
+**Prüfung außerhalb der Stichprobe.** Dass jeder Baustein an rund einem Viertel der Tage über seiner Schwelle liegt, folgt aus der Definition der Schwelle. Aussagekräftiger ist ein Test mit getrennten Zeiträumen: Schwellen nur aus den ersten zwei Jahren ableiten (25.11.2023 bis 24.11.2025), dann am dritten Jahr prüfen (25.11.2025 bis 25.11.2026, 366 Tage). Gerechnet am 25.11.2026.
 
+| Baustein | Schwelle aus 2 Jahren | Schwelle aus 3 Jahren (gültig) | Tage über der Schwelle im Lernzeitraum | im Testjahr |
+|---|---|---|---|---|
+| CERT-Bund | 91 | 126 | 26 % | 92 % |
+| KEV-Menge | 21 | 25 | 28 % | 75 % |
+| EU-KEV | 21,5 | 26 | 25 % | 72 % |
+| NCSC-NL (Lernzeitraum ab Juni 2024) | 40 | 43 | 27 % | 58 % |
+| Tempo bis KEV | 5 Tage | 5 Tage | 30 % | 40 % |
+| Microsoft | 3 | 3 | 37 % | 23 % |
+| DShield | 179.172 | 175.000 | 25 % | 14 % |
+
+Ergebnis: (1) Die Form des Pegels ist stabil. Mit den Schwellen aus zwei Jahren verläuft er im Testjahr fast gleich wie mit den gültigen (Korrelation 0,99). (2) Das Niveau ist es nicht. Mit den älteren Schwellen läge der Pegel im Testjahr im Mittel 4,3 Punkte höher (Median 53 statt 48) und nur an 64 Prozent der Tage in derselben Stufe. (3) Der Grund ist ein Niveausprung im Jahr 2026 bei allem, was Lücken und Warnungen zählt: CERT-Bund lag an 92 Prozent der Tage über der Schwelle der Vorjahre. Angriffsaktivität (DShield) und Microsoft zeigen diesen Sprung nicht. (4) Folgerung: Der Pegel misst Abweichung von einem Bezugszeitraum, und das Ergebnis hängt davon ab, welcher Zeitraum das ist. Die Schwellen werden deshalb nicht laufend nachgezogen, sondern bleiben fest und werden zu den Terminen im Prüfkalender überprüft; jede Änderung steht mit Datum in diesen Regeln.
+
+**Grenzen des Modells.** (1) Es gibt keine unabhängige Messung der tatsächlichen Bedrohung, an der sich der Pegel eichen ließe; geprüft werden kann nur seine innere Stimmigkeit. (2) Sieben Bausteine zählen Meldungen und Warnungen, nur einer misst Angriffsaktivität. (3) Die Schwellen beziehen sich auf 36 Monate; steigt das Niveau dauerhaft, steht der Pegel länger im oberen Bereich. (4) BSI Cyber Index und SANS Infocon haben kein Tagesarchiv und fehlen in der rückgerechneten Reihe. (5) Erstdaten bei CERT-Bund und NCSC-NL sind aus der fortlaufenden Kennung abgeleitet. (6) Die Zeitreihen sind nicht stationär (siehe Prüfung außerhalb der Stichprobe): Die Stufe hängt vom gewählten Bezugszeitraum ab. (7) Der Programmcode ist nicht veröffentlicht; nachrechnen lässt sich der Pegel aus diesen Regeln und den offenen Rohdaten.
