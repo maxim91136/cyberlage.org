@@ -372,7 +372,7 @@
         li.appendChild(el("div", "p-w", pick("Warum zuerst: ", "Why first: ") + pick(k.grund, k.grund_en)));
         var fx = el("div", "p-fix"); fx.appendChild(el("b", "mono", pick("Lösung: ", "Fix: ")));
         var teile = [];
-        (k.fixe || []).forEach(function (f) { if (f.kb) teile.push("KB" + f.kb + (f.fuer ? " (" + f.fuer + ")" : "")); else if (f.text) teile.push(f.text + (f.fuer ? " (" + f.fuer + ")" : "")); });
+        (k.fixe || []).forEach(function (f) { if (f.kb) teile.push("KB" + f.kb + (f.fuer ? " (" + f.fuer + ")" : "")); else if (f.text && f.text.toLowerCase() !== "release notes") teile.push(f.text + (f.fuer ? " (" + f.fuer + ")" : "")); });
         fx.appendChild(document.createTextNode(teile.length ? teile.join(", ") : pick(k.patch_text, k.patch_text_en)));
         if (k.patch_link && /^https:\/\//.test(k.patch_link)) { fx.appendChild(document.createTextNode(" · ")); fx.appendChild(link(k.patch_link, pick("Fix-Seite", "fix page"))); }
         li.appendChild(fx);

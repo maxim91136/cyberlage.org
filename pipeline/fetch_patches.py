@@ -553,6 +553,11 @@ def hole_epss(cves, lade=lade_json):
     return out
 
 
+def _pm(name):
+    n = name.lower()
+    return "apt" if ("ubuntu" in n or "debian" in n) else ("dnf/yum" if "red hat" in n else "Paketverwaltung")
+
+
 def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=8):
     """Rangliste nach festen Regeln: 1 im KEV (nachweislich angegriffen), 2 vom Hersteller als ausgenutzt gemeldet,
     3 EPSS ab 10 %, 4 vom Hersteller als kritisch eingestuft. Innerhalb einer Stufe nach EPSS, dann nach Kennung."""
@@ -589,8 +594,15 @@ def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=8):
                 continue
             if pst == "ja":
                 ft = k.get("fix_text") or ""
-                pt = "Patch liegt vor" + (": KB" + ", KB".join(kb) if kb else (": " + ft if ft else ""))
-                pt_en = "Patch available" + (": KB" + ", KB".join(kb) if kb else (": " + ft if ft else ""))
+                if ft.strip().lower() == "release notes":
+                    ft = ""
+                if kb:
+                    pt, pt_en = "Patch liegt vor: KB" + ", KB".join(kb), "Patch available: KB" + ", KB".join(kb)
+                elif ft:
+                    pt, pt_en = "Patch liegt vor: " + ft, "Patch available: " + ft
+                else:
+                    pt = "Update liegt vor, Microsoft nennt keine KB-Nummer (Office-/Cloud-Update, Details auf der Microsoft-Seite)"
+                    pt_en = "Update available, Microsoft names no KB number (Office/cloud update, details on the Microsoft page)"
             else:
                 pt, pt_en = "Patch-Stand bei Microsoft prüfen", "Check patch status with Microsoft"
             kand.append({"stufe": stufe, "epss": e, "quelle": "Microsoft", "titel": k["titel"], "cves": [k["cve"]], "grund": g, "grund_en": ge,
@@ -612,7 +624,7 @@ def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=8):
             kand.append({"stufe": 1, "epss": None, "quelle": q["name"], "titel": x["titel"], "cves": neue,
                          "grund": "Schließt %d Lücke(n) aus dem CISA-KEV: nachweislich angegriffen." % len(neue),
                          "grund_en": "Closes %d flaw(s) from the CISA KEV: proven to be attacked." % len(neue),
-                         **({"patch": "ja", "patch_text": "Das Update liegt vor (Meldung des Herstellers)", "patch_text_en": "The update is available (vendor advisory)"} if q.get("typ") != "hersteller" else
+                         **({"patch": "ja", "patch_text": "Paket-Update liegt vor (" + _pm(q["name"]) + "), Version steht in der Meldung", "patch_text_en": "Package update available (" + _pm(q["name"]) + "), version is in the advisory"} if q.get("typ") != "hersteller" else
                             {"patch": "pruefen", "patch_text": "Fix-Stand im Advisory prüfen", "patch_text_en": "Check fix status in the advisory"}), "betrifft": q["name"], "datum": x["datum"], "link": x["link"]})
         for x in q.get("letzte", []):
             if x.get("schwere") != "kritisch" or q.get("typ") != "hersteller":
