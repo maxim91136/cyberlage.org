@@ -33,7 +33,7 @@
     l_umbau: "⚠ Work in progress: the Dreier Gauge is being reworked. Components and value may still change.",
     rd_einzel: "Groups and individual values",
     k_bau: "## components", k_wie: "## how the gauge arises", k_ms: "Microsoft patch day", k_edge: "Edge and Chrome", k_hs: "Linux distributions and vendors", s_wie: "How the gauge arises",
-    k_zuerst: "This week first",
+    k_zuerst: "This week first", k_bereich: "Under attack, by area",
     f_dank: "Thanks to everyone whose open data makes this site possible: CISA, ENISA, BSI and CERT-Bund, NCSC-NL, SANS ISC, FIRST (EPSS), NIST (NVD), RansomLook, Microsoft, Red Hat, SUSE, Canonical, Debian, AlmaLinux, Rocky Linux, Amazon, Cisco and SAP.",
     i_andere: "other situation pictures", i_andere_n: "Other situation pictures",
     an_intro: "The BSI Cyber Index, the SANS Infocon and the DShield data of the SANS Internet Storm Center are already part of the Dreier Gauge, three of its ten components. The offerings here are not included: they measure something else or at a different pace, and are worth reading alongside.",

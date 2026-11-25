@@ -7,6 +7,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "pipeline"))
 
+import bereiche  # noqa: E402
 import fetch_ausblick  # noqa: E402
 import fetch_radar  # noqa: E402
 import fetch_extra  # noqa: E402
@@ -659,6 +660,32 @@ class HerstellerPatchTests(unittest.TestCase):
                                          {"RHSA": "RHSA-2026:2", "severity": "Important", "released_on": "2026-11-23T00:00:00Z", "CVEs": []}])
         z = fetch_patches.verdichte_quelle(r, date(2026, 11, 24))
         self.assertEqual((z["neu_30"], z["kritisch_30"], z["hoch_30"]), (2, 1, 1))
+
+    def test_bereiche_zuordnung(self):
+        cfg = json.loads((Path(__file__).resolve().parent.parent / "config" / "bereiche.json").read_text(encoding="utf-8"))
+        z = lambda h, p: bereiche.zuordnen(h, p, cfg)
+        self.assertEqual(z("Cisco", "IOS XE"), "netzwerk")               # nicht Arbeitsplatz wegen "ios"
+        self.assertEqual(z("Hewlett Packard Enterprise (HPE)", "Juniper Session Smart Router"), "netzwerk")
+        self.assertEqual(z("Apple", "iOS and iPadOS"), "arbeitsplatz")
+        self.assertEqual(z("Microsoft", "Office"), "arbeitsplatz")
+        self.assertEqual(z("Microsoft", "Windows"), "windows")
+        self.assertEqual(z("Microsoft", "SharePoint Server"), "windows")
+        self.assertEqual(z("SAP", "NetWeaver"), "anwendungen")
+        self.assertEqual(z("WordPress", "Plugin"), "linux")               # nicht Arbeitsplatz wegen "word"
+        self.assertEqual(z("Apache", "Tomcat"), "linux")
+        self.assertEqual(z("Unbekannt GmbH", "Ding"), "sonstige")
+        for b in cfg["bereiche"]:
+            __import__("re").compile(b["muster"])
+
+    def test_bereiche_in_der_lage(self):
+        cfg = json.loads((Path(__file__).resolve().parent.parent / "config" / "bereiche.json").read_text(encoding="utf-8"))
+        kev = {"meta": {"quelle": "CISA KEV", "quelle_url": "https://example.org", "abgerufen_am": "2026-11-23T00:00:00+00:00", "katalog_version": "t", "veroeffentlicht_am": "2026-11-23", "lizenz": "CC0"}, "eintraege": [{"cve": "CVE-2026-1", "hersteller": "Fortinet", "produkt": "FortiOS", "hinzugefuegt": "2026-11-20", "frist": "2026-12-11", "ransomware_bekannt": False},
+                             {"cve": "CVE-2026-2", "hersteller": "Mozilla", "produkt": "Firefox", "hinzugefuegt": "2026-11-01", "frist": "2026-11-22", "ransomware_bekannt": False}]}
+        r = score.werte_aus(kev, REGELN_FREI, [], date(2026, 11, 23), bereiche_cfg=cfg)
+        self.assertEqual({e["cve"]: e["bereich"] for e in r["neu"]}, {"CVE-2026-1": "netzwerk", "CVE-2026-2": "arbeitsplatz"})
+        b = {x["id"]: x for x in r["bereiche"]["liste"]}
+        self.assertEqual((b["netzwerk"]["anzahl"], b["netzwerk"]["anzahl_7"], b["arbeitsplatz"]["anzahl"], b["arbeitsplatz"]["anzahl_7"], b["windows"]["anzahl"]), (1, 1, 1, 0, 0))
+        self.assertNotIn("bereiche", score.werte_aus(kev, REGELN_FREI, [], date(2026, 11, 23)))
 
     def test_redhat_container_titel(self):
         r = fetch_patches.parse_redhat([{"RHSA": "RHSA-2026:7", "released_on": "2026-11-23T00:00:00Z", "CVEs": [],

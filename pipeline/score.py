@@ -229,7 +229,17 @@ def zusatz_radar(daten):
             "einschaetzungen": daten.get("einschaetzungen") or [], "gruende": daten.get("gruende") or []}
 
 
-def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None, telegram_link=None, ausblick=None, radar=None):
+def mit_bereich(liste, cfg):
+    """Hängt an jeden KEV-Eintrag seinen Bereich an (config/bereiche.json); ohne Konfiguration bleibt die Liste, wie sie ist."""
+    if not cfg:
+        return liste
+    import bereiche
+    for e in liste:
+        e["bereich"] = bereiche.zuordnen(e.get("hersteller"), e.get("produkt"), cfg)
+    return liste
+
+
+def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None, telegram_link=None, ausblick=None, radar=None, bereiche_cfg=None):
     tage = regeln["fenster_tage"]
     alle = kev["eintraege"]
     fenster = im_fenster(alle, stand, tage)
@@ -246,7 +256,8 @@ def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None, telegram_link=None, 
         "fenster_tage": tage,
         "stufe": None,
         "stufe_begruendung": "",
-        "neu": liste_neu(fenster),
+        "neu": mit_bereich(liste_neu(fenster), bereiche_cfg),
+        "bereiche": {"status": (bereiche_cfg or {}).get("status"), "geprueft_am": (bereiche_cfg or {}).get("geprueft_am"), "liste": []},
         "schwellen": {k: regeln.get(k) for k in ("erhoeht_ab", "hoch_ab", "ransomware_aufschlag_ab", "basis_monate", "median")},
         "verlauf": verlauf(alle, regeln, stand, wochen=round(regeln.get("basis_monate", 12) * 52 / 12)),
         "telegram": {"link": telegram_link},
@@ -256,6 +267,11 @@ def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None, telegram_link=None, 
         "radar": zusatz_radar(radar),
     }
     ergebnis["stufe"], ergebnis["stufe_begruendung"] = bestimme_stufe(len(fenster), ransom, regeln)
+    if bereiche_cfg:
+        import bereiche
+        ergebnis["bereiche"]["liste"] = bereiche.uebersicht(ergebnis["neu"], bereiche_cfg, stand)
+    else:
+        ergebnis.pop("bereiche", None)
     if ergebnis.get("radar"):
         import fetch_radar
         r = ergebnis["radar"]
@@ -336,7 +352,8 @@ def main(argv):
                          lese_optional(WURZEL / "data" / "eu" / "kev.json"),
                          (lese_optional(WURZEL / "config" / "telegram.json") or {}).get("kanal_link"),
                          lese_optional(WURZEL / "data" / "ausblick" / "ausblick.json"),
-                         lese_optional(WURZEL / "data" / "radar" / "radar.json"))
+                         lese_optional(WURZEL / "data" / "radar" / "radar.json"),
+                         lese_optional(WURZEL / "config" / "bereiche.json"))
     pfad = WURZEL / "data" / "pegel.json"
     gespeichert = (lese_optional(pfad) or {}).get("reihe", [])
     reihe = pegel_fortschreiben(gespeichert, kev["eintraege"], regeln, stand)

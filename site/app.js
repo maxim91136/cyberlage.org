@@ -204,6 +204,7 @@
     zeigeTicker(d);
     zeigeTermine();
     zeigeZuerst(d.patches && d.patches.prioritaet);
+    zeigeBereiche(d);
     zeigeMicrosoft(d.patches && d.patches.microsoft);
     zeigeHersteller(d.patches && d.patches.hersteller);
 
@@ -565,6 +566,40 @@
     var pb = $("tk-p");
     if (pb && !pb.getAttribute("data-an")) { pb.setAttribute("data-an", "1"); pb.addEventListener("click", function () { var an = bar.classList.toggle("halt"); pb.setAttribute("aria-pressed", an ? "true" : "false"); pb.textContent = an ? "\u25B6" : "\u275A\u275A"; }); }
   }
+  /* Ausgenutzte Lücken der letzten 30 Tage, nach Bereich (config/bereiche.json). Die Auswahl bleibt nur im Browser. */
+  function zeigeBereiche(d) {
+    var box = $("p-bereich"); if (!box) return;
+    var bl = d.bereiche && d.bereiche.liste, neu = d.neu || [];
+    if (!bl || !bl.length) { box.hidden = true; var k = $("k-bereich"); if (k) k.hidden = true; return; }
+    box.hidden = false; box.textContent = "";
+    box.appendChild(el("p", "dim", pick("Was betreue ich? Gezeigt werden Lücken, die in den letzten " + (d.fenster_tage || 30) + " Tagen als nachweislich angegriffen in den CISA-KEV kamen, zugeordnet nach Hersteller und Produkt.",
+      "What do I look after? Shown are flaws added to the CISA KEV as proven attacked in the last " + (d.fenster_tage || 30) + " days, assigned by vendor and product.")));
+    var wahl = lsGet("cl_bereich"); if (!bl.some(function (b) { return b.id === wahl; })) wahl = (bl.filter(function (b) { return b.anzahl; })[0] || bl[0]).id;
+    var bt = el("div", "p-btns mono b-btns"); bt.setAttribute("role", "group"); bt.setAttribute("aria-label", pick("Bereich", "Area")); box.appendChild(bt);
+    var info = el("p", "mono dim fine"), ul = el("ul", "b-liste"); box.appendChild(info); box.appendChild(ul);
+    box.appendChild(el("p", "mono dim fine", pick("Reine Zuordnung nach Namen, feste Regeln in RULES.md. Was bei dir im Einsatz ist, weiß die Seite nicht: eigenes Inventar prüfen. Frist = Frist der CISA für US-Behörden, als Anhalt. Die Auswahl bleibt nur in diesem Browser.",
+      "Assignment by name only, fixed rules in RULES.md. The site does not know what you run: check your own inventory. Deadline = CISA deadline for US agencies, as a guide. Your choice stays in this browser only.")));
+    function zeige() {
+      Array.prototype.forEach.call(bt.children, function (b) { b.setAttribute("aria-pressed", String(b.dataset.b === wahl)); });
+      var b = bl.filter(function (x) { return x.id === wahl; })[0], mein = neu.filter(function (e) { return e.bereich === wahl; });
+      info.textContent = (pick(b.fuer, b.fuer_en) ? pick(b.name, b.name_en) + ": " + pick(b.fuer, b.fuer_en) + ". " : "") + pick(b.anzahl + " in " + (d.fenster_tage || 30) + " Tagen, davon " + b.anzahl_7 + " in den letzten 7.", b.anzahl + " in " + (d.fenster_tage || 30) + " days, " + b.anzahl_7 + " of them in the last 7.");
+      ul.textContent = "";
+      if (!mein.length) { ul.appendChild(el("li", "dim", pick("In diesem Bereich kam in den letzten " + (d.fenster_tage || 30) + " Tagen nichts neu als angegriffen in den Katalog. Das heißt nicht, dass es nichts zu patchen gibt.", "Nothing in this area was newly listed as attacked in the last " + (d.fenster_tage || 30) + " days. That does not mean there is nothing to patch."))); return; }
+      mein.forEach(function (e) {
+        var li = el("li", ""); li.appendChild(el("span", "mono dim", datum(e.hinzugefuegt) + " ")); li.appendChild(link(e.link, e.cve));
+        li.appendChild(document.createTextNode(" · " + e.hersteller + " " + e.produkt));
+        if (e.ransomware_bekannt) { li.appendChild(document.createTextNode(" ")); li.appendChild(el("span", "fz-mk mono rw", "Ransomware")); }
+        li.appendChild(el("span", "mono dim", " · " + pick("Frist ", "deadline ") + datum(e.frist)));
+        ul.appendChild(li);
+      });
+    }
+    bl.forEach(function (b) {
+      var k = el("button", "", pick(b.name, b.name_en) + " " + b.anzahl); k.type = "button"; k.dataset.b = b.id;
+      k.addEventListener("click", function () { wahl = b.id; lsSet("cl_bereich", wahl); zeige(); }); bt.appendChild(k);
+    });
+    zeige();
+  }
+
   function zeigeZuerst(pr) {
     var box = $("p-zuerst"); if (!box) return;
     if (!pr) { box.hidden = true; return; }

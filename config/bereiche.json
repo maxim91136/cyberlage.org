@@ -1,0 +1,48 @@
+{
+  "status": "vorlaeufig",
+  "geprueft_am": "2026-11-25",
+  "hinweis": "Ordnet jede ausgenutzte Lücke aus dem CISA-KEV genau einem Bereich zu, nach Hersteller und Produkt. Die Regeln werden in dieser Reihenfolge geprüft, die erste passende gilt. Passt keine, steht der Eintrag unter 'Sonstige'. Reine Zuordnung nach Namen, keine Aussage darüber, was bei wem im Einsatz ist.",
+  "bereiche": [
+    {
+      "id": "netzwerk",
+      "name": "Netzwerk und Randgeräte",
+      "name_en": "Network and edge devices",
+      "fuer": "Firewalls, VPN-Gateways, Router, Switches, NAS und Kameras",
+      "fuer_en": "firewalls, VPN gateways, routers, switches, NAS and cameras",
+      "muster": "fortinet|ivanti|pulse secure|citrix|netscaler|palo alto|sonicwall|cisco|juniper|\\bf5\\b|big-ip|zyxel|d-link|tp-link|netgear|sophos|check point|barracuda|mikrotik|draytek|watchguard|qnap|synology|\\bzte\\b|array networks|sangoma|digiever|edimax|geovision|four-faith|totolink|linksys|\\basus\\b|hikvision|dahua|arista|ubiquiti|aviatrix|versa|session smart|router|firewall|\\bvpn\\b|gateway"
+    },
+    {
+      "id": "arbeitsplatz",
+      "name": "Arbeitsplatz",
+      "name_en": "Workplace",
+      "fuer": "Browser, Office, PDF, Packprogramme und Mobilgeräte",
+      "fuer_en": "browsers, Office, PDF, archivers and mobile devices",
+      "muster": "chrom|\\bedge\\b|mozilla|firefox|thunderbird|apple|webkit|android|samsung|adobe|acrobat|\\boffice\\b|outlook|\\bword\\b|excel|powerpoint|\\bteams\\b|onenote|winrar|rarlab|7-zip|foxit|\\bzoom\\b|trueconf"
+    },
+    {
+      "id": "windows",
+      "name": "Windows und Microsoft-Server",
+      "name_en": "Windows and Microsoft servers",
+      "fuer": "Windows, Windows Server, Exchange, SharePoint, SQL Server und Azure",
+      "fuer_en": "Windows, Windows Server, Exchange, SharePoint, SQL Server and Azure",
+      "muster": "microsoft"
+    },
+    {
+      "id": "anwendungen",
+      "name": "Unternehmens-Anwendungen",
+      "name_en": "Business applications",
+      "fuer": "ERP, Datenbanken, Virtualisierung, Backup, Fernwartung, Dateitransfer und Verwaltungswerkzeuge",
+      "fuer_en": "ERP, databases, virtualisation, backup, remote management, file transfer and admin tools",
+      "muster": "\\bsap\\b|oracle|vmware|broadcom|atlassian|veeam|commvault|connectwise|progress|solarwinds|manageengine|zoho|sitecore|gladinet|crushftp|cleo|fortra|kentico|trend micro|beyondtrust|sysaid|simplehelp|dassault|papercut|\\bibm\\b|\\bhpe\\b|hewlett|\\bdell\\b|gitlab|nakivo|wing ftp|n-able|kaseya|mitel|advantive|telerik|trimble|jetbrains|jfrog|smartertools|zammad|ahsay|sysaid|kaspersky|symantec|mcafee|trellix|crowdstrike"
+    },
+    {
+      "id": "linux",
+      "name": "Linux und Open Source",
+      "name_en": "Linux and open source",
+      "fuer": "Linux, Webserver, Web-Software und verbreitete Open-Source-Bausteine",
+      "fuer_en": "Linux, web servers, web software and common open-source components",
+      "muster": "linux|red hat|apache|openssl|openssh|\\bgnu\\b|sudo|\\bphp\\b|roundcube|redis|nginx|tomcat|kernel|samba|exim|\\bgit\\b|craft cms|wordpress|drupal|joomla|laravel|spring|jenkins|grafana|next\\.js|\\bvite\\b|langflow|n8n|react|synacor|zimbra|rsync|docker|kubernetes|litespeed|cyberpanel|erlang|adminer|berriai|litellm|plex"
+    }
+  ],
+  "sonstige": {"id": "sonstige", "name": "Sonstige", "name_en": "Other"}
+}
