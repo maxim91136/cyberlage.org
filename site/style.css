@@ -573,5 +573,5 @@ html[lang=en] #teil3 .akk>summary::after{content:"OPEN +"}html[lang=en] #teil3 .
 .kc-a,.p-badge,.lbl,.fz-dl dt,.sc-tx{font-size:12px}
 #fazit-verk{display:none!important}.verbund .fazit{margin-top:14px}
 
-/* Abstand Pegel-Kasten und Blue-Team-Abzeichen */
-.hero-pegel{margin-right:14px}.hero .blau{margin-top:10px;vertical-align:middle}
+/* Hero zentriert: Pegel-Kasten, darunter das Blue-Team-Abzeichen */
+.hero{text-align:center}.hero h1{margin-left:auto;margin-right:auto}.hero-pegel{margin:12px 0 0}.hero .blau{display:flex;width:fit-content;margin:12px auto 0}
