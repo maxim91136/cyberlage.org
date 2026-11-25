@@ -885,11 +885,15 @@
     box.hidden = false;
   }
   function zeigeHersteller(hs) {
-    var box = $("p-hs"); if (!box) return;
-    var qs = hs && hs.quellen ? Object.keys(hs.quellen).map(function (k) { return hs.quellen[k]; }) : [];
+    var alle = hs && hs.quellen ? Object.keys(hs.quellen).map(function (k) { return hs.quellen[k]; }) : [];
+    herstellerTabelle($("p-hv"), alle.filter(function (q) { return q.typ === "hersteller"; }), pick("Hersteller: Netzwerk, Anwendungen, Browser", "Vendors: network, applications, browsers"), true);
+    herstellerTabelle($("p-hs"), alle.filter(function (q) { return q.typ !== "hersteller"; }), pick("Linux-Distributionen", "Linux distributions"), false);
+  }
+  function herstellerTabelle(box, qs, titel, mitAdobe) {
+    if (!box) return;
     if (!qs.length) { box.hidden = true; return; }
     box.textContent = "";
-    box.appendChild(el("h3", "mono rd-t", pick("Linux-Distributionen und Hersteller", "Linux distributions and vendors")));
+    box.appendChild(el("h3", "mono rd-t", titel));
     var tw = el("div", "tabelle"); tw.setAttribute("role", "region"); tw.tabIndex = 0;
     var t = el("table", ""); var th = el("tr", "");
     [pick("Quelle", "Source"), pick("neu 7 Tage", "new 7 days"), pick("neu 30 Tage", "new 30 days"), pick("davon kritisch", "of them critical"), pick("CVEs 30 Tage", "CVEs 30 days"), pick("Stand", "as of")].forEach(function (h) { th.appendChild(el("th", "", h)); });
@@ -917,7 +921,7 @@
     var ad = el("p", "mono dim fine", pick("Adobe: keine maschinenlesbare Quelle ohne Konto, daher nur Verweis auf die ", "Adobe: no machine-readable source without an account, so a link only to the "));
     ad.appendChild(link("https://www.adobe.com/trust/security/bulletins-and-advisories.html", pick("Adobe-Sicherheitshinweise", "Adobe security bulletins")));
     ad.appendChild(document.createTextNode(pick(" (Patch Day: zweiter Dienstag, siehe Patch-Kalender). SAP-Hinweise erreichen Sie nur mit SAP-for-Me-Konto, hier steht die Nummer.", " (patch day: second Tuesday, see patch calendar). SAP notes need an SAP for Me account, only the number is shown here.")));
-    box.appendChild(ad);
+    if (mitAdobe) box.appendChild(ad);
     box.appendChild(el("p", "mono dim fine", pick("Nur Zählung und Verweise auf die Meldungen der Hersteller, keine Texte. Schweregrade stammen von den Herstellern und fehlen, wo sie nicht geliefert werden (zum Beispiel bei Ubuntu und Debian).", "Counts and links to the vendors' advisories only, no texts. Severity comes from the vendors and is missing where they do not provide it (for example Ubuntu and Debian).")));
     box.hidden = false;
   }
