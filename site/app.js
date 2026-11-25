@@ -351,6 +351,15 @@
     });
     host.appendChild(svg);
   }
+  function fixTeile(fixe) {
+    var t = [];
+    (fixe || []).forEach(function (f) {
+      if (f.kb) t.push("KB" + f.kb + (f.fuer ? " (" + f.fuer + ")" : ""));
+      else if (f.build) t.push(pick("Version ", "version ") + f.build + (f.produkt || f.fuer ? " (" + (f.produkt || f.fuer) + ")" : ""));
+      else if (f.text && f.text.toLowerCase() !== "release notes") t.push(f.text + (f.fuer ? " (" + f.fuer + ")" : ""));
+    });
+    return t;
+  }
   function zeigeZuerst(pr) {
     var box = $("p-zuerst"); if (!box) return;
     if (!pr) { box.hidden = true; return; }
@@ -372,7 +381,7 @@
         li.appendChild(el("div", "p-w", pick("Warum zuerst: ", "Why first: ") + pick(k.grund, k.grund_en)));
         var fx = el("div", "p-fix"); fx.appendChild(el("b", "mono", pick("Lösung: ", "Fix: ")));
         var teile = [];
-        (k.fixe || []).forEach(function (f) { if (f.kb) teile.push("KB" + f.kb + (f.fuer ? " (" + f.fuer + ")" : "")); else if (f.build) teile.push(pick("Version ", "version ") + f.build + (f.produkt || f.fuer ? " (" + (f.produkt || f.fuer) + ")" : "")); else if (f.text && f.text.toLowerCase() !== "release notes") teile.push(f.text + (f.fuer ? " (" + f.fuer + ")" : "")); });
+        teile = fixTeile(k.fixe);
         fx.appendChild(document.createTextNode(teile.length ? teile.join(", ") : pick(k.patch_text, k.patch_text_en)));
         if (k.patch_link && /^https:\/\//.test(k.patch_link)) { fx.appendChild(document.createTextNode(" · ")); fx.appendChild(link(k.patch_link, /OfficeSecurityReleases/.test(k.patch_link) ? pick("Office-Release-Notes", "Office release notes") : pick("Fix-Seite", "fix page"))); }
         li.appendChild(fx);
@@ -420,6 +429,19 @@
     g.appendChild(kpi(zahl(m.im_kev), pick("davon im KEV", "of them in KEV"), m.im_kev > 0 ? "warn" : ""));
     box.appendChild(g);
     box.appendChild(el("p", "p-emp", pick("Empfehlung: ", "Recommendation: ") + pick(b.empfehlung, b.empfehlung_en)));
+    if (b.aktionen && b.aktionen.length) {
+      var al = el("ol", "p-akt");
+      b.aktionen.forEach(function (x) {
+        var li = el("li", ""); li.appendChild(link("https://msrc.microsoft.com/update-guide/vulnerability/" + x.cve, x.cve));
+        li.appendChild(document.createTextNode(" · " + x.titel + (x.betrifft ? " · " + pick("betrifft ", "affects ") + x.betrifft : "")));
+        var ft = fixTeile(x.fixe);
+        var d = el("div", "p-fix"); d.appendChild(el("b", "mono", pick("Lösung: ", "Fix: ")));
+        d.appendChild(document.createTextNode(ft.length ? ft.join(", ") : (x.patch === "nein" ? pick("noch kein Patch, nur Umgehung oder Abmilderung (Microsoft-Seite)", "no patch yet, only a workaround or mitigation (Microsoft page)") : pick("Details auf der Microsoft-Seite", "details on the Microsoft page"))));
+        if (ft.some(function (z) { return /Version|version/.test(z); })) { d.appendChild(document.createTextNode(" · ")); d.appendChild(link("https://aka.ms/OfficeSecurityReleases", pick("Office-Release-Notes", "Office release notes"))); }
+        li.appendChild(d); al.appendChild(li);
+      });
+      box.appendChild(al);
+    }
     if (m.ausgenutzt_cves && m.ausgenutzt_cves.length) {
       var ex = el("p", "mono fine", pick("Ausgenutzt: ", "Exploited: "));
       m.ausgenutzt_cves.forEach(function (c, i) { if (i) ex.appendChild(document.createTextNode(", ")); ex.appendChild(link("https://msrc.microsoft.com/update-guide/vulnerability/" + c, c)); });

@@ -389,3 +389,5 @@ html.alarm .teil1{border-top-color:#ff5b6b}html.alarm .teil1 h2{color:#ff5b6b}
 .nav-row .nav-grp2{color:var(--dim);border-color:var(--line)}
 .nav-wichtig{color:var(--green)!important;font-weight:400!important}
 .p-mehr summary{cursor:pointer;color:var(--green);padding:8px 0}
+
+.p-akt{margin:6px 0 10px;padding-left:20px}.p-akt li{margin-bottom:8px}

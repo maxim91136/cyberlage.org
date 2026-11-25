@@ -267,7 +267,9 @@ def bewerte(monat, vorherige):
         stufe = "normal"
         empf = "Im normalen Patchzyklus einspielen."
         empf_en = "Apply in the normal patch cycle."
-    return {"groesse": groesse, "groesse_en": groesse_en, "verhaeltnis_median": round(verh, 2) if verh else None,
+    aktionen = [{"cve": k["cve"], "titel": k.get("titel", ""), "betrifft": ", ".join(k.get("familien", [])), "fixe": k.get("fixe") or [], "patch": k.get("patch")}
+                for k in monat.get("kandidaten", []) if k.get("ausgenutzt")][:3]
+    return {"aktionen": aktionen, "groesse": groesse, "groesse_en": groesse_en, "verhaeltnis_median": round(verh, 2) if verh else None,
             "median_vormonate": med, "dringlichkeit": stufe, "empfehlung": empf, "empfehlung_en": empf_en}
 
 
