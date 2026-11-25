@@ -1307,14 +1307,38 @@
   "cert_bund": {
     "quelle": "CERT-Bund / BSI Warn- und Informationsdienst",
     "quelle_url": "https://wid.cert-bund.de/",
-    "abgerufen_am": "2026-11-25T11:27:23+00:00",
+    "abgerufen_am": "2026-11-25T11:53:10+00:00",
     "fenster_tage": 30,
     "daten_seit": "2026-11-23",
     "kritisch_7_tage": 9,
-    "hoch_7_tage": 229,
+    "hoch_7_tage": 262,
     "kritisch_30_tage": 9,
-    "hoch_30_tage": 229,
+    "hoch_30_tage": 262,
     "liste": [
+      {
+        "id": "WID-SEC-2026-4776",
+        "schwere": "hoch",
+        "status": "neu",
+        "titel": "Adobe Experience Manager: Mehrere Schwachstellen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4776"
+      },
+      {
+        "id": "WID-SEC-2026-4775",
+        "schwere": "hoch",
+        "status": "neu",
+        "titel": "SolarWinds Serv-U: Mehrere Schwachstellen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4775"
+      },
+      {
+        "id": "WID-SEC-2026-4772",
+        "schwere": "hoch",
+        "status": "neu",
+        "titel": "GL.iNet Geräte: Mehrere Schwachstellen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4772"
+      },
       {
         "id": "WID-SEC-2026-4767",
         "schwere": "hoch",
@@ -1372,6 +1396,214 @@
         "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4686"
       },
       {
+        "id": "WID-SEC-2026-4636",
+        "schwere": "hoch",
+        "status": "update",
+        "titel": "Google Chrome und Microsoft Edge: Mehrere Schwachstellen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4636"
+      },
+      {
+        "id": "WID-SEC-2026-4624",
+        "schwere": "hoch",
+        "status": "update",
+        "titel": "Oracle Java und GraalVM: Mehrere Schwachstellen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4624"
+      },
+      {
+        "id": "WID-SEC-2026-4616",
+        "schwere": "hoch",
+        "status": "update",
+        "titel": "Oracle Communications: Mehrere Schwachstellen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4616"
+      },
+      {
+        "id": "WID-SEC-2026-4612",
+        "schwere": "hoch",
+        "status": "update",
+        "titel": "Oracle Database Server: Mehrere Schwachstellen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4612"
+      },
+      {
+        "id": "WID-SEC-2026-4571",
+        "schwere": "hoch",
+        "status": "update",
+        "titel": "PostgreSQL: Mehrere Schwachstellen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4571"
+      },
+      {
+        "id": "WID-SEC-2026-4549",
+        "schwere": "hoch",
+        "status": "update",
+        "titel": "Red Hat Enterprise Linux (crun, xfsprogs, glib-networking): Mehrere Schwachstellen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4549"
+      },
+      {
+        "id": "WID-SEC-2026-4544",
+        "schwere": "hoch",
+        "status": "update",
+        "titel": "Red Hat OpenStack: Schwachstelle ermöglicht Umgehung von Sicherheitsmaßnahmen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4544"
+      },
+      {
+        "id": "WID-SEC-2026-4542",
+        "schwere": "hoch",
+        "status": "update",
+        "titel": "Red Hat Enterprise Linux: Mehrere Schwachstellen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4542"
+      },
+      {
+        "id": "WID-SEC-2026-4518",
+        "schwere": "hoch",
+        "status": "update",
+        "titel": "Google Chrome / Microsoft Edge: Mehrere Schwachstellen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4518"
+      },
+      {
+        "id": "WID-SEC-2026-4511",
+        "schwere": "hoch",
+        "status": "update",
+        "titel": "Xwayland und X.Org X Server: Mehrere Schwachstellen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4511"
+      },
+      {
+        "id": "WID-SEC-2026-4481",
+        "schwere": "hoch",
+        "status": "update",
+        "titel": "Microsoft Developer Tools: Mehrere Schwachstellen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4481"
+      },
+      {
+        "id": "WID-SEC-2026-4472",
+        "schwere": "hoch",
+        "status": "update",
+        "titel": "Red Hat Enterprise Linux (python-jwcrypto, sos, hickory-resolver, libimobiledevice, gcc, python-oauthlib): Mehrere Schwachstellen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4472"
+      },
+      {
+        "id": "WID-SEC-2026-4461",
+        "schwere": "hoch",
+        "status": "update",
+        "titel": "Linux Kernel: Mehrere Schwachstellen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4461"
+      },
+      {
+        "id": "WID-SEC-2026-4435",
+        "schwere": "hoch",
+        "status": "update",
+        "titel": "MIT Kerberos: Mehrere Schwachstellen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4435"
+      },
+      {
+        "id": "WID-SEC-2026-4417",
+        "schwere": "hoch",
+        "status": "update",
+        "titel": "Google Chrome / Microsoft Edge: Mehrere Schwachstellen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4417"
+      },
+      {
+        "id": "WID-SEC-2026-4416",
+        "schwere": "kritisch",
+        "status": "update",
+        "titel": "Ruby: Mehrere Schwachstellen ermöglichen Codeausführung",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4416"
+      },
+      {
+        "id": "WID-SEC-2026-4402",
+        "schwere": "hoch",
+        "status": "update",
+        "titel": "Red Hat Enterprise Linux (yggdrasil-worker-package-manager): Schwachstelle ermöglicht Privilegieneskalation",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4402"
+      },
+      {
+        "id": "WID-SEC-2026-4367",
+        "schwere": "hoch",
+        "status": "update",
+        "titel": "MariaDB: Schwachstelle ermöglicht Umgehen von Sicherheitsvorkehrungen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4367"
+      },
+      {
+        "id": "WID-SEC-2026-4341",
+        "schwere": "hoch",
+        "status": "update",
+        "titel": "apt: Schwachstelle ermöglicht Ausführen von beliebigem Programmcode mit Administratorrechten",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4341"
+      },
+      {
+        "id": "WID-SEC-2026-4317",
+        "schwere": "hoch",
+        "status": "update",
+        "titel": "Ruby on Rails: Mehrere Schwachstellen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4317"
+      },
+      {
+        "id": "WID-SEC-2026-4305",
+        "schwere": "hoch",
+        "status": "update",
+        "titel": "Red Hat Enterprise Linux (dpdk, raptor2, dnspython): Mehrere Schwachstellen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4305"
+      },
+      {
+        "id": "WID-SEC-2026-4303",
+        "schwere": "hoch",
+        "status": "update",
+        "titel": "Google Chrome / Microsoft Edge: Mehrere Schwachstellen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4303"
+      },
+      {
+        "id": "WID-SEC-2026-4285",
+        "schwere": "hoch",
+        "status": "update",
+        "titel": "Red Hat Enterprise Linux (perl-yaml, pillow): Mehrere Schwachstellen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4285"
+      },
+      {
+        "id": "WID-SEC-2026-4260",
+        "schwere": "hoch",
+        "status": "update",
+        "titel": "SQLite: Mehrere Schwachstellen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4260"
+      },
+      {
+        "id": "WID-SEC-2026-4244",
+        "schwere": "hoch",
+        "status": "update",
+        "titel": "Google Chrome / Microsoft Edge: Mehrere Schwachstellen ermöglichen nicht spezifizierten Angriff",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4244"
+      },
+      {
+        "id": "WID-SEC-2026-4237",
+        "schwere": "kritisch",
+        "status": "update",
+        "titel": "Grafana: Mehrere Schwachstellen",
+        "datum": "2026-11-25",
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4237"
+      },
+      {
         "id": "WID-SEC-2026-4234",
         "schwere": "kritisch",
         "status": "update",
@@ -1380,267 +1612,35 @@
         "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4234"
       },
       {
-        "id": "WID-SEC-2025-2518",
+        "id": "WID-SEC-2026-4154",
         "schwere": "hoch",
         "status": "update",
-        "titel": "Red Hat Enterprise Linux (runc): Mehrere Schwachstellen ermöglichen Umgehen von Sicherheitsvorkehrungen",
+        "titel": "Oracle Java SE: Schwachstelle ermöglicht Offenlegung von Informationen",
         "datum": "2026-11-25",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-2518"
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4154"
       },
       {
-        "id": "WID-SEC-2025-1703",
+        "id": "WID-SEC-2026-4145",
         "schwere": "hoch",
         "status": "update",
-        "titel": "WebKitGTK: Mehrere Schwachstellen",
+        "titel": "PHP: Schwachstelle ermöglicht Codeausführung",
         "datum": "2026-11-25",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-1703"
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4145"
       },
       {
-        "id": "WID-SEC-2025-0566",
+        "id": "WID-SEC-2026-4139",
         "schwere": "hoch",
         "status": "update",
-        "titel": "PHP: Mehrere Schwachstellen",
+        "titel": "Oracle Java SE and GraalVM, und OpenJDK: Schwachstelle ermöglicht Umgehen von Sicherheitsvorkehrungen",
         "datum": "2026-11-25",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2025-0566"
-      },
-      {
-        "id": "WID-SEC-2024-0751",
-        "schwere": "hoch",
-        "status": "update",
-        "titel": "Podman: Schwachstelle ermöglicht Umgehen von Sicherheitsvorkehrungen",
-        "datum": "2026-11-25",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2024-0751"
-      },
-      {
-        "id": "WID-SEC-2026-4770",
-        "schwere": "hoch",
-        "status": "neu",
-        "titel": "Traefik: Mehrere Schwachstellen",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4770"
-      },
-      {
-        "id": "WID-SEC-2026-4769",
-        "schwere": "hoch",
-        "status": "neu",
-        "titel": "VMware Cloud Foundation, vSphere, vCenter Server, ESXi, Workstation, Fusion und Tools: Mehrere Schwachstellen",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4769"
-      },
-      {
-        "id": "WID-SEC-2026-4766",
-        "schwere": "hoch",
-        "status": "neu",
-        "titel": "Gradle: Mehrere Schwachstellen ermöglichen Manipulation von Dateien",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4766"
-      },
-      {
-        "id": "WID-SEC-2026-4765",
-        "schwere": "hoch",
-        "status": "neu",
-        "titel": "Tanium Endpoint Management: Mehrere Schwachstellen",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4765"
-      },
-      {
-        "id": "WID-SEC-2026-4764",
-        "schwere": "hoch",
-        "status": "neu",
-        "titel": "ffmpeg: Mehrere Schwachstellen",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4764"
-      },
-      {
-        "id": "WID-SEC-2026-4763",
-        "schwere": "hoch",
-        "status": "neu",
-        "titel": "LiteLLM: Mehrere Schwachstellen",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4763"
-      },
-      {
-        "id": "WID-SEC-2026-4761",
-        "schwere": "hoch",
-        "status": "neu",
-        "titel": "Rsync: Schwachstelle ermöglicht Denial of Service",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4761"
-      },
-      {
-        "id": "WID-SEC-2026-4758",
-        "schwere": "hoch",
-        "status": "neu",
-        "titel": "CODESYS Visualization: Mehrere Schwachstellen ermöglichen",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4758"
-      },
-      {
-        "id": "WID-SEC-2026-4749",
-        "schwere": "hoch",
-        "status": "neu",
-        "titel": "Devolutions Server: Mehrere Schwachstellen",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4749"
-      },
-      {
-        "id": "WID-SEC-2026-4746",
-        "schwere": "hoch",
-        "status": "neu",
-        "titel": "PostgreSQL: Mehrere Schwachstellen",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4746"
-      },
-      {
-        "id": "WID-SEC-2026-4742",
-        "schwere": "hoch",
-        "status": "update",
-        "titel": "Microsoft SharePoint: Schwachstelle ermöglicht Codeausführung",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4742"
-      },
-      {
-        "id": "WID-SEC-2026-4741",
-        "schwere": "hoch",
-        "status": "update",
-        "titel": "Microsoft 365 Copilot: Schwachstelle ermöglicht Privilegieneskalation",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4741"
-      },
-      {
-        "id": "WID-SEC-2026-4739",
-        "schwere": "hoch",
-        "status": "update",
-        "titel": "Apache Solr: Mehrere Schwachstellen",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4739"
-      },
-      {
-        "id": "WID-SEC-2026-4731",
-        "schwere": "hoch",
-        "status": "update",
-        "titel": "Red Hat Enterprise Linux (lerc, librabbitmq, libgsf, xdg-desktop-portal, rapidjson): Mehrere Schwachstellen",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4731"
-      },
-      {
-        "id": "WID-SEC-2026-4701",
-        "schwere": "hoch",
-        "status": "update",
-        "titel": "MongoDB Treiber: Mehrere Schwachstellen",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4701"
-      },
-      {
-        "id": "WID-SEC-2026-4684",
-        "schwere": "hoch",
-        "status": "update",
-        "titel": "PHP: Mehrere Schwachstellen",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4684"
-      },
-      {
-        "id": "WID-SEC-2026-4675",
-        "schwere": "hoch",
-        "status": "update",
-        "titel": "WebKitGTK: Mehrere Schwachstellen",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4675"
-      },
-      {
-        "id": "WID-SEC-2026-4668",
-        "schwere": "hoch",
-        "status": "update",
-        "titel": "Ruby: Mehrere Schwachstellen",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4668"
-      },
-      {
-        "id": "WID-SEC-2026-4658",
-        "schwere": "hoch",
-        "status": "update",
-        "titel": "NGINX: Mehrere Schwachstellen",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4658"
-      },
-      {
-        "id": "WID-SEC-2026-4655",
-        "schwere": "hoch",
-        "status": "update",
-        "titel": "Linux Kernel: Mehrere Schwachstellen",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4655"
-      },
-      {
-        "id": "WID-SEC-2026-4636",
-        "schwere": "hoch",
-        "status": "update",
-        "titel": "Google Chrome und Microsoft Edge: Mehrere Schwachstellen",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4636"
-      },
-      {
-        "id": "WID-SEC-2026-4624",
-        "schwere": "hoch",
-        "status": "update",
-        "titel": "Oracle Java und GraalVM: Mehrere Schwachstellen",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4624"
-      },
-      {
-        "id": "WID-SEC-2026-4622",
-        "schwere": "hoch",
-        "status": "update",
-        "titel": "Oracle PeopleSoft: Mehrere Schwachstellen",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4622"
-      },
-      {
-        "id": "WID-SEC-2026-4616",
-        "schwere": "hoch",
-        "status": "update",
-        "titel": "Oracle Communications: Mehrere Schwachstellen",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4616"
-      },
-      {
-        "id": "WID-SEC-2026-4607",
-        "schwere": "hoch",
-        "status": "update",
-        "titel": "OpenSSL: Mehrere Schwachstellen ermöglichen Denial of Service",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4607"
-      },
-      {
-        "id": "WID-SEC-2026-4556",
-        "schwere": "hoch",
-        "status": "update",
-        "titel": "n8n: Mehrere Schwachstellen",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4556"
-      },
-      {
-        "id": "WID-SEC-2026-4542",
-        "schwere": "hoch",
-        "status": "update",
-        "titel": "Red Hat Enterprise Linux: Mehrere Schwachstellen",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4542"
-      },
-      {
-        "id": "WID-SEC-2026-4518",
-        "schwere": "hoch",
-        "status": "update",
-        "titel": "Google Chrome / Microsoft Edge: Mehrere Schwachstellen",
-        "datum": "2026-11-24",
-        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4518"
+        "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4139"
       }
     ]
   },
   "eu_kev": {
     "quelle": "EU-KEV über die EU-Schwachstellendatenbank (EUVD) von ENISA",
     "quelle_url": "https://euvd.enisa.europa.eu/",
-    "abgerufen_am": "2026-11-25T11:27:23+00:00",
+    "abgerufen_am": "2026-11-25T11:53:10+00:00",
     "fenster_tage": 30,
     "daten_seit": "2026-08-07",
     "neu_30_tage": 38,
@@ -2180,7 +2180,7 @@
     ]
   },
   "ausblick": {
-    "abgerufen_am": "2026-11-25T11:27:25+00:00",
+    "abgerufen_am": "2026-11-25T11:53:13+00:00",
     "fenster_tage": 14,
     "geprueft": 7030,
     "schwelle_hoch": 0.1,
@@ -2290,7 +2290,7 @@
     ]
   },
   "radar": {
-    "abgerufen_am": "2026-11-25T11:30:02+00:00",
+    "abgerufen_am": "2026-11-25T11:55:15+00:00",
     "zeit_bis_kev": {
       "verlauf": [
         {
@@ -4593,7 +4593,7 @@
     },
     "sans": {
       "status": "green",
-      "abgerufen_am": "2026-11-25T11:30:00+00:00"
+      "abgerufen_am": "2026-11-25T11:55:13+00:00"
     },
     "ncsc": {
       "advisories_30": 25,
@@ -4777,7 +4777,7 @@
                 "name_en": "CERT-Bund",
                 "status": "aktiv",
                 "historie": "seit 11.11.2023",
-                "ausschlag": 2.46
+                "ausschlag": 2.5
               },
               {
                 "id": "ncsc_nl",
@@ -4868,8 +4868,8 @@
           "grund_en": "at least 126 new advisories (critical or high) in 30 days, the top quarter since November 2023",
           "art": "extern",
           "baustein": "cert_bund",
-          "ausschlag": 2.46,
-          "wert": 310,
+          "ausschlag": 2.5,
+          "wert": 315,
           "schwelle": 126,
           "misst": "CERT-Bund: neue Warnungen der Stufen kritisch und hoch (30 Tage)",
           "misst_en": "CERT-Bund: new advisories rated critical or high (30 days)",
@@ -4951,7 +4951,7 @@
           "status": 200,
           "fehler_in_folge": 0,
           "erster_fehler_um": null,
-          "link_geprueft_um": "2026-11-24T11:49:41+00:00",
+          "link_geprueft_um": "2026-11-25T11:56:38+00:00",
           "faellig_am": "2027-02-22",
           "faellig": false,
           "link_tot": false
@@ -4966,7 +4966,7 @@
           "status": 200,
           "fehler_in_folge": 0,
           "erster_fehler_um": null,
-          "link_geprueft_um": "2026-11-24T11:49:41+00:00",
+          "link_geprueft_um": "2026-11-25T11:56:38+00:00",
           "faellig_am": "2027-02-22",
           "faellig": false,
           "link_tot": false
@@ -4981,7 +4981,7 @@
           "status": 403,
           "fehler_in_folge": 0,
           "erster_fehler_um": null,
-          "link_geprueft_um": "2026-11-24T11:53:10+00:00",
+          "link_geprueft_um": "2026-11-25T11:56:38+00:00",
           "faellig_am": "2027-02-22",
           "faellig": false,
           "link_tot": false
@@ -4996,7 +4996,7 @@
           "status": 200,
           "fehler_in_folge": 0,
           "erster_fehler_um": null,
-          "link_geprueft_um": "2026-11-24T11:49:41+00:00",
+          "link_geprueft_um": "2026-11-25T11:56:38+00:00",
           "faellig_am": "2027-02-22",
           "faellig": false,
           "link_tot": false
@@ -5011,7 +5011,7 @@
           "status": 200,
           "fehler_in_folge": 0,
           "erster_fehler_um": null,
-          "link_geprueft_um": "2026-11-24T11:49:41+00:00",
+          "link_geprueft_um": "2026-11-25T11:56:38+00:00",
           "faellig_am": "2027-10-20",
           "faellig": false,
           "link_tot": false
@@ -5026,7 +5026,7 @@
           "status": 200,
           "fehler_in_folge": 0,
           "erster_fehler_um": null,
-          "link_geprueft_um": "2026-11-24T11:53:10+00:00",
+          "link_geprueft_um": "2026-11-25T11:56:38+00:00",
           "faellig_am": "2027-10-20",
           "faellig": false,
           "link_tot": false
@@ -5039,9 +5039,9 @@
           "geprueft_am": "2026-11-23",
           "erreichbar": false,
           "status": 404,
-          "fehler_in_folge": 42,
+          "fehler_in_folge": 43,
           "erster_fehler_um": "2026-11-24T16:15:10+00:00",
-          "link_geprueft_um": "2026-11-25T11:41:31+00:00",
+          "link_geprueft_um": "2026-11-25T11:56:38+00:00",
           "faellig_am": "2027-05-25",
           "faellig": false,
           "link_tot": false
@@ -5054,9 +5054,9 @@
           "geprueft_am": "2026-11-24",
           "erreichbar": false,
           "status": 404,
-          "fehler_in_folge": 38,
+          "fehler_in_folge": 39,
           "erster_fehler_um": "2026-11-24T22:03:12+00:00",
-          "link_geprueft_um": "2026-11-25T11:41:31+00:00",
+          "link_geprueft_um": "2026-11-25T11:56:38+00:00",
           "faellig_am": "2027-02-22",
           "faellig": false,
           "link_tot": false
@@ -5064,14 +5064,14 @@
         {
           "id": "modell",
           "bereich": "radar_stufen",
-          "name": "Modell des Dreier-Pegels v1: Bausteine, Gruppen, Beobachtung (entwurf)",
+          "name": "Modell des Dreier-Pegels v1: Bausteine, Gruppen, Schwellen (vorlaeufig)",
           "link": "https://github.com/maxim91136/cyberlage.org/blob/main/config/modell.json",
           "geprueft_am": "2026-11-25",
           "erreichbar": false,
           "status": 404,
-          "fehler_in_folge": 3,
+          "fehler_in_folge": 4,
           "erster_fehler_um": "2026-11-25T10:53:06+00:00",
-          "link_geprueft_um": "2026-11-25T11:41:31+00:00",
+          "link_geprueft_um": "2026-11-25T11:56:38+00:00",
           "faellig_am": "2027-02-23",
           "faellig": false,
           "link_tot": false
@@ -5101,7 +5101,7 @@
       "lizenz": "CC0 1.0 (laut LICENSE-Datei von cisagov/kev-data)",
       "quelle_abruf": "cisa.gov",
       "veroeffentlicht_am": "2026-11-24T17:47:46.199Z",
-      "abgerufen_am": "2026-11-25T11:27:22+00:00",
+      "abgerufen_am": "2026-11-25T11:53:10+00:00",
       "name_en": "CISA Known Exploited Vulnerabilities",
       "lizenz_en": "CC0 1.0 (per the LICENSE file of cisagov/kev-data)"
     },
@@ -5118,7 +5118,7 @@
       "name": "CERT-Bund / BSI Warn- und Informationsdienst",
       "link": "https://wid.cert-bund.de/",
       "lizenz": "nur Titel und Links, Nutzungsbedingungen des BSI beachten",
-      "abgerufen_am": "2026-11-25T11:27:23+00:00",
+      "abgerufen_am": "2026-11-25T11:53:10+00:00",
       "name_en": "CERT-Bund / BSI Warning and Information Service",
       "lizenz_en": "titles and links only, observe the BSI terms of use"
     },
@@ -5127,7 +5127,7 @@
       "name": "EU-KEV (EUVD von ENISA)",
       "link": "https://euvd.enisa.europa.eu/",
       "lizenz": "Lizenz nicht ausdrücklich geklärt",
-      "abgerufen_am": "2026-11-25T11:27:23+00:00",
+      "abgerufen_am": "2026-11-25T11:53:10+00:00",
       "name_en": "EU-KEV (EUVD by ENISA)",
       "lizenz_en": "licence not explicitly clarified"
     },
@@ -5136,7 +5136,7 @@
       "name": "EPSS (FIRST)",
       "link": "https://www.first.org/epss/",
       "lizenz": "kostenlos mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T11:27:25+00:00",
+      "abgerufen_am": "2026-11-25T11:53:13+00:00",
       "name_en": "EPSS (FIRST)",
       "lizenz_en": "free to use with attribution"
     },
@@ -5145,7 +5145,7 @@
       "name": "NVD (NIST)",
       "link": "https://nvd.nist.gov/",
       "lizenz": "gemeinfrei, nur Veröffentlichungsdatum und CVSS-Wert",
-      "abgerufen_am": "2026-11-25T11:27:25+00:00",
+      "abgerufen_am": "2026-11-25T11:53:13+00:00",
       "name_en": "NVD (NIST)",
       "lizenz_en": "public domain, only publication date and CVSS score"
     },
@@ -5154,7 +5154,7 @@
       "name": "CVE-Liste (CVE Program, MITRE)",
       "link": "https://github.com/CVEProject/cvelistV5",
       "lizenz": "CVE Terms of Use: frei nutzbar mit Quellenangabe, nur Veröffentlichungsdatum",
-      "abgerufen_am": "2026-11-25T11:30:02+00:00",
+      "abgerufen_am": "2026-11-25T11:55:15+00:00",
       "name_en": "CVE List (CVE Program, MITRE)",
       "lizenz_en": "CVE Terms of Use: free to use with attribution, only publication date"
     },
@@ -5163,14 +5163,14 @@
       "name": "NCSC-NL Beveiligingsadviezen",
       "link": "https://advisories.ncsc.nl/",
       "lizenz": "Lizenz nicht geprüft, nur Zahl der Advisories mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T11:30:02+00:00"
+      "abgerufen_am": "2026-11-25T11:55:15+00:00"
     },
     {
       "id": "sans",
       "name": "SANS Internet Storm Center (Infocon)",
       "link": "https://isc.sans.edu/",
       "lizenz": "Creative Commons laut Fußzeile des ISC, nur Ampelstatus mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T11:30:00+00:00",
+      "abgerufen_am": "2026-11-25T11:55:13+00:00",
       "name_en": "SANS Internet Storm Center (Infocon)",
       "lizenz_en": "Creative Commons per the ISC footer, only the traffic-light status with attribution"
     }
@@ -7259,7 +7259,7 @@
         "quelle": "Microsoft Security Response Center (CVRF 3.0)",
         "quelle_url": "https://msrc.microsoft.com/update-guide",
         "listen_url": "https://api.msrc.microsoft.com/cvrf/v3.0/updates",
-        "abgerufen_am": "2026-11-25T11:30:02+00:00",
+        "abgerufen_am": "2026-11-25T11:55:15+00:00",
         "hinweis": "Zählung je CVE; Chromium-Lücken im Edge und Linux-Paketlücken von Azure Linux sind ausgenommen und getrennt ausgewiesen. Schweregrad, Ausnutzung und Bekanntheit stammen vom Hersteller.",
         "fehler": []
       },
@@ -7313,8 +7313,8 @@
           },
           "familien": {
             "Windows 11": 39,
-            "Windows 10": 36,
             "Windows Server": 36,
+            "Windows 10": 36,
             "Cloud und Dienste": 21,
             "Office und SharePoint": 14,
             "Entwicklung und Server": 6,
@@ -14021,7 +14021,7 @@
     "hersteller": {
       "meta": {
         "hinweis": "Nur Zählung und Verweise auf die Meldungen der Hersteller. Schweregrade stammen von den Herstellern und fehlen, wo sie nicht geliefert werden.",
-        "abgerufen_am": "2026-11-25T11:30:02+00:00"
+        "abgerufen_am": "2026-11-25T11:55:15+00:00"
       },
       "quellen": {
         "ubuntu": {
@@ -14185,7 +14185,7 @@
               "schwere": null
             }
           ],
-          "abgerufen_am": "2026-11-25T11:30:02+00:00",
+          "abgerufen_am": "2026-11-25T11:55:15+00:00",
           "status": "ok"
         },
         "debian": {
@@ -14274,7 +14274,7 @@
               "schwere": null
             }
           ],
-          "abgerufen_am": "2026-11-25T11:30:02+00:00",
+          "abgerufen_am": "2026-11-25T11:55:15+00:00",
           "status": "ok"
         },
         "redhat": {
@@ -14436,7 +14436,7 @@
               "schwere": "mittel"
             }
           ],
-          "abgerufen_am": "2026-11-25T11:30:02+00:00",
+          "abgerufen_am": "2026-11-25T11:55:15+00:00",
           "status": "ok"
         },
         "cisco": {
@@ -14590,7 +14590,7 @@
               "schwere": "kritisch"
             }
           ],
-          "abgerufen_am": "2026-11-25T11:30:02+00:00",
+          "abgerufen_am": "2026-11-25T11:55:15+00:00",
           "status": "ok"
         },
         "sap": {
@@ -14679,7 +14679,7 @@
               "schwere": "hoch"
             }
           ],
-          "abgerufen_am": "2026-11-25T11:30:02+00:00",
+          "abgerufen_am": "2026-11-25T11:55:15+00:00",
           "status": "ok"
         }
       }
