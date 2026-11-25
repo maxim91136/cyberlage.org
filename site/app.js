@@ -895,7 +895,7 @@
         });
         var mk = el("i", "mk"); mk.style.left = Math.max(0, Math.min(100, sc.wert)) + "%"; bar.appendChild(mk);
         var mz = el("b", "mkz mono", String(sc.wert)); mz.style.left = Math.max(2, Math.min(98, sc.wert)) + "%"; bar.appendChild(mz);
-        var zt = el("div", "skz mono"); [0, 30, 50, 64, 80, 100].forEach(function (n) { var t = el("span", "", String(n)); t.style.left = n + "%"; zt.appendChild(t); });
+        var zt = el("div", "skz mono"); [0].concat(kal.stufen.map(function (x) { return Math.min(x.bis, 100); })).forEach(function (n) { var t = el("span", "", String(n)); t.style.left = n + "%"; zt.appendChild(t); });
         var nm = el("div", "skn mono"), v0 = 0;
         kal.stufen.forEach(function (x) { var b2 = Math.min(x.bis, 100), t = el("span", x.ampel === ampel ? "akt" : "", pick(x.name, x.name_en)); t.style.width = (b2 - v0) + "%"; nm.appendChild(t); v0 = b2; });
         sk.appendChild(bar); sk.appendChild(zt); sk.appendChild(nm);
