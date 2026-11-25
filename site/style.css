@@ -239,7 +239,7 @@ html.alarm .marke{animation:flackern 6s infinite}
 .sc-ring{fill:none;stroke:var(--line);stroke-width:1}.sc-schw{stroke:var(--green);stroke-dasharray:4 4;opacity:.7}
 .sc-ax{stroke:var(--line);stroke-width:1}
 .sc-arm{stroke:#3ddc84;stroke-width:1.5;opacity:.55}
-.sc-sweep{transform-origin:200px 200px;animation:scsweep 7s linear infinite}
+.sc-sweep{transform-origin:200px 200px;animation:scsweep 16s linear infinite}
 @keyframes scsweep{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.sc-sweep{animation:none;display:none}}
 .sc-poly{fill:rgba(61,220,132,.10);stroke:var(--green);stroke-width:1.5;stroke-linejoin:round}
