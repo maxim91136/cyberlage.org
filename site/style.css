@@ -465,3 +465,4 @@ html[lang=en] .sek>summary::after{content:"\25B8  show"}html[lang=en] .sek[open]
 
 .fr-over{color:#ff8a7a}.fr-bald{color:#e3b341}
 .navin{flex-wrap:wrap}.navin .nav-row{flex-wrap:wrap}
+.umbau{color:#e3b341;border:1px dashed #e3b341;padding:6px 10px;font-size:13px;margin:8px 0;display:inline-block}
