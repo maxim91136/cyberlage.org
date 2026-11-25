@@ -1307,7 +1307,7 @@
   "cert_bund": {
     "quelle": "CERT-Bund / BSI Warn- und Informationsdienst",
     "quelle_url": "https://wid.cert-bund.de/",
-    "abgerufen_am": "2026-11-25T06:33:16+00:00",
+    "abgerufen_am": "2026-11-25T06:57:50+00:00",
     "fenster_tage": 30,
     "daten_seit": "2026-11-23",
     "kritisch_7_tage": 7,
@@ -1640,7 +1640,7 @@
   "eu_kev": {
     "quelle": "EU-KEV über die EU-Schwachstellendatenbank (EUVD) von ENISA",
     "quelle_url": "https://euvd.enisa.europa.eu/",
-    "abgerufen_am": "2026-11-25T06:33:16+00:00",
+    "abgerufen_am": "2026-11-25T06:57:50+00:00",
     "fenster_tage": 30,
     "daten_seit": "2026-08-07",
     "neu_30_tage": 36,
@@ -2152,7 +2152,7 @@
     ]
   },
   "ausblick": {
-    "abgerufen_am": "2026-11-25T06:33:18+00:00",
+    "abgerufen_am": "2026-11-25T06:57:53+00:00",
     "fenster_tage": 14,
     "geprueft": 7083,
     "schwelle_hoch": 0.1,
@@ -2266,7 +2266,7 @@
       "online": 1,
       "gelistet": 5
     },
-    "abgerufen_am": "2026-11-25T06:35:16+00:00",
+    "abgerufen_am": "2026-11-25T06:59:59+00:00",
     "zeit_bis_kev": {
       "verlauf": [
         {
@@ -4574,7 +4574,7 @@
     },
     "sans": {
       "status": "green",
-      "abgerufen_am": "2026-11-25T06:35:15+00:00"
+      "abgerufen_am": "2026-11-25T06:59:57+00:00"
     },
     "ncsc": {
       "advisories_30": 25,
@@ -4851,9 +4851,9 @@
           "geprueft_am": "2026-11-23",
           "erreichbar": false,
           "status": 404,
-          "fehler_in_folge": 25,
+          "fehler_in_folge": 26,
           "erster_fehler_um": "2026-11-24T16:15:10+00:00",
-          "link_geprueft_um": "2026-11-25T06:49:42+00:00",
+          "link_geprueft_um": "2026-11-25T07:02:13+00:00",
           "faellig_am": "2027-05-25",
           "faellig": false,
           "link_tot": false
@@ -4866,9 +4866,9 @@
           "geprueft_am": "2026-11-24",
           "erreichbar": false,
           "status": 404,
-          "fehler_in_folge": 21,
+          "fehler_in_folge": 22,
           "erster_fehler_um": "2026-11-24T22:03:12+00:00",
-          "link_geprueft_um": "2026-11-25T06:49:42+00:00",
+          "link_geprueft_um": "2026-11-25T07:02:13+00:00",
           "faellig_am": "2027-02-22",
           "faellig": false,
           "link_tot": false
@@ -4898,7 +4898,7 @@
       "lizenz": "CC0 1.0 (laut LICENSE-Datei von cisagov/kev-data)",
       "quelle_abruf": "cisa.gov",
       "veroeffentlicht_am": "2026-11-24T17:47:46.199Z",
-      "abgerufen_am": "2026-11-25T06:33:15+00:00",
+      "abgerufen_am": "2026-11-25T06:57:50+00:00",
       "name_en": "CISA Known Exploited Vulnerabilities",
       "lizenz_en": "CC0 1.0 (per the LICENSE file of cisagov/kev-data)"
     },
@@ -4915,7 +4915,7 @@
       "name": "CERT-Bund / BSI Warn- und Informationsdienst",
       "link": "https://wid.cert-bund.de/",
       "lizenz": "nur Titel und Links, Nutzungsbedingungen des BSI beachten",
-      "abgerufen_am": "2026-11-25T06:33:16+00:00",
+      "abgerufen_am": "2026-11-25T06:57:50+00:00",
       "name_en": "CERT-Bund / BSI Warning and Information Service",
       "lizenz_en": "titles and links only, observe the BSI terms of use"
     },
@@ -4924,7 +4924,7 @@
       "name": "EU-KEV (EUVD von ENISA)",
       "link": "https://euvd.enisa.europa.eu/",
       "lizenz": "Lizenz nicht ausdrücklich geklärt",
-      "abgerufen_am": "2026-11-25T06:33:16+00:00",
+      "abgerufen_am": "2026-11-25T06:57:50+00:00",
       "name_en": "EU-KEV (EUVD by ENISA)",
       "lizenz_en": "licence not explicitly clarified"
     },
@@ -4933,7 +4933,7 @@
       "name": "EPSS (FIRST)",
       "link": "https://www.first.org/epss/",
       "lizenz": "kostenlos mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T06:33:18+00:00",
+      "abgerufen_am": "2026-11-25T06:57:53+00:00",
       "name_en": "EPSS (FIRST)",
       "lizenz_en": "free to use with attribution"
     },
@@ -4942,7 +4942,7 @@
       "name": "NVD (NIST)",
       "link": "https://nvd.nist.gov/",
       "lizenz": "gemeinfrei, nur Veröffentlichungsdatum und CVSS-Wert",
-      "abgerufen_am": "2026-11-25T06:33:18+00:00",
+      "abgerufen_am": "2026-11-25T06:57:53+00:00",
       "name_en": "NVD (NIST)",
       "lizenz_en": "public domain, only publication date and CVSS score"
     },
@@ -4951,7 +4951,7 @@
       "name": "CVE-Liste (CVE Program, MITRE)",
       "link": "https://github.com/CVEProject/cvelistV5",
       "lizenz": "CVE Terms of Use: frei nutzbar mit Quellenangabe, nur Veröffentlichungsdatum",
-      "abgerufen_am": "2026-11-25T06:35:16+00:00",
+      "abgerufen_am": "2026-11-25T06:59:59+00:00",
       "name_en": "CVE List (CVE Program, MITRE)",
       "lizenz_en": "CVE Terms of Use: free to use with attribution, only publication date"
     },
@@ -4960,7 +4960,7 @@
       "name": "Feodo Tracker (abuse.ch)",
       "link": "https://feodotracker.abuse.ch/",
       "lizenz": "CC0, nur die Zahl aktiver Steuerserver",
-      "abgerufen_am": "2026-11-25T06:35:16+00:00",
+      "abgerufen_am": "2026-11-25T06:59:59+00:00",
       "name_en": "Feodo Tracker (abuse.ch)",
       "lizenz_en": "CC0, only the number of active command servers"
     },
@@ -4969,14 +4969,14 @@
       "name": "NCSC-NL Beveiligingsadviezen",
       "link": "https://advisories.ncsc.nl/",
       "lizenz": "Lizenz nicht geprüft, nur Zahl der Advisories mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T06:35:16+00:00"
+      "abgerufen_am": "2026-11-25T06:59:59+00:00"
     },
     {
       "id": "sans",
       "name": "SANS Internet Storm Center (Infocon)",
       "link": "https://isc.sans.edu/",
       "lizenz": "Creative Commons laut Fußzeile des ISC, nur Ampelstatus mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T06:35:15+00:00",
+      "abgerufen_am": "2026-11-25T06:59:57+00:00",
       "name_en": "SANS Internet Storm Center (Infocon)",
       "lizenz_en": "Creative Commons per the ISC footer, only the traffic-light status with attribution"
     }
@@ -7065,7 +7065,7 @@
         "quelle": "Microsoft Security Response Center (CVRF 3.0)",
         "quelle_url": "https://msrc.microsoft.com/update-guide",
         "listen_url": "https://api.msrc.microsoft.com/cvrf/v3.0/updates",
-        "abgerufen_am": "2026-11-25T06:35:16+00:00",
+        "abgerufen_am": "2026-11-25T06:59:59+00:00",
         "hinweis": "Zählung je CVE; Chromium-Lücken im Edge und Linux-Paketlücken von Azure Linux sind ausgenommen und getrennt ausgewiesen. Schweregrad, Ausnutzung und Bekanntheit stammen vom Hersteller.",
         "fehler": []
       },
@@ -7074,7 +7074,7 @@
           "id": "2025-Nov",
           "erste_veroeffentlichung": "2025-11-11T08:00:00",
           "aktuell": "2026-11-21T01:14:05",
-          "schema": 7,
+          "schema": 8,
           "cves": 75,
           "davon_chromium_ausgenommen": 11,
           "davon_azure_linux_ausgenommen": 103,
@@ -7108,8 +7108,8 @@
           },
           "familien": {
             "Windows 11": 39,
-            "Windows 10": 36,
             "Windows Server": 36,
+            "Windows 10": 36,
             "Cloud und Dienste": 21,
             "Office und SharePoint": 14,
             "Entwicklung und Server": 6,
@@ -7124,15 +7124,15 @@
             "verhaeltnis_median": null,
             "median_vormonate": null,
             "dringlichkeit": "dringend",
-            "empfehlung": "Zuerst den Patch für die bereits ausgenutzte Lücke einspielen, danach die Patches für die 11 als kritisch eingestuften.",
-            "empfehlung_en": "Apply the patch for the already exploited flaw first, then the patches for the 11 rated critical."
+            "empfehlung": "Zuerst den Patch für die bereits ausgenutzte Lücke einspielen (betrifft: Windows 10, Windows 11, Windows Server). Danach die monatlichen Sammelupdates für Windows und Office einspielen: Sie enthalten auch die 11 als kritisch eingestuften Lücken.",
+            "empfehlung_en": "Apply the patch for the already exploited flaw first (affects: Windows 10, Windows 11, Windows Server). Then apply the monthly cumulative updates for Windows and Office: they also contain the 11 flaws rated critical."
           }
         },
         "2025-Dec": {
           "id": "2025-Dec",
           "erste_veroeffentlichung": "2025-12-09T00:00:00",
           "aktuell": "2026-11-21T01:14:39",
-          "schema": 7,
+          "schema": 8,
           "cves": 72,
           "davon_chromium_ausgenommen": 18,
           "davon_azure_linux_ausgenommen": 265,
@@ -7183,15 +7183,15 @@
             "verhaeltnis_median": null,
             "median_vormonate": null,
             "dringlichkeit": "dringend",
-            "empfehlung": "Zuerst den Patch für die bereits ausgenutzte Lücke einspielen, danach die Patches für die 9 als kritisch eingestuften.",
-            "empfehlung_en": "Apply the patch for the already exploited flaw first, then the patches for the 9 rated critical."
+            "empfehlung": "Zuerst den Patch für die bereits ausgenutzte Lücke einspielen (betrifft: Windows 10, Windows 11, Windows Server). Danach die monatlichen Sammelupdates für Windows und Office einspielen: Sie enthalten auch die 9 als kritisch eingestuften Lücken.",
+            "empfehlung_en": "Apply the patch for the already exploited flaw first (affects: Windows 10, Windows 11, Windows Server). Then apply the monthly cumulative updates for Windows and Office: they also contain the 9 flaws rated critical."
           }
         },
         "2026-Jan": {
           "id": "2026-Jan",
           "erste_veroeffentlichung": "2026-01-13T08:00:00",
           "aktuell": "2026-11-21T01:15:28",
-          "schema": 7,
+          "schema": 8,
           "cves": 133,
           "davon_chromium_ausgenommen": 13,
           "davon_azure_linux_ausgenommen": 200,
@@ -7248,15 +7248,15 @@
             "verhaeltnis_median": null,
             "median_vormonate": null,
             "dringlichkeit": "dringend",
-            "empfehlung": "Zuerst die Patches für die 2 bereits ausgenutzten Lücken einspielen, danach die Patches für die 17 als kritisch eingestuften.",
-            "empfehlung_en": "Apply the patches for the 2 already exploited flaws first, then the patches for the 17 rated critical."
+            "empfehlung": "Zuerst die Patches für die 2 bereits ausgenutzten Lücken einspielen (betrifft: Cloud und Dienste, Office und SharePoint, Windows 10). Danach die monatlichen Sammelupdates für Windows und Office einspielen: Sie enthalten auch die 17 als kritisch eingestuften Lücken.",
+            "empfehlung_en": "Apply the patches for the 2 already exploited flaws first (affects: Cloud und Dienste, Office und SharePoint, Windows 10). Then apply the monthly cumulative updates for Windows and Office: they also contain the 17 flaws rated critical."
           }
         },
         "2026-Feb": {
           "id": "2026-Feb",
           "erste_veroeffentlichung": "2026-02-10T08:00:00",
           "aktuell": "2026-11-21T01:11:37",
-          "schema": 7,
+          "schema": 8,
           "cves": 64,
           "davon_chromium_ausgenommen": 17,
           "davon_azure_linux_ausgenommen": 136,
@@ -7322,15 +7322,15 @@
             "verhaeltnis_median": 0.85,
             "median_vormonate": 75,
             "dringlichkeit": "dringend",
-            "empfehlung": "Zuerst die Patches für die 6 bereits ausgenutzten Lücken einspielen, danach die Patches für die 7 als kritisch eingestuften.",
-            "empfehlung_en": "Apply the patches for the 6 already exploited flaws first, then the patches for the 7 rated critical."
+            "empfehlung": "Zuerst die Patches für die 6 bereits ausgenutzten Lücken einspielen (betrifft: Cloud und Dienste, Office und SharePoint, Windows 10). Danach die monatlichen Sammelupdates für Windows und Office einspielen: Sie enthalten auch die 7 als kritisch eingestuften Lücken.",
+            "empfehlung_en": "Apply the patches for the 6 already exploited flaws first (affects: Cloud und Dienste, Office und SharePoint, Windows 10). Then apply the monthly cumulative updates for Windows and Office: they also contain the 7 flaws rated critical."
           }
         },
         "2026-Mar": {
           "id": "2026-Mar",
           "erste_veroeffentlichung": "2026-03-10T07:00:00",
           "aktuell": "2026-11-21T01:20:27",
-          "schema": 7,
+          "schema": 8,
           "cves": 116,
           "davon_chromium_ausgenommen": 74,
           "davon_azure_linux_ausgenommen": 349,
@@ -7382,15 +7382,15 @@
             "verhaeltnis_median": 1.58,
             "median_vormonate": 73.5,
             "dringlichkeit": "zeitnah",
-            "empfehlung": "Die Patches für die 19 als kritisch eingestuften Lücken zeitnah einspielen, den Rest im normalen Zyklus.",
-            "empfehlung_en": "The patches for the 19 flaws rated critical should be applied promptly, the rest in the normal cycle."
+            "empfehlung": "Die monatlichen Sammelupdates für Windows und Office zeitnah einspielen: Sie enthalten auch die 19 als kritisch eingestuften Lücken.",
+            "empfehlung_en": "Apply the monthly cumulative updates for Windows and Office promptly: they also contain the 19 flaws rated critical."
           }
         },
         "2026-Apr": {
           "id": "2026-Apr",
           "erste_veroeffentlichung": "2026-04-14T07:00:00",
           "aktuell": "2026-11-21T01:15:37",
-          "schema": 7,
+          "schema": 8,
           "cves": 202,
           "davon_chromium_ausgenommen": 109,
           "davon_azure_linux_ausgenommen": 470,
@@ -7448,15 +7448,15 @@
             "verhaeltnis_median": 2.69,
             "median_vormonate": 75,
             "dringlichkeit": "dringend",
-            "empfehlung": "Zuerst die Patches für die 2 bereits ausgenutzten Lücken einspielen, danach die Patches für die 23 als kritisch eingestuften.",
-            "empfehlung_en": "Apply the patches for the 2 already exploited flaws first, then the patches for the 23 rated critical."
+            "empfehlung": "Zuerst die Patches für die 2 bereits ausgenutzten Lücken einspielen (betrifft: Office und SharePoint, Windows 10, Windows 11). Danach die monatlichen Sammelupdates für Windows und Office einspielen: Sie enthalten auch die 23 als kritisch eingestuften Lücken.",
+            "empfehlung_en": "Apply the patches for the 2 already exploited flaws first (affects: Office und SharePoint, Windows 10, Windows 11). Then apply the monthly cumulative updates for Windows and Office: they also contain the 23 flaws rated critical."
           }
         },
         "2026-May": {
           "id": "2026-May",
           "erste_veroeffentlichung": "2026-05-12T07:00:00",
           "aktuell": "2026-11-23T19:04:10",
-          "schema": 7,
+          "schema": 8,
           "cves": 163,
           "davon_chromium_ausgenommen": 368,
           "davon_azure_linux_ausgenommen": 671,
@@ -7516,15 +7516,15 @@
             "verhaeltnis_median": 1.71,
             "median_vormonate": 95.5,
             "dringlichkeit": "dringend",
-            "empfehlung": "Zuerst die Patches für die 3 bereits ausgenutzten Lücken einspielen, danach die Patches für die 46 als kritisch eingestuften.",
-            "empfehlung_en": "Apply the patches for the 3 already exploited flaws first, then the patches for the 46 rated critical."
+            "empfehlung": "Zuerst die Patches für die 3 bereits ausgenutzten Lücken einspielen (betrifft: Cloud und Dienste, Exchange). Danach die monatlichen Sammelupdates für Windows und Office einspielen: Sie enthalten auch die 46 als kritisch eingestuften Lücken.",
+            "empfehlung_en": "Apply the patches for the 3 already exploited flaws first (affects: Cloud und Dienste, Exchange). Then apply the monthly cumulative updates for Windows and Office: they also contain the 46 flaws rated critical."
           }
         },
         "2026-Jun": {
           "id": "2026-Jun",
           "erste_veroeffentlichung": "2026-06-09T07:00:00",
           "aktuell": "2026-11-21T01:20:45",
-          "schema": 7,
+          "schema": 8,
           "cves": 222,
           "davon_chromium_ausgenommen": 543,
           "davon_azure_linux_ausgenommen": 625,
@@ -7576,15 +7576,15 @@
             "verhaeltnis_median": 1.91,
             "median_vormonate": 116,
             "dringlichkeit": "zeitnah",
-            "empfehlung": "Die Patches für die 49 als kritisch eingestuften Lücken zeitnah einspielen, den Rest im normalen Zyklus.",
-            "empfehlung_en": "The patches for the 49 flaws rated critical should be applied promptly, the rest in the normal cycle."
+            "empfehlung": "Die monatlichen Sammelupdates für Windows und Office zeitnah einspielen: Sie enthalten auch die 49 als kritisch eingestuften Lücken.",
+            "empfehlung_en": "Apply the monthly cumulative updates for Windows and Office promptly: they also contain the 49 flaws rated critical."
           }
         },
         "2026-Jul": {
           "id": "2026-Jul",
           "erste_veroeffentlichung": "2026-07-14T07:00:00",
           "aktuell": "2026-11-23T14:05:47",
-          "schema": 7,
+          "schema": 8,
           "cves": 664,
           "davon_chromium_ausgenommen": 868,
           "davon_azure_linux_ausgenommen": 633,
@@ -7643,15 +7643,15 @@
             "verhaeltnis_median": 5.33,
             "median_vormonate": 124.5,
             "dringlichkeit": "dringend",
-            "empfehlung": "Zuerst die Patches für die 3 bereits ausgenutzten Lücken einspielen, danach die Patches für die 78 als kritisch eingestuften.",
-            "empfehlung_en": "Apply the patches for the 3 already exploited flaws first, then the patches for the 78 rated critical."
+            "empfehlung": "Zuerst die Patches für die 3 bereits ausgenutzten Lücken einspielen (betrifft: Office und SharePoint, Windows 10, Windows Server). Danach die monatlichen Sammelupdates für Windows und Office einspielen: Sie enthalten auch die 78 als kritisch eingestuften Lücken.",
+            "empfehlung_en": "Apply the patches for the 3 already exploited flaws first (affects: Office und SharePoint, Windows 10, Windows Server). Then apply the monthly cumulative updates for Windows and Office: they also contain the 78 flaws rated critical."
           }
         },
         "2026-Aug": {
           "id": "2026-Aug",
           "erste_veroeffentlichung": "2026-08-11T07:00:00",
           "aktuell": "2026-11-21T14:03:39",
-          "schema": 7,
+          "schema": 8,
           "cves": 497,
           "davon_chromium_ausgenommen": 312,
           "davon_azure_linux_ausgenommen": 1030,
@@ -7707,15 +7707,15 @@
             "verhaeltnis_median": 3.74,
             "median_vormonate": 133,
             "dringlichkeit": "dringend",
-            "empfehlung": "Zuerst den Patch für die bereits ausgenutzte Lücke einspielen, danach die Patches für die 84 als kritisch eingestuften.",
-            "empfehlung_en": "Apply the patch for the already exploited flaw first, then the patches for the 84 rated critical."
+            "empfehlung": "Zuerst den Patch für die bereits ausgenutzte Lücke einspielen (betrifft: Windows 10, Windows 11, Windows Server). Danach die monatlichen Sammelupdates für Windows und Office einspielen: Sie enthalten auch die 84 als kritisch eingestuften Lücken.",
+            "empfehlung_en": "Apply the patch for the already exploited flaw first (affects: Windows 10, Windows 11, Windows Server). Then apply the monthly cumulative updates for Windows and Office: they also contain the 84 flaws rated critical."
           }
         },
         "2026-Sep": {
           "id": "2026-Sep",
           "erste_veroeffentlichung": "2026-09-08T07:00:00",
           "aktuell": "2026-11-23T19:04:44",
-          "schema": 7,
+          "schema": 8,
           "cves": 1008,
           "davon_chromium_ausgenommen": 437,
           "davon_azure_linux_ausgenommen": 1924,
@@ -7769,15 +7769,15 @@
             "verhaeltnis_median": 6.81,
             "median_vormonate": 148.0,
             "dringlichkeit": "dringend",
-            "empfehlung": "Zuerst die Patches für die 2 bereits ausgenutzten Lücken einspielen, danach die Patches für die 132 als kritisch eingestuften.",
-            "empfehlung_en": "Apply the patches for the 2 already exploited flaws first, then the patches for the 132 rated critical."
+            "empfehlung": "Zuerst die Patches für die 2 bereits ausgenutzten Lücken einspielen (betrifft: Windows 10, Windows 11, Windows Server). Danach die monatlichen Sammelupdates für Windows und Office einspielen: Sie enthalten auch die 132 als kritisch eingestuften Lücken.",
+            "empfehlung_en": "Apply the patches for the 2 already exploited flaws first (affects: Windows 10, Windows 11, Windows Server). Then apply the monthly cumulative updates for Windows and Office: they also contain the 132 flaws rated critical."
           }
         },
         "2026-Oct": {
           "id": "2026-Oct",
           "erste_veroeffentlichung": "2026-10-13T07:00:00",
           "aktuell": "2026-11-24T01:27:08",
-          "schema": 7,
+          "schema": 8,
           "cves": 1487,
           "davon_chromium_ausgenommen": 739,
           "davon_azure_linux_ausgenommen": 1683,
@@ -7836,6 +7836,56 @@
               "ausgenutzt": true,
               "oeffentlich": false,
               "kev": true,
+              "fix_roh": [
+                {
+                  "Description": "5126836",
+                  "URL": "https://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB5126836",
+                  "Supercedence": "5123066",
+                  "Type": "2",
+                  "Date": "0001-01-01T00:00:00",
+                  "DateSpecified": "False",
+                  "AffectedFiles": "[0]",
+                  "RestartRequired": "Yes",
+                  "SubType": "Monthly Rollup",
+                  "FixedBuild": "6.3.9600.23470"
+                },
+                {
+                  "Description": "5126868",
+                  "URL": "https://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB5126868",
+                  "Supercedence": "5123099",
+                  "Type": "2",
+                  "Date": "0001-01-01T00:00:00",
+                  "DateSpecified": "False",
+                  "AffectedFiles": "[0]",
+                  "RestartRequired": "Yes",
+                  "SubType": "Security Update",
+                  "FixedBuild": "10.0.14393.9612"
+                },
+                {
+                  "Description": "5126651",
+                  "URL": "https://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB5126651",
+                  "Supercedence": "5122876",
+                  "Type": "2",
+                  "Date": "0001-01-01T00:00:00",
+                  "DateSpecified": "False",
+                  "AffectedFiles": "[0]",
+                  "RestartRequired": "Yes",
+                  "SubType": "Security Update",
+                  "FixedBuild": "10.0.17763.9376"
+                },
+                {
+                  "Description": "5126657",
+                  "URL": "https://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB5126657",
+                  "Supercedence": "5122878",
+                  "Type": "2",
+                  "Date": "0001-01-01T00:00:00",
+                  "DateSpecified": "False",
+                  "AffectedFiles": "[0]",
+                  "RestartRequired": "Yes",
+                  "SubType": "Security Update",
+                  "FixedBuild": "10.0.19044.7807"
+                }
+              ],
               "patch": "ja",
               "kb": [
                 "5126836",
@@ -7847,24 +7897,28 @@
               "fixe": [
                 {
                   "kb": "5126836",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126868",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126651",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126657",
+                  "build": "",
                   "fuer": "Windows 10",
                   "text": "",
                   "url": ""
@@ -7883,6 +7937,52 @@
               "ausgenutzt": false,
               "oeffentlich": true,
               "kev": true,
+              "fix_roh": [
+                {
+                  "Description": "Release Notes",
+                  "URL": "",
+                  "Type": "2",
+                  "Date": "0001-01-01T00:00:00",
+                  "DateSpecified": "False",
+                  "AffectedFiles": "[0]",
+                  "RestartRequired": "",
+                  "SubType": "Security Update",
+                  "FixedBuild": "1.2.1-1"
+                },
+                {
+                  "Description": "5133964",
+                  "URL": "https://dotnet.microsoft.com/download/dotnet/8.0",
+                  "Type": "2",
+                  "Date": "0001-01-01T00:00:00",
+                  "DateSpecified": "False",
+                  "AffectedFiles": "[0]",
+                  "RestartRequired": "Yes",
+                  "SubType": "Security Update",
+                  "FixedBuild": "8.0.427"
+                },
+                {
+                  "Description": "5133965",
+                  "URL": "https://dotnet.microsoft.com/download/dotnet/9.0",
+                  "Type": "2",
+                  "Date": "0001-01-01T00:00:00",
+                  "DateSpecified": "False",
+                  "AffectedFiles": "[0]",
+                  "RestartRequired": "Yes",
+                  "SubType": "Security Update",
+                  "FixedBuild": "9.0.320"
+                },
+                {
+                  "Description": "5133966",
+                  "URL": "https://dotnet.microsoft.com/download/dotnet/10.0",
+                  "Type": "2",
+                  "Date": "0001-01-01T00:00:00",
+                  "DateSpecified": "False",
+                  "AffectedFiles": "[0]",
+                  "RestartRequired": "Yes",
+                  "SubType": "Security Update",
+                  "FixedBuild": "10.0.403"
+                }
+              ],
               "patch": "ja",
               "kb": [
                 "5133964",
@@ -7894,24 +7994,28 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "1.2.1-1",
                   "fuer": "Azure Linux",
                   "text": "Release Notes",
                   "url": ""
                 },
                 {
                   "kb": "5133964",
+                  "build": "",
                   "fuer": "Entwicklung und Server, Windows (andere)",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5133965",
+                  "build": "",
                   "fuer": "Entwicklung und Server, Windows (andere)",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5133966",
+                  "build": "",
                   "fuer": "Entwicklung und Server, Windows (andere)",
                   "text": "",
                   "url": ""
@@ -7930,6 +8034,7 @@
               "ausgenutzt": false,
               "oeffentlich": true,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5126868",
@@ -7941,24 +8046,28 @@
               "fixe": [
                 {
                   "kb": "5126868",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5127666",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5127685",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5127683",
+                  "build": "",
                   "fuer": "Windows 10",
                   "text": "",
                   "url": ""
@@ -7977,6 +8086,7 @@
               "ausgenutzt": false,
               "oeffentlich": true,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [],
               "fix_text": "Release Notes",
@@ -7984,21 +8094,31 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "10.0.13",
                   "fuer": "Entwicklung und Server, Windows (andere)",
                   "text": "Release Notes",
                   "url": "https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Protocols.MessagePack"
                 },
                 {
                   "kb": "",
-                  "fuer": "Entwicklung und Server",
+                  "build": "11.0.0-rc.2",
+                  "fuer": "Entwicklung und Server, Windows (andere)",
                   "text": "Release Notes",
-                  "url": "https://learn.microsoft.com/en-us/visualstudio/releases/2026/release-history"
+                  "url": "https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Protocols.MessagePack"
                 },
                 {
                   "kb": "",
-                  "fuer": "",
+                  "build": "8.0.32",
+                  "fuer": "Entwicklung und Server, Windows (andere)",
                   "text": "Release Notes",
-                  "url": "https://www.nuget.org/packages/MessagePack/2.5.303"
+                  "url": "https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Protocols.MessagePack"
+                },
+                {
+                  "kb": "",
+                  "build": "9.0.21",
+                  "fuer": "Entwicklung und Server, Windows (andere)",
+                  "text": "Release Notes",
+                  "url": "https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Protocols.MessagePack"
                 }
               ],
               "familien": [
@@ -8013,6 +8133,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5126835",
@@ -8024,24 +8145,28 @@
               "fixe": [
                 {
                   "kb": "5126835",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126836",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126868",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126651",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
@@ -8060,6 +8185,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [],
               "fix_text": "Release Notes",
@@ -8067,15 +8193,24 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "16.0.17932.21056",
                   "fuer": "Office und SharePoint",
                   "text": "Release Notes",
                   "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
                 },
                 {
                   "kb": "",
+                  "build": "https://aka.ms/OfficeSecurityReleases",
                   "fuer": "Cloud und Dienste",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
+                },
+                {
+                  "kb": "",
+                  "build": "16.114.26101123",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 }
               ],
               "familien": [
@@ -8090,6 +8225,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5002928"
@@ -8099,21 +8235,31 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "16.0.14334.20974",
                   "fuer": "Office und SharePoint",
                   "text": "Release Notes",
                   "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
                 },
                 {
                   "kb": "",
+                  "build": "16.0.17932.21056",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
+                },
+                {
+                  "kb": "",
+                  "build": "https://aka.ms/OfficeSecurityReleases",
                   "fuer": "Cloud und Dienste",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
                 },
                 {
-                  "kb": "5002928",
+                  "kb": "",
+                  "build": "16.114.26101123",
                   "fuer": "Office und SharePoint",
-                  "text": "",
-                  "url": ""
+                  "text": "Release Notes",
+                  "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 }
               ],
               "familien": [
@@ -8128,6 +8274,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [],
               "fix_text": "Release Notes",
@@ -8135,12 +8282,21 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "16.114.26101123",
                   "fuer": "Office und SharePoint",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 },
                 {
                   "kb": "",
+                  "build": "16.0.17932.21056",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
+                },
+                {
+                  "kb": "",
+                  "build": "https://aka.ms/OfficeSecurityReleases",
                   "fuer": "Cloud und Dienste",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
@@ -8158,6 +8314,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5127648",
@@ -8169,24 +8326,28 @@
               "fixe": [
                 {
                   "kb": "5127648",
+                  "build": "",
                   "fuer": "Windows 11",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126646",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5127646",
+                  "build": "",
                   "fuer": "Windows 11",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126836",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
@@ -8205,6 +8366,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5126655",
@@ -8216,24 +8378,28 @@
               "fixe": [
                 {
                   "kb": "5126655",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126653",
+                  "build": "",
                   "fuer": "Windows 11",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5127648",
+                  "build": "",
                   "fuer": "Windows 11",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126646",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
@@ -8251,6 +8417,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5126835",
@@ -8262,24 +8429,28 @@
               "fixe": [
                 {
                   "kb": "5126835",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126836",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126868",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126651",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
@@ -8298,6 +8469,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5126868",
@@ -8309,24 +8481,28 @@
               "fixe": [
                 {
                   "kb": "5126868",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126651",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126657",
+                  "build": "",
                   "fuer": "Windows 10",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126655",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
@@ -8345,6 +8521,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5126651",
@@ -8356,24 +8533,28 @@
               "fixe": [
                 {
                   "kb": "5126651",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126655",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126657",
+                  "build": "",
                   "fuer": "Windows 10",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126646",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
@@ -8392,6 +8573,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5126835",
@@ -8403,24 +8585,28 @@
               "fixe": [
                 {
                   "kb": "5126835",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126836",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126868",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126651",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
@@ -8439,6 +8625,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [],
               "fix_text": "Release Notes",
@@ -8446,12 +8633,21 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "https://aka.ms/OfficeSecurityReleases",
                   "fuer": "Cloud und Dienste",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
                 },
                 {
                   "kb": "",
+                  "build": "16.0.14334.20974",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
+                },
+                {
+                  "kb": "",
+                  "build": "16.0.17932.21056",
                   "fuer": "Office und SharePoint",
                   "text": "Release Notes",
                   "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
@@ -8469,6 +8665,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [],
               "fix_text": "Release Notes",
@@ -8476,12 +8673,21 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "https://aka.ms/OfficeSecurityReleases",
                   "fuer": "Cloud und Dienste",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
                 },
                 {
                   "kb": "",
+                  "build": "16.0.14334.20974",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
+                },
+                {
+                  "kb": "",
+                  "build": "16.0.17932.21056",
                   "fuer": "Office und SharePoint",
                   "text": "Release Notes",
                   "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
@@ -8499,6 +8705,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [],
               "fix_text": "Release Notes",
@@ -8506,12 +8713,21 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "https://aka.ms/OfficeSecurityReleases",
                   "fuer": "Cloud und Dienste",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
                 },
                 {
                   "kb": "",
+                  "build": "16.0.14334.20974",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
+                },
+                {
+                  "kb": "",
+                  "build": "16.0.17932.21056",
                   "fuer": "Office und SharePoint",
                   "text": "Release Notes",
                   "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
@@ -8529,6 +8745,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5002927"
@@ -8538,6 +8755,7 @@
               "fixe": [
                 {
                   "kb": "5002927",
+                  "build": "",
                   "fuer": "Office und SharePoint",
                   "text": "",
                   "url": ""
@@ -8554,6 +8772,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "unbekannt",
               "kb": [],
               "fix_text": "",
@@ -8570,6 +8789,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5126655",
@@ -8581,24 +8801,28 @@
               "fixe": [
                 {
                   "kb": "5126655",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126653",
+                  "build": "",
                   "fuer": "Windows 11",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5127648",
+                  "build": "",
                   "fuer": "Windows 11",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126646",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
@@ -8617,6 +8841,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5002928"
@@ -8626,21 +8851,31 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "16.114.26101123",
                   "fuer": "Office und SharePoint",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 },
                 {
                   "kb": "",
+                  "build": "16.0.14334.20974",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
+                },
+                {
+                  "kb": "",
+                  "build": "16.0.17932.21056",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
+                },
+                {
+                  "kb": "",
+                  "build": "https://aka.ms/OfficeSecurityReleases",
                   "fuer": "Cloud und Dienste",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
-                },
-                {
-                  "kb": "5002928",
-                  "fuer": "Office und SharePoint",
-                  "text": "",
-                  "url": ""
                 }
               ],
               "familien": [
@@ -8655,6 +8890,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5126657",
@@ -8666,24 +8902,28 @@
               "fixe": [
                 {
                   "kb": "5126657",
+                  "build": "",
                   "fuer": "Windows 10",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126655",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126653",
+                  "build": "",
                   "fuer": "Windows 11",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5127648",
+                  "build": "",
                   "fuer": "Windows 11",
                   "text": "",
                   "url": ""
@@ -8702,6 +8942,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5127648",
@@ -8713,18 +8954,21 @@
               "fixe": [
                 {
                   "kb": "5127648",
+                  "build": "",
                   "fuer": "Windows 11",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126646",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5127646",
+                  "build": "",
                   "fuer": "Windows 11",
                   "text": "",
                   "url": ""
@@ -8742,6 +8986,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5126835",
@@ -8753,24 +8998,28 @@
               "fixe": [
                 {
                   "kb": "5126835",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126836",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126868",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126651",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
@@ -8789,6 +9038,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5127648",
@@ -8800,24 +9050,28 @@
               "fixe": [
                 {
                   "kb": "5127648",
+                  "build": "",
                   "fuer": "Windows 11",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126651",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126655",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126657",
+                  "build": "",
                   "fuer": "Windows 10",
                   "text": "",
                   "url": ""
@@ -8836,6 +9090,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [],
               "fix_text": "Release Notes",
@@ -8843,21 +9098,31 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "2.5.25.0",
                   "fuer": "Windows 11",
                   "text": "Release Notes",
                   "url": "https://apps.microsoft.com/store/detail/hevc-video-extensions-from-device-manufacturer/9N4WGH0Z6VHQ?hl=en-us&gl=us"
                 },
                 {
                   "kb": "",
+                  "build": "2.4.86.0",
                   "fuer": "Windows 10, Windows 11",
                   "text": "Release Notes",
                   "url": "https://apps.microsoft.com/store/detail/hevc-video-extensions-from-device-manufacturer/9N4WGH0Z6VHQ?hl=en-us&gl=us"
                 },
                 {
                   "kb": "",
+                  "build": "2.4.85.0",
                   "fuer": "",
                   "text": "Release Notes",
                   "url": "https://apps.microsoft.com/detail/9p3wl96xzmxx"
+                },
+                {
+                  "kb": "",
+                  "build": "2.4.87.0",
+                  "fuer": "",
+                  "text": "Release Notes",
+                  "url": "https://apps.microsoft.com/detail/9nmzlz57r3t7"
                 }
               ],
               "familien": [
@@ -8873,6 +9138,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [],
               "fix_text": "Release Notes",
@@ -8880,12 +9146,28 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "16.114.26101123",
                   "fuer": "Office und SharePoint",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 },
                 {
                   "kb": "",
+                  "build": "16.0.14334.20974",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
+                },
+                {
+                  "kb": "",
+                  "build": "16.0.17932.21056",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
+                },
+                {
+                  "kb": "",
+                  "build": "https://aka.ms/OfficeSecurityReleases",
                   "fuer": "Cloud und Dienste",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
@@ -8903,6 +9185,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [],
               "fix_text": "Release Notes",
@@ -8910,12 +9193,28 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "16.114.26101123",
                   "fuer": "Office und SharePoint",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 },
                 {
                   "kb": "",
+                  "build": "16.0.14334.20974",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
+                },
+                {
+                  "kb": "",
+                  "build": "16.0.17932.21056",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
+                },
+                {
+                  "kb": "",
+                  "build": "https://aka.ms/OfficeSecurityReleases",
                   "fuer": "Cloud und Dienste",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
@@ -8933,6 +9232,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [],
               "fix_text": "Release Notes",
@@ -8940,15 +9240,31 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "16.0.14334.20974",
                   "fuer": "Office und SharePoint",
                   "text": "Release Notes",
                   "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
                 },
                 {
                   "kb": "",
+                  "build": "16.0.17932.21056",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
+                },
+                {
+                  "kb": "",
+                  "build": "https://aka.ms/OfficeSecurityReleases",
                   "fuer": "Cloud und Dienste",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
+                },
+                {
+                  "kb": "",
+                  "build": "16.114.26101123",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 }
               ],
               "familien": [
@@ -8963,6 +9279,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "unbekannt",
               "kb": [],
               "fix_text": "",
@@ -8979,6 +9296,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5126653",
@@ -8990,24 +9308,28 @@
               "fixe": [
                 {
                   "kb": "5126653",
+                  "build": "",
                   "fuer": "Windows 11",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126657",
+                  "build": "",
                   "fuer": "Windows 10",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126655",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126646",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
@@ -9026,6 +9348,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5126835",
@@ -9037,24 +9360,28 @@
               "fixe": [
                 {
                   "kb": "5126835",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126836",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126868",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126651",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
@@ -9073,6 +9400,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5126835",
@@ -9084,24 +9412,28 @@
               "fixe": [
                 {
                   "kb": "5126835",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126836",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126868",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126651",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
@@ -9120,6 +9452,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5126651"
@@ -9129,6 +9462,7 @@
               "fixe": [
                 {
                   "kb": "5126651",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
@@ -9146,6 +9480,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "unbekannt",
               "kb": [],
               "fix_text": "",
@@ -9162,6 +9497,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [],
               "fix_text": "Release Notes",
@@ -9169,12 +9505,14 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "2.4.36.0",
                   "fuer": "Windows 10",
                   "text": "Release Notes",
                   "url": ""
                 },
                 {
                   "kb": "",
+                  "build": "2.5.35.0",
                   "fuer": "Windows 11",
                   "text": "Release Notes",
                   "url": ""
@@ -9192,6 +9530,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [],
               "fix_text": "Release Notes",
@@ -9199,6 +9538,7 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "7.3",
                   "fuer": "",
                   "text": "Release Notes",
                   "url": "https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git/commit/?id=35f0f0a2536a4d604b4dbad92c85c4a8fdebb870"
@@ -9213,6 +9553,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "unbekannt",
               "kb": [],
               "fix_text": "",
@@ -9229,6 +9570,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5122876",
@@ -9240,24 +9582,28 @@
               "fixe": [
                 {
                   "kb": "5122876",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5122882",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5122878",
+                  "build": "",
                   "fuer": "Windows 10",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5122871",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
@@ -9276,6 +9622,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5126835",
@@ -9287,24 +9634,28 @@
               "fixe": [
                 {
                   "kb": "5126835",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126836",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126868",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5126651",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
@@ -9322,15 +9673,15 @@
             "verhaeltnis_median": 9.12,
             "median_vormonate": 163,
             "dringlichkeit": "dringend",
-            "empfehlung": "Zuerst den Patch für die bereits ausgenutzte Lücke einspielen, danach die Patches für die 95 als kritisch eingestuften.",
-            "empfehlung_en": "Apply the patch for the already exploited flaw first, then the patches for the 95 rated critical."
+            "empfehlung": "Zuerst den Patch für die bereits ausgenutzte Lücke einspielen (betrifft: Edge, Office und SharePoint, Windows 10). Danach die monatlichen Sammelupdates für Windows und Office einspielen: Sie enthalten auch die 95 als kritisch eingestuften Lücken.",
+            "empfehlung_en": "Apply the patch for the already exploited flaw first (affects: Edge, Office und SharePoint, Windows 10). Then apply the monthly cumulative updates for Windows and Office: they also contain the 95 flaws rated critical."
           }
         },
         "2026-Nov": {
           "id": "2026-Nov",
           "erste_veroeffentlichung": "2026-11-10T08:00:00",
           "aktuell": "2026-11-24T08:00:00",
-          "schema": 7,
+          "schema": 8,
           "cves": 1113,
           "davon_chromium_ausgenommen": 403,
           "davon_azure_linux_ausgenommen": 934,
@@ -9382,6 +9733,41 @@
               "ausgenutzt": true,
               "oeffentlich": false,
               "kev": true,
+              "fix_roh": [
+                {
+                  "Description": "Release Notes",
+                  "URL": "",
+                  "Type": "2",
+                  "Date": "0001-01-01T00:00:00",
+                  "DateSpecified": "False",
+                  "AffectedFiles": "[0]",
+                  "RestartRequired": "",
+                  "SubType": "Security Update",
+                  "FixedBuild": "16.0.14334.21048"
+                },
+                {
+                  "Description": "Release Notes",
+                  "URL": "",
+                  "Type": "2",
+                  "Date": "0001-01-01T00:00:00",
+                  "DateSpecified": "False",
+                  "AffectedFiles": "[0]",
+                  "RestartRequired": "",
+                  "SubType": "Security Update",
+                  "FixedBuild": "16.0.17932.21140"
+                },
+                {
+                  "Description": "Release Notes",
+                  "URL": "",
+                  "Type": "2",
+                  "Date": "0001-01-01T00:00:00",
+                  "DateSpecified": "False",
+                  "AffectedFiles": "[0]",
+                  "RestartRequired": "",
+                  "SubType": "Security Update",
+                  "FixedBuild": "https://aka.ms/OfficeSecurityReleases"
+                }
+              ],
               "patch": "ja",
               "kb": [],
               "fix_text": "Release Notes",
@@ -9389,12 +9775,21 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "16.0.14334.21048",
                   "fuer": "Office und SharePoint",
                   "text": "Release Notes",
                   "url": ""
                 },
                 {
                   "kb": "",
+                  "build": "16.0.17932.21140",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": ""
+                },
+                {
+                  "kb": "",
+                  "build": "https://aka.ms/OfficeSecurityReleases",
                   "fuer": "Cloud und Dienste",
                   "text": "Release Notes",
                   "url": ""
@@ -9412,6 +9807,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5131291",
@@ -9423,24 +9819,28 @@
               "fixe": [
                 {
                   "kb": "5131291",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131085",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131096",
+                  "build": "",
                   "fuer": "Windows 10",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131090",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
@@ -9459,6 +9859,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "unbekannt",
               "kb": [],
               "fix_text": "",
@@ -9475,6 +9876,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "unbekannt",
               "kb": [],
               "fix_text": "",
@@ -9489,6 +9891,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [],
               "fix_text": "Release Notes",
@@ -9496,6 +9899,7 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "110.0.7.78, 111.0.7.3",
                   "fuer": "Cloud und Dienste",
                   "text": "Release Notes",
                   "url": ""
@@ -9512,6 +9916,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "unbekannt",
               "kb": [],
               "fix_text": "",
@@ -9528,6 +9933,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [],
               "fix_text": "Release Notes",
@@ -9535,12 +9941,21 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "16.0.14334.21048",
                   "fuer": "Office und SharePoint",
                   "text": "Release Notes",
                   "url": ""
                 },
                 {
                   "kb": "",
+                  "build": "16.0.17932.21140",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": ""
+                },
+                {
+                  "kb": "",
+                  "build": "https://aka.ms/OfficeSecurityReleases",
                   "fuer": "Cloud und Dienste",
                   "text": "Release Notes",
                   "url": ""
@@ -9558,6 +9973,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [],
               "fix_text": "Release Notes",
@@ -9565,12 +9981,28 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "16.0.14334.21048",
                   "fuer": "Office und SharePoint",
                   "text": "Release Notes",
                   "url": ""
                 },
                 {
                   "kb": "",
+                  "build": "16.0.17932.21140",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": ""
+                },
+                {
+                  "kb": "",
+                  "build": "16.115.26110837",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
+                },
+                {
+                  "kb": "",
+                  "build": "https://aka.ms/OfficeSecurityReleases",
                   "fuer": "Cloud und Dienste",
                   "text": "Release Notes",
                   "url": ""
@@ -9588,6 +10020,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [],
               "fix_text": "Release Notes",
@@ -9595,15 +10028,31 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "16.0.14334.21048",
                   "fuer": "Office und SharePoint",
                   "text": "Release Notes",
                   "url": ""
                 },
                 {
                   "kb": "",
+                  "build": "16.0.17932.21140",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": ""
+                },
+                {
+                  "kb": "",
+                  "build": "https://aka.ms/OfficeSecurityReleases",
                   "fuer": "Cloud und Dienste",
                   "text": "Release Notes",
                   "url": ""
+                },
+                {
+                  "kb": "",
+                  "build": "16.115.26110837",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 }
               ],
               "familien": [
@@ -9618,6 +10067,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [],
               "fix_text": "Release Notes",
@@ -9625,15 +10075,31 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "16.0.14334.21048",
                   "fuer": "Office und SharePoint",
                   "text": "Release Notes",
                   "url": ""
                 },
                 {
                   "kb": "",
+                  "build": "16.0.17932.21140",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": ""
+                },
+                {
+                  "kb": "",
+                  "build": "https://aka.ms/OfficeSecurityReleases",
                   "fuer": "Cloud und Dienste",
                   "text": "Release Notes",
                   "url": ""
+                },
+                {
+                  "kb": "",
+                  "build": "16.115.26110837",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 }
               ],
               "familien": [
@@ -9648,6 +10114,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [],
               "fix_text": "Release Notes",
@@ -9655,15 +10122,31 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "16.0.14334.21048",
                   "fuer": "Office und SharePoint",
                   "text": "Release Notes",
                   "url": ""
                 },
                 {
                   "kb": "",
+                  "build": "16.0.17932.21140",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": ""
+                },
+                {
+                  "kb": "",
+                  "build": "https://aka.ms/OfficeSecurityReleases",
                   "fuer": "Cloud und Dienste",
                   "text": "Release Notes",
                   "url": ""
+                },
+                {
+                  "kb": "",
+                  "build": "16.115.26110837",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 }
               ],
               "familien": [
@@ -9678,6 +10161,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [],
               "fix_text": "Release Notes",
@@ -9685,15 +10169,31 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "16.0.14334.21048",
                   "fuer": "Office und SharePoint",
                   "text": "Release Notes",
                   "url": ""
                 },
                 {
                   "kb": "",
+                  "build": "16.0.17932.21140",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": ""
+                },
+                {
+                  "kb": "",
+                  "build": "https://aka.ms/OfficeSecurityReleases",
                   "fuer": "Cloud und Dienste",
                   "text": "Release Notes",
                   "url": ""
+                },
+                {
+                  "kb": "",
+                  "build": "16.115.26110837",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 }
               ],
               "familien": [
@@ -9708,6 +10208,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [],
               "fix_text": "Release Notes",
@@ -9715,12 +10216,21 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "16.0.14334.21048",
                   "fuer": "Office und SharePoint",
                   "text": "Release Notes",
                   "url": ""
                 },
                 {
                   "kb": "",
+                  "build": "16.0.17932.21140",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": ""
+                },
+                {
+                  "kb": "",
+                  "build": "https://aka.ms/OfficeSecurityReleases",
                   "fuer": "Cloud und Dienste",
                   "text": "Release Notes",
                   "url": ""
@@ -9738,6 +10248,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [],
               "fix_text": "Release Notes",
@@ -9745,12 +10256,21 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "16.0.14334.21048",
                   "fuer": "Office und SharePoint",
                   "text": "Release Notes",
                   "url": ""
                 },
                 {
                   "kb": "",
+                  "build": "16.0.17932.21140",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": ""
+                },
+                {
+                  "kb": "",
+                  "build": "https://aka.ms/OfficeSecurityReleases",
                   "fuer": "Cloud und Dienste",
                   "text": "Release Notes",
                   "url": ""
@@ -9768,6 +10288,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5131085",
@@ -9779,24 +10300,28 @@
               "fixe": [
                 {
                   "kb": "5131085",
+                  "build": "",
                   "fuer": "Windows 10",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131096",
+                  "build": "",
                   "fuer": "Windows 10",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131087",
+                  "build": "",
                   "fuer": "Windows 11",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5132061",
+                  "build": "",
                   "fuer": "Windows 11",
                   "text": "",
                   "url": ""
@@ -9814,6 +10339,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5131291",
@@ -9825,24 +10351,28 @@
               "fixe": [
                 {
                   "kb": "5131291",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131085",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131096",
+                  "build": "",
                   "fuer": "Windows 10",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131090",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
@@ -9861,6 +10391,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5131291",
@@ -9872,24 +10403,28 @@
               "fixe": [
                 {
                   "kb": "5131291",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131085",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131096",
+                  "build": "",
                   "fuer": "Windows 10",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131090",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
@@ -9908,6 +10443,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5132059"
@@ -9917,6 +10453,7 @@
               "fixe": [
                 {
                   "kb": "5132059",
+                  "build": "",
                   "fuer": "Windows 11",
                   "text": "",
                   "url": ""
@@ -9933,6 +10470,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "unbekannt",
               "kb": [],
               "fix_text": "",
@@ -9947,6 +10485,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5131085",
@@ -9958,24 +10497,28 @@
               "fixe": [
                 {
                   "kb": "5131085",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131096",
+                  "build": "",
                   "fuer": "Windows 10",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131090",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131087",
+                  "build": "",
                   "fuer": "Windows 11",
                   "text": "",
                   "url": ""
@@ -9994,6 +10537,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5131090",
@@ -10005,24 +10549,28 @@
               "fixe": [
                 {
                   "kb": "5131090",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131096",
+                  "build": "",
                   "fuer": "Windows 10",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131080",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131077",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
@@ -10041,6 +10589,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5132061",
@@ -10052,24 +10601,28 @@
               "fixe": [
                 {
                   "kb": "5132061",
+                  "build": "",
                   "fuer": "Windows 11",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5132043",
+                  "build": "",
                   "fuer": "Windows 11",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131080",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131077",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
@@ -10087,6 +10640,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5131085",
@@ -10098,24 +10652,28 @@
               "fixe": [
                 {
                   "kb": "5131085",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131096",
+                  "build": "",
                   "fuer": "Windows 10",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131090",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131087",
+                  "build": "",
                   "fuer": "Windows 11",
                   "text": "",
                   "url": ""
@@ -10134,6 +10692,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5131291",
@@ -10145,24 +10704,28 @@
               "fixe": [
                 {
                   "kb": "5131291",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131085",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131096",
+                  "build": "",
                   "fuer": "Windows 10",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131090",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
@@ -10181,6 +10744,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5131291",
@@ -10192,24 +10756,28 @@
               "fixe": [
                 {
                   "kb": "5131291",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131085",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131096",
+                  "build": "",
                   "fuer": "Windows 10",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131090",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
@@ -10228,6 +10796,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5131291",
@@ -10239,24 +10808,28 @@
               "fixe": [
                 {
                   "kb": "5131291",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131085",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131096",
+                  "build": "",
                   "fuer": "Windows 10",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131090",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
@@ -10275,6 +10848,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5131096",
@@ -10286,24 +10860,28 @@
               "fixe": [
                 {
                   "kb": "5131096",
+                  "build": "",
                   "fuer": "Windows 10",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131090",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131087",
+                  "build": "",
                   "fuer": "Windows 11",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5132061",
+                  "build": "",
                   "fuer": "Windows 11",
                   "text": "",
                   "url": ""
@@ -10322,6 +10900,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [],
               "fix_text": "Release Notes",
@@ -10329,6 +10908,7 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "",
                   "fuer": "Cloud und Dienste",
                   "text": "Release Notes",
                   "url": ""
@@ -10345,6 +10925,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [],
               "fix_text": "Release Notes",
@@ -10352,12 +10933,21 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "",
                   "fuer": "Windows 10",
                   "text": "Release Notes",
                   "url": ""
                 },
                 {
                   "kb": "",
+                  "build": "2.4.43.0",
+                  "fuer": "Windows 10",
+                  "text": "Release Notes",
+                  "url": "https://apps.microsoft.com/detail/9nctdw2w1bh8"
+                },
+                {
+                  "kb": "",
+                  "build": "2.5.42.0",
                   "fuer": "Windows 11",
                   "text": "Release Notes",
                   "url": "https://apps.microsoft.com/detail/9nctdw2w1bh8"
@@ -10375,6 +10965,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5131291",
@@ -10386,24 +10977,28 @@
               "fixe": [
                 {
                   "kb": "5131291",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131085",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131096",
+                  "build": "",
                   "fuer": "Windows 10",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131090",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
@@ -10422,6 +11017,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5132061",
@@ -10433,24 +11029,28 @@
               "fixe": [
                 {
                   "kb": "5132061",
+                  "build": "",
                   "fuer": "Windows 11",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5132043",
+                  "build": "",
                   "fuer": "Windows 11",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131085",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131090",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
@@ -10469,6 +11069,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5131085",
@@ -10480,24 +11081,28 @@
               "fixe": [
                 {
                   "kb": "5131085",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131090",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131096",
+                  "build": "",
                   "fuer": "Windows 10",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131080",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
@@ -10516,6 +11121,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5131291",
@@ -10527,24 +11133,28 @@
               "fixe": [
                 {
                   "kb": "5131291",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131085",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131096",
+                  "build": "",
                   "fuer": "Windows 10",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131090",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
@@ -10563,6 +11173,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5131291",
@@ -10574,24 +11185,28 @@
               "fixe": [
                 {
                   "kb": "5131291",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131085",
+                  "build": "",
                   "fuer": "Windows 10, Windows Server",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131096",
+                  "build": "",
                   "fuer": "Windows 10",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "5131090",
+                  "build": "",
                   "fuer": "Windows Server",
                   "text": "",
                   "url": ""
@@ -10610,6 +11225,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5133453"
@@ -10619,6 +11235,7 @@
               "fixe": [
                 {
                   "kb": "5133453",
+                  "build": "",
                   "fuer": "Exchange",
                   "text": "",
                   "url": ""
@@ -10635,6 +11252,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "unbekannt",
               "kb": [],
               "fix_text": "",
@@ -10651,6 +11269,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "unbekannt",
               "kb": [],
               "fix_text": "",
@@ -10667,6 +11286,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5002946"
@@ -10676,19 +11296,29 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "16.115.26110837",
                   "fuer": "Office und SharePoint",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 },
                 {
                   "kb": "5002946",
+                  "build": "",
                   "fuer": "Office und SharePoint",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "",
-                  "fuer": "Cloud und Dienste",
+                  "build": "16.0.14334.21048",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": ""
+                },
+                {
+                  "kb": "",
+                  "build": "16.0.17932.21140",
+                  "fuer": "Office und SharePoint",
                   "text": "Release Notes",
                   "url": ""
                 }
@@ -10705,6 +11335,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5002946"
@@ -10714,19 +11345,29 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "16.115.26110837",
                   "fuer": "Office und SharePoint",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 },
                 {
                   "kb": "5002946",
+                  "build": "",
                   "fuer": "Office und SharePoint",
                   "text": "",
                   "url": ""
                 },
                 {
                   "kb": "",
-                  "fuer": "Cloud und Dienste",
+                  "build": "16.0.14334.21048",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": ""
+                },
+                {
+                  "kb": "",
+                  "build": "16.0.17932.21140",
+                  "fuer": "Office und SharePoint",
                   "text": "Release Notes",
                   "url": ""
                 }
@@ -10743,6 +11384,7 @@
               "ausgenutzt": false,
               "oeffentlich": false,
               "kev": false,
+              "fix_roh": [],
               "patch": "ja",
               "kb": [
                 "5002946"
@@ -10752,21 +11394,31 @@
               "fixe": [
                 {
                   "kb": "",
+                  "build": "16.0.14334.21048",
                   "fuer": "Office und SharePoint",
                   "text": "Release Notes",
                   "url": ""
                 },
                 {
                   "kb": "",
+                  "build": "16.0.17932.21140",
+                  "fuer": "Office und SharePoint",
+                  "text": "Release Notes",
+                  "url": ""
+                },
+                {
+                  "kb": "",
+                  "build": "https://aka.ms/OfficeSecurityReleases",
                   "fuer": "Cloud und Dienste",
                   "text": "Release Notes",
                   "url": ""
                 },
                 {
-                  "kb": "5002946",
+                  "kb": "",
+                  "build": "16.115.26110837",
                   "fuer": "Office und SharePoint",
-                  "text": "",
-                  "url": ""
+                  "text": "Release Notes",
+                  "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 }
               ],
               "familien": [
@@ -10782,8 +11434,8 @@
             "verhaeltnis_median": 6.1,
             "median_vormonate": 182.5,
             "dringlichkeit": "dringend",
-            "empfehlung": "Zuerst den Patch für die bereits ausgenutzte Lücke einspielen, danach die Patches für die 80 als kritisch eingestuften.",
-            "empfehlung_en": "Apply the patch for the already exploited flaw first, then the patches for the 80 rated critical."
+            "empfehlung": "Zuerst den Patch für die bereits ausgenutzte Lücke einspielen (betrifft: Cloud und Dienste, Office und SharePoint). Danach die monatlichen Sammelupdates für Windows und Office einspielen: Sie enthalten auch die 80 als kritisch eingestuften Lücken.",
+            "empfehlung_en": "Apply the patch for the already exploited flaw first (affects: Cloud und Dienste, Office und SharePoint). Then apply the monthly cumulative updates for Windows and Office: they also contain the 80 flaws rated critical."
           }
         }
       }
@@ -10810,17 +11462,27 @@
           "fixe": [
             {
               "kb": "",
+              "build": "16.0.14334.21048",
               "fuer": "Office und SharePoint",
               "text": "Release Notes",
               "url": ""
             },
             {
               "kb": "",
+              "build": "16.0.17932.21140",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "https://aka.ms/OfficeSecurityReleases",
               "fuer": "Cloud und Dienste",
               "text": "Release Notes",
               "url": ""
             }
           ],
+          "monat": "2026-Nov",
           "betrifft": "Cloud und Dienste, Office und SharePoint",
           "datum": "2026-11-10",
           "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-124194",
@@ -10952,6 +11614,764 @@
           "datum": "2026-11-23",
           "link": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-vcs-static-cred-hr7EWZ8t",
           "rang": 8
+        },
+        {
+          "stufe": 4,
+          "epss": 0.01516,
+          "quelle": "Microsoft",
+          "titel": "Windows Search Remote Code Execution Vulnerability",
+          "cves": [
+            "CVE-2026-116928"
+          ],
+          "grund": "Von Microsoft als kritisch eingestuft.",
+          "grund_en": "Rated critical by Microsoft.",
+          "patch": "ja",
+          "patch_text": "Patch liegt vor: KB5132061, KB5132043, KB5131085",
+          "patch_text_en": "Patch available: KB5132061, KB5132043, KB5131085",
+          "patch_link": "https://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB5132061",
+          "fixe": [
+            {
+              "kb": "5132061",
+              "build": "",
+              "fuer": "Windows 11",
+              "text": "",
+              "url": ""
+            },
+            {
+              "kb": "5132043",
+              "build": "",
+              "fuer": "Windows 11",
+              "text": "",
+              "url": ""
+            },
+            {
+              "kb": "5131085",
+              "build": "",
+              "fuer": "Windows 10, Windows Server",
+              "text": "",
+              "url": ""
+            },
+            {
+              "kb": "5131090",
+              "build": "",
+              "fuer": "Windows Server",
+              "text": "",
+              "url": ""
+            }
+          ],
+          "monat": "2026-Nov",
+          "betrifft": "Windows 10, Windows 11, Windows Server",
+          "datum": "2026-11-10",
+          "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-116928",
+          "rang": 9
+        },
+        {
+          "stufe": 4,
+          "epss": 0.01399,
+          "quelle": "Microsoft",
+          "titel": "Windows Xbox Live Networking Service Remote Code Execution Vulnerability",
+          "cves": [
+            "CVE-2026-112967"
+          ],
+          "grund": "Von Microsoft als kritisch eingestuft.",
+          "grund_en": "Rated critical by Microsoft.",
+          "patch": "ja",
+          "patch_text": "Patch liegt vor: KB5131085, KB5131096, KB5131087",
+          "patch_text_en": "Patch available: KB5131085, KB5131096, KB5131087",
+          "patch_link": "https://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB5131085",
+          "fixe": [
+            {
+              "kb": "5131085",
+              "build": "",
+              "fuer": "Windows 10",
+              "text": "",
+              "url": ""
+            },
+            {
+              "kb": "5131096",
+              "build": "",
+              "fuer": "Windows 10",
+              "text": "",
+              "url": ""
+            },
+            {
+              "kb": "5131087",
+              "build": "",
+              "fuer": "Windows 11",
+              "text": "",
+              "url": ""
+            },
+            {
+              "kb": "5132061",
+              "build": "",
+              "fuer": "Windows 11",
+              "text": "",
+              "url": ""
+            }
+          ],
+          "monat": "2026-Nov",
+          "betrifft": "Windows 10, Windows 11",
+          "datum": "2026-11-10",
+          "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-112967",
+          "rang": 10
+        },
+        {
+          "stufe": 4,
+          "epss": 0.01149,
+          "quelle": "Microsoft",
+          "titel": "Microsoft Exchange Server Remote Code Execution Vulnerability",
+          "cves": [
+            "CVE-2026-118207"
+          ],
+          "grund": "Von Microsoft als kritisch eingestuft.",
+          "grund_en": "Rated critical by Microsoft.",
+          "patch": "ja",
+          "patch_text": "Patch liegt vor: KB5133453",
+          "patch_text_en": "Patch available: KB5133453",
+          "patch_link": "https://www.microsoft.com/download/details.aspx?familyid=ea6bc0c3-d1d8-4434-85ad-d1f021fc702f",
+          "fixe": [
+            {
+              "kb": "5133453",
+              "build": "",
+              "fuer": "Exchange",
+              "text": "",
+              "url": ""
+            }
+          ],
+          "monat": "2026-Nov",
+          "betrifft": "Exchange",
+          "datum": "2026-11-10",
+          "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118207",
+          "rang": 11
+        },
+        {
+          "stufe": 4,
+          "epss": 0.01057,
+          "quelle": "Microsoft",
+          "titel": "Microsoft Office Word Remote Code Execution Vulnerability",
+          "cves": [
+            "CVE-2026-111285"
+          ],
+          "grund": "Von Microsoft als kritisch eingestuft.",
+          "grund_en": "Rated critical by Microsoft.",
+          "patch": "ja",
+          "patch_text": "Update liegt vor, Microsoft nennt keine KB-Nummer (Office-/Cloud-Update, Details auf der Microsoft-Seite)",
+          "patch_text_en": "Update available, Microsoft names no KB number (Office/cloud update, details on the Microsoft page)",
+          "patch_link": "",
+          "fixe": [
+            {
+              "kb": "",
+              "build": "16.0.14334.21048",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "16.0.17932.21140",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "https://aka.ms/OfficeSecurityReleases",
+              "fuer": "Cloud und Dienste",
+              "text": "Release Notes",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "16.115.26110837",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
+            }
+          ],
+          "monat": "2026-Nov",
+          "betrifft": "Cloud und Dienste, Office und SharePoint",
+          "datum": "2026-11-10",
+          "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-111285",
+          "rang": 12
+        },
+        {
+          "stufe": 4,
+          "epss": 0.01056,
+          "quelle": "Microsoft",
+          "titel": "Microsoft Office Outlook Remote Code Execution Vulnerability",
+          "cves": [
+            "CVE-2026-110043"
+          ],
+          "grund": "Von Microsoft als kritisch eingestuft.",
+          "grund_en": "Rated critical by Microsoft.",
+          "patch": "ja",
+          "patch_text": "Update liegt vor, Microsoft nennt keine KB-Nummer (Office-/Cloud-Update, Details auf der Microsoft-Seite)",
+          "patch_text_en": "Update available, Microsoft names no KB number (Office/cloud update, details on the Microsoft page)",
+          "patch_link": "",
+          "fixe": [
+            {
+              "kb": "",
+              "build": "16.0.14334.21048",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "16.0.17932.21140",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "https://aka.ms/OfficeSecurityReleases",
+              "fuer": "Cloud und Dienste",
+              "text": "Release Notes",
+              "url": ""
+            }
+          ],
+          "monat": "2026-Nov",
+          "betrifft": "Cloud und Dienste, Office und SharePoint",
+          "datum": "2026-11-10",
+          "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-110043",
+          "rang": 13
+        },
+        {
+          "stufe": 4,
+          "epss": 0.01056,
+          "quelle": "Microsoft",
+          "titel": "Microsoft Office Word Remote Code Execution Vulnerability",
+          "cves": [
+            "CVE-2026-110047"
+          ],
+          "grund": "Von Microsoft als kritisch eingestuft.",
+          "grund_en": "Rated critical by Microsoft.",
+          "patch": "ja",
+          "patch_text": "Update liegt vor, Microsoft nennt keine KB-Nummer (Office-/Cloud-Update, Details auf der Microsoft-Seite)",
+          "patch_text_en": "Update available, Microsoft names no KB number (Office/cloud update, details on the Microsoft page)",
+          "patch_link": "",
+          "fixe": [
+            {
+              "kb": "",
+              "build": "16.0.14334.21048",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "16.0.17932.21140",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "16.115.26110837",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
+            },
+            {
+              "kb": "",
+              "build": "https://aka.ms/OfficeSecurityReleases",
+              "fuer": "Cloud und Dienste",
+              "text": "Release Notes",
+              "url": ""
+            }
+          ],
+          "monat": "2026-Nov",
+          "betrifft": "Cloud und Dienste, Office und SharePoint",
+          "datum": "2026-11-10",
+          "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-110047",
+          "rang": 14
+        },
+        {
+          "stufe": 4,
+          "epss": 0.01056,
+          "quelle": "Microsoft",
+          "titel": "Microsoft Office Word Remote Code Execution Vulnerability",
+          "cves": [
+            "CVE-2026-110067"
+          ],
+          "grund": "Von Microsoft als kritisch eingestuft.",
+          "grund_en": "Rated critical by Microsoft.",
+          "patch": "ja",
+          "patch_text": "Update liegt vor, Microsoft nennt keine KB-Nummer (Office-/Cloud-Update, Details auf der Microsoft-Seite)",
+          "patch_text_en": "Update available, Microsoft names no KB number (Office/cloud update, details on the Microsoft page)",
+          "patch_link": "",
+          "fixe": [
+            {
+              "kb": "",
+              "build": "16.0.14334.21048",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "16.0.17932.21140",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "https://aka.ms/OfficeSecurityReleases",
+              "fuer": "Cloud und Dienste",
+              "text": "Release Notes",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "16.115.26110837",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
+            }
+          ],
+          "monat": "2026-Nov",
+          "betrifft": "Cloud und Dienste, Office und SharePoint",
+          "datum": "2026-11-10",
+          "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-110067",
+          "rang": 15
+        },
+        {
+          "stufe": 4,
+          "epss": 0.01056,
+          "quelle": "Microsoft",
+          "titel": "Microsoft Office Outlook Remote Code Execution Vulnerability",
+          "cves": [
+            "CVE-2026-110068"
+          ],
+          "grund": "Von Microsoft als kritisch eingestuft.",
+          "grund_en": "Rated critical by Microsoft.",
+          "patch": "ja",
+          "patch_text": "Update liegt vor, Microsoft nennt keine KB-Nummer (Office-/Cloud-Update, Details auf der Microsoft-Seite)",
+          "patch_text_en": "Update available, Microsoft names no KB number (Office/cloud update, details on the Microsoft page)",
+          "patch_link": "",
+          "fixe": [
+            {
+              "kb": "",
+              "build": "16.0.14334.21048",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "16.0.17932.21140",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "https://aka.ms/OfficeSecurityReleases",
+              "fuer": "Cloud und Dienste",
+              "text": "Release Notes",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "16.115.26110837",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
+            }
+          ],
+          "monat": "2026-Nov",
+          "betrifft": "Cloud und Dienste, Office und SharePoint",
+          "datum": "2026-11-10",
+          "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-110068",
+          "rang": 16
+        },
+        {
+          "stufe": 4,
+          "epss": 0.01056,
+          "quelle": "Microsoft",
+          "titel": "Microsoft Office Remote Code Execution Vulnerability",
+          "cves": [
+            "CVE-2026-111289"
+          ],
+          "grund": "Von Microsoft als kritisch eingestuft.",
+          "grund_en": "Rated critical by Microsoft.",
+          "patch": "ja",
+          "patch_text": "Update liegt vor, Microsoft nennt keine KB-Nummer (Office-/Cloud-Update, Details auf der Microsoft-Seite)",
+          "patch_text_en": "Update available, Microsoft names no KB number (Office/cloud update, details on the Microsoft page)",
+          "patch_link": "",
+          "fixe": [
+            {
+              "kb": "",
+              "build": "16.0.14334.21048",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "16.0.17932.21140",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "https://aka.ms/OfficeSecurityReleases",
+              "fuer": "Cloud und Dienste",
+              "text": "Release Notes",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "16.115.26110837",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
+            }
+          ],
+          "monat": "2026-Nov",
+          "betrifft": "Cloud und Dienste, Office und SharePoint",
+          "datum": "2026-11-10",
+          "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-111289",
+          "rang": 17
+        },
+        {
+          "stufe": 4,
+          "epss": 0.01056,
+          "quelle": "Microsoft",
+          "titel": "Microsoft Office Outlook Remote Code Execution Vulnerability",
+          "cves": [
+            "CVE-2026-111309"
+          ],
+          "grund": "Von Microsoft als kritisch eingestuft.",
+          "grund_en": "Rated critical by Microsoft.",
+          "patch": "ja",
+          "patch_text": "Update liegt vor, Microsoft nennt keine KB-Nummer (Office-/Cloud-Update, Details auf der Microsoft-Seite)",
+          "patch_text_en": "Update available, Microsoft names no KB number (Office/cloud update, details on the Microsoft page)",
+          "patch_link": "",
+          "fixe": [
+            {
+              "kb": "",
+              "build": "16.0.14334.21048",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "16.0.17932.21140",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "https://aka.ms/OfficeSecurityReleases",
+              "fuer": "Cloud und Dienste",
+              "text": "Release Notes",
+              "url": ""
+            }
+          ],
+          "monat": "2026-Nov",
+          "betrifft": "Cloud und Dienste, Office und SharePoint",
+          "datum": "2026-11-10",
+          "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-111309",
+          "rang": 18
+        },
+        {
+          "stufe": 4,
+          "epss": 0.01056,
+          "quelle": "Microsoft",
+          "titel": "Microsoft Office Excel Remote Code Execution Vulnerability",
+          "cves": [
+            "CVE-2026-118292"
+          ],
+          "grund": "Von Microsoft als kritisch eingestuft.",
+          "grund_en": "Rated critical by Microsoft.",
+          "patch": "ja",
+          "patch_text": "Patch liegt vor: KB5002946",
+          "patch_text_en": "Patch available: KB5002946",
+          "patch_link": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac",
+          "fixe": [
+            {
+              "kb": "",
+              "build": "16.115.26110837",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
+            },
+            {
+              "kb": "5002946",
+              "build": "",
+              "fuer": "Office und SharePoint",
+              "text": "",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "16.0.14334.21048",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "16.0.17932.21140",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": ""
+            }
+          ],
+          "monat": "2026-Nov",
+          "betrifft": "Cloud und Dienste, Office und SharePoint",
+          "datum": "2026-11-10",
+          "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118292",
+          "rang": 19
+        },
+        {
+          "stufe": 4,
+          "epss": 0.01056,
+          "quelle": "Microsoft",
+          "titel": "Microsoft Office Excel Remote Code Execution Vulnerability",
+          "cves": [
+            "CVE-2026-118296"
+          ],
+          "grund": "Von Microsoft als kritisch eingestuft.",
+          "grund_en": "Rated critical by Microsoft.",
+          "patch": "ja",
+          "patch_text": "Patch liegt vor: KB5002946",
+          "patch_text_en": "Patch available: KB5002946",
+          "patch_link": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac",
+          "fixe": [
+            {
+              "kb": "",
+              "build": "16.115.26110837",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
+            },
+            {
+              "kb": "5002946",
+              "build": "",
+              "fuer": "Office und SharePoint",
+              "text": "",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "16.0.14334.21048",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "16.0.17932.21140",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": ""
+            }
+          ],
+          "monat": "2026-Nov",
+          "betrifft": "Cloud und Dienste, Office und SharePoint",
+          "datum": "2026-11-10",
+          "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118296",
+          "rang": 20
+        },
+        {
+          "stufe": 4,
+          "epss": 0.01001,
+          "quelle": "Microsoft",
+          "titel": "Windows Active Directory Domain Services Remote Code Execution Vulnerability",
+          "cves": [
+            "CVE-2026-118146"
+          ],
+          "grund": "Von Microsoft als kritisch eingestuft.",
+          "grund_en": "Rated critical by Microsoft.",
+          "patch": "ja",
+          "patch_text": "Patch liegt vor: KB5131291, KB5131085, KB5131096",
+          "patch_text_en": "Patch available: KB5131291, KB5131085, KB5131096",
+          "patch_link": "https://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB5131291",
+          "fixe": [
+            {
+              "kb": "5131291",
+              "build": "",
+              "fuer": "Windows 10, Windows Server",
+              "text": "",
+              "url": ""
+            },
+            {
+              "kb": "5131085",
+              "build": "",
+              "fuer": "Windows 10, Windows Server",
+              "text": "",
+              "url": ""
+            },
+            {
+              "kb": "5131096",
+              "build": "",
+              "fuer": "Windows 10",
+              "text": "",
+              "url": ""
+            },
+            {
+              "kb": "5131090",
+              "build": "",
+              "fuer": "Windows Server",
+              "text": "",
+              "url": ""
+            }
+          ],
+          "monat": "2026-Nov",
+          "betrifft": "Windows 10, Windows 11, Windows Server",
+          "datum": "2026-11-10",
+          "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118146",
+          "rang": 21
+        },
+        {
+          "stufe": 4,
+          "epss": 0.01001,
+          "quelle": "Microsoft",
+          "titel": "Active Directory Domain Services Elevation of Privilege Vulnerability",
+          "cves": [
+            "CVE-2026-118148"
+          ],
+          "grund": "Von Microsoft als kritisch eingestuft.",
+          "grund_en": "Rated critical by Microsoft.",
+          "patch": "ja",
+          "patch_text": "Patch liegt vor: KB5131291, KB5131085, KB5131096",
+          "patch_text_en": "Patch available: KB5131291, KB5131085, KB5131096",
+          "patch_link": "https://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB5131291",
+          "fixe": [
+            {
+              "kb": "5131291",
+              "build": "",
+              "fuer": "Windows 10, Windows Server",
+              "text": "",
+              "url": ""
+            },
+            {
+              "kb": "5131085",
+              "build": "",
+              "fuer": "Windows 10, Windows Server",
+              "text": "",
+              "url": ""
+            },
+            {
+              "kb": "5131096",
+              "build": "",
+              "fuer": "Windows 10",
+              "text": "",
+              "url": ""
+            },
+            {
+              "kb": "5131090",
+              "build": "",
+              "fuer": "Windows Server",
+              "text": "",
+              "url": ""
+            }
+          ],
+          "monat": "2026-Nov",
+          "betrifft": "Windows 10, Windows 11, Windows Server",
+          "datum": "2026-11-10",
+          "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118148",
+          "rang": 22
+        },
+        {
+          "stufe": 4,
+          "epss": 0.00989,
+          "quelle": "Microsoft",
+          "titel": "Windows Raw Image Extension Remote Code Execution Vulnerability",
+          "cves": [
+            "CVE-2026-114169"
+          ],
+          "grund": "Von Microsoft als kritisch eingestuft.",
+          "grund_en": "Rated critical by Microsoft.",
+          "patch": "ja",
+          "patch_text": "Update liegt vor, Microsoft nennt keine KB-Nummer (Office-/Cloud-Update, Details auf der Microsoft-Seite)",
+          "patch_text_en": "Update available, Microsoft names no KB number (Office/cloud update, details on the Microsoft page)",
+          "patch_link": "",
+          "fixe": [
+            {
+              "kb": "",
+              "build": "",
+              "fuer": "Windows 10",
+              "text": "Release Notes",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "2.4.43.0",
+              "fuer": "Windows 10",
+              "text": "Release Notes",
+              "url": "https://apps.microsoft.com/detail/9nctdw2w1bh8"
+            },
+            {
+              "kb": "",
+              "build": "2.5.42.0",
+              "fuer": "Windows 11",
+              "text": "Release Notes",
+              "url": "https://apps.microsoft.com/detail/9nctdw2w1bh8"
+            }
+          ],
+          "monat": "2026-Nov",
+          "betrifft": "Windows 10, Windows 11",
+          "datum": "2026-11-10",
+          "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114169",
+          "rang": 23
+        },
+        {
+          "stufe": 4,
+          "epss": 0.00968,
+          "quelle": "Microsoft",
+          "titel": "Microsoft Office Excel Remote Code Execution Vulnerability",
+          "cves": [
+            "CVE-2026-118297"
+          ],
+          "grund": "Von Microsoft als kritisch eingestuft.",
+          "grund_en": "Rated critical by Microsoft.",
+          "patch": "ja",
+          "patch_text": "Patch liegt vor: KB5002946",
+          "patch_text_en": "Patch available: KB5002946",
+          "patch_link": "",
+          "fixe": [
+            {
+              "kb": "",
+              "build": "16.0.14334.21048",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "16.0.17932.21140",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "https://aka.ms/OfficeSecurityReleases",
+              "fuer": "Cloud und Dienste",
+              "text": "Release Notes",
+              "url": ""
+            },
+            {
+              "kb": "",
+              "build": "16.115.26110837",
+              "fuer": "Office und SharePoint",
+              "text": "Release Notes",
+              "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
+            }
+          ],
+          "monat": "2026-Nov",
+          "betrifft": "Cloud und Dienste, Office und SharePoint",
+          "datum": "2026-11-10",
+          "link": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118297",
+          "rang": 24
         }
       ],
       "ohne_patch": []
@@ -10959,7 +12379,7 @@
     "hersteller": {
       "meta": {
         "hinweis": "Nur Zählung und Verweise auf die Meldungen der Hersteller. Schweregrade stammen von den Herstellern und fehlen, wo sie nicht geliefert werden.",
-        "abgerufen_am": "2026-11-25T06:35:16+00:00"
+        "abgerufen_am": "2026-11-25T06:59:59+00:00"
       },
       "quellen": {
         "ubuntu": {
@@ -11123,7 +12543,7 @@
               "schwere": null
             }
           ],
-          "abgerufen_am": "2026-11-25T06:35:16+00:00",
+          "abgerufen_am": "2026-11-25T06:59:59+00:00",
           "status": "ok"
         },
         "debian": {
@@ -11212,7 +12632,7 @@
               "schwere": null
             }
           ],
-          "abgerufen_am": "2026-11-25T06:35:16+00:00",
+          "abgerufen_am": "2026-11-25T06:59:59+00:00",
           "status": "ok"
         },
         "redhat": {
@@ -11375,7 +12795,7 @@
               "schwere": "hoch"
             }
           ],
-          "abgerufen_am": "2026-11-25T06:35:16+00:00",
+          "abgerufen_am": "2026-11-25T06:59:59+00:00",
           "status": "ok"
         },
         "cisco": {
@@ -11529,7 +12949,7 @@
               "schwere": "kritisch"
             }
           ],
-          "abgerufen_am": "2026-11-25T06:35:16+00:00",
+          "abgerufen_am": "2026-11-25T06:59:59+00:00",
           "status": "ok"
         }
       }
