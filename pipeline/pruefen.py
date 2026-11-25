@@ -42,19 +42,19 @@ def eintraege():
     try:
         regeln = json.loads((WURZEL / "config" / "regeln.json").read_text(encoding="utf-8"))
         out.append({"id": "schwellen", "bereich": "schwellen", "name": "Schwellen des Dreier-Pegels",
-                    "link": "https://github.com/maxim91136/cyberlage.org/blob/main/config/regeln.json", "geprueft_am": regeln.get("geprueft_am", "")})
+                    "link": "https://cyberlage.org/RULES.md", "geprueft_am": regeln.get("geprueft_am", "")})
     except (OSError, ValueError):
         pass
     try:
         stufen = json.loads((WURZEL / "config" / "radar_stufen.json").read_text(encoding="utf-8"))
-        out.append({"id": "radar_stufen", "bereich": "radar_stufen", "name": "Stufen des Dreier-Pegels (%s)" % stufen.get("status", ""),
-                    "link": "https://github.com/maxim91136/cyberlage.org/blob/main/config/radar_stufen.json", "geprueft_am": stufen.get("geprueft_am", "")})
+        out.append({"id": "radar_stufen", "bereich": "radar_stufen", "name": "Stufen des Dreier-Pegels (%s)" % stufen.get("status", "").replace("vorlaeufig", "vorläufig"),
+                    "link": "https://cyberlage.org/RULES.md", "geprueft_am": stufen.get("geprueft_am", "")})
     except (OSError, ValueError):
         pass
     try:
         mod = json.loads((WURZEL / "config" / "modell.json").read_text(encoding="utf-8"))
-        out.append({"id": "modell", "bereich": "radar_stufen", "name": "Modell des Dreier-Pegels %s: Bausteine, Gruppen, Schwellen (%s)" % (mod.get("version", ""), mod.get("status", "")),
-                    "link": "https://github.com/maxim91136/cyberlage.org/blob/main/config/modell.json", "geprueft_am": mod.get("geprueft_am", "")})
+        out.append({"id": "modell", "bereich": "radar_stufen", "name": "Modell des Dreier-Pegels %s: Bausteine, Gruppen, Schwellen (%s)" % (mod.get("version", ""), mod.get("status", "").replace("vorlaeufig", "vorläufig")),
+                    "link": "https://cyberlage.org/RULES.md", "geprueft_am": mod.get("geprueft_am", "")})
     except (OSError, ValueError):
         pass
     return out

@@ -311,7 +311,7 @@ def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None, telegram_link=None, 
                                     "lizenz": "CVE Terms of Use: frei nutzbar mit Quellenangabe, nur Veröffentlichungsdatum", "abgerufen_am": ab})
         if ergebnis["radar"].get("ncsc"):
             ergebnis["quellen"].append({"id": "ncsc", "name": "NCSC-NL Beveiligingsadviezen", "link": "https://advisories.ncsc.nl/",
-                                        "lizenz": "Lizenz nicht geprüft, nur Zahl der Advisories mit Quellenangabe", "abgerufen_am": ergebnis["radar"]["abgerufen_am"]})
+                                        "lizenz": "Lizenz nicht geprüft, nur Zahl der Advisories mit Quellenangabe", "lizenz_en": "licence not checked, only the number of advisories with source attribution", "abgerufen_am": ergebnis["radar"]["abgerufen_am"]})
         if ergebnis["radar"].get("sans"):
             ergebnis["quellen"].append({"id": "sans", "name": "SANS Internet Storm Center (Infocon)", "link": "https://isc.sans.edu/",
                                         "lizenz": "Creative Commons laut Fußzeile des ISC, nur Ampelstatus mit Quellenangabe", "abgerufen_am": ergebnis["radar"]["sans"]["abgerufen_am"]})

@@ -2,7 +2,7 @@
   "use strict";
   var $ = function (id) { return document.getElementById(id); };
   var txt = function () { return window.I18N.t.apply(null, arguments); };
-  var pick = function (de, en) { return window.I18N.pick(de, en); };
+  var pick = function (de, en) { var r = window.I18N.pick(de, en); return typeof dx === "function" ? dx(r) : r; };
   var zahl = function (n) { return typeof n === "number" ? n.toLocaleString(window.I18N.locale) : txt("keine"); };
   var datum = function (iso) {
     if (!iso) return txt("keine");
@@ -248,6 +248,10 @@
   }
   bedienung();
 
+  var DX = [[/Office und SharePoint/g, "Office and SharePoint"], [/Entwicklung und Server/g, "Development and servers"], [/Cloud und Dienste/g, "Cloud and services"],
+    [/Windows \(andere\)/g, "Windows (other)"], [/\bSonstige\b/g, "Other"], [/ und weitere\b/g, " and more"], [/\bkritisch\b/g, "critical"], [/\bmittel\b/g, "medium"], [/\bniedrig\b/g, "low"], [/\bhoch\b/g, "high"], [/\bunbekannt\b/g, "unknown"]];
+  function dx(t) { if (window.I18N.lang !== "en" || typeof t !== "string") return t; DX.forEach(function (r) { t = t.replace(r[0], r[1]); }); return t; }
+
   function monatKurz(id) {
     var M = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], i = M.indexOf((id || "").slice(5));
     return i < 0 ? (id || "").slice(5) : new Date(Date.UTC(2000, i, 1)).toLocaleDateString(window.I18N.locale, { timeZone: "UTC", month: "short" }).replace(".", "");
@@ -450,7 +454,7 @@
     var t = [];
     (fixe || []).forEach(function (f) {
       if (f.kb) t.push("KB" + f.kb + (f.fuer ? " (" + f.fuer + ")" : ""));
-      else if (f.build) t.push(pick("Version ", "version ") + f.build + (f.produkt || f.fuer ? " (" + (f.produkt || f.fuer) + ")" : ""));
+      else if (f.build) t.push(pick("Version ", "version ") + f.build + (f.produkt || f.fuer ? " (" + dx(f.produkt || f.fuer) + ")" : ""));
       else if (f.text && f.text.toLowerCase() !== "release notes") t.push(f.text + (f.fuer ? " (" + f.fuer + ")" : ""));
     });
     return t;
@@ -578,9 +582,9 @@
         kopf.appendChild(link(k.link, k.cves && k.cves.length ? k.cves.slice(0, 3).join(", ") + (k.cves.length > 3 ? " …" : "") : k.titel));
         kopf.appendChild(el("span", "mono dim p-dt", datum(k.datum)));
         li.appendChild(kopf);
-        li.appendChild(el("div", "p-t", k.titel));
+        li.appendChild(el("div", "p-t", dx(k.titel)));
         var det = el("details", "p-det"); det.appendChild(el("summary", "mono", pick("Warum Platz " + k.rang + "? Details", "Why rank " + k.rang + "? Details")));
-        if (k.betrifft && k.betrifft !== k.quelle) det.appendChild(el("div", "p-w", pick("Betrifft: ", "Affects: ") + k.betrifft));
+        if (k.betrifft && k.betrifft !== k.quelle) det.appendChild(el("div", "p-w", pick("Betrifft: ", "Affects: ") + dx(k.betrifft)));
         det.appendChild(el("div", "p-w", pick("Warum zuerst: ", "Why first: ") + pick(k.grund, k.grund_en)));
         var bw = [];
         (k.cvss || []).forEach(function (c) { bw.push("CVSS " + String(c.score).replace(".", pick(",", ".")) + ((k.cves || []).length > 1 || k.cvss.length > 1 ? " (" + c.cve + ")" : "")); });
@@ -729,7 +733,7 @@
     sub.appendChild(link((ms.meta && ms.meta.quelle_url) || "https://msrc.microsoft.com/update-guide", "Microsoft Security Response Center")); box.appendChild(sub);
     var dr = { dringend: ["pr-rot", pick("dringend", "urgent")], zeitnah: ["pr-gelb", pick("zeitnah", "prompt")], normal: ["pr-gruen", pick("normal", "normal")] }[b.dringlichkeit] || ["", ""];
     var bw = el("div", "p-bew"); bw.appendChild(el("span", "p-badge " + dr[0], dr[1] + (b.dringlichkeit === "dringend" && m.ausgenutzt ? pick(" · " + m.ausgenutzt + " bereits ausgenutzt", " · " + m.ausgenutzt + " already exploited") : "")));
-    bw.appendChild(el("span", "", pick(b.groesse, b.groesse_en) + (b.verhaeltnis_median ? " · " + pick("das ", "") + b.verhaeltnis_median.toLocaleString(window.I18N.locale) + pick("-Fache des Medians der Vormonate (", "x the median of earlier months (") + zahl(b.median_vormonate) + ")" : "")));
+    bw.appendChild(el("span", "", pick(b.groesse, b.groesse_en) + (b.verhaeltnis_median ? " · " + (window.I18N.lang === "en" ? "" : "das ") + b.verhaeltnis_median.toLocaleString(window.I18N.locale) + pick("-Fache des Medians der Vormonate (", "x the median of earlier months (") + zahl(b.median_vormonate) + ")" : "")));
     box.appendChild(bw);
     var g = el("div", "p-kpis");
     g.appendChild(kpi(zahl(m.cves), "CVEs")); g.appendChild(kpi(zahl(m.schwere.Critical), pick("kritisch", "critical")));
@@ -742,7 +746,7 @@
       var al = el("ol", "p-akt");
       b.aktionen.forEach(function (x) {
         var li = el("li", ""); li.appendChild(link("https://msrc.microsoft.com/update-guide/vulnerability/" + x.cve, x.cve));
-        li.appendChild(document.createTextNode(" · " + x.titel + (x.betrifft ? " · " + pick("betrifft ", "affects ") + x.betrifft : "")));
+        li.appendChild(document.createTextNode(" · " + dx(x.titel) + (x.betrifft ? " · " + pick("betrifft ", "affects ") + dx(x.betrifft) : "")));
         var ft = fixTeile(x.fixe);
         var d = el("div", "p-fix"); d.appendChild(el("b", "mono", pick("Lösung: ", "Fix: ")));
         d.appendChild(document.createTextNode(ft.length ? ft.join(", ") : (x.patch === "nein" ? pick("noch kein Patch, nur Umgehung oder Abmilderung (Microsoft-Seite)", "no patch yet, only a workaround or mitigation (Microsoft page)") : pick("Details auf der Microsoft-Seite", "details on the Microsoft page"))));
@@ -763,7 +767,7 @@
     var det = el("details", "p-det"); det.appendChild(el("summary", "mono", pick("Zahlen, Produkte und Verlauf", "Figures, products and history")));
     var kv = el("div", "p-cols");
     var fam = el("div", ""); fam.appendChild(el("h4", "mono", pick("Betroffene Produkte (Anzahl CVEs)", "Affected products (CVE count)")));
-    Object.keys(m.familien || {}).slice(0, 6).forEach(function (k) { fam.appendChild(el("div", "p-z mono", k + ": " + m.familien[k])); });
+    Object.keys(m.familien || {}).slice(0, 6).forEach(function (k) { fam.appendChild(el("div", "p-z mono", dx(k) + ": " + m.familien[k])); });
     var au = el("div", ""); au.appendChild(el("h4", "mono", pick("Art der Auswirkung", "Impact type")));
     Object.keys(m.auswirkung || {}).slice(0, 6).forEach(function (k) { au.appendChild(el("div", "p-z mono", k + ": " + m.auswirkung[k])); });
     kv.appendChild(fam); kv.appendChild(au); det.appendChild(kv);
@@ -800,7 +804,7 @@
       var d = el("details", "rd-det"); d.appendChild(el("summary", "mono", q.name + pick(": letzte Meldungen", ": latest advisories")));
       var ul = el("ul", "p-liste");
       q.letzte.slice(0, 6).forEach(function (x) {
-        var li = el("li", ""); li.appendChild(el("span", "mono dim", datum(x.datum) + " ")); li.appendChild(link(x.link, x.titel + (x.schwere ? " (" + x.schwere + ")" : ""))); ul.appendChild(li);
+        var li = el("li", ""); li.appendChild(el("span", "mono dim", datum(x.datum) + " ")); li.appendChild(link(x.link, dx(x.titel) + (x.schwere ? " (" + dx(x.schwere) + ")" : ""))); ul.appendChild(li);
       });
       d.appendChild(ul); box.appendChild(d);
     });
@@ -1099,4 +1103,9 @@ b.appendChild(el("span", "g", typeof s.ausschlag === "number" ? pick("Messwert: 
       return r;
     }), 10);
   }
+  /* Externe Links öffnen in einem neuen Tab, damit die Lage offen bleibt. */
+  document.addEventListener("click", function (ev) {
+    var a = ev.target && ev.target.closest ? ev.target.closest("a[href]") : null;
+    if (a && /^https?:$/.test(a.protocol) && a.host !== location.host && !a.target) { a.target = "_blank"; a.rel = "noopener"; }
+  }, true);
 })();
