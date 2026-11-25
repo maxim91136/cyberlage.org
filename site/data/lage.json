@@ -1307,7 +1307,7 @@
   "cert_bund": {
     "quelle": "CERT-Bund / BSI Warn- und Informationsdienst",
     "quelle_url": "https://wid.cert-bund.de/",
-    "abgerufen_am": "2026-11-25T06:57:50+00:00",
+    "abgerufen_am": "2026-11-25T07:03:14+00:00",
     "fenster_tage": 30,
     "daten_seit": "2026-11-23",
     "kritisch_7_tage": 7,
@@ -1640,7 +1640,7 @@
   "eu_kev": {
     "quelle": "EU-KEV über die EU-Schwachstellendatenbank (EUVD) von ENISA",
     "quelle_url": "https://euvd.enisa.europa.eu/",
-    "abgerufen_am": "2026-11-25T06:57:50+00:00",
+    "abgerufen_am": "2026-11-25T07:03:14+00:00",
     "fenster_tage": 30,
     "daten_seit": "2026-08-07",
     "neu_30_tage": 36,
@@ -2152,7 +2152,7 @@
     ]
   },
   "ausblick": {
-    "abgerufen_am": "2026-11-25T06:57:53+00:00",
+    "abgerufen_am": "2026-11-25T07:03:16+00:00",
     "fenster_tage": 14,
     "geprueft": 7083,
     "schwelle_hoch": 0.1,
@@ -2266,7 +2266,7 @@
       "online": 1,
       "gelistet": 5
     },
-    "abgerufen_am": "2026-11-25T06:59:59+00:00",
+    "abgerufen_am": "2026-11-25T07:05:06+00:00",
     "zeit_bis_kev": {
       "verlauf": [
         {
@@ -4574,7 +4574,7 @@
     },
     "sans": {
       "status": "green",
-      "abgerufen_am": "2026-11-25T06:59:57+00:00"
+      "abgerufen_am": "2026-11-25T07:05:05+00:00"
     },
     "ncsc": {
       "advisories_30": 25,
@@ -4851,9 +4851,9 @@
           "geprueft_am": "2026-11-23",
           "erreichbar": false,
           "status": 404,
-          "fehler_in_folge": 26,
+          "fehler_in_folge": 27,
           "erster_fehler_um": "2026-11-24T16:15:10+00:00",
-          "link_geprueft_um": "2026-11-25T07:02:13+00:00",
+          "link_geprueft_um": "2026-11-25T07:15:26+00:00",
           "faellig_am": "2027-05-25",
           "faellig": false,
           "link_tot": false
@@ -4866,9 +4866,9 @@
           "geprueft_am": "2026-11-24",
           "erreichbar": false,
           "status": 404,
-          "fehler_in_folge": 22,
+          "fehler_in_folge": 23,
           "erster_fehler_um": "2026-11-24T22:03:12+00:00",
-          "link_geprueft_um": "2026-11-25T07:02:13+00:00",
+          "link_geprueft_um": "2026-11-25T07:15:26+00:00",
           "faellig_am": "2027-02-22",
           "faellig": false,
           "link_tot": false
@@ -4898,7 +4898,7 @@
       "lizenz": "CC0 1.0 (laut LICENSE-Datei von cisagov/kev-data)",
       "quelle_abruf": "cisa.gov",
       "veroeffentlicht_am": "2026-11-24T17:47:46.199Z",
-      "abgerufen_am": "2026-11-25T06:57:50+00:00",
+      "abgerufen_am": "2026-11-25T07:03:14+00:00",
       "name_en": "CISA Known Exploited Vulnerabilities",
       "lizenz_en": "CC0 1.0 (per the LICENSE file of cisagov/kev-data)"
     },
@@ -4915,7 +4915,7 @@
       "name": "CERT-Bund / BSI Warn- und Informationsdienst",
       "link": "https://wid.cert-bund.de/",
       "lizenz": "nur Titel und Links, Nutzungsbedingungen des BSI beachten",
-      "abgerufen_am": "2026-11-25T06:57:50+00:00",
+      "abgerufen_am": "2026-11-25T07:03:14+00:00",
       "name_en": "CERT-Bund / BSI Warning and Information Service",
       "lizenz_en": "titles and links only, observe the BSI terms of use"
     },
@@ -4924,7 +4924,7 @@
       "name": "EU-KEV (EUVD von ENISA)",
       "link": "https://euvd.enisa.europa.eu/",
       "lizenz": "Lizenz nicht ausdrücklich geklärt",
-      "abgerufen_am": "2026-11-25T06:57:50+00:00",
+      "abgerufen_am": "2026-11-25T07:03:14+00:00",
       "name_en": "EU-KEV (EUVD by ENISA)",
       "lizenz_en": "licence not explicitly clarified"
     },
@@ -4933,7 +4933,7 @@
       "name": "EPSS (FIRST)",
       "link": "https://www.first.org/epss/",
       "lizenz": "kostenlos mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T06:57:53+00:00",
+      "abgerufen_am": "2026-11-25T07:03:16+00:00",
       "name_en": "EPSS (FIRST)",
       "lizenz_en": "free to use with attribution"
     },
@@ -4942,7 +4942,7 @@
       "name": "NVD (NIST)",
       "link": "https://nvd.nist.gov/",
       "lizenz": "gemeinfrei, nur Veröffentlichungsdatum und CVSS-Wert",
-      "abgerufen_am": "2026-11-25T06:57:53+00:00",
+      "abgerufen_am": "2026-11-25T07:03:16+00:00",
       "name_en": "NVD (NIST)",
       "lizenz_en": "public domain, only publication date and CVSS score"
     },
@@ -4951,7 +4951,7 @@
       "name": "CVE-Liste (CVE Program, MITRE)",
       "link": "https://github.com/CVEProject/cvelistV5",
       "lizenz": "CVE Terms of Use: frei nutzbar mit Quellenangabe, nur Veröffentlichungsdatum",
-      "abgerufen_am": "2026-11-25T06:59:59+00:00",
+      "abgerufen_am": "2026-11-25T07:05:06+00:00",
       "name_en": "CVE List (CVE Program, MITRE)",
       "lizenz_en": "CVE Terms of Use: free to use with attribution, only publication date"
     },
@@ -4960,7 +4960,7 @@
       "name": "Feodo Tracker (abuse.ch)",
       "link": "https://feodotracker.abuse.ch/",
       "lizenz": "CC0, nur die Zahl aktiver Steuerserver",
-      "abgerufen_am": "2026-11-25T06:59:59+00:00",
+      "abgerufen_am": "2026-11-25T07:05:06+00:00",
       "name_en": "Feodo Tracker (abuse.ch)",
       "lizenz_en": "CC0, only the number of active command servers"
     },
@@ -4969,14 +4969,14 @@
       "name": "NCSC-NL Beveiligingsadviezen",
       "link": "https://advisories.ncsc.nl/",
       "lizenz": "Lizenz nicht geprüft, nur Zahl der Advisories mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T06:59:59+00:00"
+      "abgerufen_am": "2026-11-25T07:05:06+00:00"
     },
     {
       "id": "sans",
       "name": "SANS Internet Storm Center (Infocon)",
       "link": "https://isc.sans.edu/",
       "lizenz": "Creative Commons laut Fußzeile des ISC, nur Ampelstatus mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T06:59:57+00:00",
+      "abgerufen_am": "2026-11-25T07:05:05+00:00",
       "name_en": "SANS Internet Storm Center (Infocon)",
       "lizenz_en": "Creative Commons per the ISC footer, only the traffic-light status with attribution"
     }
@@ -7065,7 +7065,7 @@
         "quelle": "Microsoft Security Response Center (CVRF 3.0)",
         "quelle_url": "https://msrc.microsoft.com/update-guide",
         "listen_url": "https://api.msrc.microsoft.com/cvrf/v3.0/updates",
-        "abgerufen_am": "2026-11-25T06:59:59+00:00",
+        "abgerufen_am": "2026-11-25T07:05:06+00:00",
         "hinweis": "Zählung je CVE; Chromium-Lücken im Edge und Linux-Paketlücken von Azure Linux sind ausgenommen und getrennt ausgewiesen. Schweregrad, Ausnutzung und Bekanntheit stammen vom Hersteller.",
         "fehler": []
       },
@@ -7074,7 +7074,7 @@
           "id": "2025-Nov",
           "erste_veroeffentlichung": "2025-11-11T08:00:00",
           "aktuell": "2026-11-21T01:14:05",
-          "schema": 8,
+          "schema": 9,
           "cves": 75,
           "davon_chromium_ausgenommen": 11,
           "davon_azure_linux_ausgenommen": 103,
@@ -7132,7 +7132,7 @@
           "id": "2025-Dec",
           "erste_veroeffentlichung": "2025-12-09T00:00:00",
           "aktuell": "2026-11-21T01:14:39",
-          "schema": 8,
+          "schema": 9,
           "cves": 72,
           "davon_chromium_ausgenommen": 18,
           "davon_azure_linux_ausgenommen": 265,
@@ -7191,7 +7191,7 @@
           "id": "2026-Jan",
           "erste_veroeffentlichung": "2026-01-13T08:00:00",
           "aktuell": "2026-11-21T01:15:28",
-          "schema": 8,
+          "schema": 9,
           "cves": 133,
           "davon_chromium_ausgenommen": 13,
           "davon_azure_linux_ausgenommen": 200,
@@ -7256,7 +7256,7 @@
           "id": "2026-Feb",
           "erste_veroeffentlichung": "2026-02-10T08:00:00",
           "aktuell": "2026-11-21T01:11:37",
-          "schema": 8,
+          "schema": 9,
           "cves": 64,
           "davon_chromium_ausgenommen": 17,
           "davon_azure_linux_ausgenommen": 136,
@@ -7330,7 +7330,7 @@
           "id": "2026-Mar",
           "erste_veroeffentlichung": "2026-03-10T07:00:00",
           "aktuell": "2026-11-21T01:20:27",
-          "schema": 8,
+          "schema": 9,
           "cves": 116,
           "davon_chromium_ausgenommen": 74,
           "davon_azure_linux_ausgenommen": 349,
@@ -7364,8 +7364,8 @@
           },
           "familien": {
             "Windows Server": 45,
-            "Windows 11": 44,
             "Windows 10": 44,
+            "Windows 11": 44,
             "Sonstige": 35,
             "Cloud und Dienste": 20,
             "Azure Linux": 19,
@@ -7390,7 +7390,7 @@
           "id": "2026-Apr",
           "erste_veroeffentlichung": "2026-04-14T07:00:00",
           "aktuell": "2026-11-21T01:15:37",
-          "schema": 8,
+          "schema": 9,
           "cves": 202,
           "davon_chromium_ausgenommen": 109,
           "davon_azure_linux_ausgenommen": 470,
@@ -7456,7 +7456,7 @@
           "id": "2026-May",
           "erste_veroeffentlichung": "2026-05-12T07:00:00",
           "aktuell": "2026-11-23T19:04:10",
-          "schema": 8,
+          "schema": 9,
           "cves": 163,
           "davon_chromium_ausgenommen": 368,
           "davon_azure_linux_ausgenommen": 671,
@@ -7524,7 +7524,7 @@
           "id": "2026-Jun",
           "erste_veroeffentlichung": "2026-06-09T07:00:00",
           "aktuell": "2026-11-21T01:20:45",
-          "schema": 8,
+          "schema": 9,
           "cves": 222,
           "davon_chromium_ausgenommen": 543,
           "davon_azure_linux_ausgenommen": 625,
@@ -7584,7 +7584,7 @@
           "id": "2026-Jul",
           "erste_veroeffentlichung": "2026-07-14T07:00:00",
           "aktuell": "2026-11-23T14:05:47",
-          "schema": 8,
+          "schema": 9,
           "cves": 664,
           "davon_chromium_ausgenommen": 868,
           "davon_azure_linux_ausgenommen": 633,
@@ -7651,7 +7651,7 @@
           "id": "2026-Aug",
           "erste_veroeffentlichung": "2026-08-11T07:00:00",
           "aktuell": "2026-11-21T14:03:39",
-          "schema": 8,
+          "schema": 9,
           "cves": 497,
           "davon_chromium_ausgenommen": 312,
           "davon_azure_linux_ausgenommen": 1030,
@@ -7715,7 +7715,7 @@
           "id": "2026-Sep",
           "erste_veroeffentlichung": "2026-09-08T07:00:00",
           "aktuell": "2026-11-23T19:04:44",
-          "schema": 8,
+          "schema": 9,
           "cves": 1008,
           "davon_chromium_ausgenommen": 437,
           "davon_azure_linux_ausgenommen": 1924,
@@ -7777,7 +7777,7 @@
           "id": "2026-Oct",
           "erste_veroeffentlichung": "2026-10-13T07:00:00",
           "aktuell": "2026-11-24T01:27:08",
-          "schema": 8,
+          "schema": 9,
           "cves": 1487,
           "davon_chromium_ausgenommen": 739,
           "davon_azure_linux_ausgenommen": 1683,
@@ -7899,6 +7899,7 @@
                   "kb": "5126836",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -7906,6 +7907,7 @@
                   "kb": "5126868",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -7913,6 +7915,7 @@
                   "kb": "5126651",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -7920,6 +7923,7 @@
                   "kb": "5126657",
                   "build": "",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -7996,6 +8000,7 @@
                   "kb": "",
                   "build": "1.2.1-1",
                   "fuer": "Azure Linux",
+                  "produkt": "",
                   "text": "Release Notes",
                   "url": ""
                 },
@@ -8003,6 +8008,7 @@
                   "kb": "5133964",
                   "build": "",
                   "fuer": "Entwicklung und Server, Windows (andere)",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8010,6 +8016,7 @@
                   "kb": "5133965",
                   "build": "",
                   "fuer": "Entwicklung und Server, Windows (andere)",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8017,6 +8024,7 @@
                   "kb": "5133966",
                   "build": "",
                   "fuer": "Entwicklung und Server, Windows (andere)",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -8048,6 +8056,7 @@
                   "kb": "5126868",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8055,6 +8064,7 @@
                   "kb": "5127666",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8062,6 +8072,7 @@
                   "kb": "5127685",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8069,6 +8080,7 @@
                   "kb": "5127683",
                   "build": "",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -8096,6 +8108,7 @@
                   "kb": "",
                   "build": "10.0.13",
                   "fuer": "Entwicklung und Server, Windows (andere)",
+                  "produkt": "",
                   "text": "Release Notes",
                   "url": "https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Protocols.MessagePack"
                 },
@@ -8103,6 +8116,7 @@
                   "kb": "",
                   "build": "11.0.0-rc.2",
                   "fuer": "Entwicklung und Server, Windows (andere)",
+                  "produkt": "",
                   "text": "Release Notes",
                   "url": "https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Protocols.MessagePack"
                 },
@@ -8110,6 +8124,7 @@
                   "kb": "",
                   "build": "8.0.32",
                   "fuer": "Entwicklung und Server, Windows (andere)",
+                  "produkt": "",
                   "text": "Release Notes",
                   "url": "https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Protocols.MessagePack"
                 },
@@ -8117,6 +8132,7 @@
                   "kb": "",
                   "build": "9.0.21",
                   "fuer": "Entwicklung und Server, Windows (andere)",
+                  "produkt": "",
                   "text": "Release Notes",
                   "url": "https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Protocols.MessagePack"
                 }
@@ -8147,6 +8163,7 @@
                   "kb": "5126835",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8154,6 +8171,7 @@
                   "kb": "5126836",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8161,6 +8179,7 @@
                   "kb": "5126868",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8168,6 +8187,7 @@
                   "kb": "5126651",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -8195,20 +8215,23 @@
                   "kb": "",
                   "build": "16.0.17932.21056",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
                   "text": "Release Notes",
                   "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
                 },
                 {
                   "kb": "",
-                  "build": "https://aka.ms/OfficeSecurityReleases",
+                  "build": "",
                   "fuer": "Cloud und Dienste",
+                  "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
                   "text": "Release Notes",
-                  "url": "https://learn.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
+                  "url": "https://aka.ms/OfficeSecurityReleases"
                 },
                 {
                   "kb": "",
                   "build": "16.114.26101123",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC for Mac 2021",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 }
@@ -8237,6 +8260,7 @@
                   "kb": "",
                   "build": "16.0.14334.20974",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
                   "text": "Release Notes",
                   "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
                 },
@@ -8244,20 +8268,23 @@
                   "kb": "",
                   "build": "16.0.17932.21056",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
                   "text": "Release Notes",
                   "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
                 },
                 {
                   "kb": "",
-                  "build": "https://aka.ms/OfficeSecurityReleases",
+                  "build": "",
                   "fuer": "Cloud und Dienste",
+                  "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
                   "text": "Release Notes",
-                  "url": "https://learn.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
+                  "url": "https://aka.ms/OfficeSecurityReleases"
                 },
                 {
                   "kb": "",
                   "build": "16.114.26101123",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office 365 for Mac",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 }
@@ -8284,6 +8311,7 @@
                   "kb": "",
                   "build": "16.114.26101123",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC for Mac 2021",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 },
@@ -8291,15 +8319,17 @@
                   "kb": "",
                   "build": "16.0.17932.21056",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
                   "text": "Release Notes",
                   "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
                 },
                 {
                   "kb": "",
-                  "build": "https://aka.ms/OfficeSecurityReleases",
+                  "build": "",
                   "fuer": "Cloud und Dienste",
+                  "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
                   "text": "Release Notes",
-                  "url": "https://learn.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
+                  "url": "https://aka.ms/OfficeSecurityReleases"
                 }
               ],
               "familien": [
@@ -8328,6 +8358,7 @@
                   "kb": "5127648",
                   "build": "",
                   "fuer": "Windows 11",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8335,6 +8366,7 @@
                   "kb": "5126646",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8342,6 +8374,7 @@
                   "kb": "5127646",
                   "build": "",
                   "fuer": "Windows 11",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8349,6 +8382,7 @@
                   "kb": "5126836",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -8380,6 +8414,7 @@
                   "kb": "5126655",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8387,6 +8422,7 @@
                   "kb": "5126653",
                   "build": "",
                   "fuer": "Windows 11",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8394,6 +8430,7 @@
                   "kb": "5127648",
                   "build": "",
                   "fuer": "Windows 11",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8401,6 +8438,7 @@
                   "kb": "5126646",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -8431,6 +8469,7 @@
                   "kb": "5126835",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8438,6 +8477,7 @@
                   "kb": "5126836",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8445,6 +8485,7 @@
                   "kb": "5126868",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8452,6 +8493,7 @@
                   "kb": "5126651",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -8483,6 +8525,7 @@
                   "kb": "5126868",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8490,6 +8533,7 @@
                   "kb": "5126651",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8497,6 +8541,7 @@
                   "kb": "5126657",
                   "build": "",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8504,6 +8549,7 @@
                   "kb": "5126655",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -8535,6 +8581,7 @@
                   "kb": "5126651",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8542,6 +8589,7 @@
                   "kb": "5126655",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8549,6 +8597,7 @@
                   "kb": "5126657",
                   "build": "",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8556,6 +8605,7 @@
                   "kb": "5126646",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -8587,6 +8637,7 @@
                   "kb": "5126835",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8594,6 +8645,7 @@
                   "kb": "5126836",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8601,6 +8653,7 @@
                   "kb": "5126868",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8608,6 +8661,7 @@
                   "kb": "5126651",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -8633,15 +8687,17 @@
               "fixe": [
                 {
                   "kb": "",
-                  "build": "https://aka.ms/OfficeSecurityReleases",
+                  "build": "",
                   "fuer": "Cloud und Dienste",
+                  "produkt": "Microsoft 365 Apps for Enterprise for 32-bit Systems",
                   "text": "Release Notes",
-                  "url": "https://learn.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
+                  "url": "https://aka.ms/OfficeSecurityReleases"
                 },
                 {
                   "kb": "",
                   "build": "16.0.14334.20974",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2021 for 32-bit editions",
                   "text": "Release Notes",
                   "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
                 },
@@ -8649,6 +8705,7 @@
                   "kb": "",
                   "build": "16.0.17932.21056",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2024 for 32-bit editions",
                   "text": "Release Notes",
                   "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
                 }
@@ -8673,15 +8730,17 @@
               "fixe": [
                 {
                   "kb": "",
-                  "build": "https://aka.ms/OfficeSecurityReleases",
+                  "build": "",
                   "fuer": "Cloud und Dienste",
+                  "produkt": "Microsoft 365 Apps for Enterprise for 32-bit Systems",
                   "text": "Release Notes",
-                  "url": "https://learn.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
+                  "url": "https://aka.ms/OfficeSecurityReleases"
                 },
                 {
                   "kb": "",
                   "build": "16.0.14334.20974",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2021 for 32-bit editions",
                   "text": "Release Notes",
                   "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
                 },
@@ -8689,6 +8748,7 @@
                   "kb": "",
                   "build": "16.0.17932.21056",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2024 for 32-bit editions",
                   "text": "Release Notes",
                   "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
                 }
@@ -8713,15 +8773,17 @@
               "fixe": [
                 {
                   "kb": "",
-                  "build": "https://aka.ms/OfficeSecurityReleases",
+                  "build": "",
                   "fuer": "Cloud und Dienste",
+                  "produkt": "Microsoft 365 Apps for Enterprise for 32-bit Systems",
                   "text": "Release Notes",
-                  "url": "https://learn.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
+                  "url": "https://aka.ms/OfficeSecurityReleases"
                 },
                 {
                   "kb": "",
                   "build": "16.0.14334.20974",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2021 for 32-bit editions",
                   "text": "Release Notes",
                   "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
                 },
@@ -8729,6 +8791,7 @@
                   "kb": "",
                   "build": "16.0.17932.21056",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2024 for 32-bit editions",
                   "text": "Release Notes",
                   "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
                 }
@@ -8757,6 +8820,7 @@
                   "kb": "5002927",
                   "build": "",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft SharePoint Server Subscription Edition",
                   "text": "",
                   "url": ""
                 }
@@ -8803,6 +8867,7 @@
                   "kb": "5126655",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8810,6 +8875,7 @@
                   "kb": "5126653",
                   "build": "",
                   "fuer": "Windows 11",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8817,6 +8883,7 @@
                   "kb": "5127648",
                   "build": "",
                   "fuer": "Windows 11",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8824,6 +8891,7 @@
                   "kb": "5126646",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -8853,6 +8921,7 @@
                   "kb": "",
                   "build": "16.114.26101123",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office 365 for Mac",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 },
@@ -8860,6 +8929,7 @@
                   "kb": "",
                   "build": "16.0.14334.20974",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
                   "text": "Release Notes",
                   "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
                 },
@@ -8867,15 +8937,17 @@
                   "kb": "",
                   "build": "16.0.17932.21056",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
                   "text": "Release Notes",
                   "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
                 },
                 {
                   "kb": "",
-                  "build": "https://aka.ms/OfficeSecurityReleases",
+                  "build": "",
                   "fuer": "Cloud und Dienste",
+                  "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
                   "text": "Release Notes",
-                  "url": "https://learn.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
+                  "url": "https://aka.ms/OfficeSecurityReleases"
                 }
               ],
               "familien": [
@@ -8904,6 +8976,7 @@
                   "kb": "5126657",
                   "build": "",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8911,6 +8984,7 @@
                   "kb": "5126655",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8918,6 +8992,7 @@
                   "kb": "5126653",
                   "build": "",
                   "fuer": "Windows 11",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8925,6 +9000,7 @@
                   "kb": "5127648",
                   "build": "",
                   "fuer": "Windows 11",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -8956,6 +9032,7 @@
                   "kb": "5127648",
                   "build": "",
                   "fuer": "Windows 11",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8963,6 +9040,7 @@
                   "kb": "5126646",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -8970,6 +9048,7 @@
                   "kb": "5127646",
                   "build": "",
                   "fuer": "Windows 11",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -9000,6 +9079,7 @@
                   "kb": "5126835",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -9007,6 +9087,7 @@
                   "kb": "5126836",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -9014,6 +9095,7 @@
                   "kb": "5126868",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -9021,6 +9103,7 @@
                   "kb": "5126651",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -9052,6 +9135,7 @@
                   "kb": "5127648",
                   "build": "",
                   "fuer": "Windows 11",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -9059,6 +9143,7 @@
                   "kb": "5126651",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -9066,6 +9151,7 @@
                   "kb": "5126655",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -9073,6 +9159,7 @@
                   "kb": "5126657",
                   "build": "",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -9100,6 +9187,7 @@
                   "kb": "",
                   "build": "2.5.25.0",
                   "fuer": "Windows 11",
+                  "produkt": "",
                   "text": "Release Notes",
                   "url": "https://apps.microsoft.com/store/detail/hevc-video-extensions-from-device-manufacturer/9N4WGH0Z6VHQ?hl=en-us&gl=us"
                 },
@@ -9107,6 +9195,7 @@
                   "kb": "",
                   "build": "2.4.86.0",
                   "fuer": "Windows 10, Windows 11",
+                  "produkt": "",
                   "text": "Release Notes",
                   "url": "https://apps.microsoft.com/store/detail/hevc-video-extensions-from-device-manufacturer/9N4WGH0Z6VHQ?hl=en-us&gl=us"
                 },
@@ -9114,6 +9203,7 @@
                   "kb": "",
                   "build": "2.4.85.0",
                   "fuer": "",
+                  "produkt": "",
                   "text": "Release Notes",
                   "url": "https://apps.microsoft.com/detail/9p3wl96xzmxx"
                 },
@@ -9121,6 +9211,7 @@
                   "kb": "",
                   "build": "2.4.87.0",
                   "fuer": "",
+                  "produkt": "",
                   "text": "Release Notes",
                   "url": "https://apps.microsoft.com/detail/9nmzlz57r3t7"
                 }
@@ -9148,6 +9239,7 @@
                   "kb": "",
                   "build": "16.114.26101123",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC for Mac 2021",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 },
@@ -9155,6 +9247,7 @@
                   "kb": "",
                   "build": "16.0.14334.20974",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
                   "text": "Release Notes",
                   "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
                 },
@@ -9162,15 +9255,17 @@
                   "kb": "",
                   "build": "16.0.17932.21056",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
                   "text": "Release Notes",
                   "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
                 },
                 {
                   "kb": "",
-                  "build": "https://aka.ms/OfficeSecurityReleases",
+                  "build": "",
                   "fuer": "Cloud und Dienste",
+                  "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
                   "text": "Release Notes",
-                  "url": "https://learn.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
+                  "url": "https://aka.ms/OfficeSecurityReleases"
                 }
               ],
               "familien": [
@@ -9195,6 +9290,7 @@
                   "kb": "",
                   "build": "16.114.26101123",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC for Mac 2021",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 },
@@ -9202,6 +9298,7 @@
                   "kb": "",
                   "build": "16.0.14334.20974",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
                   "text": "Release Notes",
                   "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
                 },
@@ -9209,15 +9306,17 @@
                   "kb": "",
                   "build": "16.0.17932.21056",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
                   "text": "Release Notes",
                   "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
                 },
                 {
                   "kb": "",
-                  "build": "https://aka.ms/OfficeSecurityReleases",
+                  "build": "",
                   "fuer": "Cloud und Dienste",
+                  "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
                   "text": "Release Notes",
-                  "url": "https://learn.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
+                  "url": "https://aka.ms/OfficeSecurityReleases"
                 }
               ],
               "familien": [
@@ -9242,6 +9341,7 @@
                   "kb": "",
                   "build": "16.0.14334.20974",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
                   "text": "Release Notes",
                   "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
                 },
@@ -9249,20 +9349,23 @@
                   "kb": "",
                   "build": "16.0.17932.21056",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
                   "text": "Release Notes",
                   "url": "https://docs.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
                 },
                 {
                   "kb": "",
-                  "build": "https://aka.ms/OfficeSecurityReleases",
+                  "build": "",
                   "fuer": "Cloud und Dienste",
+                  "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
                   "text": "Release Notes",
-                  "url": "https://learn.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates"
+                  "url": "https://aka.ms/OfficeSecurityReleases"
                 },
                 {
                   "kb": "",
                   "build": "16.114.26101123",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC for Mac 2021",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 }
@@ -9310,6 +9413,7 @@
                   "kb": "5126653",
                   "build": "",
                   "fuer": "Windows 11",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -9317,6 +9421,7 @@
                   "kb": "5126657",
                   "build": "",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -9324,6 +9429,7 @@
                   "kb": "5126655",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -9331,6 +9437,7 @@
                   "kb": "5126646",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -9362,6 +9469,7 @@
                   "kb": "5126835",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -9369,6 +9477,7 @@
                   "kb": "5126836",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -9376,6 +9485,7 @@
                   "kb": "5126868",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -9383,6 +9493,7 @@
                   "kb": "5126651",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -9414,6 +9525,7 @@
                   "kb": "5126835",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -9421,6 +9533,7 @@
                   "kb": "5126836",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -9428,6 +9541,7 @@
                   "kb": "5126868",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -9435,6 +9549,7 @@
                   "kb": "5126651",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -9464,6 +9579,7 @@
                   "kb": "5126651",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -9507,6 +9623,7 @@
                   "kb": "",
                   "build": "2.4.36.0",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "Release Notes",
                   "url": ""
                 },
@@ -9514,6 +9631,7 @@
                   "kb": "",
                   "build": "2.5.35.0",
                   "fuer": "Windows 11",
+                  "produkt": "",
                   "text": "Release Notes",
                   "url": ""
                 }
@@ -9540,6 +9658,7 @@
                   "kb": "",
                   "build": "7.3",
                   "fuer": "",
+                  "produkt": "",
                   "text": "Release Notes",
                   "url": "https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git/commit/?id=35f0f0a2536a4d604b4dbad92c85c4a8fdebb870"
                 }
@@ -9584,6 +9703,7 @@
                   "kb": "5122876",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -9591,6 +9711,7 @@
                   "kb": "5122882",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -9598,6 +9719,7 @@
                   "kb": "5122878",
                   "build": "",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -9605,6 +9727,7 @@
                   "kb": "5122871",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -9636,6 +9759,7 @@
                   "kb": "5126835",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -9643,6 +9767,7 @@
                   "kb": "5126836",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -9650,6 +9775,7 @@
                   "kb": "5126868",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -9657,6 +9783,7 @@
                   "kb": "5126651",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -9681,7 +9808,7 @@
           "id": "2026-Nov",
           "erste_veroeffentlichung": "2026-11-10T08:00:00",
           "aktuell": "2026-11-24T08:00:00",
-          "schema": 8,
+          "schema": 9,
           "cves": 1113,
           "davon_chromium_ausgenommen": 403,
           "davon_azure_linux_ausgenommen": 934,
@@ -9777,6 +9904,7 @@
                   "kb": "",
                   "build": "16.0.14334.21048",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
                   "text": "Release Notes",
                   "url": ""
                 },
@@ -9784,15 +9912,17 @@
                   "kb": "",
                   "build": "16.0.17932.21140",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
                   "text": "Release Notes",
                   "url": ""
                 },
                 {
                   "kb": "",
-                  "build": "https://aka.ms/OfficeSecurityReleases",
+                  "build": "",
                   "fuer": "Cloud und Dienste",
+                  "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
                   "text": "Release Notes",
-                  "url": ""
+                  "url": "https://aka.ms/OfficeSecurityReleases"
                 }
               ],
               "familien": [
@@ -9821,6 +9951,7 @@
                   "kb": "5131291",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -9828,6 +9959,7 @@
                   "kb": "5131085",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -9835,6 +9967,7 @@
                   "kb": "5131096",
                   "build": "",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -9842,6 +9975,7 @@
                   "kb": "5131090",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -9901,6 +10035,7 @@
                   "kb": "",
                   "build": "110.0.7.78, 111.0.7.3",
                   "fuer": "Cloud und Dienste",
+                  "produkt": "",
                   "text": "Release Notes",
                   "url": ""
                 }
@@ -9943,6 +10078,7 @@
                   "kb": "",
                   "build": "16.0.14334.21048",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
                   "text": "Release Notes",
                   "url": ""
                 },
@@ -9950,15 +10086,17 @@
                   "kb": "",
                   "build": "16.0.17932.21140",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
                   "text": "Release Notes",
                   "url": ""
                 },
                 {
                   "kb": "",
-                  "build": "https://aka.ms/OfficeSecurityReleases",
+                  "build": "",
                   "fuer": "Cloud und Dienste",
+                  "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
                   "text": "Release Notes",
-                  "url": ""
+                  "url": "https://aka.ms/OfficeSecurityReleases"
                 }
               ],
               "familien": [
@@ -9983,6 +10121,7 @@
                   "kb": "",
                   "build": "16.0.14334.21048",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
                   "text": "Release Notes",
                   "url": ""
                 },
@@ -9990,6 +10129,7 @@
                   "kb": "",
                   "build": "16.0.17932.21140",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
                   "text": "Release Notes",
                   "url": ""
                 },
@@ -9997,15 +10137,17 @@
                   "kb": "",
                   "build": "16.115.26110837",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC for Mac 2021",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 },
                 {
                   "kb": "",
-                  "build": "https://aka.ms/OfficeSecurityReleases",
+                  "build": "",
                   "fuer": "Cloud und Dienste",
+                  "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
                   "text": "Release Notes",
-                  "url": ""
+                  "url": "https://aka.ms/OfficeSecurityReleases"
                 }
               ],
               "familien": [
@@ -10030,6 +10172,7 @@
                   "kb": "",
                   "build": "16.0.14334.21048",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
                   "text": "Release Notes",
                   "url": ""
                 },
@@ -10037,20 +10180,23 @@
                   "kb": "",
                   "build": "16.0.17932.21140",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
                   "text": "Release Notes",
                   "url": ""
                 },
                 {
                   "kb": "",
-                  "build": "https://aka.ms/OfficeSecurityReleases",
+                  "build": "",
                   "fuer": "Cloud und Dienste",
+                  "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
                   "text": "Release Notes",
-                  "url": ""
+                  "url": "https://aka.ms/OfficeSecurityReleases"
                 },
                 {
                   "kb": "",
                   "build": "16.115.26110837",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC for Mac 2021",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 }
@@ -10077,6 +10223,7 @@
                   "kb": "",
                   "build": "16.0.14334.21048",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
                   "text": "Release Notes",
                   "url": ""
                 },
@@ -10084,20 +10231,23 @@
                   "kb": "",
                   "build": "16.0.17932.21140",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
                   "text": "Release Notes",
                   "url": ""
                 },
                 {
                   "kb": "",
-                  "build": "https://aka.ms/OfficeSecurityReleases",
+                  "build": "",
                   "fuer": "Cloud und Dienste",
+                  "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
                   "text": "Release Notes",
-                  "url": ""
+                  "url": "https://aka.ms/OfficeSecurityReleases"
                 },
                 {
                   "kb": "",
                   "build": "16.115.26110837",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC for Mac 2021",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 }
@@ -10124,6 +10274,7 @@
                   "kb": "",
                   "build": "16.0.14334.21048",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
                   "text": "Release Notes",
                   "url": ""
                 },
@@ -10131,20 +10282,23 @@
                   "kb": "",
                   "build": "16.0.17932.21140",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
                   "text": "Release Notes",
                   "url": ""
                 },
                 {
                   "kb": "",
-                  "build": "https://aka.ms/OfficeSecurityReleases",
+                  "build": "",
                   "fuer": "Cloud und Dienste",
+                  "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
                   "text": "Release Notes",
-                  "url": ""
+                  "url": "https://aka.ms/OfficeSecurityReleases"
                 },
                 {
                   "kb": "",
                   "build": "16.115.26110837",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC for Mac 2021",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 }
@@ -10171,6 +10325,7 @@
                   "kb": "",
                   "build": "16.0.14334.21048",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
                   "text": "Release Notes",
                   "url": ""
                 },
@@ -10178,20 +10333,23 @@
                   "kb": "",
                   "build": "16.0.17932.21140",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
                   "text": "Release Notes",
                   "url": ""
                 },
                 {
                   "kb": "",
-                  "build": "https://aka.ms/OfficeSecurityReleases",
+                  "build": "",
                   "fuer": "Cloud und Dienste",
+                  "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
                   "text": "Release Notes",
-                  "url": ""
+                  "url": "https://aka.ms/OfficeSecurityReleases"
                 },
                 {
                   "kb": "",
                   "build": "16.115.26110837",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC for Mac 2021",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 }
@@ -10218,6 +10376,7 @@
                   "kb": "",
                   "build": "16.0.14334.21048",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
                   "text": "Release Notes",
                   "url": ""
                 },
@@ -10225,15 +10384,17 @@
                   "kb": "",
                   "build": "16.0.17932.21140",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
                   "text": "Release Notes",
                   "url": ""
                 },
                 {
                   "kb": "",
-                  "build": "https://aka.ms/OfficeSecurityReleases",
+                  "build": "",
                   "fuer": "Cloud und Dienste",
+                  "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
                   "text": "Release Notes",
-                  "url": ""
+                  "url": "https://aka.ms/OfficeSecurityReleases"
                 }
               ],
               "familien": [
@@ -10258,6 +10419,7 @@
                   "kb": "",
                   "build": "16.0.14334.21048",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
                   "text": "Release Notes",
                   "url": ""
                 },
@@ -10265,15 +10427,17 @@
                   "kb": "",
                   "build": "16.0.17932.21140",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
                   "text": "Release Notes",
                   "url": ""
                 },
                 {
                   "kb": "",
-                  "build": "https://aka.ms/OfficeSecurityReleases",
+                  "build": "",
                   "fuer": "Cloud und Dienste",
+                  "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
                   "text": "Release Notes",
-                  "url": ""
+                  "url": "https://aka.ms/OfficeSecurityReleases"
                 }
               ],
               "familien": [
@@ -10302,6 +10466,7 @@
                   "kb": "5131085",
                   "build": "",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10309,6 +10474,7 @@
                   "kb": "5131096",
                   "build": "",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10316,6 +10482,7 @@
                   "kb": "5131087",
                   "build": "",
                   "fuer": "Windows 11",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10323,6 +10490,7 @@
                   "kb": "5132061",
                   "build": "",
                   "fuer": "Windows 11",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -10353,6 +10521,7 @@
                   "kb": "5131291",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10360,6 +10529,7 @@
                   "kb": "5131085",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10367,6 +10537,7 @@
                   "kb": "5131096",
                   "build": "",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10374,6 +10545,7 @@
                   "kb": "5131090",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -10405,6 +10577,7 @@
                   "kb": "5131291",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10412,6 +10585,7 @@
                   "kb": "5131085",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10419,6 +10593,7 @@
                   "kb": "5131096",
                   "build": "",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10426,6 +10601,7 @@
                   "kb": "5131090",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -10455,6 +10631,7 @@
                   "kb": "5132059",
                   "build": "",
                   "fuer": "Windows 11",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -10499,6 +10676,7 @@
                   "kb": "5131085",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10506,6 +10684,7 @@
                   "kb": "5131096",
                   "build": "",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10513,6 +10692,7 @@
                   "kb": "5131090",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10520,6 +10700,7 @@
                   "kb": "5131087",
                   "build": "",
                   "fuer": "Windows 11",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -10551,6 +10732,7 @@
                   "kb": "5131090",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10558,6 +10740,7 @@
                   "kb": "5131096",
                   "build": "",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10565,6 +10748,7 @@
                   "kb": "5131080",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10572,6 +10756,7 @@
                   "kb": "5131077",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -10603,6 +10788,7 @@
                   "kb": "5132061",
                   "build": "",
                   "fuer": "Windows 11",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10610,6 +10796,7 @@
                   "kb": "5132043",
                   "build": "",
                   "fuer": "Windows 11",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10617,6 +10804,7 @@
                   "kb": "5131080",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10624,6 +10812,7 @@
                   "kb": "5131077",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -10654,6 +10843,7 @@
                   "kb": "5131085",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10661,6 +10851,7 @@
                   "kb": "5131096",
                   "build": "",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10668,6 +10859,7 @@
                   "kb": "5131090",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10675,6 +10867,7 @@
                   "kb": "5131087",
                   "build": "",
                   "fuer": "Windows 11",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -10706,6 +10899,7 @@
                   "kb": "5131291",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10713,6 +10907,7 @@
                   "kb": "5131085",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10720,6 +10915,7 @@
                   "kb": "5131096",
                   "build": "",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10727,6 +10923,7 @@
                   "kb": "5131090",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -10758,6 +10955,7 @@
                   "kb": "5131291",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10765,6 +10963,7 @@
                   "kb": "5131085",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10772,6 +10971,7 @@
                   "kb": "5131096",
                   "build": "",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10779,6 +10979,7 @@
                   "kb": "5131090",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -10810,6 +11011,7 @@
                   "kb": "5131291",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10817,6 +11019,7 @@
                   "kb": "5131085",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10824,6 +11027,7 @@
                   "kb": "5131096",
                   "build": "",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10831,6 +11035,7 @@
                   "kb": "5131090",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -10862,6 +11067,7 @@
                   "kb": "5131096",
                   "build": "",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10869,6 +11075,7 @@
                   "kb": "5131090",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10876,6 +11083,7 @@
                   "kb": "5131087",
                   "build": "",
                   "fuer": "Windows 11",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10883,6 +11091,7 @@
                   "kb": "5132061",
                   "build": "",
                   "fuer": "Windows 11",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -10910,6 +11119,7 @@
                   "kb": "",
                   "build": "",
                   "fuer": "Cloud und Dienste",
+                  "produkt": "",
                   "text": "Release Notes",
                   "url": ""
                 }
@@ -10935,6 +11145,7 @@
                   "kb": "",
                   "build": "",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "Release Notes",
                   "url": ""
                 },
@@ -10942,6 +11153,7 @@
                   "kb": "",
                   "build": "2.4.43.0",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "Release Notes",
                   "url": "https://apps.microsoft.com/detail/9nctdw2w1bh8"
                 },
@@ -10949,6 +11161,7 @@
                   "kb": "",
                   "build": "2.5.42.0",
                   "fuer": "Windows 11",
+                  "produkt": "",
                   "text": "Release Notes",
                   "url": "https://apps.microsoft.com/detail/9nctdw2w1bh8"
                 }
@@ -10979,6 +11192,7 @@
                   "kb": "5131291",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10986,6 +11200,7 @@
                   "kb": "5131085",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -10993,6 +11208,7 @@
                   "kb": "5131096",
                   "build": "",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -11000,6 +11216,7 @@
                   "kb": "5131090",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -11031,6 +11248,7 @@
                   "kb": "5132061",
                   "build": "",
                   "fuer": "Windows 11",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -11038,6 +11256,7 @@
                   "kb": "5132043",
                   "build": "",
                   "fuer": "Windows 11",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -11045,6 +11264,7 @@
                   "kb": "5131085",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -11052,6 +11272,7 @@
                   "kb": "5131090",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -11083,6 +11304,7 @@
                   "kb": "5131085",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -11090,6 +11312,7 @@
                   "kb": "5131090",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -11097,6 +11320,7 @@
                   "kb": "5131096",
                   "build": "",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -11104,6 +11328,7 @@
                   "kb": "5131080",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -11135,6 +11360,7 @@
                   "kb": "5131291",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -11142,6 +11368,7 @@
                   "kb": "5131085",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -11149,6 +11376,7 @@
                   "kb": "5131096",
                   "build": "",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -11156,6 +11384,7 @@
                   "kb": "5131090",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -11187,6 +11416,7 @@
                   "kb": "5131291",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -11194,6 +11424,7 @@
                   "kb": "5131085",
                   "build": "",
                   "fuer": "Windows 10, Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -11201,6 +11432,7 @@
                   "kb": "5131096",
                   "build": "",
                   "fuer": "Windows 10",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 },
@@ -11208,6 +11440,7 @@
                   "kb": "5131090",
                   "build": "",
                   "fuer": "Windows Server",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -11237,6 +11470,7 @@
                   "kb": "5133453",
                   "build": "",
                   "fuer": "Exchange",
+                  "produkt": "",
                   "text": "",
                   "url": ""
                 }
@@ -11298,6 +11532,7 @@
                   "kb": "",
                   "build": "16.115.26110837",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC for Mac 2021",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 },
@@ -11305,6 +11540,7 @@
                   "kb": "5002946",
                   "build": "",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Office Online Server",
                   "text": "",
                   "url": ""
                 },
@@ -11312,6 +11548,7 @@
                   "kb": "",
                   "build": "16.0.14334.21048",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
                   "text": "Release Notes",
                   "url": ""
                 },
@@ -11319,6 +11556,7 @@
                   "kb": "",
                   "build": "16.0.17932.21140",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
                   "text": "Release Notes",
                   "url": ""
                 }
@@ -11347,6 +11585,7 @@
                   "kb": "",
                   "build": "16.115.26110837",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC for Mac 2021",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 },
@@ -11354,6 +11593,7 @@
                   "kb": "5002946",
                   "build": "",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Office Online Server",
                   "text": "",
                   "url": ""
                 },
@@ -11361,6 +11601,7 @@
                   "kb": "",
                   "build": "16.0.14334.21048",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
                   "text": "Release Notes",
                   "url": ""
                 },
@@ -11368,6 +11609,7 @@
                   "kb": "",
                   "build": "16.0.17932.21140",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
                   "text": "Release Notes",
                   "url": ""
                 }
@@ -11396,6 +11638,7 @@
                   "kb": "",
                   "build": "16.0.14334.21048",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
                   "text": "Release Notes",
                   "url": ""
                 },
@@ -11403,20 +11646,23 @@
                   "kb": "",
                   "build": "16.0.17932.21140",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
                   "text": "Release Notes",
                   "url": ""
                 },
                 {
                   "kb": "",
-                  "build": "https://aka.ms/OfficeSecurityReleases",
+                  "build": "",
                   "fuer": "Cloud und Dienste",
+                  "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
                   "text": "Release Notes",
-                  "url": ""
+                  "url": "https://aka.ms/OfficeSecurityReleases"
                 },
                 {
                   "kb": "",
                   "build": "16.115.26110837",
                   "fuer": "Office und SharePoint",
+                  "produkt": "Microsoft Office LTSC for Mac 2021",
                   "text": "Release Notes",
                   "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
                 }
@@ -11456,14 +11702,15 @@
           "grund": "Steht im CISA-KEV: Die Lücke wird nachweislich angegriffen.",
           "grund_en": "Listed in the CISA KEV: the flaw is proven to be attacked.",
           "patch": "ja",
-          "patch_text": "Update liegt vor, Microsoft nennt keine KB-Nummer (Office-/Cloud-Update, Details auf der Microsoft-Seite)",
-          "patch_text_en": "Update available, Microsoft names no KB number (Office/cloud update, details on the Microsoft page)",
-          "patch_link": "",
+          "patch_text": "Patch liegt vor: Office-Version 16.0.14334.21048, 16.0.17932.21140",
+          "patch_text_en": "Patch available: Office version 16.0.14334.21048, 16.0.17932.21140",
+          "patch_link": "https://aka.ms/OfficeSecurityReleases",
           "fixe": [
             {
               "kb": "",
               "build": "16.0.14334.21048",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
               "text": "Release Notes",
               "url": ""
             },
@@ -11471,15 +11718,17 @@
               "kb": "",
               "build": "16.0.17932.21140",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
               "text": "Release Notes",
               "url": ""
             },
             {
               "kb": "",
-              "build": "https://aka.ms/OfficeSecurityReleases",
+              "build": "",
               "fuer": "Cloud und Dienste",
+              "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
               "text": "Release Notes",
-              "url": ""
+              "url": "https://aka.ms/OfficeSecurityReleases"
             }
           ],
           "monat": "2026-Nov",
@@ -11634,6 +11883,7 @@
               "kb": "5132061",
               "build": "",
               "fuer": "Windows 11",
+              "produkt": "",
               "text": "",
               "url": ""
             },
@@ -11641,6 +11891,7 @@
               "kb": "5132043",
               "build": "",
               "fuer": "Windows 11",
+              "produkt": "",
               "text": "",
               "url": ""
             },
@@ -11648,6 +11899,7 @@
               "kb": "5131085",
               "build": "",
               "fuer": "Windows 10, Windows Server",
+              "produkt": "",
               "text": "",
               "url": ""
             },
@@ -11655,6 +11907,7 @@
               "kb": "5131090",
               "build": "",
               "fuer": "Windows Server",
+              "produkt": "",
               "text": "",
               "url": ""
             }
@@ -11684,6 +11937,7 @@
               "kb": "5131085",
               "build": "",
               "fuer": "Windows 10",
+              "produkt": "",
               "text": "",
               "url": ""
             },
@@ -11691,6 +11945,7 @@
               "kb": "5131096",
               "build": "",
               "fuer": "Windows 10",
+              "produkt": "",
               "text": "",
               "url": ""
             },
@@ -11698,6 +11953,7 @@
               "kb": "5131087",
               "build": "",
               "fuer": "Windows 11",
+              "produkt": "",
               "text": "",
               "url": ""
             },
@@ -11705,6 +11961,7 @@
               "kb": "5132061",
               "build": "",
               "fuer": "Windows 11",
+              "produkt": "",
               "text": "",
               "url": ""
             }
@@ -11734,6 +11991,7 @@
               "kb": "5133453",
               "build": "",
               "fuer": "Exchange",
+              "produkt": "",
               "text": "",
               "url": ""
             }
@@ -11755,14 +12013,15 @@
           "grund": "Von Microsoft als kritisch eingestuft.",
           "grund_en": "Rated critical by Microsoft.",
           "patch": "ja",
-          "patch_text": "Update liegt vor, Microsoft nennt keine KB-Nummer (Office-/Cloud-Update, Details auf der Microsoft-Seite)",
-          "patch_text_en": "Update available, Microsoft names no KB number (Office/cloud update, details on the Microsoft page)",
-          "patch_link": "",
+          "patch_text": "Patch liegt vor: Office-Version 16.0.14334.21048, 16.0.17932.21140, 16.115.26110837",
+          "patch_text_en": "Patch available: Office version 16.0.14334.21048, 16.0.17932.21140, 16.115.26110837",
+          "patch_link": "https://aka.ms/OfficeSecurityReleases",
           "fixe": [
             {
               "kb": "",
               "build": "16.0.14334.21048",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
               "text": "Release Notes",
               "url": ""
             },
@@ -11770,20 +12029,23 @@
               "kb": "",
               "build": "16.0.17932.21140",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
               "text": "Release Notes",
               "url": ""
             },
             {
               "kb": "",
-              "build": "https://aka.ms/OfficeSecurityReleases",
+              "build": "",
               "fuer": "Cloud und Dienste",
+              "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
               "text": "Release Notes",
-              "url": ""
+              "url": "https://aka.ms/OfficeSecurityReleases"
             },
             {
               "kb": "",
               "build": "16.115.26110837",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC for Mac 2021",
               "text": "Release Notes",
               "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
             }
@@ -11805,14 +12067,15 @@
           "grund": "Von Microsoft als kritisch eingestuft.",
           "grund_en": "Rated critical by Microsoft.",
           "patch": "ja",
-          "patch_text": "Update liegt vor, Microsoft nennt keine KB-Nummer (Office-/Cloud-Update, Details auf der Microsoft-Seite)",
-          "patch_text_en": "Update available, Microsoft names no KB number (Office/cloud update, details on the Microsoft page)",
-          "patch_link": "",
+          "patch_text": "Patch liegt vor: Office-Version 16.0.14334.21048, 16.0.17932.21140",
+          "patch_text_en": "Patch available: Office version 16.0.14334.21048, 16.0.17932.21140",
+          "patch_link": "https://aka.ms/OfficeSecurityReleases",
           "fixe": [
             {
               "kb": "",
               "build": "16.0.14334.21048",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
               "text": "Release Notes",
               "url": ""
             },
@@ -11820,15 +12083,17 @@
               "kb": "",
               "build": "16.0.17932.21140",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
               "text": "Release Notes",
               "url": ""
             },
             {
               "kb": "",
-              "build": "https://aka.ms/OfficeSecurityReleases",
+              "build": "",
               "fuer": "Cloud und Dienste",
+              "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
               "text": "Release Notes",
-              "url": ""
+              "url": "https://aka.ms/OfficeSecurityReleases"
             }
           ],
           "monat": "2026-Nov",
@@ -11848,14 +12113,15 @@
           "grund": "Von Microsoft als kritisch eingestuft.",
           "grund_en": "Rated critical by Microsoft.",
           "patch": "ja",
-          "patch_text": "Update liegt vor, Microsoft nennt keine KB-Nummer (Office-/Cloud-Update, Details auf der Microsoft-Seite)",
-          "patch_text_en": "Update available, Microsoft names no KB number (Office/cloud update, details on the Microsoft page)",
-          "patch_link": "",
+          "patch_text": "Patch liegt vor: Office-Version 16.0.14334.21048, 16.0.17932.21140, 16.115.26110837",
+          "patch_text_en": "Patch available: Office version 16.0.14334.21048, 16.0.17932.21140, 16.115.26110837",
+          "patch_link": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac",
           "fixe": [
             {
               "kb": "",
               "build": "16.0.14334.21048",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
               "text": "Release Notes",
               "url": ""
             },
@@ -11863,6 +12129,7 @@
               "kb": "",
               "build": "16.0.17932.21140",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
               "text": "Release Notes",
               "url": ""
             },
@@ -11870,15 +12137,17 @@
               "kb": "",
               "build": "16.115.26110837",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC for Mac 2021",
               "text": "Release Notes",
               "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
             },
             {
               "kb": "",
-              "build": "https://aka.ms/OfficeSecurityReleases",
+              "build": "",
               "fuer": "Cloud und Dienste",
+              "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
               "text": "Release Notes",
-              "url": ""
+              "url": "https://aka.ms/OfficeSecurityReleases"
             }
           ],
           "monat": "2026-Nov",
@@ -11898,14 +12167,15 @@
           "grund": "Von Microsoft als kritisch eingestuft.",
           "grund_en": "Rated critical by Microsoft.",
           "patch": "ja",
-          "patch_text": "Update liegt vor, Microsoft nennt keine KB-Nummer (Office-/Cloud-Update, Details auf der Microsoft-Seite)",
-          "patch_text_en": "Update available, Microsoft names no KB number (Office/cloud update, details on the Microsoft page)",
-          "patch_link": "",
+          "patch_text": "Patch liegt vor: Office-Version 16.0.14334.21048, 16.0.17932.21140, 16.115.26110837",
+          "patch_text_en": "Patch available: Office version 16.0.14334.21048, 16.0.17932.21140, 16.115.26110837",
+          "patch_link": "https://aka.ms/OfficeSecurityReleases",
           "fixe": [
             {
               "kb": "",
               "build": "16.0.14334.21048",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
               "text": "Release Notes",
               "url": ""
             },
@@ -11913,20 +12183,23 @@
               "kb": "",
               "build": "16.0.17932.21140",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
               "text": "Release Notes",
               "url": ""
             },
             {
               "kb": "",
-              "build": "https://aka.ms/OfficeSecurityReleases",
+              "build": "",
               "fuer": "Cloud und Dienste",
+              "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
               "text": "Release Notes",
-              "url": ""
+              "url": "https://aka.ms/OfficeSecurityReleases"
             },
             {
               "kb": "",
               "build": "16.115.26110837",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC for Mac 2021",
               "text": "Release Notes",
               "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
             }
@@ -11948,14 +12221,15 @@
           "grund": "Von Microsoft als kritisch eingestuft.",
           "grund_en": "Rated critical by Microsoft.",
           "patch": "ja",
-          "patch_text": "Update liegt vor, Microsoft nennt keine KB-Nummer (Office-/Cloud-Update, Details auf der Microsoft-Seite)",
-          "patch_text_en": "Update available, Microsoft names no KB number (Office/cloud update, details on the Microsoft page)",
-          "patch_link": "",
+          "patch_text": "Patch liegt vor: Office-Version 16.0.14334.21048, 16.0.17932.21140, 16.115.26110837",
+          "patch_text_en": "Patch available: Office version 16.0.14334.21048, 16.0.17932.21140, 16.115.26110837",
+          "patch_link": "https://aka.ms/OfficeSecurityReleases",
           "fixe": [
             {
               "kb": "",
               "build": "16.0.14334.21048",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
               "text": "Release Notes",
               "url": ""
             },
@@ -11963,20 +12237,23 @@
               "kb": "",
               "build": "16.0.17932.21140",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
               "text": "Release Notes",
               "url": ""
             },
             {
               "kb": "",
-              "build": "https://aka.ms/OfficeSecurityReleases",
+              "build": "",
               "fuer": "Cloud und Dienste",
+              "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
               "text": "Release Notes",
-              "url": ""
+              "url": "https://aka.ms/OfficeSecurityReleases"
             },
             {
               "kb": "",
               "build": "16.115.26110837",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC for Mac 2021",
               "text": "Release Notes",
               "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
             }
@@ -11998,14 +12275,15 @@
           "grund": "Von Microsoft als kritisch eingestuft.",
           "grund_en": "Rated critical by Microsoft.",
           "patch": "ja",
-          "patch_text": "Update liegt vor, Microsoft nennt keine KB-Nummer (Office-/Cloud-Update, Details auf der Microsoft-Seite)",
-          "patch_text_en": "Update available, Microsoft names no KB number (Office/cloud update, details on the Microsoft page)",
-          "patch_link": "",
+          "patch_text": "Patch liegt vor: Office-Version 16.0.14334.21048, 16.0.17932.21140, 16.115.26110837",
+          "patch_text_en": "Patch available: Office version 16.0.14334.21048, 16.0.17932.21140, 16.115.26110837",
+          "patch_link": "https://aka.ms/OfficeSecurityReleases",
           "fixe": [
             {
               "kb": "",
               "build": "16.0.14334.21048",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
               "text": "Release Notes",
               "url": ""
             },
@@ -12013,20 +12291,23 @@
               "kb": "",
               "build": "16.0.17932.21140",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
               "text": "Release Notes",
               "url": ""
             },
             {
               "kb": "",
-              "build": "https://aka.ms/OfficeSecurityReleases",
+              "build": "",
               "fuer": "Cloud und Dienste",
+              "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
               "text": "Release Notes",
-              "url": ""
+              "url": "https://aka.ms/OfficeSecurityReleases"
             },
             {
               "kb": "",
               "build": "16.115.26110837",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC for Mac 2021",
               "text": "Release Notes",
               "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
             }
@@ -12048,14 +12329,15 @@
           "grund": "Von Microsoft als kritisch eingestuft.",
           "grund_en": "Rated critical by Microsoft.",
           "patch": "ja",
-          "patch_text": "Update liegt vor, Microsoft nennt keine KB-Nummer (Office-/Cloud-Update, Details auf der Microsoft-Seite)",
-          "patch_text_en": "Update available, Microsoft names no KB number (Office/cloud update, details on the Microsoft page)",
-          "patch_link": "",
+          "patch_text": "Patch liegt vor: Office-Version 16.0.14334.21048, 16.0.17932.21140",
+          "patch_text_en": "Patch available: Office version 16.0.14334.21048, 16.0.17932.21140",
+          "patch_link": "https://aka.ms/OfficeSecurityReleases",
           "fixe": [
             {
               "kb": "",
               "build": "16.0.14334.21048",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
               "text": "Release Notes",
               "url": ""
             },
@@ -12063,15 +12345,17 @@
               "kb": "",
               "build": "16.0.17932.21140",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
               "text": "Release Notes",
               "url": ""
             },
             {
               "kb": "",
-              "build": "https://aka.ms/OfficeSecurityReleases",
+              "build": "",
               "fuer": "Cloud und Dienste",
+              "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
               "text": "Release Notes",
-              "url": ""
+              "url": "https://aka.ms/OfficeSecurityReleases"
             }
           ],
           "monat": "2026-Nov",
@@ -12099,6 +12383,7 @@
               "kb": "",
               "build": "16.115.26110837",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC for Mac 2021",
               "text": "Release Notes",
               "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
             },
@@ -12106,6 +12391,7 @@
               "kb": "5002946",
               "build": "",
               "fuer": "Office und SharePoint",
+              "produkt": "Office Online Server",
               "text": "",
               "url": ""
             },
@@ -12113,6 +12399,7 @@
               "kb": "",
               "build": "16.0.14334.21048",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
               "text": "Release Notes",
               "url": ""
             },
@@ -12120,6 +12407,7 @@
               "kb": "",
               "build": "16.0.17932.21140",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
               "text": "Release Notes",
               "url": ""
             }
@@ -12149,6 +12437,7 @@
               "kb": "",
               "build": "16.115.26110837",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC for Mac 2021",
               "text": "Release Notes",
               "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
             },
@@ -12156,6 +12445,7 @@
               "kb": "5002946",
               "build": "",
               "fuer": "Office und SharePoint",
+              "produkt": "Office Online Server",
               "text": "",
               "url": ""
             },
@@ -12163,6 +12453,7 @@
               "kb": "",
               "build": "16.0.14334.21048",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
               "text": "Release Notes",
               "url": ""
             },
@@ -12170,6 +12461,7 @@
               "kb": "",
               "build": "16.0.17932.21140",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
               "text": "Release Notes",
               "url": ""
             }
@@ -12199,6 +12491,7 @@
               "kb": "5131291",
               "build": "",
               "fuer": "Windows 10, Windows Server",
+              "produkt": "",
               "text": "",
               "url": ""
             },
@@ -12206,6 +12499,7 @@
               "kb": "5131085",
               "build": "",
               "fuer": "Windows 10, Windows Server",
+              "produkt": "",
               "text": "",
               "url": ""
             },
@@ -12213,6 +12507,7 @@
               "kb": "5131096",
               "build": "",
               "fuer": "Windows 10",
+              "produkt": "",
               "text": "",
               "url": ""
             },
@@ -12220,6 +12515,7 @@
               "kb": "5131090",
               "build": "",
               "fuer": "Windows Server",
+              "produkt": "",
               "text": "",
               "url": ""
             }
@@ -12249,6 +12545,7 @@
               "kb": "5131291",
               "build": "",
               "fuer": "Windows 10, Windows Server",
+              "produkt": "",
               "text": "",
               "url": ""
             },
@@ -12256,6 +12553,7 @@
               "kb": "5131085",
               "build": "",
               "fuer": "Windows 10, Windows Server",
+              "produkt": "",
               "text": "",
               "url": ""
             },
@@ -12263,6 +12561,7 @@
               "kb": "5131096",
               "build": "",
               "fuer": "Windows 10",
+              "produkt": "",
               "text": "",
               "url": ""
             },
@@ -12270,6 +12569,7 @@
               "kb": "5131090",
               "build": "",
               "fuer": "Windows Server",
+              "produkt": "",
               "text": "",
               "url": ""
             }
@@ -12291,14 +12591,15 @@
           "grund": "Von Microsoft als kritisch eingestuft.",
           "grund_en": "Rated critical by Microsoft.",
           "patch": "ja",
-          "patch_text": "Update liegt vor, Microsoft nennt keine KB-Nummer (Office-/Cloud-Update, Details auf der Microsoft-Seite)",
-          "patch_text_en": "Update available, Microsoft names no KB number (Office/cloud update, details on the Microsoft page)",
-          "patch_link": "",
+          "patch_text": "Patch liegt vor: Office-Version 2.4.43.0, 2.5.42.0",
+          "patch_text_en": "Patch available: Office version 2.4.43.0, 2.5.42.0",
+          "patch_link": "https://apps.microsoft.com/detail/9nctdw2w1bh8",
           "fixe": [
             {
               "kb": "",
               "build": "",
               "fuer": "Windows 10",
+              "produkt": "",
               "text": "Release Notes",
               "url": ""
             },
@@ -12306,6 +12607,7 @@
               "kb": "",
               "build": "2.4.43.0",
               "fuer": "Windows 10",
+              "produkt": "",
               "text": "Release Notes",
               "url": "https://apps.microsoft.com/detail/9nctdw2w1bh8"
             },
@@ -12313,6 +12615,7 @@
               "kb": "",
               "build": "2.5.42.0",
               "fuer": "Windows 11",
+              "produkt": "",
               "text": "Release Notes",
               "url": "https://apps.microsoft.com/detail/9nctdw2w1bh8"
             }
@@ -12336,12 +12639,13 @@
           "patch": "ja",
           "patch_text": "Patch liegt vor: KB5002946",
           "patch_text_en": "Patch available: KB5002946",
-          "patch_link": "",
+          "patch_link": "https://aka.ms/OfficeSecurityReleases",
           "fixe": [
             {
               "kb": "",
               "build": "16.0.14334.21048",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC 2021 for 64-bit editions",
               "text": "Release Notes",
               "url": ""
             },
@@ -12349,20 +12653,23 @@
               "kb": "",
               "build": "16.0.17932.21140",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC 2024 for 64-bit editions",
               "text": "Release Notes",
               "url": ""
             },
             {
               "kb": "",
-              "build": "https://aka.ms/OfficeSecurityReleases",
+              "build": "",
               "fuer": "Cloud und Dienste",
+              "produkt": "Microsoft 365 Apps for Enterprise for 64-bit Systems",
               "text": "Release Notes",
-              "url": ""
+              "url": "https://aka.ms/OfficeSecurityReleases"
             },
             {
               "kb": "",
               "build": "16.115.26110837",
               "fuer": "Office und SharePoint",
+              "produkt": "Microsoft Office LTSC for Mac 2021",
               "text": "Release Notes",
               "url": "https://learn.microsoft.com/en-us/officeupdates/release-notes-office-for-mac"
             }
@@ -12379,7 +12686,7 @@
     "hersteller": {
       "meta": {
         "hinweis": "Nur Zählung und Verweise auf die Meldungen der Hersteller. Schweregrade stammen von den Herstellern und fehlen, wo sie nicht geliefert werden.",
-        "abgerufen_am": "2026-11-25T06:59:59+00:00"
+        "abgerufen_am": "2026-11-25T07:05:06+00:00"
       },
       "quellen": {
         "ubuntu": {
@@ -12543,7 +12850,7 @@
               "schwere": null
             }
           ],
-          "abgerufen_am": "2026-11-25T06:59:59+00:00",
+          "abgerufen_am": "2026-11-25T07:05:06+00:00",
           "status": "ok"
         },
         "debian": {
@@ -12632,7 +12939,7 @@
               "schwere": null
             }
           ],
-          "abgerufen_am": "2026-11-25T06:59:59+00:00",
+          "abgerufen_am": "2026-11-25T07:05:06+00:00",
           "status": "ok"
         },
         "redhat": {
@@ -12795,7 +13102,7 @@
               "schwere": "hoch"
             }
           ],
-          "abgerufen_am": "2026-11-25T06:59:59+00:00",
+          "abgerufen_am": "2026-11-25T07:05:06+00:00",
           "status": "ok"
         },
         "cisco": {
@@ -12949,7 +13256,7 @@
               "schwere": "kritisch"
             }
           ],
-          "abgerufen_am": "2026-11-25T06:59:59+00:00",
+          "abgerufen_am": "2026-11-25T07:05:06+00:00",
           "status": "ok"
         }
       }
