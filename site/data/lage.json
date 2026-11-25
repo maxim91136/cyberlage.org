@@ -4753,7 +4753,7 @@
                 "name": "BSI Cyber Index",
                 "name_en": "BSI Cyber Index",
                 "status": "aktiv",
-                "historie": "kein Archiv, live seit 24.11.2026",
+                "historie": "kein Archiv, live seit 25.11.2026",
                 "ausschlag": 1.42
               },
               {
@@ -4761,7 +4761,7 @@
                 "name": "SANS Infocon",
                 "name_en": "SANS Infocon",
                 "status": "aktiv",
-                "historie": "kein Archiv, live seit 24.11.2026",
+                "historie": "kein Archiv, live seit 25.11.2026",
                 "ausschlag": 0.4
               }
             ]
@@ -4790,14 +4790,8 @@
             ]
           }
         ],
-        "live_seit": "2026-11-24",
+        "live_seit": "2026-11-25",
         "reihe": [
-          {
-            "stand": "2026-11-24",
-            "wert": 55,
-            "signale": 4,
-            "von": 5
-          },
           {
             "stand": "2026-11-25",
             "wert": 62,
@@ -17510,7 +17504,7 @@
       "status": "vorlaeufig"
     },
     "status": "vorlaeufig",
-    "live_seit": "2026-11-24",
+    "live_seit": "2026-11-25",
     "modell": "v1",
     "von_bausteine": 8,
     "reihe": [
@@ -25183,8 +25177,8 @@
         "stand": "2026-11-24",
         "ausnutzung": 70,
         "n": 6,
-        "wert": 55,
-        "signale": 4
+        "wert": null,
+        "signale": null
       },
       {
         "stand": "2026-11-25",

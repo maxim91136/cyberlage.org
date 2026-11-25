@@ -383,8 +383,18 @@ def main(argv):
                                                     "ausschlag": None if einzel.get(b["id"]) is None else round(einzel[b["id"]], 2)}
                                                    for b in mcfg["bausteine"] if b["gruppe"] == g["id"] and b["status"] == "aktiv"]) for g in mcfg["gruppen"]]
         sr = [p for p in (lese_optional(sp) or {}).get("reihe", []) if p["stand"] != stand.isoformat()]
+        # Ein Modell: frühere Live-Tage werden aus den gespeicherten Einzelwerten und den Archivdaten mit dem heutigen Modell neu gerechnet.
+        gesp = {x["stand"]: x.get("aktiv") or {} for x in (lese_optional(bp) or {}).get("reihe", [])}
+        sr = [x for x in sr if x["stand"] in gesp]  # Tage ohne gespeicherte Einzelwerte lassen sich nicht nach dem heutigen Modell rechnen
+        for x in sr:
+            if x["stand"] in gesp:
+                e_d = dict(gesp[x["stand"]])
+                e_d.update({k: v[x["stand"]] for k, v in arch_aus.items() if x["stand"] in v})
+                neu_sc = modell.score(e_d, mcfg)
+                if neu_sc:
+                    x.update(wert=neu_sc["wert"], signale=neu_sc["signale"], von=neu_sc["von"], modell=mcfg["version"])
         sr.append({"stand": stand.isoformat(), "wert": rs["wert"], "signale": rs["signale"], "von": rs["von"], "modell": rs.get("modell")})
-        sp.write_text(json.dumps({"meta": {"name": "Dreier-Pegel (Gesamtscore)", "hinweis": "Tagesstand live gespeichert, keine Rückrechnung möglich, weil die externen Signale keine Historie haben"},
+        sp.write_text(json.dumps({"meta": {"name": "Dreier-Pegel (Gesamtscore)", "hinweis": "Tagesstand des vollen Pegels, live gespeichert; die Rückrechnung aus den Archivdaten steht in lage.json"},
                                   "reihe": sr}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
         rs["live_seit"] = sr[0]["stand"]
         rs["reihe"] = sr[-90:]
