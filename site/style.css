@@ -579,3 +579,6 @@ html[lang=en] #teil3 .akk>summary::after{content:"OPEN +"}html[lang=en] #teil3 .
 /* /abo-Menü: unter dem Knopf statt links am Rand (Spezifität von .dd-box.dd-l überschrieb right:0) */
 .dd-box.dd-l.dd-abo{left:auto;right:0;transform:none}
 @media (min-width:900px){#abo{position:relative}#abo .dd-box.dd-abo{width:340px}}
+
+/* Tippflächen auf dem Handy, Patch-Zeile ohne verwaisten Punkt */
+@media (max-width:899px){.nav-u .spr{min-height:32px;padding-top:6px;padding-bottom:6px}.fazit a,.abo-z small a{display:inline-block;padding:6px 0}}

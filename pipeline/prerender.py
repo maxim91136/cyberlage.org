@@ -16,7 +16,7 @@ def kurzlage(lage):
     pg = lage.get("pegel") or {}
     if not lage.get("stufe") or not isinstance(pg.get("wert"), int):
         return ""
-    return "Dreier-Pegel am %s: %s, %d von 100 (aus %s von %s Bausteinen)." % (lage["stand"], NAME.get(lage["stufe"], lage["stufe"]), pg["wert"], pg.get("signale"), pg.get("von"))
+    return "Dreier-Pegel am %s: %s, %d von 100 (aus %s von %s Bausteinen)." % (".".join(reversed(str(lage["stand"])[:10].split("-"))), NAME.get(lage["stufe"], lage["stufe"]), pg["wert"], pg.get("signale"), pg.get("von"))
 
 
 def baustein(lage):

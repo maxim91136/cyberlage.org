@@ -117,7 +117,7 @@
     $("stufe-wert").textContent = hatStufe ? name : "null";
     if (hatStufe && d.pegel && typeof d.pegel.wert === "number") document.title = "Cyberlage · " + name.toUpperCase() + " " + d.pegel.wert;
     var hp = $("hero-pegel");
-    if (hp) { hp.hidden = !hatStufe; if (hatStufe) { hp.className = "hero-pegel mono st-" + d.stufe; hp.textContent = pick("Dreier-Pegel heute: ", "Dreier Gauge today: ") + name.toUpperCase() + (d.pegel && typeof d.pegel.wert === "number" ? " · " + d.pegel.wert + " / 100" : "") + pick("  · Details", "  · details"); } }
+    if (hp) { hp.hidden = !hatStufe; if (hatStufe) { hp.className = "hero-pegel mono st-" + d.stufe; hp.textContent = pick("Dreier-Pegel heute: ", "Dreier Gauge today: ") + name.toUpperCase() + (d.pegel && typeof d.pegel.wert === "number" ? " · " + d.pegel.wert + "\u00a0/\u00a0100" : "") + pick("  · Details", "  · details"); } }
     window.DP = hatStufe ? name + (d.pegel && typeof d.pegel.wert === "number" ? " " + d.pegel.wert : "") : "";
     if (hatStufe) $("lage-box").classList.add("st-" + d.stufe);
     $("stufe-text").textContent = hatStufe ? "" : txt("keine_bew");
@@ -234,8 +234,14 @@
   }
   bedienung();
 
+  function monatKurz(id) {
+    var M = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], i = M.indexOf((id || "").slice(5));
+    return i < 0 ? (id || "").slice(5) : new Date(Date.UTC(2000, i, 1)).toLocaleDateString(window.I18N.locale, { timeZone: "UTC", month: "short" }).replace(".", "");
+  }
+
   function zeichneVerlauf(v, sw) {
     var svg = $("verlauf"), NS = "http://www.w3.org/2000/svg";
+    Array.prototype.slice.call(svg.childNodes).forEach(function (n) { if (n.nodeName !== "title") svg.removeChild(n); });
     if (!v.length) { $("verlauf-legende").textContent = txt("keine"); return; }
     var B = Math.max(300, Math.round(svg.getBoundingClientRect().width)) || 1000, H = B < 600 ? 190 : 220, L = 30, R = 74, T = 14, U = 28;
     svg.setAttribute("viewBox", "0 0 " + B + " " + H);
@@ -419,7 +425,7 @@
       var r = document.createElementNS(NS, "rect"); r.setAttribute("x", x); r.setAttribute("y", y); r.setAttribute("width", w * 0.7); r.setAttribute("height", Math.max(h, 1));
       r.setAttribute("fill", m.ausgenutzt > 0 ? "#e3b341" : "#3a6b52"); svg.appendChild(r);
       var tt = document.createElementNS(NS, "title"); tt.textContent = monatName(m.id) + ": " + m.cves + " CVEs, " + m.ausgenutzt + pick(" ausgenutzt", " exploited"); r.appendChild(tt);
-      [["" + m.cves, y - 3, "#dfe6ec"], [m.id.slice(5) + (i === 0 || m.id.slice(5) === "Jan" ? " '" + m.id.slice(2, 4) : ""), H - 8, "#8a99a6"]].forEach(function (tx) {
+      [["" + m.cves, y - 3, "#dfe6ec"], [monatKurz(m.id) + (i === 0 || m.id.slice(5) === "Jan" ? " '" + m.id.slice(2, 4) : ""), H - 8, "#8a99a6"]].forEach(function (tx) {
         var te = document.createElementNS(NS, "text"); te.setAttribute("x", x + w * 0.35); te.setAttribute("y", tx[1]); te.setAttribute("text-anchor", "middle");
         te.setAttribute("fill", tx[2]); te.setAttribute("font-size", 10); te.setAttribute("font-family", "ui-monospace,monospace"); te.textContent = tx[0]; svg.appendChild(te);
       });
@@ -564,7 +570,7 @@
         det.appendChild(el("div", "p-w", pick("Warum zuerst: ", "Why first: ") + pick(k.grund, k.grund_en)));
         var bw = [];
         (k.cvss || []).forEach(function (c) { bw.push("CVSS " + String(c.score).replace(".", pick(",", ".")) + ((k.cves || []).length > 1 || k.cvss.length > 1 ? " (" + c.cve + ")" : "")); });
-        if (typeof k.epss === "number") bw.push("EPSS " + Math.round(k.epss * 100) + " %");
+        if (typeof k.epss === "number") bw.push("EPSS\u00a0" + (k.epss >= 0.995 && k.epss < 1 ? ">\u00a099" : Math.round(k.epss * 100)) + "\u00a0%");
         var bwz = el("div", "p-w mono", pick("Bewertung: ", "Scores: ") + (bw.length ? bw.join(" · ") : pick("CVSS noch nicht verfügbar", "CVSS not available yet")) + (k.cves && k.cves.length > 3 ? " …" : ""));
         bwz.title = pick("CVSS: Schwere einer Lücke von 0 bis 10, vergeben vom Hersteller oder der NVD. EPSS: geschätzte Wahrscheinlichkeit, dass die Lücke in den nächsten 30 Tagen ausgenutzt wird (FIRST). KEV: Liste nachweislich ausgenutzter Lücken (CISA).", "CVSS: severity of a flaw from 0 to 10, assigned by the vendor or the NVD. EPSS: estimated probability that the flaw is exploited within the next 30 days (FIRST). KEV: list of flaws proven to be exploited (CISA).");
         li.appendChild(bwz);
@@ -807,7 +813,7 @@
       mk("text", Object.assign({ x: X0 - 8, y: y + 14, "text-anchor": "end" }, mono), pick(b.name, b.name_en));
       mk("rect", { x: X0, y: y, width: X1 - X0, height: 20, fill: "#1a222b" });
       mk("rect", { x: X0, y: y, width: xs(b.ausschlag) - X0, height: 20, fill: over ? "#e3b341" : "#4fa57a" });
-      mk("text", Object.assign({ x: b.ausschlag > 1.8 ? X1 - 6 : xs(b.ausschlag) + 6, y: y + 14 }, mono, b.ausschlag > 1.8 ? { fill: "#0d1117", "font-weight": 700, "text-anchor": "end" } : { fill: "#e6edf3" }), b.ausschlag.toLocaleString(window.I18N.locale, { minimumFractionDigits: 1, maximumFractionDigits: 2 }));
+      mk("text", Object.assign({ x: b.ausschlag > 1.8 ? X1 - 6 : xs(b.ausschlag) + 6, y: y + 14 }, mono, b.ausschlag > 1.8 ? { fill: "#0d1117", "font-weight": 700, "text-anchor": "end" } : { fill: "#e6edf3" }), b.ausschlag.toLocaleString(window.I18N.locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
     });
     bo.forEach(function (b, i) {
       var y = 20 + (bs.length + i) * 34, n = pick(b.name, b.name_en).split(":")[0];
@@ -832,7 +838,7 @@
     sc.modell_gruppen.forEach(function (g) {
       if (!g.bausteine.length) return;
       var li = el("li", ""); li.appendChild(el("b", "mono", pick(g.name, g.name_en) + ": "));
-      li.appendChild(document.createTextNode(g.bausteine.map(function (b) { return pick(b.name, b.name_en) + (typeof b.ausschlag === "number" ? " " + b.ausschlag.toLocaleString(window.I18N.locale, { maximumFractionDigits: 2 }) : " –"); }).join(" · ")));
+      li.appendChild(document.createTextNode(g.bausteine.map(function (b) { return pick(b.name, b.name_en) + (typeof b.ausschlag === "number" ? " " + b.ausschlag.toLocaleString(window.I18N.locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : " –"); }).join(" · ")));
       ul.appendChild(li);
     });
     box.appendChild(ul);
@@ -902,7 +908,7 @@
       var b = el("div", "sg"), st = s.erhoeht === true ? ["●", "an"] : (s.erhoeht === false ? ["○", "aus"] : ["–", "kn"]);
       b.appendChild(el("span", "p mono " + st[1], st[0]));
       b.appendChild(el("span", "n", pick(s.name, s.name_en) + " · " + (s.erhoeht === true ? pick("an oder über der Schwelle", "at or above threshold") : (s.erhoeht === false ? pick("unter der Schwelle", "below threshold") : pick("noch keine Aussage", "no rating yet")))));
-b.appendChild(el("span", "g", typeof s.ausschlag === "number" ? pick("Messwert: das ", "reading: ") + s.ausschlag.toLocaleString(window.I18N.locale, { minimumFractionDigits: 1, maximumFractionDigits: 2 }) + pick("-Fache der Schwelle", "x the threshold") : pick("noch kein Messwert", "no reading yet")));
+b.appendChild(el("span", "g", typeof s.ausschlag === "number" ? pick("Messwert: das ", "reading: ") + s.ausschlag.toLocaleString(window.I18N.locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + pick("-Fache der Schwelle", "x the threshold") : pick("noch kein Messwert", "no reading yet")));
       box.appendChild(b);
     });
   }
@@ -1005,7 +1011,7 @@ b.appendChild(el("span", "g", typeof s.ausschlag === "number" ? pick("Messwert: 
     svg.textContent = "";
     var ti = document.createElementNS(NS, "title"); ti.id = "rd-chart-titel"; svg.appendChild(ti);
     if (!v.length) return;
-    var B = Math.max(300, Math.round(svg.getBoundingClientRect().width)) || 1000, H = B < 600 ? 170 : 200, L = 36, R = 8, T = 10, U = 26;
+    var B = Math.max(300, Math.round(svg.getBoundingClientRect().width)) || 1000, H = B < 600 ? 170 : 200, L = 48, R = 8, T = 10, U = 26;
     svg.setAttribute("viewBox", "0 0 " + B + " " + H);
     var mk = function (tag, a, tx) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); if (tx !== undefined) e.textContent = tx; svg.appendChild(e); return e; };
     var y = function (p) { return T + (H - T - U) * (1 - p); }, w = (B - L - R) / v.length;
