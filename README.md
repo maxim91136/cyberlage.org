@@ -1,6 +1,6 @@
 # Cyberlage
 
-Ein Seismograph der Cyber-Bedrohungslage: Lagebild aus ausgenutzten Schwachstellen und offenen Quellen, mit dem eigenen Score (Dreier-Pegel) und einem Radar daneben. Ein Werkzeug für die Verteidigung: für Blue Teams, SOCs und alle, die ihre Systeme schützen.
+Ein Seismograph der Cyber-Bedrohungslage: Lagebild aus ausgenutzten Schwachstellen und offenen Quellen, mit dem eigenen Gesamtscore (Dreier-Pegel) aus mehreren Bausteinen. Ein Werkzeug für die Verteidigung: für Blue Teams, SOCs und alle, die ihre Systeme schützen.
 
 **Ein Projekt von [Dreier Labs](https://dreierlabs.com).** Ein privates Projekt, keine amtliche Stelle und keine Zusammenarbeit mit einer Behörde.
 
@@ -8,7 +8,7 @@ Status: öffentlich unter https://cyberlage.org. Neues gibt es auch im [Telegram
 
 ## Der Dreier-Pegel
 
-Der **Dreier-Pegel** (englisch: *Dreier Gauge*) ist der eigene Score von Cyberlage: eine Stufe (niedrig, erhöht, hoch), die allein aus den neu aufgenommenen Einträgen des CISA-KEV-Katalogs in 30 Tagen abgeleitet wird, mit Schwellen aus der 36-Monats-Verteilung und einem Aufschlag bei Ransomware. Der Name steht für Dreier Labs. Es ist unsere eigene Methode, die Regeln stehen offen in [RULES.md](RULES.md). Daneben zeigt der **Radar** andere Messungen und Einschätzungen, ohne sie mit dem Pegel zu vermischen.
+Der **Dreier-Pegel** (englisch: *Dreier Gauge*) ist der eigene Gesamtscore von Cyberlage: eine Zahl von 0 bis 100 und eine Stufe (ruhig, unauffällig, angespannt, hoch, außergewöhnlich), gebildet aus gleich gewichteten Bausteinen (KEV-Menge, Tempo bis KEV, BSI Cyber Index, SANS Infocon, Botnetz-Server). Gewichte und Stufengrenzen sind ein offener Entwurf. Der Name steht für Dreier Labs. Es ist unsere eigene Methode, die Regeln stehen offen in [RULES.md](RULES.md). Daneben zeigt der **Radar** andere Messungen und Einschätzungen, ohne sie mit dem Pegel zu vermischen.
 
 ## Grundregeln
 

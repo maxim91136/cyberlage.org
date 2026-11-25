@@ -153,19 +153,19 @@ def radar_stufe(wert, cfg):
     return None
 
 
-def fazit(score, pegel_stufe, cfg, tempo_stufe=None):
-    """Fester Text aus Dreier-Pegel (Menge, Hauptaussage), Dreier-Tempo und Radar-Stufe (Gegenprobe), keine Berechnung und keine Vorhersage."""
+def fazit(score, kev_stufe, cfg, tempo_stufe=None):
+    """Fester Text: Stufe des Dreier-Pegels (Gesamtscore) mit den beiden Bausteinen KEV-Menge und Tempo, keine Berechnung und keine Vorhersage."""
     st = radar_stufe((score or {}).get("wert"), cfg)
-    pg = (cfg or {}).get("pegel", {}).get(pegel_stufe)
+    pg = (cfg or {}).get("pegel", {}).get(kev_stufe)
     if not st or not pg:
         return None
     tp = (cfg or {}).get("tempo", {}).get(tempo_stufe) if tempo_stufe else None
     rang = {"niedrig": 0, "erhoeht": 1, "hoch": 2}
-    wirksam = pegel_stufe if rang.get(pegel_stufe, 0) >= rang.get(tempo_stufe, 0) else tempo_stufe
+    wirksam = kev_stufe if rang.get(kev_stufe, 0) >= rang.get(tempo_stufe, 0) else tempo_stufe
     hint = (cfg or {}).get("pegel", {}).get(wirksam) or pg
-    text = pg["satz"] + (" " + tp["satz"] if tp else "") + " Gegenprobe Radar-Score: " + st["name"] + ". " + st["satz"]
-    text_en = pg["satz_en"] + (" " + tp["satz_en"] if tp else "") + " Cross-check radar score: " + st["name_en"] + ". " + st["satz_en"]
-    return {"status": cfg.get("status"), "radar_stufe": st["name"], "radar_stufe_en": st["name_en"], "ampel": st.get("ampel"), "pegel_stufe": pegel_stufe,
+    text = st["satz"] + " " + pg["satz"] + (" " + tp["satz"] if tp else "")
+    text_en = st["satz_en"] + " " + pg["satz_en"] + (" " + tp["satz_en"] if tp else "")
+    return {"status": cfg.get("status"), "stufe": st["name"], "stufe_en": st["name_en"], "ampel": st.get("ampel"), "kev_stufe": kev_stufe,
             "tempo_stufe": tempo_stufe, "text": text, "text_en": text_en, "hinweis": hint["hinweis"], "hinweis_en": hint["hinweis_en"], "stand": cfg.get("geprueft_am")}
 
 
@@ -344,7 +344,7 @@ def main(argv):
     pfad = WURZEL / "data" / "pegel.json"
     gespeichert = (lese_optional(pfad) or {}).get("reihe", [])
     reihe = pegel_fortschreiben(gespeichert, kev["eintraege"], regeln, stand)
-    pfad.write_text(json.dumps({"meta": {"name": "Dreier-Pegel", "wert": "neu aufgenommene KEV-Einträge in den letzten 30 Tagen",
+    pfad.write_text(json.dumps({"meta": {"name": "KEV-Menge", "wert": "neu aufgenommene KEV-Einträge in den letzten 30 Tagen",
                                           "marken": {"erhoeht_ab": regeln.get("erhoeht_ab"), "hoch_ab": regeln.get("hoch_ab")},
                                           "hinweis": "live = am Stichtag berechnet und nicht mehr verändert; rueckgerechnet = nachträglich mit den heutigen Schwellen"},
                                   "reihe": reihe}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
@@ -353,7 +353,7 @@ def main(argv):
         rs = ergebnis["radar"]["konsens"]["score"]
         sr = [p for p in (lese_optional(sp) or {}).get("reihe", []) if p["stand"] != stand.isoformat()]
         sr.append({"stand": stand.isoformat(), "wert": rs["wert"], "signale": rs["signale"], "von": rs["von"]})
-        sp.write_text(json.dumps({"meta": {"name": "Radar-Score (Experiment)", "hinweis": "Tagesstand live gespeichert, keine Rückrechnung möglich, weil die externen Signale keine Historie haben"},
+        sp.write_text(json.dumps({"meta": {"name": "Dreier-Pegel (Gesamtscore)", "hinweis": "Tagesstand live gespeichert, keine Rückrechnung möglich, weil die externen Signale keine Historie haben"},
                                   "reihe": sr}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
         rs["live_seit"] = sr[0]["stand"]
         rs["reihe"] = sr[-90:]
@@ -385,12 +385,22 @@ def main(argv):
     hers = lese_optional(WURZEL / "data" / "patches" / "hersteller.json")
     if hers and hers.get("quellen"):
         ergebnis.setdefault("patches", {})["hersteller"] = {"meta": hers.get("meta"), "quellen": {k: {f: w for f, w in q.items() if f != "reihe"} for k, q in hers["quellen"].items()}}
-    ergebnis["pegel"] = {"wert": reihe[-1]["wert"], "marken": {"erhoeht_ab": regeln.get("erhoeht_ab"), "hoch_ab": regeln.get("hoch_ab")},
-                         "live_seit": next((p["stand"] for p in reihe if p["quelle"] == "live"), None), "reihe": reihe[-400:]}
+    ergebnis["kev_menge"] = {"wert": reihe[-1]["wert"], "stufe": ergebnis["stufe"], "marken": {"erhoeht_ab": regeln.get("erhoeht_ab"), "hoch_ab": regeln.get("hoch_ab")},
+                             "live_seit": next((p["stand"] for p in reihe if p["quelle"] == "live"), None), "reihe": reihe[-400:]}
+    # Der Dreier-Pegel ist der Gesamtscore aus allen Bausteinen (KEV-Menge, Tempo bis KEV, externe Signale).
+    ergebnis["kev_stufe"] = ergebnis["stufe"]
+    if rsc and rsc.get("stufe"):
+        ergebnis["stufe"] = next((x["ampel"] for x in stufen_cfg["stufen"] if x["name"] == rsc["stufe"]["name"]), None)
+        ergebnis["stufe_begruendung"] = "Gesamtscore %s von 100 aus %s von %s Bausteinen." % (rsc["wert"], rsc["signale"], rsc["von"])
+        ergebnis["stufe_begruendung_en"] = "Overall score %s of 100 from %s of %s components." % (rsc["wert"], rsc["signale"], rsc["von"])
+        ergebnis["pegel"] = {"wert": rsc["wert"], "signale": rsc["signale"], "von": rsc["von"], "stufe": rsc["stufe"], "status": stufen_cfg.get("status"),
+                             "live_seit": rsc.get("live_seit"), "reihe": rsc.get("reihe", [])}
+    else:
+        ergebnis["stufe"], ergebnis["stufe_begruendung"], ergebnis["stufe_begruendung_en"], ergebnis["pegel"] = None, "Der Gesamtscore ist noch nicht berechenbar.", "The overall score cannot be computed yet.", None
     ziel = WURZEL / "site" / "data" / "lage.json"
     ziel.parent.mkdir(parents=True, exist_ok=True)
     ziel.write_text(json.dumps(ergebnis, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"OK: {ziel.relative_to(WURZEL)} (Stand {stand}, Stufe: {ergebnis['stufe']})")
+    print(f"OK: {ziel.relative_to(WURZEL)} (Stand {stand}, Dreier-Pegel: {ergebnis['stufe']}, KEV-Menge: {ergebnis['kev_stufe']})")
     return 0
 
 

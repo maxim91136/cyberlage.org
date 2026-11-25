@@ -73,7 +73,7 @@
       if (f.status === "vorlaeufig") fz.appendChild(el("span", "mono dim", pick(" · vorläufig", " · provisional")));
       fz.appendChild(el("p", "ft", pick(f.text, f.text_en)));
       fz.appendChild(el("p", "fh", pick("Für Verteidiger: ", "For defenders: ") + pick(f.hinweis, f.hinweis_en)));
-      fz.appendChild(el("p", "mono dim fine", pick("Feste Sätze nach Regeln, keine Vorhersage. Stufen des Radar-Scores geprüft am ", "Fixed sentences by rule, no forecast. Radar score levels checked on ") + datum(f.stand) + "."));
+      fz.appendChild(el("p", "mono dim fine", pick("Feste Sätze nach Regeln, keine Vorhersage. Stufen des Dreier-Pegels geprüft am ", "Fixed sentences by rule, no forecast. Dreier Gauge levels checked on ") + datum(f.stand) + "."));
       fz.hidden = false; var fv = $("fazit-verk"); if (fv) fv.hidden = false;
     }
     var kqz = $("kern-quelle"); if (kqz) kqz.textContent = pick("Quelle aller Zahlen in diesem Kasten: CISA-KEV-Katalog, abgerufen ", "Source of all figures in this box: CISA KEV catalog, retrieved ") + datum(kq0.abgerufen_am || d.stand) + pick(" (Katalog veröffentlicht ", " (catalog published ") + datum(kq0.veroeffentlicht_am) + ")";
@@ -147,7 +147,6 @@
     zeigeEu(d.eu_kev);
     zeigeAusblick(d.ausblick);
     zeigeRadar(d.radar, d);
-    zeigeKern(d);
     zeigeKonsens(d.radar);
     zeigeTicker(d);
     zeigeTermine();
@@ -733,22 +732,21 @@
   }
 
   function zeigeKonsens(r) {
-    var k = r && r.konsens, z = $("konsens-zeile"), box = $("rd-signale"); box.textContent = "";
+    var k = r && r.konsens, box = $("rd-signale"); box.textContent = "";
     if (!k || !k.bewertet) { $("rd-kon").textContent = txt("keine"); return; }
     var satz = pick(k.erhoeht + " von " + k.bewertet + " externen Signalen zeigen erhöht.", k.erhoeht + " of " + k.bewertet + " external signals show elevated.");
     $("rd-kon").textContent = satz + " " + pick("Stand ", "As of ") + datum(r.abgerufen_am) + ".";
-    z.textContent = ""; z.appendChild(el("b", "", k.erhoeht + "/" + k.bewertet)); z.appendChild(document.createTextNode(pick(" externe Signale zeigen ebenfalls erhöht", " external signals also show elevated"))); z.appendChild(el("span", "zr", " · " + pick("Stand ", "as of ") + datum(r.abgerufen_am))); z.hidden = false;
     var sc = k.score, sb = $("rd-score"); sb.textContent = "";
     var ampel = (sc.stufe && sc.stufe.ampel) || "", rb = $("radar"), fzb = $("fazit");
     ["ruhig", "unauffaellig", "angespannt", "hoch", "ausserordentlich"].forEach(function (a) { [sb, rb, fzb].forEach(function (n) { if (n) n.classList.remove("ra-" + a); }); });
     if (ampel) [sb, rb, fzb].forEach(function (n) { if (n) n.classList.add("ra-" + ampel); });
     if (sc) {
-      var gr = el("div", "sw mono", String(sc.wert)); gr.appendChild(el("small", "", " / 100")); if (sc.stufe) gr.appendChild(el("small", "sst", " · " + pick(sc.stufe.name, sc.stufe.name_en))); sb.appendChild(gr);
+      var gr = el("div", "sw mono", String(sc.wert)); gr.appendChild(el("small", "", " / 100")); sb.appendChild(gr);
       var tx = el("div", "st");
-      tx.appendChild(el("b", "mono", pick("Radar-Score · Experiment", "Radar score · experiment")));
+      tx.appendChild(el("b", "mono", pick("Dreier-Pegel · Gesamtscore", "Dreier Gauge · overall score")));
       tx.appendChild(el("span", "", pick(
-        "Gleich gewichteter Mittelwert der Ausschläge von " + sc.signale + " von " + sc.von + " Signalen. 50 heißt: die Regelschwellen sind im Schnitt erreicht, 100: im Schnitt doppelt so weit. Die Zeiträume der Signale sind verschieden, Messungen und Einschätzungen gemischt. Kein objektives Maß, es fließt nicht in den Dreier-Pegel ein. Tagesstand wird ab " + datum(sc.live_seit) + " gespeichert.",
-        "Equally weighted mean of the readings of " + sc.signale + " of " + sc.von + " signals. 50 means the rule thresholds are reached on average, 100 twice as far. The signals cover different periods, measurements and assessments are mixed. Not an objective measure, it does not feed into the Dreier Gauge. The daily value is stored from " + datum(sc.live_seit) + ".")));
+        "Gleich gewichteter Mittelwert der Ausschläge von " + sc.signale + " von " + sc.von + " Signalen. 50 heißt: die Regelschwellen sind im Schnitt erreicht, 100: im Schnitt doppelt so weit. Die Zeiträume der Signale sind verschieden, Messungen und Einschätzungen gemischt. Kein objektives Maß, die Grenzen sind vorläufig. Tagesstand wird ab " + datum(sc.live_seit) + " gespeichert.",
+        "Equally weighted mean of the readings of " + sc.signale + " of " + sc.von + " signals. 50 means the rule thresholds are reached on average, 100 twice as far. The signals cover different periods, measurements and assessments are mixed. Not an objective measure, the limits are provisional. The daily value is stored from " + datum(sc.live_seit) + ".")));
       tx.appendChild(el("span", "mono dim", pick("Stand: ", "as of: ") + datum(r.abgerufen_am)));
       sb.appendChild(tx); sb.hidden = false;
       var sk = $("rd-skala"), kal = d_skala;
@@ -762,7 +760,7 @@
         var mk = el("i", "mk"); mk.style.left = Math.max(0, Math.min(100, sc.wert)) + "%"; bar.appendChild(mk);
         var zt = el("div", "skz mono"); [0, 30, 50, 64, 80, 100].forEach(function (n) { var t = el("span", "", String(n)); t.style.left = n + "%"; zt.appendChild(t); });
         sk.appendChild(bar); sk.appendChild(zt);
-        sk.appendChild(el("p", "mono dim fine", pick("Stufen: ruhig, unauffällig, angespannt, hoch, außergewöhnlich. Grenzen vorläufig, am Dreier-Pegel ausgerichtet.", "Levels: calm, unremarkable, tense, high, exceptional. Limits provisional, aligned with the Dreier Gauge.")));
+        sk.appendChild(el("p", "mono dim fine", pick("Stufen: ruhig, unauffällig, angespannt, hoch, außergewöhnlich. Grenzen vorläufig.", "Levels: calm, unremarkable, tense, high, exceptional. Limits provisional.")));
         sk.hidden = false;
       }
     }
@@ -774,39 +772,6 @@
       b.appendChild(el("span", "g", typeof s.ausschlag === "number" ? pick("Ausschlag ", "reading ") + s.ausschlag.toLocaleString(window.I18N.locale, { minimumFractionDigits: 1, maximumFractionDigits: 2 }) + pick("-fache der Schwelle", "x the threshold") : pick("noch kein Messwert", "no reading yet")));
       box.appendChild(b);
     });
-  }
-
-  function zeigeKern(d) {
-    var r = d.radar && d.radar.zeit_bis_kev, j = r && r.jetzt, v = r && r.vor_12_monaten;
-    var proz = function (x) { return typeof x === "number" ? Math.round(x * 100) + " %" : "–"; };
-    var tg = function (x) { return typeof x === "number" ? x.toLocaleString(window.I18N.locale, { maximumFractionDigits: 1 }) : "–"; };
-    var sw = d.schwellen || {}, box = $("kern"); box.textContent = "";
-    var karte = function (wert, einheit, label, unter, ziel) {
-      var a = el(ziel ? "a" : "div", "kk"); if (ziel) a.href = ziel;
-      var w = el("div", "w mono", wert); if (einheit) w.appendChild(el("small", "", einheit)); a.appendChild(w);
-      a.appendChild(el("div", "l", label)); if (unter) a.appendChild(el("div", "u", unter)); box.appendChild(a);
-    };
-    var pd = $("pegel-def");
-    if (pd) pd.textContent = pick("Der Dreier-Pegel misst die Menge: wie viele ausgenutzte Schwachstellen in den letzten 30 Tagen neu in den KEV-Katalog kamen", "The Dreier Gauge measures the amount: how many exploited vulnerabilities were newly added to the KEV catalog in the last 30 days") +
-      (typeof sw.hoch_ab === "number" ? pick(". Erhöht ab ", ". Elevated from ") + sw.erhoeht_ab + pick(", hoch ab ", ", high from ") + sw.hoch_ab + "." : ".");
-    var ok = j && v && j.n_frisch >= 10 && v.n_frisch >= 10 && typeof j.median_frisch === "number" && typeof v.median_frisch === "number";
-    var tp = d.tempo, tbox = $("tempo-box");
-    if (tp && typeof tp.wert === "number" && tbox) {
-      var ts = tp.stufe, tn = { niedrig: pick("niedrig", "low"), erhoeht: pick("erhöht", "elevated"), hoch: pick("hoch", "high") }[ts] || "";
-      var kopf = $("tempo-kopf"); kopf.textContent = "";
-      kopf.appendChild(el("b", "", pick("Dreier-Tempo", "Dreier Pace")));
-      if (tn) kopf.appendChild(el("span", "tempo-st st-" + ts, " · " + tn));
-      $("tempo-s").textContent = ts === "hoch" ? pick("Neue Lücken kommen so schnell in den KEV wie nur in jedem zehnten der letzten 36 Monate.", "New flaws reach the KEV as fast as in only one in ten of the last 36 months.")
-        : (ts === "erhoeht" ? pick("Neue Lücken kommen schneller in den KEV als in drei Vierteln der letzten 36 Monate.", "New flaws reach the KEV faster than in three quarters of the last 36 months.")
-        : pick("Neue Lücken kommen nicht schneller in den KEV als üblich.", "New flaws are not reaching the KEV faster than usual."));
-      $("tempo-def").textContent = pick("Das Dreier-Tempo misst die Geschwindigkeit: wie viele Tage von der Veröffentlichung einer Lücke bis zur KEV-Aufnahme vergehen (gleitender 90-Tage-Median, heute ", "The Dreier Pace measures speed: how many days pass from a flaw's publication to its KEV listing (rolling 90-day median, today ") +
-        tp.wert.toLocaleString(window.I18N.locale, { maximumFractionDigits: 1 }) + pick(" Tage). Erhöht bis ", " days). Elevated up to ") + tp.marken.erhoeht_bis + pick(" Tage, hoch bis ", " days, high up to ") + tp.marken.hoch_bis + pick(" Tage.", " days.");
-      tbox.hidden = false;
-      if (ok) {
-        karte(tg(j.median_frisch), pick(" Tage", " days"), pick("Median bis zur KEV-Aufnahme", "median time to KEV listing"), pick("vor 12 Monaten: ", "12 months ago: ") + tg(v.median_frisch), "#radar");
-        karte(proz(j.anteil_30), "", pick("binnen 30 Tagen im KEV", "listed within 30 days"), pick("vor 12 Monaten: ", "12 months ago: ") + proz(v.anteil_30), "#radar");
-      }
-    }
   }
 
   function zeigeRadar(r, d) {

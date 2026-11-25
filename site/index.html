@@ -6,7 +6,7 @@
 
 <meta name="color-scheme" content="dark">
 <title>Cyberlage – Lagebild aus offenen Quellen</title>
-<meta name="description" content="Ein Seismograph der Cyber-Bedrohungslage: der Dreier-Pegel mit Radar, regelbasiert aus ausgenutzten Schwachstellen abgeleitet. Offene Quellen, offene Regeln. Ein Werkzeug für Blue Teams und alle, die verteidigen. Ein Projekt von Dreier Labs.">
+<meta name="description" content="Ein Seismograph der Cyber-Bedrohungslage: der Dreier-Pegel, ein offener Score aus mehreren Bausteinen, regelbasiert aus ausgenutzten Schwachstellen und weiteren Quellen abgeleitet. Offene Quellen, offene Regeln. Ein Werkzeug für Blue Teams und alle, die verteidigen. Ein Projekt von Dreier Labs.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.ico" sizes="48x48">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -73,7 +73,7 @@
 
   <section id="teil-lage" class="wrap grp teil1" aria-labelledby="h-teil1">
     <h2 id="h-teil1" class="mono" data-t="tl_h">## teil 1 · lage</h2>
-    <p class="sw-lead" data-t="tl_intro">Wie angespannt ist die Cyberlage weltweit? Dreier-Pegel, Dreier-Tempo und Radar messen das, die Signale und der Rückblick belegen es.</p>
+    <p class="sw-lead" data-t="tl_intro">Wie angespannt ist die Cyberlage weltweit? Der Dreier-Pegel misst das als ein Score aus mehreren Bausteinen, die Signale und der Rückblick belegen es.</p>
     <nav class="subnav mono" aria-label="Teil 1">
       <a href="#lage"><span data-t="s_lage">Lage &amp; Radar</span></a>
       <a href="#signale"><span data-t="s_sig">Signale</span></a>
@@ -86,24 +86,15 @@
     <div class="verbund">
     <div class="panel lage" id="lage-box">
       <p class="lbl" data-t="l_stufe">dreier-pegel · weltweit</p>
-      <div class="stufe mono" id="stufe-wert">hoch</div>
+      <div class="stufe mono" id="stufe-wert">angespannt</div>
       <div class="stufe-text" id="stufe-text" hidden></div>
       <p class="schlag" id="stufe-begr"></p>
-      <p class="mono dim fine pegeldef" id="pegel-def"></p>
-      <div class="tempo" id="tempo-box" hidden>
-        <p class="mono tempo-k" id="tempo-kopf"></p>
-        <p class="tempo-s" id="tempo-s"></p>
-        <p class="mono dim fine tempo-d" id="tempo-def"></p>
-        <div class="kern" id="kern"></div>
-      </div>
-      <p class="mono dim fine kernq" id="kern-quelle"></p>
-      <p class="konsens mono" id="konsens-zeile" hidden></p>
-    </div>
-    <div class="verknuepf mono" aria-hidden="true"><span data-t="l_verk">Achse „Dreier-Pegel“ im Radar</span></div>
-    <div id="radar" class="panel pad rd radar-box">
-      <h3 class="mono rd-t" data-t="rd_kon_h">Radar-Score</h3>
-      <div class="rd-score" id="rd-score" hidden></div>
       <div class="rd-skala" id="rd-skala" hidden></div>
+      <div class="rd-score" id="rd-score" hidden></div>
+    </div>
+    <div class="verknuepf mono" aria-hidden="true"><span data-t="l_verk">Zusammengesetzt aus diesen Bausteinen</span></div>
+    <div id="radar" class="panel pad rd radar-box">
+      <h3 class="mono rd-t" data-t="rd_kon_h">Bausteine des Dreier-Pegels</h3>
       <p class="rd-kon" id="rd-kon"></p>
       <div class="rd-scopewrap">
         <svg id="rd-scope" class="rd-scope" role="img" aria-labelledby="rd-scope-t" viewBox="-70 34 540 300" width="100%"><title id="rd-scope-t">Radar</title></svg>
@@ -111,7 +102,7 @@
       </div>
       <p class="mono dim fine" data-t="rd_kon_n">Jedes Signal folgt einer festen Regel (RULES.md). Nur externe Quellen zählen als Bestätigung. Der gestrichelte Ring ist die Regelschwelle, je weiter außen ein Punkt liegt, desto stärker der Ausschlag. Nur der Radar-Score oben bildet einen Mittelwert.</p>
     </div>
-    <div class="verknuepf mono" id="fazit-verk" aria-hidden="true" hidden><span data-t="l_verk2">Aus Pegel und Radar zusammengefasst</span></div>
+    <div class="verknuepf mono" id="fazit-verk" aria-hidden="true" hidden><span data-t="l_verk2">Daraus das Fazit</span></div>
     <div class="fazit" id="fazit" hidden></div>
     </div>
     <p class="mono dim klein">
@@ -120,14 +111,14 @@
       <span><span data-t="l_ges">Katalog gesamt</span> <b id="kall">1.795</b></span>
       <span>Ransomware <b id="kr">1</b></span>
     </p>
-    <p class="lead" data-t="h_lead">Weltweit, über alle Hersteller: Wir zählen die Schwachstellen, die Stellen wie CISA als ausgenutzt melden, und rechnen sie nach offenen Regeln zu einer Stufe zusammen. Wie ein Seismograph zeigt der Dreier-Pegel mit dem Radar die Ausschläge, er sagt nichts voraus. Das Ganze ist ein offenes Experiment von Dreier Labs: Die Stufe folgt festen Regeln, der Radar-Score ist ein Versuch. Keine Aussage über ein Land oder einen Sektor. Ein Werkzeug für die Verteidigung: für Blue Teams, SOCs und alle, die ihre Systeme schützen.</p>
+    <p class="lead" data-t="h_lead">Weltweit, über alle Hersteller: Der Dreier-Pegel fasst mehrere Bausteine nach offenen Regeln zu einem Score von 0 bis 100 zusammen: neu als ausgenutzt gemeldete Schwachstellen (KEV-Menge), das Tempo bis zur Aufnahme, BSI Cyber Index, SANS Infocon und Botnetz-Server. Wie ein Seismograph zeigt er die Lage, er sagt nichts voraus. Ein offenes Experiment von Dreier Labs, die Stufengrenzen sind vorläufig. Keine Aussage über ein Land oder einen Sektor. Ein Werkzeug für die Verteidigung: für Blue Teams, SOCs und alle, die ihre Systeme schützen.</p>
     <p class="mono fine faqlink"><a href="#info" data-offen="i-faq" data-t="l_faq">▸ Neu hier? Fragen und Antworten (FAQ)</a></p>
-    <details class="akk" id="l-rechnung"><summary class="mono" data-t="l_wie">so entsteht die stufe</summary>
+    <details class="akk" id="l-rechnung"><summary class="mono" data-t="l_wie">so entsteht der dreier-pegel</summary>
       <div id="rechnung" class="rechnung"></div>
     </details>
-    <p class="dim fine" data-t="l_kev"><strong>KEV</strong> heißt <em>Known Exploited Vulnerabilities</em>, „bekannte, ausgenutzte Schwachstellen“: eine Liste der US-Cybersicherheitsbehörde <strong>CISA</strong> mit Lücken, für die belegt ist, dass Angreifer sie wirklich ausnutzen. Die Stufe zeigt, wie viele neu hinzukommen.</p>
+    <p class="dim fine" data-t="l_kev"><strong>KEV</strong> heißt <em>Known Exploited Vulnerabilities</em>, „bekannte, ausgenutzte Schwachstellen“: eine Liste der US-Cybersicherheitsbehörde <strong>CISA</strong> mit Lücken, für die belegt ist, dass Angreifer sie wirklich ausnutzen. Die KEV-Menge ist ein Baustein des Pegels.</strong> heißt <em>Known Exploited Vulnerabilities</em>, „bekannte, ausgenutzte Schwachstellen“: eine Liste der US-Cybersicherheitsbehörde <strong>CISA</strong> mit Lücken, für die belegt ist, dass Angreifer sie wirklich ausnutzen. Die Stufe zeigt, wie viele neu hinzukommen.</p>
     <p class="mono dim fine" id="kev-quelle"></p>
-    <noscript><!--ssr-start--><p class="panel pad"><b>Die globale Cyberlage, Stand 2026-11-25, Dreier-Pegel: hoch.</b> 37 neu aufgenommene ausgenutzte Schwachstellen in 30 Tagen. Neu im CISA-Katalog ausgenutzter Schwachstellen: 9 in 7 Tagen, 37 in 30 Tagen. Regelbasiert und offen belegt. Ein privates Projekt von Dreier Labs, keine amtliche Stelle.</p><p class="panel pad">Die Zahlen stehen als Rohdaten unter <a href="data/lage.json">data/lage.json</a>, die Regeln auf <a href="https://github.com/maxim91136/cyberlage.org/blob/main/RULES.md">GitHub</a>. Für die Ansicht mit Verlauf und Listen wird JavaScript benötigt.</p><!--ssr-end--></noscript>
+    <noscript><!--ssr-start--><p class="panel pad"><b>Die globale Cyberlage, Stand 2026-11-25, Dreier-Pegel: angespannt.</b> Gesamtscore 54 von 100 aus 4 von 5 Bausteinen. Neu im CISA-Katalog ausgenutzter Schwachstellen: 9 in 7 Tagen, 37 in 30 Tagen. Regelbasiert und offen belegt. Ein privates Projekt von Dreier Labs, keine amtliche Stelle.</p><p class="panel pad">Die Zahlen stehen als Rohdaten unter <a href="data/lage.json">data/lage.json</a>, die Regeln auf <a href="https://github.com/maxim91136/cyberlage.org/blob/main/RULES.md">GitHub</a>. Für die Ansicht mit Verlauf und Listen wird JavaScript benötigt.</p><!--ssr-end--></noscript>
   </section>
 
   <section id="signale" class="wrap" aria-labelledby="h-sig">
@@ -151,7 +142,7 @@
     <details class="sek">
       <summary><h2 id="h-rueck" class="mono" data-t="r_h">## rückblick</h2></summary>
     <div class="panel pad">
-      <h3 class="mono rd-t" data-t="r_pegel">Dreier-Pegel im Verlauf</h3>
+      <h3 class="mono rd-t" data-t="r_pegel">KEV-Menge im Verlauf</h3>
       <svg id="verlauf" role="img" aria-labelledby="verlauf-titel" viewBox="0 0 1000 220" width="100%" preserveAspectRatio="xMidYMid meet"><title id="verlauf-titel">Verlauf der neu aufgenommenen Schwachstellen</title></svg>
       <p class="mono dim fine" id="verlauf-legende"></p>
     </div>
@@ -266,21 +257,21 @@
     </details>
     <details class="akk" id="i-faq"><summary class="mono" data-t="i_faq">faq</summary>
       <h4 class="mono faq-q" data-t="f1q">Was ist der Dreier-Pegel?</h4>
-      <p class="dim faq-a" data-t="f1a">Unser eigener Score, kein Standard und keine Norm. Er zählt, wie viele Schwachstellen in den letzten 30 Tagen neu in den CISA-KEV-Katalog aufgenommen wurden (der Pegelstand), und leitet daraus eine Stufe ab: niedrig, erhöht oder hoch. Er misst die Aktivität im Katalog, nicht die Zahl der Angriffe.</p>
-      <h4 class="mono faq-q" data-t="f1bq">Was ist das Dreier-Tempo?</h4>
-      <p class="dim faq-a" data-t="f1ba">Unser zweites Signal neben der Menge: Es misst die Geschwindigkeit. Dazu nehmen wir die Lücken, die in den letzten 90 Tagen in den KEV kamen, und bilden den Median der Tage von ihrer Veröffentlichung bis zur Aufnahme. Je kleiner die Zahl, desto schneller werden Lücken ausgenutzt gemeldet. Die Stufen stammen aus 36 Monaten Daten: erhöht ab dem schnellsten Viertel (bis 5 Tage), hoch ab dem schnellsten Zehntel (bis 3 Tage). Menge und Tempo kommen aus derselben Quelle, sind aber verschiedene Achsen; deshalb stehen sie getrennt nebeneinander.</p>
+      <p class="dim faq-a" data-t="f1a">Unser eigener Score, kein Standard und keine Norm. Er fasst mehrere Bausteine zu einer Zahl von 0 bis 100 zusammen und leitet daraus eine Stufe ab: ruhig, unauffällig, angespannt, hoch oder außergewöhnlich. 50 heißt: die Regelschwellen der Bausteine sind im Schnitt erreicht. Er misst Aktivität und Signale, nicht die Zahl der Angriffe, und sagt nichts voraus.</p>
+      <h4 class="mono faq-q" data-t="f1bq">Aus welchen Bausteinen besteht er?</h4>
+      <p class="dim faq-a" data-t="f1ba">Aus fünf Bausteinen, gleich gewichtet: (1) KEV-Menge: wie viele Schwachstellen in 30 Tagen neu in den CISA-KEV kamen. (2) Tempo bis KEV: gleitender 90-Tage-Median der Tage von der Veröffentlichung einer Lücke bis zur Aufnahme, je kürzer, desto höher. (3) BSI Cyber Index. (4) SANS Infocon. (5) Botnetz-Server (Feodo Tracker). Jeder Baustein hat eine feste Regelschwelle; der Ausschlag ist der Messwert im Verhältnis zur Schwelle (höchstens doppelt). Ein Baustein ohne Messwert zählt nicht mit, die Zahl der beteiligten steht dabei. KEV-Menge und Tempo stammen aus demselben Katalog, es sind verschiedene Achsen.</p>
       <h4 class="mono faq-q" data-t="f2q">Woher kommen die Daten?</h4>
-      <p class="dim faq-a" data-t="f2a">Der Pegel entsteht allein aus dem öffentlichen KEV-Katalog der CISA, täglich abgerufen. Weitere Quellen (BSI, SANS, abuse.ch, NCSC-NL, ENISA, EU-KEV) laufen im Radar daneben und fließen nicht in den Pegel ein. Jeder Wert nennt Quelle und Stand.</p>
+      <p class="dim faq-a" data-t="f2a">Aus öffentlichen Quellen, täglich abgerufen: CISA-KEV, CVE-Liste, BSI Cyber Index, SANS ISC und Feodo Tracker (abuse.ch). Daneben laufen NCSC-NL, ENISA und EU-KEV als Kontext, sie gehen nicht in den Score ein. Jeder Wert nennt Quelle und Stand.</p>
       <h4 class="mono faq-q" data-t="f3q">Was sind KEV und CISA?</h4>
       <p class="dim faq-a" data-t="f3a">CISA ist die US-Behörde für Cybersicherheit. KEV (Known Exploited Vulnerabilities) ist ihr Katalog von Schwachstellen, deren Ausnutzung in der Praxis belegt ist. Aufnahme heißt also: nachweislich ausgenutzt, nicht nur theoretisch gefährlich (anders als der CVSS-Schweregrad oder die EPSS-Wahrscheinlichkeit). Einschränkung: Es ist die US-Sicht, und es zählt nur, was die CISA aufnimmt.</p>
       <h4 class="mono faq-q" data-t="f4q">Was sind die Schwellenwerte, und wer legt sie fest?</h4>
-      <p class="dim faq-a" data-t="f4a">Es gibt keine amtlichen oder genormten Schwellen. Wir haben sie selbst festgelegt, aus der Verteilung der 30-Tage-Zählung über 36 Monate: Das 75. Perzentil (25 Einträge) ergibt „erhöht“, das 90. Perzentil (32) „hoch“. Sind mindestens 5 der Einträge in Ransomware-Kampagnen genutzt, steigt die Stufe um eine. „Hoch“ heißt also: ungewöhnlich viel Neues im Katalog im Vergleich zu den letzten drei Jahren. Die Werte sind fest, stehen mit Begründung in config/regeln.json und werden von Hand neu geprüft. Jede Änderung ist im Verlauf des Repos sichtbar, Einwände gern als Issue auf GitHub.</p>
+      <p class="dim faq-a" data-t="f4a">Es gibt keine amtlichen oder genormten Schwellen. Wir haben sie selbst festgelegt, aus der Verteilung der 30-Tage-Zählung über 36 Monate: Für den Baustein KEV-Menge ergibt das 75. Perzentil (25 Einträge) „erhöht“, das 90. Perzentil (32) „hoch“; sind mindestens 5 der Einträge in Ransomware-Kampagnen genutzt, steigt die Stufe des Bausteins um eine. Die anderen Bausteine haben eigene feste Regeln (RULES.md). Die Werte sind fest, stehen mit Begründung in config/regeln.json und werden von Hand neu geprüft. Jede Änderung ist im Verlauf des Repos sichtbar, Einwände gern als Issue auf GitHub.</p>
       <h4 class="mono faq-q" data-t="f5q">Heißt „hoch“, dass ich angegriffen werde?</h4>
       <p class="dim faq-a" data-t="f5a">Nein. Die Stufe gilt allgemein, nicht für einen Sektor oder eine Organisation, und sie sagt nichts voraus. Ob eine Lücke Sie betrifft, hängt vom eigenen Bestand ab. Dafür gibt es unter „neu“ die Liste der frisch aufgenommenen Einträge zum Abgleich.</p>
       <h4 class="mono faq-q" data-t="f6q">Was ist die Schwäche dieser Methode?</h4>
-      <p class="dim faq-a" data-t="f6a">Die Skala ist relativ und folgt dem Katalog: Wird die CISA insgesamt aktiver, erreicht der Zähler häufiger die Marken, ohne dass sich die Lage im absoluten Sinn ändert. Darum die lange Basis von 36 Monaten und die Prüfung von Hand. Außerdem zählt der Pegel nur, was in den KEV kommt, nicht, was unentdeckt ausgenutzt wird.</p>
-      <h4 class="mono faq-q" data-t="f7q">Was ist der Radar-Score?</h4>
-      <p class="dim faq-a" data-t="f7a">Ein Experiment. Er bildet den Mittelwert der Ausschläge aller verfügbaren Signale (Dreier-Pegel, Dreier-Tempo, BSI Cyber Index, SANS, Feodo), jeweils gegen die eigene Regelschwelle. Er ist nicht objektiv, nicht Teil des Dreier-Pegels und sagt erst nach einigen Wochen Verlauf etwas aus. Seine Stufen (ruhig, unauffällig, angespannt, hoch, außergewöhnlich) sind vorläufig und am Dreier-Pegel ausgerichtet; nach etwa 90 Tagen leiten wir sie aus seiner eigenen Verteilung neu ab.</p>
+      <p class="dim faq-a" data-t="f6a">Die Skala ist relativ und folgt den Quellen: Wird die CISA insgesamt aktiver, erreicht die KEV-Menge häufiger ihre Marken, ohne dass sich die Lage im absoluten Sinn ändert. Darum die lange Basis von 36 Monaten und die Prüfung von Hand. Außerdem zählt der Score nur, was gemeldet wird, nicht, was unentdeckt ausgenutzt wird.</p>
+      <h4 class="mono faq-q" data-t="f7q">Wie belastbar ist der Score?</h4>
+      <p class="dim faq-a" data-t="f7a">Er ist ein Experiment: Die Bausteine haben verschiedene Zeiträume und mischen Messungen mit Einschätzungen, das Gewicht ist gleich und noch nicht begründet. Die Stufengrenzen (30, 50, 64, 80) sind vorläufig und am Verlauf der KEV-Menge der letzten 36 Monate ausgerichtet. Der Tagesstand wird seit dem 24.11.2026 gespeichert; nach etwa 90 Tagen leiten wir die Grenzen aus der eigenen Verteilung neu ab. Bis dahin ist er ein Gesamteindruck, kein objektives Maß.</p>
       <h4 class="mono faq-q" data-t="f8q">Was bedeuten Prognose und EPSS?</h4>
       <p class="dim faq-a" data-t="f8a">Die Prognose zeigt Schwachstellen, die noch nicht im KEV stehen, aber laut EPSS (FIRST) wahrscheinlich bald ausgenutzt werden. Sie beeinflusst die Stufe nicht. Ob sie stimmt, prüft die Seite selbst: Die Trefferquote erscheint, sobald genug Prognosen 30 Tage alt sind.</p>
     </details>

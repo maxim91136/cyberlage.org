@@ -273,8 +273,8 @@ _STUFE_EN = {"niedrig": "low", "erhoeht": "elevated", "hoch": "high"}
 
 
 ZEITRAUM = {
-    "Dreier Pace": ("90 Tage, gleitender Median", "90 days, rolling median"),
-    "Dreier Gauge": ("letzte 30 Tage", "last 30 days"),
+    "KEV pace": ("90 Tage, gleitender Median", "90 days, rolling median"),
+    "KEV count": ("letzte 30 Tage", "last 30 days"),
     "Speed to KEV": ("letzte 90 Tage gegen vor 12 Monaten", "last 90 days vs 12 months ago"),
     "BSI Cyber Index": ("Jahr 2026 gegen Basisjahr 2024", "year 2026 vs base year 2024"),
     "SANS Infocon": ("aktueller Stand", "current reading"),
@@ -303,7 +303,7 @@ def konsens(lage_stufe, zeit, einschaetzungen, sans, verlauf, neu30=None, erhoeh
         signale.append({"name": name, "name_en": name_en, "erhoeht": wert, "grund": grund, "grund_en": grund_en, "art": art,
                         "ausschlag": None if ausschlag is None else round(ausschlag, 2)})
 
-    add("Dreier-Pegel", "Dreier Gauge", None if lage_stufe is None else lage_stufe in ("erhoeht", "hoch"),
+    add("KEV-Menge", "KEV count", None if lage_stufe is None else lage_stufe in ("erhoeht", "hoch"),
         f"Stufe {lage_stufe}" if lage_stufe else "keine Bewertung", f"level {_STUFE_EN.get(lage_stufe, lage_stufe)}" if lage_stufe else "no rating", "eigen",
         (neu30 / erhoeht_ab) if neu30 is not None and erhoeht_ab else {"niedrig": 0.5, "erhoeht": 1.0, "hoch": 1.5}.get(lage_stufe))
     j, v = (zeit or {}).get("jetzt") or {}, (zeit or {}).get("vor_12_monaten") or {}
@@ -313,7 +313,7 @@ def konsens(lage_stufe, zeit, einschaetzungen, sans, verlauf, neu30=None, erhoeh
     if tempo_cfg:
         med, n = j.get("median_frisch"), j.get("n_frisch", 0)
         st = tempo_stufe(med, n, tempo_cfg)
-        add("Dreier-Tempo", "Dreier Pace", None if st is None else st in ("erhoeht", "hoch"),
+        add("Tempo bis KEV", "KEV pace", None if st is None else st in ("erhoeht", "hoch"),
             "Median höchstens %s Tage bis zur KEV-Aufnahme (schnellstes Viertel der letzten 36 Monate)" % tempo_cfg["erhoeht_bis"],
             "median at most %s days to KEV listing (fastest quarter of the last 36 months)" % tempo_cfg["erhoeht_bis"], "eigen",
             None if st is None else tempo_cfg["erhoeht_bis"] / max(med, 1.0))

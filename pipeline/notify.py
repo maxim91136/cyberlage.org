@@ -25,7 +25,7 @@ from pathlib import Path
 WURZEL = Path(__file__).resolve().parent.parent
 ZUSTAND = WURZEL / "data" / "notify_state.json"
 SEITE = "https://cyberlage.org"
-STUFENNAME = {"niedrig": "niedrig", "erhoeht": "erhöht", "hoch": "hoch", None: "keine Bewertung"}
+STUFENNAME = {"niedrig": "niedrig", "erhoeht": "erhöht", "ruhig": "ruhig", "unauffaellig": "unauffällig", "angespannt": "angespannt", "hoch": "hoch", "ausserordentlich": "außergewöhnlich", None: "keine Bewertung"}
 TAGESLAGE_AB = 6  # volle Stunde, deutsche Zeit
 MAX_ZEILEN = 10
 MAX_ZEICHEN = 3800  # Telegram erlaubt 4096
@@ -101,7 +101,7 @@ def patch_nachrichten(lage, alt, jetzt):
 
 def fazit_kombi(lage):
     f = (lage or {}).get("fazit") or {}
-    return "|".join(str(f.get(k)) for k in ("pegel_stufe", "tempo_stufe", "radar_stufe")) if f else None
+    return "|".join(str(f.get(k)) for k in ("ampel", "kev_stufe", "tempo_stufe")) if f else None
 
 
 def zuerst_zeilen(lage, n=3):
@@ -157,7 +157,7 @@ def ermittle(kev, bsi, eu, lage, zustand, jetzt):
     heute = lokal.date().isoformat()
     if zustand.get("zusammenfassung") != heute and lokal.hour >= TAGESLAGE_AB:
         k = lage["kev"]
-        zeilen = [f"Dreier-Pegel: <b>{STUFENNAME.get(stufe, e(stufe))}</b>",
+        zeilen = [f"Dreier-Pegel: <b>{STUFENNAME.get(stufe, e(stufe))}</b>" + (f" ({lage['pegel']['wert']} von 100)" if (lage.get("pegel") or {}).get("wert") is not None else ""),
                   f"CISA-KEV: {k['neu_7_tage']} neu in 7 Tagen, {k['neu_30_tage']} in 30 Tagen"]
         if lage.get("cert_bund"):
             c = lage["cert_bund"]

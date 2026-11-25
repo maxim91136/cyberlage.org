@@ -13,8 +13,8 @@
     "ransomware_bekannt_30_tage": 1
   },
   "fenster_tage": 30,
-  "stufe": "hoch",
-  "stufe_begruendung": "37 neu aufgenommene ausgenutzte Schwachstellen in 30 Tagen.",
+  "stufe": "angespannt",
+  "stufe_begruendung": "Gesamtscore 54 von 100 aus 4 von 5 Bausteinen.",
   "neu": [
     {
       "cve": "CVE-2026-132224",
@@ -4699,8 +4699,8 @@
       },
       "signale": [
         {
-          "name": "Dreier-Pegel",
-          "name_en": "Dreier Gauge",
+          "name": "KEV-Menge",
+          "name_en": "KEV count",
           "erhoeht": true,
           "grund": "Stufe hoch",
           "grund_en": "level high",
@@ -4710,8 +4710,8 @@
           "zeitraum_en": "last 30 days"
         },
         {
-          "name": "Dreier-Tempo",
-          "name_en": "Dreier Pace",
+          "name": "Tempo bis KEV",
+          "name_en": "KEV pace",
           "erhoeht": true,
           "grund": "Median höchstens 5 Tage bis zur KEV-Aufnahme (schnellstes Viertel der letzten 36 Monate)",
           "grund_en": "median at most 5 days to KEV listing (fastest quarter of the last 36 months)",
@@ -5011,7 +5011,7 @@
     "ENISA figures apply to the EU as a whole, not to Germany.",
     "The outlook gives an estimate (EPSS) for new flaws. It is not part of the level and not a finding."
   ],
-  "stufe_begruendung_en": "37 newly added exploited vulnerabilities in 30 days.",
+  "stufe_begruendung_en": "Overall score 54 of 100 from 4 of 5 components.",
   "tempo": {
     "wert": 5.0,
     "n": 100,
@@ -7027,13 +7027,13 @@
   },
   "fazit": {
     "status": "vorlaeufig",
-    "radar_stufe": "angespannt",
-    "radar_stufe_en": "tense",
+    "stufe": "angespannt",
+    "stufe_en": "tense",
     "ampel": "angespannt",
-    "pegel_stufe": "hoch",
+    "kev_stufe": "hoch",
     "tempo_stufe": "erhoeht",
-    "text": "Der Dreier-Pegel steht auf hoch: Es kommt deutlich mehr Neues in den KEV-Katalog als üblich. Das Dreier-Tempo ist erhöht: Neue Lücken kommen schneller in den KEV als in drei Vierteln der letzten 36 Monate. Gegenprobe Radar-Score: angespannt. Die Signale liegen im Schnitt über ihren Regelschwellen, aber nicht klar darüber.",
-    "text_en": "The Dreier Gauge is high: clearly more new in the KEV catalog than usual. The Dreier Pace is elevated: new flaws reach the KEV faster than in three quarters of the last 36 months. Cross-check radar score: tense. On average the signals are above their rule thresholds, but not by a wide margin.",
+    "text": "Die Signale liegen im Schnitt über ihren Regelschwellen, aber nicht klar darüber. Die KEV-Menge steht auf hoch: Es kommt deutlich mehr Neues in den KEV-Katalog als üblich. Das Tempo bis KEV ist erhöht: Neue Lücken kommen schneller in den KEV als in drei Vierteln der letzten 36 Monate.",
+    "text_en": "On average the signals are above their rule thresholds, but not by a wide margin. The KEV count is high: clearly more new in the KEV catalog than usual. The pace to KEV is elevated: new flaws reach the KEV faster than in three quarters of the last 36 months.",
     "hinweis": "Die KEV-Liste täglich abgleichen, aus dem Internet erreichbare Systeme zuerst patchen und Patchfristen verkürzen.",
     "hinweis_en": "Compare the KEV list daily, patch internet-facing systems first and shorten patch deadlines.",
     "stand": "2026-11-24"
@@ -14505,8 +14505,9 @@
       }
     }
   },
-  "pegel": {
+  "kev_menge": {
     "wert": 37,
+    "stufe": "hoch",
     "marken": {
       "erhoeht_ab": 25,
       "hoch_ab": 32
@@ -17312,6 +17313,36 @@
         "ransomware_bekannt": 1,
         "stufe": "hoch",
         "quelle": "live"
+      }
+    ]
+  },
+  "kev_stufe": "hoch",
+  "pegel": {
+    "wert": 54,
+    "signale": 4,
+    "von": 5,
+    "stufe": {
+      "name": "angespannt",
+      "name_en": "tense",
+      "ampel": "angespannt",
+      "satz": "Die Signale liegen im Schnitt über ihren Regelschwellen, aber nicht klar darüber.",
+      "satz_en": "On average the signals are above their rule thresholds, but not by a wide margin.",
+      "status": "vorlaeufig"
+    },
+    "status": "vorlaeufig",
+    "live_seit": "2026-11-24",
+    "reihe": [
+      {
+        "stand": "2026-11-24",
+        "wert": 55,
+        "signale": 4,
+        "von": 5
+      },
+      {
+        "stand": "2026-11-25",
+        "wert": 54,
+        "signale": 4,
+        "von": 5
       }
     ]
   }

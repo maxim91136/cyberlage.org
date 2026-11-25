@@ -396,7 +396,7 @@ class KonsensTests(unittest.TestCase):
         k = fetch_radar.konsens("hoch", self.ZEIT, self.BSI, {"status": "green"}, {})
         self.assertEqual((k["erhoeht"], k["bewertet"]), (1, 2))  # nur externe zählen: BSI ja, SANS nein, Feodo ohne 30 Messtage
         namen = {s["name"]: s["erhoeht"] for s in k["signale"]}
-        self.assertTrue(namen["Dreier-Pegel"] and namen["Tempo bis KEV"] and namen["BSI Cyber Index"])
+        self.assertTrue(namen["KEV-Menge"] and namen["Tempo bis KEV"] and namen["BSI Cyber Index"])
         self.assertFalse(namen["SANS Infocon"])
         self.assertIsNone(namen["Botnetz-Server (Feodo)"])
 
@@ -406,7 +406,7 @@ class KonsensTests(unittest.TestCase):
         k = fetch_radar.konsens("niedrig", {}, [], None, serie)
         namen = {s["name"]: s["erhoeht"] for s in k["signale"]}
         self.assertTrue(namen["Botnetz-Server (Feodo)"])
-        self.assertFalse(namen["Dreier-Pegel"])
+        self.assertFalse(namen["KEV-Menge"])
         self.assertIsNone(namen["Tempo bis KEV"]); self.assertIsNone(namen["BSI Cyber Index"]); self.assertIsNone(namen["SANS Infocon"])
         self.assertEqual((k["erhoeht"], k["bewertet"]), (1, 1))  # nur Feodo ist extern und bewertbar
 
@@ -443,8 +443,8 @@ class AusschlagTests(unittest.TestCase):
         import fetch_radar
         k = fetch_radar.konsens("hoch", {}, [{"wert": "170", "basis": "100"}], {"status": "yellow"}, {}, 36, 25)
         d = {x["name_en"]: x for x in k["signale"]}
-        self.assertEqual(d["Dreier Gauge"]["ausschlag"], 1.44)
-        self.assertEqual(d["Dreier Gauge"]["grund_en"], "level high")
+        self.assertEqual(d["KEV count"]["ausschlag"], 1.44)
+        self.assertEqual(d["KEV count"]["grund_en"], "level high")
         self.assertEqual(d["BSI Cyber Index"]["ausschlag"], 1.42)
         self.assertEqual(d["SANS Infocon"]["ausschlag"], 1.1)
         self.assertIsNone(d["Botnet servers (Feodo)"]["ausschlag"])
@@ -542,10 +542,9 @@ class RadarStufenTests(unittest.TestCase):
     def test_fazit(self):
         import score
         f = score.fazit({"wert": 61}, "hoch", self.cfg)
-        self.assertEqual(f["radar_stufe"], "angespannt")
-        self.assertIn("Dreier-Pegel steht auf hoch", f["text"])
-        self.assertTrue(f["text"].startswith("Der Dreier-Pegel steht auf hoch"))  # Hauptaussage zuerst, dann die Gegenprobe
-        self.assertIn("Gegenprobe Radar-Score: angespannt", f["text"])
+        self.assertEqual(f["stufe"], "angespannt")
+        self.assertIn("KEV-Menge steht auf hoch", f["text"])
+        self.assertTrue(f["text"].startswith("Die Signale liegen im Schnitt über"))  # Stufe des Gesamtscores zuerst, dann die Bausteine
         self.assertEqual(f["status"], "vorlaeufig")
         self.assertIsNone(score.fazit(None, "hoch", self.cfg))
         self.assertIsNone(score.fazit({"wert": 61}, "unbekannt", self.cfg))
@@ -734,16 +733,16 @@ class TempoTests(unittest.TestCase):
         zeit = {"jetzt": {"n_frisch": 50, "median_frisch": 4.0}, "vor_12_monaten": {"n_frisch": 50, "median_frisch": 11.0}}
         k = fetch_radar.konsens("hoch", zeit, [], None, {}, 39, 25, tempo_cfg=self.CFG)
         namen = {x["name_en"]: x for x in k["signale"]}
-        self.assertIn("Dreier Pace", namen)
-        self.assertTrue(namen["Dreier Pace"]["erhoeht"])
-        self.assertEqual(namen["Dreier Pace"]["ausschlag"], 1.25)  # 5 / 4
-        self.assertEqual(namen["Dreier Pace"]["art"], "eigen")     # zählt nicht als Bestätigung
+        self.assertIn("KEV pace", namen)
+        self.assertTrue(namen["KEV pace"]["erhoeht"])
+        self.assertEqual(namen["KEV pace"]["ausschlag"], 1.25)  # 5 / 4
+        self.assertEqual(namen["KEV pace"]["art"], "eigen")     # zählt nicht als Bestätigung
 
     def test_fazit_mit_tempo(self):
         import score
         cfg = json.loads((Path(__file__).resolve().parent.parent / "config" / "radar_stufen.json").read_text(encoding="utf-8"))
         f = score.fazit({"wert": 61}, "niedrig", cfg, "hoch")
-        self.assertIn("Dreier-Tempo ist hoch", f["text"])
+        self.assertIn("Tempo bis KEV ist hoch", f["text"])
         self.assertEqual(f["hinweis"], cfg["pegel"]["hoch"]["hinweis"])  # die höhere der beiden Stufen bestimmt den Hinweis
 
 
@@ -796,7 +795,7 @@ class PatchMeldeTests(unittest.TestCase):
         self.lage = {"stufe": "hoch", "stufe_begruendung": "39 neu.", "kev": {"neu_7_tage": 9, "neu_30_tage": 39},
                      "patches": {"microsoft": {"monate": {"2026-Nov": monat}}, "prioritaet": {"liste": [
                          {"rang": 1, "quelle": "Microsoft", "link": "https://m/1", "cves": ["CVE-2026-0001"], "titel": "t", "grund": "Steht im CISA-KEV."}]}},
-                     "fazit": {"pegel_stufe": "hoch", "tempo_stufe": "erhoeht", "radar_stufe": "angespannt", "status": "vorlaeufig", "text": "Der Dreier-Pegel steht auf hoch.", "hinweis": "Täglich abgleichen."}}
+                     "fazit": {"ampel": "angespannt", "kev_stufe": "hoch", "tempo_stufe": "erhoeht", "status": "vorlaeufig", "text": "Der Dreier-Pegel steht auf hoch.", "hinweis": "Täglich abgleichen."}}
 
     def test_ohne_vorstand_nur_merken(self):
         n, _ = notify.patch_nachrichten(self.lage, None, self.jetzt)
@@ -829,7 +828,7 @@ class PatchMeldeTests(unittest.TestCase):
         tages = [x for x in n if "Tageslage" in x][0]
         self.assertIn("Fazit", tages)
         self.assertIn("Diese Woche zuerst patchen", tages)
-        self.assertEqual(z["fazit_gesendet"], "hoch|erhoeht|angespannt")
+        self.assertEqual(z["fazit_gesendet"], "angespannt|hoch|erhoeht")
         # gleicher Stand, kein Montag: kein Fazit
         z["zusammenfassung"] = "2026-11-24"
         n2, _ = notify.ermittle(self.kev, None, None, self.lage, z, self.jetzt)

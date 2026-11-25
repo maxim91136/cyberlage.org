@@ -14,7 +14,7 @@ from xml.sax.saxutils import escape
 
 WURZEL = Path(__file__).resolve().parent.parent
 SEITE = "https://cyberlage.org"
-NAME = {"niedrig": "niedrig", "erhoeht": "erhöht", "hoch": "hoch", None: "keine Bewertung"}
+NAME = {"niedrig": "niedrig", "erhoeht": "erhöht", "ruhig": "ruhig", "unauffaellig": "unauffällig", "angespannt": "angespannt", "hoch": "hoch", "ausserordentlich": "außergewöhnlich", None: "keine Bewertung"}
 MAX_EINTRAEGE = 60
 
 
