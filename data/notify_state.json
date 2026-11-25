@@ -2308,21 +2308,11 @@
   ]
  },
  "stufe": "hoch",
- "zusammenfassung": "2026-11-24",
+ "zusammenfassung": "2026-11-25",
  "offen": {
-  "kev": [
-   "• Drupal Core – <a href=\"https://nvd.nist.gov/vuln/detail/CVE-2026-132165\">CVE-2026-132165</a>",
-   "• Idunno AntiCsrf – <a href=\"https://nvd.nist.gov/vuln/detail/CVE-2026-131914\">CVE-2026-131914</a>",
-   "• Optimizely Web Experimentation – <a href=\"https://nvd.nist.gov/vuln/detail/CVE-2026-132224\">CVE-2026-132224</a>"
-  ],
-  "bsi": [
-   "• <a href=\"https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4416\">Ruby: Mehrere Schwachstellen ermöglichen Codeausführung</a>",
-   "• <a href=\"https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-2640\">Linux Kernel: Mehrere Schwachstellen</a>"
-  ],
-  "eu": [
-   "• Idunno – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-129432\">CVE-2026-131914</a>",
-   "• Optimizely – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-129010\">CVE-2026-132224</a>"
-  ]
+  "kev": [],
+  "bsi": [],
+  "eu": []
  },
  "patches": {
   "ms": {
@@ -2380,5 +2370,5 @@
    }
   }
  },
- "fazit_gesendet": null
+ "fazit_gesendet": "hoch|erhoeht|angespannt"
 }
