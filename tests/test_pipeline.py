@@ -486,10 +486,6 @@ class RadarScoreTests(unittest.TestCase):
         self.assertEqual(fetch_radar.radar_score(sig), {"wert": 75, "signale": 2, "von": 3})  # 3,0 wird auf 2,0 gedeckelt: (1+2)/2/2
         self.assertIsNone(fetch_radar.radar_score([{"ausschlag": None}]))
 
-if __name__ == "__main__":
-    unittest.main()
-
-
 class PruefkalenderTests(unittest.TestCase):
     def test_faellig_und_link_tot(self):
         from datetime import datetime, timezone
@@ -913,3 +909,22 @@ class OhnePatchChromiumTests(unittest.TestCase):
         self.assertEqual(r["chromium"]["edge"], "157.0.3300.20")
         self.assertEqual(r["chromium"]["chrome"], "157.0.8103.50")
         self.assertEqual([x["cve"] for x in r["chromium"]["kev"]], ["CVE-C1"])
+
+
+class SapTests(unittest.TestCase):
+    def test_parse_sap(self):
+        import fetch_patches as fp
+        h = ("<p>On 10th of March 2026, SAP security patch day saw the release of 2 new security notes.</p>"
+             "<td>[CVE-2026-0001] Missing authorization in SAP S/4HANA</td><td>Product - SAP S/4HANA</td><td>High</td><td>7.5</td><td>3698553</td>"
+             "<td>[CVE-2026-0002] Hot thing in SAP Commerce</td><td>Product - X</td><td>Critical</td><td>9.1</td>"
+             "<p>1 previously released security notes were updated.</p><td>[CVE-2025-1] alt</td>")
+        r = fp.parse_sap(h, "u")
+        self.assertEqual(len(r), 2)
+        self.assertEqual(r[0]["datum"].isoformat(), "2026-03-10")
+        self.assertEqual(r[0]["schwere"], "hoch")
+        self.assertEqual(r[1]["schwere"], "kritisch")
+        self.assertEqual(r[1]["cves"], ["CVE-2026-0002"])
+
+
+if __name__ == "__main__":
+    unittest.main()

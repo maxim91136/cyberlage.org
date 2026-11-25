@@ -378,6 +378,8 @@ REDHAT_URLS = ["https://access.redhat.com/hydra/rest/securitydata/csaf.json?afte
 REDHAT_CSV = ["https://security.access.redhat.com/data/csaf/v2/advisories/releases.csv", "https://security.access.redhat.com/data/csaf/v2/advisories/changes.csv"]  # releases: Veröffentlichungsdatum, changes: letzte Änderung
 DEBIAN_URLS = ["https://www.debian.org/security/dsa-long.rdf", "https://www.debian.org/security/dsa.rdf", "https://www.debian.org/security/dsa-long.en.rdf", "https://www.debian.org/security/dsa.en.rdf"]
 CISCO_URL = "https://sec.cloudapps.cisco.com/security/center/psirtrss20/CiscoSecurityAdvisory.xml"
+SAP_URL = "https://support.sap.com/en/my-support/knowledge-base/security-notes-news/%s-%d.html"
+MONATE_EN = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
 HERSTELLER_DATEI = WURZEL / "data" / "patches" / "hersteller.json"
 PRIO_DATEI = WURZEL / "data" / "patches" / "prioritaet.json"
 CVE_RE = re.compile(r"CVE-\d{4}-\d{4,7}")
@@ -490,6 +492,36 @@ def parse_cisco(xml_bytes):
     return out
 
 
+def parse_sap(html_text, monat_url):
+    """Monatsseite des SAP Security Patch Day (öffentlich, ohne Konto). Je Sicherheitshinweis ein Eintrag mit CVE, Priorität und CVSS.
+    Der Text der Hinweise selbst liegt hinter SAP for Me und wird nicht gelesen."""
+    text = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", html_text, flags=re.S | re.I)
+    text = re.sub(r"<[^>]+>", "\n", text)
+    text = html.unescape(text)
+    zeilen = [z.strip() for z in text.splitlines() if z.strip()]
+    kopf = " ".join(zeilen)
+    m = re.search(r"On (\d{1,2})(?:st|nd|rd|th)? of (\w+) (\d{4}),? SAP [Ss]ecurity [Pp]atch [Dd]ay saw the release of (\d+) new", kopf)
+    if not m or m.group(2).lower() not in MONATE_EN:
+        return []
+    tag = datetime(int(m.group(3)), MONATE_EN.index(m.group(2).lower()) + 1, int(m.group(1))).date()
+    # Nur der Teil bis zu den Aktualisierungen älterer Hinweise zählt als neu am Patch Day.
+    ende = re.search(r"(previously released security notes? (?:was|were) updated|Update to Security Note released on)", kopf)
+    neu = kopf[m.end(): ende.start() if ende else len(kopf)]
+    blocke = re.split(r"(?=\[?CVE-\d{4}-\d{4,7}\]?\s)", neu)
+    out, nr = [], 0
+    for b in blocke:
+        c = CVE_RE.search(b)
+        if not c:
+            continue
+        sev = re.search(r"\b(Hot News|Critical|High|Medium|Low)\s*(\d{1,2}\.\d)", b)
+        titel = re.sub(r"\s+", " ", re.sub(r"Product.*", "", b, flags=re.S)).strip(" []")
+        nr += 1
+        out.append({"id": "SAP-%s-%02d" % (tag.strftime("%Y-%m"), nr), "datum": tag, "titel": titel[:140] or c.group(0), "link": monat_url,
+                    "schwere": {"hot news": "kritisch", "critical": "kritisch", "high": "hoch", "medium": "mittel", "low": "niedrig"}.get(sev.group(1).lower()) if sev else None,
+                    "cves": sorted(set(CVE_RE.findall(b))), "cvss": float(sev.group(2)) if sev else None})
+    return out
+
+
 def verdichte_quelle(items, heute, kev=()):
     """Zählung der Meldungen der letzten 7 und 30 Tage. Fehlt eine Angabe (z. B. Schweregrad), wird sie nicht geraten."""
     inner = [i for i in items if 0 <= (heute - i["datum"]).days < FENSTER]
@@ -510,6 +542,7 @@ QUELLEN = [
     {"id": "ubuntu", "name": "Ubuntu Security Notices", "typ": "distribution", "url": "https://ubuntu.com/security/notices", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
     {"id": "debian", "name": "Debian Security Advisories", "typ": "distribution", "url": "https://www.debian.org/security/", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
     {"id": "redhat", "name": "Red Hat Security Advisories", "typ": "distribution", "url": "https://access.redhat.com/security/security-updates/", "lizenz": "Lizenz nicht ausdrücklich geklärt, nur Zählung, Kennung, Titel, Datum, Link"},
+    {"id": "sap", "name": "SAP Security Patch Day", "typ": "hersteller", "url": "https://support.sap.com/en/my-support/knowledge-base/security-notes-news.html", "lizenz": "Öffentliche Monatsseite ohne Konto; nur Zählung, CVE, Priorität, Link. Die Sicherheitshinweise selbst liegen hinter SAP for Me."},
     {"id": "cisco", "name": "Cisco Security Advisories", "typ": "hersteller", "url": "https://sec.cloudapps.cisco.com/security/center/publicationListing.x", "lizenz": "Feed nennt nur ein Urheberrecht, keine Nutzungsbedingungen; nur Zählung, Kennung, Titel, Datum, Link"},
 ]
 
@@ -549,6 +582,20 @@ def hole_quelle(qid, heute, lade=lade_roh):
             except Exception as e:
                 letzter = e
         raise QuellFehler("Debian: %s" % letzter)
+    if qid == "sap":
+        alle, fehler = [], None
+        for rueck in (0, 1, 2):
+            j, mo = heute.year, heute.month - rueck
+            while mo < 1:
+                mo, j = mo + 12, j - 1
+            u = SAP_URL % (MONATE_EN[mo - 1], j)
+            try:
+                alle += parse_sap(lade(u).decode("utf-8", "replace"), u)
+            except Exception as e:
+                fehler = e
+        if not alle and fehler:
+            raise QuellFehler("SAP: %s" % fehler)
+        return alle
     if qid == "cisco":
         return parse_cisco(lade(CISCO_URL))
     raise QuellFehler("unbekannte Quelle " + qid)
