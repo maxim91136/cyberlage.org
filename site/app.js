@@ -746,7 +746,7 @@
     var bs = [];
     sc.modell_gruppen.forEach(function (g) { g.bausteine.forEach(function (b) { if (typeof b.ausschlag === "number") bs.push(b); }); });
     if (!bs.length) return;
-    var NS = "http://www.w3.org/2000/svg", W = 540, H = 36 + bs.length * 34, X0 = 150, X1 = 500, max = 2;
+    var NS = "http://www.w3.org/2000/svg", W = 540, bo = sc.beobachtung || [], H = 36 + (bs.length + bo.length) * 34, X0 = 150, X1 = 500, max = 2;
     var svg = document.createElementNS(NS, "svg"); svg.setAttribute("viewBox", "0 0 " + W + " " + H); svg.setAttribute("width", "100%"); svg.setAttribute("role", "img");
     var mk = function (tag, a, t) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); if (t !== undefined) e.textContent = t; svg.appendChild(e); return e; };
     var mono = { "font-family": "ui-monospace,Menlo,Consolas,monospace", "font-size": "11", fill: "#9aa7b4" };
@@ -759,10 +759,17 @@
       mk("rect", { x: X0, y: y, width: xs(b.ausschlag) - X0, height: 20, fill: over ? "#e3b341" : "#4fa57a" });
       mk("text", Object.assign({ x: Math.min(xs(b.ausschlag) + 6, X1 - 30), y: y + 14 }, mono, { fill: "#e6edf3" }), b.ausschlag.toLocaleString(window.I18N.locale, { minimumFractionDigits: 1, maximumFractionDigits: 2 }));
     });
-    mk("line", { x1: xs(1), x2: xs(1), y1: 10, y2: H - 18, stroke: "#e6edf3", "stroke-width": "1.5", "stroke-dasharray": "4 3" });
+    bo.forEach(function (b, i) {
+      var y = 20 + (bs.length + i) * 34, n = pick(b.name, b.name_en).split(":")[0];
+      mk("text", Object.assign({ x: X0 - 8, y: y + 14, "text-anchor": "end" }, mono, { fill: "#6b7785" }), n);
+      mk("rect", { x: X0, y: y, width: X1 - X0, height: 20, fill: "none", stroke: "#2a343f", "stroke-dasharray": "3 3" });
+      mk("text", Object.assign({ x: X0 + 8, y: y + 14 }, mono, { fill: "#6b7785" }), pick("Beobachtung · Rohwert ", "observation · raw value ") + (b.wert === null || b.wert === undefined ? "–" : zahl(b.wert)) + pick(" · noch ohne Schwelle", " · no threshold yet"));
+    });
+    mk("line", { x1: xs(1), x2: xs(1), y1: 10, y2: 20 + bs.length * 34 - 8, stroke: "#e6edf3", "stroke-width": "1.5", "stroke-dasharray": "4 3" });
     mk("text", Object.assign({ x: xs(1), y: H - 4, "text-anchor": "middle" }, mono), pick("Schwelle 1,0", "threshold 1.0"));
     box.appendChild(el("h4", "mono rd-t", pick("Bausteine im Vergleich", "Components compared")));
     box.appendChild(svg);
+    box.appendChild(el("p", "mono dim fine", pick(bs.length + " Bausteine zählen im Pegel, " + bo.length + " weitere werden beobachtet und zählen erst mit eigener Schwelle.", bs.length + " components count in the gauge, " + bo.length + " more are observed and count only once they have a threshold.")));
   }
 
   function zeigeModell(sc) {
