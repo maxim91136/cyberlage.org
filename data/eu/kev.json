@@ -3,10 +3,24 @@
   "quelle": "EU-KEV über die EU-Schwachstellendatenbank (EUVD) von ENISA",
   "quelle_url": "https://euvd.enisa.europa.eu/",
   "hinweis": "Lizenz nicht ausdrücklich geklärt. Nur Kennung, CVE, Hersteller, Werte, Datum und Link.",
-  "abgerufen_am": "2026-11-25T10:23:41+00:00",
-  "anzahl": 78
+  "abgerufen_am": "2026-11-25T10:31:07+00:00",
+  "anzahl": 79
  },
  "eintraege": [
+  {
+   "id": "EUVD-2025-35527",
+   "cve": [
+    "CVE-2025-49931"
+   ],
+   "hersteller": [
+    "Crocoblock"
+   ],
+   "ausgenutzt_seit": "2026-11-25",
+   "veroeffentlicht": "2025-10-22",
+   "cvss": 9.3,
+   "epss": 0.5,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2025-35527"
+  },
   {
    "id": "EUVD-2026-129432",
    "cve": [
