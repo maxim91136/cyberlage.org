@@ -31,6 +31,8 @@ CVE_URL = "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/{y}/
 SANS_URL = "https://isc.sans.edu/api/infocon?json"
 NCSC_URL = "https://advisories.ncsc.nl/rss/advisories"
 FEODO_URL = "https://feodotracker.abuse.ch/downloads/ipblocklist.json"
+FEODO_ALLE_URL = "https://feodotracker.abuse.ch/downloads/ipblocklist_aggressive.csv"  # alle je gesehenen Steuerserver mit first_seen und last_online
+FEODO_RUECK_TAGE = 120
 ANFANG = "2022-01"      # früheste Monate im Verlauf
 FRISCH_TAGE = 365
 REIF_TAGE = 30          # so lange gilt eine Prognose als noch offen
@@ -262,6 +264,50 @@ def hole_feodo():
     return None
 
 
+def parse_feodo_alle(text, heute, tage=FEODO_RUECK_TAGE):
+    """Rückrechnung aus der Liste aller je gesehenen Steuerserver: Ein Server zählt an einem Tag als aktiv, wenn er an diesem Tag
+    zwischen first_seen und last_online lag. Näherung: Zwischenzeiten ohne Erreichbarkeit sind nicht bekannt, die Rückrechnung
+    liegt daher eher über der Live-Zählung (Status online). Gibt {Datum: Zahl} für die letzten `tage` Tage vor `heute` zurück."""
+    kopf, zeilen = None, []
+    for z in text.splitlines():
+        z = z.strip()
+        if not z:
+            continue
+        if z.startswith("#"):
+            if "first_seen" in z and "last_online" in z:
+                kopf = [c.strip().strip('"') for c in z.lstrip("# ").split(",")]
+            continue
+        zeilen.append(z)
+    if not kopf:
+        raise ValueError("Feodo-Liste ohne Kopfzeile")
+    i0, i1 = kopf.index("first_seen_utc") if "first_seen_utc" in kopf else kopf.index("first_seen"), kopf.index("last_online")
+    von_bis = []
+    for row in csv.reader(zeilen):
+        try:
+            a = datetime.strptime(row[i0].strip()[:10], "%Y-%m-%d").date()
+            b = datetime.strptime(row[i1].strip()[:10], "%Y-%m-%d").date() if row[i1].strip() else heute
+        except (ValueError, IndexError):
+            continue
+        von_bis.append((a, b))
+    if not von_bis:
+        raise ValueError("Feodo-Liste ohne lesbare Einträge")
+    out = {}
+    for n in range(1, tage + 1):
+        d = heute - timedelta(days=n)
+        out[d.isoformat()] = sum(1 for a, b in von_bis if a <= d <= b)
+    return out
+
+
+def feodo_rueckrechnen(verlauf, text, heute):
+    """Füllt fehlende Tage der eigenen Reihe aus der Rückrechnung. Echte Messungen werden nie überschrieben.
+    Gibt die Liste der rückgerechneten Tage zurück (für die Anzeige)."""
+    neu = parse_feodo_alle(text, heute)
+    gefuellt = sorted(d for d in neu if d not in verlauf)
+    for d in gefuellt:
+        verlauf[d] = neu[d]
+    return gefuellt
+
+
 def feodo_verlauf(verlauf, messung, heute):
     """Schreibt den Tageswert fort (data/radar/feodo.json). Eigene Zeitreihe, Quelle liefert keine Historie."""
     if messung:
@@ -376,7 +422,16 @@ def main():
         print("WARNUNG: CVE-Liste nicht vollständig erreichbar:", ex)
     heute = datetime.now(timezone.utc).date()
     feodo = hole_feodo()
+    rueck = lese(RADAR / "feodo_rueck.json", {"tage": []})
+    if len(serie) < 31:  # einmalig: Historie aus der Liste aller je gesehenen Steuerserver auffüllen
+        try:
+            req = urllib.request.Request(FEODO_ALLE_URL, headers={"User-Agent": UA})
+            with urllib.request.urlopen(req, timeout=60) as r:
+                rueck["tage"] = sorted(set(rueck.get("tage", [])) | set(feodo_rueckrechnen(serie, r.read().decode("utf-8", "replace"), heute)))
+        except Exception as ex:  # fail-soft: ohne Historie bleibt es bei der eigenen Messreihe
+            print("WARNUNG: Feodo-Historie nicht abrufbar:", ex)
     serie = feodo_verlauf(serie, feodo, heute)
+    (RADAR / "feodo_rueck.json").write_text(json.dumps({"hinweis": "Tage, die aus der Liste aller je gesehenen Steuerserver rückgerechnet wurden (first_seen bis last_online), keine Live-Messung", "tage": rueck.get("tage", [])}, indent=0) + "\n", encoding="utf-8")
     ergebnis = baue(kev, lese(WURZEL / "data" / "eu" / "kev.json"), lese(WURZEL / "data" / "ausblick" / "ausblick.json"),
                     cache, prognosen, heute, hole_sans(), feodo, serie, hole_ncsc(heute))
     RADAR.mkdir(parents=True, exist_ok=True)

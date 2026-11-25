@@ -769,6 +769,12 @@
       var b = el("div", "sg"), st = s.erhoeht === true ? ["●", "an"] : (s.erhoeht === false ? ["○", "aus"] : ["–", "kn"]);
       b.appendChild(el("span", "p mono " + st[1], st[0]));
       b.appendChild(el("span", "n", pick(s.name, s.name_en) + (s.art === "eigen" ? pick(" (eigen)", " (own)") : "") + " · " + (s.erhoeht === true ? pick("erhöht", "elevated") : (s.erhoeht === false ? pick("normal", "normal") : pick("noch keine Aussage", "no rating yet")))));
+      var feodoOffen = s.erhoeht === null && /Feodo/.test(s.name_en || "") && typeof k.messtage_feodo === "number";
+      if (feodoOffen) {
+        var fehlt = Math.max(1, 31 - k.messtage_feodo), ab = new Date(Date.parse(r.abgerufen_am) + fehlt * 86400000);
+        b.appendChild(el("span", "g", pick("Messreihe im Aufbau: " + k.messtage_feodo + " von 31 Tagen, zählt ab etwa " + datum(ab.toISOString()) + ". Die Quelle liefert nur den heutigen Stand, die Historie sammeln wir selbst; ohne sie wäre der Vergleich mit dem 90-Tage-Median geraten.",
+          "Series being built: " + k.messtage_feodo + " of 31 days, counts from about " + datum(ab.toISOString()) + ". The source only provides today's reading, we collect the history ourselves; without it the comparison with the 90-day median would be a guess.")));
+      } else
       b.appendChild(el("span", "g", typeof s.ausschlag === "number" ? pick("Ausschlag ", "reading ") + s.ausschlag.toLocaleString(window.I18N.locale, { minimumFractionDigits: 1, maximumFractionDigits: 2 }) + pick("-fache der Schwelle", "x the threshold") : pick("noch kein Messwert", "no reading yet")));
       box.appendChild(b);
     });

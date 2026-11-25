@@ -925,5 +925,29 @@ class SapTests(unittest.TestCase):
         self.assertEqual(r[1]["cves"], ["CVE-2026-0002"])
 
 
+class FeodoRueckTests(unittest.TestCase):
+    CSV = ('################\n# first_seen_utc,dst_ip,dst_port,c2_status,last_online,malware\n################\n'
+           '"2026-11-01 10:00:00","1.2.3.4","443","offline","2026-11-10","Emotet"\n'
+           '"2026-11-05 10:00:00","5.6.7.8","443","online","2026-11-24","QakBot"\n')
+
+    def test_rueckrechnung_zaehlt_aktive_je_tag(self):
+        import fetch_radar
+        from datetime import date
+        r = fetch_radar.parse_feodo_alle(self.CSV, date(2026, 11, 25), tage=30)
+        self.assertEqual(r["2026-11-03"], 1)
+        self.assertEqual(r["2026-11-08"], 2)
+        self.assertEqual(r["2026-11-12"], 1)
+        self.assertEqual(r["2026-10-30"], 0)
+
+    def test_messungen_werden_nicht_ueberschrieben(self):
+        import fetch_radar
+        from datetime import date
+        serie = {"2026-11-24": 7}
+        gef = fetch_radar.feodo_rueckrechnen(serie, self.CSV, date(2026, 11, 25))
+        self.assertEqual(serie["2026-11-24"], 7)
+        self.assertNotIn("2026-11-24", gef)
+        self.assertGreaterEqual(len(serie), 100)
+
+
 if __name__ == "__main__":
     unittest.main()
