@@ -1795,7 +1795,8 @@
    "CVE-2026-134624",
    "CVE-2026-131914",
    "CVE-2026-132165",
-   "CVE-2026-132224"
+   "CVE-2026-132224",
+   "CVE-2026-103406"
   ],
   "bsi": [
    "WID-SEC-2026-4798",
@@ -2415,7 +2416,9 @@
  "stufe": "angespannt",
  "zusammenfassung": "2026-11-25",
  "offen": {
-  "kev": [],
+  "kev": [
+   "• Hewlett Packard Enterprise (HPE) Juniper Session Smart Conductor and Session Smart Router – <a href=\"https://nvd.nist.gov/vuln/detail/CVE-2026-103406\">CVE-2026-103406</a>"
+  ],
   "bsi": [
    "• <a href=\"https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4717\">VMware vCenter, Tools, und SDDC Manager: Mehrere Schwachstellen</a>",
    "• <a href=\"https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4234\">Juniper Session Smart Router: Mehrere Schwachstellen</a>",

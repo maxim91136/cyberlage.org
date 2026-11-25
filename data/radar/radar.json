@@ -1,5 +1,5 @@
 {
- "abgerufen_am": "2026-11-25T14:28:49+00:00",
+ "abgerufen_am": "2026-11-25T15:02:37+00:00",
  "zeit_bis_kev": {
   "verlauf": [
    {
@@ -410,18 +410,18 @@
    },
    {
     "monat": "2026-11",
-    "n": 28,
-    "n_frisch": 25,
-    "median_frisch": 5,
-    "anteil_30": 0.786
+    "n": 29,
+    "n_frisch": 26,
+    "median_frisch": 5.0,
+    "anteil_30": 0.793
    }
   ],
   "jetzt": {
    "bis": "2026-11-25",
-   "n": 109,
-   "n_frisch": 100,
-   "median_frisch": 5.0,
-   "anteil_30": 0.734
+   "n": 110,
+   "n_frisch": 101,
+   "median_frisch": 5,
+   "anteil_30": 0.736
   },
   "vor_12_monaten": {
    "bis": "2025-11-25",
@@ -5942,15 +5942,15 @@
    },
    {
     "stand": "2026-11-25",
-    "wert": 5.0,
-    "n": 100
+    "wert": 5,
+    "n": 101
    }
   ]
  },
  "trefferquote": {
-  "prognosen": 15,
+  "prognosen": 18,
   "eingetreten": 0,
-  "offen": 15,
+  "offen": 18,
   "reif": 0,
   "reif_eingetreten": 0,
   "quote_reif": null,
@@ -5968,7 +5968,7 @@
  },
  "sans": {
   "status": "green",
-  "abgerufen_am": "2026-11-25T14:28:48+00:00"
+  "abgerufen_am": "2026-11-25T15:02:36+00:00"
  },
  "ncsc": {
   "advisories_30": 25,

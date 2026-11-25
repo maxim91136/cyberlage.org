@@ -1,5 +1,5 @@
 {
-"meta": {"katalog_version": "2026.11.24", "veroeffentlicht_am": "2026-11-24T17:47:46.199Z", "anzahl": 1795, "lizenz": "CC0 1.0 (laut LICENSE-Datei von cisagov/kev-data)", "quelle": "cisa.gov", "quelle_url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json", "abgerufen_am": "2026-11-25T14:26:36+00:00"},
+"meta": {"katalog_version": "2026.11.25", "veroeffentlicht_am": "2026-11-25T14:22:29.6361Z", "anzahl": 1796, "lizenz": "CC0 1.0 (laut LICENSE-Datei von cisagov/kev-data)", "quelle": "cisa.gov", "quelle_url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json", "abgerufen_am": "2026-11-25T15:00:02+00:00"},
 "eintraege": [
 {"cve": "CVE-2010-5326", "hersteller": "SAP", "produkt": "NetWeaver", "hinzugefuegt": "2021-11-03", "frist": "2022-05-03", "ransomware_bekannt": false},
 {"cve": "CVE-2012-0158", "hersteller": "Microsoft", "produkt": "MSCOMCTL.OCX", "hinzugefuegt": "2021-11-03", "frist": "2022-05-03", "ransomware_bekannt": true},
@@ -1795,6 +1795,7 @@
 {"cve": "CVE-2026-134624", "hersteller": "N-able", "produkt": "MailAssure", "hinzugefuegt": "2026-11-23", "frist": "2026-11-26", "ransomware_bekannt": false},
 {"cve": "CVE-2026-131914", "hersteller": "Idunno", "produkt": "AntiCsrf", "hinzugefuegt": "2026-11-24", "frist": "2026-11-27", "ransomware_bekannt": false},
 {"cve": "CVE-2026-132165", "hersteller": "Drupal", "produkt": "Core", "hinzugefuegt": "2026-11-24", "frist": "2026-11-27", "ransomware_bekannt": false},
-{"cve": "CVE-2026-132224", "hersteller": "Optimizely", "produkt": "Web Experimentation", "hinzugefuegt": "2026-11-24", "frist": "2026-11-27", "ransomware_bekannt": false}
+{"cve": "CVE-2026-132224", "hersteller": "Optimizely", "produkt": "Web Experimentation", "hinzugefuegt": "2026-11-24", "frist": "2026-11-27", "ransomware_bekannt": false},
+{"cve": "CVE-2026-103406", "hersteller": "Hewlett Packard Enterprise (HPE)", "produkt": "Juniper Session Smart Conductor and Session Smart Router", "hinzugefuegt": "2026-11-25", "frist": "2026-11-28", "ransomware_bekannt": false}
 ]
 }

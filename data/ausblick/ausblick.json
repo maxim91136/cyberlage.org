@@ -1,15 +1,15 @@
 {
-  "abgerufen_am": "2026-11-25T14:26:39+00:00",
+  "abgerufen_am": "2026-11-25T15:00:11+00:00",
   "fenster_tage": 14,
-  "geprueft": 6920,
+  "geprueft": 7874,
   "schwelle_hoch": 0.1,
-  "hoch_wahrscheinlich": 15,
-  "epss_datum": "2026-11-24",
+  "hoch_wahrscheinlich": 18,
+  "epss_datum": "2026-11-25",
   "liste": [
     {
       "cve": "CVE-2026-115560",
-      "epss": 0.73107,
-      "perzentil": 0.99462,
+      "epss": 0.86584,
+      "perzentil": 0.99826,
       "veroeffentlicht": "2026-11-19",
       "cvss": 9.2,
       "beschreibung": "Session serializer mismatch can lead to remote code execution.",
@@ -19,7 +19,7 @@
     {
       "cve": "CVE-2026-114938",
       "epss": 0.59265,
-      "perzentil": 0.99133,
+      "perzentil": 0.99342,
       "veroeffentlicht": "2026-11-17",
       "cvss": 8.1,
       "beschreibung": "Vulnerability in the Oracle Java SE, Oracle GraalVM for JDK, Oracle GraalVM Enterprise Edition product of Oracle Java SE (component: Compiler).",
@@ -28,8 +28,8 @@
     },
     {
       "cve": "CVE-2026-123007",
-      "epss": 0.447,
-      "perzentil": 0.98792,
+      "epss": 0.45588,
+      "perzentil": 0.9909,
       "veroeffentlicht": "2026-11-18",
       "cvss": 9.2,
       "beschreibung": "This issue affects NGINX Plus or NGINX Open Source configurations that use HTTP/2.",
@@ -37,9 +37,19 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-123007"
     },
     {
+      "cve": "CVE-2026-126714",
+      "epss": 0.33772,
+      "perzentil": 0.98774,
+      "veroeffentlicht": "2026-11-19",
+      "cvss": 9.2,
+      "beschreibung": "Partially overwritten session files can lead to remote code execution.",
+      "produkt": "",
+      "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-126714"
+    },
+    {
       "cve": "CVE-2026-95645",
-      "epss": 0.28818,
-      "perzentil": 0.98178,
+      "epss": 0.31794,
+      "perzentil": 0.987,
       "veroeffentlicht": "2026-11-18",
       "cvss": 9.1,
       "beschreibung": "Zohocorp Manageengine DDI Central build below 6500 are affected by a authenticated command injection vulnerability in the Windows DDI Agent's clear_blocked_domains funct…",
@@ -48,8 +58,8 @@
     },
     {
       "cve": "CVE-2026-95643",
-      "epss": 0.24378,
-      "perzentil": 0.97901,
+      "epss": 0.26985,
+      "perzentil": 0.98488,
       "veroeffentlicht": "2026-11-18",
       "cvss": 9.1,
       "beschreibung": "Zohocorp Manageengine DDI Central build below 6500 are affected by a authenticated PowerShell command injection vulnerability in the Telnet connectivity feature, allowin…",
@@ -57,19 +67,19 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-95643"
     },
     {
-      "cve": "CVE-2026-123633",
-      "epss": 0.2211,
-      "perzentil": 0.9771,
-      "veroeffentlicht": "2026-11-18",
+      "cve": "CVE-2026-129289",
+      "epss": 0.2479,
+      "perzentil": 0.98373,
+      "veroeffentlicht": "2026-11-19",
       "cvss": 9.2,
-      "beschreibung": "When NGINX Plus or NGINX Open Source is configured to use HTTP/2 for client connections and proxy client requests to a backend, a specially crafted request can result in…",
-      "produkt": "f5 dos",
-      "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-123633"
+      "beschreibung": "PHP-FPM request smuggling through an unread HTTP request body.",
+      "produkt": "",
+      "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-129289"
     },
     {
       "cve": "CVE-2026-75869",
-      "epss": 0.20352,
-      "perzentil": 0.97529,
+      "epss": 0.24348,
+      "perzentil": 0.98343,
       "veroeffentlicht": "2026-11-12",
       "cvss": 8.8,
       "beschreibung": "Zohocorp ManageEngine DDI Central versions below 6301 is affected by an authorization bypass and PowerShell command injection vulnerability that allowed authenticated no…",
@@ -77,40 +87,30 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-75869"
     },
     {
-      "cve": "CVE-2026-123634",
-      "epss": 0.18839,
-      "perzentil": 0.97341,
+      "cve": "CVE-2026-123633",
+      "epss": 0.2211,
+      "perzentil": 0.98185,
       "veroeffentlicht": "2026-11-18",
       "cvss": 9.2,
-      "beschreibung": "This issue occurs when NGINX Plus or NGINX Open Source is configured as a proxy, the proxied server name includes variables, and a Server Side Includes (SSI) or mirror d…",
+      "beschreibung": "When NGINX Plus or NGINX Open Source is configured to use HTTP/2 for client connections and proxy client requests to a backend, a specially crafted request can result in…",
       "produkt": "f5 dos",
-      "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-123634"
+      "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-123633"
     },
     {
-      "cve": "CVE-2026-121810",
-      "epss": 0.18075,
-      "perzentil": 0.9725,
-      "veroeffentlicht": "2026-11-18",
-      "cvss": 9.2,
-      "beschreibung": "Description: This issue affects NGINX Plus and NGINX Open Source configurations that use HTTP/3.",
-      "produkt": "f5 dos",
-      "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-121810"
-    },
-    {
-      "cve": "CVE-2026-129289",
-      "epss": 0.16163,
-      "perzentil": 0.96993,
+      "cve": "CVE-2026-129474",
+      "epss": 0.21169,
+      "perzentil": 0.98115,
       "veroeffentlicht": "2026-11-19",
       "cvss": 9.2,
-      "beschreibung": "PHP-FPM request smuggling through an unread HTTP request body.",
+      "beschreibung": "Use-after-free in magic method backtraces can lead to remote code execution.",
       "produkt": "",
-      "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-129289"
+      "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-129474"
     }
   ],
   "kandidaten": [
     {
       "cve": "CVE-2026-115560",
-      "epss": 0.73107,
+      "epss": 0.86584,
       "veroeffentlicht": "2026-11-19"
     },
     {
@@ -120,18 +120,33 @@
     },
     {
       "cve": "CVE-2026-123007",
-      "epss": 0.447,
+      "epss": 0.45588,
       "veroeffentlicht": "2026-11-18"
     },
     {
+      "cve": "CVE-2026-126714",
+      "epss": 0.33772,
+      "veroeffentlicht": "2026-11-19"
+    },
+    {
       "cve": "CVE-2026-95645",
-      "epss": 0.28818,
+      "epss": 0.31794,
       "veroeffentlicht": "2026-11-18"
     },
     {
       "cve": "CVE-2026-95643",
-      "epss": 0.24378,
+      "epss": 0.26985,
       "veroeffentlicht": "2026-11-18"
+    },
+    {
+      "cve": "CVE-2026-129289",
+      "epss": 0.2479,
+      "veroeffentlicht": "2026-11-19"
+    },
+    {
+      "cve": "CVE-2026-75869",
+      "epss": 0.24348,
+      "veroeffentlicht": "2026-11-12"
     },
     {
       "cve": "CVE-2026-123633",
@@ -139,9 +154,9 @@
       "veroeffentlicht": "2026-11-18"
     },
     {
-      "cve": "CVE-2026-75869",
-      "epss": 0.20352,
-      "veroeffentlicht": "2026-11-12"
+      "cve": "CVE-2026-129474",
+      "epss": 0.21169,
+      "veroeffentlicht": "2026-11-19"
     },
     {
       "cve": "CVE-2026-123634",
@@ -152,11 +167,6 @@
       "cve": "CVE-2026-121810",
       "epss": 0.18075,
       "veroeffentlicht": "2026-11-18"
-    },
-    {
-      "cve": "CVE-2026-129289",
-      "epss": 0.16163,
-      "veroeffentlicht": "2026-11-19"
     },
     {
       "cve": "CVE-2026-119618",
@@ -169,9 +179,9 @@
       "veroeffentlicht": "2026-11-18"
     },
     {
-      "cve": "CVE-2026-126714",
-      "epss": 0.13297,
-      "veroeffentlicht": "2026-11-19"
+      "cve": "CVE-2026-12507",
+      "epss": 0.13743,
+      "veroeffentlicht": "2026-11-12"
     },
     {
       "cve": "CVE-2026-129538",
@@ -179,8 +189,13 @@
       "veroeffentlicht": "2026-11-19"
     },
     {
-      "cve": "CVE-2026-12507",
-      "epss": 0.104,
+      "cve": "CVE-2026-129496",
+      "epss": 0.11073,
+      "veroeffentlicht": "2026-11-19"
+    },
+    {
+      "cve": "CVE-2026-124002",
+      "epss": 0.10227,
       "veroeffentlicht": "2026-11-12"
     }
   ]
