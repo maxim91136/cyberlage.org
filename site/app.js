@@ -29,6 +29,12 @@
     var sec = document.getElementById(l.getAttribute("href").slice(1)), d = sec && sec.querySelector("details.sek"); if (d) d.open = true;
   });
   window.addEventListener("load", oeffne);
+  // Ohne Ziel im Link immer oben starten: sonst stellt der Browser eine alte Scrollposition wieder her, die nach dem Nachladen der Daten woanders (z. B. beim Fazit) liegt.
+  if (!location.hash) {
+    try { history.scrollRestoration = "manual"; } catch (e) { /* ältere Browser */ }
+    var oben = function () { if (!location.hash) window.scrollTo({ top: 0, left: 0, behavior: "instant" }); };
+    oben(); window.addEventListener("load", oben); window.addEventListener("pageshow", oben);
+  }
 
   var knopf = $("totop");
   if (knopf) {
