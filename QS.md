@@ -26,6 +26,7 @@ Steve soll nicht zwischen den Chats vermitteln müssen. Wer am Repo arbeitet, li
 
 ## Entscheidungen von Steve
 
+- 25.11.2026 (spät): Weitere Quellen Ivanti (Monatsmeldung per RSS) und Apple (Übersichtsseite) aufgenommen, vorher auf einem Probe-Zweig mit `quellen-test` echt abgerufen. Citrix (kein gültiges XML), Oracle (403) und Adobe (nur Trust Center) bleiben draußen und stehen nur mit Patch-Tag im Kalender. Kalender um Fortinet, Ivanti, Citrix ergänzt (zweiter Dienstag). Eigene Klappe „Hersteller“ getrennt von den Linux-Distributionen. Neue Quellen künftig immer so prüfen: Zweig anlegen, `quellen-test` mit `ref=<zweig>` starten, erst dann nach main.
 - 25.11.2026: Acht Bereiche statt fünf (neu: E-Mail und Zusammenarbeit; Fernwartung, Verwaltung und Dateitransfer; Entwicklung, DevOps und KI-Werkzeuge). Vor dem Push an den 333 KEV-Einträgen eines Jahres geprüft: Rest „Sonstige“ 2. Reihenfolge im Block: Diese Woche zuerst, Hersteller, gerade angegriffen. Die Rangliste bekommt je Eintrag einen Bereich (score.py).
 - 25.11.2026: Jede Tabelle muss sortierbar und filterbar sein. Umgesetzt allgemein in `site/app.js` (`tabelleAusbauen`): Klick auf den Spaltenkopf sortiert, ab sechs Zeilen kommt ein Filterfeld. Neue Tabellen brauchen dafür nur `<thead>` und `<tbody>`.
 - 25.11.2026: Die Patch-Seite soll mehr Rollen bedienen (Admins, Netzwerk, Anwendungsverantwortliche, SOC). Priorisierung macht die QS; gebaut wird nur, was echten Mehrwert hat. Zwei Sichten (Lage/Handeln) statt freier Anpassung.

@@ -719,6 +719,16 @@ class HerstellerPatchTests(unittest.TestCase):
         self.assertEqual(r[0]["link"], "https://www.mozilla.org/en-US/security/advisories/mfsa2026-91/")
         self.assertEqual(fetch_patches.parse_mozilla("<p>nichts</p>"), [])
 
+    def test_apple_und_datum_ohne_zone(self):
+        seite = """<table><tr><th>Name</th><th>Available for</th><th>Release date</th></tr>
+          <tr><td><a href="/en-us/126001">iOS 27.1 and iPadOS 27.1</a></td><td>iPhone 12 and later</td><td>17 Nov 2026</td></tr>
+          <tr><td>watchOS 13.1<br>This update has no published CVE entries.</td><td>Apple Watch</td><td>17 Nov 2026</td></tr></table>"""
+        r = fetch_patches.parse_apple(seite)
+        self.assertEqual([(i["titel"][:24], i["datum"].isoformat()) for i in r], [("iOS 27.1 and iPadOS 27.1", "2026-11-17"), ("watchOS 13.1", "2026-11-17")])
+        self.assertEqual(r[0]["link"], "https://support.apple.com/en-us/126001")
+        self.assertEqual(fetch_patches._datum("Tue, 10 Nov 2026 21:46:16 Z").isoformat(), "2026-11-10")
+        self.assertIsNone(fetch_patches._datum("irgendwas"))
+
     def test_neue_quellen_fallen_weich_aus(self):
         def lade(url):
             if "paloaltonetworks" in url:

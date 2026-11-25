@@ -474,6 +474,9 @@
       add(z, { n: "Microsoft Patch Day", l: "https://msrc.microsoft.com/update-guide/", art: "ms" });
       add(z, { n: "Adobe", l: "https://helpx.adobe.com/security.html", art: "adobe" });
       add(z, { n: "SAP Security Patch Day", l: "https://support.sap.com/en/my-support/knowledge-base/security-notes-news.html", art: "sap" });
+      add(z, { n: "Fortinet", l: "https://www.fortiguard.com/psirt", art: "fortinet" });
+      add(z, { n: "Ivanti", l: "https://www.ivanti.com/blog/topics/security-advisory", art: "ivanti" });
+      add(z, { n: "Citrix", l: "https://support.citrix.com/securitybulletins", art: "citrix" });
       add(o, { n: [0, 3, 6, 9].indexOf(m) >= 0 ? "Oracle Critical Patch Update (CPU)" : "Oracle Critical Security Patch Update", l: "https://www.oracle.com/security-alerts/", art: "oracle" });
     }
     return Object.keys(grp).map(function (k) { return grp[k]; }).sort(function (x, y) { return x.zeit - y.zeit; }).slice(0, anzahl).map(function (g) {
@@ -585,8 +588,9 @@
     var hq = ((d.patches || {}).hersteller || {}).quellen || {}, hbox = el("div", "b-hs"); box.insertBefore(hbox, zbox.nextSibling);
     /* Hersteller je Bereich: q = Quelle mit Zahlen, t = Patch-Tag nach Regel des Herstellers, a = Sprung zu einem Abschnitt, ohne = noch keine offene Quelle angebunden */
     var KAT = {
-      netzwerk: [{ n: "Cisco", q: "cisco" }, { n: "Fortinet", q: "fortinet" }, { n: "Palo Alto Networks", q: "paloalto" }, { n: "Ivanti", ohne: 1 }, { n: "Citrix", ohne: 1 }],
-      arbeitsplatz: [{ n: "Edge und Chrome", n_en: "Edge and Chrome", a: "k-edge" }, { n: "Firefox und Thunderbird", n_en: "Firefox and Thunderbird", q: "mozilla" }, { n: "Adobe", t: "adobe", l: "https://helpx.adobe.com/security.html" }, { n: "Apple", ohne: 1 }],
+      netzwerk: [{ n: "Cisco", q: "cisco" }, { n: "Fortinet", q: "fortinet", t: "fortinet" }, { n: "Palo Alto Networks", q: "paloalto" }, { n: "Ivanti", q: "ivanti", t: "ivanti" }, { n: "Citrix", t: "citrix", l: "https://support.citrix.com/securitybulletins" }],
+      fernwartung: [{ n: "Ivanti", q: "ivanti", t: "ivanti" }, { n: "ConnectWise", ohne: 1 }, { n: "SolarWinds", ohne: 1 }],
+      arbeitsplatz: [{ n: "Edge und Chrome", n_en: "Edge and Chrome", a: "k-edge" }, { n: "Firefox und Thunderbird", n_en: "Firefox and Thunderbird", q: "mozilla" }, { n: "Adobe", t: "adobe", l: "https://helpx.adobe.com/security.html" }, { n: "Apple", q: "apple" }],
       windows: [{ n: "Microsoft Patch Day", t: "ms", a: "k-ms" }],
       zusammenarbeit: [{ n: "Microsoft (Exchange, SharePoint, Teams)", t: "ms", a: "k-ms" }, { n: "Atlassian", ohne: 1 }, { n: "Zimbra", ohne: 1 }],
       anwendungen: [{ n: "SAP", q: "sap", t: "sap" }, { n: "Oracle", t: "oracle", l: "https://www.oracle.com/security-alerts/" }, { n: "VMware (Broadcom)", ohne: 1 }],
@@ -886,7 +890,7 @@
   }
   function zeigeHersteller(hs) {
     var alle = hs && hs.quellen ? Object.keys(hs.quellen).map(function (k) { return hs.quellen[k]; }) : [];
-    herstellerTabelle($("p-hv"), alle.filter(function (q) { return q.typ === "hersteller"; }), pick("Hersteller: Netzwerk, Anwendungen, Browser", "Vendors: network, applications, browsers"), true);
+    herstellerTabelle($("p-hv"), alle.filter(function (q) { return q.typ === "hersteller"; }), pick("Hersteller: Netzwerk, Anwendungen, Browser, Apple", "Vendors: network, applications, browsers, Apple"), true);
     herstellerTabelle($("p-hs"), alle.filter(function (q) { return q.typ !== "hersteller"; }), pick("Linux-Distributionen", "Linux distributions"), false);
   }
   function herstellerTabelle(box, qs, titel, mitAdobe) {

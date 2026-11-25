@@ -386,6 +386,9 @@ CVE_RE = re.compile(r"CVE-\d{4}-\d{4,7}")
 FENSTER = 30
 
 
+_MONATE_EN = {m: i + 1 for i, m in enumerate(["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"])}
+
+
 def lade_roh(url):
     req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "*/*"})
     with urllib.request.urlopen(req, timeout=120) as r:
@@ -412,7 +415,15 @@ def _datum(text):
     try:
         return parsedate_to_datetime(t).date()
     except (TypeError, ValueError):
-        return None
+        pass
+    m = re.search(r"(\d{1,2})\s+([A-Za-z]{3})[a-z]*\.?,?\s+(\d{4})", t)  # '10 Nov 2026', auch mit unbekannter Zeitzone dahinter
+    mon = {k[:3]: v for k, v in _MONATE_EN.items()}.get(m.group(2).lower()) if m else None
+    if mon:
+        try:
+            return datetime(int(m.group(3)), mon, int(m.group(1))).date()
+        except ValueError:
+            return None
+    return None
 
 
 def parse_ubuntu(daten):
@@ -606,10 +617,12 @@ def parse_amazon(xml_bytes):
 FEEDS = {  # Hersteller mit offenem RSS- oder Atom-Feed: Adressen (erste, die antwortet, zählt weiter mit), Kennungsmuster
     "fortinet": (["https://www.fortiguard.com/rss/ir.xml", "https://filestore.fortinet.com/fortiguard/rss/ir.xml"], r"FG-IR-\d+-\d+"),
     "paloalto": (["https://security.paloaltonetworks.com/rss.xml"], r"PAN-SA-\d{4}-\d+|CVE-\d{4}-\d+"),
+    "ivanti": (["https://www.ivanti.com/blog/topics/security-advisory/rss"], None),
+    # Citrix (securitybulletins.rss) liefert dem Lauf kein gültiges XML (geprüft 25.11.2026) und bleibt draußen; der Patch-Tag steht im Kalender.
     # Oracle (rss-otn-sec.xml) antwortet dem Lauf mit 403 (geprüft 25.11.2026) und bleibt deshalb draußen; der Termin steht im Patch-Kalender.
 }
 MOZILLA_URL = "https://www.mozilla.org/en-US/security/advisories/"
-_MONATE_EN = {m: i + 1 for i, m in enumerate(["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"])}
+APPLE_URL = "https://support.apple.com/en-us/100100"
 _SEV_FEED = {"critical": "kritisch", "high": "hoch", "important": "hoch", "medium": "mittel", "moderate": "mittel", "low": "niedrig"}
 
 
@@ -661,6 +674,24 @@ def parse_mozilla(html_text):
     return list({i["id"]: i for i in out}.values())
 
 
+def parse_apple(html_text):
+    """Tabelle 'Apple security releases': Name (mit Link, wenn es Sicherheitsinhalte gibt), verfügbar für, Datum. Ohne Schweregrad und CVEs."""
+    out = []
+    for zeile in re.findall(r"<tr[^>]*>(.*?)</tr>", html_text, re.S):
+        zellen = re.findall(r"<td[^>]*>(.*?)</td>", zeile, re.S)
+        if len(zellen) < 3:
+            continue
+        name = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", zellen[0]))).strip()
+        name = re.sub(r"\s*This update has no published CVE entries\.?", "", name).strip()
+        datum = _datum(re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", zellen[-1]))).strip())
+        m = re.search(r'href="([^"]+)"', zellen[0])
+        if not name or not datum:
+            continue
+        link = m.group(1) if m else APPLE_URL
+        out.append({"id": name[:80], "datum": datum, "titel": name[:200], "link": link if link.startswith("http") else "https://support.apple.com" + link, "schwere": None, "cves": []})
+    return list({i["id"]: i for i in out}.values())
+
+
 def _mehrere(urls, parse, lade, name):
     """Mehrere Feeds derselben Quelle: was erreichbar ist, zählt; doppelte Kennungen nur einmal."""
     alle, fehler = {}, []
@@ -703,6 +734,8 @@ QUELLEN = [
     {"id": "cisco", "bereich": "netzwerk", "name": "Cisco Security Advisories", "typ": "hersteller", "url": "https://sec.cloudapps.cisco.com/security/center/publicationListing.x", "lizenz": "Feed nennt nur ein Urheberrecht, keine Nutzungsbedingungen; nur Zählung, Kennung, Titel, Datum, Link"},
     {"id": "fortinet", "bereich": "netzwerk", "name": "Fortinet PSIRT Advisories", "typ": "hersteller", "url": "https://www.fortiguard.com/psirt", "lizenz": "Öffentlicher Feed des Herstellers, Nutzungsbedingungen nicht ausdrücklich geklärt; nur Zählung, Kennung, Titel, Datum, Link"},
     {"id": "paloalto", "bereich": "netzwerk", "name": "Palo Alto Networks Security Advisories", "typ": "hersteller", "url": "https://security.paloaltonetworks.com/", "lizenz": "Öffentlicher Feed des Herstellers, Nutzungsbedingungen nicht ausdrücklich geklärt; nur Zählung, Kennung, Titel, Datum, Link"},
+    {"id": "ivanti", "bereich": "fernwartung", "name": "Ivanti Security Advisories", "typ": "hersteller", "url": "https://www.ivanti.com/blog/topics/security-advisory", "lizenz": "Öffentlicher Feed des Herstellers, Nutzungsbedingungen nicht ausdrücklich geklärt; nur Zählung, Titel, Datum, Link"},
+    {"id": "apple", "bereich": "arbeitsplatz", "name": "Apple Security Releases", "typ": "hersteller", "url": "https://support.apple.com/en-us/100100", "lizenz": "Öffentliche Übersichtsseite, Nutzungsbedingungen nicht ausdrücklich geklärt; nur Zählung, Name, Datum, Link"},
     {"id": "mozilla", "bereich": "arbeitsplatz", "name": "Mozilla Security Advisories (Firefox, Thunderbird)", "typ": "hersteller", "url": "https://www.mozilla.org/en-US/security/advisories/", "lizenz": "Öffentliche Übersichtsseite (Inhalte unter CC BY-SA); nur Zählung, Kennung, Titel, Datum, Link"},
 ]
 
@@ -794,6 +827,8 @@ def hole_quelle(qid, heute, lade=lade_roh):
         raise QuellFehler("%s: %s" % (qid, fehler or "keine Einträge erkannt"))
     if qid == "mozilla":
         return parse_mozilla(lade(MOZILLA_URL).decode("utf-8", "replace"))
+    if qid == "apple":
+        return parse_apple(lade(APPLE_URL).decode("utf-8", "replace"))
     raise QuellFehler("unbekannte Quelle " + qid)
 
 
