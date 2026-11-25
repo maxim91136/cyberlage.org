@@ -3,10 +3,95 @@
   "quelle": "EU-KEV über die EU-Schwachstellendatenbank (EUVD) von ENISA",
   "quelle_url": "https://euvd.enisa.europa.eu/",
   "hinweis": "Lizenz nicht ausdrücklich geklärt. Nur Kennung, CVE, Hersteller, Werte, Datum und Link.",
-  "abgerufen_am": "2026-11-25T20:12:32+00:00",
-  "anzahl": 80
+  "abgerufen_am": "2026-11-25T22:18:09+00:00",
+  "anzahl": 89
  },
  "eintraege": [
+  {
+   "id": "EUVD-2026-133254",
+   "cve": [
+    "CVE-2026-133469"
+   ],
+   "hersteller": [
+    "vatesfr",
+    "xen-orchestra"
+   ],
+   "ausgenutzt_seit": "2026-11-25",
+   "veroeffentlicht": "2026-11-23",
+   "cvss": 9.8,
+   "epss": 0.78,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-133254"
+  },
+  {
+   "id": "EUVD-2026-130384",
+   "cve": [
+    "CVE-2026-133324"
+   ],
+   "hersteller": [
+    "Mitel"
+   ],
+   "ausgenutzt_seit": "2026-11-25",
+   "veroeffentlicht": "2026-11-19",
+   "cvss": 5.3,
+   "epss": 0.31,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-130384"
+  },
+  {
+   "id": "EUVD-2026-130382",
+   "cve": [
+    "CVE-2026-133323"
+   ],
+   "hersteller": [
+    "Mitel"
+   ],
+   "ausgenutzt_seit": "2026-11-25",
+   "veroeffentlicht": "2026-11-19",
+   "cvss": 10.0,
+   "epss": 1.66,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-130382"
+  },
+  {
+   "id": "EUVD-2026-130381",
+   "cve": [
+    "CVE-2026-133311"
+   ],
+   "hersteller": [
+    "Mitel"
+   ],
+   "ausgenutzt_seit": "2026-11-25",
+   "veroeffentlicht": "2026-11-19",
+   "cvss": 5.9,
+   "epss": 0.26,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-130381"
+  },
+  {
+   "id": "EUVD-2026-130376",
+   "cve": [
+    "CVE-2026-133303"
+   ],
+   "hersteller": [
+    "Mitel"
+   ],
+   "ausgenutzt_seit": "2026-11-25",
+   "veroeffentlicht": "2026-11-19",
+   "cvss": 9.0,
+   "epss": 0.55,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-130376"
+  },
+  {
+   "id": "EUVD-2026-130372",
+   "cve": [
+    "CVE-2026-133275"
+   ],
+   "hersteller": [
+    "Mitel"
+   ],
+   "ausgenutzt_seit": "2026-11-25",
+   "veroeffentlicht": "2026-11-19",
+   "cvss": 5.3,
+   "epss": 0.25,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-130372"
+  },
   {
    "id": "EUVD-2026-112215",
    "cve": [
@@ -34,6 +119,48 @@
    "cvss": 9.3,
    "epss": 0.5,
    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2025-35527"
+  },
+  {
+   "id": "EUVD-2025-13996",
+   "cve": [
+    "CVE-2025-41450"
+   ],
+   "hersteller": [
+    "Danfoss"
+   ],
+   "ausgenutzt_seit": "2026-11-25",
+   "veroeffentlicht": "2025-05-08",
+   "cvss": 8.2,
+   "epss": 0.97,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2025-13996"
+  },
+  {
+   "id": "EUVD-2023-29803",
+   "cve": [
+    "CVE-2023-25915"
+   ],
+   "hersteller": [
+    "Danfoss"
+   ],
+   "ausgenutzt_seit": "2026-11-25",
+   "veroeffentlicht": "2023-08-21",
+   "cvss": 9.9,
+   "epss": 1.04,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2023-29803"
+  },
+  {
+   "id": "EUVD-2023-29802",
+   "cve": [
+    "CVE-2023-25914"
+   ],
+   "hersteller": [
+    "Danfoss"
+   ],
+   "ausgenutzt_seit": "2026-11-25",
+   "veroeffentlicht": "2023-08-21",
+   "cvss": 8.8,
+   "epss": 0.81,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2023-29802"
   },
   {
    "id": "EUVD-2026-129432",

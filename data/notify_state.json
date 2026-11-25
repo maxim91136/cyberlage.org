@@ -2341,8 +2341,17 @@
    "WID-SEC-2022-1243"
   ],
   "eu": [
+   "EUVD-2026-133254",
+   "EUVD-2026-130384",
+   "EUVD-2026-130382",
+   "EUVD-2026-130381",
+   "EUVD-2026-130376",
+   "EUVD-2026-130372",
    "EUVD-2026-112215",
    "EUVD-2025-35527",
+   "EUVD-2025-13996",
+   "EUVD-2023-29803",
+   "EUVD-2023-29802",
    "EUVD-2026-129432",
    "EUVD-2026-129010",
    "EUVD-2026-132805",
@@ -2446,7 +2455,16 @@
   "eu": [
    "• Danfoss – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-131451\">CVE-2026-127057</a>",
    "• Crocoblock – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2025-35527\">CVE-2025-49931</a>",
-   "• Juniper Networks – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-112215\">CVE-2026-103406</a>"
+   "• Juniper Networks – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-112215\">CVE-2026-103406</a>",
+   "• vatesfr, xen-orchestra – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-133254\">CVE-2026-133469</a>",
+   "• Mitel – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-130384\">CVE-2026-133324</a>",
+   "• Mitel – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-130382\">CVE-2026-133323</a>",
+   "• Mitel – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-130381\">CVE-2026-133311</a>",
+   "• Mitel – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-130376\">CVE-2026-133303</a>",
+   "• Mitel – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-130372\">CVE-2026-133275</a>",
+   "• Danfoss – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2025-13996\">CVE-2025-41450</a>",
+   "• Danfoss – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2023-29803\">CVE-2023-25915</a>",
+   "• Danfoss – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2023-29802\">CVE-2023-25914</a>"
   ]
  },
  "patches": {
