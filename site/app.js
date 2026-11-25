@@ -65,6 +65,10 @@
       knopf.classList.toggle("on", window.scrollY > window.innerHeight * 1.2);
       var aktiv = -1, grenze = window.scrollY + 120;
       abschnitte.forEach(function (sec, i) { if (!sec || sec.offsetParent === null) return; var r = sec.getBoundingClientRect(); if (r.top <= 120 && r.bottom > 120) aktiv = i; });
+      if (aktiv < 0) [["teil1", "lage"], ["teil2", "patches"], ["teil3", "info"]].forEach(function (p) {
+        var t = document.getElementById(p[0]); if (!t) return; var r = t.getBoundingClientRect();
+        if (r.top <= 120 && r.bottom > 120) navLinks.forEach(function (l, i) { if (l.getAttribute("data-sec") === p[1]) aktiv = i; });
+      });
       navLinks.forEach(function (a, i) { if (i === aktiv) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current"); a.classList.toggle("aktiv", i === aktiv); });
     };
     window.addEventListener("scroll", function () { if (!ticks) { ticks = true; requestAnimationFrame(pruefen); } }, { passive: true });
