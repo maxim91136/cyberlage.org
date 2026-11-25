@@ -34,7 +34,7 @@ MONAT_ID = re.compile(r"^(\d{4})-(" + "|".join(MONATE) + r")$")
 SCHWEREN = ("Critical", "Important", "Moderate", "Low")
 BEHALTEN_MONATE = 36
 HISTORIE_MONATE = 12  # Vergleichsbasis für die Bewertung
-SCHEMA = 3  # erhöhen, wenn sich die Zählweise ändert: dann werden alle Monate neu geholt
+SCHEMA = 4  # erhöhen, wenn sich die Zählweise ändert: dann werden alle Monate neu geholt
 
 
 class QuellFehler(Exception):
@@ -49,6 +49,23 @@ def lade_json(url):
 
 def _wert(x):
     return x.get("Value", "") if isinstance(x, dict) else (x or "")
+
+
+def patch_stand(v):
+    """Aus den Remediations einer CVE: ("ja", [KB...]) wenn ein Hersteller-Fix (Typ 2) vorliegt, ("nein", []) wenn nur
+    Umgehung/Abmilderung/kein Fix, ("unbekannt", []) wenn Microsoft keine Angabe liefert."""
+    rems = v.get("Remediations") or []
+    if not rems:
+        return "unbekannt", []
+    kbs = []
+    for r in rems:
+        if r.get("Type") == 2:
+            kb = re.sub(r"\D", "", _wert(r.get("Description")))
+            if len(kb) >= 6 and kb not in kbs:
+                kbs.append(kb)
+    if any(r.get("Type") == 2 for r in rems):
+        return "ja", kbs[:3]
+    return "nein", []
 
 
 def sammle_produkte(knoten, out=None):
@@ -101,6 +118,7 @@ def verdichte_dokument(doc, kev_cves=()):
     schwere["unbekannt"] = 0
     auswirkung, fam = {}, {}
     ausgenutzt, oeffentlich, in_kev, cves, chromium, azure_linux, kandidaten = [], [], [], [], 0, 0, []
+    ohne_fix = []
     gesehen = set()
     for v in doc.get("Vulnerability") or []:
         cve = v.get("CVE")
@@ -130,6 +148,9 @@ def verdichte_dokument(doc, kev_cves=()):
             elif art == 1 and not ex_text:
                 ex_text = text
         schwere[sev if sev in SCHWEREN else "unbekannt"] += 1
+        patch, kbs = patch_stand(v)
+        if patch == "nein":
+            ohne_fix.append(cve)
         ist_aus = bool(re.search(r"Exploited:\s*Yes", ex_text, re.I))
         ist_oeff = bool(re.search(r"Publicly Disclosed:\s*Yes", ex_text, re.I))
         if ist_aus or ist_oeff or cve in kev or sev == "Critical":
@@ -138,7 +159,7 @@ def verdichte_dokument(doc, kev_cves=()):
                 for pid in st.get("ProductID") or []:
                     fam_c.add(familie(produkte.get(str(pid), "")))
             kandidaten.append({"cve": cve, "titel": titel[:120], "schwere": sev, "ausgenutzt": ist_aus, "oeffentlich": ist_oeff, "kev": cve in kev,
-                               "familien": sorted(fam_c - {"Sonstige"})[:3]})
+                               "patch": patch, "kb": kbs, "familien": sorted(fam_c - {"Sonstige"})[:3]})
         if imp:
             auswirkung[imp] = auswirkung.get(imp, 0) + 1
         if re.search(r"Exploited:\s*Yes", ex_text, re.I):
@@ -157,6 +178,7 @@ def verdichte_dokument(doc, kev_cves=()):
         "schwere": schwere,
         "ausgenutzt": len(ausgenutzt), "ausgenutzt_cves": sorted(ausgenutzt)[:25],
         "oeffentlich_bekannt": len(oeffentlich), "oeffentlich_cves": sorted(oeffentlich)[:25],
+        "ohne_fix": len(ohne_fix), "ohne_fix_cves": sorted(ohne_fix)[:25],
         "im_kev": len(in_kev), "im_kev_cves": sorted(in_kev)[:25],
         "auswirkung": dict(sorted(auswirkung.items(), key=lambda kv: -kv[1])[:8]),
         "familien": dict(sorted(fam.items(), key=lambda kv: -kv[1])),
@@ -179,18 +201,18 @@ def bewerte(monat, vorherige):
     n_aus = monat["ausgenutzt"]
     if n_aus > 0:
         stufe = "dringend"
-        erst = "die bereits ausgenutzte Lücke" if n_aus == 1 else "die %d bereits ausgenutzten Lücken" % n_aus
-        erst_en = "the already exploited flaw" if n_aus == 1 else "the %d already exploited flaws" % n_aus
-        dann = "" if kritisch == 0 else (", danach die als kritisch eingestufte Lücke" if kritisch == 1 else ", danach die %d als kritisch eingestuften" % kritisch)
-        dann_en = "" if kritisch == 0 else (", then the flaw rated critical" if kritisch == 1 else ", then the %d rated critical" % kritisch)
+        erst = "den Patch für die bereits ausgenutzte Lücke" if n_aus == 1 else "die Patches für die %d bereits ausgenutzten Lücken" % n_aus
+        erst_en = "the patch for the already exploited flaw" if n_aus == 1 else "the patches for the %d already exploited flaws" % n_aus
+        dann = "" if kritisch == 0 else (", danach den Patch für die als kritisch eingestufte Lücke" if kritisch == 1 else ", danach die Patches für die %d als kritisch eingestuften" % kritisch)
+        dann_en = "" if kritisch == 0 else (", then the patch for the flaw rated critical" if kritisch == 1 else ", then the patches for the %d rated critical" % kritisch)
         empf = "Zuerst %s einspielen%s." % (erst, dann)
         empf_en = "Apply %s first%s." % (erst_en, dann_en)
     elif kritisch > 0:
         stufe = "zeitnah"
-        was = "Die als kritisch eingestufte Lücke" if kritisch == 1 else "Die %d als kritisch eingestuften Lücken" % kritisch
-        was_en = "The flaw rated critical" if kritisch == 1 else "The %d flaws rated critical" % kritisch
+        was = "Den Patch für die als kritisch eingestufte Lücke" if kritisch == 1 else "Die Patches für die %d als kritisch eingestuften Lücken" % kritisch
+        was_en = "The patch for the flaw rated critical" if kritisch == 1 else "The patches for the %d flaws rated critical" % kritisch
         empf = "%s zeitnah einspielen, den Rest im normalen Zyklus." % was
-        empf_en = "%s promptly, the rest in the normal cycle." % (was_en + " should be applied")
+        empf_en = "%s should be applied promptly, the rest in the normal cycle." % was_en
     else:
         stufe = "normal"
         empf = "Im normalen Patchzyklus einspielen."
@@ -502,7 +524,7 @@ def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=8):
     """Rangliste nach festen Regeln: 1 im KEV (nachweislich angegriffen), 2 vom Hersteller als ausgenutzt gemeldet,
     3 EPSS ab 10 %, 4 vom Hersteller als kritisch eingestuft. Innerhalb einer Stufe nach EPSS, dann nach Kennung."""
     kev = set(kev)
-    kand, gesehen = [], set()
+    kand, gesehen, ohne = [], set(), []
     for m in ms_monate or []:
         try:
             tage = (heute - datetime.fromisoformat(str(m.get("erste_veroeffentlichung")).replace("Z", "+00:00")).date()).days
@@ -525,7 +547,20 @@ def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=8):
             if k["cve"] in gesehen:
                 continue
             gesehen.add(k["cve"])
+            pst = k.get("patch", "unbekannt")
+            kb = k.get("kb") or []
+            if pst == "nein":
+                ohne.append({"stufe": stufe, "quelle": "Microsoft", "titel": k["titel"], "cves": [k["cve"]], "grund": g, "grund_en": ge,
+                             "betrifft": ", ".join(k["familien"]), "datum": str(m.get("erste_veroeffentlichung"))[:10],
+                             "link": "https://msrc.microsoft.com/update-guide/vulnerability/" + k["cve"]})
+                continue
+            if pst == "ja":
+                pt = "Patch liegt vor" + (": KB" + ", KB".join(kb) if kb else "")
+                pt_en = "Patch available" + (": KB" + ", KB".join(kb) if kb else "")
+            else:
+                pt, pt_en = "Patch-Stand bei Microsoft prüfen", "Check patch status with Microsoft"
             kand.append({"stufe": stufe, "epss": e, "quelle": "Microsoft", "titel": k["titel"], "cves": [k["cve"]], "grund": g, "grund_en": ge,
+                         "patch": pst, "patch_text": pt, "patch_text_en": pt_en,
                          "betrifft": ", ".join(k["familien"]), "datum": str(m.get("erste_veroeffentlichung"))[:10],
                          "link": "https://msrc.microsoft.com/update-guide/vulnerability/" + k["cve"]})
     for q in (hersteller or {}).get("quellen", {}).values():
@@ -542,7 +577,8 @@ def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=8):
             gesehen.update(neue)
             kand.append({"stufe": 1, "epss": None, "quelle": q["name"], "titel": x["titel"], "cves": neue,
                          "grund": "Schließt %d Lücke(n) aus dem CISA-KEV: nachweislich angegriffen." % len(neue),
-                         "grund_en": "Closes %d flaw(s) from the CISA KEV: proven to be attacked." % len(neue), "betrifft": q["name"], "datum": x["datum"], "link": x["link"]})
+                         "grund_en": "Closes %d flaw(s) from the CISA KEV: proven to be attacked." % len(neue),
+                         "patch": "ja", "patch_text": "Das Update liegt vor (Meldung des Herstellers)", "patch_text_en": "The update is available (vendor advisory)", "betrifft": q["name"], "datum": x["datum"], "link": x["link"]})
         for x in q.get("letzte", []):
             if x.get("schwere") != "kritisch" or q.get("typ") != "hersteller":
                 continue
@@ -553,12 +589,12 @@ def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=8):
             if tage <= ZEIT_HERSTELLER_TAGE and x["id"] not in gesehen:
                 gesehen.add(x["id"])
                 kand.append({"stufe": 4, "epss": None, "quelle": q["name"], "titel": x["titel"], "cves": [], "grund": "Vom Hersteller als kritisch eingestuft.",
-                             "grund_en": "Rated critical by the vendor.", "betrifft": q["name"], "datum": x["datum"], "link": x["link"]})
+                             "grund_en": "Rated critical by the vendor.", "patch": "pruefen", "patch_text": "Fix-Stand im Advisory prüfen", "patch_text_en": "Check fix status in the advisory", "betrifft": q["name"], "datum": x["datum"], "link": x["link"]})
     kand.sort(key=lambda k: (k["stufe"], -(k["epss"] or 0), k["cves"][0] if k["cves"] else k["titel"]))
     for i, k in enumerate(kand[:maximum], 1):
         k["rang"] = i
-    return {"stand": heute.isoformat(), "regeln": "1 im CISA-KEV, 2 vom Hersteller als ausgenutzt gemeldet, 3 EPSS ab 10 %, 4 vom Hersteller als kritisch eingestuft",
-            "gesamt": len(kand), "liste": kand[:maximum]}
+    return {"stand": heute.isoformat(), "regeln": "Nur Lücken, für die ein Patch vorliegt oder im Advisory zu prüfen ist. 1 im CISA-KEV, 2 vom Hersteller als ausgenutzt gemeldet, 3 EPSS ab 10 %, 4 vom Hersteller als kritisch eingestuft",
+            "gesamt": len(kand), "liste": kand[:maximum], "ohne_patch": sorted(ohne, key=lambda k: (k["stufe"], k["cves"][0]))[:6]}
 
 
 def kev_cves():

@@ -369,9 +369,22 @@
         li.appendChild(kopf);
         li.appendChild(el("div", "p-t", k.titel + (k.betrifft && k.betrifft !== k.quelle ? " (" + k.betrifft + ")" : "")));
         li.appendChild(el("div", "p-w", pick("Warum zuerst: ", "Why first: ") + pick(k.grund, k.grund_en)));
+        if (k.patch_text) li.appendChild(el("div", "p-w", pick("Patch: ", "Patch: ") + pick(k.patch_text, k.patch_text_en)));
         ol.appendChild(li);
       });
       box.appendChild(ol);
+      if (pr.ohne_patch && pr.ohne_patch.length) {
+        box.appendChild(el("h4", "mono rd-t", pick("Angegriffen, aber noch kein Patch", "Attacked, but no patch yet")));
+        box.appendChild(el("p", "mono dim fine", pick("Für diese Lücken meldet Microsoft nur Umgehung oder Abmilderung, keinen Patch. Hier hilft die Gegenmaßnahme im Hersteller-Hinweis.", "For these flaws Microsoft lists only a workaround or mitigation, no patch. The countermeasure in the vendor note applies.")));
+        var ul = el("ul", "p-rang");
+        pr.ohne_patch.forEach(function (k) {
+          var li = el("li", "p-r" + k.stufe), kopf = el("div", "p-rk");
+          kopf.appendChild(el("span", "mono p-q", k.quelle)); kopf.appendChild(link(k.link, k.cves[0]));
+          li.appendChild(kopf); li.appendChild(el("div", "p-t", k.titel)); li.appendChild(el("div", "p-w", pick(k.grund, k.grund_en)));
+          ul.appendChild(li);
+        });
+        box.appendChild(ul);
+      }
     }
     box.appendChild(el("p", "mono dim fine", pick("Reihenfolge nach festen Regeln: 1. im CISA-KEV, 2. vom Hersteller als ausgenutzt gemeldet, 3. EPSS ab 10 %, 4. vom Hersteller als kritisch eingestuft. Berücksichtigt: Microsoft Patch Day der letzten 30 Tage, Linux-Meldungen und Cisco der letzten 14 Tage (Linux nur mit KEV-Bezug). Stand ", "Order by fixed rules: 1. in the CISA KEV, 2. reported as exploited by the vendor, 3. EPSS from 10%, 4. rated critical by the vendor. Considered: Microsoft patch day of the last 30 days, Linux advisories and Cisco of the last 14 days (Linux only with a KEV link). As of ") + datum(pr.stand) + pick(". Das ist keine Vorhersage und ersetzt keine Prüfung in Ihrem eigenen System.", ". This is no forecast and does not replace a check in your own system.")));
     box.hidden = false;

@@ -611,10 +611,10 @@ class PatchTests(unittest.TestCase):
         b = fetch_patches.bewerte(monat, vor)
         self.assertEqual(b["groesse"], "größer als üblich")
         self.assertEqual(b["dringlichkeit"], "dringend")
-        self.assertEqual(b["empfehlung"], "Zuerst die 2 bereits ausgenutzten Lücken einspielen, danach die 5 als kritisch eingestuften.")
+        self.assertEqual(b["empfehlung"], "Zuerst die Patches für die 2 bereits ausgenutzten Lücken einspielen, danach die Patches für die 5 als kritisch eingestuften.")
         b1 = fetch_patches.bewerte({"cves": 80, "ausgenutzt": 1, "schwere": {"Critical": 1}}, vor)
-        self.assertEqual(b1["empfehlung"], "Zuerst die bereits ausgenutzte Lücke einspielen, danach die als kritisch eingestufte Lücke.")
-        self.assertEqual(fetch_patches.bewerte({"cves": 60, "ausgenutzt": 0, "schwere": {"Critical": 3}}, vor)["empfehlung"], "Die 3 als kritisch eingestuften Lücken zeitnah einspielen, den Rest im normalen Zyklus.")
+        self.assertEqual(b1["empfehlung"], "Zuerst den Patch für die bereits ausgenutzte Lücke einspielen, danach den Patch für die als kritisch eingestufte Lücke.")
+        self.assertEqual(fetch_patches.bewerte({"cves": 60, "ausgenutzt": 0, "schwere": {"Critical": 3}}, vor)["empfehlung"], "Die Patches für die 3 als kritisch eingestuften Lücken zeitnah einspielen, den Rest im normalen Zyklus.")
         b2 = fetch_patches.bewerte({"cves": 60, "ausgenutzt": 0, "schwere": {"Critical": 0}}, vor)
         self.assertEqual((b2["groesse"], b2["dringlichkeit"]), ("üblicher Umfang", "normal"))
         b3 = fetch_patches.bewerte({"cves": 60, "ausgenutzt": 0, "schwere": {"Critical": 1}}, [{"cves": 60}])
@@ -860,3 +860,20 @@ class AusblickTextTests(unittest.TestCase):
         r = fa.parse_nvd({"vulnerabilities": [{"cve": {"id": "CVE-1", "published": "2026-11-20T00:00:00", "descriptions": d, "configurations": konf}}]})
         self.assertEqual(r[0]["produkt"], "apache http server")
         self.assertTrue(r[0]["beschreibung"].startswith("A use-after-free"))
+
+
+class PatchStandTests(unittest.TestCase):
+    def test_patch_stand(self):
+        self.assertEqual(fetch_patches.patch_stand({"Remediations": [{"Type": 2, "Description": {"Value": "5068861"}}]}), ("ja", ["5068861"]))
+        self.assertEqual(fetch_patches.patch_stand({"Remediations": [{"Type": 1, "Description": {"Value": "Mitigation"}}]}), ("nein", []))
+        self.assertEqual(fetch_patches.patch_stand({}), ("unbekannt", []))
+
+    def test_ohne_patch_nicht_in_rangliste(self):
+        from datetime import date
+        ms = [{"erste_veroeffentlichung": "2026-11-11T08:00:00Z", "kandidaten": [
+            {"cve": "CVE-1", "titel": "A", "schwere": "Critical", "ausgenutzt": True, "oeffentlich": False, "kev": True, "patch": "ja", "kb": ["5068861"], "familien": ["Windows"]},
+            {"cve": "CVE-2", "titel": "B", "schwere": "Critical", "ausgenutzt": True, "oeffentlich": False, "kev": True, "patch": "nein", "kb": [], "familien": ["Windows"]}]}]
+        r = fetch_patches.priorisiere(ms, {}, [], {}, date(2026, 11, 25))
+        self.assertEqual([k["cves"][0] for k in r["liste"]], ["CVE-1"])
+        self.assertIn("KB5068861", r["liste"][0]["patch_text"])
+        self.assertEqual([k["cves"][0] for k in r["ohne_patch"]], ["CVE-2"])

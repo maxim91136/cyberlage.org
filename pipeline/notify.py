@@ -106,7 +106,7 @@ def fazit_kombi(lage):
 
 def zuerst_zeilen(lage, n=3):
     liste = ((((lage or {}).get("patches") or {}).get("prioritaet") or {}).get("liste")) or []
-    return [f"{k['rang']}. {e(k['quelle'])}: <a href=\"{e(k['link'])}\">{e((k['cves'] or [k['titel']])[0])}</a> – {e(k['grund'])}" for k in liste[:n]]
+    return [f"{k['rang']}. {e(k['quelle'])}: <a href=\"{e(k['link'])}\">{e((k['cves'] or [k['titel']])[0])}</a> – {e(k['grund'])} {e(k.get('patch_text', ''))}." for k in liste[:n]]
 
 
 def ermittle(kev, bsi, eu, lage, zustand, jetzt):
