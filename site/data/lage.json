@@ -1307,7 +1307,7 @@
   "cert_bund": {
     "quelle": "CERT-Bund / BSI Warn- und Informationsdienst",
     "quelle_url": "https://wid.cert-bund.de/",
-    "abgerufen_am": "2026-11-25T08:12:32+00:00",
+    "abgerufen_am": "2026-11-25T08:16:30+00:00",
     "fenster_tage": 30,
     "daten_seit": "2026-11-23",
     "kritisch_7_tage": 7,
@@ -1640,7 +1640,7 @@
   "eu_kev": {
     "quelle": "EU-KEV über die EU-Schwachstellendatenbank (EUVD) von ENISA",
     "quelle_url": "https://euvd.enisa.europa.eu/",
-    "abgerufen_am": "2026-11-25T08:12:32+00:00",
+    "abgerufen_am": "2026-11-25T08:16:30+00:00",
     "fenster_tage": 30,
     "daten_seit": "2026-08-07",
     "neu_30_tage": 37,
@@ -2166,7 +2166,7 @@
     ]
   },
   "ausblick": {
-    "abgerufen_am": "2026-11-25T08:12:35+00:00",
+    "abgerufen_am": "2026-11-25T08:16:31+00:00",
     "fenster_tage": 14,
     "geprueft": 7082,
     "schwelle_hoch": 0.1,
@@ -2280,7 +2280,7 @@
       "online": 1,
       "gelistet": 5
     },
-    "abgerufen_am": "2026-11-25T08:14:38+00:00",
+    "abgerufen_am": "2026-11-25T08:18:57+00:00",
     "zeit_bis_kev": {
       "verlauf": [
         {
@@ -4588,7 +4588,7 @@
     },
     "sans": {
       "status": "green",
-      "abgerufen_am": "2026-11-25T08:14:37+00:00"
+      "abgerufen_am": "2026-11-25T08:18:56+00:00"
     },
     "ncsc": {
       "advisories_30": 25,
@@ -4865,9 +4865,9 @@
           "geprueft_am": "2026-11-23",
           "erreichbar": false,
           "status": 404,
-          "fehler_in_folge": 31,
+          "fehler_in_folge": 32,
           "erster_fehler_um": "2026-11-24T16:15:10+00:00",
-          "link_geprueft_um": "2026-11-25T08:16:06+00:00",
+          "link_geprueft_um": "2026-11-25T08:29:18+00:00",
           "faellig_am": "2027-05-25",
           "faellig": false,
           "link_tot": false
@@ -4880,9 +4880,9 @@
           "geprueft_am": "2026-11-24",
           "erreichbar": false,
           "status": 404,
-          "fehler_in_folge": 27,
+          "fehler_in_folge": 28,
           "erster_fehler_um": "2026-11-24T22:03:12+00:00",
-          "link_geprueft_um": "2026-11-25T08:16:06+00:00",
+          "link_geprueft_um": "2026-11-25T08:29:18+00:00",
           "faellig_am": "2027-02-22",
           "faellig": false,
           "link_tot": false
@@ -4912,7 +4912,7 @@
       "lizenz": "CC0 1.0 (laut LICENSE-Datei von cisagov/kev-data)",
       "quelle_abruf": "cisa.gov",
       "veroeffentlicht_am": "2026-11-24T17:47:46.199Z",
-      "abgerufen_am": "2026-11-25T08:12:32+00:00",
+      "abgerufen_am": "2026-11-25T08:16:30+00:00",
       "name_en": "CISA Known Exploited Vulnerabilities",
       "lizenz_en": "CC0 1.0 (per the LICENSE file of cisagov/kev-data)"
     },
@@ -4929,7 +4929,7 @@
       "name": "CERT-Bund / BSI Warn- und Informationsdienst",
       "link": "https://wid.cert-bund.de/",
       "lizenz": "nur Titel und Links, Nutzungsbedingungen des BSI beachten",
-      "abgerufen_am": "2026-11-25T08:12:32+00:00",
+      "abgerufen_am": "2026-11-25T08:16:30+00:00",
       "name_en": "CERT-Bund / BSI Warning and Information Service",
       "lizenz_en": "titles and links only, observe the BSI terms of use"
     },
@@ -4938,7 +4938,7 @@
       "name": "EU-KEV (EUVD von ENISA)",
       "link": "https://euvd.enisa.europa.eu/",
       "lizenz": "Lizenz nicht ausdrücklich geklärt",
-      "abgerufen_am": "2026-11-25T08:12:32+00:00",
+      "abgerufen_am": "2026-11-25T08:16:30+00:00",
       "name_en": "EU-KEV (EUVD by ENISA)",
       "lizenz_en": "licence not explicitly clarified"
     },
@@ -4947,7 +4947,7 @@
       "name": "EPSS (FIRST)",
       "link": "https://www.first.org/epss/",
       "lizenz": "kostenlos mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T08:12:35+00:00",
+      "abgerufen_am": "2026-11-25T08:16:31+00:00",
       "name_en": "EPSS (FIRST)",
       "lizenz_en": "free to use with attribution"
     },
@@ -4956,7 +4956,7 @@
       "name": "NVD (NIST)",
       "link": "https://nvd.nist.gov/",
       "lizenz": "gemeinfrei, nur Veröffentlichungsdatum und CVSS-Wert",
-      "abgerufen_am": "2026-11-25T08:12:35+00:00",
+      "abgerufen_am": "2026-11-25T08:16:31+00:00",
       "name_en": "NVD (NIST)",
       "lizenz_en": "public domain, only publication date and CVSS score"
     },
@@ -4965,7 +4965,7 @@
       "name": "CVE-Liste (CVE Program, MITRE)",
       "link": "https://github.com/CVEProject/cvelistV5",
       "lizenz": "CVE Terms of Use: frei nutzbar mit Quellenangabe, nur Veröffentlichungsdatum",
-      "abgerufen_am": "2026-11-25T08:14:38+00:00",
+      "abgerufen_am": "2026-11-25T08:18:57+00:00",
       "name_en": "CVE List (CVE Program, MITRE)",
       "lizenz_en": "CVE Terms of Use: free to use with attribution, only publication date"
     },
@@ -4974,7 +4974,7 @@
       "name": "Feodo Tracker (abuse.ch)",
       "link": "https://feodotracker.abuse.ch/",
       "lizenz": "CC0, nur die Zahl aktiver Steuerserver",
-      "abgerufen_am": "2026-11-25T08:14:38+00:00",
+      "abgerufen_am": "2026-11-25T08:18:57+00:00",
       "name_en": "Feodo Tracker (abuse.ch)",
       "lizenz_en": "CC0, only the number of active command servers"
     },
@@ -4983,14 +4983,14 @@
       "name": "NCSC-NL Beveiligingsadviezen",
       "link": "https://advisories.ncsc.nl/",
       "lizenz": "Lizenz nicht geprüft, nur Zahl der Advisories mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T08:14:38+00:00"
+      "abgerufen_am": "2026-11-25T08:18:57+00:00"
     },
     {
       "id": "sans",
       "name": "SANS Internet Storm Center (Infocon)",
       "link": "https://isc.sans.edu/",
       "lizenz": "Creative Commons laut Fußzeile des ISC, nur Ampelstatus mit Quellenangabe",
-      "abgerufen_am": "2026-11-25T08:14:37+00:00",
+      "abgerufen_am": "2026-11-25T08:18:56+00:00",
       "name_en": "SANS Internet Storm Center (Infocon)",
       "lizenz_en": "Creative Commons per the ISC footer, only the traffic-light status with attribution"
     }
@@ -7079,7 +7079,7 @@
         "quelle": "Microsoft Security Response Center (CVRF 3.0)",
         "quelle_url": "https://msrc.microsoft.com/update-guide",
         "listen_url": "https://api.msrc.microsoft.com/cvrf/v3.0/updates",
-        "abgerufen_am": "2026-11-25T08:14:38+00:00",
+        "abgerufen_am": "2026-11-25T08:18:57+00:00",
         "hinweis": "Zählung je CVE; Chromium-Lücken im Edge und Linux-Paketlücken von Azure Linux sind ausgenommen und getrennt ausgewiesen. Schweregrad, Ausnutzung und Bekanntheit stammen vom Hersteller.",
         "fehler": []
       },
@@ -7088,7 +7088,7 @@
           "id": "2025-Nov",
           "erste_veroeffentlichung": "2025-11-11T08:00:00",
           "aktuell": "2026-11-21T01:14:05",
-          "schema": 10,
+          "schema": 11,
           "cves": 75,
           "davon_chromium_ausgenommen": 11,
           "davon_azure_linux_ausgenommen": 103,
@@ -7105,6 +7105,17 @@
           ],
           "oeffentlich_bekannt": 0,
           "oeffentlich_cves": [],
+          "chromium": {
+            "anzahl": 11,
+            "edge": "142.0.3595.90",
+            "chrome": "142.0.7444.59",
+            "kev": [
+              {
+                "cve": "CVE-2025-13223",
+                "titel": "Chromium: CVE-2025-13223 Type Confusion in V8"
+              }
+            ]
+          },
           "ohne_fix": 0,
           "ohne_fix_cves": [],
           "im_kev": 2,
@@ -7122,8 +7133,8 @@
           },
           "familien": {
             "Windows 11": 39,
-            "Windows Server": 36,
             "Windows 10": 36,
+            "Windows Server": 36,
             "Cloud und Dienste": 21,
             "Office und SharePoint": 14,
             "Entwicklung und Server": 6,
@@ -7188,7 +7199,7 @@
           "id": "2025-Dec",
           "erste_veroeffentlichung": "2025-12-09T00:00:00",
           "aktuell": "2026-11-25T01:04:59",
-          "schema": 10,
+          "schema": 11,
           "cves": 72,
           "davon_chromium_ausgenommen": 18,
           "davon_azure_linux_ausgenommen": 265,
@@ -7208,6 +7219,17 @@
             "CVE-2025-54100",
             "CVE-2025-64671"
           ],
+          "chromium": {
+            "anzahl": 18,
+            "edge": "143.0.3650.96",
+            "chrome": "",
+            "kev": [
+              {
+                "cve": "CVE-2025-14174",
+                "titel": "Chromium: CVE-2025-14174 Out of bounds memory access in ANGLE"
+              }
+            ]
+          },
           "ohne_fix": 0,
           "ohne_fix_cves": [],
           "im_kev": 1,
@@ -7289,7 +7311,7 @@
           "id": "2026-Jan",
           "erste_veroeffentlichung": "2026-01-13T08:00:00",
           "aktuell": "2026-11-21T01:15:28",
-          "schema": 10,
+          "schema": 11,
           "cves": 133,
           "davon_chromium_ausgenommen": 13,
           "davon_azure_linux_ausgenommen": 200,
@@ -7310,6 +7332,12 @@
             "CVE-2023-31096",
             "CVE-2026-21265"
           ],
+          "chromium": {
+            "anzahl": 13,
+            "edge": "144.0.3719.104",
+            "chrome": "",
+            "kev": []
+          },
           "ohne_fix": 0,
           "ohne_fix_cves": [],
           "im_kev": 3,
@@ -7428,7 +7456,7 @@
           "id": "2026-Feb",
           "erste_veroeffentlichung": "2026-02-10T08:00:00",
           "aktuell": "2026-11-24T17:39:52",
-          "schema": 10,
+          "schema": 11,
           "cves": 64,
           "davon_chromium_ausgenommen": 17,
           "davon_azure_linux_ausgenommen": 137,
@@ -7454,6 +7482,17 @@
             "CVE-2026-21513",
             "CVE-2026-21514"
           ],
+          "chromium": {
+            "anzahl": 17,
+            "edge": "145.0.3800.82",
+            "chrome": "",
+            "kev": [
+              {
+                "cve": "CVE-2026-2441",
+                "titel": "Chromium: CVE-2026-2441 Use after free in CSS"
+              }
+            ]
+          },
           "ohne_fix": 0,
           "ohne_fix_cves": [],
           "im_kev": 6,
@@ -7608,7 +7647,7 @@
           "id": "2026-Mar",
           "erste_veroeffentlichung": "2026-03-10T07:00:00",
           "aktuell": "2026-11-21T01:20:27",
-          "schema": 10,
+          "schema": 11,
           "cves": 116,
           "davon_chromium_ausgenommen": 74,
           "davon_azure_linux_ausgenommen": 349,
@@ -7626,6 +7665,21 @@
             "CVE-2026-21262",
             "CVE-2026-26127"
           ],
+          "chromium": {
+            "anzahl": 74,
+            "edge": "146.0.3856.84",
+            "chrome": "",
+            "kev": [
+              {
+                "cve": "CVE-2026-3909",
+                "titel": "Chromium: CVE-2026-3909 Out of bounds write in Skia"
+              },
+              {
+                "cve": "CVE-2026-3910",
+                "titel": "Chromium: CVE-2026-3910 Inappropriate implementation in V8"
+              }
+            ]
+          },
           "ohne_fix": 0,
           "ohne_fix_cves": [],
           "im_kev": 0,
@@ -7642,8 +7696,8 @@
           },
           "familien": {
             "Windows Server": 45,
-            "Windows 10": 44,
             "Windows 11": 44,
+            "Windows 10": 44,
             "Sonstige": 35,
             "Cloud und Dienste": 20,
             "Azure Linux": 19,
@@ -7669,7 +7723,7 @@
           "id": "2026-Apr",
           "erste_veroeffentlichung": "2026-04-14T07:00:00",
           "aktuell": "2026-11-21T01:15:37",
-          "schema": 10,
+          "schema": 11,
           "cves": 202,
           "davon_chromium_ausgenommen": 109,
           "davon_azure_linux_ausgenommen": 470,
@@ -7689,6 +7743,17 @@
           "oeffentlich_cves": [
             "CVE-2026-33825"
           ],
+          "chromium": {
+            "anzahl": 109,
+            "edge": "147.0.3912.87",
+            "chrome": "",
+            "kev": [
+              {
+                "cve": "CVE-2026-5281",
+                "titel": "Chromium: CVE-2026-5281 Use after free in Dawn"
+              }
+            ]
+          },
           "ohne_fix": 0,
           "ohne_fix_cves": [],
           "im_kev": 5,
@@ -7809,7 +7874,7 @@
           "id": "2026-May",
           "erste_veroeffentlichung": "2026-05-12T07:00:00",
           "aktuell": "2026-11-23T19:04:10",
-          "schema": 10,
+          "schema": 11,
           "cves": 163,
           "davon_chromium_ausgenommen": 368,
           "davon_azure_linux_ausgenommen": 671,
@@ -7832,6 +7897,12 @@
             "CVE-2026-45498",
             "CVE-2026-45585"
           ],
+          "chromium": {
+            "anzahl": 368,
+            "edge": "148.0.3967.97",
+            "chrome": "",
+            "kev": []
+          },
           "ohne_fix": 0,
           "ohne_fix_cves": [],
           "im_kev": 4,
@@ -7951,7 +8022,7 @@
           "id": "2026-Jun",
           "erste_veroeffentlichung": "2026-06-09T07:00:00",
           "aktuell": "2026-11-21T01:20:45",
-          "schema": 10,
+          "schema": 11,
           "cves": 222,
           "davon_chromium_ausgenommen": 543,
           "davon_azure_linux_ausgenommen": 625,
@@ -7971,6 +8042,17 @@
             "CVE-2026-50507",
             "CVE-2026-50656"
           ],
+          "chromium": {
+            "anzahl": 543,
+            "edge": "149.0.4022.96",
+            "chrome": "",
+            "kev": [
+              {
+                "cve": "CVE-2026-11645",
+                "titel": "Chromium: CVE-2026-11645 Out of bounds memory access in V8"
+              }
+            ]
+          },
           "ohne_fix": 0,
           "ohne_fix_cves": [],
           "im_kev": 0,
@@ -8012,7 +8094,7 @@
           "id": "2026-Jul",
           "erste_veroeffentlichung": "2026-07-14T07:00:00",
           "aktuell": "2026-11-24T17:40:08",
-          "schema": 10,
+          "schema": 11,
           "cves": 664,
           "davon_chromium_ausgenommen": 868,
           "davon_azure_linux_ausgenommen": 634,
@@ -8033,6 +8115,12 @@
           "oeffentlich_cves": [
             "CVE-2026-50661"
           ],
+          "chromium": {
+            "anzahl": 868,
+            "edge": "151.0.4129.59",
+            "chrome": "",
+            "kev": []
+          },
           "ohne_fix": 0,
           "ohne_fix_cves": [],
           "im_kev": 5,
@@ -8185,7 +8273,7 @@
           "id": "2026-Aug",
           "erste_veroeffentlichung": "2026-08-11T07:00:00",
           "aktuell": "2026-11-21T14:03:39",
-          "schema": 10,
+          "schema": 11,
           "cves": 497,
           "davon_chromium_ausgenommen": 312,
           "davon_azure_linux_ausgenommen": 1030,
@@ -8206,6 +8294,12 @@
             "CVE-2026-69414",
             "CVE-2026-72971"
           ],
+          "chromium": {
+            "anzahl": 312,
+            "edge": "152.0.4191.53",
+            "chrome": "",
+            "kev": []
+          },
           "ohne_fix": 0,
           "ohne_fix_cves": [],
           "im_kev": 2,
@@ -8291,7 +8385,7 @@
           "id": "2026-Sep",
           "erste_veroeffentlichung": "2026-09-08T07:00:00",
           "aktuell": "2026-11-25T01:05:48",
-          "schema": 10,
+          "schema": 11,
           "cves": 1008,
           "davon_chromium_ausgenommen": 437,
           "davon_azure_linux_ausgenommen": 1925,
@@ -8309,6 +8403,21 @@
           ],
           "oeffentlich_bekannt": 0,
           "oeffentlich_cves": [],
+          "chromium": {
+            "anzahl": 437,
+            "edge": "154.0.4258.38",
+            "chrome": "153.0.8010.36",
+            "kev": [
+              {
+                "cve": "CVE-2026-85046",
+                "titel": "Chromium: CVE-2026-85046 Type confusion in V8"
+              },
+              {
+                "cve": "CVE-2026-87491",
+                "titel": "Chromium CVE-2026-87491:  Out of bounds write in V8"
+              }
+            ]
+          },
           "ohne_fix": 0,
           "ohne_fix_cves": [],
           "im_kev": 2,
@@ -8435,7 +8544,7 @@
           "id": "2026-Oct",
           "erste_veroeffentlichung": "2026-10-13T07:00:00",
           "aktuell": "2026-11-25T01:05:28",
-          "schema": 10,
+          "schema": 11,
           "cves": 1487,
           "davon_chromium_ausgenommen": 739,
           "davon_azure_linux_ausgenommen": 1685,
@@ -8456,6 +8565,12 @@
             "CVE-2026-111497",
             "CVE-2026-92707"
           ],
+          "chromium": {
+            "anzahl": 739,
+            "edge": "156.0.4314.56",
+            "chrome": "",
+            "kev": []
+          },
           "ohne_fix": 0,
           "ohne_fix_cves": [],
           "im_kev": 2,
@@ -10548,7 +10663,7 @@
           "id": "2026-Nov",
           "erste_veroeffentlichung": "2026-11-10T08:00:00",
           "aktuell": "2026-11-25T01:14:17",
-          "schema": 10,
+          "schema": 11,
           "cves": 1113,
           "davon_chromium_ausgenommen": 403,
           "davon_azure_linux_ausgenommen": 950,
@@ -10565,6 +10680,17 @@
           ],
           "oeffentlich_bekannt": 0,
           "oeffentlich_cves": [],
+          "chromium": {
+            "anzahl": 403,
+            "edge": "158.0.4370.33",
+            "chrome": "157.0.8103.50",
+            "kev": [
+              {
+                "cve": "CVE-2026-125350",
+                "titel": "Use after free in XML in Google Chrome prior to 157.0.8103.50 allowed a remote attacker to execute arbitrary c"
+              }
+            ]
+          },
           "ohne_fix": 0,
           "ohne_fix_cves": [],
           "im_kev": 1,
@@ -13710,12 +13836,13 @@
           "rang": 24
         }
       ],
-      "ohne_patch": []
+      "ohne_patch": [],
+      "ohne_patch_kev": []
     },
     "hersteller": {
       "meta": {
         "hinweis": "Nur Zählung und Verweise auf die Meldungen der Hersteller. Schweregrade stammen von den Herstellern und fehlen, wo sie nicht geliefert werden.",
-        "abgerufen_am": "2026-11-25T08:14:38+00:00"
+        "abgerufen_am": "2026-11-25T08:18:57+00:00"
       },
       "quellen": {
         "ubuntu": {
@@ -13879,7 +14006,7 @@
               "schwere": null
             }
           ],
-          "abgerufen_am": "2026-11-25T08:14:38+00:00",
+          "abgerufen_am": "2026-11-25T08:18:57+00:00",
           "status": "ok"
         },
         "debian": {
@@ -13968,7 +14095,7 @@
               "schwere": null
             }
           ],
-          "abgerufen_am": "2026-11-25T08:14:38+00:00",
+          "abgerufen_am": "2026-11-25T08:18:57+00:00",
           "status": "ok"
         },
         "redhat": {
@@ -14130,7 +14257,7 @@
               "schwere": "mittel"
             }
           ],
-          "abgerufen_am": "2026-11-25T08:14:38+00:00",
+          "abgerufen_am": "2026-11-25T08:18:57+00:00",
           "status": "ok"
         },
         "cisco": {
@@ -14284,7 +14411,7 @@
               "schwere": "kritisch"
             }
           ],
-          "abgerufen_am": "2026-11-25T08:14:38+00:00",
+          "abgerufen_am": "2026-11-25T08:18:57+00:00",
           "status": "ok"
         }
       }
