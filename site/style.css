@@ -608,3 +608,4 @@ html[lang=en] #teil3 .akk>summary::after{content:"OPEN +"}html[lang=en] #teil3 .
 #modus{white-space:nowrap}
 .b-btns button[aria-pressed="true"]{border-color:var(--green);background:rgba(61,220,151,.12);color:var(--text)}.b-liste{list-style:none;margin:8px 0;padding:0}.b-liste li{padding:7px 0;border-top:1px dashed var(--dash);line-height:1.5;overflow-wrap:anywhere}.b-liste li:first-child{border-top:0}
 .b-hs h4{margin:14px 0 2px;font-size:13px;color:var(--dim);font-weight:400}
+.p-bereich{margin-bottom:14px}.b-h4,.b-hs h4{margin:16px 0 4px;font-size:13px;color:var(--dim);font-weight:400}.b-kacheln{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin-top:6px}.b-k{border:1px solid var(--line);border-radius:8px;padding:10px 12px;min-width:0}.b-kn{font-weight:600;margin-bottom:4px}.b-kz{font-size:13px;line-height:1.6}.b-k .fine{margin-top:4px;overflow-wrap:anywhere}

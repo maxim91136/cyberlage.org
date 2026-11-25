@@ -570,30 +570,59 @@
   function zeigeBereiche(d) {
     var box = $("p-bereich"); if (!box) return;
     var bl = d.bereiche && d.bereiche.liste, neu = d.neu || [];
-    if (!bl || !bl.length) { box.hidden = true; var k = $("k-bereich"); if (k) k.hidden = true; return; }
+    if (!bl || !bl.length) { box.hidden = true; return; }
     box.hidden = false; box.textContent = "";
-    box.appendChild(el("p", "dim", pick("Was betreue ich? Gezeigt werden Lücken, die in den letzten " + (d.fenster_tage || 30) + " Tagen als nachweislich angegriffen in den CISA-KEV kamen, zugeordnet nach Hersteller und Produkt.",
-      "What do I look after? Shown are flaws added to the CISA KEV as proven attacked in the last " + (d.fenster_tage || 30) + " days, assigned by vendor and product.")));
+    box.appendChild(el("h3", "mono rd-t", pick("Was betreue ich?", "What do I look after?")));
+    box.appendChild(el("p", "dim", pick("Bereich wählen: Die Seite zeigt die Hersteller dieses Bereichs mit Zahlen und Patch-Tag und darunter, was dort gerade angegriffen wird. Gezeigt werden Lücken, die in den letzten " + (d.fenster_tage || 30) + " Tagen als nachweislich angegriffen in den CISA-KEV kamen, zugeordnet nach Hersteller und Produkt.",
+      "Pick an area: the site shows that area's vendors with figures and patch day and, below, what is being attacked there. Shown are flaws added to the CISA KEV as proven attacked in the last " + (d.fenster_tage || 30) + " days, assigned by vendor and product.")));
     var wahl = lsGet("cl_bereich"); if (!bl.some(function (b) { return b.id === wahl; })) wahl = (bl.filter(function (b) { return b.anzahl; })[0] || bl[0]).id;
     var bt = el("div", "p-btns mono b-btns"); bt.setAttribute("role", "group"); bt.setAttribute("aria-label", pick("Bereich", "Area")); box.appendChild(bt);
-    var info = el("p", "mono dim fine"), ul = el("ul", "b-liste"); box.appendChild(info); box.appendChild(ul);
+    var info = el("p", "mono dim fine"), ul = el("ul", "b-liste"); box.appendChild(info);
+    box.appendChild(el("h4", "mono b-h4", pick("Gerade angegriffen (CISA-KEV, 30 Tage)", "Under attack now (CISA KEV, 30 days)"))); box.appendChild(ul);
     box.appendChild(el("p", "mono dim fine", pick("Reine Zuordnung nach Namen, feste Regeln in RULES.md. Was bei dir im Einsatz ist, weiß die Seite nicht: eigenes Inventar prüfen. Frist = Frist der CISA für US-Behörden, als Anhalt. Die Auswahl bleibt nur in diesem Browser.",
       "Assignment by name only, fixed rules in RULES.md. The site does not know what you run: check your own inventory. Deadline = CISA deadline for US agencies, as a guide. Your choice stays in this browser only.")));
-    var hq = ((d.patches || {}).hersteller || {}).quellen || {}, hbox = el("div", "b-hs"); box.insertBefore(hbox, box.lastChild);
+    var hq = ((d.patches || {}).hersteller || {}).quellen || {}, hbox = el("div", "b-hs"); box.insertBefore(hbox, info.nextSibling);
+    /* Hersteller je Bereich: q = Quelle mit Zahlen, t = Patch-Tag nach Regel des Herstellers, a = Sprung zu einem Abschnitt, ohne = noch keine offene Quelle angebunden */
+    var KAT = {
+      netzwerk: [{ n: "Cisco", q: "cisco" }, { n: "Fortinet", q: "fortinet" }, { n: "Palo Alto Networks", q: "paloalto" }, { n: "Ivanti", ohne: 1 }, { n: "Citrix", ohne: 1 }],
+      arbeitsplatz: [{ n: "Edge und Chrome", n_en: "Edge and Chrome", a: "k-edge" }, { n: "Firefox und Thunderbird", n_en: "Firefox and Thunderbird", q: "mozilla" }, { n: "Adobe", t: "adobe", l: "https://helpx.adobe.com/security.html" }, { n: "Apple", ohne: 1 }],
+      windows: [{ n: "Microsoft Patch Day", t: "ms", a: "k-ms" }],
+      anwendungen: [{ n: "SAP", q: "sap", t: "sap" }, { n: "Oracle", t: "oracle", l: "https://www.oracle.com/security-alerts/" }, { n: "VMware (Broadcom)", ohne: 1 }],
+      linux: [{ n: "Ubuntu", q: "ubuntu" }, { n: "Debian", q: "debian" }, { n: "Red Hat", q: "redhat" }, { n: "SUSE", q: "suse" }, { n: "AlmaLinux", q: "alma" }, { n: "Rocky Linux", q: "rocky" }, { n: "Amazon Linux", q: "amazon" }]
+    };
+    function naechster(art) {
+      var g = termine(new Date(), 14).filter(function (x) { return x.ev.some(function (e) { return e.art === art; }); })[0];
+      return g ? new Date(g.zeit).toLocaleDateString(window.I18N.locale, { timeZone: "UTC", weekday: "short", day: "2-digit", month: "2-digit" }) + " (" + inTagen(g.tage) + ")" : "";
+    }
     function zeigeHersteller() {
       hbox.textContent = "";
-      var qs = Object.keys(hq).map(function (k) { return hq[k]; }).filter(function (q) { return q.bereich === wahl; });
-      if (!qs.length && wahl !== "windows") return;
-      hbox.appendChild(el("h4", "mono", pick("Meldungen der Hersteller in diesem Bereich", "Vendor advisories in this area")));
-      var ul2 = el("ul", "b-liste"); hbox.appendChild(ul2);
-      if (wahl === "windows") { var lm = el("li", ""); var am = el("a", "", pick("Microsoft Patch Day: Zahlen und Bewertung weiter unten", "Microsoft patch day: figures and rating further down")); am.href = "#k-ms"; am.addEventListener("click", function () { var k = $("k-ms"); if (k) k.open = true; }); lm.appendChild(am); ul2.appendChild(lm); }
-      qs.forEach(function (q) {
-        var li = el("li", ""); li.appendChild(link(q.url, q.name));
-        if (q.status !== "ok" || typeof q.neu_30 !== "number") { li.appendChild(el("span", "mono dim", " · " + pick("keine Daten (Quelle nicht erreichbar)", "no data (source unreachable)"))); ul2.appendChild(li); return; }
-        li.appendChild(el("span", "mono dim", " · " + pick(q.neu_30 + " in 30 Tagen, " + q.neu_7 + " in 7", q.neu_30 + " in 30 days, " + q.neu_7 + " in 7") + (q.schwere_bekannt && q.kritisch_30 ? pick(", davon " + q.kritisch_30 + " kritisch", ", " + q.kritisch_30 + " of them critical") : "") + (q.im_kev_30 ? pick(" · " + q.im_kev_30 + " mit Lücke im KEV", " · " + q.im_kev_30 + " with a KEV flaw") : "")));
-        var neu1 = (q.letzte || [])[0];
-        if (neu1) { var dv = el("div", "dim fine"); dv.appendChild(document.createTextNode(pick("zuletzt ", "latest ") + datum(neu1.datum) + ": ")); dv.appendChild(link(neu1.link, dx(neu1.titel))); li.appendChild(dv); }
-        ul2.appendChild(li);
+      var liste = KAT[wahl]; if (!liste) return;
+      hbox.appendChild(el("h4", "mono", pick("Hersteller in diesem Bereich", "Vendors in this area")));
+      var gr = el("div", "b-kacheln"); hbox.appendChild(gr);
+      liste.forEach(function (h) {
+        var k = el("div", "b-k"), q = h.q ? hq[h.q] : null, name = pick(h.n, h.n_en || h.n), kopf = el("div", "b-kn mono");
+        if (h.a) { var an = el("a", "", name); an.href = "#" + h.a; an.addEventListener("click", function () { var z = $(h.a); if (z) z.open = true; }); kopf.appendChild(an); }
+        else if (q && q.url) kopf.appendChild(link(q.url, name));
+        else if (h.l) kopf.appendChild(link(h.l, name));
+        else kopf.appendChild(document.createTextNode(name));
+        k.appendChild(kopf);
+        if (h.q) {
+          if (!q) k.appendChild(el("div", "dim fine", pick("Zahlen folgen mit dem nächsten Abruf", "figures follow with the next fetch")));
+          else if (q.status !== "ok" || typeof q.neu_30 !== "number") k.appendChild(el("div", "dim fine", pick("keine Daten (Quelle nicht erreichbar)", "no data (source unreachable)")));
+          else {
+            k.appendChild(el("div", "b-kz mono", pick(q.neu_30 + " Meldungen in 30 Tagen, " + q.neu_7 + " in 7", q.neu_30 + " advisories in 30 days, " + q.neu_7 + " in 7")));
+            var zus = []; if (q.schwere_bekannt && q.kritisch_30) zus.push(pick(q.kritisch_30 + " kritisch", q.kritisch_30 + " critical")); if (q.im_kev_30) zus.push(pick(q.im_kev_30 + " mit Lücke im KEV", q.im_kev_30 + " with a KEV flaw"));
+            if (zus.length) k.appendChild(el("div", "b-kz mono rw", zus.join(" · ")));
+            var n1 = (q.letzte || [])[0];
+            if (n1) { var dv = el("div", "dim fine"); dv.appendChild(document.createTextNode(pick("zuletzt ", "latest ") + datum(n1.datum) + ": ")); dv.appendChild(link(n1.link, dx(String(n1.titel).slice(0, 70)))); k.appendChild(dv); }
+          }
+        }
+        if (h.t) { var nt = naechster(h.t); if (nt) k.appendChild(el("div", "b-kz mono", pick("nächster Patch-Tag: ", "next patch day: ") + nt)); }
+        if (h.t && !h.q && !h.a) k.appendChild(el("div", "dim fine", pick("Nur der Termin: Der Hersteller bietet keine offene Quelle, die sich ohne Konto abrufen lässt.", "Date only: the vendor offers no open source that can be fetched without an account.")));
+        if (h.a && !h.t) k.appendChild(el("div", "dim fine", pick("Versionen und Lücken im Abschnitt weiter unten", "versions and flaws in the section further down")));
+        if (h.a && h.t) k.appendChild(el("div", "dim fine", pick("Zahlen und Bewertung im Abschnitt weiter unten", "figures and rating in the section further down")));
+        if (h.ohne) k.appendChild(el("div", "dim fine", pick("Noch keine offene Quelle angebunden. Angegriffenes steht trotzdem in der Liste darunter.", "No open source connected yet. Attacked flaws still appear in the list below.")));
+        gr.appendChild(k);
       });
     }
     function zeige() {
