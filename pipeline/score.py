@@ -368,6 +368,10 @@ def main(argv):
                                    "ausschlag": None if heute_w is None else round(heute_w / bst["schwelle"], 2),
                                    "wert": heute_w, "schwelle": bst["schwelle"], "misst": bst["name"], "misst_en": bst["name_en"],
                                    "zeitraum": bst["zeitraum"], "zeitraum_en": bst["zeitraum_en"], "daten_seit": reihe_b[0]["stand"] if reihe_b else None})
+        folge = {}
+        for nr, bst in enumerate(mcfg["bausteine"]):
+            folge[bst.get("signal") or bst["id"]] = nr
+        kon["signale"].sort(key=lambda x: folge.get(x.get("baustein") or x["name_en"], 99))
         ext = [x for x in kon["signale"] if x["art"] == "extern" and x["erhoeht"] is not None]
         kon["erhoeht"], kon["bewertet"] = sum(1 for x in ext if x["erhoeht"]), len(ext)
         ms = modell.score(einzel, mcfg)

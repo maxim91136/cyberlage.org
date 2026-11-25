@@ -11,14 +11,14 @@
       "name_en": "Exploitation"
     },
     {
-      "id": "extern",
-      "name": "Externe Einschätzungen",
-      "name_en": "External assessments"
-    },
-    {
       "id": "warnungen",
       "name": "Warnungen",
       "name_en": "Warnings"
+    },
+    {
+      "id": "extern",
+      "name": "Externe Einschätzungen",
+      "name_en": "External assessments"
     }
   ],
   "bausteine": [
@@ -39,39 +39,6 @@
       "gruppe": "ausnutzung",
       "status": "aktiv",
       "historie": "36 Monate"
-    },
-    {
-      "id": "bsi",
-      "signal": "BSI Cyber Index",
-      "name": "BSI Cyber Index",
-      "name_en": "BSI Cyber Index",
-      "gruppe": "extern",
-      "status": "aktiv",
-      "historie": "kein Archiv, live seit 25.11.2026"
-    },
-    {
-      "id": "sans",
-      "signal": "SANS Infocon",
-      "name": "SANS Infocon",
-      "name_en": "SANS Infocon",
-      "gruppe": "extern",
-      "status": "aktiv",
-      "historie": "kein Archiv, live seit 25.11.2026"
-    },
-    {
-      "id": "cert_bund",
-      "name": "CERT-Bund: neue Warnungen der Stufen kritisch und hoch (30 Tage)",
-      "name_en": "CERT-Bund: new advisories rated critical or high (30 days)",
-      "gruppe": "warnungen",
-      "status": "aktiv",
-      "historie": "seit 11.11.2023",
-      "kurz": "CERT-Bund",
-      "schwelle": 126,
-      "regel": "mindestens 126 neue Warnungen (kritisch oder hoch) in 30 Tagen, das obere Viertel seit November 2023",
-      "regel_en": "at least 126 new advisories (critical or high) in 30 days, the top quarter since November 2023",
-      "zeitraum": "letzte 30 Tage",
-      "zeitraum_en": "last 30 days",
-      "grundlage": "Neue WID-Meldungen kritisch/hoch je 30-Tage-Fenster, täglich vom 25.11.2023 bis 25.11.2026: Median 89, 75. Perzentil 126, 90. Perzentil 218. Erstdatum je Meldung über die fortlaufende Kennung bestimmt (RULES.md)."
     },
     {
       "id": "eu_kev",
@@ -104,6 +71,21 @@
       "grundlage": "Von Microsoft als ausgenutzt gekennzeichnete Lücken je Patch Day, November 2023 bis November 2026 (37 Patch Days), tageweise fortgeschrieben: Median 1, 75. Perzentil 3, 90. Perzentil 5."
     },
     {
+      "id": "cert_bund",
+      "name": "CERT-Bund: neue Warnungen der Stufen kritisch und hoch (30 Tage)",
+      "name_en": "CERT-Bund: new advisories rated critical or high (30 days)",
+      "gruppe": "warnungen",
+      "status": "aktiv",
+      "historie": "seit 11.11.2023",
+      "kurz": "CERT-Bund",
+      "schwelle": 126,
+      "regel": "mindestens 126 neue Warnungen (kritisch oder hoch) in 30 Tagen, das obere Viertel seit November 2023",
+      "regel_en": "at least 126 new advisories (critical or high) in 30 days, the top quarter since November 2023",
+      "zeitraum": "letzte 30 Tage",
+      "zeitraum_en": "last 30 days",
+      "grundlage": "Neue WID-Meldungen kritisch/hoch je 30-Tage-Fenster, täglich vom 25.11.2023 bis 25.11.2026: Median 89, 75. Perzentil 126, 90. Perzentil 218. Erstdatum je Meldung über die fortlaufende Kennung bestimmt (RULES.md)."
+    },
+    {
       "id": "ncsc_nl",
       "name": "NCSC-NL: neue Advisories (30 Tage)",
       "name_en": "NCSC-NL: new advisories (30 days)",
@@ -117,6 +99,24 @@
       "zeitraum": "letzte 30 Tage",
       "zeitraum_en": "last 30 days",
       "grundlage": "Neue Advisories je 30-Tage-Fenster, täglich vom 15.06.2024 bis 25.11.2026: Median 36, 75. Perzentil 43, 90. Perzentil 58."
+    },
+    {
+      "id": "bsi",
+      "signal": "BSI Cyber Index",
+      "name": "BSI Cyber Index",
+      "name_en": "BSI Cyber Index",
+      "gruppe": "extern",
+      "status": "aktiv",
+      "historie": "kein Archiv, live seit 25.11.2026"
+    },
+    {
+      "id": "sans",
+      "signal": "SANS Infocon",
+      "name": "SANS Infocon",
+      "name_en": "SANS Infocon",
+      "gruppe": "extern",
+      "status": "aktiv",
+      "historie": "kein Archiv, live seit 25.11.2026"
     }
   ]
 }
