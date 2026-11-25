@@ -30,17 +30,14 @@
 <nav class="leiste" aria-label="Hauptnavigation">
   <div class="wrap navin">
     <a href="#info" class="faq-nav" data-offen="i-faq">/faq</a>
+    <span class="nav-grp" aria-hidden="true">LAGE</span>
     <a href="#lage" data-sec="lage">/lage</a>
     <a href="#radar" data-sec="radar" data-t="n_radar">/radar</a>
     <a href="#signale" data-sec="signale" data-t="n_signale">/signale</a>
     <a href="#rueckblick" data-sec="rueckblick" data-t="n_rueck">/rückblick</a>
-    <details class="dd"><summary data-sec="schwach" data-t="n_schwach">/schwachstellen</summary><div class="dd-box dd-l">
-      <a href="#neu" data-tab="kev" data-t="tab_kev">KEV-Katalog</a>
-      <a href="#neu" data-tab="bsi">CERT-Bund</a>
-      <a href="#neu" data-tab="eu">EU-KEV</a>
-      <a href="#neu" data-tab="ausblick" data-t="tab_ausblick">Prognose</a>
-      <a href="#patches" data-t="n_patches">/patches</a>
-    </div></details>
+    <span class="nav-grp" aria-hidden="true">HANDELN</span>
+    <a href="#patches" data-sec="patches" data-t="n_patches" class="nav-wichtig">/patches</a>
+    <a href="#neu" data-sec="neu" data-t="n_neu">/neu</a>
     <details class="dd" id="abo"><summary data-t="n_abo">/abo</summary><div class="dd-box dd-abo">
       <span id="telegram" class="abo-z" hidden><a id="telegram-link" href="#" rel="noopener" data-t="tg_btn">Telegram-Kanal abonnieren</a><small class="dim" data-t="tg_txt">einmal täglich die Tageslage, sofort nur bei Stufenwechsel und Ransomware-Alarm.</small></span>
       <span class="abo-z"><button type="button" id="rss-kopieren" data-feed="https://cyberlage.org/feed.xml"><span id="rss-btn" data-t="rss_btn">RSS-Feed-Adresse kopieren</span></button><small class="dim"><span data-t="rss_txt">in deinen Feed-Reader einfügen (Feedly, Inoreader, NetNewsWire), ohne Konto.</span> <a href="feed.xml" data-t="rss_roh">Rohdatei</a></small></span>
@@ -63,6 +60,11 @@
     <p class="lbl" data-t="h_lbl">stand <span id="stand">…</span> · experiment</p>
     <h1 data-t="h_titel">Seismograph der Cyber-Bedrohungslage.<br>Weltweit, regelbasiert, offen belegt.</h1>
     <p class="blau mono"><span class="bl-k" data-t="h_blau">BLUE TEAM</span><span class="bl-m" data-t="h_motto">Für alle, die verteidigen.</span></p>
+  </section>
+
+  <section id="teil-lage" class="wrap grp teil1" aria-labelledby="h-teil1">
+    <h2 id="h-teil1" class="mono" data-t="tl_h">## teil 1 · lage</h2>
+    <p class="sw-lead" data-t="tl_intro">Wie angespannt ist die Cyberlage weltweit? Dreier-Pegel, Dreier-Tempo und Radar messen das, die Signale und der Rückblick belegen es.</p>
   </section>
 
   <section id="lage" class="wrap" aria-labelledby="h-lage">
@@ -156,13 +158,21 @@
   </section>
 
   <section id="schwach" class="wrap grp" aria-labelledby="h-schwach">
-    <h2 id="h-schwach" class="mono" data-t="sw_h">## schwachstellen &amp; patches</h2>
-    <p class="dim" data-t="sw_intro">Der zweite Teil der Seite folgt dem Weg einer Lücke: Sie wird gemeldet, sie wird angegriffen, und es gibt (oder gibt noch nicht) einen Patch. Alles andere oben misst die Lage, hier geht es um das, was du konkret tun kannst.</p>
+    <h2 id="h-schwach" class="mono" data-t="sw_h">## teil 2 · handeln: schwachstellen &amp; patches</h2>
+    <p class="sw-lead" data-t="sw_intro">Hier geht es nicht um die Lage, sondern um das, was du tun kannst: welche Lücken zuerst gepatcht werden müssen und womit.</p>
     <ol class="weg mono">
-      <li><a href="#neu" data-tab="ausblick"><b>1 · <span data-t="sw_1">gemeldet</span></b><span data-t="sw_1t">neue Lücken, Warnungen, Prognose</span></a></li>
+      <li><a href="#patches"><b>1 · <span data-t="sw_3">patchen</span></b><span data-t="sw_3t">was zuerst, mit welchem Update</span></a></li>
       <li><a href="#neu" data-tab="kev"><b>2 · <span data-t="sw_2">angegriffen</span></b><span data-t="sw_2t">belegt ausgenutzt (KEV)</span></a></li>
-      <li><a href="#patches"><b>3 · <span data-t="sw_3">gepatcht?</span></b><span data-t="sw_3t">welcher Patch, was zuerst</span></a></li>
+      <li><a href="#neu" data-tab="ausblick"><b>3 · <span data-t="sw_1">gemeldet</span></b><span data-t="sw_1t">neue Lücken, Warnungen, Prognose</span></a></li>
     </ol>
+  </section>
+
+  <section id="patches" class="wrap" aria-labelledby="h-patches">
+    <h2 id="h-patches" class="mono" data-t="p_h">## patches: was zuerst, womit</h2>
+    <p class="dim" data-t="p_intro">Was die Hersteller zuletzt gepatcht haben, mit Zahlen und einer Bewertung nach festen Regeln. Wir verwalten keine Patches und bewerten die Schwere nicht selbst: Schweregrad und Ausnutzung stammen von den Herstellern.</p>
+    <div class="panel pad pt pz" id="p-zuerst" hidden></div>
+    <div class="panel pad pt" id="p-ms" hidden></div>
+    <div class="panel pad pt" id="p-hs" hidden></div>
   </section>
 
   <section id="neu" class="wrap" aria-labelledby="h-neu">
@@ -207,14 +217,6 @@
       <div class="panel pad"><div id="ab-liste"></div></div>
       <p class="dim fine" data-t="n_q4">Prognose, nicht Teil der Stufe: Die Wahrscheinlichkeit stammt von <strong>EPSS</strong> (Exploit Prediction Scoring System, FIRST) und schätzt, ob eine neue Lücke in den nächsten 30 Tagen ausgenutzt wird. Eine Schätzung, kein Befund. Gelistet sind neue CVEs der letzten Tage, die noch nicht im KEV stehen. See EPSS at <a href="https://www.first.org/epss">first.org/epss</a>. Veröffentlichungsdatum und CVSS-Wert aus der NVD. This product uses data from the NVD API but is not endorsed or certified by the NVD.</p>
     </div>
-  </section>
-
-  <section id="patches" class="wrap" aria-labelledby="h-patches">
-    <h2 id="h-patches" class="mono" data-t="p_h">## patches</h2>
-    <p class="dim" data-t="p_intro">Was die Hersteller zuletzt gepatcht haben, mit Zahlen und einer Bewertung nach festen Regeln. Wir verwalten keine Patches und bewerten die Schwere nicht selbst: Schweregrad und Ausnutzung stammen von den Herstellern.</p>
-    <div class="panel pad pt pz" id="p-zuerst" hidden></div>
-    <div class="panel pad pt" id="p-ms" hidden></div>
-    <div class="panel pad pt" id="p-hs" hidden></div>
   </section>
 
   <section id="info" class="wrap" aria-labelledby="h-info">

@@ -347,3 +347,17 @@ html.alarm .marke{animation:flackern 6s infinite}
 html.alarm .weg b,html.alarm .weg li+li::before{color:#ff5b6b}
 .dd-box.dd-l{left:0;transform:none}
 @media (max-width:640px){.weg li+li::before{display:none}.weg a{margin-right:0}}
+
+#schwach{margin-top:40px;padding-top:26px;border-top:2px solid var(--green)}
+#schwach h2{font-size:clamp(24px,5vw,34px);color:var(--green);margin-bottom:6px}
+.sw-lead{font-size:18px;color:var(--text);margin:6px 0 12px}
+#patches h2{font-size:clamp(20px,4vw,26px)}
+.nav-wichtig{color:var(--green)!important;font-weight:700}
+.p-fix{margin-top:6px;padding:8px 10px;border:1px solid var(--green);background:#0b1812;font-size:15px}
+.p-fix b{color:var(--green)}
+html.alarm #schwach{border-top-color:#ff5b6b}html.alarm #schwach h2{color:#ff5b6b}
+
+.nav-grp{font:11px ui-monospace,monospace;letter-spacing:.12em;color:var(--dim);border:1px solid var(--line);padding:2px 6px;align-self:center}
+.teil1{margin-top:22px;padding-top:22px;border-top:2px solid var(--green)}
+.teil1 h2{font-size:clamp(24px,5vw,34px);color:var(--green);margin-bottom:6px}
+html.alarm .teil1{border-top-color:#ff5b6b}html.alarm .teil1 h2{color:#ff5b6b}

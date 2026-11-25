@@ -367,9 +367,15 @@
         kopf.appendChild(link(k.link, k.cves && k.cves.length ? k.cves.slice(0, 3).join(", ") + (k.cves.length > 3 ? " …" : "") : k.titel));
         kopf.appendChild(el("span", "mono dim", " · " + datum(k.datum)));
         li.appendChild(kopf);
-        li.appendChild(el("div", "p-t", k.titel + (k.betrifft && k.betrifft !== k.quelle ? " (" + k.betrifft + ")" : "")));
+        li.appendChild(el("div", "p-t", k.titel));
+        if (k.betrifft && k.betrifft !== k.quelle) li.appendChild(el("div", "p-w", pick("Betrifft: ", "Affects: ") + k.betrifft));
         li.appendChild(el("div", "p-w", pick("Warum zuerst: ", "Why first: ") + pick(k.grund, k.grund_en)));
-        if (k.patch_text) { var pw = el("div", "p-w", "Patch: " + pick(k.patch_text, k.patch_text_en)); if (k.patch_link && /^https:\/\//.test(k.patch_link)) { pw.appendChild(document.createTextNode(" · ")); pw.appendChild(link(k.patch_link, pick("Fix-Seite", "fix page"))); } li.appendChild(pw); }
+        var fx = el("div", "p-fix"); fx.appendChild(el("b", "mono", pick("Lösung: ", "Fix: ")));
+        var teile = [];
+        (k.fixe || []).forEach(function (f) { if (f.kb) teile.push("KB" + f.kb + (f.fuer ? " (" + f.fuer + ")" : "")); else if (f.text) teile.push(f.text + (f.fuer ? " (" + f.fuer + ")" : "")); });
+        fx.appendChild(document.createTextNode(teile.length ? teile.join(", ") : pick(k.patch_text, k.patch_text_en)));
+        if (k.patch_link && /^https:\/\//.test(k.patch_link)) { fx.appendChild(document.createTextNode(" · ")); fx.appendChild(link(k.patch_link, pick("Fix-Seite", "fix page"))); }
+        li.appendChild(fx);
         ol.appendChild(li);
       });
       box.appendChild(ol);

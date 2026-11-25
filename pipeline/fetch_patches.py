@@ -34,7 +34,7 @@ MONAT_ID = re.compile(r"^(\d{4})-(" + "|".join(MONATE) + r")$")
 SCHWEREN = ("Critical", "Important", "Moderate", "Low")
 BEHALTEN_MONATE = 36
 HISTORIE_MONATE = 12  # Vergleichsbasis für die Bewertung
-SCHEMA = 6  # erhöhen, wenn sich die Zählweise ändert: dann werden alle Monate neu geholt
+SCHEMA = 7  # erhöhen, wenn sich die Zählweise ändert: dann werden alle Monate neu geholt
 
 
 class QuellFehler(Exception):
@@ -68,6 +68,27 @@ def patch_stand(v):
     if any(r.get("Type") == 2 for r in rems):
         return "ja", kbs[:3]
     return "nein", []
+
+
+def fix_liste(v, produkte):
+    """Je Hersteller-Fix (Typ 2): KB-Nummer (falls erkennbar) und für welche Produktfamilie. Bis zu 4, ohne Doppelte."""
+    out, gesehen = [], set()
+    for r in v.get("Remediations") or []:
+        if r.get("Type") != 2:
+            continue
+        quelle = " ".join([_wert(r.get("Description")), str(r.get("URL") or ""), str(r.get("FixedBuild") or "")])
+        m = re.search(r"\bKB\s*(\d{6,8})\b", quelle, re.I) or re.search(r"(?<![\d.])(\d{6,8})(?![\d.])", quelle)
+        kb = m.group(1) if m else ""
+        fams = sorted({familie(produkte.get(str(pid), "")) for pid in (r.get("ProductID") or [])} - {"Sonstige"})[:2]
+        fuer = ", ".join(fams)
+        schluessel = (kb, fuer, "" if kb else _wert(r.get("Description"))[:40])
+        if schluessel in gesehen:
+            continue
+        gesehen.add(schluessel)
+        out.append({"kb": kb, "fuer": fuer, "text": "" if kb else _wert(r.get("Description"))[:90], "url": "" if kb else str(r.get("URL") or "")[:200]})
+        if len(out) >= 4:
+            break
+    return out
 
 
 def fix_hinweis(v):
@@ -160,6 +181,7 @@ def verdichte_dokument(doc, kev_cves=()):
         schwere[sev if sev in SCHWEREN else "unbekannt"] += 1
         patch, kbs = patch_stand(v)
         fix_t, fix_u = fix_hinweis(v)
+        fixe = fix_liste(v, produkte)
         if patch == "nein":
             ohne_fix.append(cve)
         ist_aus = bool(re.search(r"Exploited:\s*Yes", ex_text, re.I))
@@ -170,7 +192,7 @@ def verdichte_dokument(doc, kev_cves=()):
                 for pid in st.get("ProductID") or []:
                     fam_c.add(familie(produkte.get(str(pid), "")))
             kandidaten.append({"cve": cve, "titel": titel[:120], "schwere": sev, "ausgenutzt": ist_aus, "oeffentlich": ist_oeff, "kev": cve in kev,
-                               "patch": patch, "kb": kbs, "fix_text": fix_t, "fix_url": fix_u, "familien": sorted(fam_c - {"Sonstige"})[:3]})
+                               "patch": patch, "kb": kbs, "fix_text": fix_t, "fix_url": fix_u, "fixe": fixe, "familien": sorted(fam_c - {"Sonstige"})[:3]})
         if imp:
             auswirkung[imp] = auswirkung.get(imp, 0) + 1
         if re.search(r"Exploited:\s*Yes", ex_text, re.I):
@@ -572,7 +594,7 @@ def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=8):
             else:
                 pt, pt_en = "Patch-Stand bei Microsoft prüfen", "Check patch status with Microsoft"
             kand.append({"stufe": stufe, "epss": e, "quelle": "Microsoft", "titel": k["titel"], "cves": [k["cve"]], "grund": g, "grund_en": ge,
-                         "patch": pst, "patch_text": pt, "patch_text_en": pt_en, "patch_link": k.get("fix_url") or "",
+                         "patch": pst, "patch_text": pt, "patch_text_en": pt_en, "patch_link": k.get("fix_url") or "", "fixe": k.get("fixe") or [],
                          "betrifft": ", ".join(k["familien"]), "datum": str(m.get("erste_veroeffentlichung"))[:10],
                          "link": "https://msrc.microsoft.com/update-guide/vulnerability/" + k["cve"]})
     for q in (hersteller or {}).get("quellen", {}).values():
