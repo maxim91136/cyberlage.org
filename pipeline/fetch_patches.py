@@ -500,21 +500,22 @@ def parse_sap(html_text, monat_url):
     text = html.unescape(text)
     zeilen = [z.strip() for z in text.splitlines() if z.strip()]
     kopf = " ".join(zeilen)
-    m = re.search(r"On (\d{1,2})(?:st|nd|rd|th)? of (\w+) (\d{4}),? SAP [Ss]ecurity [Pp]atch [Dd]ay saw the release of (\d+) new", kopf)
+    kopf = re.sub(r"\s+", " ", kopf)
+    m = re.search(r"On (\d{1,2}) ?(?:st|nd|rd|th)? of (\w+),? (\d{4}),? SAP [Ss]ecurity [Pp]atch [Dd]ay saw the release of (\d+)", kopf, re.I)
     if not m or m.group(2).lower() not in MONATE_EN:
-        return []
+        raise QuellFehler("SAP-Seite ohne erkennbaren Patch-Day-Satz (%d Zeichen, Anfang: %s)" % (len(kopf), kopf[:80]))
     tag = datetime(int(m.group(3)), MONATE_EN.index(m.group(2).lower()) + 1, int(m.group(1))).date()
     # Nur der Teil bis zu den Aktualisierungen älterer Hinweise zählt als neu am Patch Day.
     ende = re.search(r"(previously released security notes? (?:was|were) updated|Update to Security Note released on)", kopf)
     neu = kopf[m.end(): ende.start() if ende else len(kopf)]
-    blocke = re.split(r"(?=\[?CVE-\d{4}-\d{4,7}\]?\s)", neu)
+    blocke = re.split(r"(?=\[CVE-\d{4}-\d{4,7})|(?<=\d{7}) (?=CVE-\d{4}-\d{4,7})", neu)
     out, nr = [], 0
     for b in blocke:
         c = CVE_RE.search(b)
         if not c:
             continue
         sev = re.search(r"\b(Hot News|Critical|High|Medium|Low)\s*(\d{1,2}\.\d)", b)
-        titel = re.sub(r"\s+", " ", re.sub(r"Product.*", "", b, flags=re.S)).strip(" []")
+        titel = re.sub(r"\s+", " ", re.sub(r"(Product|Version|Hot News|Critical|High|Medium|Low)\b.*", "", b, flags=re.S)).replace("]", "] ", 1).replace("]  ", "] ").strip(" []")
         nr += 1
         out.append({"id": "SAP-%s-%02d" % (tag.strftime("%Y-%m"), nr), "datum": tag, "titel": titel[:140] or c.group(0), "link": monat_url,
                     "schwere": {"hot news": "kritisch", "critical": "kritisch", "high": "hoch", "medium": "mittel", "low": "niedrig"}.get(sev.group(1).lower()) if sev else None,
