@@ -263,6 +263,10 @@
         c.appendChild(document.createElementNS(NS, "title")).textContent = datum(v[i].stand) + ": " + v[i].wert + " (" + v[i].signale + "/" + sc.von_bausteine + pick(" Bausteine", " components") + ")";
       });
       mk("text", Object.assign({ x: x(i0) - 6, y: T + 10, "text-anchor": "end" }, mono, { fill: "#6fe0a0" }), pick("ab hier alle Bausteine", "all components from here"));
+      var il = live[live.length - 1], lw = v[il].wert, la = v[il].ausnutzung, oben = la >= lw;
+      var bg = { stroke: "#0d1117", "stroke-width": 4, "paint-order": "stroke" };
+      mk("text", Object.assign({ x: x(il) - 9, y: y(lw) + (oben ? 16 : -8), "text-anchor": "end" }, mono, bg, { fill: "#6fe0a0", "font-weight": 600 }), lw + pick(" · voller Pegel", " · full gauge"));
+      mk("text", Object.assign({ x: x(il) - 9, y: y(la) + (oben ? -10 : 18), "text-anchor": "end" }, mono, bg, { fill: "#8fbfa6" }), la + pick(" · ohne BSI/SANS", " · without BSI/SANS"));
     }
     var pk = v.length > 120 ? [0, Math.floor(v.length / 3), Math.floor(2 * v.length / 3)] : [0];
     pk.forEach(function (i) { mk("text", Object.assign({ x: x(i), y: H - 8, "text-anchor": "start" }, mono), datum(v[i].stand)); });
