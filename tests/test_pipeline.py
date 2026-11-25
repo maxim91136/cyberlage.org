@@ -931,14 +931,14 @@ class ModellTests(unittest.TestCase):
         self.assertEqual(len(s["gruppen"]), 1)
         self.assertIsNone(modell.score({}, self.CFG))
 
-    def test_rueckrechnung(self):
+    def test_ausnutzung_reihe_nur_ausnutzungsgruppe(self):
         import modell
-        cfg = {"obergrenze": 2.0, "gruppen": [{"id": "a", "name": "A", "name_en": "A"}],
-               "bausteine": [{"id": "kev_menge", "gruppe": "a", "status": "aktiv"}, {"id": "tempo", "gruppe": "a", "status": "aktiv"}]}
-        r = modell.rueckrechnung([{"stand": "2026-01-01", "wert": 25}, {"stand": "2026-01-02", "wert": 50}], 25, [{"stand": "2026-01-01", "wert": 5.0}], 5, cfg)
-        self.assertEqual((r[0]["wert"], r[0]["signale"]), (50, 2))
-        self.assertEqual((r[1]["wert"], r[1]["signale"]), (100, 1))
-        self.assertTrue(r[0]["rueck"])
+        cfg = {"obergrenze": 2.0, "gruppen": [{"id": "ausnutzung", "name": "A", "name_en": "A"}, {"id": "extern", "name": "E", "name_en": "E"}],
+               "bausteine": [{"id": "kev_menge", "gruppe": "ausnutzung", "status": "aktiv"}, {"id": "tempo", "gruppe": "ausnutzung", "status": "aktiv"},
+                             {"id": "bsi", "gruppe": "extern", "status": "aktiv"}]}
+        r = modell.ausnutzung_reihe([{"stand": "2026-01-01", "wert": 25}, {"stand": "2026-01-02", "wert": 50}], 25, [{"stand": "2026-01-01", "wert": 5.0}], 5, cfg)
+        self.assertEqual((r[0]["ausnutzung"], r[0]["n"]), (50, 2))
+        self.assertEqual((r[1]["ausnutzung"], r[1]["n"]), (100, 1))
 
 
 if __name__ == "__main__":

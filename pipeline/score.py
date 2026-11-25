@@ -367,9 +367,11 @@ def main(argv):
         rs["live_seit"] = sr[0]["stand"]
         rs["reihe"] = sr[-90:]
         rtempo = (ergebnis["radar"].get("zeit_bis_kev") or {}).get("tempo_reihe") or []
-        alt = modell.rueckrechnung(reihe, regeln.get("erhoeht_ab"), rtempo, (regeln.get("tempo") or {}).get("erhoeht_bis"), mcfg)
-        live = {x["stand"] for x in sr}
-        rs["reihe_voll"] = [x for x in alt if x["stand"] not in live] + [dict(x, rueck=False) for x in sr]
+        alt = modell.ausnutzung_reihe(reihe, regeln.get("erhoeht_ab"), rtempo, (regeln.get("tempo") or {}).get("erhoeht_bis"), mcfg)
+        live = {x["stand"]: x for x in sr}
+        rs["reihe_voll"] = [{"stand": x["stand"], "ausnutzung": x["ausnutzung"], "n": x["n"],
+                             "wert": live[x["stand"]]["wert"] if x["stand"] in live else None,
+                             "signale": live[x["stand"]]["signale"] if x["stand"] in live else None} for x in alt]
     import fetch_radar
     tcfg = regeln.get("tempo")
     zk = (ergebnis.get("radar") or {}).get("zeit_bis_kev") or {}
@@ -408,7 +410,7 @@ def main(argv):
         ergebnis["stufe_begruendung"] = "Gesamtscore %s von 100 aus %s von %s Bausteinen." % (rsc["wert"], rsc["signale"], rsc["von"])
         ergebnis["stufe_begruendung_en"] = "Overall score %s of 100 from %s of %s components." % (rsc["wert"], rsc["signale"], rsc["von"])
         ergebnis["pegel"] = {"wert": rsc["wert"], "signale": rsc["signale"], "von": rsc["von"], "stufe": rsc["stufe"], "status": stufen_cfg.get("status"),
-                             "live_seit": rsc.get("live_seit"), "modell": rsc.get("modell"), "reihe": rsc.pop("reihe_voll", rsc.get("reihe", []))}
+                             "live_seit": rsc.get("live_seit"), "modell": rsc.get("modell"), "von_bausteine": rsc.get("von"), "reihe": rsc.pop("reihe_voll", rsc.get("reihe", []))}
     else:
         ergebnis["stufe"], ergebnis["stufe_begruendung"], ergebnis["stufe_begruendung_en"], ergebnis["pegel"] = None, "Der Gesamtscore ist noch nicht berechenbar.", "The overall score cannot be computed yet.", None
     ziel = WURZEL / "site" / "data" / "lage.json"

@@ -30,9 +30,16 @@ def score(einzel, cfg):
     return {"wert": round(sum(werte) / len(werte) / ob * 100), "signale": n, "von": len(aktiv), "gruppen": gruppen}
 
 
-def rueckrechnung(kev_reihe, erhoeht_ab, tempo_reihe, tempo_erhoeht_bis, cfg):
-    """Tagesreihe des Scores aus den aktiven Bausteinen mit Historie (KEV-Menge, Tempo). BSI und SANS haben keine Tagesreihe."""
+def nur_gruppe(cfg, gruppe):
+    """Modell, reduziert auf eine Gruppe (für die Reihe, die über den ganzen Zeitraum gleich definiert ist)."""
+    return dict(cfg, gruppen=[g for g in cfg["gruppen"] if g["id"] == gruppe], bausteine=[b for b in cfg["bausteine"] if b["gruppe"] == gruppe])
+
+
+def ausnutzung_reihe(kev_reihe, erhoeht_ab, tempo_reihe, tempo_erhoeht_bis, cfg):
+    """Tagesreihe der Gruppe Ausnutzung (KEV-Menge, Tempo bis KEV), 0 bis 100. Für diese Bausteine gibt es 36 Monate echte Daten,
+    die Reihe ist deshalb über den ganzen Zeitraum gleich definiert. Nur die heutigen Schwellen werden rückwirkend angewendet."""
     tempo = {p["stand"]: p["wert"] for p in tempo_reihe or []}
+    sub = nur_gruppe(cfg, "ausnutzung")
     out = []
     for p in kev_reihe:
         d = p["stand"]
@@ -41,9 +48,9 @@ def rueckrechnung(kev_reihe, erhoeht_ab, tempo_reihe, tempo_erhoeht_bis, cfg):
             einzel["kev_menge"] = p["wert"] / erhoeht_ab
         if d in tempo and tempo_erhoeht_bis:
             einzel["tempo"] = tempo_erhoeht_bis / max(tempo[d], 1.0)
-        s = score(einzel, cfg)
-        if s:
-            out.append({"stand": d, "wert": s["wert"], "signale": s["signale"], "von": s["von"], "rueck": True})
+        sc = score(einzel, sub)
+        if sc:
+            out.append({"stand": d, "ausnutzung": sc["wert"], "n": sc["signale"]})
     return out
 
 
