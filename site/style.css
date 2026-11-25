@@ -572,3 +572,6 @@ html[lang=en] #teil3 .akk>summary::after{content:"OPEN +"}html[lang=en] #teil3 .
 .sek.sub[open]>summary::after,html[lang=en] .sek.sub[open]>summary::after{content:"–"}
 .kc-a,.p-badge,.lbl,.fz-dl dt,.sc-tx{font-size:12px}
 #fazit-verk{display:none!important}.verbund .fazit{margin-top:14px}
+
+/* Abstand Pegel-Kasten und Blue-Team-Abzeichen */
+.hero-pegel{margin-right:14px}.hero .blau{margin-top:10px;vertical-align:middle}
