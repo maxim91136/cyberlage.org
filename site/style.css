@@ -587,3 +587,4 @@ html[lang=en] #teil3 .akk>summary::after{content:"OPEN +"}html[lang=en] #teil3 .
 /* Radar steht oben im Lagekasten-Bereich */
 #lage>.radar-box{margin-top:18px}
 #radar{scroll-margin-top:92px}
+.an-liste{margin:8px 2px 12px;padding-left:18px}.an-liste li{margin:0 0 9px}.an-liste a{white-space:nowrap}
