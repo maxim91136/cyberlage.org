@@ -438,6 +438,7 @@ def parse_redhat(daten):
         for pk in n.get("released_packages") or []:
             name = re.sub(r"-\d.*$", "", str(pk).split(":")[0]).strip()
             name = re.sub(r"^registry\.redhat\.io/", "", name)
+            name = re.sub(r"@sha\d+$", "", name)  # Container-Abbilder: Prüfsummen-Anhang weglassen
             if name.endswith(("-debuginfo", "-debugsource")):
                 continue
             if name and name not in pakete:

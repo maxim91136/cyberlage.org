@@ -660,6 +660,11 @@ class HerstellerPatchTests(unittest.TestCase):
         z = fetch_patches.verdichte_quelle(r, date(2026, 11, 24))
         self.assertEqual((z["neu_30"], z["kritisch_30"], z["hoch_30"]), (2, 1, 1))
 
+    def test_redhat_container_titel(self):
+        r = fetch_patches.parse_redhat([{"RHSA": "RHSA-2026:7", "released_on": "2026-11-23T00:00:00Z", "CVEs": [],
+                                         "released_packages": ["registry.redhat.io/exploit-intelligence/agent-client-rhel9@sha256:abc123", "ruby-3.3.1-1.el9", "ruby-debuginfo-3.3.1-1.el9"]}])
+        self.assertEqual(r[0]["titel"], "RHSA-2026:7: exploit-intelligence/agent-client-rhel9, ruby")
+
     def test_redhat_csv(self):
         csv = '"2026/rhsa-2026_1234.json","2026-11-20T12:00:00+00:00"\n"2026/rhba-2026_9.json","2026-11-20T12:00:00+00:00"\n"2026/rhsa-2026_1234.json","2026-11-21T01:00:00+00:00"\n'
         r = fetch_patches.parse_redhat_csv(csv)

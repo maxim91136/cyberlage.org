@@ -404,7 +404,7 @@
         var q = pos(i, 0.25); sv("circle", { cx: q[0], cy: q[1], r: 5, "class": "sc-blip kn" });
       }
     });
-    var sl = sv("text", { x: C - R / 2 - 5, y: C - 5, "class": "sc-tx", "text-anchor": "end" }); sl.textContent = pick("Schwelle", "threshold");
+    var sl = sv("text", { x: C - (R / 2 + 6) * 0.383, y: C - (R / 2 + 6) * 0.924, "class": "sc-tx", "text-anchor": "end" }); sl.textContent = pick("Schwelle", "threshold");
   }
 
   // ---------- Patches ----------
@@ -562,7 +562,7 @@
         var kopf = el("div", "p-rk");
         kopf.appendChild(el("span", "mono p-q", k.quelle));
         kopf.appendChild(link(k.link, k.cves && k.cves.length ? k.cves.slice(0, 3).join(", ") + (k.cves.length > 3 ? " …" : "") : k.titel));
-        kopf.appendChild(el("span", "mono dim", " · " + datum(k.datum)));
+        kopf.appendChild(el("span", "mono dim p-dt", datum(k.datum)));
         li.appendChild(kopf);
         li.appendChild(el("div", "p-t", k.titel));
         var det = el("details", "p-det"); det.appendChild(el("summary", "mono", pick("Warum Platz " + k.rang + "? Details", "Why rank " + k.rang + "? Details")));
