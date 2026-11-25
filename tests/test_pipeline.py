@@ -995,5 +995,15 @@ class DistroTests(unittest.TestCase):
         self.assertEqual((am["id"], am["schwere"], len(am["cves"])), ("ALAS2023-2026-3508", "hoch", 2))
 
 
+class DshieldTests(unittest.TestCase):
+    def test_parse_und_sieben_tage_mittel_ohne_laufenden_tag(self):
+        import fetch_historie, modell
+        self.assertEqual(fetch_historie.parse_dshield([{"date": "2026-01-01", "records": "9", "targets": 2, "sources": 100}, {"date": "x"}]), {"2026-01-01": [9, 2, 100]})
+        tage = {"2026-01-%02d" % i: [0, 0, 100 * i] for i in range(1, 10)}
+        r = modell.archiv_reihen({"dshield": {"tage": tage}}, "2026-01-09")["dshield"]
+        self.assertEqual(r[0], {"stand": "2026-01-08", "wert": 400})   # Mittel aus 1. bis 7.
+        self.assertEqual(r[-1], {"stand": "2026-01-09", "wert": 500})  # der 9. selbst zählt nicht mit
+
+
 if __name__ == "__main__":
     unittest.main()

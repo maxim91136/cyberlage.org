@@ -833,7 +833,7 @@
     if (!sc || !sc.modell_gruppen) return;
     var bb = $("rd-balken") || box; if (bb !== box) bb.textContent = "";
     zeigeBalken(sc, bb);
-    box.appendChild(el("h4", "mono rd-t", pick("Aufbau: drei Gruppen", "Structure: three groups")));
+    box.appendChild(el("h4", "mono rd-t", pick("Aufbau: vier Gruppen", "Structure: four groups")));
     var ul = el("ul", "p-liste");
     sc.modell_gruppen.forEach(function (g) {
       if (!g.bausteine.length) return;

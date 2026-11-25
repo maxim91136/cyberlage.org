@@ -144,6 +144,18 @@ def archiv_reihen(hist, bis):
     e = hist.get("eu_kev") or {}
     if e.get("eintraege"):
         out["eu_kev"] = fenster_reihe(list(e["eintraege"].values()), 30, max(plus(min(e["eintraege"].values()), 30), plus(bis, -1130)), bis)
+    dsh = (hist.get("dshield") or {}).get("tage")
+    if dsh:
+        # Angreifende Quellen je Tag, Mittel der sieben vollständigen Tage vor dem Stichtag (der laufende Tag ist noch unvollständig)
+        tage = sorted(dsh)
+        d0, d1 = date.fromisoformat(tage[0]) + timedelta(days=7), date.fromisoformat(bis)
+        reihe, t = [], d0
+        while t <= d1:
+            fenster = [dsh[x][2] for x in ((t - timedelta(days=n)).isoformat() for n in range(1, 8)) if x in dsh]
+            if len(fenster) >= 5:
+                reihe.append({"stand": t.isoformat(), "wert": round(sum(fenster) / len(fenster))})
+            t += timedelta(days=1)
+        out["dshield"] = reihe
     m = (hist.get("microsoft") or {}).get("monate")
     if m:
         xs = sorted(m.values(), key=lambda x: x["tag"])

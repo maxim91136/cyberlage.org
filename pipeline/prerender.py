@@ -52,7 +52,7 @@ def vorbelegen(s, lage):
             s = re.sub(r'(<b id="%s">)[^<]*(</b>)' % kennung, lambda m: m.group(1) + f"{wert:,}".replace(",", ".") + m.group(2), s, count=1)
     kurz = kurzlage(lage)
     if kurz:
-        fest = " Seismograph der Cyber-Bedrohungslage aus acht offenen Bausteinen, regelbasiert und nachprüfbar. Ein Werkzeug für alle, die Systeme verteidigen. Ein Projekt von Dreier Labs."
+        fest = " Seismograph der Cyber-Bedrohungslage aus neun offenen Bausteinen, regelbasiert und nachprüfbar. Ein Werkzeug für alle, die Systeme verteidigen. Ein Projekt von Dreier Labs."
         s = re.sub(r'(<meta name="description" content=")[^"]*(">)', lambda m: m.group(1) + e(kurz + fest) + m.group(2), s, count=1)
         s = re.sub(r'(<meta property="og:description" content=")[^"]*(">)', lambda m: m.group(1) + e(kurz + " Regelbasiert aus offenen Quellen.") + m.group(2), s, count=1)
         pg = lage["pegel"]

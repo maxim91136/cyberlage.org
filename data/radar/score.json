@@ -1,1 +1,1 @@
-{"meta":{"name":"Dreier-Pegel (Gesamtscore)","hinweis":"Tagesstand des vollen Pegels, live gespeichert; die Rückrechnung aus den Archivdaten steht in lage.json"},"reihe":[{"stand":"2026-11-25","wert":62,"signale":8,"von":8,"modell":"v1"}]}
+{"meta":{"name":"Dreier-Pegel (Gesamtscore)","hinweis":"Tagesstand des vollen Pegels, live gespeichert; die Rückrechnung aus den Archivdaten steht in lage.json"},"reihe":[{"stand":"2026-11-25","wert":60,"signale":9,"von":9,"modell":"v1"}]}

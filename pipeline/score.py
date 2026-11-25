@@ -355,7 +355,7 @@ def main(argv):
         einzel = {b["id"]: aus.get(b.get("signal")) for b in mcfg["bausteine"] if b["status"] == "aktiv" and b.get("signal")}
         # Archiv-Bausteine: Tageswerte aus echten Meldungen (data/radar/historie), Ausschlag = Wert / Schwelle
         hd = WURZEL / "data" / "radar" / "historie"
-        archiv = modell.archiv_reihen({k: lese_optional(hd / (k + ".json")) for k in ("cert_bund", "ncsc_nl", "eu_kev", "microsoft")}, stand.isoformat())
+        archiv = modell.archiv_reihen({k: lese_optional(hd / (k + ".json")) for k in ("cert_bund", "ncsc_nl", "eu_kev", "microsoft", "dshield")}, stand.isoformat())
         arch_aus = {}
         kon = ergebnis["radar"]["konsens"]
         for bst in mcfg["bausteine"]:

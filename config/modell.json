@@ -16,6 +16,11 @@
       "name_en": "Warnings"
     },
     {
+      "id": "angriffe",
+      "name": "Angriffsaktivität",
+      "name_en": "Attack activity"
+    },
+    {
       "id": "extern",
       "name": "Externe Einschätzungen",
       "name_en": "External assessments"
@@ -99,6 +104,21 @@
       "zeitraum": "letzte 30 Tage",
       "zeitraum_en": "last 30 days",
       "grundlage": "Neue Advisories je 30-Tage-Fenster, täglich vom 15.06.2024 bis 25.11.2026: Median 36, 75. Perzentil 43, 90. Perzentil 58."
+    },
+    {
+      "id": "dshield",
+      "gruppe": "angriffe",
+      "kurz": "DShield",
+      "name": "DShield: angreifende Quellen je Tag (7-Tage-Mittel)",
+      "name_en": "DShield: attacking sources per day (7-day mean)",
+      "status": "aktiv",
+      "schwelle": 175000,
+      "regel": "mindestens 175.000 angreifende Quellen je Tag im 7-Tage-Mittel, das obere Viertel der letzten 36 Monate",
+      "regel_en": "at least 175,000 attacking sources per day in the 7-day mean, the top quarter of the last 36 months",
+      "zeitraum": "letzte 7 vollständige Tage",
+      "zeitraum_en": "last 7 complete days",
+      "historie": "36 Monate",
+      "grundlage": "Tagesübersicht des SANS Internet Storm Center (DShield): Zahl der Quell-Adressen, die von den Sensoren der Teilnehmer als Angreifer gemeldet wurden. 7-Tage-Mittel, täglich vom 19.10.2023 bis 24.11.2026: Median 153.956, 75. Perzentil 175.109, 90. Perzentil 212.720. Gewählt wurden die Quellen, nicht die Meldungen, weil ihre Zahl kaum davon abhängt, wie viele Sensoren gerade melden."
     },
     {
       "id": "bsi",
