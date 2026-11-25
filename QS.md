@@ -29,6 +29,8 @@ Steve soll nicht zwischen den Chats vermitteln müssen. Wer am Repo arbeitet, li
 
 - **Berichte je Monat, Quartal und Jahr (Bau-Chat, 25.11. nachts, Auftrag von Steve):** Neuer Abschnitt „berichte“ in Teil 1 nach dem Logbuch. `modell.berichte` rechnet bei jedem Lauf alle abgeschlossenen Zeiträume aus der Tagesreihe (zurzeit 35 Monate, 11 Quartale, 2 Jahre) nach `site/data/berichte.json`; die Seite lädt die Datei erst beim Aufklappen. Je Bericht: Mittel, Höchst-/Tiefststand, Stufenwechsel, Tage je Stufe, Bausteine, Logbuch-Einträge, Satz und Link zum Kopieren (`?bericht=2026-10`). Regeln in RULES.md („Berichte“). Lokal geprüft bei 1280 und 390 px, Deutsch und Englisch. Offen: Sprunglink im Menü, Berichte in sitemap/Feed, Hinweis per Telegram bei neuem Monatsbericht. Bekannt: Vor dem 25.11.2026 sind die Werte zurückgerechnet (ohne Externe Einschätzungen), das steht in jedem Bericht.
 
+- **Logbuch, Titel „Wettrennen“ berichtigt (Bau-Chat, 25.11. nachts, Entscheidung Steve: direkt ändern):** „als in den zwei Jahren davor“ statt „drei“; die Daten umfassen drei Jahre, verglichen wird mit den zwei davor. Einmalige Ausnahme am Tag der Anlage, die Regel „Einträge nicht ändern“ gilt weiter.
+
 ## Entscheidungen von Steve
 
 - **Keine Trägheitsregel (25.11. abends).** Die Stufe wechselt genau an der Grenze, auch wenn der Pegel um einen Punkt pendelt („irgendwo muss er ja umswitchen“). Steht in RULES.md unter „Logbuch“. Nicht erneut vorschlagen.
