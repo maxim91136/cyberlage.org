@@ -37,6 +37,8 @@ Steve soll nicht zwischen den Chats vermitteln müssen. Wer am Repo arbeitet, li
 
 - **„Was betreue ich?“: zwei Zahlen je Knopf (Bau-Chat, 26.11., nach Hinweis von Steve):** Bisher stand nur die KEV-Zahl am Knopf; „Windows und Microsoft 0“ bei zehn kritischen Einträgen in der Rangliste las sich wie „nichts zu tun“. Jetzt stehen beide Zahlen am Knopf (zuerst patchen · neu angegriffen), mit Legende darunter und in der Infozeile. Dazu Fehler behoben: Der Knopf „alle N zeigen“ blieb stehen, wenn man von „Alle“ in einen Bereich ohne KEV-Einträge wechselte.
 
+- **Klicktest (Bau-Chat, 26.11., Auftrag von Steve):** `tests/klicktest.py` bedient die Seite mit Playwright in zwei Breiten (390, 1280) und zwei Sprachen: jede Klappe, jeden Bereich nach jedem anderen, jeden Bericht, Reiter, Direktlinks, Sprachknopf; prüft Skriptfehler, Überstand, Zahlen am Knopf gegen Listen, Platzhalter im Text, Sprungziele. Rund 4.000 Prüfungen, etwa 90 Sekunden. Läuft als Workflow `klicktest` bei jedem Push an `site/`, täglich 06:40 UTC und auf Knopfdruck; lokal `python tests/klicktest.py`. Gegenprobe: Der Fehler „alle zeigen bleibt stehen“ wird gefunden. Bitte bei neuen Bedienelementen eine Prüfung ergänzen. Grenze: Der Test findet Bedienfehler, keine missverständlichen Zahlen.
+
 ## Entscheidungen von Steve
 
 - **Keine Trägheitsregel (25.11. abends).** Die Stufe wechselt genau an der Grenze, auch wenn der Pegel um einen Punkt pendelt („irgendwo muss er ja umswitchen“). Steht in RULES.md unter „Logbuch“. Nicht erneut vorschlagen.

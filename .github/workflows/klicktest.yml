@@ -1,0 +1,37 @@
+name: klicktest
+
+# Bedient die Seite im Browser und prüft feste Regeln (tests/klicktest.py):
+# bei jeder Änderung an der Seite, einmal am Tag mit den frischen Daten und auf Knopfdruck.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - "tests/klicktest.py"
+      - ".github/workflows/klicktest.yml"
+  schedule:
+    - cron: "40 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: klicktest
+  cancel-in-progress: true
+
+jobs:
+  klicken:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Browser einrichten
+        run: |
+          pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Klicktest
+        run: python tests/klicktest.py
