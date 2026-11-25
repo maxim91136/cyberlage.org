@@ -690,6 +690,10 @@ def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=24, cvss=None):
                 kand.append({"stufe": 4, "epss": None, "quelle": q["name"], "titel": x["titel"], "cves": [], "grund": "Vom Hersteller als kritisch eingestuft.",
                              "grund_en": "Rated critical by the vendor.", "patch": "pruefen", "patch_text": "Fix-Stand im Advisory prüfen", "patch_text_en": "Check fix status in the advisory", "betrifft": q["name"], "datum": x["datum"], "link": x["link"]})
     for k in kand:
+        if k["epss"] is None:
+            ev = [(epss.get(c) or (None,))[0] for c in k["cves"]]
+            ev = [x for x in ev if x is not None]
+            k["epss"] = max(ev) if ev else None
         w = [{"cve": c, "score": cvss.get(c)} for c in k["cves"]]
         if k.get("cvss_ms") is not None:
             w = [{"cve": k["cves"][0], "score": k["cvss_ms"]}]
@@ -742,7 +746,7 @@ def main():
         kev = set(kev_cves())
         monate = list((ms.get("monate") or {}).values())
         kand = [k["cve"] for m in monate[-2:] for k in m.get("kandidaten", [])]
-        epss = hole_epss(kand)
+        epss = hole_epss(kand + [c for q in (hs.get("quellen") or {}).values() for x in q.get("im_kev_meldungen", []) for c in x.get("cves_kev", [])])
         vorab = priorisiere(monate, hs, kev, epss, jetzt.date())
         cache = lese_datei(CVSS_DATEI) or {}
         brauch = [c for k in vorab["liste"] if k.get("cvss_max") is None for c in k["cves"][:3]]
