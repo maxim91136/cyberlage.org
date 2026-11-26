@@ -14,6 +14,7 @@ Steve soll nicht zwischen den Chats vermitteln müssen. Wer am Repo arbeitet, li
 ## Offen
 
 ### Für Steve, 26.11. (Warteliste aus der Nacht, Bau-Chat)
+- **Hinweis „mehrfach geprüft" auf der Seite** (Idee von Steve, schafft Vertrauen): kurzer Satz in `hinweise.html` / Fußbereich, de und en. Nur wahrheitsgemäß: automatische Tests (100 Unit-Tests, Klicktest mit 4.300+ Prüfungen bei jedem Push), SEO-Prüfung und Sicherheitsprüfung des Quelltexts mit KI-Werkzeugen, Quellen-Test der Daten. Nicht als „unabhängiges Audit" oder „Pentest" bezeichnen, solange keine externe Stelle geprüft hat. Datum der letzten Prüfung nennen.
 
 Erledigt in der Nacht (Auftrag von Steve):
 - **Zeile für englische Browser** auf der deutschen Startseite („This page is available in English. Switch to English“, mit × dauerhaft ausblendbar, `i18n.js`). Keine automatische Weiterleitung.
