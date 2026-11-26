@@ -767,3 +767,6 @@ html.alarm2 .beta::after{animation:blink 1.4s steps(1) infinite}
 .sw-k{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);background:var(--panel);text-decoration:none;color:var(--text);border-radius:5px}
 .sw-k b{font-size:14px;color:var(--green)}.sw-k span{font-size:12px}
 .sw-k:hover{border-color:var(--green)}
+.tw-fr td{padding:2px 14px 6px 0;border-bottom:1px solid var(--line)}
+.tw-cf{width:100%;min-width:70px;max-width:220px;font-size:12px;padding:3px 6px}
+.p-pl-t th.th-s{cursor:pointer}

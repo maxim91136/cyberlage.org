@@ -990,18 +990,18 @@
         var h = el("h4", "mono", p.name); sm.appendChild(h);
         sm.appendChild(el("span", "mono dim lz-n", kommend.length ? pick("nächstes Ende ", "next end ") + datum(kommend[0].z.eol) + " (" + inTagen(kommend[0].t) + ")" : pick("kein Ende in Sicht", "no end in sight")));
         d.appendChild(sm);
-        var sc = el("div", "p-pl-s"), tb = el("table", "mono p-pl-t"), th = el("tr", "");
+        var sc = el("div", "p-pl-s"), tab = el("table", "mono p-pl-t tw-sp"), kp = el("thead", ""), tb = el("tbody", ""), th = el("tr", "");
         [pick("Version", "Version"), pick("Support-Ende", "End of support"), pick("Erweitert (ESU, ESM)", "Extended (ESU, ESM)"), pick("Restzeit", "Time left")].forEach(function (c) { th.appendChild(el("th", "", c)); });
-        tb.appendChild(th);
+        kp.appendChild(th); tab.appendChild(kp); tab.appendChild(tb);
         kommend.concat(rest).forEach(function (x) {
           var r = el("tr", lzKlasse(x.t, x.e));
           r.appendChild(el("td", "", lzName(slug, p, x.z)));
-          r.appendChild(el("td", "", x.z.eol ? datum(x.z.eol) : pick("noch kein Datum genannt", "no date given yet")));
-          r.appendChild(el("td", "", x.z.erweitert ? datum(x.z.erweitert) : "–"));
-          r.appendChild(el("td", "lz-r", x.t === null ? pick("offen", "open") : (x.t < 0 ? (x.e !== null && x.e >= 0 ? pick("beendet, ESU läuft", "ended, ESU running") : pick("beendet", "ended")) : inTagen(x.t))));
+          var c2 = el("td", "", x.z.eol ? datum(x.z.eol) : pick("noch kein Datum genannt", "no date given yet")); c2.dataset.sort = x.z.eol ? String(Date.parse(x.z.eol + "T00:00:00Z")) : ""; r.appendChild(c2);
+          var c3 = el("td", "", x.z.erweitert ? datum(x.z.erweitert) : "–"); c3.dataset.sort = x.z.erweitert ? String(Date.parse(x.z.erweitert + "T00:00:00Z")) : ""; r.appendChild(c3);
+          var c4 = el("td", "lz-r", x.t === null ? pick("offen", "open") : (x.t < 0 ? (x.e !== null && x.e >= 0 ? pick("beendet, ESU läuft", "ended, ESU running") : pick("beendet", "ended")) : inTagen(x.t))); c4.dataset.sort = x.t === null ? "" : String(x.t); r.appendChild(c4);
           tb.appendChild(r);
         });
-        sc.appendChild(tb); d.appendChild(sc); host.appendChild(d);
+        sc.appendChild(tab); d.appendChild(sc); host.appendChild(d);
       });
     });
     if (qu) {
@@ -1042,19 +1042,19 @@
     box.textContent = ""; box.hidden = false;
     var heute = new Date().toISOString().slice(0, 10), wrap = box;
     wrap.appendChild(el("h4", "mono rd-t", pick("Patch-Level · Stand Patch Day " + monatName(m.id), "Patch level · as of patch day " + monatName(m.id))));
-    var sc = el("div", "p-pl-s"), tb = el("table", "mono p-pl-t"), th = el("tr", "");
+    var sc = el("div", "p-pl-s"), tab = el("table", "mono p-pl-t tw-sp"), kp = el("thead", ""), tb = el("tbody", ""), th = el("tr", "");
     [pick("System", "System"), pick("Aktuelle Build", "Current build"), "KB", pick("Support", "Support")].forEach(function (h) { th.appendChild(el("th", "", h)); });
-    tb.appendChild(th);
+    kp.appendChild(th); tab.appendChild(kp); tab.appendChild(tb);
     ["Windows 11", "Windows 10", "Windows Server"].forEach(function (gr) {
       Object.keys(s).filter(function (k) { return k.indexOf(gr + " ") === 0 && s[k].build; }).forEach(function (k) {
         var x = s[k], r = el("tr", ""), st = supportText(life, k, heute, true);
         r.appendChild(el("td", "", k)); r.appendChild(el("td", "", x.build));
         var td = el("td", ""); if (x.kb) { var a = link("https://support.microsoft.com/help/" + x.kb, "KB" + x.kb); td.appendChild(a); } r.appendChild(td);
-        r.appendChild(el("td", "", st || "–"));
+        var cs = el("td", "", st || "–"); var ende = supportTeile(life, k).map(function (e) { return e.ende; }).sort().pop(); cs.dataset.sort = ende ? String(Date.parse(ende + "T00:00:00Z")) : ""; r.appendChild(cs);
         tb.appendChild(r);
       });
     });
-    sc.appendChild(tb); wrap.appendChild(sc);
+    sc.appendChild(tab); wrap.appendChild(sc);
     wrap.appendChild(el("p", "mono dim fine", pick("Build und KB gelten für alle Editionen; Home ist nicht aufgeführt. Stand des Patch Day (zweiter Dienstag); optionale Vorschau-Updates zwischendurch haben eine höhere Build. Ein Client mit niedrigerer Build hat den Patch nicht.", "Build and KB apply to all editions; Home is not listed. Patch-day level (second Tuesday); optional preview updates in between have a higher build. A client with a lower build is missing the patch.")));
     var qq = el("p", "mono dim fine", pick("Quellen: ", "Sources: ")); qq.appendChild(link("https://msrc.microsoft.com/update-guide", "Microsoft Security Response Center")); qq.appendChild(document.createTextNode(" · ")); qq.appendChild(link("https://endoflife.date", "endoflife.date") ); qq.appendChild(document.createTextNode(life && life.meta ? pick(" (Stand ", " (as of ") + datum(String(life.meta.abgerufen_am).slice(0, 10)) + ")" : "")); wrap.appendChild(qq);
   }
@@ -1606,6 +1606,7 @@ b.appendChild(el("span", "g", typeof s.ausschlag === "number" ? pick("Messwert: 
   }
   /* Jede Tabelle: Klick auf den Spaltenkopf sortiert (Zahlen, Datum, Text), ab sechs Zeilen kommt ein Filterfeld dazu. Läuft nur im Browser. */
   function zellWert(td) {
+    if (td && td.dataset && td.dataset.sort !== undefined) { var ds = parseFloat(td.dataset.sort); return isNaN(ds) ? null : ds; }  // fester Sortierwert (Datum, Tage)
     var t = (td ? td.textContent : "").trim();
     if (!t || t === "–" || t === "-") return null;
     var m = t.match(/^(\d{1,2})[./](\d{1,2})[./](\d{4})(?:,?\s+(\d{1,2}):(\d{2}))?/);
@@ -1638,7 +1639,19 @@ b.appendChild(el("span", "g", typeof s.ausschlag === "number" ? pick("Messwert: 
       th.addEventListener("click", sortiere);
       th.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); sortiere(); } });
     });
-    if (tb.rows.length >= 6 && !t.closest("#neu") && !t.closest(".br-tab")) {
+    if (t.classList.contains("tw-sp")) {  // Spaltenfilter: eine Eingabe je Spalte unter dem Kopf, alle zusammen (UND)
+      var fr = el("tr", "tw-fr"), felder = [];
+      function filtere() {
+        Array.prototype.forEach.call(tb.rows, function (r) {
+          r.hidden = !felder.every(function (f, i) { var w = f.value.toLowerCase().trim(); return !w || (r.cells[i] && r.cells[i].textContent.toLowerCase().indexOf(w) >= 0); });
+        });
+      }
+      kopf.forEach(function (th) {
+        var c = el("td", ""), f = el("input", "filter mono tw-cf"); f.type = "search"; f.autocomplete = "off"; f.placeholder = pick("filtern", "filter");
+        f.setAttribute("aria-label", pick("Spalte filtern: ", "Filter column: ") + th.textContent); f.addEventListener("input", filtere); felder.push(f); c.appendChild(f); fr.appendChild(c);
+      });
+      t.tHead.appendChild(fr);
+    } else if (tb.rows.length >= 6 && !t.closest("#neu") && !t.closest(".br-tab")) {
       var f = el("input", "filter mono tw-f"); f.type = "search"; f.autocomplete = "off"; f.placeholder = pick("Tabelle filtern …", "Filter table …"); f.setAttribute("aria-label", pick("Tabelle filtern", "Filter table"));
       f.addEventListener("input", function () {
         var w = f.value.toLowerCase().split(/\s+/).filter(Boolean);
