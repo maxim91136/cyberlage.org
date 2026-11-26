@@ -142,6 +142,7 @@
     var name = hatStufe ? txt(String(d.stufe)) : null;
     $("stufe-wert").textContent = hatStufe ? name : "null";
     if (hatStufe && d.pegel && typeof d.pegel.wert === "number") document.title = name.toUpperCase() + " " + d.pegel.wert + pick(" · Cyberlage: Cyber-Bedrohungslage heute", " · Cyberlage: cyber threat level today");
+    var fsg = $("fuss-siegel"); if (fsg) { fsg.href = pick("/audit/", "/en/audit/"); fsg.querySelector("span").textContent = pick(fsg.getAttribute("data-de"), fsg.getAttribute("data-en")); }
     var na = $("n-audit"); if (na) na.href = pick("/audit/", "/en/audit/");
     var hk = $("hero-kurz");
     if (hk && d.pegel && typeof d.pegel.wert === "number" && d.kev) {

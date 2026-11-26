@@ -698,3 +698,5 @@ th.th-s{cursor:pointer;user-select:none;white-space:nowrap}th.th-s:hover,th.th-s
 .au-leg{font-size:13px;max-width:70ch;margin:-14px 0 20px}.au-ul{margin:0 0 8px;padding-left:18px;max-width:72ch}.au-ul li{margin:4px 0}
 .au-stufen li.ra-ruhig,.au-stufen li.ra-angespannt,.au-stufen li.ra-hoch,.au-stufen li.ra-ausserordentlich{--ra:var(--line)}.au-stufen li.ra-ruhig{--ra:var(--ra-ruhig)}.au-stufen li.ra-angespannt{--ra:var(--ra-angespannt)}.au-stufen li.ra-hoch{--ra:var(--ra-hoch)}.au-stufen li.ra-ausserordentlich{--ra:var(--ra-ausserordentlich)}
 @media(max-width:520px){.au-karte{grid-template-columns:1fr;justify-items:center;text-align:center;padding:14px 12px}.au-sg svg{width:136px;height:136px}.au-dl{text-align:left;width:100%}.au-grid{grid-template-columns:1fr 1fr}.au-k{padding:7px 9px}}
+
+.foot-sg{margin:6px 0 4px}.foot-sg:empty{display:none}.fuss-siegel{display:inline-flex;align-items:center;gap:12px;text-decoration:none}.fuss-siegel img{display:block;width:72px;height:72px}.fuss-siegel span{font-size:13px}.fuss-siegel:hover span{color:var(--green)}

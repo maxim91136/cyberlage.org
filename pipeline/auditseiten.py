@@ -168,6 +168,15 @@ def siegel(domain, d, jetzt, regeln):
             '</svg>') % (_e(titel), _e(titel), f, ticks, f, f, mono, f, mono, _e(domain.upper()), tag, 108 if len(score) < 3 else 106, mono, gross, f, _e(score), unten)
 
 
+def fuss_text(d, regeln, sp, jetzt):
+    """Kurzer Text neben dem Siegel im Fuß der Startseite: Score, Abzeichen, Datum; bei zu altem Lauf nur das Datum."""
+    datum = bs._datum(d["stand"][:10], sp)
+    if farbe(d, jetzt, regeln) == FARBE["grau"]:
+        return ("Audit: letzter Lauf %s" if sp == "de" else "Audit: last run %s") % datum
+    abz = abzeichen(d["score"], regeln)
+    return "Audit: %d / 100%s · %s" % (d["score"], " · " + ABZ_NAME[sp][abz] if abz else "", datum)
+
+
 def _stufe(d, sp):
     s = d.get("stufe", "")
     return STUFE_EN.get(s, s) if sp == "en" else s

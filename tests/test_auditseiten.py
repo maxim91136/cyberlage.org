@@ -132,6 +132,14 @@ class AuditseitenTests(unittest.TestCase):
         self.assertIn("every day at about 05:20 UTC (06:20 CET)", en)
         self.assertIn("nach mehr als 3 Tagen".replace("nach", "Nach"), de)
 
+    def test_fusstext(self):
+        d = zus("cyberlage.org")
+        self.assertEqual(auditseiten.fuss_text(d, REGELN, "de", JETZT), "Audit: 100 / 100 · Gold · 26.11.2026")
+        self.assertEqual(auditseiten.fuss_text(d, REGELN, "en", JETZT), "Audit: 100 / 100 · Gold · 26 Nov 2026")
+        alt = zus("cyberlage.org", stand="2026-11-10T05:20Z")
+        self.assertEqual(auditseiten.fuss_text(alt, REGELN, "de", JETZT), "Audit: letzter Lauf 10.11.2026")
+        self.assertEqual(auditseiten.fuss_text(zus("cyberlage.org", 40, "erhebliche Mängel"), REGELN, "en", JETZT), "Audit: 40 / 100 · 26 Nov 2026")
+
     def test_keine_unsicher_aussage(self):
         for sp in ("de", "en"):
             for text in auditseiten.T[sp]["siegel"]:

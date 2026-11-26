@@ -2,6 +2,7 @@
 """Schreibt die wichtigsten Werte als echten Text in site/index.html (Bereich <noscript>),
 damit auch Crawler und Filter ohne JavaScript Inhalt sehen. Nur Standardbibliothek."""
 import html
+from datetime import datetime, timezone
 import json
 import re
 import sys
@@ -40,6 +41,23 @@ def baustein(lage):
     return "".join(zeilen)
 
 
+def siegel_fuss(en=False):
+    """Siegel mit Kurztext für den Fuß der Startseite aus data/audit/cyberlage.org.json; ohne Daten oder Score leer."""
+    import auditseiten
+    try:
+        d = json.loads((WURZEL / "data" / "audit" / "cyberlage.org.json").read_text(encoding="utf-8"))
+        regeln = json.loads((WURZEL / "audit" / "regeln.json").read_text(encoding="utf-8"))
+        jetzt = datetime.now(timezone.utc)
+        if d.get("score") is None:
+            return ""
+        de, e_ = auditseiten.fuss_text(d, regeln, "de", jetzt), auditseiten.fuss_text(d, regeln, "en", jetzt)
+    except (OSError, ValueError, KeyError):
+        return ""
+    q = lambda t: html.escape(t, quote=True)
+    return ('<a class="fuss-siegel" id="fuss-siegel" href="%s" data-de="%s" data-en="%s"><img src="/audit/siegel/cyberlage.org.svg" width="72" height="72" alt="" loading="lazy">'
+            '<span class="mono dim">%s</span></a>') % ("/en/audit/" if en else "/audit/", q(de), q(e_), q(e_ if en else de))
+
+
 def vorbelegen(s, lage):
     """Startwerte direkt ins HTML, damit vor dem Laden der Daten kein Platzhalter steht. JavaScript überschreibt sie danach."""
     e = lambda t: html.escape(str(t))
@@ -58,6 +76,7 @@ def vorbelegen(s, lage):
         pg = lage["pegel"]
         s = re.sub(r'<a id="hero-pegel"[^>]*>[^<]*</a>', lambda m: '<a id="hero-pegel" class="hero-pegel mono st-%s" href="#lage">Dreier-Pegel heute: %s · %d / 100  · Details</a>' % (e(lage["stufe"]), e(NAME[lage["stufe"]].upper()), pg["wert"]), s, count=1)
     s = re.sub(r"<!--kt-start-->.*?<!--kt-end-->", lambda m: "<!--kt-start-->" + e(kurztext(lage)) + "<!--kt-end-->", s, count=1, flags=re.S)
+    s = re.sub(r"<!--sg-start-->.*?<!--sg-end-->", lambda m: "<!--sg-start-->" + siegel_fuss() + "<!--sg-end-->", s, count=1, flags=re.S)
     li = "".join(f"<li>{e(t)}</li>" for t in lage.get("hinweise") or [])
     if li:
         s = re.sub(r'(<ul id="hinweise" class="hinw">).*?(</ul>)', lambda m: m.group(1) + li + m.group(2), s, count=1, flags=re.S)
@@ -139,6 +158,7 @@ def englisch(s, lage):
         if n != 1:
             raise ValueError("englische Seite: Muster fehlt: " + muster[:40])
     s = s.replace('<a href="/audit/"', '<a href="/en/audit/"')  # Menüpunkt Audit zeigt auf die englische Seite
+    s = re.sub(r"<!--sg-start-->.*?<!--sg-end-->", lambda m: "<!--sg-start-->" + siegel_fuss(True) + "<!--sg-end-->", s, count=1, flags=re.S)
     name = stufe_en(lage)
     if name and isinstance((lage.get("pegel") or {}).get("wert"), int):
         s = re.sub(r'(<a id="hero-pegel"[^>]*>)[^<]*(</a>)', lambda m: m.group(1) + "Dreier Gauge today: %s · %d / 100  · Details" % (e(name.upper()), lage["pegel"]["wert"]) + m.group(2), s, count=1)

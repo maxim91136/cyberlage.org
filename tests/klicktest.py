@@ -233,6 +233,13 @@ def pruefe_auditseite(pg, wurzel, sprache, p):
     lade(pg, wurzel + ("/en/" if sprache == "en" else "/"), p)
     p.ok(pg.locator("#n-audit").get_attribute("href") == pfad, "Menüpunkt /audit zeigt auf %s" % pg.locator("#n-audit").get_attribute("href"))
     p.ok(rand(pg) <= 1, "Menü mit /audit: %d px über dem Rand" % rand(pg))
+    fs = pg.evaluate("""() => { const a = document.getElementById('fuss-siegel'); if (!a) return null; const i = a.querySelector('img');
+        return { href: a.getAttribute('href'), text: a.querySelector('span').textContent, geladen: i.complete && i.naturalWidth > 0, sichtbar: a.offsetHeight > 0 }; }""")
+    org = json.loads((SITE.parent / "data" / "audit" / "cyberlage.org.json").read_text(encoding="utf-8"))
+    p.ok(fs is not None and fs["sichtbar"], "Siegel im Fuß der Startseite fehlt")
+    if fs:
+        p.ok(fs["href"] == pfad and fs["geladen"], "Siegel im Fuß: Link %s, Bild geladen: %s" % (fs["href"], fs["geladen"]))
+        p.ok(fs["text"].startswith("Audit:") and (" %d / 100" % org["score"] in fs["text"] or "last run" in fs["text"] or "letzter Lauf" in fs["text"]), "Siegel im Fuß: Text %s" % fs["text"])
     pg.click("#n-audit")
     pg.wait_for_load_state()
     p.ok(pg.evaluate("location.pathname") == pfad, "Menüpunkt /audit führt nach %s" % pg.evaluate("location.pathname"))
