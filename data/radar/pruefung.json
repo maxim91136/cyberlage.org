@@ -272,9 +272,9 @@
    "geprueft_am": "2026-11-26",
    "erreichbar": false,
    "status": "URLError",
-   "fehler_in_folge": 9,
+   "fehler_in_folge": 10,
    "erster_fehler_um": "2026-11-26T12:27:53+00:00",
-   "link_geprueft_um": "2026-11-26T22:03:19+00:00",
+   "link_geprueft_um": "2026-11-26T22:26:07+00:00",
    "faellig_am": "2027-05-25",
    "faellig": false,
    "link_tot": false
