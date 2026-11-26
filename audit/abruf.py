@@ -3,6 +3,7 @@ import http.client
 import json
 import socket
 import ssl
+import sys
 
 UA = "cyberlage-audit/0.1 (+https://cyberlage.org/hinweise)"
 ZEIT = 15
@@ -55,12 +56,21 @@ def versionen(host):
                 with ctx.wrap_socket(s, server_hostname=host):
                     erg[name] = "ja"
         except ssl.SSLError as ex:
-            erg[name] = "unklar" if "NO_PROTOCOLS_AVAILABLE" in str(ex).upper() else "nein"  # lokal nicht anbietbar, sonst vom Server abgelehnt
-        except (ValueError, NotImplementedError):
-            erg[name] = "unklar"
-        except OSError:
+            erg[name] = urteil_ablehnung(str(ex))
+            print("TLS-Abruf %s %s: %s (%s)" % (host, name, erg[name], str(ex)[:80]), file=sys.stderr)
+        except (ValueError, NotImplementedError, OSError):
             erg[name] = "unklar"
     return erg
+
+
+# Nur eine ausdrückliche Absage des Servers zählt als "nein". Jeder andere Fehler kann auch lokal entstanden sein (OpenSSL der Umgebung bietet die Version
+# nicht an, Zeitüberschreitung, Verbindungsabbruch) und gilt als "unklar", damit eine alte Version nie fälschlich als abgeschaltet durchgeht.
+ABLEHNUNG = ("ALERT_PROTOCOL_VERSION", "ALERT_HANDSHAKE_FAILURE", "ALERT_INSUFFICIENT_SECURITY")
+
+
+def urteil_ablehnung(fehlertext):
+    t = fehlertext.upper()
+    return "nein" if any(k in t for k in ABLEHNUNG) and "NO_PROTOCOLS_AVAILABLE" not in t else "unklar"
 
 
 def doh(name, typ):

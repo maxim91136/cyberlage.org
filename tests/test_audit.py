@@ -265,5 +265,74 @@ class WeiterleitungTests(unittest.TestCase):
         self.assertEqual(set(lauf.NICHT_ZUTREFFEND), {"csp", "fremd", "inhalt", "datenschutz", "altlasten", "auffindbar"})
 
 
+class TlsVersionenTests(unittest.TestCase):
+    """Die Prüfung "alte TLS-Versionen aus" darf nie fälschlich bestehen: nur eine ausdrückliche Absage des Servers zählt als "nein"."""
+
+    def test_urteil(self):
+        import abruf
+        self.assertEqual(abruf.urteil_ablehnung("[SSL: TLSV1_ALERT_PROTOCOL_VERSION] tlsv1 alert protocol version"), "nein")
+        self.assertEqual(abruf.urteil_ablehnung("[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure"), "nein")
+        for lokal in ("[SSL: NO_PROTOCOLS_AVAILABLE] no protocols available", "[SSL: UNSUPPORTED_PROTOCOL] unsupported protocol",
+                      "[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred", "[SSL: WRONG_VERSION_NUMBER] wrong version number", "timed out"):
+            self.assertEqual(abruf.urteil_ablehnung(lokal), "unklar", lokal)
+
+    def test_lokaler_server(self):
+        """Gegenprobe mit echten Handshakes: Server nur ab TLS 1.2 -> "nein", Server mit TLS 1.0 -> "ja"."""
+        import abruf
+        import shutil
+        import socket
+        import ssl
+        import subprocess
+        import threading
+        if not shutil.which("openssl"):
+            self.skipTest("openssl nicht vorhanden")
+        with tempfile.TemporaryDirectory() as d:
+            k, c = str(Path(d) / "k.pem"), str(Path(d) / "c.pem")
+            subprocess.run(["openssl", "req", "-x509", "-newkey", "rsa:2048", "-nodes", "-keyout", k, "-out", c, "-days", "2", "-subj", "/CN=localhost"],
+                           check=True, capture_output=True)
+            V = ssl.TLSVersion
+
+            def server(minv):
+                ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+                ctx.load_cert_chain(c, k)
+                try:
+                    ctx.set_ciphers("ALL:@SECLEVEL=0")
+                    ctx.minimum_version, ctx.maximum_version = minv, V.TLSv1_3
+                except (ssl.SSLError, ValueError):
+                    return None
+                s = socket.socket()
+                s.bind(("127.0.0.1", 0))
+                s.listen(8)
+                s.settimeout(10)
+
+                def lauf_():
+                    while True:
+                        try:
+                            cs, _ = s.accept()
+                            with ctx.wrap_socket(cs, server_side=True) as t:
+                                t.recv(1)
+                        except Exception:
+                            if s.fileno() == -1:
+                                return
+                threading.Thread(target=lauf_, daemon=True).start()
+                return s
+
+            neu, alt = server(V.TLSv1_2), server(V.TLSv1)
+            if alt is None:
+                self.skipTest("lokales OpenSSL bietet TLS 1.0 nicht an")
+            orig = socket.create_connection
+            try:
+                for srv, erwartet in ((neu, "nein"), (alt, "ja")):
+                    port = srv.getsockname()[1]
+                    with mock.patch.object(abruf.socket, "create_connection", lambda ad, timeout=None, p=port: orig(("127.0.0.1", p), timeout=timeout)):
+                        erg = abruf.versionen("localhost")
+                    self.assertEqual(erg["TLSv1"], erwartet, erg)
+                    self.assertEqual(erg["TLSv1.1"], erwartet, erg)
+                    self.assertEqual(erg["TLSv1.2"], "ja", erg)
+            finally:
+                neu.close()
+                alt.close()
+
+
 if __name__ == "__main__":
     unittest.main()
