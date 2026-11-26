@@ -1,12 +1,13 @@
 {
  "domain": "dreierlabs.com",
- "stand": "2026-11-26T09:29Z",
+ "stand": "2026-11-26T09:31Z",
  "regeln": "0.1-entwurf",
- "score": null,
- "teilwert": 34,
- "stufe": "nicht bewertet (zu wenig geprüft)",
- "abdeckung": 0.7,
+ "score": 38,
+ "teilwert": 38,
+ "stufe": "erhebliche Mängel",
+ "abdeckung": 1.0,
  "gruppen": {
+  "fremd": 1.0,
   "hsts": 0.0,
   "csp": 0.0,
   "inhalt": 0.0,
@@ -14,9 +15,11 @@
   "altlasten": 1.0,
   "weiterleitung": 0.0,
   "tls": 0.75,
+  "dns": 0.25,
+  "mail": 0.0,
   "auffindbar": 0.5
  },
- "befunde": 7,
- "hinweise": 4,
+ "befunde": 10,
+ "hinweise": 5,
  "nicht_geprueft": 0
 }
