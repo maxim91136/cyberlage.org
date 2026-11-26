@@ -57,7 +57,7 @@ T = {
                        "Ohne %d %% geprüftes Gewicht gibt es keinen Score, nur einen Teilwert."),
            "h_stufen": "Stufen und Abzeichen", "ab": "ab %d",
            "h_siegel": "Was das Dreier-Siegel ist und was nicht",
-           "siegel": ("Das Siegel zeigt Score, Abzeichen (Gold, Silber, Bronze), Adresse und Datum des letzten Laufs. Ohne Datum gilt es nichts.",
+           "siegel": ("Das Siegel zeigt Score, Abzeichen (Gold, Silber, Bronze), Adresse und Datum des letzten Laufs. Ohne Datum gilt es nicht.",
                       "Es ist kein Zertifikat einer Prüfstelle und kein Gütesiegel einer Behörde, kein unabhängiges Audit und kein Penetrationstest. Es sagt nicht, dass eine Seite sicher ist, nur dass bestimmte öffentlich messbare Punkte erfüllt sind.",
                       "Geprüft wird nur von außen, mit offenen Regeln. Schwachstellensuche und Angriffstests gehören nicht dazu."),
            "svg": "Siegel als SVG", "quell": "Quelltext des Web-Audits", "heute": "Dreier-Pegel heute", "andere": "English", "alle": "Berichte",
