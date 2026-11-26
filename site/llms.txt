@@ -1,0 +1,11 @@
+# Cyberlage
+
+> Seismograph der Cyber-Bedrohungslage: ein regelbasierter, offen belegter Tageswert (Dreier-Pegel, 0 bis 100) aus zehn öffentlichen Quellen, plus Patch-Liste. Privates Projekt von Dreier Labs, keine amtliche Stelle.
+
+- [Startseite (Deutsch)](https://cyberlage.org/): aktuelle Lage, Verlauf, Logbuch
+- [Home (English)](https://cyberlage.org/en/): same content in English
+- [Monats-, Quartals- und Jahresberichte](https://cyberlage.org/bericht/): Rückblicke mit Zahlen
+- [Regeln](https://cyberlage.org/RULES.md): Schwellen, Stufen, Bausteine und Quellen
+- [Rohdaten](https://cyberlage.org/data/lage.json): aktuelle Lage als JSON
+- [RSS-Feed](https://cyberlage.org/feed.xml)
+- [Lizenz](https://cyberlage.org/LICENSE)
