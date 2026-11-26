@@ -1193,5 +1193,34 @@ class SuchmaschinenTests(unittest.TestCase):
         self.assertNotIn(".html", sm)
 
 
+class BerichtseitenTests(unittest.TestCase):
+    B = {"id": "2026-10", "art": "monat", "titel": "Oktober 2026", "titel_en": "October 2026", "von": "2026-10-01", "bis": "2026-10-31", "tage": 31, "mittel": 65.5,
+         "stufe": {"name": "hoch", "name_en": "high", "ampel": "hoch"}, "delta": -2.3, "hoch": {"wert": 69, "datum": "2026-10-07"}, "tief": {"wert": 62, "datum": "2026-10-25"},
+         "wechsel": 4, "je_stufe": [{"ampel": "angespannt", "name": "angespannt", "name_en": "tense", "tage": 5}, {"ampel": "hoch", "name": "hoch", "name_en": "high", "tage": 26}],
+         "bausteine": [{"id": "x", "name": "CERT-Bund", "name_en": "CERT-Bund", "mittel": 2.0, "ueber": 100, "delta": 0.02}],
+         "logbuch": [{"datum": "2026-10-10", "art": "erkenntnis", "titel": "A <b> & B", "titel_en": "A"}], "satz": "Oktober 2026: Satz.", "satz_en": "October 2026: sentence."}
+    DATEN = {"stand": "2026-11-25", "live_seit": "2026-11-25", "berichte": [B]}
+
+    def test_seite_deutsch_und_englisch(self):
+        import berichtseiten
+        de, en = berichtseiten.seite(self.B, "de", self.DATEN), berichtseiten.seite(self.B, "en", self.DATEN)
+        self.assertIn('<link rel="canonical" href="https://cyberlage.org/bericht/2026-10/">', de)
+        self.assertIn('<link rel="canonical" href="https://cyberlage.org/en/bericht/2026-10/">', en)
+        self.assertIn("<title>Cyber-Bedrohungslage Oktober 2026: Dreier-Pegel 65,5 (hoch) · Cyberlage</title>", de)
+        self.assertIn("Dreier Gauge 65.5 (high)", en)
+        self.assertIn("−2,3 zum Vormonat", de)
+        self.assertIn("A &lt;b&gt; &amp; B", de)  # Texte aus dem Logbuch werden maskiert
+        self.assertIn("zurückgerechnet aus den Archivdaten", de)
+        self.assertNotIn("<script src", de)
+
+    def test_schreibe_legt_seiten_und_sitemap_eintraege_an(self):
+        import berichtseiten, pathlib, tempfile
+        with tempfile.TemporaryDirectory() as tmp:
+            out = berichtseiten.schreibe(pathlib.Path(tmp), self.DATEN)
+            self.assertEqual(out, [("/bericht/", "/en/bericht/", "2026-11-25"), ("/bericht/2026-10/", "/en/bericht/2026-10/", None)])
+            for pfad in ("bericht/index.html", "bericht/2026-10/index.html", "en/bericht/index.html", "en/bericht/2026-10/index.html"):
+                self.assertTrue((pathlib.Path(tmp) / pfad).is_file(), pfad)
+
+
 if __name__ == "__main__":
     unittest.main()

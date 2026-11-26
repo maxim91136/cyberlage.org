@@ -15,20 +15,23 @@ Steve soll nicht zwischen den Chats vermitteln müssen. Wer am Repo arbeitet, li
 
 ### Für Steve, 26.11. (Warteliste aus der Nacht, Bau-Chat)
 
+Erledigt in der Nacht (Auftrag von Steve):
+- **Zeile für englische Browser** auf der deutschen Startseite („This page is available in English. Switch to English“, mit × dauerhaft ausblendbar, `i18n.js`). Keine automatische Weiterleitung.
+- **Eigene Seiten je Bericht:** `/bericht/2026-10/`, `/bericht/2026-Q3/`, `/bericht/2025/`, englisch unter `/en/bericht/…`, Übersicht `/bericht/`. Fertiges HTML ohne Skript aus `pipeline/berichtseiten.py` (aufgerufen von `prerender.py`), mit eigenem Titel, Beschreibung, Canonical, hreflang, JSON-LD; alle 98 Adressen stehen in der Sitemap. „Link kopieren“ im Abschnitt „berichte“ zeigt jetzt auf die eigene Seite. Klicktest prüft Übersicht, eine Auswahl an Seiten und die Hinweiszeile.
+
 Entscheiden:
-1. **Englische Besucher auf `/`.** Keine automatische Weiterleitung (der Crawler von Google meldet sich wie ein englischer Browser und würde von der deutschen Seite weggeschickt). Vorschlag: schmale Zeile nur für englische Browser, „This page is available in English · Switch“, ein Tipp, wird gemerkt. Ja oder nein?
-2. **Eigene Seiten je Bericht** (`/bericht/2026-10`, `/bericht/2026-Q3`, `/bericht/2025`), damit Berichte einzeln gefunden und auf LinkedIn mit eigener Vorschau geteilt werden können. Bauen?
 3. **Sicherheitsprüfung (finecomb, 26.11., Stand fb60d1f):** nichts Kritisches oder Hohes, sechs kleinere Punkte. Einzelheiten stehen bewusst nicht in diesem öffentlichen Repo, sondern im Bau-Chat. Beheben?
 4. **LinkedIn-Post „Wettrennen“:** berichtigte Fassung liegt im Bau-Chat (5 Tage gelten für ausgenutzte Lücken; „zwei Jahre davor“).
 
 Nur Steve kann das:
-5. **Search Console:** Sitemap neu einreichen, `/en/` über die URL-Prüfung anstoßen, bei `/` die gerenderte Seite ansehen (muss jetzt Deutsch sein).
+5. **Search Console:** Sitemap neu einreichen (jetzt 102 Adressen), `/en/` und eine Berichtsseite über die URL-Prüfung anstoßen, bei `/` die gerenderte Seite ansehen (muss jetzt Deutsch sein, mit der englischen Hinweiszeile oben).
 6. **Lizenztext** vor dem Markenkauf gegenlesen lassen (alt, weiter offen).
 
 Klein, kann der Bau-Chat danach erledigen:
 7. Kurztext der Startseite aus dem `<noscript>`-Block in sichtbaren Text holen.
 8. Sprunglinks im Menü für „logbuch“ und „berichte“.
-9. Hinweis per Telegram, wenn ein neuer Monatsbericht da ist.
+9. Hinweis per Telegram und Eintrag im RSS-Feed, wenn ein neuer Monatsbericht da ist (Link auf die eigene Seite).
+11. Eigenes Vorschaubild je Bericht (heute zeigt jede Berichtsseite das allgemeine `og.png`).
 10. `LICENSE` und `README` sagen noch „Quelltext nicht veröffentlicht“, das Repo ist wieder öffentlich: Formulierung prüfen.
 
 - **Ausbau „Handeln“ für mehr Rollen (QS baut, Auftrag von Steve 25.11.).** Drin: (1) „Angegriffen, nach Bereich“ (KEV der letzten 30 Tage in fünf Bereichen, `config/bereiche.json`, `pipeline/bereiche.py`); (2) Hersteller-Quellen Fortinet, Palo Alto Networks und Mozilla über einen allgemeinen Feed-Leser (`parse_feed`, `parse_mozilla`), jede Quelle hat jetzt ein Feld `bereich` und erscheint im passenden Bereich. Offen: Ivanti, Citrix, Adobe, VMware/Broadcom, Apple (erst Quelle suchen, dann mit dem Prüflauf `quellen-test` testen, erst danach aufnehmen); Oracle-Feed gibt dem Lauf 403. Danach: Schalter „Lage zuerst / Handeln zuerst“. Nicht geplant: einzelne Produkte zum Ankreuzen (Inventar). Bitte nicht parallel an denselben Stellen bauen, sondern hier eintragen.

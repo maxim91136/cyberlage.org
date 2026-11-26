@@ -56,7 +56,7 @@
     bg_8k: "Test with separate periods.", bg_8: "Thresholds derived from the first two years only and tested on the third: the course of the gauge stays almost the same (correlation 0.99), but its level would be 7 points higher on average. The reason is a jump in 2026 in everything that counts flaws, advisories and ransomware posts; CERT-Bund was above the earlier threshold on 92 percent of days. So the gauge measures deviation from a reference period. That is why the thresholds stay fixed and are only reviewed at the dates in the review calendar.",
     bg_7k: "Limits.", bg_7: "There is no independent measurement of the true threat against which the gauge could be calibrated. One can only check whether it is internally consistent.",
     l_rw: "KEV with ransomware use",
-    br_h: "## reports", br_intro: "The Dreier Gauge per completed month, quarter and year: average, high and low, level changes, the components and the logbook entries of the period.", br_monat: "Month", br_quartal: "Quarter", br_jahr: "Year", br_wahl: "Period",
+    br_h: "## reports", br_alle: "<a href=\"/en/bericht/\">All reports as separate pages</a>", br_intro: "The Dreier Gauge per completed month, quarter and year: average, high and low, level changes, the components and the logbook entries of the period.", br_monat: "Month", br_quartal: "Quarter", br_jahr: "Year", br_wahl: "Period",
     lb_h: "## logbook", lb_intro: "What has been recorded: findings with their evidence, level changes and changes to the model. Entries stay, even when the situation changes.",
     f1cq: "Why is it called the “Dreier” gauge?", f1ca: "The name comes from Dreier Labs, the project behind Cyberlage, and has nothing to do with the number of levels: the gauge has five levels (calm, unremarkable, tense, high, exceptional).",
     f1bq: "What is it made of?", f1ba: "From ten components in four groups. Exploitation: KEV count (new in the CISA catalog, 30 days), pace to KEV (how fast new flaws are exploited), EU KEV (newly reported as exploited) and Microsoft (exploited flaws in the latest patch day). Warnings: CERT-Bund (new critical and high advisories, 30 days) and NCSC-NL (new advisories, 30 days). Attack activity: DShield (attacking sources per day in the worldwide sensor network of the SANS Internet Storm Center) and ransomware (new victim posts on the attackers' leak sites in 30 days, counted by RansomLook). External assessments: BSI Cyber Index and SANS Infocon. Each component is measured against its own threshold, the top quarter of its history. Averaged within each group first, then across groups. 50 means the thresholds are reached on average.",
@@ -176,6 +176,18 @@
     });
     if (/hinweise/.test(location.pathname)) document.title = "Notes and privacy – Cyberlage";  /* Titel und Beschreibung der Startseite stehen fertig im HTML von /en/ */
   }
+  /* Englische Browser auf der deutschen Startseite: ein Hinweis mit einem Tipp nach /en/, keine automatische Weiterleitung
+     (Suchmaschinen melden sich wie ein englischer Browser und sollen die deutsche Seite lesen). "Nicht mehr zeigen" wird gemerkt. */
+  (function () {
+    if (!START || EN_PFAD || (navigator.language || "de").slice(0, 2) === "de") return;
+    try { if (localStorage.getItem("cl_en_zeile") === "aus") return; } catch (e) { }
+    var z = document.createElement("div"), a = document.createElement("a"), x = document.createElement("button");
+    z.className = "en-zeile mono"; z.lang = "en"; z.setAttribute("role", "note"); z.appendChild(document.createTextNode("This page is available in English. "));
+    a.href = "/en/" + location.search + location.hash; a.textContent = "Switch to English"; a.hreflang = "en"; z.appendChild(a);
+    x.type = "button"; x.textContent = "\u00d7"; x.setAttribute("aria-label", "Hide this note");
+    x.addEventListener("click", function () { try { localStorage.setItem("cl_en_zeile", "aus"); } catch (e) { } z.parentNode.removeChild(z); });
+    z.appendChild(x); document.body.insertBefore(z, document.body.firstChild);
+  })();
   var b = document.getElementById("sprache");
   if (b) {
     b.textContent = L === "de" ? "EN" : "DE";

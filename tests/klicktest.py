@@ -7,7 +7,7 @@ Geprüft wird in zwei Breiten (Handy 390, Desktop 1280) und zwei Sprachen:
   2. Jede Klappe einzeln auf: kein Fehler, kein Überstand.
   3. "Was betreue ich?": jeden Bereich nach jedem anderen wählen; Zahlen am Knopf, Listen und Knöpfe passen zusammen.
   4. Berichte: jeden Zeitraum in jeder Art wählen; jeder Bericht ist vollständig.
-  5. Reiter in "neu", Direktlinks (?bericht=, #patches), Sprachknopf.
+  5. Reiter in "neu", Direktlinks (?bericht=, #patches), Sprachknopf, eigene Berichtsseiten, Hinweiszeile für englische Browser.
   6. Am Ende, alles aufgeklappt: kein "undefined", "NaN" oder "[object" im Text, Sprungziele vorhanden, kein Knopf ohne Namen.
 """
 import functools
@@ -182,6 +182,51 @@ def pruefe_sprachknopf(pg, basis, sprache, p):
     p.ok(rand(pg) <= 1, "nach Sprachwechsel %d px über dem Rand" % rand(pg))
 
 
+def pruefe_berichtseiten(pg, wurzel, sprache, p):
+    """Eigene Seiten je Bericht: Übersicht, eine Auswahl an Seiten, Nachbar-Links, Kopf."""
+    pfad = "/en/bericht/" if sprache == "en" else "/bericht/"
+    pg.goto(wurzel + pfad)
+    ziele = pg.evaluate("[...document.querySelectorAll('.bs-liste a')].map(a => a.getAttribute('href'))")
+    p.ok(len(ziele) >= 40 and all(z.startswith(pfad) for z in ziele), "Übersicht %s: %d Links" % (pfad, len(ziele)))
+    p.ok(rand(pg) <= 1, "Übersicht %s: %d px über dem Rand" % (pfad, rand(pg)))
+    for z in sorted(set(ziele[:4] + ziele[-2:] + ziele[len(ziele) // 2:len(ziele) // 2 + 2])):
+        antwort = pg.goto(wurzel + z)
+        d = pg.evaluate("""() => { const a = document.querySelector('article.br'); if (!a) return null;
+            return { h1: a.querySelector('h1').textContent, satz: a.querySelector('.br-satz').textContent, kz: a.querySelectorAll('.br-kz').length,
+                     band: [...a.querySelectorAll('.br-band .sg')].reduce((s, x) => s + parseFloat(x.style.width), 0), zeilen: a.querySelectorAll('.br-tab tbody tr').length,
+                     kanon: document.querySelector('link[rel=canonical]').href, alt: document.querySelectorAll('link[hreflang]').length, lang: document.documentElement.lang,
+                     skripte: document.querySelectorAll('script:not([type="application/ld+json"])').length, text: document.body.innerText }; }""")
+        p.ok(antwort.status == 200 and d is not None, "Berichtsseite %s lädt nicht" % z)
+        if not d:
+            continue
+        p.ok(d["h1"].strip() and len(d["satz"]) > 60 and d["kz"] == 4 and d["zeilen"] >= 5, "Berichtsseite %s unvollständig" % z)
+        p.ok(abs(d["band"] - 100) < 0.5, "Berichtsseite %s: Band ergibt %.1f %%" % (z, d["band"]))
+        p.ok(d["kanon"].endswith(z) and d["alt"] == 3 and d["lang"] == sprache and d["skripte"] == 0, "Berichtsseite %s: Kopf %s" % (z, {k: d[k] for k in ("kanon", "alt", "lang", "skripte")}))
+        p.ok(not MUELL.search(d["text"]), "Berichtsseite %s: Platzhalter im Text" % z)
+        p.ok(rand(pg) <= 1, "Berichtsseite %s: %d px über dem Rand" % (z, rand(pg)))
+    if pg.locator(".bs-nb a").count():
+        ziel = pg.locator(".bs-nb a").first.get_attribute("href")
+        pg.click(".bs-nb a >> nth=0")
+        p.ok(pg.evaluate("location.pathname") == ziel and pg.locator("article.br").count() == 1, "Nachbar-Link führt nicht nach %s" % ziel)
+
+
+def pruefe_en_zeile(pg, wurzel, sprache, p):
+    """Hinweis für englische Browser: nur auf der deutschen Startseite, führt nach /en/, lässt sich dauerhaft ausblenden.
+    Der Test-Browser meldet auf der deutschen Seite Englisch, auf der englischen Deutsch (siehe SPRACHEN)."""
+    lade(pg, wurzel + ("/en/" if sprache == "en" else "/"), p)
+    n = pg.locator(".en-zeile").count()
+    if sprache == "en":
+        p.ok(n == 0, "Hinweiszeile erscheint auf /en/")
+        return
+    p.ok(n == 1 and pg.locator(".en-zeile a").get_attribute("href").startswith("/en/"), "Hinweiszeile für englische Browser fehlt (%d)" % n)
+    p.ok(rand(pg) <= 1, "Hinweiszeile: %d px über dem Rand" % rand(pg))
+    pg.click(".en-zeile button")
+    p.ok(pg.locator(".en-zeile").count() == 0, "Hinweiszeile bleibt nach dem Ausblenden stehen")
+    pg.reload()
+    pg.wait_for_timeout(600)
+    p.ok(pg.locator(".en-zeile").count() == 0, "Hinweiszeile kommt nach dem Neuladen wieder")
+
+
 def main():
     class Still(http.server.SimpleHTTPRequestHandler):
         def log_message(self, *a):
@@ -203,7 +248,8 @@ def main():
                 pg.on("console", lambda m, s=skript: s.append(m.text[:200]) if m.type == "error" and "favicon" not in m.text else None)
                 schritte = (("Klappen", lambda: pruefe_klappen(pg, p)), ("Bereiche", lambda: pruefe_bereiche(pg, p)), ("Berichte", lambda: pruefe_berichte(pg, p)),
                             ("Reiter", lambda: pruefe_reiter(pg, p)), ("Alles offen", lambda: pruefe_alles_offen(pg, p)),
-                            ("Direktlinks", lambda: pruefe_direktlinks(pg, basis + pfad, p)), ("Sprachknopf", lambda: pruefe_sprachknopf(pg, basis + pfad, sprache, p)))
+                            ("Direktlinks", lambda: pruefe_direktlinks(pg, basis + pfad, p)), ("Sprachknopf", lambda: pruefe_sprachknopf(pg, basis + pfad, sprache, p)),
+                            ("Berichtsseiten", lambda: pruefe_berichtseiten(pg, basis, sprache, p)), ("Hinweiszeile", lambda: pruefe_en_zeile(pg, basis, sprache, p)))
                 try:
                     lade(pg, basis + pfad, p)
                     p.ok(pg.evaluate("document.documentElement.lang") == sprache, "Sprache der Seite %s ist %s" % (pfad, pg.evaluate("document.documentElement.lang")))

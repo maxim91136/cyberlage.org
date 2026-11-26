@@ -986,11 +986,12 @@
       a.appendChild(kopf);
       a.appendChild(el("p", "br-satz", pick(b.satz, b.satz_en)));
       var kn = el("div", "br-kn"), k1 = el("button", "mono", pick("Text kopieren", "Copy text")), k2 = el("button", "mono", pick("Link kopieren", "Copy link"));
-      var link = location.origin + location.pathname + "?bericht=" + b.id;
+      var link = location.origin + pick("/bericht/", "/en/bericht/") + b.id + "/";
       k1.type = k2.type = "button";
       k1.addEventListener("click", function () { kopiere(pick(b.satz, b.satz_en) + "\n\n" + link, k1); });
       k2.addEventListener("click", function () { kopiere(link, k2); });
-      kn.appendChild(k1); kn.appendChild(k2); a.appendChild(kn);
+      var k3 = el("a", "mono br-eig", pick("Eigene Seite", "Own page")); k3.href = pick("/bericht/", "/en/bericht/") + b.id + "/";
+      kn.appendChild(k1); kn.appendChild(k2); kn.appendChild(k3); a.appendChild(kn);
       var vor = { monat: pick("Vormonat", "previous month"), quartal: pick("Vorquartal", "previous quarter"), jahr: pick("Vorjahr", "previous year") }[b.art];
       var kz = el("div", "br-kzs");
       kz.appendChild(kennzahl(pick("Mittel", "Average"), z1(b.mittel, 1), b.delta === null ? "" : mitVz(b.delta, 1) + pick(" zum ", " vs. ") + vor));

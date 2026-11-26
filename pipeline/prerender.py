@@ -136,8 +136,9 @@ def englisch(s, lage):
     return kopf(s, lage, en=True)
 
 
-def sitemap(lage):
-    """Nur die Adressen, die im Index stehen sollen; lastmod für die beiden Startseiten ist der Stand der Daten."""
+def sitemap(lage, berichte=()):
+    """Nur die Adressen, die im Index stehen sollen; lastmod für die beiden Startseiten ist der Stand der Daten.
+    berichte: [(pfad_de, pfad_en, lastmod oder None)] aus berichtseiten.schreibe."""
     tag = str(lage.get("stand"))[:10]
     zeilen = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">']
     alt = "".join('<xhtml:link rel="alternate" hreflang="%s" href="%s"/>' % (c, BASIS + u) for c, u in (("de", "/"), ("en", "/en/"), ("x-default", "/")))
@@ -145,6 +146,10 @@ def sitemap(lage):
         zeilen.append("  <url><loc>%s%s</loc><lastmod>%s</lastmod>%s</url>" % (BASIS, u, tag, alt))
     for u in ("/hinweise", "/impressum"):
         zeilen.append("  <url><loc>%s%s</loc></url>" % (BASIS, u))
+    for de, en_, tag_b in berichte:
+        alt_b = "".join('<xhtml:link rel="alternate" hreflang="%s" href="%s"/>' % (c, BASIS + u) for c, u in (("de", de), ("en", en_), ("x-default", de)))
+        for u in (de, en_):
+            zeilen.append("  <url><loc>%s%s</loc>%s%s</url>" % (BASIS, u, "<lastmod>%s</lastmod>" % tag_b if tag_b else "", alt_b))
     return "\n".join(zeilen + ["</urlset>"]) + "\n"
 
 
@@ -165,7 +170,13 @@ def main():
     pfad.write_text(neu, encoding="utf-8")
     (WURZEL / "site" / "en").mkdir(exist_ok=True)
     (WURZEL / "site" / "en" / "index.html").write_text(en, encoding="utf-8")  # englische Startseite unter /en/
-    (WURZEL / "site" / "sitemap.xml").write_text(sitemap(lage), encoding="utf-8")
+    import berichtseiten
+    try:
+        bs = berichtseiten.schreibe(WURZEL / "site", json.loads((WURZEL / "site" / "data" / "berichte.json").read_text(encoding="utf-8")))
+    except (OSError, ValueError, KeyError) as err:  # ohne Berichte bleibt die Startseite trotzdem aktuell
+        print("Hinweis: Berichtsseiten nicht geschrieben:", err)
+        bs = []
+    (WURZEL / "site" / "sitemap.xml").write_text(sitemap(lage, bs), encoding="utf-8")
     (WURZEL / "site" / "RULES.md").write_text((WURZEL / "RULES.md").read_text(encoding="utf-8"), encoding="utf-8")  # Regeln auch unter cyberlage.org/RULES.md
     (WURZEL / "site" / "data" / "sources.csv").write_text((WURZEL / "data" / "sources.csv").read_text(encoding="utf-8"), encoding="utf-8")  # Quellenliste öffentlich
     (WURZEL / "site" / "LICENSE").write_text((WURZEL / "LICENSE").read_text(encoding="utf-8"), encoding="utf-8")
