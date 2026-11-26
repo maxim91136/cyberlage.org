@@ -130,6 +130,16 @@ def abzeichen(score, regeln):
     return None
 
 
+def _version(v, sp):
+    """Regelversion für die Anzeige: auf der englischen Seite „-entwurf“ als „-draft“."""
+    return v.replace("-entwurf", "-draft") if sp == "en" else v
+
+
+def _quelle(q, sp):
+    """Quellenangabe für die Anzeige; auf der englischen Seite die deutschen Wörter ersetzt."""
+    return q.replace(" bis ", " to ").replace("Sitemaps-Protokoll", "Sitemaps protocol") if sp == "en" else q
+
+
 def farbe(d, jetzt, regeln):
     """Farbe des Siegels: Metall des Abzeichens; ohne Abzeichen die Warnfarbe der Stufe; grau ohne Score oder bei zu altem Lauf."""
     if d.get("score") is None or jetzt - _stand(d) > timedelta(days=SIEGEL_TAGE):
@@ -191,7 +201,7 @@ def _karte(domain, d, regeln, sp, jetzt, weiter):
     stand = "%s %s UTC" % (datum, d["stand"][11:16])
     profil = t["weiter"] % weiter if d.get("profil") == "weiterleitung" and weiter else t["seite"]
     score = "–" if d.get("score") is None else "%d" % d["score"]
-    zeilen = [(t["stand"], stand), (t["profil"], profil), (t["regeln"], regeln["version"]), (t["abdeckung"], "%d %%" % round(100 * d["abdeckung"])), (t["abz"], ABZ_NAME[sp][abz] if abz else t["kein_abz"])]
+    zeilen = [(t["stand"], stand), (t["profil"], profil), (t["regeln"], _version(regeln["version"], sp)), (t["abdeckung"], "%d %%" % round(100 * d["abdeckung"])), (t["abz"], ABZ_NAME[sp][abz] if abz else t["kein_abz"])]
     bef = "%s · %s" % ("%s: %s" % (t["befunde"], d["befunde"] or t["ohne"]), "%s: %s" % (t["hinweise"], d["hinweise"] or t["ohne"]))
     z = ['<article class="au-karte" style="--ra:%s"><div class="au-sg">%s</div><div class="au-info">' % (f, siegel(domain, d, jetzt, regeln)),
          '<h2 class="au-dom">%s</h2><p class="au-sc mono"><strong>%s</strong> / 100 <span class="au-st">%s</span></p>' % (_e(domain), _e(score), _e(_stufe(d, sp) if d.get("score") is not None else t["kein_score"]))]
@@ -225,7 +235,7 @@ def seite(sp, daten, regeln, jetzt):
     z += [_karte(dom, d, regeln, sp, jetzt, weiter.get(dom)) for dom, d in daten]
     z.append('<p class="dim au-leg">%s</p>\n' % _e(t["gruppen_leg"]))
     h, m = (int(x) for x in LAUF_UHR.split(":"))
-    wann = (t["wann"][0] % (LAUF_UHR, "%02d:%02d" % (h + 1, m)), t["wann"][1], t["wann"][2], t["wann"][3] % SIEGEL_TAGE, t["wann"][4], t["wann"][5], t["wann"][6] % regeln["version"])
+    wann = (t["wann"][0] % (LAUF_UHR, "%02d:%02d" % (h + 1, m)), t["wann"][1], t["wann"][2], t["wann"][3] % SIEGEL_TAGE, t["wann"][4], t["wann"][5], t["wann"][6] % _version(regeln["version"], sp))
     z.append('<h2 class="mono">%s</h2>\n<ul class="au-ul">%s</ul>\n' % (_e(t["h_wann"]), "".join("<li>%s</li>" % _e(x) for x in wann)))
     wd = [(dom, d) for dom, d in daten if d.get("profil") == "weiterleitung"]
     if wd:
@@ -243,7 +253,7 @@ def seite(sp, daten, regeln, jetzt):
     z.append('<h2 class="mono">%s</h2>\n<ul class="bs-liste au-stufen">%s</ul>\n' % (_e(t["h_stufen"]), stufen))
     z.append('<h2 class="mono">%s</h2>\n<div class="br-tab"><table><thead><tr><th>%s</th><th>%s</th><th>%s</th></tr></thead><tbody>%s</tbody></table></div>\n' % (
         _e(t["h_massstab"]), _e(t["gruppe"]), _e(t["gewicht"]), _e(t["quelle"]),
-        "".join('<tr><td>%s</td><td class="mono">%d</td><td class="dim">%s</td></tr>' % (_e(GRUPPE_EN[g] if sp == "en" else i["name"]), i["gewicht"], _e(i["quelle"])) for g, i in regeln["gruppen"].items())))
+        "".join('<tr><td>%s</td><td class="mono">%d</td><td class="dim">%s</td></tr>' % (_e(GRUPPE_EN[g] if sp == "en" else i["name"]), i["gewicht"], _e(_quelle(i["quelle"], sp))) for g, i in regeln["gruppen"].items())))
     z.append('<h2 class="mono">%s</h2>\n<ul class="au-ul">%s</ul>\n' % (_e(t["h_siegel"]), "".join("<li>%s</li>" % _e(x) for x in t["siegel"])))
     andere = pfad_de if sp == "en" else pfad_en
     z.append('<p class="bs-nav mono"><a href="%s">%s</a> · <a href="%s">%s</a> · <a href="%s">%s</a> · <a href="/RULES.md">RULES</a> · <a href="%s" hreflang="%s">%s</a></p>\n'
