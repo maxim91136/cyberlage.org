@@ -239,3 +239,4 @@ Lokal mit Playwright (1280 px und 390 px, Deutsch und Englisch, alle Klappen off
 
 - 27.11. erledigt: Handy-Karten (≤640 px) auch für „Neu“ und die Hersteller-Tabellen (Klasse `tw-k`, Zellen mit `data-l`, ohne Spaltenfilter). Termine ist keine Tabelle (Zeilen-Liste), unverändert. Tests OK, Klicktest 4542/0.
 - Offen: `probe-ms`-Branch löscht Steve in GitHub; Balkenwert „1,88“ (EU-KEV) wirkt abgeschnitten (Radar unberührt, nur melden).
+- 27.11. erledigt: KEV wird jetzt direkt unter den Bausteinen (Teil 1) und im Intro von „Neu“ erklärt (vorher nur in Pegel-Erklärung, Glossar, FAQ). Tests OK, Klicktest 4542/0.

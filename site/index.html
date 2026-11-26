@@ -126,6 +126,7 @@
         <div id="rd-modell" class="rd-modell"></div>
       </details>
       <p class="mono dim fine" data-t="rd_kon_n">Jeder Baustein folgt einer festen Regel (RULES.md). Der gestrichelte Ring ist die Schwelle: je weiter außen ein Punkt liegt, desto stärker der Ausschlag. Der Pegel oben ist der Mittelwert daraus.</p>
+      <p class="mono dim fine" data-t="kev_kurz"><strong>KEV</strong> = <em>Known Exploited Vulnerabilities</em>: die Liste der US-Behörde CISA mit Schwachstellen, die nachweislich schon in Angriffen ausgenutzt werden. Ein Eintrag heißt: nicht nur möglich, sondern real. Mehr unter „so entsteht der pegel“ und im Glossar.</p>
     </div>
     <noscript><!--ssr-start--><p class="panel pad"><b>Die globale Cyberlage, Stand 2026-11-26, Dreier-Pegel: hoch.</b> Gesamtscore 66 von 100 aus 10 von 10 Bausteinen. Neu im CISA-Katalog ausgenutzter Schwachstellen: 19 in 7 Tagen, 45 in 30 Tagen. Regelbasiert und offen belegt. Ein privates Projekt von Dreier Labs, keine amtliche Stelle.</p><p class="panel pad"><b>Lage:</b> Die Bausteine liegen im Schnitt deutlich über ihren Regelschwellen. <b>Treiber:</b> 8 von 10 Bausteinen liegen an oder über ihrer Schwelle, am stärksten: CERT-Bund (2,6-fach), EU-KEV (1,9-fach), KEV-Menge (1,8-fach). <b>Empfehlung:</b> Die KEV-Liste täglich abgleichen, aus dem Internet erreichbare Systeme zuerst patchen und Patchfristen verkürzen. Die Warndienste melden deutlich mehr als üblich: neue Warnungen für die eigenen Produkte täglich sichten.</p><p class="panel pad"><b>Bausteine des Dreier-Pegels</b> (Messwert im Verhältnis zur Schwelle, 1,0 = Schwelle erreicht): KEV-Menge 1,8; Tempo bis KEV 1; EU-KEV 1,88; Microsoft 0,33; CERT-Bund 2,6; NCSC-NL 1,58; DShield 1,06; Ransomware 1,59; BSI Cyber Index 1,42; SANS Infocon 0,4. Stufen: unter 35 ruhig, 35 bis 49 unauffällig, 50 bis 63 angespannt, 64 bis 79 hoch, ab 80 außergewöhnlich.</p><p class="panel pad">Die Zahlen stehen als Rohdaten unter <a href="data/lage.json">data/lage.json</a>, die Regeln unter <a href="RULES.md">RULES.md</a>. Für die Ansicht mit Verlauf und Listen wird JavaScript benötigt.</p><!--ssr-end--></noscript>
   </section>
@@ -253,7 +254,7 @@
   <section id="neu" class="wrap" aria-labelledby="h-neu">
     <details class="sek" id="k-neu">
       <summary><h2 id="h-neu" class="mono" data-t="n_h">## neu</h2></summary>
-    <p class="dim" data-t="n_intro">Was in den letzten Tagen bekannt wurde: ausgenutzte Schwachstellen (CISA-KEV, EU-KEV), Warnungen des BSI (CERT-Bund) und eine Prognose für neue Lücken. Jeder Reiter nennt Quelle, Zeitraum und Stand.</p>
+    <p class="dim" data-t="n_intro">Was in den letzten Tagen bekannt wurde: ausgenutzte Schwachstellen (KEV = Known Exploited Vulnerabilities, bei CISA und EU), Warnungen des BSI (CERT-Bund) und eine Prognose für neue Lücken. Jeder Reiter nennt Quelle, Zeitraum und Stand.</p>
     <div class="tabs mono" role="tablist" aria-label="Quelle wählen">
       <button type="button" role="tab" id="t-kev" data-tab="kev" aria-selected="true" aria-controls="p-kev" data-t="tab_kev">KEV-Katalog</button>
       <button type="button" role="tab" id="t-bsi" data-tab="bsi" aria-selected="false" aria-controls="p-bsi" tabindex="-1">CERT-Bund</button>
