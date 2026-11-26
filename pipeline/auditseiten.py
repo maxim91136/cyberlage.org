@@ -28,10 +28,10 @@ WEITERLEITUNG_ENTFAELLT = ("csp", "fremd", "inhalt", "datenschutz", "altlasten",
 REIHE = ("cyberlage.org", "cyberlage.com")  # Reihenfolge auf der Seite
 
 T = {
-    "de": {"pfad": "/audit/", "start": "/", "titel": "Audit: Dreier-Siegel für cyberlage.org und cyberlage.com · Cyberlage", "h1": "Audit",
-           "intro": "Ein selbst gebautes, regelbasiertes Audit prüft diese Adressen jeden Tag von außen: Kopfzeilen, Verschlüsselung, DNS, Mail-Schutz und Weiterleitung. "
+    "de": {"pfad": "/audit/", "start": "/", "titel": "Web-Audit: Dreier-Siegel für cyberlage.org und cyberlage.com · Cyberlage", "h1": "Web-Audit",
+           "intro": "Ein selbst gebautes, regelbasiertes Web-Audit prüft diese Adressen jeden Tag von außen: Kopfzeilen, Verschlüsselung, DNS, Mail-Schutz und Weiterleitung. "
                     "Wie beim Dreier-Pegel liegen Regeln, Gewichte und Quellen offen. Hier gilt: hoch ist gut.",
-           "beschr": "Das Dreier-Siegel zeigt den Stand des automatischen Audits von cyberlage.org und cyberlage.com: Score, Datum, Prüfgruppen. Regeln und Quellen offen.",
+           "beschr": "Das Dreier-Siegel zeigt den Stand des automatischen Web-Audits von cyberlage.org und cyberlage.com: Score, Datum, Prüfgruppen. Regeln und Quellen offen.",
            "abz": "Abzeichen", "kein_abz": "keins", "stand": "Stand", "profil": "Profil", "seite": "Seite", "weiter": "Weiterleitung auf %s", "regeln": "Regeln", "abdeckung": "Abdeckung",
            "befunde": "Befunde", "hinweise": "Hinweise", "ohne": "keine", "offen": "Einzelheiten zu offenen Punkten werden erst nach der Behebung genannt.",
            "veraltet": "Der letzte Lauf ist älter als %d Tage, das Siegel ist deshalb grau.", "kein_score": "ohne Score", "entfaellt": "entfällt",
@@ -60,12 +60,12 @@ T = {
            "siegel": ("Das Siegel zeigt Score, Abzeichen (Gold, Silber, Bronze), Adresse und Datum des letzten Laufs. Ohne Datum gilt es nichts.",
                       "Es ist kein Zertifikat einer Prüfstelle und kein Gütesiegel einer Behörde, kein unabhängiges Audit und kein Penetrationstest. Es sagt nicht, dass eine Seite sicher ist, nur dass bestimmte öffentlich messbare Punkte erfüllt sind.",
                       "Geprüft wird nur von außen, mit offenen Regeln. Schwachstellensuche und Angriffstests gehören nicht dazu."),
-           "svg": "Siegel als SVG", "quell": "Quelltext des Audits", "heute": "Dreier-Pegel heute", "andere": "English", "alle": "Berichte",
+           "svg": "Siegel als SVG", "quell": "Quelltext des Web-Audits", "heute": "Dreier-Pegel heute", "andere": "English", "alle": "Berichte",
            "fuss": "Ein privates Projekt von Dreier Labs, keine amtliche Stelle. Feste Regeln, keine Vorhersage."},
-    "en": {"pfad": "/en/audit/", "start": "/en/", "titel": "Audit: Dreier Seal for cyberlage.org and cyberlage.com · Cyberlage", "h1": "Audit",
-           "intro": "A self-built, rule-based audit checks these addresses from the outside every day: headers, encryption, DNS, mail protection and redirects. "
+    "en": {"pfad": "/en/audit/", "start": "/en/", "titel": "Web audit: Dreier Seal for cyberlage.org and cyberlage.com · Cyberlage", "h1": "Web audit",
+           "intro": "A self-built, rule-based web audit checks these addresses from the outside every day: headers, encryption, DNS, mail protection and redirects. "
                     "As with the Dreier Gauge, rules, weights and sources are open. Here, high is good.",
-           "beschr": "The Dreier Seal shows the state of the automated audit of cyberlage.org and cyberlage.com: score, date, check groups. Rules and sources are open.",
+           "beschr": "The Dreier Seal shows the state of the automated web audit of cyberlage.org and cyberlage.com: score, date, check groups. Rules and sources are open.",
            "abz": "Badge", "kein_abz": "none", "stand": "As of", "profil": "Profile", "seite": "Site", "weiter": "Redirect to %s", "regeln": "Rules", "abdeckung": "Coverage",
            "befunde": "Findings", "hinweise": "Notes", "ohne": "none", "offen": "Details on open items are named only after they are fixed.",
            "veraltet": "The last run is older than %d days, so the seal is grey.", "kein_score": "no score", "entfaellt": "n/a",
@@ -94,7 +94,7 @@ T = {
            "siegel": ("The seal shows the score, badge (gold, silver, bronze), address and date of the latest run. Without the date it means nothing.",
                       "It is not a certificate from an assessment body or an official quality mark, not an independent audit and not a penetration test. It does not say a site is secure, only that certain publicly measurable points are met.",
                       "Checks are made from the outside only, with open rules. Vulnerability scanning and attack tests are not part of it."),
-           "svg": "Seal as SVG", "quell": "Source code of the audit", "heute": "Dreier Gauge today", "andere": "Deutsch", "alle": "Reports",
+           "svg": "Seal as SVG", "quell": "Source code of the web audit", "heute": "Dreier Gauge today", "andere": "Deutsch", "alle": "Reports",
            "fuss": "A private project by Dreier Labs, not an official body. Fixed rules, no forecast."},
 }
 
@@ -172,9 +172,9 @@ def fuss_text(d, regeln, sp, jetzt):
     """Kurzer Text neben dem Siegel im Fuß der Startseite: Score, Abzeichen, Datum; bei zu altem Lauf nur das Datum."""
     datum = bs._datum(d["stand"][:10], sp)
     if farbe(d, jetzt, regeln) == FARBE["grau"]:
-        return ("Audit: letzter Lauf %s" if sp == "de" else "Audit: last run %s") % datum
+        return ("Web-Audit: letzter Lauf %s" if sp == "de" else "Web audit: last run %s") % datum
     abz = abzeichen(d["score"], regeln)
-    return "Audit: %d / 100%s · %s" % (d["score"], " · " + ABZ_NAME[sp][abz] if abz else "", datum)
+    return ("Web-Audit: " if sp == "de" else "Web audit: ") + "%d / 100%s · %s" % (d["score"], " · " + ABZ_NAME[sp][abz] if abz else "", datum)
 
 
 def _stufe(d, sp):

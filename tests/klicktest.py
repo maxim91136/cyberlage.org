@@ -239,7 +239,7 @@ def pruefe_auditseite(pg, wurzel, sprache, p):
     p.ok(fs is not None and fs["sichtbar"], "Siegel im Fuß der Startseite fehlt")
     if fs:
         p.ok(fs["href"] == pfad and fs["geladen"], "Siegel im Fuß: Link %s, Bild geladen: %s" % (fs["href"], fs["geladen"]))
-        p.ok(fs["text"].startswith("Audit:") and (" %d / 100" % org["score"] in fs["text"] or "last run" in fs["text"] or "letzter Lauf" in fs["text"]), "Siegel im Fuß: Text %s" % fs["text"])
+        p.ok(fs["text"].startswith(("Web-Audit:", "Web audit:")) and (" %d / 100" % org["score"] in fs["text"] or "last run" in fs["text"] or "letzter Lauf" in fs["text"]), "Siegel im Fuß: Text %s" % fs["text"])
     pg.click("#n-audit")
     pg.wait_for_load_state()
     p.ok(pg.evaluate("location.pathname") == pfad, "Menüpunkt /audit führt nach %s" % pg.evaluate("location.pathname"))

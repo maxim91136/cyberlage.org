@@ -134,11 +134,11 @@ class AuditseitenTests(unittest.TestCase):
 
     def test_fusstext(self):
         d = zus("cyberlage.org")
-        self.assertEqual(auditseiten.fuss_text(d, REGELN, "de", JETZT), "Audit: 100 / 100 · Gold · 26.11.2026")
-        self.assertEqual(auditseiten.fuss_text(d, REGELN, "en", JETZT), "Audit: 100 / 100 · Gold · 26 Nov 2026")
+        self.assertEqual(auditseiten.fuss_text(d, REGELN, "de", JETZT), "Web-Audit: 100 / 100 · Gold · 26.11.2026")
+        self.assertEqual(auditseiten.fuss_text(d, REGELN, "en", JETZT), "Web audit: 100 / 100 · Gold · 26 Nov 2026")
         alt = zus("cyberlage.org", stand="2026-11-10T05:20Z")
-        self.assertEqual(auditseiten.fuss_text(alt, REGELN, "de", JETZT), "Audit: letzter Lauf 10.11.2026")
-        self.assertEqual(auditseiten.fuss_text(zus("cyberlage.org", 40, "erhebliche Mängel"), REGELN, "en", JETZT), "Audit: 40 / 100 · 26 Nov 2026")
+        self.assertEqual(auditseiten.fuss_text(alt, REGELN, "de", JETZT), "Web-Audit: letzter Lauf 10.11.2026")
+        self.assertEqual(auditseiten.fuss_text(zus("cyberlage.org", 40, "erhebliche Mängel"), REGELN, "en", JETZT), "Web audit: 40 / 100 · 26 Nov 2026")
 
     def test_keine_unsicher_aussage(self):
         for sp in ("de", "en"):
