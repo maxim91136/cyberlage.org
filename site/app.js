@@ -569,7 +569,7 @@
     var out = [];
     Object.keys((life && life.produkte) || {}).forEach(function (slug) {
       (life.produkte[slug].zyklen || []).forEach(function (z) {
-        if (slug === "windows" && !/-(w|e)$/.test(z.zyklus)) return;  // IoT/LTSC bleiben außen vor, sonst wird die Tafel zu voll
+        if (slug === "windows" && !/-e$/.test(z.zyklus)) return;  // nur Enterprise/Education: Home/Pro, IoT und LTSC bleiben außen vor
         [["eol", pick("Support-Ende ", "End of support ")], ["erweitert", pick("Ende Extended Support/ESU ", "End of extended support/ESU ")]].forEach(function (f) {
           var dt = z[f[0]]; if (!dt) return;
           var zeit = Date.parse(dt + "T00:00:00Z"), n = Math.round((zeit - t0) / TAG_MS);
@@ -933,16 +933,36 @@
     var zy = [], t = (life && life.produkte) || {}, m;
     if (/^Windows (10|11) /.test(key) && t.windows) {
       m = /^Windows (\d+) (\w+)$/.exec(key);
-      if (m) zy = t.windows.zyklen.filter(function (z) { return z.zyklus.indexOf(m[1] + "-" + m[2].toLowerCase() + "-") === 0 && /-(w|e)$/.test(z.zyklus); });
+      if (m) zy = t.windows.zyklen.filter(function (z) { return z.zyklus.indexOf(m[1] + "-" + m[2].toLowerCase() + "-") === 0 && /-e$/.test(z.zyklus); });
     } else if (/^Windows Server /.test(key) && t["windows-server"]) {
       var want = key.replace("Windows Server ", "").toLowerCase().replace(" r2", "-r2");
       zy = t["windows-server"].zyklen.filter(function (z) { return z.zyklus === want; });
     }
     if (!zy.length) return "";
     return zy.map(function (z) {
-      var ed = /-w$/.test(z.zyklus) ? " (Home/Pro)" : (/-e$/.test(z.zyklus) ? " (Enterprise/Education)" : ""), ende = z.eol, aus = ende < heute;
+      var ed = "", ende = z.eol, aus = ende < heute;
       return (aus ? pick("Support beendet ", "Support ended ") : pick("Support bis ", "Support until ")) + datum(ende) + ed + (z.erweitert && z.erweitert > ende ? pick(" · erweitert (ESU) bis ", " · extended (ESU) until ") + datum(z.erweitert) : "");
     }).join(" · ");
+  }
+  function zeigePatchLevel(box, m, life) {
+    var s = m.systeme; if (!s || !Object.keys(s).length) return;
+    var heute = new Date().toISOString().slice(0, 10), wrap = el("div", "p-pl");
+    wrap.appendChild(el("h4", "mono rd-t", pick("Patch-Level · Stand Patch Day " + monatName(m.id), "Patch level · as of patch day " + monatName(m.id))));
+    var sc = el("div", "p-pl-s"), tb = el("table", "mono p-pl-t"), th = el("tr", "");
+    [pick("System", "System"), pick("Aktuelle Build", "Current build"), "KB", pick("Support bis (Enterprise)", "Support until (Enterprise)")].forEach(function (h) { th.appendChild(el("th", "", h)); });
+    tb.appendChild(th);
+    ["Windows 11", "Windows 10", "Windows Server"].forEach(function (gr) {
+      Object.keys(s).filter(function (k) { return k.indexOf(gr + " ") === 0 && s[k].build; }).forEach(function (k) {
+        var x = s[k], r = el("tr", ""), st = supportText(life, k, heute);
+        r.appendChild(el("td", "", k)); r.appendChild(el("td", "", x.build));
+        var td = el("td", ""); if (x.kb) { var a = link("https://support.microsoft.com/help/" + x.kb, "KB" + x.kb); td.appendChild(a); } r.appendChild(td);
+        r.appendChild(el("td", "", st.replace(/^Support (bis|beendet) /, function (_, w) { return w === "beendet" ? pick("beendet ", "ended ") : ""; }).replace(/^Support (until|ended) /, function (_, w) { return w === "ended" ? pick("beendet ", "ended ") : ""; }) || "–"));
+        tb.appendChild(r);
+      });
+    });
+    sc.appendChild(tb); wrap.appendChild(sc);
+    wrap.appendChild(el("p", "mono dim fine", pick("Build und KB gelten für alle Editionen. Stand des Patch Day (zweiter Dienstag); optionale Vorschau-Updates zwischendurch haben eine höhere Build. Ein Client mit niedrigerer Build hat den Patch nicht.", "Build and KB apply to all editions. Patch-day level (second Tuesday); optional preview updates in between have a higher build. A client with a lower build is missing the patch.")));
+    box.appendChild(wrap);
   }
   function zeigeSysteme(box, m, vorm, life) {
     var s = m.systeme; if (!s || !Object.keys(s).length) return;
@@ -1000,6 +1020,7 @@
     var kopf = el("h3", "mono rd-t", pick("Microsoft Patch Day · ", "Microsoft patch day · ") + monatName(m.id)); box.appendChild(kopf);
     var sub = el("p", "mono dim fine", pick("veröffentlicht ", "released ") + datum(String(m.erste_veroeffentlichung).slice(0, 10)) + pick(" · Stand der Daten ", " · data as of ") + datum(m.aktuell) + pick(" · abgerufen ", " · retrieved ") + datum(ms.meta && ms.meta.abgerufen_am) + pick(" · Quelle: ", " · source: "));
     sub.appendChild(link((ms.meta && ms.meta.quelle_url) || "https://msrc.microsoft.com/update-guide", "Microsoft Security Response Center")); box.appendChild(sub);
+    zeigePatchLevel(box, m, d_life);
     var dr = { dringend: ["pr-rot", pick("dringend", "urgent")], zeitnah: ["pr-gelb", pick("zeitnah", "prompt")], normal: ["pr-gruen", pick("normal", "normal")] }[b.dringlichkeit] || ["", ""];
     var bw = el("div", "p-bew"); bw.appendChild(el("span", "p-badge " + dr[0], dr[1] + (b.dringlichkeit === "dringend" && m.ausgenutzt ? pick(" · " + m.ausgenutzt + " bereits ausgenutzt", " · " + m.ausgenutzt + " already exploited") : "")));
     bw.appendChild(el("span", "", pick(b.groesse, b.groesse_en) + (b.verhaeltnis_median ? " · " + (window.I18N.lang === "en" ? "" : "das ") + b.verhaeltnis_median.toLocaleString(window.I18N.locale) + pick("-Fache des Medians der Vormonate (", "x the median of earlier months (") + zahl(b.median_vormonate) + ")" : "")));

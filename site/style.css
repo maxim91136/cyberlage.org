@@ -750,3 +750,8 @@ html.alarm2 .beta::after{animation:blink 1.4s steps(1) infinite}
 .p-sr{padding:6px 0;border-bottom:1px solid var(--line)}.p-sr:last-of-type{border-bottom:none}
 .p-sk{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 12px;font-size:13px}.p-sv{min-width:64px}
 .p-ss{margin-top:2px}
+.p-pl{margin:12px 0}
+.p-pl-s{overflow-x:auto}
+.p-pl-t{border-collapse:collapse;font-size:13px;width:100%}
+.p-pl-t th{text-align:left;color:var(--dim);font-weight:400;padding:4px 14px 4px 0;border-bottom:1px solid var(--line);white-space:nowrap}
+.p-pl-t td{padding:6px 14px 6px 0;border-bottom:1px solid var(--line);white-space:nowrap}
