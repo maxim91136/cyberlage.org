@@ -190,29 +190,6 @@
     </details>
     </details>
   </section>
-  <section id="logbuch" class="wrap" aria-labelledby="h-log">
-    <details class="sek" id="k-logbuch">
-      <summary><h2 id="h-log" class="mono" data-t="lb_h">## logbuch</h2></summary>
-      <p class="dim" data-t="lb_intro">Was festgehalten wurde: Erkenntnisse mit ihren Belegen, Stufenwechsel und Änderungen am Modell. Einträge bleiben stehen, auch wenn sich die Lage ändert.</p>
-      <div id="lb-liste"></div>
-    </details>
-  </section>
-
-  <section id="berichte" class="wrap" aria-labelledby="h-ber">
-    <details class="sek" id="k-berichte">
-      <summary><h2 id="h-ber" class="mono" data-t="br_h">## berichte</h2></summary>
-      <p class="dim" data-t="br_intro">Der Dreier-Pegel je abgeschlossenem Monat, Quartal und Jahr: Mittel, Höchst- und Tiefststand, Stufenwechsel, die Bausteine und die Logbuch-Einträge des Zeitraums.</p>
-      <div class="tabs mono" role="tablist" id="br-art" aria-label="Zeitraum wählen">
-        <button type="button" role="tab" data-art="monat" aria-selected="true" data-t="br_monat">Monat</button>
-        <button type="button" role="tab" data-art="quartal" aria-selected="false" tabindex="-1" data-t="br_quartal">Quartal</button>
-        <button type="button" role="tab" data-art="jahr" aria-selected="false" tabindex="-1" data-t="br_jahr">Jahr</button>
-      </div>
-      <label class="br-wahl mono dim"><span data-t="br_wahl">Zeitraum</span> <select id="br-wahl"></select></label>
-      <div id="br-box" aria-live="polite"></div>
-      <p class="mono fine" data-t="br_alle"><a href="/bericht/">Alle Berichte als eigene Seiten</a></p>
-    </details>
-  </section>
-
   <section id="wie" class="wrap" aria-labelledby="h-wie">
     <details class="sek" id="k-wie">
       <summary><h2 id="h-wie" class="mono" data-t="k_wie">## so entsteht der pegel</h2></summary>
@@ -318,6 +295,36 @@
     </div>
     </details>
   </section>
+  </details>
+
+  <details class="teil" id="teilb">
+    <summary class="wrap grp"><h2 id="h-belege" class="mono" data-t="bl_h"># teil 3 · belege: logbuch &amp; berichte</h2></summary>
+    <div id="belege-kopf" class="wrap">
+    <p class="sw-lead" data-t="bl_intro">Was die Seite belegt: das Logbuch hält jeden Stufenwechsel des Pegels fest, die Berichte fassen Monat, Quartal und Jahr zusammen.</p>
+    </div>
+  <section id="logbuch" class="wrap" aria-labelledby="h-log">
+    <details class="sek" id="k-logbuch">
+      <summary><h2 id="h-log" class="mono" data-t="lb_h">## logbuch</h2></summary>
+      <p class="dim" data-t="lb_intro">Was festgehalten wurde: Erkenntnisse mit ihren Belegen, Stufenwechsel und Änderungen am Modell. Einträge bleiben stehen, auch wenn sich die Lage ändert.</p>
+      <div id="lb-liste"></div>
+    </details>
+  </section>
+
+  <section id="berichte" class="wrap" aria-labelledby="h-ber">
+    <details class="sek" id="k-berichte">
+      <summary><h2 id="h-ber" class="mono" data-t="br_h">## berichte</h2></summary>
+      <p class="dim" data-t="br_intro">Der Dreier-Pegel je abgeschlossenem Monat, Quartal und Jahr: Mittel, Höchst- und Tiefststand, Stufenwechsel, die Bausteine und die Logbuch-Einträge des Zeitraums.</p>
+      <div class="tabs mono" role="tablist" id="br-art" aria-label="Zeitraum wählen">
+        <button type="button" role="tab" data-art="monat" aria-selected="true" data-t="br_monat">Monat</button>
+        <button type="button" role="tab" data-art="quartal" aria-selected="false" tabindex="-1" data-t="br_quartal">Quartal</button>
+        <button type="button" role="tab" data-art="jahr" aria-selected="false" tabindex="-1" data-t="br_jahr">Jahr</button>
+      </div>
+      <label class="br-wahl mono dim"><span data-t="br_wahl">Zeitraum</span> <select id="br-wahl"></select></label>
+      <div id="br-box" aria-live="polite"></div>
+      <p class="mono fine" data-t="br_alle"><a href="/bericht/">Alle Berichte als eigene Seiten</a></p>
+    </details>
+  </section>
+
   </details>
 
   <details class="teil" id="teil3">

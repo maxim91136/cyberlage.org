@@ -100,7 +100,7 @@ def pruefe_bereiche(pg, p):
 
 
 def pruefe_berichte(pg, p):
-    pg.evaluate("document.getElementById('teil1').open = true; document.getElementById('k-berichte').open = true")
+    pg.evaluate("document.getElementById('teilb').open = true; document.getElementById('k-berichte').open = true")
     pg.wait_for_selector("#br-box article", timeout=10000)
     gesamt = 0
     for art in ("monat", "quartal", "jahr"):
@@ -156,7 +156,7 @@ def pruefe_alles_offen(pg, p):
 def pruefe_direktlinks(pg, basis, p):
     lade(pg, basis + "?bericht=2025", p)
     pg.wait_for_selector("#br-box article", timeout=10000)
-    z = pg.evaluate("({offen: document.getElementById('k-berichte').open && document.getElementById('teil1').open, wahl: document.getElementById('br-wahl').value, art: document.querySelector('#br-art [aria-selected=true]').dataset.art})")
+    z = pg.evaluate("({offen: document.getElementById('k-berichte').open && document.getElementById('teilb').open, wahl: document.getElementById('br-wahl').value, art: document.querySelector('#br-art [aria-selected=true]').dataset.art})")
     p.ok(z == {"offen": True, "wahl": "2025", "art": "jahr"}, "Direktlink ?bericht=2025 zeigt %s" % z)
     lade(pg, basis + "#patches", p)
     pg.wait_for_timeout(400)
@@ -176,8 +176,8 @@ def pruefe_menue_und_kurztext(pg, basis, p):
     for abschnitt, knopf in (("logbuch", "k-logbuch"), ("berichte", "k-berichte")):
         lade(pg, basis, p)
         pg.click('.navin a[data-sec="%s"]' % abschnitt)
-        pg.wait_for_timeout(700)
-        z = pg.evaluate("({auf: document.getElementById('%s').open && document.getElementById('teil1').open, oben: Math.round(document.getElementById('%s').getBoundingClientRect().top)})" % (knopf, abschnitt))
+        pg.wait_for_timeout(1600)  # der Sprung läuft weich und ist bei langen Wegen nach 700 ms noch unterwegs
+        z = pg.evaluate("({auf: document.getElementById('%s').open && document.getElementById('teilb').open, oben: Math.round(document.getElementById('%s').getBoundingClientRect().top)})" % (knopf, abschnitt))
         p.ok(z["auf"], "Menüpunkt /%s klappt den Abschnitt nicht auf" % abschnitt)
         p.ok(0 <= z["oben"] < 300, "Menüpunkt /%s springt nicht zum Abschnitt (oben bei %s px)" % (abschnitt, z["oben"]))
         p.ok(rand(pg) <= 1, "nach Menüsprung zu /%s %d px über dem Rand" % (abschnitt, rand(pg)))

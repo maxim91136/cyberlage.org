@@ -36,10 +36,15 @@
   }
   var geklickt = null;
   document.addEventListener("click", function (e) { var sm = e.target.closest && e.target.closest("summary"); geklickt = sm && sm.parentElement && sm.parentElement.tagName === "DETAILS" ? sm.parentElement : null; }, true);
+  /* Sprung zum Ziel; lädt der Inhalt erst danach nach, wird einmal nachgesprungen, falls das Ziel noch zu weit unten steht. */
+  function springe(z) {
+    z.scrollIntoView(); ohneZiel();
+    [200, 450, 900].forEach(function (ms) { setTimeout(function () { var r = z.getBoundingClientRect(); if (r.top > 150 && r.height > 0) z.scrollIntoView(); }, ms); });
+  }
   function ohneZiel() { try { history.replaceState(null, "", location.pathname + location.search); } catch (e) { /* ältere Browser */ } }
   function oeffne() {
     var id = (location.hash || "").slice(1), z = id && document.getElementById(id); if (!z) return;
-    aufklappen(z); setTimeout(function () { z.scrollIntoView(); ohneZiel(); }, 60);
+    aufklappen(z); setTimeout(function () { springe(z); }, 60);
   }
   var vorDruck = [];
   window.addEventListener("beforeprint", function () { vorDruck = Array.prototype.filter.call(document.querySelectorAll("details"), function (d) { return !d.open; }); vorDruck.forEach(function (d) { d.open = true; }); });
@@ -51,7 +56,7 @@
     var off = l.getAttribute("data-offen"), od = off && document.getElementById(off);
     if (od) { aufklappen(od); od.open = true; setTimeout(function () { od.scrollIntoView(); ohneZiel(); }, 60); return; }
     if (l.closest && l.closest(".dd-box")) return;
-    if (ziel && ziel.scrollIntoView) setTimeout(function () { ziel.scrollIntoView(); ohneZiel(); }, 60);
+    if (ziel && ziel.scrollIntoView) setTimeout(function () { springe(ziel); }, 60);
   });
   // Klappen: jeder Besuch beginnt zugeklappt; beim Öffnen die Grafiken in der richtigen Breite neu zeichnen
   try { localStorage.removeItem("klappen"); } catch (e) { /* egal */ }
@@ -83,7 +88,7 @@
       knopf.classList.toggle("on", window.scrollY > window.innerHeight * 1.2);
       var aktiv = -1, grenze = window.scrollY + 120;
       abschnitte.forEach(function (sec, i) { if (!sec || sec.offsetParent === null) return; var r = sec.getBoundingClientRect(); if (r.top <= 120 && r.bottom > 120) aktiv = i; });
-      if (aktiv < 0) [["teil1", "lage"], ["teil2", "patches"], ["teil3", "info"]].forEach(function (p) {
+      if (aktiv < 0) [["teil1", "lage"], ["teil2", "patches"], ["teilb", "logbuch"], ["teil3", "info"]].forEach(function (p) {
         var t = document.getElementById(p[0]); if (!t) return; var r = t.getBoundingClientRect();
         if (r.top <= 120 && r.bottom > 120) navLinks.forEach(function (l, i) { if (l.getAttribute("data-sec") === p[1]) aktiv = i; });
       });

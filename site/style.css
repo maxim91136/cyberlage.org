@@ -524,7 +524,7 @@ html[lang=en] .teil>summary::after,html[lang=en] .sek>summary::after{content:"OP
 @media (min-width:900px) and (max-width:1239px){.navin{gap:0 12px;flex-wrap:nowrap}.nav-row{gap:2px 11px}.nav-row .nav-grp{display:none}.nav-row>a,.nav-row .dd>summary{font-size:14.5px}.nav-g1,.nav-g2,.nav-g3{padding-right:12px!important}.navin button,.navin .sprache{font-size:12px;padding:4px 8px}}
 .teil>summary h2{color:var(--green)}html.alarm .teil>summary h2{color:#ff5b6b}#teil3>summary h2{color:var(--text)}#teil3 section.wrap{margin-top:14px}
 /* ===== Klappen einheitlich: Ebene 1 Leiste (grün), Ebene 2 Zeile (weiß), Ebene 3 eingerückte Zeile ===== */
-.teil #schwach,.teil #teil-lage{margin-top:14px;padding-top:0;border-top:0}
+.teil #schwach,.teil #teil-lage,.teil #belege-kopf{margin-top:14px;padding-top:0;border-top:0}
 .teil .sw-lead{font-size:15px;color:var(--dim);margin:0 0 4px;max-width:760px}
 .sek>summary h2,.sek>summary h3{margin:0;font-weight:600;color:var(--text)}
 .sek>summary h2{font-size:18px}
