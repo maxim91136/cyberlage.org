@@ -157,7 +157,7 @@ def siegel(domain, d, jetzt, regeln):
         abz = abzeichen(d.get("score"), regeln)  # grau, aber das zuletzt erreichte Abzeichen bleibt lesbar
     score = "–" if d.get("score") is None else str(d["score"])
     tag = d["stand"][:10]
-    titel = "Dreier-Siegel: %s, Score %s%s, Stand %s" % (domain, score, ", " + ABZ_NAME["de"][abz] if abz else "", tag)
+    titel = "Dreier-Siegel: %s, Score %s%s, Stand %s, Regeln %s" % (domain, score, ", " + ABZ_NAME["de"][abz] if abz else "", tag, regeln["version"])
     ticks = "".join('<line x1="100" y1="6" x2="100" y2="%d" transform="rotate(%d 100 100)"/>' % (13 if i % 5 else 16, i * 6) for i in range(60))
     gross = 52 if len(score) < 3 else 46
     mono = 'font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace"'

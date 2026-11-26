@@ -15,7 +15,7 @@ REGELN = json.loads((WURZEL / "audit" / "regeln.json").read_text(encoding="utf-8
 
 
 def zus(domain, score=100, stufe="ohne Befund", stand="2026-11-26T09:57Z", befunde=0, profil="seite", gruppen=None):
-    return {"domain": domain, "stand": stand, "profil": profil, "regeln": "0.1-entwurf", "score": score, "teilwert": score, "stufe": stufe, "abdeckung": 1.0,
+    return {"domain": domain, "stand": stand, "profil": profil, "regeln": "1.0", "score": score, "teilwert": score, "stufe": stufe, "abdeckung": 1.0,
             "gruppen": gruppen if gruppen is not None else {"tls": 1.0, "hsts": 1.0}, "befunde": befunde, "hinweise": 0, "nicht_geprueft": 0}
 
 
@@ -140,7 +140,7 @@ class AuditseitenTests(unittest.TestCase):
         self.assertEqual(auditseiten.fuss_text(alt, REGELN, "de", JETZT), "Web-Audit: letzter Lauf 10.11.2026")
         self.assertEqual(auditseiten.fuss_text(zus("cyberlage.org", 40, "erhebliche Mängel"), REGELN, "en", JETZT), "Web audit: 40 / 100 · 26 Nov 2026")
 
-    SIEGEL_PRUEFSUMME = "76d0ed59d06668dcd6ca7b06be9bc82696c7216ffd212d003bc6c511b37bb12c"  # gleich in Dreier Labs (Repo dreierlabs, tests/test_audit_seiten.py)
+    SIEGEL_PRUEFSUMME = "87aa6dbb4445eba6b9adccb8be99488c5603f623af765d81fc2c5b783b9d58da"  # gleich in Dreier Labs (Repo dreierlabs, tests/test_audit_seiten.py)
 
     def test_siegel_unveraendert_wie_bei_dreier_labs(self):
         """Das Dreier-Siegel muss in Cyberlage und bei Dreier Labs gleich aussehen. Wer das Siegel ändert, ändert beide Repos und diese Prüfsumme."""

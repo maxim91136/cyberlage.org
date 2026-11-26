@@ -19,7 +19,7 @@ from pathlib import Path
 WURZEL = Path(__file__).resolve().parent.parent
 RADAR = WURZEL / "data" / "radar"
 UA = "cyberlage.org (privates Projekt von Dreier Labs, https://cyberlage.org)"
-FRIST = {"jaehrlich": 330, "grund": 90, "schwellen": 183, "radar_stufen": 90, "link": 180}
+FRIST = {"jaehrlich": 330, "grund": 90, "schwellen": 183, "radar_stufen": 90, "link": 180, "audit_regeln": 92}
 NEU_NACH_STUNDEN = 24
 
 
@@ -56,6 +56,12 @@ def eintraege():
         out.append({"id": "modell", "bereich": "radar_stufen", "name": "Modell des Dreier-Pegels %s: Bausteine, Gruppen, Schwellen (%s)" % (mod.get("version", ""), mod.get("status", "").replace("vorlaeufig", "vorläufig")),
                     "link": "https://cyberlage.org/RULES.md", "geprueft_am": mod.get("geprueft_am", "")})
     except (OSError, ValueError):
+        pass
+    try:
+        ar = json.loads((WURZEL / "audit" / "regeln.json").read_text(encoding="utf-8"))  # Regelpflege des Web-Audits, vierteljährlich (audit/REGELN.md)
+        out.append({"id": "audit_regeln", "bereich": "audit_regeln", "name": "Web-Audit: Regeln, Quellen und Prüfpunkte (Version %s)" % ar["version"],
+                    "link": "https://github.com/maxim91136/cyberlage.org/blob/main/audit/REGELN.md", "geprueft_am": ar["stand"]})
+    except (OSError, ValueError, KeyError):
         pass
     try:
         for x in json.loads((WURZEL / "data" / "links.json").read_text(encoding="utf-8"))["links"]:  # Linkseite /links
