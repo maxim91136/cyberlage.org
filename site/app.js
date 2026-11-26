@@ -95,7 +95,7 @@
     if (fz && f) {
       fz.textContent = "";
       var fk = el("b", "mono", pick("Fazit", "Conclusion")); fz.appendChild(fk);
-      if (f.status === "vorlaeufig") fz.appendChild(el("span", "mono dim", pick(" · vorläufig", " · provisional")));
+      if (f.status === "vorlaeufig") fz.appendChild(el("span", "mono dim", pick(" · Stufengrenzen noch vorläufig", " · level limits still provisional")));
       if (f.treiber && f.stufe_satz) {
         var dl = el("dl", "fz-dl");
         [[pick("Lage", "Situation"), pick(f.stufe_satz, f.stufe_satz_en), ""], [pick("Treiber", "Drivers"), pick(f.treiber, f.treiber_en), ""], [pick("Empfehlung", "Advice"), pick(f.hinweis, f.hinweis_en), "fh"]].forEach(function (z) {
