@@ -805,13 +805,13 @@ main .p-rang .p-det{margin-top:2px}
 main .p-rang .p-det>summary{padding:2px 0}
 /* Handy: Tabellen mit Spaltenfiltern werden zu Karten (Desktop bleibt Tabelle) */
 @media (max-width:640px){
-  .tw-sp,.tw-sp tbody{display:block;width:100%;min-width:0}
-  .tw-sp thead{display:none}
-  .tw-sp tbody tr{display:block;border:1px solid var(--line);border-radius:5px;margin:0 0 8px;padding:8px 10px;background:var(--panel)}
-  .tw-sp tbody tr[hidden]{display:none}
-  .tw-sp td{display:flex;justify-content:space-between;gap:14px;border:0!important;padding:2px 0!important;white-space:normal!important;width:auto!important}
-  .tw-sp td::before{content:attr(data-l);color:var(--dim);font-size:12px;flex:none}
-  .tw-sp td:first-child{font-weight:600;padding-bottom:4px!important}.tw-sp td:first-child::before{display:none}
-  .tw-sp td.tw-leer{display:none}
+  .tw-sp,.tw-sp tbody,.tw-k,.tw-k tbody{display:block;width:100%;min-width:0}
+  .tw-sp thead,.tw-k thead{display:none}
+  .tw-sp tbody tr,.tw-k tbody tr{display:block;border:1px solid var(--line);border-radius:5px;margin:0 0 8px;padding:8px 10px;background:var(--panel)}
+  .tw-sp tbody tr[hidden],.tw-k tbody tr[hidden]{display:none}
+  .tw-sp td,.tw-k td{display:flex;justify-content:space-between;gap:14px;border:0!important;padding:2px 0!important;white-space:normal!important;width:auto!important}
+  .tw-sp td::before,.tw-k td::before{content:attr(data-l);color:var(--dim);font-size:12px;flex:none}
+  .tw-sp td:first-child,.tw-k td:first-child{font-weight:600;padding-bottom:4px!important}.tw-sp td:first-child::before,.tw-k td:first-child::before{display:none}
+  .tw-sp td.tw-leer,.tw-k td.tw-leer{display:none}
   .p-pl-s{overflow-x:visible}
 }

@@ -236,3 +236,6 @@ Tests: 100 Unit-Tests OK (3 neu), Klicktest 4322/0. Die CSP wirkt nur auf Cloudf
 ## Wie die QS prüft
 
 Lokal mit Playwright (1280 px und 390 px, Deutsch und Englisch, alle Klappen offen) und live über Chrome. Geprüft werden: Skriptfehler, seitliches Scrollen, tote Sprunglinks, leere Elemente, „undefined/NaN“, Sprachreste, Stand der Daten. Nicht geprüft wird die inhaltliche Richtigkeit der Quelldaten.
+
+- 27.11. erledigt: Handy-Karten (≤640 px) auch für „Neu“ und die Hersteller-Tabellen (Klasse `tw-k`, Zellen mit `data-l`, ohne Spaltenfilter). Termine ist keine Tabelle (Zeilen-Liste), unverändert. Tests OK, Klicktest 4542/0.
+- Offen: `probe-ms`-Branch löscht Steve in GitHub; Balkenwert „1,88“ (EU-KEV) wirkt abgeschnitten (Radar unberührt, nur melden).

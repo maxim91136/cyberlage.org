@@ -213,6 +213,8 @@
       var fd = Date.parse(e.frist), tg = (fd - Date.now()) / 86400000;
       tr.appendChild(el("td", "mono" + (isNaN(fd) ? "" : (tg < 0 ? " fr-over" : (tg < 7 ? " fr-bald" : ""))), datum(e.frist)));
       tr.appendChild(e.ransomware_bekannt ? el("td", "rw", txt("bekannt")) : (function () { var c = el("td", "dim", "–"); c.title = txt("nicht_bekannt"); return c; })());
+      var kp = body.parentNode.tHead && body.parentNode.tHead.rows[0];
+      if (kp) Array.prototype.forEach.call(tr.cells, function (z, i) { if (kp.cells[i]) z.setAttribute("data-l", kp.cells[i].textContent); });
       tr._text = (e.hersteller + " " + e.produkt + " " + e.cve).toLowerCase();
       body.appendChild(tr);
       return tr;
@@ -1664,8 +1666,9 @@ b.appendChild(el("span", "g", typeof s.ausschlag === "number" ? pick("Messwert: 
       th.addEventListener("click", sortiere);
       th.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); sortiere(); } });
     });
-    if (t.classList.contains("tw-sp")) {  // Handy: jede Zeile wird zur Karte, dafür bekommt jede Zelle ihren Spaltennamen
-      Array.prototype.forEach.call(tb.rows, function (r) { Array.prototype.forEach.call(r.cells, function (c, i) { if (kopf[i]) c.setAttribute("data-l", kopf[i].textContent); if (/^[–-]$/.test(c.textContent.trim())) c.classList.add("tw-leer"); }); });
+    if (t.closest("#neu") || t.closest("#p-hv") || t.closest("#p-hs")) t.classList.add("tw-k");  // Karten auf dem Handy, ohne Spaltenfilter
+    if (t.classList.contains("tw-sp") || t.classList.contains("tw-k")) {  // Handy: jede Zeile wird zur Karte, dafür bekommt jede Zelle ihren Spaltennamen
+      Array.prototype.forEach.call(tb.rows, function (r) { Array.prototype.forEach.call(r.cells, function (c, i) { if (kopf[i] && c.colSpan < 2) c.setAttribute("data-l", kopf[i].textContent); if (/^[–-]$/.test(c.textContent.trim())) c.classList.add("tw-leer"); }); });
     }
     if (t.classList.contains("tw-sp")) {  // Spaltenfilter: eine Eingabe je Spalte unter dem Kopf, alle zusammen (UND)
       var fr = el("tr", "tw-fr"), felder = [];
