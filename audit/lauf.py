@@ -104,11 +104,12 @@ def pruefe_weiterleitung(host, ziel, jetzt=None):
 
 
 def _sende(text):
-    token, chat = os.environ.get("TELEGRAM_BOT_TOKEN"), os.environ.get("TELEGRAM_CHAT_ID")
+    """Audit-Meldungen gehen in den eigenen Audit-Kanal (TELEGRAM_AUDIT_CHAT_ID), nie in den Kanal der Lagemeldungen."""
+    token, chat = os.environ.get("TELEGRAM_BOT_TOKEN"), os.environ.get("TELEGRAM_AUDIT_CHAT_ID")
     if token and chat:
         notify.sende(text, token, chat)
     else:
-        print("Telegram nicht eingerichtet, nichts gesendet")
+        print("Telegram für das Audit nicht eingerichtet (TELEGRAM_AUDIT_CHAT_ID fehlt), nichts gesendet")
 
 
 def main(argv=None):

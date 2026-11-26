@@ -186,6 +186,17 @@ class TestmeldungTests(unittest.TestCase):
             self.assertIn("Test der Meldung", gespeichert[-1])
 
 
+class KanalTests(unittest.TestCase):
+    def test_audit_geht_nur_in_den_audit_kanal(self):
+        env = {"TELEGRAM_BOT_TOKEN": "t", "TELEGRAM_CHAT_ID": "lage"}
+        with mock.patch.dict(lauf.os.environ, env, clear=True), mock.patch.object(lauf.notify, "sende") as sende:
+            lauf._sende("x")
+            sende.assert_not_called()  # ohne eigenen Audit-Kanal wird nichts an den Lage-Kanal gesendet
+        with mock.patch.dict(lauf.os.environ, dict(env, TELEGRAM_AUDIT_CHAT_ID="audit"), clear=True), mock.patch.object(lauf.notify, "sende") as sende:
+            lauf._sende("x")
+            sende.assert_called_once_with("x", "t", "audit")
+
+
 class WeiterleitungTests(unittest.TestCase):
     PFAD = "/hinweise?pruefung=weiterleitung"
     ZIEL = "https://cyberlage.org" + PFAD

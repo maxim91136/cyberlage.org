@@ -34,13 +34,13 @@ jobs:
       - name: cyberlage.org prüfen
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_AUDIT_CHAT_ID: ${{ secrets.TELEGRAM_AUDIT_CHAT_ID }}
         run: python audit/lauf.py cyberlage.org --zusammenfassung data/audit/cyberlage.org.json --telegram ${{ inputs.testmeldung && '--immer' || '' }}
       - name: cyberlage.com prüfen (Weiterleitung auf cyberlage.org)
         continue-on-error: true
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_AUDIT_CHAT_ID: ${{ secrets.TELEGRAM_AUDIT_CHAT_ID }}
         run: python audit/lauf.py cyberlage.com --zusammenfassung data/audit/cyberlage.com.json --telegram ${{ inputs.testmeldung && '--immer' || '' }}
       - name: Audit-Seite neu schreiben
         run: python pipeline/prerender.py
