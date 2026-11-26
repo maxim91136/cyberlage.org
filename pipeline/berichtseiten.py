@@ -61,7 +61,7 @@ def _kopf(sp, titel, beschreibung, pfad_de, pfad_en, extra=""):
             '<meta property="og:title" content="%s">\n<meta property="og:description" content="%s">\n<meta property="og:url" content="%s%s">\n<meta property="og:type" content="article">\n'
             '<meta property="og:image" content="%s/og.png">\n<meta name="twitter:card" content="summary_large_image">\n'
             '<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="apple-touch-icon" href="/apple-touch-icon.png">\n'
-            '<meta name="theme-color" content="#06090b">\n<link rel="stylesheet" href="/style.css">%s</head>\n'
+            '<meta name="theme-color" content="#06090b">\n<link rel="stylesheet" href="/style.css"><!--matrix--><link rel="stylesheet" href="/matrix.css"><script src="/matrix.js" defer></script><!--/matrix-->%s</head>\n'
             '<body class="bs"><header class="kopf"><div class="wrap marke"><a class="brand" href="%s"><img src="/favicon.svg" width="30" height="30" alt=""><span>cyberlage<span class="dim">.org</span></span></a></div>'
             '<div class="wrap bs-zurueck"><a class="mono" href="%s">%s</a></div></header>\n'
             % (sp, _e(titel), _e(beschreibung), BASIS, eigen, BASIS, pfad_de, BASIS, pfad_en, BASIS, pfad_de, _e(titel), _e(beschreibung), BASIS, eigen, BASIS, extra, T[sp]["start"], T[sp]["start"], "← Back" if sp == "en" else "← Zurück"))

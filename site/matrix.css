@@ -1,8 +1,10 @@
 /* Matrix-Modus (siehe matrix.js). Nur Optik, nur mit html.matrix. */
 .matrix-regen{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.2;
   -webkit-mask-image:linear-gradient(#000 0,transparent 100%);mask-image:linear-gradient(#000 0,transparent 100%)}
-html.matrix header.marke{position:relative;overflow:hidden}
-html.matrix header.marke .brand{position:relative;z-index:1}
+html.matrix header.marke,html.matrix header.kopf{overflow:hidden}
+html.matrix header.marke{position:relative}
+html.matrix .marke .brand,html.matrix .bs-zurueck{position:relative;z-index:1}
+html.matrix2 .matrix-regen{opacity:.34}
 html.matrix main h1{text-shadow:0 0 14px rgba(111,224,160,.28)}
 html.alarm.matrix main h1{text-shadow:0 0 14px rgba(255,59,59,.35)}
 html.matrix #matrix-knopf{color:var(--green);border-color:var(--green)}

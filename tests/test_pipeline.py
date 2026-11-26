@@ -1211,7 +1211,7 @@ class BerichtseitenTests(unittest.TestCase):
         self.assertIn("−2,3 zum Vormonat", de)
         self.assertIn("A &lt;b&gt; &amp; B", de)  # Texte aus dem Logbuch werden maskiert
         self.assertIn("zurückgerechnet aus den Archivdaten", de)
-        self.assertNotIn("<script src", de)
+        self.assertNotRegex(de, r"<script src(?!=\"/matrix\.js\")")
 
     def test_schreibe_legt_seiten_und_sitemap_eintraege_an(self):
         import berichtseiten, pathlib, tempfile

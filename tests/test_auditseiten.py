@@ -43,7 +43,7 @@ class AuditseitenTests(unittest.TestCase):
         self.assertIn("Weiterleitung auf cyberlage.org", de)
         self.assertIn("Redirect to cyberlage.org", en)
         self.assertIn("no findings", en)
-        self.assertNotIn("<script", de + en)
+        self.assertNotRegex(de + en, r'<script(?![^>]*matrix\.js)')
         svg = (w / "site" / "audit" / "siegel" / "cyberlage.org.svg").read_text(encoding="utf-8")
         self.assertIn("DREIER-SIEGEL", svg)
         self.assertIn("2026-11-26", svg)

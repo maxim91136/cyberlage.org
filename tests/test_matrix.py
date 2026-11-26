@@ -20,6 +20,12 @@ class T(unittest.TestCase):
             self.assertNotIn(verboten, js)
         self.assertIn("prefers-reduced-motion", js)
 
+    def test_unterseiten_haben_das_modul(self):
+        for pfad in ("audit", "links", "bericht", "en/audit", "en/links", "en/bericht"):
+            f = W / "site" / pfad / "index.html"
+            if f.exists():
+                self.assertIn("/matrix.js", f.read_text(encoding="utf-8"), pfad)
+
     def test_englische_seite_hat_das_modul(self):
         en = W / "site" / "en" / "index.html"
         if en.exists():

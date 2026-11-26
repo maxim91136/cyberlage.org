@@ -212,7 +212,7 @@ def pruefe_berichtseiten(pg, wurzel, sprache, p):
             return { h1: a.querySelector('h1').textContent, satz: a.querySelector('.br-satz').textContent, kz: a.querySelectorAll('.br-kz').length,
                      band: [...a.querySelectorAll('.br-band .sg')].reduce((s, x) => s + parseFloat(x.style.width), 0), zeilen: a.querySelectorAll('.br-tab tbody tr').length,
                      kanon: document.querySelector('link[rel=canonical]').href, alt: document.querySelectorAll('link[hreflang]').length, lang: document.documentElement.lang,
-                     skripte: document.querySelectorAll('script:not([type="application/ld+json"])').length, text: document.body.innerText }; }""")
+                     skripte: document.querySelectorAll('script:not([type="application/ld+json"]):not([src="/matrix.js"])').length, text: document.body.innerText }; }""")
         p.ok(antwort.status == 200 and d is not None, "Berichtsseite %s lädt nicht" % z)
         if not d:
             continue
@@ -249,7 +249,7 @@ def pruefe_auditseite(pg, wurzel, sprache, p):
         daten[d["domain"]] = d
     seite = pg.evaluate("""() => ({ karten: [...document.querySelectorAll('.au-karte')].map(k => ({ dom: k.querySelector('.au-dom').textContent, score: k.querySelector('.au-sc strong').textContent,
             svg: k.querySelectorAll('svg').length, svgtext: k.querySelector('svg').textContent, kacheln: k.nextElementSibling.querySelectorAll('.au-k').length })),
-        skripte: document.querySelectorAll('script:not([type="application/ld+json"])').length, lang: document.documentElement.lang, alt: document.querySelectorAll('link[hreflang]').length,
+        skripte: document.querySelectorAll('script:not([type="application/ld+json"]):not([src="/matrix.js"])').length, lang: document.documentElement.lang, alt: document.querySelectorAll('link[hreflang]').length,
         kanon: document.querySelector('link[rel=canonical]').href, text: document.body.innerText })""")
     p.ok(len(seite["karten"]) == len(daten) and len(daten) >= 2, "Audit-Seite zeigt %d Karten für %d Domains" % (len(seite["karten"]), len(daten)))
     for k in seite["karten"]:
@@ -275,7 +275,7 @@ def pruefe_linkseite(pg, wurzel, sprache, p):
     pg.wait_for_load_state()
     p.ok(pg.evaluate("location.pathname") == pfad, "Menüpunkt /links führt nach %s" % pg.evaluate("location.pathname"))
     daten = json.loads((SITE.parent / "data" / "links.json").read_text(encoding="utf-8"))
-    seite = pg.evaluate("""() => ({ karten: document.querySelectorAll('.ln-k').length, skripte: document.querySelectorAll('script:not([type="application/ld+json"])').length,
+    seite = pg.evaluate("""() => ({ karten: document.querySelectorAll('.ln-k').length, skripte: document.querySelectorAll('script:not([type="application/ld+json"]):not([src="/matrix.js"])').length,
         lang: document.documentElement.lang, links: [...document.querySelectorAll('.ln-k h3 a')].map(a => ({ h: a.href, t: a.target, r: a.rel })), text: document.body.innerText })""")
     p.ok(seite["karten"] == len(daten["links"]), "Linkseite zeigt %d Karten für %d Einträge" % (seite["karten"], len(daten["links"])))
     p.ok(all(l["t"] == "_blank" and "noopener" in l["r"] for l in seite["links"]), "Linkseite: externe Links ohne neuen Tab")

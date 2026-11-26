@@ -65,7 +65,7 @@ class LinkSeitenTests(unittest.TestCase):
         for pfad, sp in (("links", "de"), ("en/links", "en")):
             s = (w / "site" / pfad / "index.html").read_text(encoding="utf-8")
             self.assertEqual(s.count('class="ln-k"'), len(DATEN["links"]))
-            self.assertNotIn("<script", s)
+            self.assertNotRegex(s, r'<script(?![^>]*matrix\.js)')
             self.assertIn('lang="%s"' % sp, s)
             for x in DATEN["links"]:
                 self.assertIn(x["url"], s)
