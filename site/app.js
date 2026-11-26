@@ -569,11 +569,11 @@
     var out = [];
     Object.keys((life && life.produkte) || {}).forEach(function (slug) {
       (life.produkte[slug].zyklen || []).forEach(function (z) {
-        if (slug === "windows" && !/-e$/.test(z.zyklus)) return;  // nur Enterprise/Education: Home/Pro, IoT und LTSC bleiben außen vor
+        if (slug === "windows" && !/-(w|e)$/.test(z.zyklus)) return;  // Enterprise/Education und Pro; IoT und LTSC bleiben außen vor
         [["eol", pick("Support-Ende ", "End of support ")], ["erweitert", pick("Ende Extended Support/ESU ", "End of extended support/ESU ")]].forEach(function (f) {
           var dt = z[f[0]]; if (!dt) return;
           var zeit = Date.parse(dt + "T00:00:00Z"), n = Math.round((zeit - t0) / TAG_MS);
-          if (n >= 0 && n <= tage) out.push({ zeit: zeit, tage: n, n: f[1] + lifeName(slug, z), l: "https://endoflife.date/" + slug });
+          if (n >= 0 && n <= tage) out.push({ zeit: zeit, tage: n, n: f[1] + lifeName(slug, z).replace(" (Home/Pro)", " (Pro)"), l: "https://endoflife.date/" + slug });
         });
       });
     });
@@ -929,19 +929,24 @@
     box.appendChild(q); box.hidden = false;
   }
   var d_life = null, d_prio = null;
-  function supportText(life, key, heute) {
+  /* Support-Zeilen je System. Windows 10/11: Enterprise/Education und Pro (alles, was Volumenaktivierung kann); Home steht nicht drin. */
+  function supportTeile(life, key) {
     var zy = [], t = (life && life.produkte) || {}, m;
     if (/^Windows (10|11) /.test(key) && t.windows) {
       m = /^Windows (\d+) (\w+)$/.exec(key);
-      if (m) zy = t.windows.zyklen.filter(function (z) { return z.zyklus.indexOf(m[1] + "-" + m[2].toLowerCase() + "-") === 0 && /-e$/.test(z.zyklus); });
+      if (m) zy = t.windows.zyklen.filter(function (z) { return z.zyklus.indexOf(m[1] + "-" + m[2].toLowerCase() + "-") === 0 && /-(w|e)$/.test(z.zyklus); });
     } else if (/^Windows Server /.test(key) && t["windows-server"]) {
       var want = key.replace("Windows Server ", "").toLowerCase().replace(" r2", "-r2");
       zy = t["windows-server"].zyklen.filter(function (z) { return z.zyklus === want; });
     }
-    if (!zy.length) return "";
     return zy.map(function (z) {
-      var ed = "", ende = z.eol, aus = ende < heute;
-      return (aus ? pick("Support beendet ", "Support ended ") : pick("Support bis ", "Support until ")) + datum(ende) + ed + (z.erweitert && z.erweitert > ende ? pick(" · erweitert (ESU) bis ", " · extended (ESU) until ") + datum(z.erweitert) : "");
+      return { ed: /-w$/.test(z.zyklus) ? "Pro" : (/-e$/.test(z.zyklus) ? "Enterprise/Education" : ""), ende: z.eol, erw: z.erweitert && z.erweitert > z.eol ? z.erweitert : "" };
+    }).sort(function (a, b) { return a.ende < b.ende ? 1 : -1; });
+  }
+  function supportText(life, key, heute, kurz) {
+    return supportTeile(life, key).map(function (x) {
+      var aus = x.ende < heute, pre = kurz ? (aus ? pick("beendet ", "ended ") : "") : (aus ? pick("Support beendet ", "Support ended ") : pick("Support bis ", "Support until "));
+      return pre + datum(x.ende) + (x.ed ? " (" + x.ed + ")" : "") + (x.erw ? pick(" · ESU bis ", " · ESU until ") + datum(x.erw) : "");
     }).join(" · ");
   }
   function zeigePatchLevel(box, m, life) {
@@ -949,19 +954,19 @@
     var heute = new Date().toISOString().slice(0, 10), wrap = el("div", "p-pl");
     wrap.appendChild(el("h4", "mono rd-t", pick("Patch-Level · Stand Patch Day " + monatName(m.id), "Patch level · as of patch day " + monatName(m.id))));
     var sc = el("div", "p-pl-s"), tb = el("table", "mono p-pl-t"), th = el("tr", "");
-    [pick("System", "System"), pick("Aktuelle Build", "Current build"), "KB", pick("Support bis (Enterprise)", "Support until (Enterprise)")].forEach(function (h) { th.appendChild(el("th", "", h)); });
+    [pick("System", "System"), pick("Aktuelle Build", "Current build"), "KB", pick("Support", "Support")].forEach(function (h) { th.appendChild(el("th", "", h)); });
     tb.appendChild(th);
     ["Windows 11", "Windows 10", "Windows Server"].forEach(function (gr) {
       Object.keys(s).filter(function (k) { return k.indexOf(gr + " ") === 0 && s[k].build; }).forEach(function (k) {
-        var x = s[k], r = el("tr", ""), st = supportText(life, k, heute);
+        var x = s[k], r = el("tr", ""), st = supportText(life, k, heute, true);
         r.appendChild(el("td", "", k)); r.appendChild(el("td", "", x.build));
         var td = el("td", ""); if (x.kb) { var a = link("https://support.microsoft.com/help/" + x.kb, "KB" + x.kb); td.appendChild(a); } r.appendChild(td);
-        r.appendChild(el("td", "", st.replace(/^Support (bis|beendet) /, function (_, w) { return w === "beendet" ? pick("beendet ", "ended ") : ""; }).replace(/^Support (until|ended) /, function (_, w) { return w === "ended" ? pick("beendet ", "ended ") : ""; }) || "–"));
+        r.appendChild(el("td", "", st || "–"));
         tb.appendChild(r);
       });
     });
     sc.appendChild(tb); wrap.appendChild(sc);
-    wrap.appendChild(el("p", "mono dim fine", pick("Build und KB gelten für alle Editionen. Stand des Patch Day (zweiter Dienstag); optionale Vorschau-Updates zwischendurch haben eine höhere Build. Ein Client mit niedrigerer Build hat den Patch nicht.", "Build and KB apply to all editions. Patch-day level (second Tuesday); optional preview updates in between have a higher build. A client with a lower build is missing the patch.")));
+    wrap.appendChild(el("p", "mono dim fine", pick("Build und KB gelten für alle Editionen; Home ist nicht aufgeführt. Stand des Patch Day (zweiter Dienstag); optionale Vorschau-Updates zwischendurch haben eine höhere Build. Ein Client mit niedrigerer Build hat den Patch nicht.", "Build and KB apply to all editions; Home is not listed. Patch-day level (second Tuesday); optional preview updates in between have a higher build. A client with a lower build is missing the patch.")));
     box.appendChild(wrap);
   }
   function zeigeSysteme(box, m, vorm, life) {
