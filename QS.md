@@ -120,6 +120,10 @@ Klein, kann der Bau-Chat danach erledigen:
 
 - **Quellenvorschläge von einem Kollegen (26.11., Steve: nicht wegen jeder Anregung ändern).** EUVD/ENISA ist schon drin (EU-KEV, nur „ausgenutzt“; die Liste „Critical“ bewusst nicht). Kommunale Vorfallslisten (kommunaler-notbetrieb.de von Jens Lange, CC BY-SA 4.0, nur RSS, keine Quellen je Vorfall; ebenso konbriefing.com/de-topics/hackerangriff-deutschland.html und kommunalwiki.boell.de/index.php/Cyberangriffe, beide nicht geprüft): Einzelfälle von Hand gepflegt, passen nicht zur Regel „Quelle und Stand je Wert“. Nicht aufnehmen, höchstens später als Link/Einordnung ohne Einfluss auf die Stufe. Kein Hinweis auf der Startseite, für wen die Seite gedacht ist: Die Seite richtet sich an Fachleute und Einarbeitungswillige, das bleibt so.
 
+## Erledigt (SatoshisGrid ohne www, 26.11.2026)
+
+- Ein anderer Chat hatte `wrangler.jsonc` (satoshisgrid 4d3df8b) auf nur `www.satoshisgrid.com` gesetzt; die Adresse ohne www fiel aus. Ich habe `satoshisgrid.com` als zweite Custom Domain ergänzt (8d525f8). Steve meldet: läuft wieder. Merke: Bei Workers müssen beide Adressen in `routes` stehen; Domainänderungen nur mit Blick auf beide.
+
 ## Erledigt (Alarm Stufe 2, 26.11.2026)
 
 - Alarm hat jetzt zwei Stufen wie Matrix: `ALARM □ □`. Stufe 1 ist der bisherige Alarm (unverändert, gespeichert als „alarm“); Stufe 2 (`html.alarm2`, gespeichert als „alarm2“) wirkt auf der ganzen Seite: dunklerer Rand mit langsamem Pulsieren, dichtere Scanlines, stärkeres Leuchten bei Überschriften, kräftigere Rahmen, Warnzeile blinkt. „Bewegung reduzieren“ stoppt Puls und Blinken. Dateien: `site/modus.js`, `site/style.css` (Block am Ende), `site/matrix.js` (Matrix-Knopf sitzt hinter dem zweiten Alarm-Quadrat). Tests 155 OK, Klicktest 4.478/0, Handy 390 px und Desktop, de und en angesehen.
