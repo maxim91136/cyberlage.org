@@ -135,6 +135,7 @@ Klein, kann der Bau-Chat danach erledigen:
 - Seite: Board „Anstehend“ im Kopf (fest, kein Lauftext): nächster Microsoft Patch Day, Support-Enden der nächsten 120 Tage. Microsoft-Karte: Countdown, Stand je System mit Vormonat, KB, Build, Support-Ende, „Zuerst patchen“ getrennt nach Server und Arbeitsplätzen (nur Anzeige der vorhandenen Prioritätsliste, keine neue Regel, daher kein RULES-Eintrag). Klicktest 4478/0; 390 px und Desktop, Deutsch und Englisch mit synthetischen Daten angesehen.
 
 - Patch-Level-Tabelle (System, aktuelle Build, KB, Support-Ende) oben in der Microsoft-Karte; Enterprise/Education und Pro (alles Volumenaktivierungsfähige, Entscheidung Steve), Home nicht; auch im Board.
+- Datenlauf 26.11. manuell gestartet: `lifecycle.json` und `systeme` (Nov, Okt) sind da, echte Build-Nummern angezeigt. Support-Zyklen von endoflife.date (-w, -e, -e-lts, ohne Suffix) werden erkannt; Home und IoT nicht.
 - **Offen:** Seite ist zu lang („Monster“). Steve will Umbau: Handeln in eigene Seiten, Startseite nur Kurzblock. Erst nach seinem Ja.
 
 **Offen / nach dem nächsten Datenlauf prüfen:** erscheinen `lifecycle.json` und `systeme` (Nov und Okt)? Sieht das Board mit echten Daten richtig aus? Board nur auf der Startseite, andere Seiten nicht. Entfernter Probe-Zweig `probe-ms` muss gelöscht sein.

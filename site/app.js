@@ -558,10 +558,9 @@
   function lifeName(slug, z) {
     var c = String(z.zyklus || ""), m;
     if (slug === "windows") {
-      m = /^(\d+)-(\w+)(?:-(.+))?$/.exec(c);
-      if (!m) return "Windows " + c;
-      var ed = { w: "Home/Pro", e: "Enterprise/Education" }[m[3]] || (m[3] ? m[3].toUpperCase() : "");
-      return "Windows " + m[1] + " " + m[2].toUpperCase() + (ed ? " (" + ed + ")" : "");
+      var wz = winZyklus(c);
+      if (!wz) return "Windows " + c;
+      return "Windows " + wz.v + " " + wz.r.toUpperCase() + (wz.ed ? " (" + wz.ed + ")" : "");
     }
     return "Windows Server " + c.replace(/-r2$/i, " R2").replace(/^(\d+h\d)/i, function (x) { return x.toUpperCase(); });
   }
@@ -569,11 +568,11 @@
     var out = [];
     Object.keys((life && life.produkte) || {}).forEach(function (slug) {
       (life.produkte[slug].zyklen || []).forEach(function (z) {
-        if (slug === "windows" && !/-(w|e)$/.test(z.zyklus)) return;  // Enterprise/Education und Pro; IoT und LTSC bleiben außen vor
+        if (slug === "windows" && (!winZyklus(z.zyklus) || winZyklus(z.zyklus).ed === null)) return;  // Enterprise/Education, Pro, LTSC; IoT bleibt außen vor
         [["eol", pick("Support-Ende ", "End of support ")], ["erweitert", pick("Ende Extended Support/ESU ", "End of extended support/ESU ")]].forEach(function (f) {
           var dt = z[f[0]]; if (!dt) return;
           var zeit = Date.parse(dt + "T00:00:00Z"), n = Math.round((zeit - t0) / TAG_MS);
-          if (n >= 0 && n <= tage) out.push({ zeit: zeit, tage: n, n: f[1] + lifeName(slug, z).replace(" (Home/Pro)", " (Pro)"), l: "https://endoflife.date/" + slug });
+          if (n >= 0 && n <= tage) out.push({ zeit: zeit, tage: n, n: f[1] + lifeName(slug, z), l: "https://endoflife.date/" + slug });
         });
       });
     });
@@ -929,18 +928,25 @@
     box.appendChild(q); box.hidden = false;
   }
   var d_life = null, d_prio = null;
+  /* endoflife-Zyklus "11-25h2-e" zerlegen. ed: Anzeigename der Edition; null = nicht anzeigen (Home, IoT und anderes). */
+  function winZyklus(c) {
+    var m = /^(\d+)-([a-z0-9]+)(?:-(.+))?$/.exec(c || "");
+    if (!m) return null;
+    var ed = { "": "", w: "Pro", e: "Enterprise/Education", "e-lts": "LTSC" }[m[3] || ""];
+    return { v: m[1], r: m[2], ed: ed === undefined ? null : ed };
+  }
   /* Support-Zeilen je System. Windows 10/11: Enterprise/Education und Pro (alles, was Volumenaktivierung kann); Home steht nicht drin. */
   function supportTeile(life, key) {
     var zy = [], t = (life && life.produkte) || {}, m;
     if (/^Windows (10|11) /.test(key) && t.windows) {
       m = /^Windows (\d+) (\w+)$/.exec(key);
-      if (m) zy = t.windows.zyklen.filter(function (z) { return z.zyklus.indexOf(m[1] + "-" + m[2].toLowerCase() + "-") === 0 && /-(w|e)$/.test(z.zyklus); });
+      if (m) zy = t.windows.zyklen.filter(function (z) { var c = winZyklus(z.zyklus); return c && c.v === m[1] && c.r === m[2].toLowerCase() && c.ed !== null; });
     } else if (/^Windows Server /.test(key) && t["windows-server"]) {
       var want = key.replace("Windows Server ", "").toLowerCase().replace(" r2", "-r2");
       zy = t["windows-server"].zyklen.filter(function (z) { return z.zyklus === want; });
     }
     return zy.map(function (z) {
-      return { ed: /-w$/.test(z.zyklus) ? "Pro" : (/-e$/.test(z.zyklus) ? "Enterprise/Education" : ""), ende: z.eol, erw: z.erweitert && z.erweitert > z.eol ? z.erweitert : "" };
+      return { ed: (winZyklus(z.zyklus) || {}).ed || "", ende: z.eol, erw: z.erweitert && z.erweitert > z.eol ? z.erweitert : "" };
     }).sort(function (a, b) { return a.ende < b.ende ? 1 : -1; });
   }
   function supportText(life, key, heute, kurz) {
