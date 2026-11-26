@@ -1043,7 +1043,7 @@
     var mon = P.microsoft && P.microsoft.monate ? Object.keys(P.microsoft.monate).map(function (x) { return P.microsoft.monate[x]; }) : [];
     mon.sort(function (a, c) { return String(a.erste_veroeffentlichung).localeCompare(String(c.erste_veroeffentlichung)); });
     var m = mon[mon.length - 1];
-    if (m && m.systeme && Object.keys(m.systeme).length) kachel("#p-pl", pick("Patch-Level", "Patch level"), Object.keys(m.systeme).length + pick(" Systeme · Stand ", " systems · as of ") + monatName(m.id));
+    if (m && m.systeme && Object.keys(m.systeme).length) kachel("#p-pl", pick("Windows-Patch-Level", "Windows patch level"), Object.keys(m.systeme).length + pick(" Systeme · Update vom ", " systems · update of ") + datum(String(m.erste_veroeffentlichung).slice(0, 10)));
     var pr = P.prioritaet && P.prioritaet.liste;
     if (pr && pr.length) kachel("#k-zuerst", pick("Diese Woche zuerst", "This week first"), pr.length + pick(" Einträge", " entries"));
     var nx = termine(heute, 12).filter(function (x) { return x.ev.some(function (e) { return e.art === "ms"; }); })[0];
@@ -1064,7 +1064,9 @@
     if (!s || !Object.keys(s).length) { box.hidden = true; return; }
     box.textContent = ""; box.hidden = false;
     var heute = new Date().toISOString().slice(0, 10), wrap = box;
-    wrap.appendChild(el("h4", "mono rd-t", pick("Patch-Level · Stand Patch Day " + monatName(m.id), "Patch level · as of patch day " + monatName(m.id))));
+    var dtm = datum(String(m.erste_veroeffentlichung).slice(0, 10));
+    wrap.appendChild(el("summary", "mono", pick("Windows-Patch-Level: aktuelle Builds · Update vom " + dtm, "Windows patch level: current builds · update of " + dtm)));
+    wrap.appendChild(el("p", "mono fine", pick("Nur Windows (Client und Server). So muss ein Rechner mindestens aktualisiert sein, um alle Lücken vom Patch Day " + monatName(m.id) + " zu schließen. Die Build-Nummer steht in winver bzw. ver.", "Windows only (client and server). This is the minimum a machine needs to close all flaws of the " + monatName(m.id) + " patch day. The build number is shown by winver or ver.")));
     var sc = el("div", "p-pl-s"), tab = el("table", "mono p-pl-t tw-sp"), kp = el("thead", ""), tb = el("tbody", ""), th = el("tr", "");
     [pick("System", "System"), pick("Aktuelle Build", "Current build"), "KB", pick("Ende Enterprise/Server", "End Enterprise/Server"), pick("Ende Pro", "End Pro"), "Ende LTSC", pick("ESU bis", "ESU until")].forEach(function (h) { th.appendChild(el("th", "", h)); });
     kp.appendChild(th); tab.appendChild(kp); tab.appendChild(tb);
