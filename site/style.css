@@ -711,3 +711,15 @@ th.th-s{cursor:pointer;user-select:none;white-space:nowrap}th.th-s:hover,th.th-s
 @media(max-width:520px){.ln-liste{grid-template-columns:1fr}}
 
 .bs-zurueck{padding-top:2px;padding-bottom:0}.bs-zurueck a{display:inline-block;padding:8px 0;font-size:13px;color:var(--dim);text-decoration:none}.bs-zurueck a:hover,.bs-zurueck a:focus-visible{color:var(--text);text-decoration:underline}
+
+/* Alarm Stufe 2 (html.alarm2): kräftiger auf der ganzen Seite, nur Optik */
+#modus2{margin-left:-6px;padding-left:6px;padding-right:6px}
+html.alarm2 body::before{background:radial-gradient(ellipse at center,transparent 38%,rgba(150,0,12,.55) 100%);animation:alarmpuls 4s ease-in-out infinite}
+html.alarm2 body::after{background:repeating-linear-gradient(0deg,rgba(0,0,0,.4) 0,rgba(0,0,0,.4) 1px,transparent 1px,transparent 3px)}
+html.alarm2 h2,html.alarm2 .lbl{text-shadow:0 0 10px rgba(255,59,59,.35)}
+html.alarm2 h1{text-shadow:0 0 24px rgba(255,59,59,.7)}
+html.alarm2 .panel,html.alarm2 .akk,html.alarm2 .tabelle{border-color:#8a2430;box-shadow:inset 0 0 0 1px rgba(255,59,59,.14),0 0 12px rgba(255,59,59,.08)}
+html.alarm2 .beta{border-bottom-color:#ff3b3b}
+html.alarm2 .beta::after{animation:blink 1.4s steps(1) infinite}
+@keyframes alarmpuls{0%,100%{opacity:.75}50%{opacity:1}}
+@media (prefers-reduced-motion:reduce){html.alarm2 body::before,html.alarm2 .beta::after{animation:none}}

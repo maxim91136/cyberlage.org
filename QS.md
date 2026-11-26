@@ -120,6 +120,11 @@ Klein, kann der Bau-Chat danach erledigen:
 
 - **Quellenvorschläge von einem Kollegen (26.11., Steve: nicht wegen jeder Anregung ändern).** EUVD/ENISA ist schon drin (EU-KEV, nur „ausgenutzt“; die Liste „Critical“ bewusst nicht). Kommunale Vorfallslisten (kommunaler-notbetrieb.de von Jens Lange, CC BY-SA 4.0, nur RSS, keine Quellen je Vorfall; ebenso konbriefing.com/de-topics/hackerangriff-deutschland.html und kommunalwiki.boell.de/index.php/Cyberangriffe, beide nicht geprüft): Einzelfälle von Hand gepflegt, passen nicht zur Regel „Quelle und Stand je Wert“. Nicht aufnehmen, höchstens später als Link/Einordnung ohne Einfluss auf die Stufe. Kein Hinweis auf der Startseite, für wen die Seite gedacht ist: Die Seite richtet sich an Fachleute und Einarbeitungswillige, das bleibt so.
 
+## Erledigt (Alarm Stufe 2, 26.11.2026)
+
+- Alarm hat jetzt zwei Stufen wie Matrix: `ALARM □ □`. Stufe 1 ist der bisherige Alarm (unverändert, gespeichert als „alarm“); Stufe 2 (`html.alarm2`, gespeichert als „alarm2“) wirkt auf der ganzen Seite: dunklerer Rand mit langsamem Pulsieren, dichtere Scanlines, stärkeres Leuchten bei Überschriften, kräftigere Rahmen, Warnzeile blinkt. „Bewegung reduzieren“ stoppt Puls und Blinken. Dateien: `site/modus.js`, `site/style.css` (Block am Ende), `site/matrix.js` (Matrix-Knopf sitzt hinter dem zweiten Alarm-Quadrat). Tests 155 OK, Klicktest 4.478/0, Handy 390 px und Desktop, de und en angesehen.
+- Termine als geplante Aufgaben (privat, Push an Steve): 15.01.2027 Zertifikate/CAA, 02.02.2027 Regel-Durchsicht Web-Audit, 02.11.2027 security.txt erneuern.
+
 ## Erledigt (SatoshisGrid, 26.11.2026)
 
 - Audit stand schon bei 100 (CSP, Kopfzeilen, security.txt, robots, Sitemap vorhanden). Ergänzt: `llms.txt` und JSON-LD (WebApplication), Push im satoshisgrid-Repo. Nichts an Cloudflare nötig.

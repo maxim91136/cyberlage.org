@@ -117,7 +117,8 @@
       gr.id = "matrix-knopf"; gr.className = "mono matrix-grp"; gr.setAttribute("role", "group"); gr.setAttribute("aria-label", "Matrix");
       gr.appendChild(document.createTextNode("MATRIX "));
       for (var i = 0; i < 2; i++) { var qb = document.createElement("button"); qb.type = "button"; qb.className = "mq"; gr.appendChild(qb); }
-      m.parentNode.insertBefore(gr, m.nextSibling);
+      var m2 = document.getElementById("modus2") || m;
+      m.parentNode.insertBefore(gr, m2.nextSibling);
       var b = gr.querySelectorAll("button");
       b[0].addEventListener("click", function () { var n = stufe === 0 ? 1 : 0; setze(n, true); if (n === 1) entschluesseln(); });
       b[1].addEventListener("click", function () { var n = stufe === 2 ? 1 : 2; setze(n, true); if (n === 2 && !titel) entschluesseln(); });
