@@ -16,7 +16,11 @@ def rechne(ergebnisse, regeln=REGELN):
     Gibt Score (oder None bei zu wenig Abdeckung), Abdeckung, Gruppenwerte und die Stufe zurück."""
     wert = regeln["wertung"]
     gruppen = {}
-    for g, _pid, erg, _text in ergebnisse:
+    nicht_geprueft = []
+    for g, pid, erg, _text in ergebnisse:
+        if erg == "nicht_geprueft":  # zählt weder als bestanden noch als nicht bestanden und senkt die Abdeckung
+            nicht_geprueft.append(pid)
+            continue
         gruppen.setdefault(g, []).append(wert[erg])
     gesamt = sum(x["gewicht"] for x in regeln["gruppen"].values())
     geprueft = sum(regeln["gruppen"][g]["gewicht"] for g in gruppen)
@@ -28,5 +32,5 @@ def rechne(ergebnisse, regeln=REGELN):
         score = min(score, regeln["deckel"]["max_score"])
     voll = abdeckung >= regeln["mindest_abdeckung"]
     return {"score": score if voll else None, "teilwert": score, "abdeckung": round(abdeckung, 2),
-            "gruppen": {g: round(v, 2) for g, v in werte.items()},
+            "gruppen": {g: round(v, 2) for g, v in werte.items()}, "nicht_geprueft": nicht_geprueft,
             "stufe": stufe(score, regeln) if voll else "nicht bewertet (zu wenig geprüft)"}
