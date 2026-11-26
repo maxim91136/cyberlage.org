@@ -1,10 +1,19 @@
 /* Matrix-Modus (siehe matrix.js). Nur Optik, nur mit html.matrix. */
+.matrix-grp{display:inline-flex;align-items:center;gap:2px;border:1px solid var(--line);color:var(--dim);font-size:13px;padding:2px 4px 2px 10px;margin-left:4px;white-space:nowrap}
+.matrix-grp:hover{border-color:var(--green)}
+.matrix-grp .mq{background:none;border:0;color:inherit;font:inherit;cursor:pointer;padding:4px 5px;min-width:26px;min-height:30px}
+.matrix-grp .mq:hover{color:var(--green)}
+html.matrix .matrix-grp{color:var(--green);border-color:var(--green)}
+html.alarm .matrix-grp{color:#ff6b6b;border-color:#5a1a22}
+@media (max-width:480px){.matrix-grp{font-size:12px;padding-left:7px}}
 .matrix-regen{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.2;
   -webkit-mask-image:linear-gradient(#000 0,transparent 100%);mask-image:linear-gradient(#000 0,transparent 100%)}
+html.matrix2 .matrix-regen{opacity:.34}
+.matrix-voll{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1;opacity:.2}
 html.matrix header.marke,html.matrix header.kopf{overflow:hidden}
 html.matrix header.marke{position:relative}
 html.matrix .marke .brand,html.matrix .bs-zurueck{position:relative;z-index:1}
-html.matrix2 .matrix-regen{opacity:.34}
 html.matrix main h1{text-shadow:0 0 14px rgba(111,224,160,.28)}
+html.matrix2 main h2{text-shadow:0 0 10px rgba(111,224,160,.2)}
 html.alarm.matrix main h1{text-shadow:0 0 14px rgba(255,59,59,.35)}
-html.matrix #matrix-knopf{color:var(--green);border-color:var(--green)}
+html.alarm.matrix2 main h2{text-shadow:0 0 10px rgba(255,59,59,.28)}
