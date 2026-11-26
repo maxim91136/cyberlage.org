@@ -28,7 +28,6 @@ Erledigt in der Nacht (Auftrag von Steve):
 - **Eigene Seiten je Bericht:** `/bericht/2026-10/`, `/bericht/2026-Q3/`, `/bericht/2025/`, englisch unter `/en/bericht/…`, Übersicht `/bericht/`. Fertiges HTML ohne Skript aus `pipeline/berichtseiten.py` (aufgerufen von `prerender.py`), mit eigenem Titel, Beschreibung, Canonical, hreflang, JSON-LD; alle 98 Adressen stehen in der Sitemap. „Link kopieren“ im Abschnitt „berichte“ zeigt jetzt auf die eigene Seite. Klicktest prüft Übersicht, eine Auswahl an Seiten und die Hinweiszeile.
 
 Entscheiden:
-3. **Sicherheitsprüfung (finecomb, 26.11., Stand fb60d1f):** nichts Kritisches oder Hohes, sechs kleinere Punkte. Einzelheiten stehen bewusst nicht in diesem öffentlichen Repo, sondern im Bau-Chat. Beheben?
 4. **LinkedIn-Post „Wettrennen“:** berichtigte Fassung liegt im Bau-Chat (5 Tage gelten für ausgenutzte Lücken; „zwei Jahre davor“).
 
 Nur Steve kann das:
@@ -36,8 +35,6 @@ Nur Steve kann das:
 6. **Lizenztext** vor dem Markenkauf gegenlesen lassen (alt, weiter offen).
 
 Klein, kann der Bau-Chat danach erledigen:
-7. Kurztext der Startseite aus dem `<noscript>`-Block in sichtbaren Text holen.
-8. Sprunglinks im Menü für „logbuch“ und „berichte“.
 9. Hinweis per Telegram und Eintrag im RSS-Feed, wenn ein neuer Monatsbericht da ist (Link auf die eigene Seite).
 11. Eigenes Vorschaubild je Bericht (heute zeigt jede Berichtsseite das allgemeine `og.png`).
 10. `LICENSE` und `README` sagen noch „Quelltext nicht veröffentlicht“, das Repo ist wieder öffentlich: Formulierung prüfen.
@@ -91,6 +88,12 @@ Klein, kann der Bau-Chat danach erledigen:
 
 - „Der Pegel bewegt sich kaum“ (Fremdkritik): stimmt nur für die letzten 90 Tage. Über 36 Monate liegt er zwischen 22 und 73, Median 40. Kritik am Pegel immer gegen den 3-Jahres-Verlauf im Rückblick prüfen.
 - Zweiter Score neben dem 90-Tage-Verlauf („zuletzt 69“): entfernt, weil die rückgerechnete Reihe ohne BSI Cyber Index und SANS rechnet und dem Wert oben widersprach.
+
+## Erledigt (27.11.2026)
+
+- **Kurztext unter dem Pegel** sichtbar im HTML (`#hero-kurz`, de und en, von `prerender.py` gefüllt und von `app.js` aktualisiert); **Menü-Sprunglinks** `/logbuch` und `/berichte` (en: `/log`, `/reports`). Klicktest-Schritt „Menü und Kurztext" neu (4.366 Prüfungen, 0 Fehler), Handy und Desktop in beiden Sprachen angesehen; Menü auf dem Desktop bricht jetzt in eine zweite Zeile um statt über den Rand zu ragen.
+- `llms.txt` und `security.txt` live geprüft (Steve, 26.11.).
+- Sicherheitspunkt 3 der Liste „Entscheiden" (finecomb) ist erledigt (siehe Abschnitt Sicherheitsprüfung).
 
 ## Erledigt (Sicherheitsprüfung, 26.11.2026)
 

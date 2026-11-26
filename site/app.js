@@ -142,6 +142,11 @@
     var name = hatStufe ? txt(String(d.stufe)) : null;
     $("stufe-wert").textContent = hatStufe ? name : "null";
     if (hatStufe && d.pegel && typeof d.pegel.wert === "number") document.title = name.toUpperCase() + " " + d.pegel.wert + pick(" · Cyberlage: Cyber-Bedrohungslage heute", " · Cyberlage: cyber threat level today");
+    var hk = $("hero-kurz");
+    if (hk && d.pegel && typeof d.pegel.wert === "number" && d.kev) {
+      hk.textContent = pick("Gesamtscore " + d.pegel.wert + " von 100 aus " + d.pegel.signale + " von " + d.pegel.von + " Bausteinen. Neu im CISA-Katalog ausgenutzter Schwachstellen: " + d.kev.neu_7_tage + " in 7 Tagen, " + d.kev.neu_30_tage + " in 30 Tagen.",
+        "Score " + d.pegel.wert + " out of 100, from " + d.pegel.signale + " of " + d.pegel.von + " components. Newly added to the CISA catalogue of exploited vulnerabilities: " + d.kev.neu_7_tage + " in 7 days, " + d.kev.neu_30_tage + " in 30 days.");
+    }
     var hp = $("hero-pegel");
     if (hp) { hp.hidden = !hatStufe; if (hatStufe) { hp.className = "hero-pegel mono st-" + d.stufe; hp.textContent = pick("Dreier-Pegel heute: ", "Dreier Gauge today: ") + name.toUpperCase() + (d.pegel && typeof d.pegel.wert === "number" ? " · " + d.pegel.wert + "\u00a0/\u00a0100" : "") + pick("  · Details", "  · details"); } }
     window.DP = hatStufe ? name + (d.pegel && typeof d.pegel.wert === "number" ? " " + d.pegel.wert : "") : "";

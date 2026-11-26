@@ -16,7 +16,7 @@
     tl_h: "# part 1 · situation", tl_intro: "How tense is the global cyber situation? The Dreier Gauge measures it as one score from several components, the signals and the history back it up.", sw_h: "# part 2 · act: flaws & patches", sw_intro: "Which flaws to close first, and with which patch. Only flaws with an available patch are ranked; attacked flaws without a patch are listed separately below.", s_patches: "Patches", s_termine: "Patch calendar", s_kev: "Exploited (KEV)", s_neu: "New flaws", s_lage: "Components & radar", s_sig: "Signals", s_rueck: "History",
     sw_1: "reported", sw_1t: "new flaws, warnings, forecast", sw_2: "attacked", sw_2t: "proven exploited (KEV)", sw_3: "patch", sw_3t: "what first, with which update",
     beta: "",
-    n_rueck: "/history", n_neu: "/new", n_radar: "/radar", n_signale: "/signals", n_abo: "/subscribe",
+    n_rueck: "/history", n_logbuch: "/log", n_berichte: "/reports", n_neu: "/new", n_radar: "/radar", n_signale: "/signals", n_abo: "/subscribe",
     tab_ausblick: "Forecast",
     tab_kev: "KEV catalog", i_quellen: "Sources", i_begriffe: "Terms", i_methode: "Method", i_hinweise: "Notes",
     h_lbl: 'as of <span id="stand">…</span>',

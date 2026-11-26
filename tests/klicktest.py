@@ -166,6 +166,22 @@ def pruefe_direktlinks(pg, basis, p):
     p.ok(not pg.evaluate("document.getElementById('teil2').open"), "Teil 2 ist nach dem Neuladen noch offen")
 
 
+def pruefe_menue_und_kurztext(pg, basis, p):
+    lade(pg, basis, p)
+    kt = pg.evaluate("(() => { const k = document.getElementById('hero-kurz'); const h = document.getElementById('hero-pegel'); "
+                     "return {text: k.textContent.trim(), sichtbar: k.offsetHeight > 0, pegel: ((h.textContent.match(/(\\d+)\\s*\\/\\s*100/) || [])[1] || '')} })()")
+    p.ok(kt["sichtbar"] and len(kt["text"]) > 40, "Kurztext unter dem Pegel fehlt oder ist leer: %s" % kt)
+    p.ok(kt["pegel"] and (" " + kt["pegel"] + " ") in kt["text"], "Kurztext nennt nicht den Wert des Pegel-Knopfs (%s): %s" % (kt["pegel"], kt["text"]))
+    for abschnitt, knopf in (("logbuch", "k-logbuch"), ("berichte", "k-berichte")):
+        lade(pg, basis, p)
+        pg.click('.navin a[data-sec="%s"]' % abschnitt)
+        pg.wait_for_timeout(700)
+        z = pg.evaluate("({auf: document.getElementById('%s').open && document.getElementById('teil1').open, oben: Math.round(document.getElementById('%s').getBoundingClientRect().top)})" % (knopf, abschnitt))
+        p.ok(z["auf"], "Menüpunkt /%s klappt den Abschnitt nicht auf" % abschnitt)
+        p.ok(0 <= z["oben"] < 300, "Menüpunkt /%s springt nicht zum Abschnitt (oben bei %s px)" % (abschnitt, z["oben"]))
+        p.ok(rand(pg) <= 1, "nach Menüsprung zu /%s %d px über dem Rand" % (abschnitt, rand(pg)))
+
+
 def pruefe_sprachknopf(pg, basis, sprache, p):
     lade(pg, basis + "?bericht=2025", p)
     p.ok(pg.evaluate("document.documentElement.lang") == sprache, "Sprache ist %s statt %s" % (pg.evaluate("document.documentElement.lang"), sprache))
@@ -249,7 +265,7 @@ def main():
                 schritte = (("Klappen", lambda: pruefe_klappen(pg, p)), ("Bereiche", lambda: pruefe_bereiche(pg, p)), ("Berichte", lambda: pruefe_berichte(pg, p)),
                             ("Reiter", lambda: pruefe_reiter(pg, p)), ("Alles offen", lambda: pruefe_alles_offen(pg, p)),
                             ("Direktlinks", lambda: pruefe_direktlinks(pg, basis + pfad, p)), ("Sprachknopf", lambda: pruefe_sprachknopf(pg, basis + pfad, sprache, p)),
-                            ("Berichtsseiten", lambda: pruefe_berichtseiten(pg, basis, sprache, p)), ("Hinweiszeile", lambda: pruefe_en_zeile(pg, basis, sprache, p)))
+                            ("Menü und Kurztext", lambda: pruefe_menue_und_kurztext(pg, basis + pfad, p)), ("Berichtsseiten", lambda: pruefe_berichtseiten(pg, basis, sprache, p)), ("Hinweiszeile", lambda: pruefe_en_zeile(pg, basis, sprache, p)))
                 try:
                     lade(pg, basis + pfad, p)
                     p.ok(pg.evaluate("document.documentElement.lang") == sprache, "Sprache der Seite %s ist %s" % (pfad, pg.evaluate("document.documentElement.lang")))
