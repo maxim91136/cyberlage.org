@@ -175,7 +175,8 @@ def siegel(domain, d, jetzt, regeln):
             '<text %s font-size="12.5" font-weight="700" letter-spacing="3.2" fill="%s" text-anchor="middle"><textPath href="#o" startOffset="50%%">DREIER-SIEGEL</textPath></text>'
             '<text %s font-size="10" letter-spacing="1.4" fill="#c9d4dc" text-anchor="middle"><textPath href="#u" startOffset="50%%">%s · %s</textPath></text>'
             '<text x="100" y="%d" %s font-size="%d" font-weight="700" fill="%s" text-anchor="middle">%s</text>%s'
-            '</svg>') % (_e(titel), _e(titel), f, ticks, f, f, mono, f, mono, _e(domain.upper()), tag, 108 if len(score) < 3 else 106, mono, gross, f, _e(score), unten)
+            '<text x="100" y="157" %s font-size="8.5" letter-spacing="1.4" fill="#8b98a3" text-anchor="middle">REGELN %s</text>'
+            '</svg>') % (_e(titel), _e(titel), f, ticks, f, f, mono, f, mono, _e(domain.upper()), tag, 108 if len(score) < 3 else 106, mono, gross, f, _e(score), unten, mono, _e(regeln["version"]))
 
 
 def fuss_text(d, regeln, sp, jetzt):
@@ -184,7 +185,7 @@ def fuss_text(d, regeln, sp, jetzt):
     if farbe(d, jetzt, regeln) == FARBE["grau"]:
         return ("Web-Audit: letzter Lauf %s" if sp == "de" else "Web audit: last run %s") % datum
     abz = abzeichen(d["score"], regeln)
-    return ("Web-Audit: " if sp == "de" else "Web audit: ") + "%d / 100%s · %s" % (d["score"], " · " + ABZ_NAME[sp][abz] if abz else "", datum)
+    return ("Web-Audit: " if sp == "de" else "Web audit: ") + "%d / 100%s · %s · %s %s" % (d["score"], " · " + ABZ_NAME[sp][abz] if abz else "", datum, "Regeln" if sp == "de" else "Rules", regeln["version"])
 
 
 def _stufe(d, sp):

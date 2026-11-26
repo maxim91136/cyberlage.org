@@ -134,13 +134,13 @@ class AuditseitenTests(unittest.TestCase):
 
     def test_fusstext(self):
         d = zus("cyberlage.org")
-        self.assertEqual(auditseiten.fuss_text(d, REGELN, "de", JETZT), "Web-Audit: 100 / 100 · Gold · 26.11.2026")
-        self.assertEqual(auditseiten.fuss_text(d, REGELN, "en", JETZT), "Web audit: 100 / 100 · Gold · 26 Nov 2026")
+        self.assertEqual(auditseiten.fuss_text(d, REGELN, "de", JETZT), "Web-Audit: 100 / 100 · Gold · 26.11.2026 · Regeln 1.0")
+        self.assertEqual(auditseiten.fuss_text(d, REGELN, "en", JETZT), "Web audit: 100 / 100 · Gold · 26 Nov 2026 · Rules 1.0")
         alt = zus("cyberlage.org", stand="2026-11-10T05:20Z")
         self.assertEqual(auditseiten.fuss_text(alt, REGELN, "de", JETZT), "Web-Audit: letzter Lauf 10.11.2026")
-        self.assertEqual(auditseiten.fuss_text(zus("cyberlage.org", 40, "erhebliche Mängel"), REGELN, "en", JETZT), "Web audit: 40 / 100 · 26 Nov 2026")
+        self.assertEqual(auditseiten.fuss_text(zus("cyberlage.org", 40, "erhebliche Mängel"), REGELN, "en", JETZT), "Web audit: 40 / 100 · 26 Nov 2026 · Rules 1.0")
 
-    SIEGEL_PRUEFSUMME = "87aa6dbb4445eba6b9adccb8be99488c5603f623af765d81fc2c5b783b9d58da"  # gleich in Dreier Labs (Repo dreierlabs, tests/test_audit_seiten.py)
+    SIEGEL_PRUEFSUMME = "d6290c53858694d41ce87181e23580afd1491533ffba32b0458802de17215963"  # gleich in Dreier Labs (Repo dreierlabs, tests/test_audit_seiten.py)
 
     def test_siegel_unveraendert_wie_bei_dreier_labs(self):
         """Das Dreier-Siegel muss in Cyberlage und bei Dreier Labs gleich aussehen. Wer das Siegel ändert, ändert beide Repos und diese Prüfsumme."""

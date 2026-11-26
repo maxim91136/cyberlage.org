@@ -129,6 +129,11 @@ Klein, kann der Bau-Chat danach erledigen:
 
 - **Quellenvorschläge von einem Kollegen (26.11., Steve: nicht wegen jeder Anregung ändern).** EUVD/ENISA ist schon drin (EU-KEV, nur „ausgenutzt“; die Liste „Critical“ bewusst nicht). Kommunale Vorfallslisten (kommunaler-notbetrieb.de von Jens Lange, CC BY-SA 4.0, nur RSS, keine Quellen je Vorfall; ebenso konbriefing.com/de-topics/hackerangriff-deutschland.html und kommunalwiki.boell.de/index.php/Cyberangriffe, beide nicht geprüft): Einzelfälle von Hand gepflegt, passen nicht zur Regel „Quelle und Stand je Wert“. Nicht aufnehmen, höchstens später als Link/Einordnung ohne Einfluss auf die Stufe. Kein Hinweis auf der Startseite, für wen die Seite gedacht ist: Die Seite richtet sich an Fachleute und Einarbeitungswillige, das bleibt so.
 
+## Erledigt (Regelversion im Siegel sichtbar, 26.11.2026)
+
+- Steve: Das Dreier-Siegel muss die Regelversion zeigen. Vorher nur im Tooltip und auf der Audit-Seite. Jetzt: Zeile „REGELN 1.0“ im Stempel (unter dem Abzeichen, bei allen Farben) und „· Regeln 1.0“ / „· Rules 1.0“ im Fußtext der Startseite. Siegelcode in Cyberlage (`pipeline/auditseiten.py`) und Dreier Labs (`scripts/audit_seiten.py`) gleich geändert, neue Prüfsumme d6290c53… in beiden Tests. Dreier Labs erzeugt die SVGs beim nächsten Audit-Lauf neu.
+- Fußtext bei grauem (zu altem) Siegel zeigt weiter nur das Datum des letzten Laufs, ohne Version.
+
 ## Erledigt (Handy-Menü, 26.11.2026)
 
 - Steve fiel auf (Screenshot, iPhone ~395 px): „EN“ stand allein in der letzten Zeile, ALARM/MATRIX auf 360 px an gegenüberliegenden Enden. Jetzt: /abo, /info, EN in einer Zeile, ALARM und MATRIX gemeinsam darunter (`.nav-br` als Umbruch nur bis 640 px, `order` in `site/style.css`, Umbruch-Element in `site/index.html` und `site/en/index.html`). Desktop unverändert. Tests 156 OK, Klicktest 4.478/0, 360/395 px de und en ohne seitliches Scrollen.
