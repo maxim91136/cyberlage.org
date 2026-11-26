@@ -613,6 +613,9 @@ html[lang=en] #teil3 .akk>summary::after{content:"OPEN +"}html[lang=en] #teil3 .
 .sw-grp .mq:hover{color:var(--green)}
 html.alarm .sw-grp{color:#ff6b6b;border-color:#5a1a22}
 @media (max-width:480px){.sw-grp{font-size:12px;padding-left:7px}}
+/* Handy: /abo /info EN in einer Zeile, ALARM und MATRIX gemeinsam darunter (statt EN allein in der dritten Zeile) */
+.nav-br{display:none}
+@media (max-width:640px){.nav-u .sprache{order:1}.nav-br{display:block;order:2;flex:0 0 100%;height:0}#alarm-grp{order:3;margin-left:0}#matrix-knopf{order:4;margin-left:0}}
 .b-btns button[aria-pressed="true"]{border-color:var(--green);background:rgba(61,220,151,.12);color:var(--text)}.b-liste{list-style:none;margin:8px 0;padding:0}.b-liste li{padding:7px 0;border-top:1px dashed var(--dash);line-height:1.5;overflow-wrap:anywhere}.b-liste li:first-child{border-top:0}
 .b-hs h4{margin:14px 0 2px;font-size:13px;color:var(--dim);font-weight:400}
 .p-bereich{margin-bottom:14px}.b-h4,.b-hs h4{margin:16px 0 4px;font-size:13px;color:var(--dim);font-weight:400}.b-kacheln{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin-top:6px}.b-k{border:1px solid var(--line);border-radius:8px;padding:10px 12px;min-width:0}.b-kn{font-weight:600;margin-bottom:4px}.b-kz{font-size:13px;line-height:1.6}.b-k .fine{margin-top:4px;overflow-wrap:anywhere}
