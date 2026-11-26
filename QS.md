@@ -142,6 +142,8 @@ Klein, kann der Bau-Chat danach erledigen:
 - Sortieren und Spaltenfilter (26.11.) für /lebenszyklen und die Patch-Level-Tabelle: Klasse `tw-sp` in `tabelleAusbauen`, feste Sortierwerte per `data-sort` (Datum, Restzeit).
 - **Steve (26.11.):** „das Tool wird ein Schweizer Taschenmesser“. Beim Ausbau gilt deshalb: jede neue Funktion braucht klaren Nutzen für Admins und SOC, sonst nicht bauen.
 - Umbau Schritt 3 (26.11.): Immer nur ein Teil und innerhalb eines Teils nur ein Abschnitt offen (`exklusiv()` in app.js; gilt für Klicks, Menü und Sprunglinks, nicht für Drucken). Klicktest 4538/0. Steve: Seite ist Desktop-Leitstand, auf dem iPhone aber gut nutzbar; beides pflegen, Desktop zuerst.
+- Layout vereinheitlicht (26.11.): Lebenszyklen mit festen Spalten und gleichen Kopfzeilen; Patch-Level mit getrennten Spalten (Ende Enterprise/Server, Pro, LTSC, ESU), abgelaufene rot.
+- **Offen:** Weitere Tabellen (Termine, „Zuerst patchen“, Hersteller) auf dasselbe Muster prüfen; Patch-Level und „Zuerst patchen“ auf Desktop nebeneinander; Handy-Karten für Patch-Level.
 - **Offen:** Weitere Verkürzung der Seite nach Schritt 3 prüfen („Monster“). Steve will Umbau: Handeln in eigene Seiten, Startseite nur Kurzblock. Erst nach seinem Ja.
 
 **Offen / nach dem nächsten Datenlauf prüfen:** erscheinen `lifecycle.json` und `systeme` (Nov und Okt)? Sieht das Board mit echten Daten richtig aus? Board nur auf der Startseite, andere Seiten nicht. Entfernter Probe-Zweig `probe-ms` muss gelöscht sein.
