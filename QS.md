@@ -120,6 +120,13 @@ Klein, kann der Bau-Chat danach erledigen:
 
 - **Quellenvorschläge von einem Kollegen (26.11., Steve: nicht wegen jeder Anregung ändern).** EUVD/ENISA ist schon drin (EU-KEV, nur „ausgenutzt“; die Liste „Critical“ bewusst nicht). Kommunale Vorfallslisten (kommunaler-notbetrieb.de von Jens Lange, CC BY-SA 4.0, nur RSS, keine Quellen je Vorfall; ebenso konbriefing.com/de-topics/hackerangriff-deutschland.html und kommunalwiki.boell.de/index.php/Cyberangriffe, beide nicht geprüft): Einzelfälle von Hand gepflegt, passen nicht zur Regel „Quelle und Stand je Wert“. Nicht aufnehmen, höchstens später als Link/Einordnung ohne Einfluss auf die Stufe. Kein Hinweis auf der Startseite, für wen die Seite gedacht ist: Die Seite richtet sich an Fachleute und Einarbeitungswillige, das bleibt so.
 
+## Erledigt (NotSoDeFi-Härtung, 26.11.2026)
+
+- Code (notsodefi 63e30c1): Kopfzeilen, CSP mit Prüfsummen pro Seite (`scripts/csp.mjs`), security.txt, robots.txt mit Sitemap, llms.txt, JSON-LD.
+- Cloudflare (im Browser): 6 DNS-Einträge (4 CAA, SPF `-all`, DMARC reject). Pages-Build-Befehl stand auf `npx next build`, dadurch lief `csp.mjs` nie; auf `npm run build` umgestellt, neu gebaut. Web Analytics (Beacon) für notsodefi.com auf „Disable“ gestellt (Besucherzahlen kommen aus der Zonen-Statistik, nicht betroffen).
+- Audit: vorher 77, nach CSP 93 (Silber). Rest: fremdes Skript (Beacon, Abschaltung noch nicht live bestätigt) und CORS `*` (öffentliche API, bewusst).
+- **Offen:** nächsten Audit-Lauf prüfen (Beacon weg → 100?); danach `oeffentlich` für notsodefi.com (ab Bronze/60 erlaubt); dann SatoshisGrid, NoSinglePoint.
+
 ## Erledigt (27.11.2026)
 
 - **Matrix, zweiter Ausbau (Steve, 26.11.):** Steve: zwei Stufen wurden nicht erkannt, und Stufe 2 wirkte nur im Kopf. Jetzt zeigt der Schalter dauerhaft zwei Quadrate (MATRIX □□ / ■□ / ■■, erstes Quadrat dezent, zweites kräftiger, jedes einzeln klickbar), Stufe 2 legt zusätzlich blassen Regen fest über die ganze Seite (hinter dem Inhalt, Canvas `matrix-voll`) und lässt auch Zwischenüberschriften flimmern (alle 5 bis 12 s, 4 Zeichen, 0,16 s). Tests und Klicktest grün. **Offen:** Steve: „Alarm-Modus mit Matrix-Style passt noch nicht 100 %“ (Kombination läuft, Regen dann rot; was genau nicht passt, ist offen, bei Gelegenheit nachfragen).
