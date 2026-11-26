@@ -221,12 +221,12 @@
     zeigeAusblick(d.ausblick);
     zeigeRadar(d.radar, d);
     zeigeKonsens(d.radar);
+    d_life = d.patches && d.patches.lifecycle || null; life_d = d_life;
     zeigeTicker(d);
     zeigeBoard(d);
     zeigeTermine();
     zeigeZuerst(d.patches && d.patches.prioritaet);
     zeigeBereiche(d);
-    d_life = d.patches && d.patches.lifecycle || null; life_d = d_life;
     d_prio = d.patches && d.patches.prioritaet || null;
     zeigePatchLevel(d.patches && d.patches.microsoft, d_life);
     zeigeLebenszyklen(d_life);
@@ -573,7 +573,7 @@
       (life.produkte[slug].zyklen || []).forEach(function (z) {
         if (life.produkte[slug].gruppe !== "os") return;  // Board: nur Betriebssysteme, den Rest zeigt /lebenszyklen
         if (slug === "windows" && (!winZyklus(z.zyklus) || winZyklus(z.zyklus).ed === null)) return;  // Enterprise/Education, Pro, LTSC; IoT bleibt außen vor
-        [["eol", pick("Support-Ende ", "End of support ")], ["erweitert", pick("Ende Extended Support/ESU ", "End of extended support/ESU ")]].forEach(function (f) {
+        [["eol", pick("Support-Ende ", "End of support ")], ["erweitert", pick("Ende erweiterter Support ", "End of extended support ")]].forEach(function (f) {
           var dt = z[f[0]]; if (!dt) return;
           var zeit = Date.parse(dt + "T00:00:00Z"), n = Math.round((zeit - t0) / TAG_MS);
           if (n >= 0 && n <= tage) out.push({ zeit: zeit, tage: n, n: f[1] + lifeName(slug, z), l: "#lebenszyklen" });
