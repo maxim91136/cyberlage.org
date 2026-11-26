@@ -1,4 +1,4 @@
-/* Matrix-Modus: reine Optik, standardmäßig aus. Schalter neben ALARM mit zwei Quadraten:
+/* Matrix-Modus: reine Optik, standardmäßig aus. Schalter neben ALARM, gleich aufgebaut (Name und zwei Quadrate in einem Kasten):
    erstes Quadrat = Stufe 1 (dezent: Überschrift entschlüsselt sich, blasser Regen im Kopf),
    zweites Quadrat = Stufe 2 (kräftiger: zusätzlich blasser Regen über die ganze Seite, Flimmern auch auf Zwischenüberschriften).
    Auf Unterseiten (Berichte, Audit, Links) gilt die gewählte Stufe ohne eigenen Schalter.
@@ -114,11 +114,11 @@
     var m = document.getElementById("modus");
     if (m) {   /* Schalter nur auf der Startseite */
       var gr = document.createElement("span");
-      gr.id = "matrix-knopf"; gr.className = "mono matrix-grp"; gr.setAttribute("role", "group"); gr.setAttribute("aria-label", "Matrix");
+      gr.id = "matrix-knopf"; gr.className = "mono sw-grp matrix-grp"; gr.setAttribute("role", "group"); gr.setAttribute("aria-label", "Matrix");
       gr.appendChild(document.createTextNode("MATRIX "));
       for (var i = 0; i < 2; i++) { var qb = document.createElement("button"); qb.type = "button"; qb.className = "mq"; gr.appendChild(qb); }
-      var m2 = document.getElementById("modus2") || m;
-      m.parentNode.insertBefore(gr, m2.nextSibling);
+      var m2 = document.getElementById("alarm-grp") || m;
+      m2.parentNode.insertBefore(gr, m2.nextSibling);
       var b = gr.querySelectorAll("button");
       b[0].addEventListener("click", function () { var n = stufe === 0 ? 1 : 0; setze(n, true); if (n === 1) entschluesseln(); });
       b[1].addEventListener("click", function () { var n = stufe === 2 ? 1 : 2; setze(n, true); if (n === 2 && !titel) entschluesseln(); });

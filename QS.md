@@ -16,6 +16,9 @@ Steve soll nicht zwischen den Chats vermitteln müssen. Wer am Repo arbeitet, li
 ### Erledigt 26.11., Audit-Messfehler TLS
 - Die Prüfung „TLS 1.0/1.1 aus“ konnte fälschlich bestehen (jeder Fehler zählte als Absage des Servers). Behoben in `audit/abruf.py` (hier und in der Dreier-Labs-Kopie), Gegenprobe mit lokalem Server. Bis zum nächsten Lauf waren Siegel an dieser Stelle möglicherweise zu optimistisch (nosinglepoint.com hatte TLS-Minimum 1.0, jetzt 1.2). Offen: Ergebnis des nächsten Laufs gegenlesen, bei Cyberlage selbst ebenso.
 
+### Erledigt 26.11., Kopfleiste vereinheitlicht
+- ALARM und MATRIX sind jetzt gleich aufgebaut: ein Kasten mit Name und zwei Quadraten (vorher ALARM als Knopf plus loser zweiter Kasten). Gemeinsame Klasse `.sw-grp` in `style.css`, Markup in `site/index.html` und `site/en/index.html`, Logik in `modus.js` und `matrix.js`. Geprüft: Unit-Tests, Klicktest (0 Fehler), Handy 390 px und Desktop, DE und EN.
+
 ### Offen: Härtung Dreier Labs
 - **dreierlabs.com, Cloudflare-Teil: erledigt (26.11., Claude per Browser, auf Steves Auftrag).** Gesetzt: TLS-Minimum 1.2, „Always Use HTTPS“ an, DNSSEC aktiviert (Status „pending“, DS-Eintrag trägt Cloudflare Registrar selbst ein; später prüfen, dass es aktiv ist), CAA (pki.goog, letsencrypt.org, ssl.com, sectigo.com), SPF `v=spf1 -all`, `_dmarc` `v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s`. Mail: Domain sendet und empfängt nichts (Kontakt über Gmail), deshalb unbedenklich. Nicht gesetzt: Null-MX (nur Hinweis im Audit) und HSTS im Dashboard (kommt per `_headers` aus dem Code). Offen: Audit-Lauf für dreierlabs.com in der Dreier-Labs-Kopie des Werkzeugs, dann Befunde gegenlesen. Danach Lauf prüfen, dann nächste Adresse (Reihenfolge: nosinglepoint.com, satoshisgrid.com, notsodefi.com, bittensor-labs.com; deren Repos erst prüfen). `security.txt` dort und auf allen Seiten vor 2027-11-20 erneuern. Veröffentlichen (`oeffentlich: true`) erst nach den Korrekturen.
 

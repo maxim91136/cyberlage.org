@@ -606,7 +606,13 @@ html[lang=en] #teil3 .akk>summary::after{content:"OPEN +"}html[lang=en] #teil3 .
 .spark-w{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:6px;font-size:12px;color:var(--st,#e3b341)}.spark{width:180px;height:32px;flex:none}
 .fz-top a{white-space:nowrap}
 .fz-mk{font-size:11px;border:1px solid currentColor;border-radius:4px;padding:0 4px;opacity:.85;white-space:nowrap}
-#modus{white-space:nowrap}
+/* Schalter mit Name und zwei Quadraten (ALARM, MATRIX): ein Kasten, ein Aufbau */
+.sw-grp{display:inline-flex;align-items:center;gap:2px;border:1px solid var(--line);color:var(--dim);font-size:13px;padding:2px 4px 2px 10px;margin-left:4px;white-space:nowrap}
+.sw-grp:hover{border-color:var(--green)}
+.sw-grp .mq{background:none;border:0;border-radius:0;color:inherit;font:inherit;cursor:pointer;padding:4px 5px;min-width:26px;min-height:30px;margin:0}
+.sw-grp .mq:hover{color:var(--green)}
+html.alarm .sw-grp{color:#ff6b6b;border-color:#5a1a22}
+@media (max-width:480px){.sw-grp{font-size:12px;padding-left:7px}}
 .b-btns button[aria-pressed="true"]{border-color:var(--green);background:rgba(61,220,151,.12);color:var(--text)}.b-liste{list-style:none;margin:8px 0;padding:0}.b-liste li{padding:7px 0;border-top:1px dashed var(--dash);line-height:1.5;overflow-wrap:anywhere}.b-liste li:first-child{border-top:0}
 .b-hs h4{margin:14px 0 2px;font-size:13px;color:var(--dim);font-weight:400}
 .p-bereich{margin-bottom:14px}.b-h4,.b-hs h4{margin:16px 0 4px;font-size:13px;color:var(--dim);font-weight:400}.b-kacheln{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin-top:6px}.b-k{border:1px solid var(--line);border-radius:8px;padding:10px 12px;min-width:0}.b-kn{font-weight:600;margin-bottom:4px}.b-kz{font-size:13px;line-height:1.6}.b-k .fine{margin-top:4px;overflow-wrap:anywhere}
@@ -713,7 +719,6 @@ th.th-s{cursor:pointer;user-select:none;white-space:nowrap}th.th-s:hover,th.th-s
 .bs-zurueck{padding-top:2px;padding-bottom:0}.bs-zurueck a{display:inline-block;padding:8px 0;font-size:13px;color:var(--dim);text-decoration:none}.bs-zurueck a:hover,.bs-zurueck a:focus-visible{color:var(--text);text-decoration:underline}
 
 /* Alarm Stufe 2 (html.alarm2): kräftiger auf der ganzen Seite, nur Optik */
-#modus2{margin-left:-6px;padding-left:6px;padding-right:6px}
 html.alarm2 body::before{background:radial-gradient(ellipse at center,transparent 38%,rgba(150,0,12,.55) 100%);animation:alarmpuls 4s ease-in-out infinite}
 html.alarm2 body::after{background:repeating-linear-gradient(0deg,rgba(0,0,0,.4) 0,rgba(0,0,0,.4) 1px,transparent 1px,transparent 3px)}
 html.alarm2 h2,html.alarm2 .lbl{text-shadow:0 0 10px rgba(255,59,59,.35)}
