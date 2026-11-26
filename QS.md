@@ -105,6 +105,8 @@ Klein, kann der Bau-Chat danach erledigen:
 - 25.11.2026: Externe Links öffnen in einem neuen Tab.
 - 25.11.2026: Der Radar ist der Dreier-Pegel (ein Modell, ein Score).
 
+- **Web-Audit bei Dreier Labs (27.11.2026).** Gleiches Werkzeug und exakt dasselbe Dreier-Siegel wie hier. Geprüft werden nur öffentliche Seiten; Three Kings ist privat und steht nirgends (auch nicht in der Liste). Auf der Seite erscheint eine Domain erst, wenn `oeffentlich: true` in `audit/domains.json` steht (nach behobenen Befunden). Änderungen an Siegel, Regeln oder Texten immer in beiden Repos; je ein Test mit gleicher Siegel-Prüfsumme sichert das ab.
+
 ## Geprüft und verworfen
 
 - „Der Pegel bewegt sich kaum“ (Fremdkritik): stimmt nur für die letzten 90 Tage. Über 36 Monate liegt er zwischen 22 und 73, Median 40. Kritik am Pegel immer gegen den 3-Jahres-Verlauf im Rückblick prüfen.
@@ -112,7 +114,7 @@ Klein, kann der Bau-Chat danach erledigen:
 
 ## Erledigt (27.11.2026)
 
-- **Kurztext unter dem Pegel** sichtbar im HTML (`#hero-kurz`, de und en, von `prerender.py` gefüllt und von `app.js` aktualisiert); **Menü-Sprunglinks** `/logbuch` und `/berichte` (en: `/log`, `/reports`). Klicktest-Schritt „Menü und Kurztext" neu (4.366 Prüfungen, 0 Fehler), Handy und Desktop in beiden Sprachen angesehen; Menü auf dem Desktop bricht jetzt in eine zweite Zeile um statt über den Rand zu ragen.
+- **Web-Audit Dreier Labs gebaut und gepusht** (Repo dreierlabs, 426cc17): `audit/` mit `domains.json` (7 Adressen, nur cyberlage.org und .com öffentlich), Seite `/audit` de/en, Footer-Link, täglicher Lauf 05:35 UTC, Tests (47). Hier: Test mit Siegel-Prüfsumme. **Offen für Steve:** in dreierlabs die Secrets `TELEGRAM_BOT_TOKEN` und `TELEGRAM_AUDIT_CHAT_ID` setzen, dann Lauf von Hand mit Testmeldung starten. dreierlabs.com selbst hatte Score 38 (Kopfzeilen, HSTS, CAA, DNSSEC, Mail) und muss gehärtet werden, bevor die Seite erscheint.\n- **Kurztext unter dem Pegel** sichtbar im HTML (`#hero-kurz`, de und en, von `prerender.py` gefüllt und von `app.js` aktualisiert); **Menü-Sprunglinks** `/logbuch` und `/berichte` (en: `/log`, `/reports`). Klicktest-Schritt „Menü und Kurztext" neu (4.366 Prüfungen, 0 Fehler), Handy und Desktop in beiden Sprachen angesehen; Menü auf dem Desktop bricht jetzt in eine zweite Zeile um statt über den Rand zu ragen.
 - `llms.txt` und `security.txt` live geprüft (Steve, 26.11.).
 - Sicherheitspunkt 3 der Liste „Entscheiden" (finecomb) ist erledigt (siehe Abschnitt Sicherheitsprüfung).
 

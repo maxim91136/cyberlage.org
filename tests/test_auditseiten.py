@@ -140,6 +140,16 @@ class AuditseitenTests(unittest.TestCase):
         self.assertEqual(auditseiten.fuss_text(alt, REGELN, "de", JETZT), "Web-Audit: letzter Lauf 10.11.2026")
         self.assertEqual(auditseiten.fuss_text(zus("cyberlage.org", 40, "erhebliche Mängel"), REGELN, "en", JETZT), "Web audit: 40 / 100 · 26 Nov 2026")
 
+    SIEGEL_PRUEFSUMME = "76d0ed59d06668dcd6ca7b06be9bc82696c7216ffd212d003bc6c511b37bb12c"  # gleich in Dreier Labs (Repo dreierlabs, tests/test_audit_seiten.py)
+
+    def test_siegel_unveraendert_wie_bei_dreier_labs(self):
+        """Das Dreier-Siegel muss in Cyberlage und bei Dreier Labs gleich aussehen. Wer das Siegel ändert, ändert beide Repos und diese Prüfsumme."""
+        import hashlib
+        z = lambda score, stufe, stand="2026-11-26T09:57Z": {"domain": "x", "stand": stand, "score": score, "stufe": stufe}
+        svgs = [auditseiten.siegel("beispiel.de", z(*a), JETZT, REGELN) for a in ((100, "ohne Befund"), (85, "kleine Mängel"), (65, "Mängel"), (40, "erhebliche Mängel"), (None, "nicht bewertet (zu wenig geprüft)"))]
+        svgs.append(auditseiten.siegel("beispiel.de", z(100, "ohne Befund", "2026-11-10T05:20Z"), JETZT, REGELN))
+        self.assertEqual(hashlib.sha256("\n".join(svgs).encode()).hexdigest(), self.SIEGEL_PRUEFSUMME)
+
     def test_keine_unsicher_aussage(self):
         for sp in ("de", "en"):
             for text in auditseiten.T[sp]["siegel"]:
