@@ -228,6 +228,7 @@
     zeigeBereiche(d);
     d_life = d.patches && d.patches.lifecycle || null;
     d_prio = d.patches && d.patches.prioritaet || null;
+    zeigePatchLevel(d.patches && d.patches.microsoft, d_life);
     zeigeMicrosoft(d.patches && d.patches.microsoft);
     zeigeHersteller(d.patches && d.patches.hersteller);
 
@@ -955,9 +956,15 @@
       return pre + datum(x.ende) + (x.ed ? " (" + x.ed + ")" : "") + (x.erw ? pick(" · ESU bis ", " · ESU until ") + datum(x.erw) : "");
     }).join(" · ");
   }
-  function zeigePatchLevel(box, m, life) {
-    var s = m.systeme; if (!s || !Object.keys(s).length) return;
-    var heute = new Date().toISOString().slice(0, 10), wrap = el("div", "p-pl");
+  /* Patch-Level-Tabelle: eigener Kasten oben im Patch-Bereich, ohne Aufklappen sichtbar. */
+  function zeigePatchLevel(ms, life) {
+    var box = $("p-pl"); if (!box) return;
+    var mon = ms && ms.monate ? Object.keys(ms.monate).map(function (k) { return ms.monate[k]; }) : [];
+    mon.sort(function (a, c) { return String(a.erste_veroeffentlichung).localeCompare(String(c.erste_veroeffentlichung)); });
+    var m = mon[mon.length - 1], s = m && m.systeme;
+    if (!s || !Object.keys(s).length) { box.hidden = true; return; }
+    box.textContent = ""; box.hidden = false;
+    var heute = new Date().toISOString().slice(0, 10), wrap = box;
     wrap.appendChild(el("h4", "mono rd-t", pick("Patch-Level · Stand Patch Day " + monatName(m.id), "Patch level · as of patch day " + monatName(m.id))));
     var sc = el("div", "p-pl-s"), tb = el("table", "mono p-pl-t"), th = el("tr", "");
     [pick("System", "System"), pick("Aktuelle Build", "Current build"), "KB", pick("Support", "Support")].forEach(function (h) { th.appendChild(el("th", "", h)); });
@@ -973,7 +980,7 @@
     });
     sc.appendChild(tb); wrap.appendChild(sc);
     wrap.appendChild(el("p", "mono dim fine", pick("Build und KB gelten für alle Editionen; Home ist nicht aufgeführt. Stand des Patch Day (zweiter Dienstag); optionale Vorschau-Updates zwischendurch haben eine höhere Build. Ein Client mit niedrigerer Build hat den Patch nicht.", "Build and KB apply to all editions; Home is not listed. Patch-day level (second Tuesday); optional preview updates in between have a higher build. A client with a lower build is missing the patch.")));
-    box.appendChild(wrap);
+    var qq = el("p", "mono dim fine", pick("Quellen: ", "Sources: ")); qq.appendChild(link("https://msrc.microsoft.com/update-guide", "Microsoft Security Response Center")); qq.appendChild(document.createTextNode(" · ")); qq.appendChild(link("https://endoflife.date", "endoflife.date") ); qq.appendChild(document.createTextNode(life && life.meta ? pick(" (Stand ", " (as of ") + datum(String(life.meta.abgerufen_am).slice(0, 10)) + ")" : "")); wrap.appendChild(qq);
   }
   function zeigeSysteme(box, m, vorm, life) {
     var s = m.systeme; if (!s || !Object.keys(s).length) return;
@@ -1031,7 +1038,6 @@
     var kopf = el("h3", "mono rd-t", pick("Microsoft Patch Day · ", "Microsoft patch day · ") + monatName(m.id)); box.appendChild(kopf);
     var sub = el("p", "mono dim fine", pick("veröffentlicht ", "released ") + datum(String(m.erste_veroeffentlichung).slice(0, 10)) + pick(" · Stand der Daten ", " · data as of ") + datum(m.aktuell) + pick(" · abgerufen ", " · retrieved ") + datum(ms.meta && ms.meta.abgerufen_am) + pick(" · Quelle: ", " · source: "));
     sub.appendChild(link((ms.meta && ms.meta.quelle_url) || "https://msrc.microsoft.com/update-guide", "Microsoft Security Response Center")); box.appendChild(sub);
-    zeigePatchLevel(box, m, d_life);
     var dr = { dringend: ["pr-rot", pick("dringend", "urgent")], zeitnah: ["pr-gelb", pick("zeitnah", "prompt")], normal: ["pr-gruen", pick("normal", "normal")] }[b.dringlichkeit] || ["", ""];
     var bw = el("div", "p-bew"); bw.appendChild(el("span", "p-badge " + dr[0], dr[1] + (b.dringlichkeit === "dringend" && m.ausgenutzt ? pick(" · " + m.ausgenutzt + " bereits ausgenutzt", " · " + m.ausgenutzt + " already exploited") : "")));
     bw.appendChild(el("span", "", pick(b.groesse, b.groesse_en) + (b.verhaeltnis_median ? " · " + (window.I18N.lang === "en" ? "" : "das ") + b.verhaeltnis_median.toLocaleString(window.I18N.locale) + pick("-Fache des Medians der Vormonate (", "x the median of earlier months (") + zahl(b.median_vormonate) + ")" : "")));

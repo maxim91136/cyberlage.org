@@ -136,6 +136,7 @@ Klein, kann der Bau-Chat danach erledigen:
 
 - Patch-Level-Tabelle (System, aktuelle Build, KB, Support-Ende) oben in der Microsoft-Karte; Enterprise/Education und Pro (alles Volumenaktivierungsfähige, Entscheidung Steve), Home nicht; auch im Board.
 - Datenlauf 26.11. manuell gestartet: `lifecycle.json` und `systeme` (Nov, Okt) sind da, echte Build-Nummern angezeigt. Support-Zyklen von endoflife.date (-w, -e, -e-lts, ohne Suffix) werden erkannt; Home und IoT nicht.
+- Umbau Schritt 1 (26.11.): Patch-Level-Tabelle ist ein eigener Kasten `#p-pl` oben im Patch-Bereich, nicht mehr im eingeklappten Microsoft-Block.
 - **Offen:** Seite ist zu lang („Monster“). Steve will Umbau: Handeln in eigene Seiten, Startseite nur Kurzblock. Erst nach seinem Ja.
 
 **Offen / nach dem nächsten Datenlauf prüfen:** erscheinen `lifecycle.json` und `systeme` (Nov und Okt)? Sieht das Board mit echten Daten richtig aus? Board nur auf der Startseite, andere Seiten nicht. Entfernter Probe-Zweig `probe-ms` muss gelöscht sein.
