@@ -793,3 +793,13 @@ main .b-btns button,main .p-btns button,main .b-mehr,main .t-k,main .t-alle{font
 /* Umschalter „Details“, „Zahlen, Produkte und Verlauf“ usw. */
 main .rd-det>summary,main .p-mehr>summary,main .p-det>summary{font:400 var(--t-klein)/1.5 ui-monospace,"SFMono-Regular","Cascadia Mono",Menlo,Consolas,monospace;color:var(--green)}
 main h4:not(.rd-t):not(.b-h4){font-weight:600}
+/* Info: Knopf wie in den anderen Teilen groß geschrieben, alle Zeilen gleich hoch */
+#teil3 .akk>summary::after{text-transform:uppercase}
+#teil3 .akk>summary{min-height:56px;box-sizing:border-box;padding-top:0;padding-bottom:0;align-items:center}
+/* „Zuerst patchen“: dichter, gleiche Maße */
+main .p-rang li{padding:8px 12px 8px 44px;margin-bottom:6px}
+main .p-rang li::before{top:6px;font-size:20px}
+main .p-w{margin-top:2px;font-size:var(--t-text)}
+main .p-fix{margin-top:4px;padding:5px 10px;font-size:var(--t-text);line-height:1.45}
+main .p-rang .p-det{margin-top:2px}
+main .p-rang .p-det>summary{padding:2px 0}
