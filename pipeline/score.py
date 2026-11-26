@@ -494,6 +494,9 @@ def main(argv):
             for e in prio["liste"]:
                 e["bereich"] = nach_quelle.get(e.get("quelle")) or bereiche.zuordnen("Microsoft", e.get("titel", ""), bcfg)
         ergebnis.setdefault("patches", {})["prioritaet"] = prio
+    life = lese_optional(WURZEL / "data" / "patches" / "lifecycle.json")
+    if life and life.get("produkte"):
+        ergebnis.setdefault("patches", {})["lifecycle"] = life
     hers = lese_optional(WURZEL / "data" / "patches" / "hersteller.json")
     if hers and hers.get("quellen"):
         ergebnis.setdefault("patches", {})["hersteller"] = {"meta": hers.get("meta"), "quellen": {k: {f: w for f, w in q.items() if f != "reihe"} for k, q in hers["quellen"].items()}}

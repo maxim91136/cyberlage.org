@@ -16,6 +16,7 @@ import re
 import sys
 import urllib.request
 import xml.etree.ElementTree as ET
+from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from datetime import timedelta
 from email.utils import parsedate_to_datetime
@@ -153,6 +154,54 @@ def familie(name):
     return "Sonstige"
 
 
+OS_ZEILEN = ("Windows 11", "Windows 10", "Windows Server")
+_OS_CLIENT = re.compile(r"^Windows (11|10) [Vv]ersion (\w+)")
+_OS_SERVER = re.compile(r"^Windows Server (2012 R2|2012|2016|2019|2022|2025)\s*(?:\(Server Core installation\))?$")
+_BUILD = re.compile(r"^\d+(?:\.\d+){2,3}$")
+
+
+def os_schluessel(name):
+    """Produktname -> Betriebssystem-Version („Windows 11 24H2“, „Windows Server 2025“); Erweiterungen, Edge u. a. ergeben None."""
+    n = (name or "").strip()
+    m = _OS_CLIENT.match(n)
+    if m:
+        return "Windows %s %s" % (m.group(1), m.group(2).upper())
+    m = _OS_SERVER.match(n)
+    if m:
+        return "Windows Server %s" % m.group(1)
+    return None
+
+
+def os_fix(v, produkte):
+    """Je Betriebssystem-Version der Fix dieser CVE: {Schlüssel: (Build, KB)}, nur Hersteller-Fixes (Typ 2) mit Build und KB-Nummer."""
+    out = {}
+    for r in v.get("Remediations") or []:
+        if r.get("Type") != 2:
+            continue
+        fb = str(r.get("FixedBuild") or "").strip()
+        kb = _wert(r.get("Description")).strip()
+        if not _BUILD.match(fb) or not re.fullmatch(r"\d{6,8}", kb):
+            continue
+        for pid in r.get("ProductID") or []:
+            k = os_schluessel(produkte.get(str(pid), ""))
+            if k:
+                out[k] = (fb, kb)
+    return out
+
+
+def verdichte_systeme(zaehler, fixe):
+    """Je Betriebssystem-Version: CVEs, kritisch, ausgenutzt; Build und KB des Fixes, der am häufigsten genannt wird. Sortiert: 11, 10, Server (neu zuerst)."""
+    def reihenfolge(k):
+        gruppe = next((i for i, g in enumerate(OS_ZEILEN) if k.startswith(g)), 9)
+        return (gruppe, [-int(x) if x.isdigit() else 0 for x in re.findall(r"\d+", k)], k)
+    res = {}
+    for k in sorted(zaehler, key=reihenfolge):
+        z = zaehler[k]
+        (build, kb), _ = fixe[k].most_common(1)[0] if fixe.get(k) else (("", ""), 0)
+        res[k] = {"cves": z["cves"], "kritisch": z["kritisch"], "ausgenutzt": z["ausgenutzt"], "kb": kb, "build": build}
+    return res
+
+
 def verdichte_dokument(doc, kev_cves=()):
     """CVRF-Dokument -> Kennzahlen eines Monats. Fehlende Felder bleiben unberücksichtigt, nichts wird geraten."""
     kev = set(kev_cves)
@@ -167,6 +216,7 @@ def verdichte_dokument(doc, kev_cves=()):
     ohne_fix = []
     chrom = {"edge": "", "chrome": "", "kev": []}
     gesehen = set()
+    os_zaehler, os_fixe = {}, {}
     for v in doc.get("Vulnerability") or []:
         cve = v.get("CVE")
         if not cve or cve in gesehen:
@@ -213,6 +263,19 @@ def verdichte_dokument(doc, kev_cves=()):
         if patch == "nein":
             ohne_fix.append(cve)
         ist_aus = bool(re.search(r"Exploited:\s*Yes", ex_text, re.I))
+        os_da = set()
+        for st in v.get("ProductStatuses") or []:
+            for pid in st.get("ProductID") or []:
+                k = os_schluessel(produkte.get(str(pid), ""))
+                if k:
+                    os_da.add(k)
+        for k in os_da:
+            z = os_zaehler.setdefault(k, {"cves": 0, "kritisch": 0, "ausgenutzt": 0})
+            z["cves"] += 1
+            z["kritisch"] += 1 if sev == "Critical" else 0
+            z["ausgenutzt"] += 1 if ist_aus else 0
+        for k, bk in os_fix(v, produkte).items():
+            os_fixe.setdefault(k, Counter())[bk] += 1
         ist_oeff = bool(re.search(r"Publicly Disclosed:\s*Yes", ex_text, re.I))
         if ist_aus or ist_oeff or cve in kev or sev == "Critical":
             fam_c = set()
@@ -245,6 +308,7 @@ def verdichte_dokument(doc, kev_cves=()):
         "im_kev": len(in_kev), "im_kev_cves": sorted(in_kev)[:25],
         "auswirkung": dict(sorted(auswirkung.items(), key=lambda kv: -kv[1])[:8]),
         "familien": dict(sorted(fam.items(), key=lambda kv: -kv[1])),
+        "systeme": verdichte_systeme(os_zaehler, os_fixe),
         "cve_liste": sorted(cves),
         "kandidaten": sorted(kandidaten, key=lambda k: (not k["kev"], not k["ausgenutzt"], not k["oeffentlich"], k["cve"]))[:40],
     }
@@ -325,7 +389,8 @@ def aktualisiere(alt, liste_json, hole_dok, kev_cves, jetzt):
         vorher = monate.get(mid)
         if vorher and vorher.get("schema") != SCHEMA:
             vorher = None  # alte Zählweise: neu holen, keine Nachträge daraus ableiten
-        if vorher and vorher.get("aktuell") == e.get("CurrentReleaseDate"):
+        nachholen = "systeme" not in (vorher or {}) and e in ziel[-2:]  # Betriebssystem-Zahlen einmalig für die letzten zwei Monate nachholen
+        if vorher and vorher.get("aktuell") == e.get("CurrentReleaseDate") and not nachholen:
             continue
         zu_holen.append((e, vorher))
 
@@ -369,6 +434,41 @@ def aktualisiere(alt, liste_json, hole_dok, kev_cves, jetzt):
                      "hinweis": "Zählung je CVE; Chromium-Lücken im Edge und Linux-Paketlücken von Azure Linux sind ausgenommen und getrennt ausgewiesen. Schweregrad, Ausnutzung und Bekanntheit stammen vom Hersteller.",
                      "fehler": fehler},
             "monate": {m["id"]: m for m in reihe}}
+
+
+# ---------- Support-Ende der Betriebssysteme (endoflife.date) ----------
+LIFE_DATEI = WURZEL / "data" / "patches" / "lifecycle.json"
+LIFE_QUELLE = "https://endoflife.date"
+LIFE_PRODUKTE = (("windows", "Windows"), ("windows-server", "Windows Server"))
+LIFE_RUECK_TAGE = 400  # Einträge, deren Support vor mehr als gut einem Jahr endete, bleiben draußen
+
+
+def lifecycle_zyklus(slug, e):
+    """Ein Eintrag von endoflife.date -> kompakt; Datumsfelder, die „false“ oder fehlen, bleiben leer."""
+    def d(x):
+        return x if isinstance(x, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", x) else ""
+    return {"zyklus": str(e.get("cycle", "")), "eol": d(e.get("eol")), "support": d(e.get("support")), "erweitert": d(e.get("extendedSupport")),
+            "erschienen": d(e.get("releaseDate")), "lts": bool(e.get("lts")), "neueste": str(e.get("latest", ""))[:24]}
+
+
+def aktualisiere_lifecycle(alt, heute, jetzt, lade=lade_json):
+    """Support-Ende je Windows- und Windows-Server-Zyklus. Je Produkt fail-soft: Schlägt ein Abruf fehl, bleibt der alte Eintrag."""
+    alt = alt or {}
+    produkte, fehler = dict(alt.get("produkte") or {}), []
+    grenze = (heute - timedelta(days=LIFE_RUECK_TAGE)).isoformat()
+    for slug, name in LIFE_PRODUKTE:
+        try:
+            roh = lade("https://endoflife.date/api/%s.json" % slug)
+            zyklen = [lifecycle_zyklus(slug, e) for e in roh if isinstance(e, dict)]
+            zyklen = [z for z in zyklen if z["zyklus"] and z["eol"] and max(z["eol"], z["erweitert"]) >= grenze]
+            if not zyklen:
+                raise QuellFehler("keine Einträge")
+            produkte[slug] = {"name": name, "zyklen": sorted(zyklen, key=lambda z: z["eol"])}
+        except Exception as ex:
+            fehler.append("%s: %s" % (slug, ex))
+    return {"meta": {"quelle": "endoflife.date (offene Daten, Herstellerangaben)", "quelle_url": LIFE_QUELLE, "abgerufen_am": jetzt.isoformat(timespec="seconds"),
+                     "hinweis": "Support-Ende laut Microsoft-Lebenszyklus, gesammelt von endoflife.date. Erweitertes Support-Programm (ESU) nur, wenn dort ein Datum steht.", "fehler": fehler},
+            "produkte": produkte}
 
 
 # ---------- Stufe 2 und 3: Distributionen und Hersteller ----------
@@ -1030,6 +1130,12 @@ def main():
             print("  Fehler:", f)
     except Exception as e:
         print("Microsoft-Patches: Abruf fehlgeschlagen, alter Stand bleibt (%s)" % e)
+    try:
+        lc = aktualisiere_lifecycle(lese_datei(LIFE_DATEI), jetzt.date(), jetzt)
+        LIFE_DATEI.write_text(json.dumps(lc, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+        print("Support-Ende: %s%s" % (", ".join("%s %d" % (k, len(v["zyklen"])) for k, v in lc["produkte"].items()), ("; Fehler: " + "; ".join(lc["meta"]["fehler"])) if lc["meta"]["fehler"] else ""))
+    except Exception as e:
+        print("Support-Ende: Fehler (%s)" % e)
     try:
         hs = aktualisiere_hersteller(lese_datei(HERSTELLER_DATEI), jetzt.date(), jetzt, kev=kev_cves())
         HERSTELLER_DATEI.parent.mkdir(parents=True, exist_ok=True)

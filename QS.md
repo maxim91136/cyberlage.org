@@ -129,6 +129,13 @@ Klein, kann der Bau-Chat danach erledigen:
 
 - **Quellenvorschläge von einem Kollegen (26.11., Steve: nicht wegen jeder Anregung ändern).** EUVD/ENISA ist schon drin (EU-KEV, nur „ausgenutzt“; die Liste „Critical“ bewusst nicht). Kommunale Vorfallslisten (kommunaler-notbetrieb.de von Jens Lange, CC BY-SA 4.0, nur RSS, keine Quellen je Vorfall; ebenso konbriefing.com/de-topics/hackerangriff-deutschland.html und kommunalwiki.boell.de/index.php/Cyberangriffe, beide nicht geprüft): Einzelfälle von Hand gepflegt, passen nicht zur Regel „Quelle und Stand je Wert“. Nicht aufnehmen, höchstens später als Link/Einordnung ohne Einfluss auf die Stufe. Kein Hinweis auf der Startseite, für wen die Seite gedacht ist: Die Seite richtet sich an Fachleute und Einarbeitungswillige, das bleibt so.
 
+## Erledigt (Microsoft-Patches und Termin-Board, 26.11.2026)
+
+- Pipeline: `monate[...].systeme` (CVEs, kritisch, ausgenutzt, KB, Build je Windows 11 / 10 / Server-Version aus dem Patch-Day-Dokument), `data/patches/lifecycle.json` (Support-Ende, Quelle endoflife.date, Stand je Abruf; bei Ausfall bleibt der alte Stand). Die letzten zwei Monate werden einmalig nachgeholt. Tests: 163 OK.
+- Seite: Board „Anstehend“ im Kopf (fest, kein Lauftext): nächster Microsoft Patch Day, Support-Enden der nächsten 120 Tage. Microsoft-Karte: Countdown, Stand je System mit Vormonat, KB, Build, Support-Ende, „Zuerst patchen“ getrennt nach Server und Arbeitsplätzen (nur Anzeige der vorhandenen Prioritätsliste, keine neue Regel, daher kein RULES-Eintrag). Klicktest 4478/0; 390 px und Desktop, Deutsch und Englisch mit synthetischen Daten angesehen.
+
+**Offen / nach dem nächsten Datenlauf prüfen:** erscheinen `lifecycle.json` und `systeme` (Nov und Okt)? Sieht das Board mit echten Daten richtig aus? Board nur auf der Startseite, andere Seiten nicht. Entfernter Probe-Zweig `probe-ms` muss gelöscht sein.
+
 ## Erledigt (Regelversion im Siegel sichtbar, 26.11.2026)
 
 - Steve: Das Dreier-Siegel muss die Regelversion zeigen. Vorher nur im Tooltip und auf der Audit-Seite. Jetzt: Zeile „REGELN 1.0“ im Stempel (unter dem Abzeichen, bei allen Farben) und „· Regeln 1.0“ / „· Rules 1.0“ im Fußtext der Startseite. Siegelcode in Cyberlage (`pipeline/auditseiten.py`) und Dreier Labs (`scripts/audit_seiten.py`) gleich geändert, neue Prüfsumme d6290c53… in beiden Tests. Dreier Labs erzeugt die SVGs beim nächsten Audit-Lauf neu.

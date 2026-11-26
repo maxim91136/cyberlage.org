@@ -731,3 +731,22 @@ html.alarm2 .beta{border-bottom-color:#ff3b3b}
 html.alarm2 .beta::after{animation:blink 1.4s steps(1) infinite}
 @keyframes alarmpuls{0%,100%{opacity:.75}50%{opacity:1}}
 @media (prefers-reduced-motion:reduce){html.alarm2 body::before,html.alarm2 .beta::after{animation:none}}
+
+/* Board im Kopf: feststehende Tafel mit den nächsten wichtigen Terminen */
+.board{border-bottom:1px solid var(--line);background:#080c0f}
+.board[hidden]{display:none}
+.bd{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 18px;max-width:1160px;margin:0 auto;padding:8px 32px}
+.bd-h{font-size:12px;letter-spacing:.1em;color:var(--dim)}
+.bd ul{list-style:none;margin:0;padding:0;flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}
+.bd-r{display:flex;flex-wrap:wrap;gap:0 12px;font-size:13px;line-height:1.5}
+.bd-d{min-width:104px}.bd-c{min-width:92px;color:var(--dim)}
+.bd-nah .bd-c{color:var(--amber);font-weight:700}
+.bd-m{font-size:12px;color:var(--dim);white-space:nowrap}
+@media (max-width:640px){.bd-n{flex-basis:100%}.bd-r{margin-bottom:4px}.bd{padding:8px 16px}.bd-d{min-width:96px}.bd-r:nth-child(n+4){display:none}}
+/* Microsoft: Stand je System, Zuerst patchen */
+.p-nx{margin:6px 0;font-size:13px;color:var(--amber)}
+.p-sys,.p-prio{margin:14px 0}
+.p-sg{margin:12px 0 4px;font-size:13px;color:var(--dim);letter-spacing:.05em}
+.p-sr{padding:6px 0;border-bottom:1px solid var(--line)}.p-sr:last-of-type{border-bottom:none}
+.p-sk{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 12px;font-size:13px}.p-sv{min-width:64px}
+.p-ss{margin-top:2px}
