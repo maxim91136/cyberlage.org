@@ -64,7 +64,7 @@ def _kopf(sp, titel, beschreibung, pfad_de, pfad_en, extra=""):
             '<meta name="theme-color" content="#06090b">\n<link rel="stylesheet" href="/style.css">%s</head>\n'
             '<body class="bs"><header class="kopf"><div class="wrap marke"><a class="brand" href="%s"><img src="/favicon.svg" width="30" height="30" alt=""><span>cyberlage<span class="dim">.org</span></span></a></div>'
             '<div class="wrap bs-zurueck"><a class="mono" href="%s">%s</a></div></header>\n'
-            % (sp, _e(titel), _e(beschreibung), BASIS, eigen, BASIS, pfad_de, BASIS, pfad_en, BASIS, pfad_de, _e(titel), _e(beschreibung), BASIS, eigen, BASIS, extra, T[sp]["start"], T[sp]["start"], "← Dreier Gauge" if sp == "en" else "← Dreier-Pegel"))
+            % (sp, _e(titel), _e(beschreibung), BASIS, eigen, BASIS, pfad_de, BASIS, pfad_en, BASIS, pfad_de, _e(titel), _e(beschreibung), BASIS, eigen, BASIS, extra, T[sp]["start"], T[sp]["start"], "← Back" if sp == "en" else "← Zurück"))
 
 
 def _fuss(sp, andere_pfad):
