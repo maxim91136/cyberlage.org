@@ -143,6 +143,7 @@ Klein, kann der Bau-Chat danach erledigen:
 - **Steve (26.11.):** „das Tool wird ein Schweizer Taschenmesser“. Beim Ausbau gilt deshalb: jede neue Funktion braucht klaren Nutzen für Admins und SOC, sonst nicht bauen.
 - Umbau Schritt 3 (26.11.): Immer nur ein Teil und innerhalb eines Teils nur ein Abschnitt offen (`exklusiv()` in app.js; gilt für Klicks, Menü und Sprunglinks, nicht für Drucken). Klicktest 4538/0. Steve: Seite ist Desktop-Leitstand, auf dem iPhone aber gut nutzbar; beides pflegen, Desktop zuerst.
 - Layout vereinheitlicht (26.11.): Lebenszyklen mit festen Spalten und gleichen Kopfzeilen; Patch-Level mit getrennten Spalten (Ende Enterprise/Server, Pro, LTSC, ESU), abgelaufene rot.
+- **Prioritätenplan Vereinheitlichung (Steve, 26.11.: „die ganze Seite nochmal sauberer, professioneller“):** (1) Typografie-Maßstab als Variablen am Ende von `style.css` (Titel 15, Text 14, klein 13, fein 12; Knöpfe, Listen, Tabellenzellen, Details-Schalter) – erledigt. (2) Kopfzeilen der Abschnitte und Unterklappen. (3) „Zuerst patchen“ kompakter. (4) Desktop: Kästen nebeneinander. (5) Handy-Karten für Tabellen. (6) Startseite oben. Je Schritt Tests, Klicktest, Bilder in drei Modi, Push.
 - **Offen:** Weitere Tabellen (Termine, „Zuerst patchen“, Hersteller) auf dasselbe Muster prüfen; Patch-Level und „Zuerst patchen“ auf Desktop nebeneinander; Handy-Karten für Patch-Level.
 - **Offen:** Weitere Verkürzung der Seite nach Schritt 3 prüfen („Monster“). Steve will Umbau: Handeln in eigene Seiten, Startseite nur Kurzblock. Erst nach seinem Ja.
 
