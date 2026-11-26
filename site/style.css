@@ -770,3 +770,10 @@ html.alarm2 .beta::after{animation:blink 1.4s steps(1) infinite}
 .tw-fr td{padding:2px 14px 6px 0;border-bottom:1px solid var(--line)}
 .tw-cf{width:100%;min-width:70px;max-width:220px;font-size:12px;padding:3px 6px}
 .p-pl-t th.th-s{cursor:pointer}
+/* Lebenszyklen: einheitliche Spalten über alle Produkte */
+.lz-p>summary{display:grid;grid-template-columns:minmax(200px,300px) 1fr auto;align-items:center;gap:2px 16px}
+.lz-p>summary .lz-n{text-align:left}
+.lz-t{table-layout:fixed}
+.lz-t th:nth-child(1){width:38%}.lz-t th:nth-child(2){width:20%}.lz-t th:nth-child(3){width:20%}.lz-t th:nth-child(4){width:22%}
+.lz-t td,.lz-t th{white-space:normal;overflow-wrap:anywhere}
+@media (max-width:640px){.lz-p>summary{grid-template-columns:1fr auto}.lz-p>summary .lz-n{grid-column:1/2;grid-row:2}.lz-t{table-layout:auto}.lz-t td,.lz-t th{white-space:nowrap}}

@@ -1006,7 +1006,7 @@
         var h = el("h4", "mono", p.name); sm.appendChild(h);
         sm.appendChild(el("span", "mono dim lz-n", kommend.length ? pick("nächstes Ende ", "next end ") + datum(kommend[0].z.eol) + " (" + inTagen(kommend[0].t) + ")" : pick("kein Ende in Sicht", "no end in sight")));
         d.appendChild(sm);
-        var sc = el("div", "p-pl-s"), tab = el("table", "mono p-pl-t tw-sp"), kp = el("thead", ""), tb = el("tbody", ""), th = el("tr", "");
+        var sc = el("div", "p-pl-s"), tab = el("table", "mono p-pl-t tw-sp lz-t"), kp = el("thead", ""), tb = el("tbody", ""), th = el("tr", "");
         [pick("Version", "Version"), pick("Support-Ende", "End of support"), pick("Erweitert (ESU, ESM)", "Extended (ESU, ESM)"), pick("Restzeit", "Time left")].forEach(function (c) { th.appendChild(el("th", "", c)); });
         kp.appendChild(th); tab.appendChild(kp); tab.appendChild(tb);
         kommend.concat(rest).forEach(function (x) {
