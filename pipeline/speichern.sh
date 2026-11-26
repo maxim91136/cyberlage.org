@@ -5,7 +5,7 @@
 # Der Lauf übernimmt seine Rohdaten (data/), setzt auf den neuesten Stand von main auf und rechnet die erzeugten Dateien
 # (site/data, Feed, Startseite, Berichte, Sitemap) damit neu. Telegram wurde vorher schon gesendet und wird nicht wiederholt.
 set -u
-PFADE="data site/data site/feed.xml site/index.html site/RULES.md site/LICENSE site/en site/bericht site/sitemap.xml"
+PFADE="data site/data site/feed.xml site/index.html site/RULES.md site/LICENSE site/en site/bericht site/audit site/sitemap.xml"
 
 git config user.name "cyberlage-bot"
 git config user.email "cyberlage-bot@users.noreply.github.com"

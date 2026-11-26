@@ -138,6 +138,7 @@ def englisch(s, lage):
         s, n = re.subn(muster, neu, s, count=1)
         if n != 1:
             raise ValueError("englische Seite: Muster fehlt: " + muster[:40])
+    s = s.replace('<a href="/audit/"', '<a href="/en/audit/"')  # Menüpunkt Audit zeigt auf die englische Seite
     name = stufe_en(lage)
     if name and isinstance((lage.get("pegel") or {}).get("wert"), int):
         s = re.sub(r'(<a id="hero-pegel"[^>]*>)[^<]*(</a>)', lambda m: m.group(1) + "Dreier Gauge today: %s · %d / 100  · Details" % (e(name.upper()), lage["pegel"]["wert"]) + m.group(2), s, count=1)
@@ -190,6 +191,11 @@ def main():
     except (OSError, ValueError, KeyError) as err:  # ohne Berichte bleibt die Startseite trotzdem aktuell
         print("Hinweis: Berichtsseiten nicht geschrieben:", err)
         bs = []
+    import auditseiten
+    try:
+        bs += auditseiten.schreibe(WURZEL)  # Audit-Seite mit Dreier-Siegel aus data/audit/*.json
+    except (OSError, ValueError, KeyError) as err:
+        print("Hinweis: Audit-Seite nicht geschrieben:", err)
     (WURZEL / "site" / "sitemap.xml").write_text(sitemap(lage, bs), encoding="utf-8")
     (WURZEL / "site" / "RULES.md").write_text((WURZEL / "RULES.md").read_text(encoding="utf-8"), encoding="utf-8")  # Regeln auch unter cyberlage.org/RULES.md
     (WURZEL / "site" / "data" / "sources.csv").write_text((WURZEL / "data" / "sources.csv").read_text(encoding="utf-8"), encoding="utf-8")  # Quellenliste öffentlich

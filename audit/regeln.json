@@ -6,6 +6,7 @@
   "deckel": {"gruppen": ["weiterleitung", "tls"], "max_score": 59},
   "mindest_abdeckung": 0.9,
   "stufen": [[95, "ohne Befund"], [80, "kleine Mängel"], [60, "Mängel"], [0, "erhebliche Mängel"]],
+  "abzeichen": [[95, "gold"], [80, "silber"], [60, "bronze"]],
   "gruppen": {
     "tls":           {"name": "TLS und Zertifikat",         "gewicht": 22, "quelle": "BSI TR-02102-2; Mozilla Server Side TLS; RFC 8996"},
     "csp":           {"name": "Content-Security-Policy",    "gewicht": 16, "quelle": "MDN HTTP Observatory; OWASP HTTP Headers Cheat Sheet"},

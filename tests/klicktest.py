@@ -11,6 +11,7 @@ Geprüft wird in zwei Breiten (Handy 390, Desktop 1280) und zwei Sprachen:
   6. Am Ende, alles aufgeklappt: kein "undefined", "NaN" oder "[object" im Text, Sprungziele vorhanden, kein Knopf ohne Namen.
 """
 import functools
+import json
 import http.server
 import pathlib
 import re
@@ -226,6 +227,35 @@ def pruefe_berichtseiten(pg, wurzel, sprache, p):
         p.ok(pg.evaluate("location.pathname") == ziel and pg.locator("article.br").count() == 1, "Nachbar-Link führt nicht nach %s" % ziel)
 
 
+def pruefe_auditseite(pg, wurzel, sprache, p):
+    """Menüpunkt /audit führt auf die Audit-Seite in der Sprache; Siegel, Kacheln und Zahlen stimmen mit data/audit überein."""
+    pfad = "/en/audit/" if sprache == "en" else "/audit/"
+    lade(pg, wurzel + ("/en/" if sprache == "en" else "/"), p)
+    p.ok(pg.locator("#n-audit").get_attribute("href") == pfad, "Menüpunkt /audit zeigt auf %s" % pg.locator("#n-audit").get_attribute("href"))
+    p.ok(rand(pg) <= 1, "Menü mit /audit: %d px über dem Rand" % rand(pg))
+    pg.click("#n-audit")
+    pg.wait_for_load_state()
+    p.ok(pg.evaluate("location.pathname") == pfad, "Menüpunkt /audit führt nach %s" % pg.evaluate("location.pathname"))
+    daten = {}
+    for f in sorted((SITE.parent / "data" / "audit").glob("*.json")):
+        d = json.loads(f.read_text(encoding="utf-8"))
+        daten[d["domain"]] = d
+    seite = pg.evaluate("""() => ({ karten: [...document.querySelectorAll('.au-karte')].map(k => ({ dom: k.querySelector('.au-dom').textContent, score: k.querySelector('.au-sc strong').textContent,
+            svg: k.querySelectorAll('svg').length, svgtext: k.querySelector('svg').textContent, kacheln: k.nextElementSibling.querySelectorAll('.au-k').length })),
+        skripte: document.querySelectorAll('script:not([type="application/ld+json"])').length, lang: document.documentElement.lang, alt: document.querySelectorAll('link[hreflang]').length,
+        kanon: document.querySelector('link[rel=canonical]').href, text: document.body.innerText })""")
+    p.ok(len(seite["karten"]) == len(daten) and len(daten) >= 2, "Audit-Seite zeigt %d Karten für %d Domains" % (len(seite["karten"]), len(daten)))
+    for k in seite["karten"]:
+        d = daten.get(k["dom"])
+        p.ok(d is not None and k["score"] == str(d["score"]), "Audit-Seite %s: Score %s statt %s" % (k["dom"], k["score"], d and d["score"]))
+        p.ok(k["svg"] == 1 and "DREIER-SIEGEL" in k["svgtext"] and k["kacheln"] == 12, "Audit-Seite %s: Siegel oder Kacheln fehlen (%s)" % (k["dom"], {x: k[x] for x in ("svg", "kacheln")}))
+    p.ok(seite["skripte"] == 0 and seite["lang"] == sprache and seite["alt"] == 3 and seite["kanon"].endswith(pfad), "Audit-Seite: Kopf %s" % {x: seite[x] for x in ("skripte", "lang", "alt", "kanon")})
+    p.ok(not MUELL.search(seite["text"]), "Audit-Seite: Platzhalter im Text")
+    p.ok(rand(pg) <= 1, "Audit-Seite: %d px über dem Rand" % rand(pg))
+    r = pg.request.get(wurzel + "/audit/siegel/cyberlage.org.svg")
+    p.ok(r.status == 200 and "svg" in r.headers.get("content-type", ""), "Siegel-Datei: Status %s, Typ %s" % (r.status, r.headers.get("content-type")))
+
+
 def pruefe_en_zeile(pg, wurzel, sprache, p):
     """Hinweis für englische Browser: nur auf der deutschen Startseite, führt nach /en/, lässt sich dauerhaft ausblenden.
     Der Test-Browser meldet auf der deutschen Seite Englisch, auf der englischen Deutsch (siehe SPRACHEN)."""
@@ -265,7 +295,7 @@ def main():
                 schritte = (("Klappen", lambda: pruefe_klappen(pg, p)), ("Bereiche", lambda: pruefe_bereiche(pg, p)), ("Berichte", lambda: pruefe_berichte(pg, p)),
                             ("Reiter", lambda: pruefe_reiter(pg, p)), ("Alles offen", lambda: pruefe_alles_offen(pg, p)),
                             ("Direktlinks", lambda: pruefe_direktlinks(pg, basis + pfad, p)), ("Sprachknopf", lambda: pruefe_sprachknopf(pg, basis + pfad, sprache, p)),
-                            ("Menü und Kurztext", lambda: pruefe_menue_und_kurztext(pg, basis + pfad, p)), ("Berichtsseiten", lambda: pruefe_berichtseiten(pg, basis, sprache, p)), ("Hinweiszeile", lambda: pruefe_en_zeile(pg, basis, sprache, p)))
+                            ("Menü und Kurztext", lambda: pruefe_menue_und_kurztext(pg, basis + pfad, p)), ("Berichtsseiten", lambda: pruefe_berichtseiten(pg, basis, sprache, p)), ("Audit-Seite", lambda: pruefe_auditseite(pg, basis, sprache, p)), ("Hinweiszeile", lambda: pruefe_en_zeile(pg, basis, sprache, p)))
                 try:
                     lade(pg, basis + pfad, p)
                     p.ok(pg.evaluate("document.documentElement.lang") == sprache, "Sprache der Seite %s ist %s" % (pfad, pg.evaluate("document.documentElement.lang")))
