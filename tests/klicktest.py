@@ -263,6 +263,26 @@ def pruefe_auditseite(pg, wurzel, sprache, p):
     p.ok(r.status == 200 and "svg" in r.headers.get("content-type", ""), "Siegel-Datei: Status %s, Typ %s" % (r.status, r.headers.get("content-type")))
 
 
+def pruefe_linkseite(pg, wurzel, sprache, p):
+    """Menüpunkt /links führt auf die Linkseite in der Sprache; alle Einträge aus data/links.json stehen da, externe Links öffnen im neuen Tab."""
+    pfad = "/en/links/" if sprache == "en" else "/links/"
+    lade(pg, wurzel + ("/en/" if sprache == "en" else "/"), p)
+    p.ok(pg.locator("#n-links").get_attribute("href") == pfad, "Menüpunkt /links zeigt auf %s" % pg.locator("#n-links").get_attribute("href"))
+    p.ok(rand(pg) <= 1, "Menü mit /links: %d px über dem Rand" % rand(pg))
+    pg.click("#n-links")
+    pg.wait_for_load_state()
+    p.ok(pg.evaluate("location.pathname") == pfad, "Menüpunkt /links führt nach %s" % pg.evaluate("location.pathname"))
+    daten = json.loads((SITE.parent / "data" / "links.json").read_text(encoding="utf-8"))
+    seite = pg.evaluate("""() => ({ karten: document.querySelectorAll('.ln-k').length, skripte: document.querySelectorAll('script:not([type="application/ld+json"])').length,
+        lang: document.documentElement.lang, links: [...document.querySelectorAll('.ln-k h3 a')].map(a => ({ h: a.href, t: a.target, r: a.rel })), text: document.body.innerText })""")
+    p.ok(seite["karten"] == len(daten["links"]), "Linkseite zeigt %d Karten für %d Einträge" % (seite["karten"], len(daten["links"])))
+    p.ok(all(l["t"] == "_blank" and "noopener" in l["r"] for l in seite["links"]), "Linkseite: externe Links ohne neuen Tab")
+    p.ok({l["h"] for l in seite["links"]} == {x["url"] for x in daten["links"]}, "Linkseite: Adressen weichen von data/links.json ab")
+    p.ok(seite["skripte"] == 0 and seite["lang"] == sprache, "Linkseite: Skripte %d, Sprache %s" % (seite["skripte"], seite["lang"]))
+    p.ok(not MUELL.search(seite["text"]), "Linkseite: Platzhalter im Text")
+    p.ok(rand(pg) <= 1, "Linkseite: %d px über dem Rand" % rand(pg))
+
+
 def pruefe_en_zeile(pg, wurzel, sprache, p):
     """Hinweis für englische Browser: nur auf der deutschen Startseite, führt nach /en/, lässt sich dauerhaft ausblenden.
     Der Test-Browser meldet auf der deutschen Seite Englisch, auf der englischen Deutsch (siehe SPRACHEN)."""
@@ -302,7 +322,7 @@ def main():
                 schritte = (("Klappen", lambda: pruefe_klappen(pg, p)), ("Bereiche", lambda: pruefe_bereiche(pg, p)), ("Berichte", lambda: pruefe_berichte(pg, p)),
                             ("Reiter", lambda: pruefe_reiter(pg, p)), ("Alles offen", lambda: pruefe_alles_offen(pg, p)),
                             ("Direktlinks", lambda: pruefe_direktlinks(pg, basis + pfad, p)), ("Sprachknopf", lambda: pruefe_sprachknopf(pg, basis + pfad, sprache, p)),
-                            ("Menü und Kurztext", lambda: pruefe_menue_und_kurztext(pg, basis + pfad, p)), ("Berichtsseiten", lambda: pruefe_berichtseiten(pg, basis, sprache, p)), ("Audit-Seite", lambda: pruefe_auditseite(pg, basis, sprache, p)), ("Hinweiszeile", lambda: pruefe_en_zeile(pg, basis, sprache, p)))
+                            ("Menü und Kurztext", lambda: pruefe_menue_und_kurztext(pg, basis + pfad, p)), ("Berichtsseiten", lambda: pruefe_berichtseiten(pg, basis, sprache, p)), ("Audit-Seite", lambda: pruefe_auditseite(pg, basis, sprache, p)), ("Linkseite", lambda: pruefe_linkseite(pg, basis, sprache, p)), ("Hinweiszeile", lambda: pruefe_en_zeile(pg, basis, sprache, p)))
                 try:
                     lade(pg, basis + pfad, p)
                     p.ok(pg.evaluate("document.documentElement.lang") == sprache, "Sprache der Seite %s ist %s" % (pfad, pg.evaluate("document.documentElement.lang")))

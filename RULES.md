@@ -195,6 +195,10 @@ Ergebnis: (1) Die Form des Pegels ist stabil. Mit den Schwellen aus zwei Jahren 
 
 **Patch-Tage im Kalender.** Zweiter Dienstag im Monat: Microsoft, Adobe, SAP, Fortinet, Ivanti, Citrix (jeweils nach eigener Angabe des Herstellers). Dritter Dienstag: Oracle. Außerplanmäßige Meldungen sind jederzeit möglich.
 
+## Linkseite (/links, seit 26.11.2026)
+
+Die Seite sammelt von Hand ausgewählte Angebote zu Lage, Schwachstellen und Angriffsdaten (`data/links.json`). Sie hat keinen Einfluss auf den Dreier-Pegel, auf Schwellen oder Stufen. Aufnahme nur nach Einzelprüfung: erreichbar, Betreiber erkennbar, Aktualität sichtbar; Pflegeart (amtlich, automatisch, von Hand) und Prüfdatum stehen am Eintrag. Angebote, die in den Pegel einfließen, sind als „im Dreier-Pegel“ markiert. Keine bezahlten oder vermittelten Links, keine Abfrageteile oder Tracking in den Adressen. Von Hand gepflegte Fallsammlungen (etwa zu Kommunen) sind Einordnung und werden nicht in Werte übernommen. Der Prüfkalender prüft die Erreichbarkeit; die Frist je Eintrag beträgt 180 Tage.
+
 ## Logbuch
 
 Das Logbuch (`data/logbuch.json`, auf der Seite unter „logbuch“) hält fest, was sich aus den Daten ergeben hat. Einträge werden nicht nachträglich geändert oder gelöscht, auch wenn sich die Lage ändert; Korrekturen stehen als neuer Eintrag. Drei Arten: **Erkenntnis** (von Hand geschrieben, jede mit Belegen aus den Daten oder aus diesen Regeln), **Ereignis** (schreibt der Datenlauf selbst: jeder Stufenwechsel des gespeicherten Tagesstands, mit altem und neuem Wert; ein neuer Höchststand der gespeicherten Tagesstände, erst ab 30 Tagen Reihe und höchstens einmal in sieben Tagen; ein Baustein ohne Wert, je Baustein höchstens einmal in sieben Tagen) und **Modell** (Änderungen an Bausteinen, Schwellen oder Stufen, mit Verweis auf diese Regeln). Aus dem Logbuch und den Jahresdaten entsteht der Jahresbericht.

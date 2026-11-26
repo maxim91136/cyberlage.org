@@ -144,6 +144,7 @@
     if (hatStufe && d.pegel && typeof d.pegel.wert === "number") document.title = name.toUpperCase() + " " + d.pegel.wert + pick(" · Cyberlage: Cyber-Bedrohungslage heute", " · Cyberlage: cyber threat level today");
     var fsg = $("fuss-siegel"); if (fsg) { fsg.href = pick("/audit/", "/en/audit/"); fsg.querySelector("span").textContent = pick(fsg.getAttribute("data-de"), fsg.getAttribute("data-en")); }
     var na = $("n-audit"); if (na) na.href = pick("/audit/", "/en/audit/");
+    var nl = $("n-links"); if (nl) nl.href = pick("/links/", "/en/links/");
     var hk = $("hero-kurz");
     if (hk && d.pegel && typeof d.pegel.wert === "number" && d.kev) {
       hk.textContent = pick("Gesamtscore " + d.pegel.wert + " von 100 aus " + d.pegel.signale + " von " + d.pegel.von + " Bausteinen. Neu im CISA-Katalog ausgenutzter Schwachstellen: " + d.kev.neu_7_tage + " in 7 Tagen, " + d.kev.neu_30_tage + " in 30 Tagen.",

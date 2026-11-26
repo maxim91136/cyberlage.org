@@ -1,0 +1,216 @@
+{
+ "stand": "2026-11-26",
+ "hinweis": "Von Hand ausgewählt und einzeln geprüft (erreichbar, Betreiber erkennbar, Aktualität sichtbar). Kein Einfluss auf den Dreier-Pegel. Neue Einträge nur nach Prüfung.",
+ "gruppen": [
+  {
+   "id": "de_lage",
+   "de": "Lagebilder aus dem deutschsprachigen Raum",
+   "en": "Situation reports from the German-speaking region"
+  },
+  {
+   "id": "kommunen",
+   "de": "Kommunen und öffentliche Verwaltung",
+   "en": "Municipalities and public administration"
+  },
+  {
+   "id": "sensoren",
+   "de": "Angriffe und Netz, gemessen",
+   "en": "Attacks and network, measured"
+  },
+  {
+   "id": "luecken",
+   "de": "Schwachstellen",
+   "en": "Vulnerabilities"
+  },
+  {
+   "id": "ransom",
+   "de": "Ransomware und Schadsoftware",
+   "en": "Ransomware and malware"
+  }
+ ],
+ "links": [
+  {
+   "id": "bsi-lagebericht",
+   "gruppe": "de_lage",
+   "name": "BSI: Die Lage der IT-Sicherheit in Deutschland",
+   "url": "https://medien.bsi.bund.de/lagebericht/de/zusammenfassung-und-bewertung/",
+   "betreiber": "Bundesamt für Sicherheit in der Informationstechnik",
+   "pflege": "amtlich, jährlich",
+   "im_pegel": false,
+   "de": "Der jährliche Bericht der Cybersicherheitsbehörde des Bundes. Laut ZDFheute wurde die jüngste Ausgabe am 19.11.2026 vorgestellt und die Lage als „angespannt bis kritisch“ eingestuft.",
+   "en": "The annual report of Germany's federal cybersecurity agency. According to ZDFheute, the latest edition was presented on 19 November 2026 and rated the situation “tense to critical”.",
+   "geprueft_am": "2026-11-26",
+   "bemerkung": "Link aus einer Bundestagsdrucksache übernommen, vom Prüflauf nicht abrufbar"
+  },
+  {
+   "id": "cert-bund-wid",
+   "gruppe": "de_lage",
+   "name": "CERT-Bund: Warn- und Informationsdienst (WID)",
+   "url": "https://wid.cert-bund.de/",
+   "betreiber": "Bundesamt für Sicherheit in der Informationstechnik (CERT-Bund)",
+   "pflege": "amtlich, laufend",
+   "im_pegel": true,
+   "de": "Laufend neue Schwachstellen, Patches und Workarounds zu gängigen IT-Produkten, filterbar nach Produkt und Schwere. Die Warnungen stecken im Dreier-Pegel.",
+   "en": "Continuous news on vulnerabilities, patches and workarounds for common IT products, filterable by product and severity. The advisories feed into the Dreier Gauge.",
+   "geprueft_am": "2026-11-26"
+  },
+  {
+   "id": "bka-cybercrime",
+   "gruppe": "de_lage",
+   "name": "BKA: Bundeslagebild Cybercrime",
+   "url": "https://www.bka.de/DE/AktuelleInformationen/StatistikenLagebilder/Lagebilder/Cybercrime/cybercrime_node.html",
+   "betreiber": "Bundeskriminalamt",
+   "pflege": "amtlich, jährlich",
+   "im_pegel": false,
+   "de": "Jährliche Auswertung der polizeilich erfassten Cyberstraftaten. Für 2025 nennt das Lagebild rund 334.000 Fälle. Erfasst werden nur angezeigte Taten, das Dunkelfeld ist größer.",
+   "en": "Annual analysis of cybercrimes recorded by the police. For 2025 the report counts about 334,000 cases. Only reported offences are included; the unreported share is larger.",
+   "geprueft_am": "2026-11-26",
+   "bemerkung": "Adresse nicht abgerufen, vor Veröffentlichung selbst anklicken"
+  },
+  {
+   "id": "kommunaler-notbetrieb",
+   "gruppe": "kommunen",
+   "name": "Kommunaler Notbetrieb",
+   "url": "https://kommunaler-notbetrieb.de/dashboard/",
+   "betreiber": "Jens Lange (Privatprojekt, laut Tagesspiegel Background hauptberuflich Informationssicherheitsbeauftragter einer Stadtverwaltung)",
+   "pflege": "von Hand, aus öffentlichen Berichten",
+   "im_pegel": false,
+   "de": "Lagebild öffentlich dokumentierter IT-Sicherheitsvorfälle in deutschen Kommunen, mit Zeitverlauf und Fallkarten. Quellen je Vorfall nennt die Seite nicht; Inhalte unter CC BY-SA 4.0, Feed nur als RSS.",
+   "en": "Overview of publicly documented IT security incidents in German municipalities, with a timeline and case cards. The site does not name a source per incident; content under CC BY-SA 4.0, RSS feed only.",
+   "geprueft_am": "2026-11-26"
+  },
+  {
+   "id": "kommunalwiki-cyberangriffe",
+   "gruppe": "kommunen",
+   "name": "Kommunalwiki: Cyberangriffe",
+   "url": "https://kommunalwiki.boell.de/index.php/Cyberangriffe",
+   "betreiber": "Kommunalwiki (Links führen zur Heinrich-Böll-Stiftung)",
+   "pflege": "von Hand, offenes Wiki",
+   "im_pegel": false,
+   "de": "Ein langer Wiki-Artikel mit mehr als 60 Einzelfällen von Kommunen aus den Jahren 2016 bis 2026, jeder mit Fußnoten, meist Presseberichten. Kein Änderungsdatum und keine Lizenz im abgerufenen Text.",
+   "en": "One long wiki article with more than 60 individual municipal cases from 2016 to 2026, each with footnotes, mostly press reports. No change date and no licence in the retrieved text.",
+   "geprueft_am": "2026-11-26"
+  },
+  {
+   "id": "sicherheitstacho",
+   "gruppe": "sensoren",
+   "name": "Telekom Sicherheitstacho",
+   "url": "https://www.sicherheitstacho.eu/",
+   "betreiber": "Deutsche Telekom",
+   "pflege": "automatisch, Honeypots",
+   "im_pegel": false,
+   "de": "Angriffe auf die Honeypots der Telekom auf einer Weltkarte in Echtzeit. Ein anderes Sensornetz als die DShield-Daten im Dreier-Pegel; ohne Stufe und ohne Handlungsteil.",
+   "en": "Attacks on Deutsche Telekom's honeypots on a world map in real time. A different sensor network from the DShield data in the Dreier Gauge; no level and no action part.",
+   "geprueft_am": "2026-11-26"
+  },
+  {
+   "id": "sans-isc",
+   "gruppe": "sensoren",
+   "name": "SANS Internet Storm Center",
+   "url": "https://isc.sans.edu/",
+   "betreiber": "SANS Internet Storm Center",
+   "pflege": "automatisch und Redaktion",
+   "im_pegel": true,
+   "de": "InfoCon-Stufe, tägliche Fachbeiträge (Diaries) und Scan-Daten. InfoCon und DShield sind Bausteine des Dreier-Pegels. Inhalte unter CC BY-NC-SA 4.0.",
+   "en": "InfoCon level, daily expert posts (diaries) and scan data. InfoCon and DShield are components of the Dreier Gauge. Content under CC BY-NC-SA 4.0.",
+   "geprueft_am": "2026-11-26"
+  },
+  {
+   "id": "shadowserver",
+   "gruppe": "sensoren",
+   "name": "Shadowserver Dashboard",
+   "url": "https://dashboard.shadowserver.org/",
+   "betreiber": "Shadowserver Foundation",
+   "pflege": "automatisch, Sensoren und Partner",
+   "im_pegel": false,
+   "de": "Statistiken zu IoT-Geräten und Honeypot-Angriffen. Laut Seite vom britischen FCDO und mit EU-Mitteln gefördert. Die Seite nutzt Analytics-Cookies mit Einwilligung.",
+   "en": "Statistics on IoT devices and honeypot attacks. According to the site, funded by the UK FCDO and with EU funds. The site uses analytics cookies with consent.",
+   "geprueft_am": "2026-11-26"
+  },
+  {
+   "id": "cloudflare-radar",
+   "gruppe": "sensoren",
+   "name": "Cloudflare Radar",
+   "url": "https://radar.cloudflare.com/",
+   "betreiber": "Cloudflare",
+   "pflege": "automatisch, eigene Messungen",
+   "im_pegel": false,
+   "de": "Internet-Verkehr und -Trends sowie Ausfälle, gemessen im Cloudflare-Netz. Ein Blick auf das Netz selbst, nicht auf Schwachstellen.",
+   "en": "Internet traffic and trends as well as outages, measured in Cloudflare's network. A view of the network itself, not of vulnerabilities.",
+   "geprueft_am": "2026-11-26"
+  },
+  {
+   "id": "cisa-kev",
+   "gruppe": "luecken",
+   "name": "CISA: Known Exploited Vulnerabilities (KEV)",
+   "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+   "betreiber": "CISA (USA)",
+   "pflege": "amtlich, laufend",
+   "im_pegel": true,
+   "de": "Der Katalog der Schwachstellen, die nachweislich ausgenutzt werden, auch als CSV und JSON. Er ist die Grundlage mehrerer Bausteine des Dreier-Pegels.",
+   "en": "The catalogue of vulnerabilities known to be exploited, also as CSV and JSON. It is the basis of several components of the Dreier Gauge.",
+   "geprueft_am": "2026-11-26"
+  },
+  {
+   "id": "euvd",
+   "gruppe": "luecken",
+   "name": "EUVD: EU-Schwachstellendatenbank",
+   "url": "https://euvd.enisa.europa.eu/",
+   "betreiber": "ENISA (EU)",
+   "pflege": "amtlich, laufend",
+   "im_pegel": true,
+   "de": "Das EU-Verzeichnis für Schwachstellen mit Listen zu kritischen und zu ausgenutzten Einträgen. Der Baustein EU-KEV liest die ausgenutzten. Kritisch bewertet heißt nicht, dass die Lücke ausgenutzt wird.",
+   "en": "The EU repository for vulnerabilities, with lists of critical and of exploited entries. The EU-KEV component reads the exploited ones. Rated critical does not mean the flaw is being exploited.",
+   "geprueft_am": "2026-11-26",
+   "bemerkung": "Beim Prüfabruf war die Anwendung nicht erreichbar, Betreiber ENISA aus der Seite bekannt"
+  },
+  {
+   "id": "epss",
+   "gruppe": "luecken",
+   "name": "FIRST: EPSS",
+   "url": "https://www.first.org/epss/",
+   "betreiber": "FIRST (EPSS-Arbeitsgruppe), Scores von Empirical Security",
+   "pflege": "automatisch, täglich",
+   "im_pegel": true,
+   "de": "Ein Modell, das die Wahrscheinlichkeit schätzt, dass eine veröffentlichte Lücke in den nächsten 30 Tagen ausgenutzt wird. Täglich neu, als CSV und per API. Eine Prognose, nicht Teil der Stufe.",
+   "en": "A model estimating the probability that a published flaw will be exploited in the next 30 days. Updated daily, as CSV and via API. A forecast, not part of the level.",
+   "geprueft_am": "2026-11-26"
+  },
+  {
+   "id": "ransomware-live",
+   "gruppe": "ransom",
+   "name": "ransomware.live",
+   "url": "https://www.ransomware.live/",
+   "betreiber": "Julien Mousqueton (Sicherheitsforscher)",
+   "pflege": "automatisch, Leak-Seiten-Monitoring",
+   "im_pegel": false,
+   "de": "Verfolgt Ransomware-Gruppen und ihre Opfer, mit Zählern für 24 Stunden bis 30 Tage, Branchen und Ländern. Am Prüftag standen dort 34.564 Opfer und 429 Gruppen, Stand 25.11.2026. API, RSS und Nutzungsbedingungen vorhanden.",
+   "en": "Tracks ransomware groups and their victims, with counters for 24 hours to 30 days, sectors and countries. On the day of the check it listed 34,564 victims and 429 groups, as of 25 Nov 2026. API, RSS and terms of use available.",
+   "geprueft_am": "2026-11-26"
+  },
+  {
+   "id": "abuse-ch",
+   "gruppe": "ransom",
+   "name": "abuse.ch",
+   "url": "https://abuse.ch/",
+   "betreiber": "abuse.ch, mit Spamhaus",
+   "pflege": "automatisch, Community",
+   "im_pegel": false,
+   "de": "Plattformen für bösartige Adressen (URLhaus), Schadsoftware-Proben (MalwareBazaar) und Indikatoren (ThreatFox). Kostenlos, für Fachleute gedacht. Der Datensatz Feodo Tracker ist seit der Operation Endgame leer.",
+   "en": "Platforms for malicious URLs (URLhaus), malware samples (MalwareBazaar) and indicators (ThreatFox). Free, aimed at professionals. The Feodo Tracker dataset has been empty since Operation Endgame.",
+   "geprueft_am": "2026-11-26"
+  },
+  {
+   "id": "swisscom-radar",
+   "gruppe": "de_lage",
+   "name": "Swisscom Cybersecurity Threat Radar",
+   "url": "https://www.swisscom.ch/de/about/news/2026/04/27-cybersecurity.html",
+   "betreiber": "Swisscom",
+   "pflege": "jährlich",
+   "im_pegel": false,
+   "de": "Jährlicher Bericht zur Bedrohungslage in der Schweiz, als Einordnung von Trends, ohne Tageswerte.",
+   "en": "Annual report on the threat situation in Switzerland, for trends, without daily values.",
+   "geprueft_am": "2026-11-26"
+  }
+ ]
+}
