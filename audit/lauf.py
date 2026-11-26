@@ -64,6 +64,13 @@ def pruefe(host, jetzt=None):
     return erg
 
 
+def hat_sich_geaendert(alt, neu):
+    """Meldung nur bei Abweichung: Score, Stufe, Zahl der Befunde und Hinweise oder ein Gruppenwert. Ohne frühere Zusammenfassung gilt es als geändert."""
+    if not alt:
+        return True
+    return any(alt.get(k) != neu.get(k) for k in ("score", "stufe", "befunde", "hinweise", "gruppen", "nicht_geprueft"))
+
+
 def pruefe_weiterleitung(host, ziel, jetzt=None):
     """Profil Weiterleitung: nur die Prüfungen, die für eine Domain gelten, die nur auf eine andere führt."""
     jetzt = jetzt or datetime.now(timezone.utc)
@@ -96,6 +103,14 @@ def pruefe_weiterleitung(host, ziel, jetzt=None):
     return erg
 
 
+def _sende(text):
+    token, chat = os.environ.get("TELEGRAM_BOT_TOKEN"), os.environ.get("TELEGRAM_CHAT_ID")
+    if token and chat:
+        notify.sende(text, token, chat)
+    else:
+        print("Telegram nicht eingerichtet, nichts gesendet")
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("domain")
@@ -103,6 +118,12 @@ def main(argv=None):
     ap.add_argument("--details", action="store_true", help="Einzelbefunde auf der Ausgabe zeigen (nur lokal sinnvoll: Protokolle sind öffentlich)")
     ap.add_argument("--telegram", action="store_true", help="Einzelbefunde privat per Telegram senden (TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID)")
     a = ap.parse_args(argv)
+    alt = None
+    if a.zusammenfassung and Path(a.zusammenfassung).exists():
+        try:
+            alt = json.loads(Path(a.zusammenfassung).read_text(encoding="utf-8"))
+        except ValueError:
+            alt = None
     if a.domain not in ERLAUBT:
         print("Nur eigene Domains werden geprüft:", ", ".join(sorted(ERLAUBT)))
         return 2
@@ -110,6 +131,8 @@ def main(argv=None):
         erg = pruefe_weiterleitung(a.domain, WEITERLEITUNG[a.domain]) if a.domain in WEITERLEITUNG else pruefe(a.domain)
     except ConnectionError as ex:
         print("FEHLER:", ex)
+        if a.telegram:
+            _sende(notify.e("Audit %s: %s" % (a.domain, ex)))
         return 3
     r = auswertung.rechne(erg)
     zus = {"domain": a.domain, "stand": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ"), "profil": "weiterleitung" if a.domain in WEITERLEITUNG else "seite", "regeln": auswertung.REGELN["version"],
@@ -122,14 +145,14 @@ def main(argv=None):
             if e != "bestanden":
                 print("%-14s %-16s %-16s %s" % (g, pid, e, text))
     if a.telegram:
-        offen = [x for x in erg if x[2] != "bestanden"]
-        zeilen = ["• %s: %s (%s)" % (notify.e(x[0]), notify.e(x[3]), notify.e(x[2])) for x in offen] or ["alles bestanden"]
-        kopf = "<b>Audit %s</b> (Lauf %s UTC): Score %s, %s" % (notify.e(a.domain), zus["stand"].replace("T", " ").rstrip("Z"), zus["score"] if zus["score"] is not None else "ohne Score (Teilwert %s)" % zus["teilwert"], notify.e(zus["stufe"]))
-        token, chat = os.environ.get("TELEGRAM_BOT_TOKEN"), os.environ.get("TELEGRAM_CHAT_ID")
-        if token and chat:
-            notify.sende((kopf + "\n" + "\n".join(zeilen))[:3800], token, chat)
+        if not hat_sich_geaendert(alt, zus):
+            print("Keine Änderung gegenüber dem letzten Lauf, keine Telegram-Meldung")
         else:
-            print("Telegram nicht eingerichtet, nichts gesendet")
+            offen = [x for x in erg if x[2] in ("nicht_bestanden", "hinweis", "nicht_geprueft")]
+            zeilen = ["• %s: %s (%s)" % (notify.e(x[0]), notify.e(x[3]), notify.e(x[2])) for x in offen] or ["alles bestanden"]
+            vorher = "" if not alt else " (vorher %s)" % (alt.get("score") if alt.get("score") is not None else "ohne Score")
+            kopf = "<b>Audit %s</b>: Score %s%s, %s (Lauf %s UTC)" % (notify.e(a.domain), zus["score"] if zus["score"] is not None else "ohne Score (Teilwert %s)" % zus["teilwert"], notify.e(vorher), notify.e(zus["stufe"]), zus["stand"].replace("T", " ").rstrip("Z"))
+            _sende((kopf + "\n" + "\n".join(zeilen))[:3800])
     if a.zusammenfassung:
         Path(a.zusammenfassung).parent.mkdir(parents=True, exist_ok=True)
         Path(a.zusammenfassung).write_text(json.dumps(zus, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")

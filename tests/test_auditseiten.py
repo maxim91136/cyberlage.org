@@ -101,6 +101,37 @@ class AuditseitenTests(unittest.TestCase):
             self.assertIn(n, auditseiten.STUFE_EN)
             self.assertIn(n, auditseiten.AMPEL)
 
+    def test_ausnahmen_fuer_weiterleitungsdomain_erklaert(self):
+        w = self.werk(zus("cyberlage.org", gruppen={"tls": 1.0, "csp": 1.0}), zus("cyberlage.com", profil="weiterleitung", gruppen={"tls": 1.0, "weiterleitung": 1.0}))
+        auditseiten.schreibe(w, JETZT)
+        de = (w / "site" / "audit" / "index.html").read_text(encoding="utf-8")
+        en = (w / "site" / "en" / "audit" / "index.html").read_text(encoding="utf-8")
+        self.assertIn('id="ausnahmen"', de)
+        self.assertIn("cyberlage.com liefert keine Seite aus, sondern leitet nur auf cyberlage.org weiter", de)
+        self.assertIn("href=\"#ausnahmen\"", de)
+        self.assertIn("Null-MX", de)
+        self.assertIn("cyberlage.com does not serve a page, it only redirects to cyberlage.org", en)
+        w2 = self.werk(zus("cyberlage.org"))
+        auditseiten.schreibe(w2, JETZT)
+        self.assertNotIn("ausnahmen", (w2 / "site" / "audit" / "index.html").read_text(encoding="utf-8"))
+
+    def test_entfallende_gruppen_wie_im_audit(self):
+        sys.path.insert(0, str(WURZEL / "audit"))
+        import lauf
+        self.assertEqual(set(auditseiten.WEITERLEITUNG_ENTFAELLT), set(lauf.NICHT_ZUTREFFEND))
+
+    def test_zeitplan_auf_der_seite_stimmt_mit_dem_workflow(self):
+        wf = (WURZEL / ".github" / "workflows" / "audit.yml").read_text(encoding="utf-8")
+        h, m = auditseiten.LAUF_UHR.split(":")
+        self.assertIn('cron: "%d %d * * *"' % (int(m), int(h)), wf)  # täglich, zur angegebenen Zeit
+        w = self.werk(zus("cyberlage.org"))
+        auditseiten.schreibe(w, JETZT)
+        de = (w / "site" / "audit" / "index.html").read_text(encoding="utf-8")
+        en = (w / "site" / "en" / "audit" / "index.html").read_text(encoding="utf-8")
+        self.assertIn("jeden Tag automatisch gegen 05:20 Uhr UTC (06:20 Uhr MEZ)", de)
+        self.assertIn("every day at about 05:20 UTC (06:20 CET)", en)
+        self.assertIn("nach mehr als 3 Tagen".replace("nach", "Nach"), de)
+
     def test_keine_unsicher_aussage(self):
         for sp in ("de", "en"):
             for text in auditseiten.T[sp]["siegel"]:

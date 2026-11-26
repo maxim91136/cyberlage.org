@@ -157,6 +157,18 @@ class DnsFremdTests(unittest.TestCase):
         self.assertEqual((r["score"], r["abdeckung"]), (100, 1.0))
 
 
+class MeldungTests(unittest.TestCase):
+    ALT = {"score": 100, "stufe": "ohne Befund", "befunde": 0, "hinweise": 0, "nicht_geprueft": 0, "gruppen": {"tls": 1.0}, "stand": "2026-11-26T05:20Z"}
+
+    def test_nur_bei_aenderung(self):
+        neu = dict(self.ALT, stand="2026-11-27T05:20Z")
+        self.assertFalse(lauf.hat_sich_geaendert(self.ALT, neu))  # nur der Zeitstempel ist neu
+        self.assertTrue(lauf.hat_sich_geaendert(self.ALT, dict(neu, score=94)))
+        self.assertTrue(lauf.hat_sich_geaendert(self.ALT, dict(neu, befunde=1)))
+        self.assertTrue(lauf.hat_sich_geaendert(self.ALT, dict(neu, gruppen={"tls": 0.5})))
+        self.assertTrue(lauf.hat_sich_geaendert(None, neu))
+
+
 class WeiterleitungTests(unittest.TestCase):
     PFAD = "/hinweise?pruefung=weiterleitung"
     ZIEL = "https://cyberlage.org" + PFAD

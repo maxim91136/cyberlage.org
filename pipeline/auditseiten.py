@@ -1,6 +1,6 @@
 """Audit-Seite mit dem Dreier-Siegel: /audit/ (Deutsch) und /en/audit/ (Englisch), dazu je Domain ein Siegel als SVG.
 
-Fertiges HTML ohne Skript. Die Zahlen kommen aus data/audit/<domain>.json (geschrieben von audit/lauf.py im Wochenlauf), die Gruppen,
+Fertiges HTML ohne Skript. Die Zahlen kommen aus data/audit/<domain>.json (geschrieben von audit/lauf.py im Tageslauf), die Gruppen,
 Gewichte, Quellen und Stufen aus audit/regeln.json; hier wird nichts gerechnet. Einzelbefunde stehen nie auf der Seite, nur Zahlen.
 Das Siegel ist kein Zertifikat einer Prüfstelle, sondern der Stand eines automatischen Laufs: Score, Adresse, Datum. Ist der Lauf
 älter als SIEGEL_TAGE, wird es grau."""
@@ -12,7 +12,7 @@ from pathlib import Path
 import berichtseiten as bs
 
 BASIS = bs.BASIS
-SIEGEL_TAGE = 10  # Wochenlauf plus Luft: älter heißt, der Lauf ist ausgefallen
+SIEGEL_TAGE = 3  # täglicher Lauf plus Luft: älter heißt, der Lauf ist ausgefallen
 REPO_AUDIT = "https://github.com/maxim91136/cyberlage.org/tree/main/audit"
 FARBE = {"ruhig": "#6fe0a0", "angespannt": "#e3b341", "hoch": "#ff8a7a", "ausserordentlich": "#ff3b5c", "grau": "#8b98a3"}
 AMPEL = {"ohne Befund": "ruhig", "kleine Mängel": "angespannt", "Mängel": "hoch", "erhebliche Mängel": "ausserordentlich"}
@@ -23,17 +23,33 @@ STUFE_EN = {"ohne Befund": "no findings", "kleine Mängel": "minor deficiencies"
 GRUPPE_EN = {"tls": "TLS and certificate", "csp": "Content Security Policy", "fremd": "Third-party content", "hsts": "HSTS", "dns": "DNS (CAA, DNSSEC)",
              "mail": "Domain mail", "weiterleitung": "Redirects", "inhalt": "Content type and framing", "cookies": "Cookies", "auffindbar": "Discoverability",
              "datenschutz": "Privacy headers", "altlasten": "Legacy leftovers"}
+LAUF_UHR = "05:20"  # UTC, steht so in .github/workflows/audit.yml (ein Test prüft das)
+WEITERLEITUNG_ENTFAELLT = ("csp", "fremd", "inhalt", "datenschutz", "altlasten", "auffindbar")  # gleich audit/lauf.py NICHT_ZUTREFFEND (ein Test prüft das)
 REIHE = ("cyberlage.org", "cyberlage.com")  # Reihenfolge auf der Seite
 
 T = {
     "de": {"pfad": "/audit/", "start": "/", "titel": "Audit: Dreier-Siegel für cyberlage.org und cyberlage.com · Cyberlage", "h1": "Audit",
-           "intro": "Ein selbst gebautes, regelbasiertes Audit prüft diese Adressen jede Woche von außen: Kopfzeilen, Verschlüsselung, DNS, Mail-Schutz und Weiterleitung. "
+           "intro": "Ein selbst gebautes, regelbasiertes Audit prüft diese Adressen jeden Tag von außen: Kopfzeilen, Verschlüsselung, DNS, Mail-Schutz und Weiterleitung. "
                     "Wie beim Dreier-Pegel liegen Regeln, Gewichte und Quellen offen. Hier gilt: hoch ist gut.",
            "beschr": "Das Dreier-Siegel zeigt den Stand des automatischen Audits von cyberlage.org und cyberlage.com: Score, Datum, Prüfgruppen. Regeln und Quellen offen.",
            "abz": "Abzeichen", "kein_abz": "keins", "stand": "Stand", "profil": "Profil", "seite": "Seite", "weiter": "Weiterleitung auf %s", "regeln": "Regeln", "abdeckung": "Abdeckung",
            "befunde": "Befunde", "hinweise": "Hinweise", "ohne": "keine", "offen": "Einzelheiten zu offenen Punkten werden erst nach der Behebung genannt.",
            "veraltet": "Der letzte Lauf ist älter als %d Tage, das Siegel ist deshalb grau.", "kein_score": "ohne Score", "entfaellt": "entfällt",
            "h_gruppen": "Prüfgruppen", "gruppen_leg": "Wert je Gruppe: Anteil der bestandenen Prüfungen. „entfällt“: trifft auf diese Adresse nicht zu, etwa Cookies, wenn keine gesetzt werden.",
+           "h_wann": "Wann und wie geprüft wird",
+           "wann": ("Der Lauf startet jeden Tag automatisch gegen %s Uhr UTC (%s Uhr MEZ) in GitHub Actions. Zusätzlich kann er von Hand gestartet werden.",
+                    "Jede Adresse wird mit höchstens etwa 40 kurzen Abrufen von außen geprüft, ohne Anmeldung, mit dem Kennzeichen „cyberlage-audit“ und einem Link auf die Hinweise.",
+                    "Der neue Lauf ersetzt den vorigen. Die Seite zeigt immer den letzten Lauf mit Datum und Uhrzeit (UTC).",
+                    "Fällt ein Lauf aus, bleibt der letzte Stand sichtbar. Nach mehr als %d Tagen ohne neuen Lauf wird das Siegel grau.",
+                    "Ist eine Adresse nicht erreichbar, gibt es kein Ergebnis, statt falscher Befunde.",
+                    "Der Betreiber wird nur benachrichtigt, wenn sich das Ergebnis gegenüber dem letzten Lauf ändert.",
+                    "Regeln, Gewichte und Grenzen ändern sich nur mit einer neuen Regelversion (jetzt %s). Jede Änderung steht im Verlauf des Quelltexts."),
+           "h_ausn": "Ausnahmen für reine Weiterleitungen", "ausn_hint": "Diese Adresse leitet nur weiter, deshalb gelten Ausnahmen:", "ausn_link": "siehe Ausnahmen",
+           "ausn": ("%s liefert keine Seite aus, sondern leitet nur auf %s weiter. Dafür gilt ein eigenes Profil „Weiterleitung“.",
+                    "Es entfallen die Gruppen, die Seiteninhalt voraussetzen: %s. Sie zählen weder gut noch schlecht, die Abdeckung bleibt bei 100 %%.",
+                    "Stattdessen wird zusätzlich geprüft: dauerhafte Weiterleitung (301) mit Pfad und Abfrage auf das Ziel, ebenso bei www, ob das Ziel antwortet, und ob die Domain ausdrücklich keine Mail annimmt (Null-MX).",
+                    "Alle übrigen Prüfungen (TLS, HSTS, DNSSEC, CAA, SPF, DMARC) gelten unverändert und mit denselben Gewichten.",
+                    "Die Seite %s wird getrennt und vollständig geprüft."),
            "h_rechnen": "So wird gerechnet", "h_massstab": "Maßstäbe", "gruppe": "Gruppe", "gewicht": "Gewicht", "quelle": "Quelle",
            "rechnen": ("Jede Prüfung zählt 1 (bestanden), ½ (Hinweis) oder 0 (nicht bestanden). Nicht zutreffende Prüfungen zählen nicht, nicht geprüfte senken die Abdeckung.",
                        "Der Wert einer Gruppe ist der Mittelwert ihrer Prüfungen. Der Score ist das gewichtete Mittel der Gruppen mal 100.",
@@ -47,13 +63,27 @@ T = {
            "svg": "Siegel als SVG", "quell": "Quelltext des Audits", "heute": "Dreier-Pegel heute", "andere": "English", "alle": "Berichte",
            "fuss": "Ein privates Projekt von Dreier Labs, keine amtliche Stelle. Feste Regeln, keine Vorhersage."},
     "en": {"pfad": "/en/audit/", "start": "/en/", "titel": "Audit: Dreier Seal for cyberlage.org and cyberlage.com · Cyberlage", "h1": "Audit",
-           "intro": "A self-built, rule-based audit checks these addresses from the outside every week: headers, encryption, DNS, mail protection and redirects. "
+           "intro": "A self-built, rule-based audit checks these addresses from the outside every day: headers, encryption, DNS, mail protection and redirects. "
                     "As with the Dreier Gauge, rules, weights and sources are open. Here, high is good.",
            "beschr": "The Dreier Seal shows the state of the automated audit of cyberlage.org and cyberlage.com: score, date, check groups. Rules and sources are open.",
            "abz": "Badge", "kein_abz": "none", "stand": "As of", "profil": "Profile", "seite": "Site", "weiter": "Redirect to %s", "regeln": "Rules", "abdeckung": "Coverage",
            "befunde": "Findings", "hinweise": "Notes", "ohne": "none", "offen": "Details on open items are named only after they are fixed.",
            "veraltet": "The last run is older than %d days, so the seal is grey.", "kein_score": "no score", "entfaellt": "n/a",
            "h_gruppen": "Check groups", "gruppen_leg": "Value per group: share of checks passed. “n/a”: does not apply to this address, for example cookies when none are set.",
+           "h_wann": "When and how it runs",
+           "wann": ("The run starts automatically every day at about %s UTC (%s CET) in GitHub Actions. It can also be started by hand.",
+                    "Each address is checked from the outside with at most about 40 short requests, without logging in, identified as “cyberlage-audit” with a link to the notices.",
+                    "The new run replaces the previous one. The page always shows the latest run with date and time (UTC).",
+                    "If a run fails, the last state stays visible. After more than %d days without a new run the seal turns grey.",
+                    "If an address cannot be reached there is no result rather than false findings.",
+                    "The operator is notified only when the result changes compared with the last run.",
+                    "Rules, weights and limits change only with a new rules version (now %s). Every change is in the history of the source code."),
+           "h_ausn": "Exceptions for pure redirects", "ausn_hint": "This address only redirects, so exceptions apply:", "ausn_link": "see exceptions",
+           "ausn": ("%s does not serve a page, it only redirects to %s. It is checked with its own profile, “Redirect”.",
+                    "Groups that need page content are left out: %s. They count neither good nor bad, and coverage stays at 100 %%.",
+                    "Instead, additional checks apply: a permanent redirect (301) to the target keeping path and query, the same for www, whether the target answers, and whether the domain explicitly accepts no mail (Null MX, RFC 7505).",
+                    "All other checks (TLS, HSTS, DNSSEC, CAA, SPF, DMARC) apply unchanged and with the same weights.",
+                    "The site %s is checked separately and in full."),
            "h_rechnen": "How it is calculated", "h_massstab": "Standards", "gruppe": "Group", "gewicht": "Weight", "quelle": "Source",
            "rechnen": ("Each check counts 1 (passed), ½ (note) or 0 (failed). Checks that do not apply are left out, checks not run lower the coverage.",
                        "A group’s value is the mean of its checks. The score is the weighted mean of the groups times 100.",
@@ -158,6 +188,8 @@ def _karte(domain, d, regeln, sp, jetzt, weiter):
          '<h2 class="au-dom">%s</h2><p class="au-sc mono"><strong>%s</strong> / 100 <span class="au-st">%s</span></p>' % (_e(domain), _e(score), _e(_stufe(d, sp) if d.get("score") is not None else t["kein_score"]))]
     z.append('<dl class="au-dl mono">%s</dl>' % "".join("<div><dt class=\"dim\">%s</dt><dd>%s</dd></div>" % (_e(a), _e(b)) for a, b in zeilen))
     z.append('<p class="au-bef mono">%s</p>' % _e(bef))
+    if d.get("profil") == "weiterleitung":
+        z.append('<p class="dim au-hint">%s <a href="#ausnahmen">%s</a></p>' % (_e(t["ausn_hint"]), _e(t["ausn_link"])))
     if d["befunde"]:
         z.append('<p class="dim au-hint">%s</p>' % _e(t["offen"]))
     if alt and d.get("score") is not None:
@@ -183,6 +215,16 @@ def seite(sp, daten, regeln, jetzt):
     z = [bs._kopf(sp, t["titel"], t["beschr"], pfad_de, pfad_en), '<main class="wrap bs-main"><h1>%s</h1>\n<p class="dim au-intro">%s</p>\n' % (_e(t["h1"]), _e(t["intro"]))]
     z += [_karte(dom, d, regeln, sp, jetzt, weiter.get(dom)) for dom, d in daten]
     z.append('<p class="dim au-leg">%s</p>\n' % _e(t["gruppen_leg"]))
+    h, m = (int(x) for x in LAUF_UHR.split(":"))
+    wann = (t["wann"][0] % (LAUF_UHR, "%02d:%02d" % (h + 1, m)), t["wann"][1], t["wann"][2], t["wann"][3] % SIEGEL_TAGE, t["wann"][4], t["wann"][5], t["wann"][6] % regeln["version"])
+    z.append('<h2 class="mono">%s</h2>\n<ul class="au-ul">%s</ul>\n' % (_e(t["h_wann"]), "".join("<li>%s</li>" % _e(x) for x in wann)))
+    wd = [(dom, d) for dom, d in daten if d.get("profil") == "weiterleitung"]
+    if wd:
+        doms = ", ".join(dom for dom, _d in wd)
+        ziele = ", ".join(sorted({weiter[dom] for dom, _d in wd}))
+        fehlt = ", ".join((GRUPPE_EN[g] if sp == "en" else i["name"]) for g, i in regeln["gruppen"].items() if g in WEITERLEITUNG_ENTFAELLT)
+        ausn = (t["ausn"][0] % (doms, ziele), t["ausn"][1] % fehlt, t["ausn"][2], t["ausn"][3], t["ausn"][4] % ziele)
+        z.append('<h2 class="mono" id="ausnahmen">%s</h2>\n<ul class="au-ul">%s</ul>\n' % (_e(t["h_ausn"]), "".join("<li>%s</li>" % _e(x) for x in ausn)))
     z.append('<h2 class="mono">%s</h2>\n<ul class="au-ul">%s</ul>\n' % (_e(t["h_rechnen"]), "".join("<li>%s</li>" % _e(x % v if "%" in x else x) for x, v in zip(
         t["rechnen"], (None, None, regeln["deckel"]["max_score"], round(100 * regeln["mindest_abdeckung"]))))))
     def _abz_text(g):

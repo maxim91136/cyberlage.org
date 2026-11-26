@@ -1,11 +1,11 @@
 name: audit
 
-# Prüft die eigenen Domains von außen (cyberlage.org als Seite, cyberlage.com als Weiterleitung auf cyberlage.org) (Kopfzeilen, TLS, Dateien) mit audit/lauf.py.
-# Das Protokoll ist öffentlich: es zeigt nur Score und Zahlen. Einzelbefunde gehen privat per Telegram an Steve.
+# Prüft die eigenen Domains von außen (täglich; cyberlage.org als Seite, cyberlage.com als Weiterleitung auf cyberlage.org) (Kopfzeilen, TLS, Dateien) mit audit/lauf.py.
+# Das Protokoll ist öffentlich: es zeigt nur Score und Zahlen. Telegram nur bei einer Änderung gegenüber dem letzten Lauf.
 # Läuft in derselben Gruppe wie der Datenlauf, damit beide nie zugleich ins Repo schreiben.
 on:
   schedule:
-    - cron: "20 5 * * 1"
+    - cron: "20 5 * * *"
   workflow_dispatch:
 
 permissions:
