@@ -105,6 +105,7 @@ Klein, kann der Bau-Chat danach erledigen:
 - 25.11.2026: Externe Links öffnen in einem neuen Tab.
 - 25.11.2026: Der Radar ist der Dreier-Pegel (ein Modell, ein Score).
 
+- **Keine Doppelprüfung (Steve, 26.11.):** Cyberlage prüft cyberlage.org und .com selbst und meldet nur selbst. Dreier Labs übernimmt diese Ergebnisse täglich von hier (`audit/uebernahme.py`, liest `data/audit/*.json` aus diesem Repo; nur bei gleicher Domain und Regelversion). Ändert sich der Aufbau von `data/audit/*.json` oder die Regelversion, in Dreier Labs nachziehen. Dreier Labs prüft nur seine eigenen Adressen.
 - **Web-Audit bei Dreier Labs (27.11.2026).** Gleiches Werkzeug und exakt dasselbe Dreier-Siegel wie hier. Geprüft werden nur öffentliche Seiten; Three Kings ist privat und steht nirgends (auch nicht in der Liste). Auf der Seite erscheint eine Domain erst, wenn `oeffentlich: true` in `audit/domains.json` steht (nach behobenen Befunden). Änderungen an Siegel, Regeln oder Texten immer in beiden Repos; je ein Test mit gleicher Siegel-Prüfsumme sichert das ab.
 
 ## Geprüft und verworfen
