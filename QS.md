@@ -19,6 +19,9 @@ Steve soll nicht zwischen den Chats vermitteln müssen. Wer am Repo arbeitet, li
 ### Erledigt 26.11., Kopfleiste vereinheitlicht
 - ALARM und MATRIX sind jetzt gleich aufgebaut: ein Kasten mit Name und zwei Quadraten (vorher ALARM als Knopf plus loser zweiter Kasten). Gemeinsame Klasse `.sw-grp` in `style.css`, Markup in `site/index.html` und `site/en/index.html`, Logik in `modus.js` und `matrix.js`. Geprüft: Unit-Tests, Klicktest (0 Fehler), Handy 390 px und Desktop, DE und EN.
 
+### Erledigt 26.11., Vorschaubild im Matrix-Stil
+- `site/og.png` zeigt jetzt dezenten Matrix-Zeichenregen hinter dem bisherigen Bild (Logo, Titel, Rahmen unverändert). Bewusst ohne Pegelzahl im Bild, die wäre morgen veraltet. Erzeugt mit `pipeline/og_matrix.py` (wiederholbar, fester Startwert). Soziale Netze zeigen das alte Bild, bis ihr Zwischenspeicher abläuft (LinkedIn: Post Inspector).
+
 ### Offen: Härtung Dreier Labs
 - **dreierlabs.com, Cloudflare-Teil: erledigt (26.11., Claude per Browser, auf Steves Auftrag).** Gesetzt: TLS-Minimum 1.2, „Always Use HTTPS“ an, DNSSEC aktiviert (Status „pending“, DS-Eintrag trägt Cloudflare Registrar selbst ein; später prüfen, dass es aktiv ist), CAA (pki.goog, letsencrypt.org, ssl.com, sectigo.com), SPF `v=spf1 -all`, `_dmarc` `v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s`. Mail: Domain sendet und empfängt nichts (Kontakt über Gmail), deshalb unbedenklich. Nicht gesetzt: Null-MX (nur Hinweis im Audit) und HSTS im Dashboard (kommt per `_headers` aus dem Code). Offen: Audit-Lauf für dreierlabs.com in der Dreier-Labs-Kopie des Werkzeugs, dann Befunde gegenlesen. Danach Lauf prüfen, dann nächste Adresse (Reihenfolge: nosinglepoint.com, satoshisgrid.com, notsodefi.com, bittensor-labs.com; deren Repos erst prüfen). `security.txt` dort und auf allen Seiten vor 2027-11-20 erneuern. Veröffentlichen (`oeffentlich: true`) erst nach den Korrekturen.
 
