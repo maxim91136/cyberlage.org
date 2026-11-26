@@ -1,5 +1,5 @@
 {
-"meta": {"katalog_version": "2026.11.25", "veroeffentlicht_am": "2026-11-25T19:48:12.4344Z", "anzahl": 1805, "lizenz": "CC0 1.0 (laut LICENSE-Datei von cisagov/kev-data)", "quelle": "cisa.gov", "quelle_url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json", "abgerufen_am": "2026-11-25T22:18:09+00:00"},
+"meta": {"katalog_version": "2026.11.25", "veroeffentlicht_am": "2026-11-25T19:48:12.4344Z", "anzahl": 1805, "lizenz": "CC0 1.0 (laut LICENSE-Datei von cisagov/kev-data)", "quelle": "cisa.gov", "quelle_url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json", "abgerufen_am": "2026-11-26T00:23:22+00:00"},
 "eintraege": [
 {"cve": "CVE-2010-5326", "hersteller": "SAP", "produkt": "NetWeaver", "hinzugefuegt": "2021-11-03", "frist": "2022-05-03", "ransomware_bekannt": false},
 {"cve": "CVE-2012-0158", "hersteller": "Microsoft", "produkt": "MSCOMCTL.OCX", "hinzugefuegt": "2021-11-03", "frist": "2022-05-03", "ransomware_bekannt": true},
