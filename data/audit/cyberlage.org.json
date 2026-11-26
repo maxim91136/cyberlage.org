@@ -1,9 +1,9 @@
 {
  "domain": "cyberlage.org",
- "stand": "2026-11-26T09:31Z",
+ "stand": "2026-11-26T09:41Z",
  "regeln": "0.1-entwurf",
- "score": 98,
- "teilwert": 98,
+ "score": 100,
+ "teilwert": 100,
  "stufe": "ohne Befund",
  "abdeckung": 1.0,
  "gruppen": {
@@ -15,11 +15,11 @@
   "altlasten": 1.0,
   "weiterleitung": 1.0,
   "tls": 1.0,
-  "dns": 0.75,
+  "dns": 1.0,
   "mail": 1.0,
   "auffindbar": 1.0
  },
  "befunde": 0,
- "hinweise": 1,
+ "hinweise": 0,
  "nicht_geprueft": 0
 }
