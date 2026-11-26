@@ -1659,6 +1659,9 @@ b.appendChild(el("span", "g", typeof s.ausschlag === "number" ? pick("Messwert: 
       th.addEventListener("click", sortiere);
       th.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); sortiere(); } });
     });
+    if (t.classList.contains("tw-sp")) {  // Handy: jede Zeile wird zur Karte, dafür bekommt jede Zelle ihren Spaltennamen
+      Array.prototype.forEach.call(tb.rows, function (r) { Array.prototype.forEach.call(r.cells, function (c, i) { if (kopf[i]) c.setAttribute("data-l", kopf[i].textContent); if (/^[–-]$/.test(c.textContent.trim())) c.classList.add("tw-leer"); }); });
+    }
     if (t.classList.contains("tw-sp")) {  // Spaltenfilter: eine Eingabe je Spalte unter dem Kopf, alle zusammen (UND)
       var fr = el("tr", "tw-fr"), felder = [];
       function filtere() {
