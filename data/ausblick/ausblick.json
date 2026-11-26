@@ -1,10 +1,10 @@
 {
-  "abgerufen_am": "2026-11-26T14:31:46+00:00",
+  "abgerufen_am": "2026-11-26T15:26:59+00:00",
   "fenster_tage": 14,
-  "geprueft": 7327,
+  "geprueft": 7788,
   "schwelle_hoch": 0.1,
   "hoch_wahrscheinlich": 15,
-  "epss_datum": "2026-11-25",
+  "epss_datum": "2026-11-26",
   "liste": [
     {
       "cve": "CVE-2026-115560",
@@ -19,7 +19,7 @@
     {
       "cve": "CVE-2026-114938",
       "epss": 0.59265,
-      "perzentil": 0.99342,
+      "perzentil": 0.99341,
       "veroeffentlicht": "2026-11-17",
       "cvss": 8.1,
       "beschreibung": "Vulnerability in the Oracle Java SE, Oracle GraalVM for JDK, Oracle GraalVM Enterprise Edition product of Oracle Java SE (component: Compiler).",
@@ -49,7 +49,7 @@
     {
       "cve": "CVE-2026-95645",
       "epss": 0.31794,
-      "perzentil": 0.987,
+      "perzentil": 0.98701,
       "veroeffentlicht": "2026-11-18",
       "cvss": 9.1,
       "beschreibung": "Zohocorp Manageengine DDI Central build below 6500 are affected by a authenticated command injection vulnerability in the Windows DDI Agent's clear_blocked_domains funct…",
@@ -59,7 +59,7 @@
     {
       "cve": "CVE-2026-95643",
       "epss": 0.26985,
-      "perzentil": 0.98488,
+      "perzentil": 0.9849,
       "veroeffentlicht": "2026-11-18",
       "cvss": 9.1,
       "beschreibung": "Zohocorp Manageengine DDI Central build below 6500 are affected by a authenticated PowerShell command injection vulnerability in the Telnet connectivity feature, allowin…",
@@ -69,7 +69,7 @@
     {
       "cve": "CVE-2026-129289",
       "epss": 0.2479,
-      "perzentil": 0.98373,
+      "perzentil": 0.98375,
       "veroeffentlicht": "2026-11-19",
       "cvss": 9.2,
       "beschreibung": "PHP-FPM request smuggling through an unread HTTP request body.",
