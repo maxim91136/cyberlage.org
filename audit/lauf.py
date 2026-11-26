@@ -75,7 +75,7 @@ def main(argv=None):
     if a.telegram:
         offen = [x for x in erg if x[2] != "bestanden"]
         zeilen = ["• %s: %s (%s)" % (notify.e(x[0]), notify.e(x[3]), notify.e(x[2])) for x in offen] or ["alles bestanden"]
-        kopf = "<b>Audit %s</b>: Score %s, %s" % (notify.e(a.domain), zus["score"] if zus["score"] is not None else "ohne Score (Teilwert %s)" % zus["teilwert"], notify.e(zus["stufe"]))
+        kopf = "<b>Audit %s</b> (Lauf %s UTC): Score %s, %s" % (notify.e(a.domain), zus["stand"].replace("T", " ").rstrip("Z"), zus["score"] if zus["score"] is not None else "ohne Score (Teilwert %s)" % zus["teilwert"], notify.e(zus["stufe"]))
         token, chat = os.environ.get("TELEGRAM_BOT_TOKEN"), os.environ.get("TELEGRAM_CHAT_ID")
         if token and chat:
             notify.sende((kopf + "\n" + "\n".join(zeilen))[:3800], token, chat)
