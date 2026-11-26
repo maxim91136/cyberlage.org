@@ -123,9 +123,9 @@ Klein, kann der Bau-Chat danach erledigen:
 ## Erledigt (NotSoDeFi-Härtung, 26.11.2026)
 
 - Code (notsodefi 63e30c1): Kopfzeilen, CSP mit Prüfsummen pro Seite (`scripts/csp.mjs`), security.txt, robots.txt mit Sitemap, llms.txt, JSON-LD.
-- Cloudflare (im Browser): 6 DNS-Einträge (4 CAA, SPF `-all`, DMARC reject). Pages-Build-Befehl stand auf `npx next build`, dadurch lief `csp.mjs` nie; auf `npm run build` umgestellt, neu gebaut. Web Analytics (Beacon) für notsodefi.com auf „Disable“ gestellt (Besucherzahlen kommen aus der Zonen-Statistik, nicht betroffen).
-- Audit: vorher 77, nach CSP 93 (Silber). Rest: fremdes Skript (Beacon, Abschaltung noch nicht live bestätigt) und CORS `*` (öffentliche API, bewusst).
-- **Offen:** nächsten Audit-Lauf prüfen (Beacon weg → 100?); danach `oeffentlich` für notsodefi.com (ab Bronze/60 erlaubt); dann SatoshisGrid, NoSinglePoint.
+- Cloudflare (im Browser): 6 DNS-Einträge (4 CAA, SPF `-all`, DMARC reject). Pages-Build-Befehl stand auf `npx next build`, dadurch lief `csp.mjs` nie; auf `npm run build` umgestellt, neu gebaut. Web Analytics für den Eintrag „notsodefi.com“ auf „Disable“ gestellt; der Beacon kommt live aber weiter (nach 10 Min noch da). Vermutlich injiziert der von Pages verwaltete Eintrag „notsodefi.pages.dev +1“ (enthält notsodefi.com); einen Schalter dafür fand ich in der Pages-Oberfläche nicht. Besucherzahlen kommen aus der Zonen-Statistik, nicht betroffen.
+- Audit: vorher 77, nach CSP 93 (Silber). Rest: fremdes Skript (Cloudflare-Beacon) und CORS `*` (öffentliche API, bewusst).
+- **Offen:** Beacon für notsodefi.com loswerden (Pages-Eintrag „+1“ in Web Analytics löschen oder Pages-Analytics abschalten, Steve-Konto); danach Audit-Lauf (→ 100?); danach `oeffentlich` für notsodefi.com (ab Bronze/60 erlaubt); dann SatoshisGrid, NoSinglePoint.
 
 ## Erledigt (27.11.2026)
 
