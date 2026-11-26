@@ -258,6 +258,8 @@ def pruefe_auditseite(pg, wurzel, sprache, p):
         p.ok(k["svg"] == 1 and "DREIER-SIEGEL" in k["svgtext"] and k["kacheln"] == 12, "Audit-Seite %s: Siegel oder Kacheln fehlen (%s)" % (k["dom"], {x: k[x] for x in ("svg", "kacheln")}))
     p.ok(seite["skripte"] == 0 and seite["lang"] == sprache and seite["alt"] == 3 and seite["kanon"].endswith(pfad), "Audit-Seite: Kopf %s" % {x: seite[x] for x in ("skripte", "lang", "alt", "kanon")})
     p.ok(not MUELL.search(seite["text"]), "Audit-Seite: Platzhalter im Text")
+    zur = pg.locator(".bs-zurueck a")
+    p.ok(zur.count() == 1 and zur.get_attribute("href") == ("/en/" if sprache == "en" else "/"), "Audit-Seite: Zurück-Link zum Dreier-Pegel fehlt")
     p.ok(rand(pg) <= 1, "Audit-Seite: %d px über dem Rand" % rand(pg))
     r = pg.request.get(wurzel + "/audit/siegel/cyberlage.org.svg")
     p.ok(r.status == 200 and "svg" in r.headers.get("content-type", ""), "Siegel-Datei: Status %s, Typ %s" % (r.status, r.headers.get("content-type")))
@@ -280,6 +282,8 @@ def pruefe_linkseite(pg, wurzel, sprache, p):
     p.ok({l["h"] for l in seite["links"]} == {x["url"] for x in daten["links"]}, "Linkseite: Adressen weichen von data/links.json ab")
     p.ok(seite["skripte"] == 0 and seite["lang"] == sprache, "Linkseite: Skripte %d, Sprache %s" % (seite["skripte"], seite["lang"]))
     p.ok(not MUELL.search(seite["text"]), "Linkseite: Platzhalter im Text")
+    zur = pg.locator(".bs-zurueck a")
+    p.ok(zur.count() == 1 and zur.get_attribute("href") == ("/en/" if sprache == "en" else "/"), "Linkseite: Zurück-Link zum Dreier-Pegel fehlt")
     p.ok(rand(pg) <= 1, "Linkseite: %d px über dem Rand" % rand(pg))
 
 
