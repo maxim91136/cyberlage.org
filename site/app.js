@@ -19,11 +19,23 @@
     return e;
   };
 
+  /* Immer nur ein Teil und innerhalb eines Teils nur ein Abschnitt offen: so bleibt die Seite kurz und man verliert nicht den Faden. */
+  function exklusiv(d) {
+    if (!d || !d.open || !d.classList) return;
+    var gruppe = [];
+    if (d.classList.contains("teil")) gruppe = Array.prototype.slice.call(document.querySelectorAll("main > details.teil"));
+    else if (d.classList.contains("sek") && d.parentElement && d.parentElement.tagName === "SECTION") {
+      var t = d.closest("details.teil"); if (t) gruppe = Array.prototype.slice.call(t.querySelectorAll(":scope > section > details.sek"));
+    }
+    gruppe.forEach(function (x) { if (x !== d) x.open = false; });
+  }
   function aufklappen(el0) {
     if (!el0) return;
-    for (var n = el0; n; n = n.parentElement) if (n.tagName === "DETAILS") n.open = true;
-    var d = el0.querySelector && el0.querySelector(":scope > details.sek"); if (d) d.open = true;
+    for (var n = el0; n; n = n.parentElement) if (n.tagName === "DETAILS") { n.open = true; exklusiv(n); }
+    var d = el0.querySelector && el0.querySelector(":scope > details.sek"); if (d) { d.open = true; exklusiv(d); }
   }
+  var geklickt = null;
+  document.addEventListener("click", function (e) { var sm = e.target.closest && e.target.closest("summary"); geklickt = sm && sm.parentElement && sm.parentElement.tagName === "DETAILS" ? sm.parentElement : null; }, true);
   function ohneZiel() { try { history.replaceState(null, "", location.pathname + location.search); } catch (e) { /* ältere Browser */ } }
   function oeffne() {
     var id = (location.hash || "").slice(1), z = id && document.getElementById(id); if (!z) return;
@@ -45,6 +57,10 @@
   try { localStorage.removeItem("klappen"); } catch (e) { /* egal */ }
   document.addEventListener("toggle", function (e) {
     var d = e.target; if (!d || d.tagName !== "DETAILS") return;
+    if (d.open && geklickt === d) {  // vom Besucher geöffnet: Geschwister zuklappen und die Überschrift nach oben holen
+      geklickt = null; exklusiv(d);
+      var sm = d.querySelector(":scope > summary"); if (sm && (d.classList.contains("teil") || d.classList.contains("sek")) && sm.scrollIntoView) setTimeout(function () { sm.scrollIntoView({ block: "start" }); }, 30);
+    }
     if (d.open && window.neuZeichnen) window.neuZeichnen();
   }, true);
   window.addEventListener("load", oeffne);
