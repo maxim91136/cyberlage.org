@@ -69,9 +69,10 @@ class LifecycleTests(unittest.TestCase):
                            {"cycle": "10-22h2-w", "eol": "2025-10-14", "extendedSupport": "2026-10-13"},
                            {"cycle": "ohne-datum", "eol": False}],
                "windows-server": [{"cycle": "2025", "eol": "2034-11-14", "support": "2029-11-13", "lts": True}]}
-        lc = fetch_patches.aktualisiere_lifecycle(None, date(2026, 11, 26), datetime(2026, 11, 26, tzinfo=timezone.utc), lambda u: roh[u.split("/")[-1][:-5]])
+        lc = fetch_patches.aktualisiere_lifecycle(None, date(2026, 11, 26), datetime(2026, 11, 26, tzinfo=timezone.utc), lambda u: roh.get(u.split("/")[-1][:-5], [{"cycle": "1", "eol": "2030-01-01", "lts": True}]))
         z = {x["zyklus"]: x for x in lc["produkte"]["windows"]["zyklen"]}
-        self.assertEqual(set(z), {"11-25h2-w", "10-22h2-w"})  # 7 ist zu lange vorbei, ohne Datum fällt raus
+        self.assertEqual(set(z), {"11-25h2-w", "10-22h2-w", "ohne-datum"})  # 7 ist zu lange vorbei; „eol: false“ bleibt als offen
+        self.assertTrue(z["ohne-datum"]["offen"] and not z["11-25h2-w"]["offen"])
         self.assertEqual(z["11-25h2-w"]["erweitert"], "")  # „false“ wird leer
         self.assertEqual(z["10-22h2-w"]["erweitert"], "2026-10-13")
         self.assertEqual(lc["produkte"]["windows-server"]["zyklen"][0]["lts"], True)
@@ -83,7 +84,15 @@ class LifecycleTests(unittest.TestCase):
             raise OSError("nein")
         lc = fetch_patches.aktualisiere_lifecycle(alt, date(2026, 11, 26), datetime(2026, 11, 26, tzinfo=timezone.utc), kaputt)
         self.assertEqual(lc["produkte"]["windows"]["zyklen"][0]["zyklus"], "x")
-        self.assertEqual(len(lc["meta"]["fehler"]), 2)
+        self.assertEqual(len(lc["meta"]["fehler"]), len(fetch_patches.LIFE_PRODUKTE))
+
+    def test_firefox_nur_esr_und_gruppen(self):
+        roh = {"firefox": [{"cycle": "161", "eol": "2026-12-08", "lts": False}, {"cycle": "153", "eol": "2027-06-30", "lts": True}]}
+        lc = fetch_patches.aktualisiere_lifecycle(None, date(2026, 11, 26), datetime(2026, 11, 26, tzinfo=timezone.utc), lambda u: roh.get(u.split("/")[-1][:-5], [{"cycle": "1", "eol": "2030-01-01", "lts": True}]))
+        self.assertEqual([z["zyklus"] for z in lc["produkte"]["firefox"]["zyklen"]], ["153"])
+        self.assertEqual(lc["produkte"]["ubuntu"]["gruppe"], "os")
+        self.assertEqual(lc["produkte"]["panos"]["gruppe"], "netz")
+        self.assertIn("SAP", lc["meta"]["ohne_quelle"])
 
 
 if __name__ == "__main__":

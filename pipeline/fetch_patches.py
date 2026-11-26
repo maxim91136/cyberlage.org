@@ -439,7 +439,17 @@ def aktualisiere(alt, liste_json, hole_dok, kev_cves, jetzt):
 # ---------- Support-Ende der Betriebssysteme (endoflife.date) ----------
 LIFE_DATEI = WURZEL / "data" / "patches" / "lifecycle.json"
 LIFE_QUELLE = "https://endoflife.date"
-LIFE_PRODUKTE = (("windows", "Windows"), ("windows-server", "Windows Server"))
+# (Kennung bei endoflife.date, Anzeigename, Gruppe, nur Zyklen mit LTS-Kennzeichen)
+LIFE_PRODUKTE = (
+    ("windows", "Windows", "os", False), ("windows-server", "Windows Server", "os", False),
+    ("ubuntu", "Ubuntu", "os", False), ("debian", "Debian", "os", False), ("rhel", "Red Hat Enterprise Linux", "os", False),
+    ("sles", "SUSE Linux Enterprise Server", "os", False), ("almalinux", "AlmaLinux", "os", False), ("rocky-linux", "Rocky Linux", "os", False),
+    ("amazon-linux", "Amazon Linux", "os", False), ("macos", "Apple macOS", "os", False),
+    ("cisco-ios-xe", "Cisco IOS XE", "netz", False), ("fortios", "Fortinet FortiOS", "netz", False), ("panos", "Palo Alto PAN-OS", "netz", False),
+    ("firefox", "Mozilla Firefox ESR", "browser", True),
+)
+# Ohne Quelle bei endoflife.date (Stand 26.11.2026): wird auf der Seite offen so genannt, nichts geschätzt.
+LIFE_OHNE_QUELLE = ("Ivanti", "SAP", "Microsoft Edge")
 LIFE_RUECK_TAGE = 400  # Einträge, deren Support vor mehr als gut einem Jahr endete, bleiben draußen
 
 
@@ -448,26 +458,28 @@ def lifecycle_zyklus(slug, e):
     def d(x):
         return x if isinstance(x, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", x) else ""
     return {"zyklus": str(e.get("cycle", "")), "eol": d(e.get("eol")), "support": d(e.get("support")), "erweitert": d(e.get("extendedSupport")),
-            "erschienen": d(e.get("releaseDate")), "lts": bool(e.get("lts")), "neueste": str(e.get("latest", ""))[:24]}
+            "erschienen": d(e.get("releaseDate")), "lts": bool(e.get("lts")), "neueste": str(e.get("latest", ""))[:24],
+            "offen": e.get("eol") is False, "name": str(e.get("codename", ""))[:40]}
 
 
 def aktualisiere_lifecycle(alt, heute, jetzt, lade=lade_json):
-    """Support-Ende je Windows- und Windows-Server-Zyklus. Je Produkt fail-soft: Schlägt ein Abruf fehl, bleibt der alte Eintrag."""
+    """Support-Ende je Produktzyklus. Je Produkt fail-soft: Schlägt ein Abruf fehl, bleibt der alte Eintrag."""
     alt = alt or {}
     produkte, fehler = dict(alt.get("produkte") or {}), []
     grenze = (heute - timedelta(days=LIFE_RUECK_TAGE)).isoformat()
-    for slug, name in LIFE_PRODUKTE:
+    for slug, name, gruppe, nur_lts in LIFE_PRODUKTE:
         try:
             roh = lade("https://endoflife.date/api/%s.json" % slug)
             zyklen = [lifecycle_zyklus(slug, e) for e in roh if isinstance(e, dict)]
-            zyklen = [z for z in zyklen if z["zyklus"] and z["eol"] and max(z["eol"], z["erweitert"]) >= grenze]
+            zyklen = [z for z in zyklen if z["zyklus"] and (z["lts"] or not nur_lts)
+                      and ((z["eol"] and max(z["eol"], z["erweitert"]) >= grenze) or z["offen"])]
             if not zyklen:
                 raise QuellFehler("keine Einträge")
-            produkte[slug] = {"name": name, "zyklen": sorted(zyklen, key=lambda z: z["eol"])}
+            produkte[slug] = {"name": name, "gruppe": gruppe, "zyklen": sorted(zyklen, key=lambda z: (z["eol"] or "9999-99-99", z["zyklus"]))}
         except Exception as ex:
             fehler.append("%s: %s" % (slug, ex))
     return {"meta": {"quelle": "endoflife.date (offene Daten, Herstellerangaben)", "quelle_url": LIFE_QUELLE, "abgerufen_am": jetzt.isoformat(timespec="seconds"),
-                     "hinweis": "Support-Ende laut Microsoft-Lebenszyklus, gesammelt von endoflife.date. Erweitertes Support-Programm (ESU) nur, wenn dort ein Datum steht.", "fehler": fehler},
+                     "hinweis": "Support-Ende laut Herstellerangaben, gesammelt von endoflife.date. Erweiterter Support (ESU, ESM, Extended) nur, wenn dort ein Datum steht; „offen“ heißt: dort ist noch kein Ende genannt.", "ohne_quelle": list(LIFE_OHNE_QUELLE), "fehler": fehler},
             "produkte": produkte}
 
 
