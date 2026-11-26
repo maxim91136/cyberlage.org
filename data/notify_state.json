@@ -2352,6 +2352,7 @@
    "EUVD-2025-13996",
    "EUVD-2023-29803",
    "EUVD-2023-29802",
+   "EUVD-2026-135952",
    "EUVD-2026-129432",
    "EUVD-2026-129010",
    "EUVD-2026-132805",
@@ -2464,7 +2465,8 @@
    "• Mitel – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-130372\">CVE-2026-133275</a>",
    "• Danfoss – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2025-13996\">CVE-2025-41450</a>",
    "• Danfoss – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2023-29803\">CVE-2023-25915</a>",
-   "• Danfoss – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2023-29802\">CVE-2023-25914</a>"
+   "• Danfoss – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2023-29802\">CVE-2023-25914</a>",
+   "• Drupal – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-135952\">CVE-2026-132165</a>"
   ]
  },
  "patches": {
