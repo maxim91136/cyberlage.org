@@ -17,25 +17,37 @@ sys.path.insert(0, str(Path(__file__).parent))
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "pipeline"))
 import notify  # noqa: E402
 import abruf  # noqa: E402
+import dns  # noqa: E402
+import fremd  # noqa: E402
 import auswertung  # noqa: E402
 import dateien  # noqa: E402
 import kopfzeilen  # noqa: E402
 import tls  # noqa: E402
 
 ERLAUBT = {"cyberlage.org", "dreierlabs.com"}  # nur eigene Domains
+OHNE_MAIL = {"cyberlage.org"}  # Domains, die keine Mail verschicken: SPF "-all" ist das Ziel
 
 
 def pruefe(host, jetzt=None):
     jetzt = jetzt or datetime.now(timezone.utc)
     erg = []
-    status, kopf, _text, _ort = abruf.hole(host, "/")
+    status, kopf, startseite, _ort = abruf.hole(host, "/")
     if status is None:  # kein Netz oder Domain nicht erreichbar: kein Ergebnis, statt lauter falscher Befunde
         raise ConnectionError("%s ist nicht erreichbar, kein Ergebnis" % host)
+    erg += fremd.fremde_inhalte(startseite, host, kopf) + fremd.cookies(kopf)
     erg += kopfzeilen.pruefe(kopf) if status == 200 else [("hsts", "start-da", "nicht_bestanden", "Startseite antwortet mit Status %s" % status)]
     s, _k, _t, ort = abruf.hole(host, "/", https=False)
     erg += tls.weiterleitung(s, ort, host)
     cert, ok = abruf.zertifikat(host)
     erg += tls.zertifikat(cert, jetzt, ok) + tls.versionen(abruf.versionen(host))
+    caa, _ = abruf.doh(host, "CAA")
+    ds, _ = abruf.doh(host, "DS")
+    _a, ad = abruf.doh(host, "A")
+    erg += dns.caa(caa) + dns.dnssec(ds, ad)
+    spf, _ = abruf.doh(host, "TXT")
+    dm, _ = abruf.doh("_dmarc." + host, "TXT")
+    erg += (dns.spf(spf, host in OHNE_MAIL) if spf is not None else [("mail", "spf", "nicht_geprueft", "TXT-Abfrage fehlgeschlagen")]) \
+        + (dns.dmarc(dm) if dm is not None else [("mail", "dmarc", "nicht_geprueft", "DMARC-Abfrage fehlgeschlagen")])
     s, k, t, _o = abruf.hole(host, "/.well-known/security.txt")
     erg += dateien.security_txt(s, k.get("content-type"), t, jetzt)
     s, _k, t, _o = abruf.hole(host, "/robots.txt")

@@ -1,5 +1,6 @@
 """Audit: Netzabruf mit der Standardbibliothek. Höfliche, wenige Anfragen mit klarem User-Agent. Nur für eigene Domains."""
 import http.client
+import json
 import socket
 import ssl
 
@@ -18,6 +19,8 @@ def hole(host, pfad="/", https=True):
         k.request("GET", pfad, headers={"User-Agent": UA, "Accept": "*/*"})
         r = k.getresponse()
         kopf = {n.lower(): v for n, v in r.getheaders()}
+        if r.msg.get_all("Set-Cookie"):
+            kopf["set-cookie"] = "\n".join(r.msg.get_all("Set-Cookie"))
         text = r.read(MAX).decode("utf-8", errors="replace")
         k.close()
         return r.status, kopf, text, kopf.get("location")
@@ -58,3 +61,19 @@ def versionen(host):
         except OSError:
             erg[name] = "unklar"
     return erg
+
+
+def doh(name, typ):
+    """DNS-over-HTTPS (Cloudflare, JSON). Gibt (antworten_als_text_liste, ad_merker) zurück, bei Fehler (None, False)."""
+    try:
+        k = http.client.HTTPSConnection("cloudflare-dns.com", timeout=ZEIT, context=ssl.create_default_context())
+        k.request("GET", "/dns-query?name=%s&type=%s" % (name, typ), headers={"Accept": "application/dns-json", "User-Agent": UA})
+        r = k.getresponse()
+        d = json.loads(r.read(200_000).decode("utf-8", errors="replace"))
+        k.close()
+        if r.status != 200 or d.get("Status") not in (0, 3):  # 0 = ok, 3 = Name existiert nicht
+            return None, False
+        nummer = {"A": 1, "TXT": 16, "DS": 43, "CAA": 257}[typ]
+        return [a.get("data", "") for a in d.get("Answer", []) if a.get("type") == nummer], bool(d.get("AD"))
+    except (OSError, ValueError, http.client.HTTPException, ssl.SSLError):
+        return None, False

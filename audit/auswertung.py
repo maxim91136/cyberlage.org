@@ -17,16 +17,21 @@ def rechne(ergebnisse, regeln=REGELN):
     wert = regeln["wertung"]
     gruppen = {}
     nicht_geprueft = []
+    zutreffend_nicht = set()
     for g, pid, erg, _text in ergebnisse:
         if erg == "nicht_geprueft":  # zählt weder als bestanden noch als nicht bestanden und senkt die Abdeckung
             nicht_geprueft.append(pid)
             continue
+        if erg == "nicht_zutreffend":  # trifft auf die Seite nicht zu (z. B. Cookies ohne Cookies): zählt für die Abdeckung, nicht für den Wert
+            zutreffend_nicht.add(g)
+            continue
         gruppen.setdefault(g, []).append(wert[erg])
     gesamt = sum(x["gewicht"] for x in regeln["gruppen"].values())
-    geprueft = sum(regeln["gruppen"][g]["gewicht"] for g in gruppen)
+    geprueft = sum(regeln["gruppen"][g]["gewicht"] for g in set(gruppen) | zutreffend_nicht)
     abdeckung = geprueft / gesamt
     werte = {g: sum(v) / len(v) for g, v in gruppen.items()}
-    summe = sum(werte[g] * regeln["gruppen"][g]["gewicht"] for g in werte) / geprueft * 100 if geprueft else 0
+    gewertet = sum(regeln["gruppen"][g]["gewicht"] for g in werte)
+    summe = sum(werte[g] * regeln["gruppen"][g]["gewicht"] for g in werte) / gewertet * 100 if gewertet else 0
     score = round(summe)
     if any(werte.get(g, 1) == 0 for g in regeln["deckel"]["gruppen"]):
         score = min(score, regeln["deckel"]["max_score"])

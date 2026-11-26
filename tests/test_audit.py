@@ -7,6 +7,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "audit"))
 
 import dateien  # noqa: E402
+import dns  # noqa: E402
+import fremd  # noqa: E402
 import kopfzeilen  # noqa: E402
 import tls  # noqa: E402
 import lauf  # noqa: E402
@@ -107,6 +109,52 @@ class DateiTlsTests(unittest.TestCase):
 
     def test_nur_eigene_domains(self):
         self.assertEqual(lauf.main(["fremde-seite.example"]), 2)
+
+
+class DnsFremdTests(unittest.TestCase):
+    def erg(self, liste):
+        return {e[1]: e[2] for e in liste}
+
+    def test_spf(self):
+        self.assertEqual(dns.spf(['"v=spf1 -all"'], True)[0][2], "bestanden")
+        self.assertEqual(dns.spf(['"v=spf1 include:x ~all"'], True)[0][2], "hinweis")
+        self.assertEqual(dns.spf(['"google-site-verification=abc"'])[0][2], "nicht_bestanden")
+        self.assertEqual(dns.spf(['"v=spf1 -all"', '"v=spf1 ~all"'])[0][2], "nicht_bestanden")
+        self.assertEqual(dns.spf(['"v=spf1 a "mx" -all"'])[0][2] in ("bestanden", "hinweis"), True)
+
+    def test_dmarc(self):
+        self.assertEqual(dns.dmarc(['"v=DMARC1; p=reject; adkim=s"'])[0][2], "bestanden")
+        self.assertEqual(dns.dmarc(['"v=DMARC1; p=none"'])[0][2], "hinweis")
+        self.assertEqual(dns.dmarc([])[0][2], "nicht_bestanden")
+
+    def test_caa_und_dnssec(self):
+        self.assertEqual(dns.caa([])[0][2], "hinweis")
+        self.assertEqual(dns.caa(['0 issue "pki.goog"'])[0][2], "bestanden")
+        self.assertEqual(dns.caa(None)[0][2], "nicht_geprueft")
+        self.assertEqual(dns.dnssec([], False)[0][2], "nicht_bestanden")
+        self.assertEqual(dns.dnssec(["2371 13 2 abc"], True)[0][2], "bestanden")
+        self.assertEqual(dns.dnssec(["2371 13 2 abc"], False)[0][2], "nicht_bestanden")
+        self.assertEqual(dns.dnssec(None, False)[0][2], "nicht_geprueft")
+
+    def test_fremde_inhalte(self):
+        sauber = '<script src="/app.js"></script><link rel="stylesheet" href="/s.css"><img src="/a.png"><a href="https://fremd.de">x</a>'
+        r = self.erg(fremd.fremde_inhalte(sauber, "x.de", {}))
+        self.assertTrue(all(v == "bestanden" for v in r.values()), r)
+        schlecht = '<script src="https://cdn.fremd.de/a.js"></script><img src="http://x.de/a.png">'
+        r = self.erg(fremd.fremde_inhalte(schlecht, "x.de", {"access-control-allow-origin": "*"}))
+        self.assertEqual((r["gemischt"], r["fremde-skripte"], r["sri"], r["cors"]), ("nicht_bestanden", "nicht_bestanden", "nicht_bestanden", "hinweis"))
+        mit = self.erg(fremd.fremde_inhalte('<script src="https://c.de/a.js" integrity="sha384-x"></script>', "x.de", {}))
+        self.assertEqual(mit["sri"], "bestanden")
+
+    def test_cookies(self):
+        self.assertEqual(fremd.cookies({})[0][2], "nicht_zutreffend")
+        r = self.erg(fremd.cookies({"set-cookie": "sid=1; Secure; HttpOnly; SameSite=Lax\nx=2"}))
+        self.assertEqual((r["secure-sid"], r["httponly-sid"], r["samesite-sid"], r["secure-x"]), ("bestanden", "bestanden", "bestanden", "nicht_bestanden"))
+
+    def test_nicht_zutreffend_zaehlt_fuer_abdeckung(self):
+        alle = [(g, g, "bestanden", "") for g in score.REGELN["gruppen"] if g != "cookies"] + [("cookies", "keine", "nicht_zutreffend", "")]
+        r = score.rechne(alle)
+        self.assertEqual((r["score"], r["abdeckung"]), (100, 1.0))
 
 
 if __name__ == "__main__":
