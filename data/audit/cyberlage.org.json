@@ -1,0 +1,22 @@
+{
+ "domain": "cyberlage.org",
+ "stand": "2026-11-26T09:21Z",
+ "regeln": "0.1-entwurf",
+ "score": null,
+ "teilwert": 59,
+ "stufe": "nicht bewertet (zu wenig geprüft)",
+ "abdeckung": 0.7,
+ "gruppen": {
+  "hsts": 1.0,
+  "csp": 1.0,
+  "inhalt": 1.0,
+  "datenschutz": 1.0,
+  "altlasten": 1.0,
+  "weiterleitung": 0.0,
+  "tls": 0.75,
+  "auffindbar": 1.0
+ },
+ "befunde": 2,
+ "hinweise": 0,
+ "nicht_geprueft": 0
+}
