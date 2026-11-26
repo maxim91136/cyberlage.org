@@ -47,3 +47,30 @@ def weiterleitung(status, ort, host):
     if status is None:
         return [_p("weiterleitung", "http-zu-https", "nicht_geprueft", "Port 80 nicht erreichbar")]
     return [_p("weiterleitung", "http-zu-https", "nicht_bestanden", "http leitet nicht auf https des gleichen Hosts um (Status %s)" % status)]
+
+
+def http_zu_https_domain(status, ort, host, ziel):
+    """Profil Weiterleitung: http://host/ darf auf https://host/ oder gleich auf https://ziel/ führen (beides ist verschlüsselt)."""
+    if status is None:
+        return [_p("weiterleitung", "http-zu-https", "nicht_geprueft", "Port 80 nicht erreichbar")]
+    gut = status in (301, 308)
+    if status in (301, 302, 303, 307, 308) and any((ort or "").startswith(v) for v in ("https://%s/" % host, "https://%s" % ziel)):
+        return [_p("weiterleitung", "http-zu-https", "bestanden" if gut else "hinweis",
+                   "http leitet verschlüsselt um" if gut else "http leitet nur vorläufig (Status %s) um" % status)]
+    return [_p("weiterleitung", "http-zu-https", "nicht_bestanden", "http leitet nicht auf https um (Status %s)" % status)]
+
+
+def ziel_weiterleitung(status, ort, ziel, pfad):
+    """Profil Weiterleitung: https://host<pfad> muss dauerhaft (301 oder 308) auf https://ziel<pfad> führen, Pfad und Abfrage bleiben."""
+    if status is None:
+        return [_p("weiterleitung", "ziel", "nicht_geprueft", "Weiterleitungsdomain nicht erreichbar")]
+    erwartet = "https://%s%s" % (ziel, pfad)
+    if status not in (301, 302, 303, 307, 308):
+        return [_p("weiterleitung", "ziel", "nicht_bestanden", "keine Weiterleitung (Status %s)" % status)]
+    if not (ort or "").startswith("https://%s/" % ziel):
+        return [_p("weiterleitung", "ziel", "nicht_bestanden", "Weiterleitung führt nicht auf https://%s" % ziel)]
+    if ort != erwartet:
+        return [_p("weiterleitung", "ziel", "hinweis", "Weiterleitung führt auf das richtige Ziel, aber Pfad oder Abfrage gehen verloren")]
+    if status not in (301, 308):
+        return [_p("weiterleitung", "ziel", "hinweis", "Weiterleitung nur vorläufig (Status %s), dauerhaft wäre 301" % status)]
+    return [_p("weiterleitung", "ziel", "bestanden", "dauerhafte Weiterleitung auf das Ziel, Pfad und Abfrage bleiben")]

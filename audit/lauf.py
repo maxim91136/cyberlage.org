@@ -24,8 +24,13 @@ import dateien  # noqa: E402
 import kopfzeilen  # noqa: E402
 import tls  # noqa: E402
 
-ERLAUBT = {"cyberlage.org", "dreierlabs.com"}  # nur eigene Domains
-OHNE_MAIL = {"cyberlage.org"}  # Domains, die keine Mail verschicken: SPF "-all" ist das Ziel
+ERLAUBT = {"cyberlage.org", "cyberlage.com", "dreierlabs.com"}  # nur eigene Domains
+OHNE_MAIL = {"cyberlage.org", "cyberlage.com"}  # Domains, die keine Mail verschicken: SPF "-all" ist das Ziel
+WEITERLEITUNG = {"cyberlage.com": "cyberlage.org"}  # Profil "Weiterleitung": Domain -> Ziel. Alle anderen haben das Profil "Seite".
+TESTPFAD = "/hinweise?pruefung=weiterleitung"  # Pfad und Abfrage müssen auf dem Ziel ankommen
+NICHT_ZUTREFFEND = {  # Gruppen, die bei einer reinen Weiterleitung keinen Inhalt zum Prüfen haben
+    "csp": "keine Seite, nur Weiterleitung", "fremd": "keine Seite, nur Weiterleitung", "inhalt": "keine Seite, nur Weiterleitung",
+    "datenschutz": "keine Seite, nur Weiterleitung", "altlasten": "keine Seite, nur Weiterleitung", "auffindbar": "security.txt, robots und Sitemap liegen auf dem Ziel"}
 
 
 def pruefe(host, jetzt=None):
@@ -59,6 +64,38 @@ def pruefe(host, jetzt=None):
     return erg
 
 
+def pruefe_weiterleitung(host, ziel, jetzt=None):
+    """Profil Weiterleitung: nur die Prüfungen, die für eine Domain gelten, die nur auf eine andere führt."""
+    jetzt = jetzt or datetime.now(timezone.utc)
+    erg = []
+    status, kopf, _t, ort = abruf.hole(host, TESTPFAD)
+    if status is None:
+        raise ConnectionError("%s ist nicht erreichbar, kein Ergebnis" % host)
+    erg += tls.ziel_weiterleitung(status, ort, ziel, TESTPFAD)
+    erg += kopfzeilen.hsts({k.lower(): v for k, v in kopf.items()})
+    erg += fremd.cookies(kopf)
+    s, _k, _t, o = abruf.hole("www." + host, TESTPFAD)  # die www-Adresse führt auf dasselbe Ziel
+    erg += [(g, "www-" + i, e, t + " (www)") for g, i, e, t in tls.ziel_weiterleitung(s, o, ziel, TESTPFAD)]
+    zs, _k, _t, _o = abruf.hole(ziel, TESTPFAD.split("?")[0])  # das Ziel antwortet (wird als eigene Domain voll geprüft)
+    erg.append(("weiterleitung", "ziel-antwortet", "bestanden" if zs == 200 else "nicht_bestanden" if zs else "nicht_geprueft",
+                "das Ziel antwortet mit 200" if zs == 200 else "das Ziel antwortet nicht mit 200 (Status %s)" % zs))
+    s, _k, _t, ort = abruf.hole(host, "/", https=False)
+    erg += tls.http_zu_https_domain(s, ort, host, ziel)
+    cert, ok = abruf.zertifikat(host)
+    erg += tls.zertifikat(cert, jetzt, ok) + tls.versionen(abruf.versionen(host))
+    caa, _ = abruf.doh(host, "CAA")
+    ds, _ = abruf.doh(host, "DS")
+    _a, ad = abruf.doh(host, "A")
+    erg += dns.caa(caa) + dns.dnssec(ds, ad)
+    spf, _ = abruf.doh(host, "TXT")
+    dm, _ = abruf.doh("_dmarc." + host, "TXT")
+    mx, _ = abruf.doh(host, "MX")
+    erg += (dns.spf(spf, True) if spf is not None else [("mail", "spf", "nicht_geprueft", "TXT-Abfrage fehlgeschlagen")]) \
+        + (dns.dmarc(dm) if dm is not None else [("mail", "dmarc", "nicht_geprueft", "DMARC-Abfrage fehlgeschlagen")]) + dns.null_mx(mx)
+    erg += [(g, "nz-" + g, "nicht_zutreffend", t) for g, t in NICHT_ZUTREFFEND.items()]
+    return erg
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("domain")
@@ -70,12 +107,12 @@ def main(argv=None):
         print("Nur eigene Domains werden geprüft:", ", ".join(sorted(ERLAUBT)))
         return 2
     try:
-        erg = pruefe(a.domain)
+        erg = pruefe_weiterleitung(a.domain, WEITERLEITUNG[a.domain]) if a.domain in WEITERLEITUNG else pruefe(a.domain)
     except ConnectionError as ex:
         print("FEHLER:", ex)
         return 3
     r = auswertung.rechne(erg)
-    zus = {"domain": a.domain, "stand": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ"), "regeln": auswertung.REGELN["version"],
+    zus = {"domain": a.domain, "stand": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ"), "profil": "weiterleitung" if a.domain in WEITERLEITUNG else "seite", "regeln": auswertung.REGELN["version"],
            "score": r["score"], "teilwert": r["teilwert"], "stufe": r["stufe"], "abdeckung": r["abdeckung"], "gruppen": r["gruppen"],
            "befunde": sum(1 for x in erg if x[2] == "nicht_bestanden"), "hinweise": sum(1 for x in erg if x[2] == "hinweis"),
            "nicht_geprueft": len(r["nicht_geprueft"])}

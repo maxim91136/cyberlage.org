@@ -73,7 +73,7 @@ def doh(name, typ):
         k.close()
         if r.status != 200 or d.get("Status") not in (0, 3):  # 0 = ok, 3 = Name existiert nicht
             return None, False
-        nummer = {"A": 1, "TXT": 16, "DS": 43, "CAA": 257}[typ]
+        nummer = {"A": 1, "MX": 15, "TXT": 16, "DS": 43, "CAA": 257}[typ]
         return [a.get("data", "") for a in d.get("Answer", []) if a.get("type") == nummer], bool(d.get("AD"))
     except (OSError, ValueError, http.client.HTTPException, ssl.SSLError):
         return None, False

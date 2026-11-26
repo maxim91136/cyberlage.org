@@ -1,6 +1,6 @@
 name: audit
 
-# Prüft die eigenen Domains von außen (Kopfzeilen, TLS, Dateien) mit audit/lauf.py.
+# Prüft die eigenen Domains von außen (cyberlage.org als Seite, cyberlage.com als Weiterleitung auf cyberlage.org) (Kopfzeilen, TLS, Dateien) mit audit/lauf.py.
 # Das Protokoll ist öffentlich: es zeigt nur Score und Zahlen. Einzelbefunde gehen privat per Telegram an Steve.
 # Läuft in derselben Gruppe wie der Datenlauf, damit beide nie zugleich ins Repo schreiben.
 on:
@@ -37,5 +37,11 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python audit/lauf.py dreierlabs.com --zusammenfassung data/audit/dreierlabs.com.json --telegram
+      - name: cyberlage.com prüfen (Weiterleitung auf cyberlage.org)
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python audit/lauf.py cyberlage.com --zusammenfassung data/audit/cyberlage.com.json --telegram
       - name: Ergebnis speichern
         run: bash pipeline/speichern.sh

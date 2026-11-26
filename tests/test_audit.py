@@ -157,5 +157,73 @@ class DnsFremdTests(unittest.TestCase):
         self.assertEqual((r["score"], r["abdeckung"]), (100, 1.0))
 
 
+class WeiterleitungTests(unittest.TestCase):
+    PFAD = "/hinweise?pruefung=weiterleitung"
+    ZIEL = "https://cyberlage.org" + PFAD
+
+    def test_ziel(self):
+        z = lambda st, ort: tls.ziel_weiterleitung(st, ort, "cyberlage.org", self.PFAD)[0][2]
+        self.assertEqual(z(301, self.ZIEL), "bestanden")
+        self.assertEqual(z(308, self.ZIEL), "bestanden")
+        self.assertEqual(z(302, self.ZIEL), "hinweis")
+        self.assertEqual(z(301, "https://cyberlage.org/"), "hinweis")  # Pfad geht verloren
+        self.assertEqual(z(301, "https://fremd.example/hinweise"), "nicht_bestanden")
+        self.assertEqual(z(301, "https://cyberlage.org.fremd.example/"), "nicht_bestanden")
+        self.assertEqual(z(200, None), "nicht_bestanden")
+        self.assertEqual(z(None, None), "nicht_geprueft")
+
+    def test_http(self):
+        h = lambda st, ort: tls.http_zu_https_domain(st, ort, "cyberlage.com", "cyberlage.org")[0][2]
+        self.assertEqual(h(301, "https://cyberlage.com/x"), "bestanden")
+        self.assertEqual(h(301, "https://cyberlage.org/x"), "bestanden")
+        self.assertEqual(h(302, "https://cyberlage.org/x"), "hinweis")
+        self.assertEqual(h(301, "http://cyberlage.org/x"), "nicht_bestanden")
+        self.assertEqual(h(200, None), "nicht_bestanden")
+        self.assertEqual(h(None, None), "nicht_geprueft")
+
+    def test_null_mx(self):
+        self.assertEqual(dns.null_mx(["0 ."])[0][2], "bestanden")
+        self.assertEqual(dns.null_mx([])[0][2], "hinweis")
+        self.assertEqual(dns.null_mx(["10 mail.example."])[0][2], "nicht_bestanden")
+        self.assertEqual(dns.null_mx(["0 .", "10 mail.example."])[0][2], "nicht_bestanden")
+        self.assertEqual(dns.null_mx(None)[0][2], "nicht_geprueft")
+
+    def lauf(self, ort=None, mx=("0 .",)):
+        ort = ort or self.ZIEL
+        zert = {"notAfter": "Feb 21 21:09:42 2027 GMT"}
+        def hole(host, pfad="/", https=True):
+            if host == "cyberlage.org":
+                return 200, {}, "", None
+            if not https:
+                return 301, {}, "", "https://cyberlage.org/"
+            return 301, {"strict-transport-security": "max-age=31536000", "server": "cloudflare"}, "", ort
+        def doh(name, typ):
+            return {"CAA": ['0 issue "pki.goog"'], "DS": ["2371 13 2 abc"], "A": ([], True), "MX": list(mx),
+                    "TXT": ['"v=spf1 -all"'] if not name.startswith("_dmarc") else ['"v=DMARC1; p=reject"']}[typ], True
+        with mock.patch.object(lauf.abruf, "hole", side_effect=hole), mock.patch.object(lauf.abruf, "zertifikat", return_value=(zert, True)), \
+                mock.patch.object(lauf.abruf, "versionen", return_value={"TLSv1": "nein", "TLSv1.1": "nein", "TLSv1.2": "ja", "TLSv1.3": "ja"}), \
+                mock.patch.object(lauf.abruf, "doh", side_effect=lambda n, t: (doh(n, t)[0] if t != "A" else doh(n, t)[0][0], doh(n, t)[1] if t != "A" else True)):
+            erg = lauf.pruefe_weiterleitung("cyberlage.com", "cyberlage.org", datetime(2026, 11, 26, tzinfo=timezone.utc))
+        return erg, score.rechne(erg)
+
+    def test_voller_lauf_score_100(self):
+        erg, r = self.lauf()
+        self.assertEqual((r["score"], r["abdeckung"], r["stufe"]), (100, 1.0, "ohne Befund"), [e for e in erg if e[2] not in ("bestanden", "nicht_zutreffend")])
+
+    def test_falsches_ziel_ist_befund(self):
+        erg, r = self.lauf(ort="https://fremd.example/")
+        self.assertEqual([e[1] for e in erg if e[2] == "nicht_bestanden"], ["ziel", "www-ziel"])
+        self.assertNotEqual(r["stufe"], "ohne Befund")
+
+    def test_fehlender_null_mx_ist_nur_hinweis(self):
+        _erg, r = self.lauf(mx=())
+        self.assertTrue(90 <= r["score"] < 100, r)
+
+    def test_profile(self):
+        self.assertEqual(lauf.WEITERLEITUNG, {"cyberlage.com": "cyberlage.org"})
+        self.assertTrue(set(lauf.WEITERLEITUNG) <= lauf.ERLAUBT and set(lauf.WEITERLEITUNG.values()) <= lauf.ERLAUBT)
+        self.assertEqual(set(lauf.NICHT_ZUTREFFEND), {"csp", "fremd", "inhalt", "datenschutz", "altlasten", "auffindbar"})
+
+
 if __name__ == "__main__":
     unittest.main()

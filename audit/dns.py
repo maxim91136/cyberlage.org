@@ -59,3 +59,14 @@ def dmarc(txt):
     if regel == "quarantine":
         return [_p("mail", "dmarc", "bestanden", "DMARC mit p=quarantine")]
     return [_p("mail", "dmarc", "hinweis", "DMARC ohne Wirkung (p=%s)" % (regel or "fehlt"))]
+
+
+def null_mx(eintraege):
+    """Domain ohne Mail: RFC 7505 verlangt als ausdrückliche Aussage genau einen MX-Eintrag "0 ." (Null-MX)."""
+    if eintraege is None:
+        return [_p("mail", "null-mx", "nicht_geprueft", "MX-Abfrage fehlgeschlagen")]
+    if not eintraege:
+        return [_p("mail", "null-mx", "hinweis", "kein Null-MX (RFC 7505): die Domain sagt nicht ausdrücklich, dass sie keine Mail annimmt")]
+    if len(eintraege) == 1 and eintraege[0].split()[-1:] == ["."] and eintraege[0].split()[0] == "0":
+        return [_p("mail", "null-mx", "bestanden", "Null-MX: die Domain nimmt ausdrücklich keine Mail an")]
+    return [_p("mail", "null-mx", "nicht_bestanden", "MX-Eintrag verweist auf einen Mailserver, obwohl die Domain keine Mail annehmen soll")]
