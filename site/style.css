@@ -755,3 +755,9 @@ html.alarm2 .beta::after{animation:blink 1.4s steps(1) infinite}
 .p-pl-t{border-collapse:collapse;font-size:13px;width:100%}
 .p-pl-t th{text-align:left;color:var(--dim);font-weight:400;padding:4px 14px 4px 0;border-bottom:1px solid var(--line);white-space:nowrap}
 .p-pl-t td{padding:6px 14px 6px 0;border-bottom:1px solid var(--line);white-space:nowrap}
+/* Lebenszyklen: Farbe nach Restzeit (Schwellen in RULES.md) */
+.lz-g{margin:18px 0 6px;font-size:13px;color:var(--dim);letter-spacing:.05em}
+.lz-p{margin:6px 0}.lz-p>summary{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 14px;cursor:pointer}.lz-p h4{margin:0;font-size:14px}
+.lz-n{font-size:12px}
+.lz-aus td.lz-r{color:#ff8a7a;font-weight:700}.lz-6 td.lz-r{color:var(--amber);font-weight:700}.lz-12 td.lz-r{color:#d6c36a}.lz-ok td.lz-r{color:var(--green)}.lz-esu td.lz-r{color:#8ab4ff}
+.lz-aus td:first-child{color:var(--dim)}

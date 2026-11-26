@@ -195,6 +195,12 @@ Ergebnis: (1) Die Form des Pegels ist stabil. Mit den Schwellen aus zwei Jahren 
 
 **Patch-Tage im Kalender.** Zweiter Dienstag im Monat: Microsoft, Adobe, SAP, Fortinet, Ivanti, Citrix (jeweils nach eigener Angabe des Herstellers). Dritter Dienstag: Oracle. Außerplanmäßige Meldungen sind jederzeit möglich.
 
+## Lebenszyklen (/lebenszyklen, seit 26.11.2026)
+
+Die Rubrik zeigt, bis wann Hersteller ein System mit Sicherheitsupdates versorgen. Sie hat keinen Einfluss auf den Dreier-Pegel. Quelle: endoflife.date (offene Daten, Herstellerangaben), abgerufen im Datenlauf (`data/patches/lifecycle.json`, Stand je Abruf auf der Seite). Produkte: Windows, Windows Server, Ubuntu, Debian, Red Hat Enterprise Linux, SUSE Linux Enterprise Server, AlmaLinux, Rocky Linux, Amazon Linux, Apple macOS, Cisco IOS XE, Fortinet FortiOS, Palo Alto PAN-OS, Mozilla Firefox (nur ESR). Ohne Quelle bei endoflife.date und deshalb nicht geführt: Ivanti, SAP, Microsoft Edge. Es wird nichts geschätzt; nennt die Quelle kein Datum, steht „noch kein Datum genannt“.
+
+Farbe nach Restzeit bis zum Support-Ende (Tage ab heute): schon vorbei = rot („beendet“); vorbei, aber erweiterter Support (ESU, ESM) läuft noch = blau; bis 182 Tage = gelb; bis 365 Tage = hell gelb; darüber = grün. Windows 10 und 11 werden für Enterprise/Education, Pro und LTSC geführt, Home und IoT nicht. Einträge, deren Support vor mehr als 400 Tagen endete, fallen heraus. Das Board im Seitenkopf nennt die nächsten Support-Enden der Betriebssysteme innerhalb von 120 Tagen.
+
 ## Linkseite (/links, seit 26.11.2026)
 
 Die Seite sammelt von Hand ausgewählte Angebote zu Lage, Schwachstellen und Angriffsdaten (`data/links.json`). Sie hat keinen Einfluss auf den Dreier-Pegel, auf Schwellen oder Stufen. Aufnahme nur nach Einzelprüfung: erreichbar, Betreiber erkennbar, Aktualität sichtbar; Pflegeart (amtlich, automatisch, von Hand) und Prüfdatum stehen am Eintrag. Angebote, die in den Pegel einfließen, sind als „im Dreier-Pegel“ markiert. Keine bezahlten oder vermittelten Links, keine Abfrageteile oder Tracking in den Adressen. Von Hand gepflegte Fallsammlungen (etwa zu Kommunen) sind Einordnung und werden nicht in Werte übernommen. Der Prüfkalender prüft die Erreichbarkeit; die Frist je Eintrag beträgt 180 Tage.

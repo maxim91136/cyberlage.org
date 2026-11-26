@@ -55,6 +55,7 @@
     <div class="nav-row nav-g2"><span class="nav-grp nav-grp2" aria-hidden="true" data-t="g_handeln">HANDELN</span>
       <a href="#patches" data-sec="patches" data-t="n_patches">/patches</a>
       <a href="#termine" data-sec="termine" data-t="n_termine">/termine</a>
+      <a href="#lebenszyklen" data-sec="lebenszyklen" data-t="n_leben">/lebenszyklen</a>
       <a href="#neu" data-sec="neu" data-t="n_neu">/neu</a>
     </div>
     <div class="nav-row nav-g3"><span class="nav-grp" aria-hidden="true" data-t="g_belege">BELEGE</span>
@@ -261,6 +262,14 @@
     <p class="dim" data-t="t_intro">Die nächsten Patch-Termine der großen Hersteller, nach deren veröffentlichten Regeln berechnet. So weißt du im Voraus, wann du Wartungsfenster und Zeit einplanen musst.</p>
     <div class="panel pad" id="t-liste"></div>
     <p class="mono dim fine" data-t="t_quelle">Regeln: Microsoft, Adobe und SAP veröffentlichen in der Regel am zweiten Dienstag des Monats (Microsoft meist um 19 Uhr MEZ). Oracle: Critical Patch Update am dritten Dienstag von Januar, April, Juli und Oktober, in den übrigen Monaten ein Critical Security Patch Update am dritten Dienstag; Oracle kündigt jeden Termin am Donnerstag davor an. Außerplanmäßige Updates (Out-of-Band) sind nicht vorhersehbar und erscheinen im Ticker. Termine ohne Gewähr, maßgeblich ist die Seite des Herstellers.</p>
+    </details>
+  </section>
+  <section id="lebenszyklen" class="wrap" aria-labelledby="h-leben">
+    <details class="sek" id="k-leben">
+      <summary><h2 id="h-leben" class="mono" data-t="lz_h">## lebenszyklen: support-ende</h2></summary>
+    <p class="dim" data-t="lz_intro">Bis wann Hersteller ein System noch mit Sicherheitsupdates versorgen. Nach dem Support-Ende gibt es keine Patches mehr (außer im bezahlten erweiterten Support). Farbe nach Restzeit: schon beendet, unter 6 Monate, unter 12 Monate, länger.</p>
+    <div class="panel pad" id="lz-liste"></div>
+    <p class="mono dim fine" id="lz-quelle"></p>
     </details>
   </section>
   <section id="neu" class="wrap" aria-labelledby="h-neu">

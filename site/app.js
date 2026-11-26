@@ -226,9 +226,10 @@
     zeigeTermine();
     zeigeZuerst(d.patches && d.patches.prioritaet);
     zeigeBereiche(d);
-    d_life = d.patches && d.patches.lifecycle || null;
+    d_life = d.patches && d.patches.lifecycle || null; life_d = d_life;
     d_prio = d.patches && d.patches.prioritaet || null;
     zeigePatchLevel(d.patches && d.patches.microsoft, d_life);
+    zeigeLebenszyklen(d_life);
     zeigeMicrosoft(d.patches && d.patches.microsoft);
     zeigeHersteller(d.patches && d.patches.hersteller);
 
@@ -563,17 +564,19 @@
       if (!wz) return "Windows " + c;
       return "Windows " + wz.v + " " + wz.r.toUpperCase() + (wz.ed ? " (" + wz.ed + ")" : "");
     }
+    if (slug !== "windows-server") return ((life_d && life_d.produkte && life_d.produkte[slug] && life_d.produkte[slug].name) || slug) + " " + c;
     return "Windows Server " + c.replace(/-r2$/i, " R2").replace(/^(\d+h\d)/i, function (x) { return x.toUpperCase(); });
   }
   function lifeEreignisse(life, t0, tage) {
     var out = [];
     Object.keys((life && life.produkte) || {}).forEach(function (slug) {
       (life.produkte[slug].zyklen || []).forEach(function (z) {
+        if (life.produkte[slug].gruppe !== "os") return;  // Board: nur Betriebssysteme, den Rest zeigt /lebenszyklen
         if (slug === "windows" && (!winZyklus(z.zyklus) || winZyklus(z.zyklus).ed === null)) return;  // Enterprise/Education, Pro, LTSC; IoT bleibt außen vor
         [["eol", pick("Support-Ende ", "End of support ")], ["erweitert", pick("Ende Extended Support/ESU ", "End of extended support/ESU ")]].forEach(function (f) {
           var dt = z[f[0]]; if (!dt) return;
           var zeit = Date.parse(dt + "T00:00:00Z"), n = Math.round((zeit - t0) / TAG_MS);
-          if (n >= 0 && n <= tage) out.push({ zeit: zeit, tage: n, n: f[1] + lifeName(slug, z), l: "https://endoflife.date/" + slug });
+          if (n >= 0 && n <= tage) out.push({ zeit: zeit, tage: n, n: f[1] + lifeName(slug, z), l: "#lebenszyklen" });
         });
       });
     });
@@ -928,7 +931,7 @@
     q.appendChild(link("https://learn.microsoft.com/deployedge/microsoft-edge-relnotes-security", pick("Edge-Sicherheitsupdates", "Edge security updates"))); q.appendChild(document.createTextNode(" · ")); q.appendChild(link("https://chromereleases.googleblog.com/", "Chrome Releases"));
     box.appendChild(q); box.hidden = false;
   }
-  var d_life = null, d_prio = null;
+  var d_life = null, d_prio = null, life_d = null;
   /* endoflife-Zyklus "11-25h2-e" zerlegen. ed: Anzeigename der Edition; null = nicht anzeigen (Home, IoT und anderes). */
   function winZyklus(c) {
     var m = /^(\d+)-([a-z0-9]+)(?:-(.+))?$/.exec(c || "");
@@ -955,6 +958,58 @@
       var aus = x.ende < heute, pre = kurz ? (aus ? pick("beendet ", "ended ") : "") : (aus ? pick("Support beendet ", "Support ended ") : pick("Support bis ", "Support until "));
       return pre + datum(x.ende) + (x.ed ? " (" + x.ed + ")" : "") + (x.erw ? pick(" · ESU bis ", " · ESU until ") + datum(x.erw) : "");
     }).join(" · ");
+  }
+  /* Lebenszyklen: Support-Ende je Produkt und Version (data/patches/lifecycle.json, Quelle endoflife.date). Farbe nach Restzeit, Schwellen in RULES.md. */
+  function lzKlasse(tage, erwTage) {
+    if (tage === null) return "lz-ok";
+    if (tage < 0) return erwTage !== null && erwTage >= 0 ? "lz-esu" : "lz-aus";
+    return tage <= 182 ? "lz-6" : (tage <= 365 ? "lz-12" : "lz-ok");
+  }
+  function lzName(slug, p, z) {
+    if (slug === "windows" || slug === "windows-server") return lifeName(slug, z).replace(/^Windows Server /, "").replace(/^Windows /, "");
+    return z.zyklus + (z.name ? " · " + z.name : "") + (z.lts && slug !== "firefox" ? " LTS" : "");
+  }
+  function zeigeLebenszyklen(life) {
+    var host = $("lz-liste"), qu = $("lz-quelle"); if (!host) return;
+    host.textContent = "";
+    var prod = (life && life.produkte) || {}, slugs = Object.keys(prod);
+    if (!slugs.length) { host.appendChild(el("p", "dim", pick("Keine Lebenszyklus-Daten verfügbar.", "No lifecycle data available."))); return; }
+    var heute = new Date(), t0 = Date.UTC(heute.getUTCFullYear(), heute.getUTCMonth(), heute.getUTCDate());
+    function tage(dt) { return dt ? Math.round((Date.parse(dt + "T00:00:00Z") - t0) / TAG_MS) : null; }
+    var gr = [["os", pick("Betriebssysteme", "Operating systems")], ["netz", pick("Netzwerk und Sicherheit", "Network and security")], ["browser", pick("Browser", "Browsers")]];
+    gr.forEach(function (g) {
+      var liste = slugs.filter(function (s) { return prod[s].gruppe === g[0]; }); if (!liste.length) return;
+      host.appendChild(el("h3", "mono lz-g", g[1]));
+      liste.forEach(function (slug) {
+        var p = prod[slug], zy = (p.zyklen || []).filter(function (z) { return slug !== "windows" || (winZyklus(z.zyklus) && winZyklus(z.zyklus).ed !== null); });
+        zy = zy.map(function (z) { return { z: z, t: tage(z.eol), e: tage(z.erweitert) }; });
+        var kommend = zy.filter(function (x) { return x.t !== null && x.t >= 0; }).sort(function (a, b) { return a.t - b.t; });
+        var rest = zy.filter(function (x) { return x.t === null || x.t < 0; }).sort(function (a, b) { return (b.t === null ? 1e9 : b.t) - (a.t === null ? 1e9 : a.t); });
+        var d = el("details", "sek sub lz-p"), sm = el("summary", "");
+        var h = el("h4", "mono", p.name); sm.appendChild(h);
+        sm.appendChild(el("span", "mono dim lz-n", kommend.length ? pick("nächstes Ende ", "next end ") + datum(kommend[0].z.eol) + " (" + inTagen(kommend[0].t) + ")" : pick("kein Ende in Sicht", "no end in sight")));
+        d.appendChild(sm);
+        var sc = el("div", "p-pl-s"), tb = el("table", "mono p-pl-t"), th = el("tr", "");
+        [pick("Version", "Version"), pick("Support-Ende", "End of support"), pick("Erweitert (ESU, ESM)", "Extended (ESU, ESM)"), pick("Restzeit", "Time left")].forEach(function (c) { th.appendChild(el("th", "", c)); });
+        tb.appendChild(th);
+        kommend.concat(rest).forEach(function (x) {
+          var r = el("tr", lzKlasse(x.t, x.e));
+          r.appendChild(el("td", "", lzName(slug, p, x.z)));
+          r.appendChild(el("td", "", x.z.eol ? datum(x.z.eol) : pick("noch kein Datum genannt", "no date given yet")));
+          r.appendChild(el("td", "", x.z.erweitert ? datum(x.z.erweitert) : "–"));
+          r.appendChild(el("td", "lz-r", x.t === null ? pick("offen", "open") : (x.t < 0 ? (x.e !== null && x.e >= 0 ? pick("beendet, ESU läuft", "ended, ESU running") : pick("beendet", "ended")) : inTagen(x.t))));
+          tb.appendChild(r);
+        });
+        sc.appendChild(tb); d.appendChild(sc); host.appendChild(d);
+      });
+    });
+    if (qu) {
+      qu.textContent = "";
+      qu.appendChild(document.createTextNode(pick("Quelle: ", "Source: "))); qu.appendChild(link("https://endoflife.date", "endoflife.date"));
+      qu.appendChild(document.createTextNode(life.meta ? pick(" (Herstellerangaben, Stand ", " (vendor data, as of ") + datum(String(life.meta.abgerufen_am).slice(0, 10)) + ")" : ""));
+      var ohne = life.meta && life.meta.ohne_quelle;
+      if (ohne && ohne.length) qu.appendChild(document.createTextNode(pick(" · Keine Quelle für: ", " · No source for: ") + ohne.join(", ") + pick(" (nichts geschätzt).", " (nothing estimated).")));
+    }
   }
   /* Patch-Level-Tabelle: eigener Kasten oben im Patch-Bereich, ohne Aufklappen sichtbar. */
   function zeigePatchLevel(ms, life) {
