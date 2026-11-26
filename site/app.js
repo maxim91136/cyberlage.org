@@ -224,6 +224,7 @@
     d_life = d.patches && d.patches.lifecycle || null; life_d = d_life;
     zeigeTicker(d);
     zeigeBoard(d);
+    zeigeSchnell(d);
     zeigeTermine();
     zeigeZuerst(d.patches && d.patches.prioritaet);
     zeigeBereiche(d);
@@ -1010,6 +1011,26 @@
       var ohne = life.meta && life.meta.ohne_quelle;
       if (ohne && ohne.length) qu.appendChild(document.createTextNode(pick(" · Keine Quelle für: ", " · No source for: ") + ohne.join(", ") + pick(" (nichts geschätzt).", " (nothing estimated).")));
     }
+  }
+  /* Schnellzugriff oben in „Handeln“: je Kachel eine Zahl und ein Sprung. Nur Anzeige vorhandener Daten. */
+  function zeigeSchnell(d) {
+    var box = $("sw-schnell"); if (!box) return;
+    var P = d.patches || {}, heute = new Date(), t0 = Date.UTC(heute.getUTCFullYear(), heute.getUTCMonth(), heute.getUTCDate()), k = [];
+    function kachel(href, titel, info) { k.push({ href: href, t: titel, i: info }); }
+    var mon = P.microsoft && P.microsoft.monate ? Object.keys(P.microsoft.monate).map(function (x) { return P.microsoft.monate[x]; }) : [];
+    mon.sort(function (a, c) { return String(a.erste_veroeffentlichung).localeCompare(String(c.erste_veroeffentlichung)); });
+    var m = mon[mon.length - 1];
+    if (m && m.systeme && Object.keys(m.systeme).length) kachel("#p-pl", pick("Patch-Level", "Patch level"), Object.keys(m.systeme).length + pick(" Systeme · Stand ", " systems · as of ") + monatName(m.id));
+    var pr = P.prioritaet && P.prioritaet.liste;
+    if (pr && pr.length) kachel("#k-zuerst", pick("Diese Woche zuerst", "This week first"), pr.length + pick(" Einträge", " entries"));
+    var nx = termine(heute, 12).filter(function (x) { return x.ev.some(function (e) { return e.art === "ms"; }); })[0];
+    if (nx) kachel("#k-ms", pick("Microsoft Patch Day", "Microsoft patch day"), inTagen(nx.tage) + " · " + new Date(nx.zeit).toLocaleDateString(window.I18N.locale, { timeZone: "UTC", day: "2-digit", month: "2-digit" }));
+    var le = lifeEreignisse(P.lifecycle, t0, 365).sort(function (a, b) { return a.zeit - b.zeit; })[0];
+    if (le) kachel("#lebenszyklen", pick("Lebenszyklen", "Lifecycles"), pick("nächstes Ende ", "next end ") + inTagen(le.tage));
+    kachel("#termine", pick("Termine", "Dates"), pick("Patch-Kalender", "patch calendar"));
+    box.textContent = "";
+    k.forEach(function (x) { var a = el("a", "sw-k"); a.href = x.href; a.appendChild(el("b", "mono", x.t)); a.appendChild(el("span", "mono dim", x.i)); box.appendChild(a); });
+    box.hidden = !k.length;
   }
   /* Patch-Level-Tabelle: eigener Kasten oben im Patch-Bereich, ohne Aufklappen sichtbar. */
   function zeigePatchLevel(ms, life) {

@@ -761,3 +761,9 @@ html.alarm2 .beta::after{animation:blink 1.4s steps(1) infinite}
 .lz-n{font-size:12px}
 .lz-aus td.lz-r{color:#ff8a7a;font-weight:700}.lz-6 td.lz-r{color:var(--amber);font-weight:700}.lz-12 td.lz-r{color:#d6c36a}.lz-ok td.lz-r{color:var(--green)}.lz-esu td.lz-r{color:#8ab4ff}
 .lz-aus td:first-child{color:var(--dim)}
+/* Schnellzugriff in Handeln */
+.sw-schnell{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:12px 0 4px}
+.sw-schnell[hidden]{display:none}
+.sw-k{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);background:var(--panel);text-decoration:none;color:var(--text);border-radius:5px}
+.sw-k b{font-size:14px;color:var(--green)}.sw-k span{font-size:12px}
+.sw-k:hover{border-color:var(--green)}

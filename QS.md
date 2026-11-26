@@ -138,6 +138,7 @@ Klein, kann der Bau-Chat danach erledigen:
 - Datenlauf 26.11. manuell gestartet: `lifecycle.json` und `systeme` (Nov, Okt) sind da, echte Build-Nummern angezeigt. Support-Zyklen von endoflife.date (-w, -e, -e-lts, ohne Suffix) werden erkannt; Home und IoT nicht.
 - Umbau Schritt 1 (26.11.): Patch-Level-Tabelle ist ein eigener Kasten `#p-pl` oben im Patch-Bereich, nicht mehr im eingeklappten Microsoft-Block.
 - Lebenszyklen (26.11.): neue Rubrik `/lebenszyklen` (14 Produkte aus endoflife.date, Farbe nach Restzeit, RULES.md-Abschnitt). Ohne Quelle und offen benannt: Ivanti, SAP, Microsoft Edge. Board nennt Support-Enden aller Betriebssysteme.
+- Umbau Schritt 2 (26.11.): Schnellzugriff-Kacheln oben in „Handeln“ (Patch-Level, Zuerst patchen, Patch Day, Lebenszyklen, Termine), jede mit Zahl und Sprung. Nur Anzeige vorhandener Daten.
 - **Offen:** Seite ist zu lang („Monster“). Steve will Umbau: Handeln in eigene Seiten, Startseite nur Kurzblock. Erst nach seinem Ja.
 
 **Offen / nach dem nächsten Datenlauf prüfen:** erscheinen `lifecycle.json` und `systeme` (Nov und Okt)? Sieht das Board mit echten Daten richtig aus? Board nur auf der Startseite, andere Seiten nicht. Entfernter Probe-Zweig `probe-ms` muss gelöscht sein.
