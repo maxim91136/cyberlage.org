@@ -24,7 +24,7 @@ import dateien  # noqa: E402
 import kopfzeilen  # noqa: E402
 import tls  # noqa: E402
 
-ERLAUBT = {"cyberlage.org", "cyberlage.com", "dreierlabs.com"}  # nur eigene Domains
+ERLAUBT = {"cyberlage.org", "cyberlage.com"}  # nur die Domains dieses Projekts (Dreier Labs bekommt eine eigene Kopie des Werkzeugs)
 OHNE_MAIL = {"cyberlage.org", "cyberlage.com"}  # Domains, die keine Mail verschicken: SPF "-all" ist das Ziel
 WEITERLEITUNG = {"cyberlage.com": "cyberlage.org"}  # Profil "Weiterleitung": Domain -> Ziel. Alle anderen haben das Profil "Seite".
 TESTPFAD = "/hinweise?pruefung=weiterleitung"  # Pfad und Abfrage müssen auf dem Ziel ankommen

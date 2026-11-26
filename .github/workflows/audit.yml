@@ -31,12 +31,6 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python audit/lauf.py cyberlage.org --zusammenfassung data/audit/cyberlage.org.json --telegram
-      - name: dreierlabs.com prüfen
-        continue-on-error: true
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python audit/lauf.py dreierlabs.com --zusammenfassung data/audit/dreierlabs.com.json --telegram
       - name: cyberlage.com prüfen (Weiterleitung auf cyberlage.org)
         continue-on-error: true
         env:
