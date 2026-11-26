@@ -1,9 +1,9 @@
 {
-  "abgerufen_am": "2026-11-26T12:12:35+00:00",
+  "abgerufen_am": "2026-11-26T14:12:35+00:00",
   "fenster_tage": 14,
-  "geprueft": 7365,
+  "geprueft": 7342,
   "schwelle_hoch": 0.1,
-  "hoch_wahrscheinlich": 16,
+  "hoch_wahrscheinlich": 15,
   "epss_datum": "2026-11-25",
   "liste": [
     {
@@ -77,16 +77,6 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-129289"
     },
     {
-      "cve": "CVE-2026-75869",
-      "epss": 0.24348,
-      "perzentil": 0.98343,
-      "veroeffentlicht": "2026-11-12",
-      "cvss": 8.8,
-      "beschreibung": "Zohocorp ManageEngine DDI Central versions below 6301 is affected by an authorization bypass and PowerShell command injection vulnerability that allowed authenticated no…",
-      "produkt": "",
-      "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-75869"
-    },
-    {
       "cve": "CVE-2026-123633",
       "epss": 0.2211,
       "perzentil": 0.98185,
@@ -105,6 +95,16 @@
       "beschreibung": "Use-after-free in magic method backtraces can lead to remote code execution.",
       "produkt": "",
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-129474"
+    },
+    {
+      "cve": "CVE-2026-123634",
+      "epss": 0.18839,
+      "perzentil": 0.97858,
+      "veroeffentlicht": "2026-11-18",
+      "cvss": 9.2,
+      "beschreibung": "This issue occurs when NGINX Plus or NGINX Open Source is configured as a proxy, the proxied server name includes variables, and a Server Side Includes (SSI) or mirror d…",
+      "produkt": "f5 dos",
+      "link": "https://nvd.nist.gov/vuln/detail/CVE-2026-123634"
     }
   ],
   "kandidaten": [
@@ -142,11 +142,6 @@
       "cve": "CVE-2026-129289",
       "epss": 0.2479,
       "veroeffentlicht": "2026-11-19"
-    },
-    {
-      "cve": "CVE-2026-75869",
-      "epss": 0.24348,
-      "veroeffentlicht": "2026-11-12"
     },
     {
       "cve": "CVE-2026-123633",

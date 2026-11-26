@@ -5,7 +5,8 @@
   "grund": 90,
   "schwellen": 183,
   "radar_stufen": 90,
-  "link": 180
+  "link": 180,
+  "audit_regeln": 92
  },
  "eintraege": [
   {
@@ -144,6 +145,21 @@
    "link_tot": false
   },
   {
+   "id": "audit_regeln",
+   "bereich": "audit_regeln",
+   "name": "Web-Audit: Regeln, Quellen und Prüfpunkte (Version 1.0)",
+   "link": "https://github.com/maxim91136/cyberlage.org/blob/main/audit/REGELN.md",
+   "geprueft_am": "2026-11-26",
+   "erreichbar": true,
+   "status": 200,
+   "fehler_in_folge": 0,
+   "erster_fehler_um": null,
+   "link_geprueft_um": "2026-11-26T14:30:48+00:00",
+   "faellig_am": "2027-02-26",
+   "faellig": false,
+   "link_tot": false
+  },
+  {
    "id": "link:bsi-lagebericht",
    "bereich": "link",
    "name": "Linkseite: BSI: Die Lage der IT-Sicherheit in Deutschland",
@@ -256,9 +272,9 @@
    "geprueft_am": "2026-11-26",
    "erreichbar": false,
    "status": "URLError",
-   "fehler_in_folge": 1,
+   "fehler_in_folge": 2,
    "erster_fehler_um": "2026-11-26T12:27:53+00:00",
-   "link_geprueft_um": "2026-11-26T12:27:53+00:00",
+   "link_geprueft_um": "2026-11-26T14:30:48+00:00",
    "faellig_am": "2027-05-25",
    "faellig": false,
    "link_tot": false
