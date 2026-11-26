@@ -12,7 +12,7 @@
     skip: "Skip to content",
     n_termine: "/dates", t_h: "## dates: patch calendar", t_intro: "The next patch dates of the big vendors, calculated from their published rules. So you know in advance when to plan maintenance windows and time.",
     t_quelle: "Rules: Microsoft, Adobe and SAP usually publish on the second Tuesday of the month (Microsoft usually at 18:00 UTC). Oracle: Critical Patch Update on the third Tuesday of January, April, July and October, in the other months a Critical Security Patch Update on the third Tuesday; Oracle announces each date on the Thursday before. Out-of-band updates cannot be predicted and appear in the ticker. Dates without guarantee, the vendor's page is authoritative.",
-    g_lage: "SITUATION", g_handeln: "ACT",
+    g_lage: "SITUATION", g_handeln: "ACT", g_belege: "EVIDENCE",
     tl_h: "# part 1 · situation", tl_intro: "How tense is the global cyber situation? The Dreier Gauge measures it as one score from several components, the signals and the history back it up.", sw_h: "# part 2 · act: flaws & patches", sw_intro: "Which flaws to close first, and with which patch. Only flaws with an available patch are ranked; attacked flaws without a patch are listed separately below.", s_patches: "Patches", s_termine: "Patch calendar", s_kev: "Exploited (KEV)", s_neu: "New flaws", s_lage: "Components & radar", s_sig: "Signals", s_rueck: "History",
     sw_1: "reported", sw_1t: "new flaws, warnings, forecast", sw_2: "attacked", sw_2t: "proven exploited (KEV)", sw_3: "patch", sw_3t: "what first, with which update",
     beta: "",
