@@ -1,4 +1,5 @@
 import sys
+import tempfile
 import unittest
 from unittest import mock
 from datetime import datetime, timezone
@@ -167,6 +168,22 @@ class MeldungTests(unittest.TestCase):
         self.assertTrue(lauf.hat_sich_geaendert(self.ALT, dict(neu, befunde=1)))
         self.assertTrue(lauf.hat_sich_geaendert(self.ALT, dict(neu, gruppen={"tls": 0.5})))
         self.assertTrue(lauf.hat_sich_geaendert(None, neu))
+
+
+class TestmeldungTests(unittest.TestCase):
+    def test_immer_sendet_auch_ohne_aenderung(self):
+        gespeichert = []
+        erg = [("tls", "x", "bestanden", "")]
+        with mock.patch.object(lauf, "pruefe", return_value=erg), mock.patch.object(lauf, "_sende", side_effect=gespeichert.append), \
+                tempfile.TemporaryDirectory() as tmp:
+            ziel = str(Path(tmp) / "a.json")
+            lauf.main(["cyberlage.org", "--zusammenfassung", ziel, "--telegram"])  # erster Lauf: gilt als geändert
+            n = len(gespeichert)
+            lauf.main(["cyberlage.org", "--zusammenfassung", ziel, "--telegram"])  # unverändert: still
+            self.assertEqual(len(gespeichert), n)
+            lauf.main(["cyberlage.org", "--zusammenfassung", ziel, "--telegram", "--immer"])
+            self.assertEqual(len(gespeichert), n + 1)
+            self.assertIn("Test der Meldung", gespeichert[-1])
 
 
 class WeiterleitungTests(unittest.TestCase):

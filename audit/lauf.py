@@ -115,6 +115,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("domain")
     ap.add_argument("--zusammenfassung")
+    ap.add_argument("--immer", action="store_true", help="Telegram-Meldung auch ohne Änderung senden (Test der Meldung)")
     ap.add_argument("--details", action="store_true", help="Einzelbefunde auf der Ausgabe zeigen (nur lokal sinnvoll: Protokolle sind öffentlich)")
     ap.add_argument("--telegram", action="store_true", help="Einzelbefunde privat per Telegram senden (TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID)")
     a = ap.parse_args(argv)
@@ -145,13 +146,13 @@ def main(argv=None):
             if e != "bestanden":
                 print("%-14s %-16s %-16s %s" % (g, pid, e, text))
     if a.telegram:
-        if not hat_sich_geaendert(alt, zus):
+        if not a.immer and not hat_sich_geaendert(alt, zus):
             print("Keine Änderung gegenüber dem letzten Lauf, keine Telegram-Meldung")
         else:
             offen = [x for x in erg if x[2] in ("nicht_bestanden", "hinweis", "nicht_geprueft")]
             zeilen = ["• %s: %s (%s)" % (notify.e(x[0]), notify.e(x[3]), notify.e(x[2])) for x in offen] or ["alles bestanden"]
             vorher = "" if not alt else " (vorher %s)" % (alt.get("score") if alt.get("score") is not None else "ohne Score")
-            kopf = "<b>Audit %s</b>: Score %s%s, %s (Lauf %s UTC)" % (notify.e(a.domain), zus["score"] if zus["score"] is not None else "ohne Score (Teilwert %s)" % zus["teilwert"], notify.e(vorher), notify.e(zus["stufe"]), zus["stand"].replace("T", " ").rstrip("Z"))
+            kopf = ("<b>Test der Meldung.</b> " if a.immer else "") + "<b>Audit %s</b>: Score %s%s, %s (Lauf %s UTC)" % (notify.e(a.domain), zus["score"] if zus["score"] is not None else "ohne Score (Teilwert %s)" % zus["teilwert"], notify.e(vorher), notify.e(zus["stufe"]), zus["stand"].replace("T", " ").rstrip("Z"))
             _sende((kopf + "\n" + "\n".join(zeilen))[:3800])
     if a.zusammenfassung:
         Path(a.zusammenfassung).parent.mkdir(parents=True, exist_ok=True)
