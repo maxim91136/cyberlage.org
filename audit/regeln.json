@@ -1,0 +1,23 @@
+{
+  "version": "0.1-entwurf",
+  "stand": "2026-11-26",
+  "richtung": "hoch = gut (Prüfwert wie Mozilla Observatory, SSL Labs, Lighthouse); der Dreier-Pegel ist ein Gefahrenwert (hoch = schlecht)",
+  "wertung": {"bestanden": 1.0, "hinweis": 0.5, "nicht_bestanden": 0.0},
+  "deckel": {"gruppen": ["weiterleitung", "tls"], "max_score": 59},
+  "mindest_abdeckung": 0.9,
+  "stufen": [[95, "ohne Befund"], [80, "kleine Mängel"], [60, "Mängel"], [0, "erhebliche Mängel"]],
+  "gruppen": {
+    "tls":           {"name": "TLS und Zertifikat",         "gewicht": 22, "quelle": "BSI TR-02102-2; Mozilla Server Side TLS; RFC 8996"},
+    "csp":           {"name": "Content-Security-Policy",    "gewicht": 16, "quelle": "MDN HTTP Observatory; OWASP HTTP Headers Cheat Sheet"},
+    "fremd":         {"name": "Fremde Inhalte",             "gewicht": 10, "quelle": "MDN HTTP Observatory"},
+    "hsts":          {"name": "HSTS",                       "gewicht": 8,  "quelle": "RFC 6797; MDN HTTP Observatory"},
+    "dns":           {"name": "DNS (CAA, DNSSEC)",          "gewicht": 8,  "quelle": "RFC 8659; RFC 4033 bis 4035"},
+    "mail":          {"name": "Mail der Domain",            "gewicht": 7,  "quelle": "RFC 7208; RFC 7489; RFC 7505"},
+    "weiterleitung": {"name": "Weiterleitung",              "gewicht": 6,  "quelle": "MDN HTTP Observatory (Redirections)"},
+    "inhalt":        {"name": "Inhaltstyp und Einbettung",  "gewicht": 6,  "quelle": "OWASP Secure Headers Project"},
+    "cookies":       {"name": "Cookies",                    "gewicht": 5,  "quelle": "MDN HTTP Observatory; OWASP"},
+    "auffindbar":    {"name": "Auffindbarkeit",             "gewicht": 5,  "quelle": "RFC 9116; Sitemaps-Protokoll"},
+    "datenschutz":   {"name": "Datenschutz-Header",         "gewicht": 4,  "quelle": "OWASP Secure Headers Project"},
+    "altlasten":     {"name": "Altlasten",                  "gewicht": 3,  "quelle": "OWASP Secure Headers Project (Headers to remove)"}
+  }
+}
