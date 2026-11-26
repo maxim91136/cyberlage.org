@@ -84,6 +84,21 @@ Klein, kann der Bau-Chat danach erledigen:
 - „Der Pegel bewegt sich kaum“ (Fremdkritik): stimmt nur für die letzten 90 Tage. Über 36 Monate liegt er zwischen 22 und 73, Median 40. Kritik am Pegel immer gegen den 3-Jahres-Verlauf im Rückblick prüfen.
 - Zweiter Score neben dem 90-Tage-Verlauf („zuletzt 69“): entfernt, weil die rückgerechnete Reihe ohne BSI Cyber Index und SANS rechnet und dem Wert oben widersprach.
 
+## Erledigt (Sicherheitsprüfung, 26.11.2026)
+
+Finecomb-Prüfung des Repos (nur lesen): nichts Kritisches oder Hohes, Geheimnis-Suche sauber. Die sechs Punkte aus der Prüfung sind behoben:
+
+1. **Speichern im Datenlauf**: neues `pipeline/speichern.sh` (bei Konflikt wird auf dem neuesten Stand neu gerechnet statt abgebrochen); `daten.yml` mit `concurrency`-Gruppe, damit nie zwei Läufe zugleich schreiben.
+2. **Telegram-Links** (`notify.py`): neue Funktion `verweis()` – nur https-Adressen werden zu Links, Anführungszeichen werden maskiert.
+3. **CSV-Export** (`app.js`): Zellen, die mit = + - @ beginnen, bekommen ein Hochkomma davor.
+4. **CVE-Kennung** (`fetch_radar.py`): nur das feste Format wird abgerufen.
+5. **Workflows**: Actions auf Commit-Kennungen festgelegt (Kommentar zeigt die Version), Playwright auf 1.63.0 festgelegt, Diagnoseschritt gibt keine Adressen und keine Bot-Nummer mehr aus.
+6. **Kopfzeilen** (`site/_headers`): Content-Security-Policy und Strict-Transport-Security; das Skript im Impressum liegt jetzt in `site/impressum.js`.
+
+Tests: 100 Unit-Tests OK (3 neu), Klicktest 4322/0. Die CSP wirkt nur auf Cloudflare; lokal geprüft, dass es keine Inline-Skripte, Inline-Handler oder fremden Quellen gibt.
+
+**Offen / nach dem Push prüfen:** live Kopfzeilen und Seite (Konsole ohne CSP-Fehler); beim nächsten Datenlauf prüfen, dass `speichern.sh` sauber durchläuft; Action-Kennungen gelegentlich erneuern (Dependabot für Actions wäre eine Option).
+
 ## Erledigt (QS, 25.11.2026)
 
 - Menü /abo öffnete am linken Rand (548bb72).

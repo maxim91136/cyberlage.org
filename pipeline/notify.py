@@ -35,6 +35,15 @@ def e(t):
     return html.escape(str(t), quote=False)
 
 
+def verweis(url, text):
+    """Link für Telegram (HTML-Modus). Nur https-Adressen werden zum Link, Anführungszeichen in der Adresse werden maskiert;
+    sonst steht nur der Text da. Die Adressen kommen aus fremden Quellen."""
+    url = str(url or "")
+    if not url.startswith("https://"):
+        return e(text)
+    return '<a href="%s">%s</a>' % (html.escape(url, quote=True), e(text))
+
+
 def lese(pfad, vorgabe):
     try:
         return json.loads(Path(pfad).read_text(encoding="utf-8"))
@@ -53,7 +62,7 @@ def kuerzen(zeilen, kopf, fuss=""):
 
 
 def zeile_kev(x):
-    return (f"• {e(x['hersteller'])} {e(x['produkt'])} – <a href=\"https://nvd.nist.gov/vuln/detail/{e(x['cve'])}\">{e(x['cve'])}</a>"
+    return (f"• {e(x['hersteller'])} {e(x['produkt'])} – {verweis('https://nvd.nist.gov/vuln/detail/' + str(x['cve']), x['cve'])}"
             + (" – <b>Ransomware bekannt</b>" if x["ransomware_bekannt"] else ""))
 
 
@@ -91,7 +100,7 @@ def patch_nachrichten(lage, alt, jetzt):
                       f"Umfang: {e(b.get('groesse', '–'))}, Dringlichkeit: <b>{e(b.get('dringlichkeit', '–'))}</b>",
                       f"Empfehlung: {e(b.get('empfehlung', ''))}"]
             if m.get("ausgenutzt_cves"):
-                zeilen.append("Ausgenutzt: " + ", ".join(f'<a href="https://msrc.microsoft.com/update-guide/vulnerability/{e(c)}">{e(c)}</a>' for c in m["ausgenutzt_cves"][:6]))
+                zeilen.append("Ausgenutzt: " + ", ".join(verweis("https://msrc.microsoft.com/update-guide/vulnerability/" + str(c), c) for c in m["ausgenutzt_cves"][:6]))
             nachrichten.append(f"<b>Microsoft Patch Day {e(k)}</b>\n" + "\n".join(zeilen) + f"\nNicht mitgezählt: Chromium (Edge) und Azure-Linux-Paketlücken.\n{SEITE}/#patches")
         elif frueher is not None and len(m.get("nachtraege") or []) > frueher.get("nachtraege", 0):
             x = m["nachtraege"][-1]
@@ -106,7 +115,7 @@ def fazit_kombi(lage):
 
 def zuerst_zeilen(lage, n=3):
     liste = ((((lage or {}).get("patches") or {}).get("prioritaet") or {}).get("liste")) or []
-    return [f"{k['rang']}. {e(k['quelle'])}: <a href=\"{e(k['link'])}\">{e((k['cves'] or [k['titel']])[0])}</a> – {e(k['grund'])} {e(k.get('patch_text', ''))}." for k in liste[:n]]
+    return [f"{k['rang']}. {e(k['quelle'])}: {verweis(k['link'], (k['cves'] or [k['titel']])[0])} – {e(k['grund'])} {e(k.get('patch_text', ''))}." for k in liste[:n]]
 
 
 def ermittle(kev, bsi, eu, lage, zustand, jetzt):
@@ -142,10 +151,10 @@ def ermittle(kev, bsi, eu, lage, zustand, jetzt):
                                    "Quelle: CISA KEV (CC0)"))
 
     alt_bsi = set(g.get("bsi", []))
-    offen["bsi"] += [f"• <a href=\"{e(x['link'])}\">{e(x['titel'])}</a>" for x in (bsi or {}).get("eintraege", [])
+    offen["bsi"] += [f"• {verweis(x['link'], x['titel'])}" for x in (bsi or {}).get("eintraege", [])
                      if x["id"] not in alt_bsi and x["schwere"] == "kritisch"]
     alt_eu = set(g.get("eu", []))
-    offen["eu"] += [f"• {e(', '.join(x['hersteller']) or '–')} – <a href=\"{e(x['link'])}\">{e((x['cve'] or [x['id']])[0])}</a>"
+    offen["eu"] += [f"• {e(', '.join(x['hersteller']) or '–')} – {verweis(x['link'], (x['cve'] or [x['id']])[0])}"
                     for x in (eu or {}).get("eintraege", []) if x["id"] not in alt_eu]
 
     nachrichten += patch_msgs
@@ -216,17 +225,14 @@ def sende(text, token, chat):
 
 def diagnose():
     token, chat = os.environ.get("TELEGRAM_BOT_TOKEN", ""), os.environ.get("TELEGRAM_CHAT_ID", "")
-    print(f"Token gesetzt: {bool(token)} (Länge {len(token)}), Bot-Nummer: {' '.join(token.split(':')[0])}, Chat-ID: {chat!r}")
+    # Das Protokoll ist öffentlich: nur ausgeben, ob etwas gesetzt ist, nie Nummern, Namen oder Adressen
+    print(f"Token gesetzt: {bool(token)}, Chat-ID gesetzt: {bool(chat)}")
     try:
         urllib.request.urlopen("https://api.telegram.org/bot0:fantasie/getMe", timeout=20)
     except urllib.error.HTTPError as ex:
         print("Fantasie-Token ->", ex.code, ex.read().decode(errors="replace")[:200])
     except Exception as ex:
         print("Fantasie-Token ->", type(ex).__name__, ex)
-    try:
-        print("Adresse:", urllib.request.urlopen("https://api.ipify.org", timeout=15).read().decode())
-    except Exception as ex:
-        print("Adresse: nicht ermittelbar", ex)
     for name, extra in (("getMe", {}), ("getChat", {"chat_id": chat}), ("getChatMember", {"chat_id": chat})):
         if name == "getChatMember":
             try:
@@ -239,10 +245,10 @@ def diagnose():
             with urllib.request.urlopen(url, timeout=20) as r:
                 antwort = json.loads(r.read())
         except urllib.error.HTTPError as ex:
-            antwort = ex.read().decode(errors="replace")[:300]
+            antwort = {"ok": False, "http": ex.code}
         except Exception as ex:
-            antwort = f"{type(ex).__name__}: {ex}"
-        print(name, "->", antwort)
+            antwort = {"ok": False, "fehler": type(ex).__name__}
+        print(name, "->", {k: antwort.get(k) for k in ("ok", "error_code", "http", "fehler") if isinstance(antwort, dict) and k in antwort})
     return 0
 
 

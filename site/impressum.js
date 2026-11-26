@@ -1,0 +1,1 @@
+try{var g=localStorage.getItem("lang"),l=g==="de"||g==="en"?g:((navigator.language||"de").slice(0,2)==="de"?"de":"en");if(l==="en"){document.documentElement.lang="en";document.querySelector(".de").hidden=true;document.querySelector(".en").hidden=false}}catch(e){}

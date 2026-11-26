@@ -15,6 +15,7 @@ Schlägt etwas fehl, bleibt der betreffende Teil leer (null), nichts wird gesch�
 """
 import csv
 import json
+import re
 import statistics
 import sys
 import urllib.error
@@ -53,12 +54,20 @@ def tag(text):
     return date.fromisoformat(text[:10])
 
 
+CVE_FORM = re.compile(r"^CVE-\d{4}-\d{4,7}$")
+
+
 def cve_url(c):
+    """Abruf-Adresse einer CVE-Kennung. Die Kennung kommt aus fremden Daten und geht in die Adresse: nur das feste Format zulassen."""
+    if not CVE_FORM.fullmatch(str(c)):
+        raise ValueError("keine CVE-Kennung: %r" % (c,))
     _, jahr, nummer = c.split("-")
     return CVE_URL.format(y=jahr, g=int(nummer) // 1000, c=c)
 
 
 def hole_datum(c):
+    if not CVE_FORM.fullmatch(str(c)):
+        return c, None  # keine gültige Kennung: nicht abrufen, nicht erneut versuchen
     for _ in range(3):
         try:
             req = urllib.request.Request(cve_url(c), headers={"User-Agent": UA})

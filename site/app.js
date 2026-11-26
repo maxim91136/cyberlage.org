@@ -831,7 +831,8 @@
     });
     knopf("CSV", function () {
       var sep = window.I18N.locale.indexOf("de") === 0 ? ";" : ",";
-      function q(x) { return '"' + String(x == null ? "" : x).replace(/"/g, '""') + '"'; }
+      /* Zellen, die mit = + - @ oder einem Steuerzeichen beginnen, liest Excel als Formel: Hochkomma davor macht Text daraus */
+      function q(x) { var t = String(x == null ? "" : x); if (/^[=+\-@\t\r]/.test(t)) t = "'" + t; return '"' + t.replace(/"/g, '""') + '"'; }
       var zl = [["Rang", "Quelle", "CVE", "Titel", "Betrifft", "CVSS", "EPSS", "Stufe", "Loesung", "Link", "Erledigt"].map(q).join(sep)];
       sichtbar().forEach(function (k) { zl.push([k.rang, k.quelle, (k.cves || []).join(" "), k.titel, k.betrifft, pzScore(k), typeof k.epss === "number" ? Math.round(k.epss * 100) + "%" : "", k.stufe_name, pzLoesung(k), k.link, erledigt[pzKey(k)] || ""].map(q).join(sep)); });
       laden("cyberlage-patches-" + heute + ".csv", "\ufeff" + zl.join("\r\n"), "text/csv;charset=utf-8");

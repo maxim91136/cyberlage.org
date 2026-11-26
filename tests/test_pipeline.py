@@ -1222,5 +1222,27 @@ class BerichtseitenTests(unittest.TestCase):
                 self.assertTrue((pathlib.Path(tmp) / pfad).is_file(), pfad)
 
 
+class SicherheitTests(unittest.TestCase):
+    """Adressen und Kennungen kommen aus fremden Quellen: nichts davon darf Telegram-Markup, Adressen oder CSV brechen."""
+
+    def test_verweis_maskiert_anfuehrungszeichen(self):
+        h = notify.verweis('https://x.de/a"onclick="1', "<b>t</b>")
+        self.assertNotIn('"onclick', h)
+        self.assertIn("&quot;", h)
+        self.assertIn("&lt;b&gt;", h)
+
+    def test_verweis_nur_https(self):
+        for url in ("javascript:alert(1)", "http://x.de", "", None, "tg://resolve?domain=x"):
+            self.assertNotIn("<a", notify.verweis(url, "Text"), url)
+        self.assertEqual(notify.verweis("javascript:x", "T<"), "T&lt;")
+
+    def test_cve_kennung_wird_geprueft(self):
+        self.assertTrue(fetch_radar.cve_url("CVE-2024-12345").endswith("CVE-2024-12345.json"))
+        for schlecht in ("CVE-2024-1", "CVE-2024-12345/../../x", "cve-2024-12345", "CVE-24-12345", "CVE-2024-12345\n", "../x"):
+            with self.assertRaises(ValueError, msg=schlecht):
+                fetch_radar.cve_url(schlecht)
+            self.assertEqual(fetch_radar.hole_datum(schlecht), (schlecht, None))
+
+
 if __name__ == "__main__":
     unittest.main()
