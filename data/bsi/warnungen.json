@@ -3,10 +3,58 @@
   "quelle": "CERT-Bund / BSI Warn- und Informationsdienst",
   "quelle_url": "https://wid.cert-bund.de/",
   "hinweis": "Nur Kennung, Schweregrad, Titel, Datum und Link. Beschreibungstexte werden nicht übernommen.",
-  "abgerufen_am": "2026-11-27T06:12:33+00:00",
-  "anzahl": 632
+  "abgerufen_am": "2026-11-27T08:12:35+00:00",
+  "anzahl": 633
  },
  "eintraege": [
+  {
+   "id": "WID-SEC-2026-4802",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Microsoft Visio: Schwachstelle ermöglicht Ausführen von beliebigem Programmcode mit den Rechten des Dienstes",
+   "datum": "2026-11-27",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4802"
+  },
+  {
+   "id": "WID-SEC-2026-4785",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Webmin: Mehrere Schwachstellen",
+   "datum": "2026-11-27",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4785"
+  },
+  {
+   "id": "WID-SEC-2026-4781",
+   "schwere": "mittel",
+   "status": "update",
+   "titel": "Mozilla Firefox, Firefox ESR und Thunderbird: Mehrere Schwachstellen",
+   "datum": "2026-11-27",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4781"
+  },
+  {
+   "id": "WID-SEC-2026-4779",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Erlang/OTP: Mehrere Schwachstellen",
+   "datum": "2026-11-27",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4779"
+  },
+  {
+   "id": "WID-SEC-2026-4685",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Mitel OpenScape: Mehrere Schwachstellen",
+   "datum": "2026-11-27",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4685"
+  },
+  {
+   "id": "WID-SEC-2026-3948",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "NGINX: Mehrere Schwachstellen",
+   "datum": "2026-11-27",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3948"
+  },
   {
    "id": "WID-SEC-2026-3590",
    "schwere": "hoch",
@@ -208,14 +256,6 @@
    "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4803"
   },
   {
-   "id": "WID-SEC-2026-4802",
-   "schwere": "hoch",
-   "status": "neu",
-   "titel": "Microsoft Visio: Schwachstelle ermöglicht Ausführen von beliebigem Programmcode mit den Rechten des Dienstes",
-   "datum": "2026-11-26",
-   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4802"
-  },
-  {
    "id": "WID-SEC-2026-4801",
    "schwere": "hoch",
    "status": "neu",
@@ -238,22 +278,6 @@
    "titel": "Adobe Creative Cloud (InDesign): Schwachstelle ermöglicht Denial of Service",
    "datum": "2026-11-26",
    "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4799"
-  },
-  {
-   "id": "WID-SEC-2026-4781",
-   "schwere": "mittel",
-   "status": "update",
-   "titel": "Mozilla Firefox, Firefox ESR und Thunderbird: Mehrere Schwachstellen",
-   "datum": "2026-11-26",
-   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4781"
-  },
-  {
-   "id": "WID-SEC-2026-4779",
-   "schwere": "hoch",
-   "status": "update",
-   "titel": "Erlang/OTP: Mehrere Schwachstellen",
-   "datum": "2026-11-26",
-   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4779"
   },
   {
    "id": "WID-SEC-2026-4774",
@@ -1792,14 +1816,6 @@
    "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4786"
   },
   {
-   "id": "WID-SEC-2026-4785",
-   "schwere": "hoch",
-   "status": "neu",
-   "titel": "Webmin: Mehrere Schwachstellen",
-   "datum": "2026-11-25",
-   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4785"
-  },
-  {
    "id": "WID-SEC-2026-4784",
    "schwere": "mittel",
    "status": "neu",
@@ -2246,14 +2262,6 @@
    "titel": "Linux Kernel: Mehrere Schwachstellen",
    "datum": "2026-11-25",
    "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3951"
-  },
-  {
-   "id": "WID-SEC-2026-3948",
-   "schwere": "hoch",
-   "status": "update",
-   "titel": "NGINX: Mehrere Schwachstellen",
-   "datum": "2026-11-25",
-   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3948"
   },
   {
    "id": "WID-SEC-2026-3923",
