@@ -287,3 +287,4 @@ Lokal mit Playwright (1280 px und 390 px, Deutsch und Englisch, alle Klappen off
 - 27.11.2026: Menü-Knopf auf dem Handy schlanker (38 px, Pfeil rechts). Steve: bisher beste Lösung, nicht perfekt.
 - 27.11.2026: Menü-Knopf Schrift größer (19 px, halbfett), Höhe 42 px.
 - 27.11.2026: Code-Audit-Regeln auf Version 1.0 festgeschrieben (Siegel „REGELN 1.0“); neuer Lauf gestartet. Offen: Score 89 hebt sich nur mit Testabdeckung ≥80 %, Komplexität, app.js-Größe.
+- 27.11.2026: Testabdeckung von 70 % auf 82 % (neue Tests: tests/test_historie_lauf.py, tests/test_durchlauf.py; score.main und prerender.main laufen auf einer Kopie im Temp-Ordner). .coverage aus dem Repo genommen (.gitignore). Ziel Gold (95): Rest hängt an Wartbarkeit (Komplexität >30, app.js-Größe).
