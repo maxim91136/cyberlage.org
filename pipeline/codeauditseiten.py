@@ -17,7 +17,7 @@ GRUPPE_EN = {"geheimnisse": "Secrets in code and history", "workflows": "Workflo
                      "python": "Python: security and error patterns", "javascript": "JavaScript: security and error patterns", "tests": "Tests", "wartbarkeit": "Maintainability"}
 
 T = {
-    "de": {"h": "Code-Audit", "profil": "Code (Repo %s)" % REPO,
+    "de": {"h": "Code-Audit", "profil": "Code-Repository",
            "intro": "Ein zweites, eigenes Siegel prüft den Code dieses Projekts: Geheimnisse, Workflows, Abhängigkeiten, Python, JavaScript, Tests und Wartbarkeit. "
                     "Es ist vom Web-Audit unabhängig und kann anders ausfallen. Regeln, Gewichte und Werkzeuge liegen offen. Hier gilt: hoch ist gut.",
            "entwurf": "Die Regeln sind noch ein Entwurf (Version %s). Schwellen und Prüfpunkte können sich bis Version 1.0 ändern; dann werden sie festgeschrieben.",
@@ -35,7 +35,7 @@ T = {
                      "Es ist kein Sicherheitsgutachten, keine Prüfung durch Menschen und kein Penetrationstest. Ein bestandener Prüfpunkt heißt nur, dass das jeweilige Werkzeug nichts gefunden hat.",
                      "Wartbarkeit ist ein Richtwert (Komplexität, Dateilänge) und hat nur geringes Gewicht."),
            "quell": "Quelltext des Code-Audits", "kurz": "Code-Audit"},
-    "en": {"h": "Code audit", "profil": "Code (repo %s)" % REPO,
+    "en": {"h": "Code audit", "profil": "Code repository",
            "intro": "A second, separate seal checks the code of this project: secrets, workflows, dependencies, Python, JavaScript, tests and maintainability. "
                     "It is independent of the web audit and can turn out differently. Rules, weights and tools are open. Here, high is good.",
            "entwurf": "The rules are still a draft (version %s). Thresholds and checks may change until version 1.0, when they are fixed.",
@@ -74,17 +74,22 @@ def siegel(d, jetzt, regeln):
     return au.siegel("cyberlage.org", d, jetzt, regeln, **KOPF)
 
 
-def abschnitt(sp, d, regeln, jetzt):
-    """HTML des Abschnitts „Code-Audit“ (Karte mit Siegel, Gruppen, Ablauf, Werkzeuge, Grenzen)."""
+def kopf(sp, d, regeln, jetzt):
+    """Obere Hälfte: Überschrift, Einleitung, Karte mit Siegel und Gruppen."""
     t = T[sp]
-    karte = au._karte("cyberlage.org", d, regeln, sp, jetzt, None, svg=SVG_NAME, profil_text=t["profil"], kopf=KOPF, gruppe_en=GRUPPE_EN)
-    wann = (t["wann"][0] % LAUF_UHR, t["wann"][1], t["wann"][2] % round(100 * regeln["mindest_abdeckung"]), t["wann"][3] % regeln["deckel"]["max_score"], t["wann"][4], t["wann"][5] % au.SIEGEL_TAGE)
     z = ['<h2 class="mono" id="code-audit">%s</h2>\n<p class="dim au-intro">%s</p>\n' % (au._e(t["h"]), au._e(t["intro"]))]
     if "entwurf" in regeln["version"]:
         z.append('<p class="dim au-hint">%s</p>\n' % au._e(t["entwurf"] % regeln["version"].split("-")[0]))
-    z.append(karte)
+    z.append(au._karte("cyberlage.org", d, regeln, sp, jetzt, None, svg=SVG_NAME, profil_text=t["profil"], kopf=KOPF, gruppe_en=GRUPPE_EN))
     z.append('<p class="dim au-leg">%s</p>\n' % au._e(t["leg"]))
-    z.append('<h3 class="mono">%s</h3>\n<ul class="au-ul">%s</ul>\n' % (au._e(t["h_wann"]), "".join("<li>%s</li>" % au._e(x) for x in wann)))
+    return "".join(z)
+
+
+def details(sp, regeln):
+    """Untere Hälfte: Ablauf, Gruppen mit Werkzeugen und Gewichten, Grenzen des Siegels."""
+    t = T[sp]
+    wann = (t["wann"][0] % LAUF_UHR, t["wann"][1], t["wann"][2] % round(100 * regeln["mindest_abdeckung"]), t["wann"][3] % regeln["deckel"]["max_score"], t["wann"][4], t["wann"][5] % au.SIEGEL_TAGE)
+    z = ['<h3 class="mono">%s</h3>\n<ul class="au-ul">%s</ul>\n' % (au._e(t["h_wann"]), "".join("<li>%s</li>" % au._e(x) for x in wann))]
     zeilen = "".join('<tr><td>%s</td><td class="mono">%d</td><td>%s</td><td class="dim">%s</td></tr>' % (au._e(GRUPPE_EN[g] if sp == "en" else i["name"]), i["gewicht"], au._e(i["werkzeug"]), au._e(i["quelle"])) for g, i in regeln["gruppen"].items())
     z.append('<h3 class="mono">%s</h3>\n<div class="br-tab"><table><thead><tr><th>%s</th><th>%s</th><th>%s</th><th>%s</th></tr></thead><tbody>%s</tbody></table></div>\n' % (
         au._e(t["h_werk"]), au._e(t["gruppe"]), au._e(t["gewicht"]), au._e(t["werkzeug"]), au._e(t["quelle"]), zeilen))

@@ -624,9 +624,14 @@
     ul.textContent = "";
     zeilen.forEach(function (e) {
       var li = el("li", "bd-r" + (e.tage <= 2 ? " bd-nah" : ""));
-      li.appendChild(el("span", "mono bd-d", new Date(e.zeit).toLocaleDateString(window.I18N.locale, { timeZone: "UTC", weekday: "short", day: "2-digit", month: "2-digit", year: "numeric" })));
-      li.appendChild(el("span", "mono bd-c", inTagen(e.tage)));
-      var w = el("span", "bd-n"), la = link(e.l, e.n); if (la.tagName !== "A") { la = el("a", "", e.n); la.href = e.l; } w.appendChild(la); li.appendChild(w); ul.appendChild(li);
+      var dz = new Date(e.zeit), lo = window.I18N.locale;
+      var bl = el("span", "bd-bl", ""); bl.setAttribute("aria-hidden", "true");
+      bl.appendChild(el("span", "mono bd-mo", dz.toLocaleDateString(lo, { timeZone: "UTC", month: "short" }).replace(".", "")));
+      bl.appendChild(el("strong", "bd-tg", String(dz.getUTCDate())));
+      li.appendChild(bl);
+      var sr = el("span", "sr", dz.toLocaleDateString(lo, { timeZone: "UTC", weekday: "short", day: "2-digit", month: "2-digit", year: "numeric" }) + ", "); li.appendChild(sr);
+      var cc = el("span", "mono bd-c", inTagen(e.tage));
+      var w = el("span", "bd-n"), la = link(e.l, e.n); if (la.tagName !== "A") { la = el("a", "", e.n); la.href = e.l; } w.appendChild(la); var tx = el("span", "bd-x"); tx.appendChild(cc); tx.appendChild(w); li.appendChild(tx); ul.appendChild(li);
     });
     $("bd-h").textContent = pick("ANSTEHEND", "UPCOMING");
     box.setAttribute("aria-label", pick("Anstehende wichtige Termine", "Upcoming important dates"));

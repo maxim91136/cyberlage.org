@@ -696,6 +696,16 @@ th.th-s{cursor:pointer;user-select:none;white-space:nowrap}th.th-s:hover,th.th-s
 @media (min-width:900px){.navin{flex-wrap:wrap;row-gap:0}}
 
 .au-intro{max-width:70ch;margin:0 0 18px}
+.au-duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 32px;align-items:start;margin:0 0 8px}.au-sp{min-width:0}.au-sp>h2{margin-top:0}.au-sp h3{margin:22px 0 8px;font-size:15px}.au-det .br-tab{overflow-x:auto}.au-dd{margin:0 0 14px;border-top:1px solid var(--line);padding-top:6px}.au-dd>summary{cursor:pointer;font-size:15px;padding:8px 0}.au-dd>h3:first-of-type{margin-top:10px}.au-gd{margin:0 0 18px}.au-gd>summary{cursor:pointer;font-size:13px;color:var(--dim);padding:4px 0}.au-gd .au-grid{margin-top:8px}
+.au-duo .au-karte{grid-template-columns:auto minmax(0,1fr);gap:12px 16px;padding:14px}.au-duo .au-sg svg{width:116px;height:116px}.au-duo .au-dom{font-size:19px}.au-duo .au-sc strong{font-size:26px}.au-duo .au-dl{grid-template-columns:repeat(2,minmax(0,1fr))}.au-duo .au-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));margin-bottom:18px}
+@media(max-width:900px){.au-duo{grid-template-columns:1fr}.au-duo .au-karte{grid-template-columns:auto minmax(0,1fr)}}
+@media(max-width:520px){
+  .au-sp>.au-intro{font-size:14px;margin-bottom:12px}
+  .au-duo .au-karte{grid-template-columns:96px minmax(0,1fr);gap:8px 12px;padding:12px;text-align:left;justify-items:stretch}
+  .au-duo .au-sg svg{width:96px;height:96px}.au-duo .au-dom{font-size:17px}.au-duo .au-sc{margin-bottom:6px}.au-duo .au-sc strong{font-size:24px}.au-duo .au-st{margin-left:6px;font-size:11px;padding:0 6px}
+  .au-duo .au-dl{grid-template-columns:1fr 1fr;font-size:12px;gap:4px 10px;margin-bottom:6px}.au-duo .au-hint{font-size:12px}
+  .au-duo .au-grid{grid-template-columns:1fr 1fr;gap:6px}.au-duo .au-k{padding:6px 8px}.au-duo .au-k b{font-size:12px}.au-duo .au-k span{font-size:12px}.au-duo .au-bar{height:3px;margin-top:2px}
+}
 .au-karte{--ra:var(--line);display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px 22px;align-items:center;border:1px solid var(--line);border-left:3px solid var(--ra);background:var(--panel);border-radius:var(--r2);padding:16px 18px;margin:0 0 10px}
 .au-sg svg{display:block;width:156px;height:156px}
 .au-dom{margin:0 0 2px;font-size:22px}.au-sc{margin:0 0 10px;font-size:15px;color:var(--dim)}.au-sc strong{font-size:30px;color:var(--ra);font-weight:700}.au-st{margin-left:10px;color:var(--ra);border:1px solid var(--ra);border-radius:5px;padding:1px 8px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
@@ -815,3 +825,40 @@ main .p-rang .p-det>summary{padding:2px 0}
   .tw-sp td.tw-leer,.tw-k td.tw-leer{display:none}
   .p-pl-s{overflow-x:visible}
 }
+
+/* Handy-Menü (bis 899 px): eine wischbare Zeile mit Chips für alle Punkte (Gruppenmarken als Trenner), darunter eine schmale Zeile mit abo, info, Alarm, Matrix und Sprache.
+   Ersetzt die vier Zeilen mit Gruppenkästen; Desktop unverändert. */
+@media (max-width:899px){
+  .navin{flex-direction:column;align-items:stretch;flex-wrap:nowrap;gap:0;padding:6px 0 2px}
+  .nav-links{display:flex;flex-direction:row;align-items:center;gap:6px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;padding:2px 12px 8px;-webkit-mask-image:linear-gradient(90deg,#000 94%,transparent);mask-image:linear-gradient(90deg,#000 94%,transparent)}
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-row,.nav-row+.nav-row{display:contents}
+  .nav-row .nav-grp{flex:none;width:auto;border:0;border-left:1px solid var(--line);border-radius:0;padding:0 0 0 10px;margin-left:6px;font-size:10px;letter-spacing:.14em;color:var(--dim);align-self:center}
+  .nav-g1 .nav-grp{border-left:0;margin-left:0;padding-left:0}
+  .nav-row>a{flex:none;scroll-snap-align:start;display:inline-flex;align-items:center;min-height:36px;padding:0 13px;border:1px solid var(--line);border-radius:999px;font-size:14px;color:var(--text);white-space:nowrap;text-decoration:none}
+  .nav-row a.aktiv{color:#06090b;background:var(--green);border-color:var(--green);text-decoration:none}
+  .nav-u{display:flex;flex-wrap:nowrap;align-items:center;justify-content:flex-start;gap:0 8px;padding:0 12px 4px;border:0}
+  .nav-u .nav-br{display:none}
+  .nav-u>.dd>summary{padding:6px 4px;font-size:14px}
+  .nav-u .spr{order:9;margin-left:auto;min-height:32px;padding:4px 9px}
+  .nav-u #alarm-grp,.nav-u #matrix-knopf{order:5;margin-left:0;font-size:11px;padding-left:6px}
+  .nav-u .sw-grp .mq{min-width:22px;padding:4px 3px}
+}
+
+/* Termin-Leiste als Kalenderblätter: Monat, großer Tag, darunter Frist und Name; wischbar, niedrig */
+.bd{flex-wrap:nowrap;align-items:center;gap:12px;padding:8px 16px}
+.bd-h{flex:none;writing-mode:vertical-rl;transform:rotate(180deg);font-size:10px;letter-spacing:.16em}
+.bd ul{flex-direction:row;gap:8px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity;padding:2px 0}
+.bd ul::-webkit-scrollbar{display:none}
+.bd-r{flex:none;flex-wrap:nowrap;align-items:stretch;gap:0;scroll-snap-align:start;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#0c1014;max-width:230px}
+.bd-bl{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:46px;padding:4px 6px;background:var(--line);line-height:1}
+.bd-mo{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.bd-tg{font-size:22px;color:#fff;margin-top:2px}
+.bd-nah .bd-bl{background:var(--amber)}.bd-nah .bd-mo,.bd-nah .bd-tg{color:#06090b}
+.bd-x{display:flex;flex-direction:column;justify-content:center;gap:1px;padding:5px 10px;min-width:0}
+.bd-x .bd-c{min-width:0;font-size:11px}
+.bd-x .bd-n{flex-basis:auto;font-size:13px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.bd-m{flex:none;align-self:center}
+@media (max-width:640px){.bd-r:nth-child(n+4){display:flex}.bd{padding:6px 12px}.bd-m{display:none}}
+@media (max-width:899px){.leiste .wrap,.navin,.nav-links{min-width:0;max-width:100%}.nav-links{width:100%;box-sizing:border-box}.navin{width:100%}.nav-u{flex-wrap:wrap;row-gap:4px}}
+.bd-r{position:relative}

@@ -28,7 +28,7 @@ WEITERLEITUNG_ENTFAELLT = ("csp", "fremd", "inhalt", "datenschutz", "altlasten",
 REIHE = ("cyberlage.org", "cyberlage.com")  # Reihenfolge auf der Seite
 
 T = {
-    "de": {"pfad": "/audit/", "start": "/", "titel": "Web-Audit: Dreier-Siegel für cyberlage.org und cyberlage.com · Cyberlage", "h1": "Web-Audit",
+    "de": {"pfad": "/audit/", "start": "/", "titel": "Web-Audit: Dreier-Siegel für cyberlage.org und cyberlage.com · Cyberlage", "h1": "Web-Audit", "gruppen_zeigen": "Prüfgruppen anzeigen", "so_web": "So funktioniert das Web-Audit", "so_code": "So funktioniert das Code-Audit", "h1_seite": "Audit", "intro_seite": "Zwei Siegel, zwei Prüfungen: Das Web-Audit prüft die Adressen von außen, das Code-Audit den Quelltext dieses Projekts. Beide laufen täglich nach offenen Regeln. Hier gilt: hoch ist gut.",
            "intro": "Ein selbst gebautes, regelbasiertes Web-Audit prüft diese Adressen jeden Tag von außen: Kopfzeilen, Verschlüsselung, DNS, Mail-Schutz und Weiterleitung. "
                     "Wie beim Dreier-Pegel liegen Regeln, Gewichte und Quellen offen. Hier gilt: hoch ist gut.",
            "beschr": "Das Dreier-Siegel zeigt den Stand des automatischen Web-Audits von cyberlage.org und cyberlage.com: Score, Datum, Prüfgruppen. Regeln und Quellen offen.",
@@ -62,7 +62,7 @@ T = {
                       "Geprüft wird nur von außen, mit offenen Regeln. Schwachstellensuche und Angriffstests gehören nicht dazu."),
            "svg": "Siegel als SVG", "quell": "Quelltext des Web-Audits", "heute": "Dreier-Pegel heute", "andere": "English", "alle": "Berichte",
            "fuss": "Ein privates Projekt von Dreier Labs, keine amtliche Stelle. Feste Regeln, keine Vorhersage."},
-    "en": {"pfad": "/en/audit/", "start": "/en/", "titel": "Web audit: Dreier Seal for cyberlage.org and cyberlage.com · Cyberlage", "h1": "Web audit",
+    "en": {"pfad": "/en/audit/", "start": "/en/", "titel": "Web audit: Dreier Seal for cyberlage.org and cyberlage.com · Cyberlage", "h1": "Web audit", "gruppen_zeigen": "Show check groups", "so_web": "How the web audit works", "so_code": "How the code audit works", "h1_seite": "Audit", "intro_seite": "Two seals, two checks: the web audit checks the addresses from the outside, the code audit checks the source code of this project. Both run daily by open rules. Here, high is good.",
            "intro": "A self-built, rule-based web audit checks these addresses from the outside every day: headers, encryption, DNS, mail protection and redirects. "
                     "As with the Dreier Gauge, rules, weights and sources are open. Here, high is good.",
            "beschr": "The Dreier Seal shows the state of the automated web audit of cyberlage.org and cyberlage.com: score, date, check groups. Rules and sources are open.",
@@ -224,7 +224,10 @@ def _karte(domain, d, regeln, sp, jetzt, weiter, svg=None, profil_text=None, kop
         else:
             c = FARBE["ruhig"] if w >= 1 else FARBE["angespannt"] if w >= 0.5 else FARBE["ausserordentlich"]
             gz.append('<div class="au-k"><b>%s</b><span class="mono">%d %%</span><div class="au-bar" style="--c:%s"><i style="width:%d%%"></i></div></div>' % (_e(name), round(100 * w), c, round(100 * w)))
-    z.append('<div class="au-grid">%s</div>\n' % "".join(gz))
+    grid = '<div class="au-grid">%s</div>\n' % "".join(gz)
+    if d.get("profil") == "weiterleitung":  # reine Weiterleitung: die meisten Gruppen entfallen, das Raster bleibt eingeklappt, damit die Seite kurz bleibt
+        grid = '<details class="au-gd"><summary class="mono">%s</summary>%s</details>\n' % (_e(t["gruppen_zeigen"]), grid)
+    z.append(grid)
     return "".join(z)
 
 
@@ -232,33 +235,39 @@ def seite(sp, daten, regeln, jetzt, code=None):
     t = T[sp]
     pfad_de, pfad_en = "/audit/", "/en/audit/"
     weiter = {dom: "cyberlage.org" for dom, d in daten if d.get("profil") == "weiterleitung"}
-    z = [bs._kopf(sp, t["titel"], t["beschr"], pfad_de, pfad_en), '<main class="wrap bs-main"><h1>%s</h1>\n<p class="dim au-intro">%s</p>\n' % (_e(t["h1"]), _e(t["intro"]))]
+    z = [bs._kopf(sp, t["titel"], t["beschr"], pfad_de, pfad_en), '<main class="wrap bs-main"><h1>%s</h1>\n<p class="dim au-intro">%s</p>\n' % (_e(t["h1_seite"]), _e(t["intro_seite"]))]
+    z.append('<div class="au-duo"><section class="au-sp" id="web-audit" aria-labelledby="h-web">\n<h2 class="mono" id="h-web">%s</h2>\n<p class="dim au-intro">%s</p>\n' % (_e(t["h1"]), _e(t["intro"])))
     z += [_karte(dom, d, regeln, sp, jetzt, weiter.get(dom)) for dom, d in daten]
-    z.append('<p class="dim au-leg">%s</p>\n' % _e(t["gruppen_leg"]))
+    z.append('<p class="dim au-leg">%s</p>\n</section>\n' % _e(t["gruppen_leg"]))
+    if code:
+        import codeauditseiten
+        z.append('<section class="au-sp" aria-labelledby="code-audit">\n' + codeauditseiten.kopf(sp, code[0], code[1], jetzt) + "</section>\n")
+    z.append('</div>\n<div class="au-duo au-det"><section class="au-sp">\n<details class="au-dd"><summary class="mono">%s</summary>\n' % _e(t["so_web"]))
     h, m = (int(x) for x in LAUF_UHR.split(":"))
     wann = (t["wann"][0] % (LAUF_UHR, "%02d:%02d" % (h + 1, m)), t["wann"][1], t["wann"][2], t["wann"][3] % SIEGEL_TAGE, t["wann"][4], t["wann"][5], t["wann"][6] % _version(regeln["version"], sp))
-    z.append('<h2 class="mono">%s</h2>\n<ul class="au-ul">%s</ul>\n' % (_e(t["h_wann"]), "".join("<li>%s</li>" % _e(x) for x in wann)))
+    z.append('<h3 class="mono">%s</h3>\n<ul class="au-ul">%s</ul>\n' % (_e(t["h_wann"]), "".join("<li>%s</li>" % _e(x) for x in wann)))
     wd = [(dom, d) for dom, d in daten if d.get("profil") == "weiterleitung"]
     if wd:
         doms = ", ".join(dom for dom, _d in wd)
         ziele = ", ".join(sorted({weiter[dom] for dom, _d in wd}))
         fehlt = ", ".join((GRUPPE_EN[g] if sp == "en" else i["name"]) for g, i in regeln["gruppen"].items() if g in WEITERLEITUNG_ENTFAELLT)
         ausn = (t["ausn"][0] % (doms, ziele), t["ausn"][1] % fehlt, t["ausn"][2], t["ausn"][3], t["ausn"][4] % ziele)
-        z.append('<h2 class="mono" id="ausnahmen">%s</h2>\n<ul class="au-ul">%s</ul>\n' % (_e(t["h_ausn"]), "".join("<li>%s</li>" % _e(x) for x in ausn)))
-    z.append('<h2 class="mono">%s</h2>\n<ul class="au-ul">%s</ul>\n' % (_e(t["h_rechnen"]), "".join("<li>%s</li>" % _e(x % v if "%" in x else x) for x, v in zip(
+        z.append('<h3 class="mono" id="ausnahmen">%s</h3>\n<ul class="au-ul">%s</ul>\n' % (_e(t["h_ausn"]), "".join("<li>%s</li>" % _e(x) for x in ausn)))
+    z.append('<h3 class="mono">%s</h3>\n<ul class="au-ul">%s</ul>\n' % (_e(t["h_rechnen"]), "".join("<li>%s</li>" % _e(x % v if "%" in x else x) for x, v in zip(
         t["rechnen"], (None, None, regeln["deckel"]["max_score"], round(100 * regeln["mindest_abdeckung"])), strict=False))))
     def _abz_text(g):
         a = abzeichen(g, regeln)
         return ABZ_NAME[sp][a] if a else t["kein_abz"]
     stufen = "".join('<li class="ra-%s"><span>%s</span><span class="mono">%s · %s</span></li>' % (AMPEL.get(n, "ruhig"), _e(STUFE_EN.get(n, n) if sp == "en" else n), _e(_abz_text(g)), _e(t["ab"] % g)) for g, n in regeln["stufen"])
-    z.append('<h2 class="mono">%s</h2>\n<ul class="bs-liste au-stufen">%s</ul>\n' % (_e(t["h_stufen"]), stufen))
-    z.append('<h2 class="mono">%s</h2>\n<div class="br-tab"><table><thead><tr><th>%s</th><th>%s</th><th>%s</th></tr></thead><tbody>%s</tbody></table></div>\n' % (
+    z.append('<h3 class="mono">%s</h3>\n<ul class="bs-liste au-stufen">%s</ul>\n' % (_e(t["h_stufen"]), stufen))
+    z.append('<h3 class="mono">%s</h3>\n<div class="br-tab"><table><thead><tr><th>%s</th><th>%s</th><th>%s</th></tr></thead><tbody>%s</tbody></table></div>\n' % (
         _e(t["h_massstab"]), _e(t["gruppe"]), _e(t["gewicht"]), _e(t["quelle"]),
         "".join('<tr><td>%s</td><td class="mono">%d</td><td class="dim">%s</td></tr>' % (_e(GRUPPE_EN[g] if sp == "en" else i["name"]), i["gewicht"], _e(_quelle(i["quelle"], sp))) for g, i in regeln["gruppen"].items())))
-    z.append('<h2 class="mono">%s</h2>\n<ul class="au-ul">%s</ul>\n' % (_e(t["h_siegel"]), "".join("<li>%s</li>" % _e(x) for x in t["siegel"])))
+    z.append('<h3 class="mono">%s</h3>\n<ul class="au-ul">%s</ul>\n' % (_e(t["h_siegel"]), "".join("<li>%s</li>" % _e(x) for x in t["siegel"])))
+    z.append("</details></section>\n")
     if code:
-        import codeauditseiten
-        z.append(codeauditseiten.abschnitt(sp, code[0], code[1], jetzt))
+        z.append('<section class="au-sp">\n<details class="au-dd"><summary class="mono">%s</summary>\n' % _e(t["so_code"]) + codeauditseiten.details(sp, code[1]) + "</details></section>\n")
+    z.append("</div>\n")
     andere = pfad_de if sp == "en" else pfad_en
     z.append('<p class="bs-nav mono"><a href="%s">%s</a> · <a href="%s">%s</a> · <a href="%s">%s</a> · <a href="/RULES.md">RULES</a> · <a href="%s" hreflang="%s">%s</a></p>\n'
              '<p class="mono dim fine">%s</p>\n</main></body></html>\n' % (
