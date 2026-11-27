@@ -190,6 +190,8 @@
     }
     var ls = document.querySelector('[data-t="l_stufe"]');
     if (ls && d.pegel && d.pegel.modell) ls.textContent = pick("dreier-pegel " + d.pegel.modell + " · von dreier labs · weltweit", "dreier gauge " + d.pegel.modell + " · by dreier labs · worldwide");
+    var rv = document.querySelector('[data-t="r_rscore"]');
+    if (rv && d.pegel && d.pegel.modell) rv.textContent = pick("Dreier-Pegel " + d.pegel.modell + " im Verlauf · 3 Jahre", "Dreier Gauge " + d.pegel.modell + " over time · 3 years");
     window.DP = hatStufe ? name + (d.pegel && typeof d.pegel.wert === "number" ? " " + d.pegel.wert : "") : "";
     if (hatStufe) $("lage-box").classList.add("st-" + d.stufe);
     $("stufe-text").textContent = hatStufe ? "" : txt("keine_bew");
