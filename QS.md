@@ -254,7 +254,7 @@ Tests: 100 Unit-Tests OK (3 neu), Klicktest 4322/0. Die CSP wirkt nur auf Cloudf
 Lokal mit Playwright (1280 px und 390 px, Deutsch und Englisch, alle Klappen offen) und live über Chrome. Geprüft werden: Skriptfehler, seitliches Scrollen, tote Sprunglinks, leere Elemente, „undefined/NaN“, Sprachreste, Stand der Daten. Nicht geprüft wird die inhaltliche Richtigkeit der Quelldaten.
 
 - 27.11. erledigt: Handy-Karten (≤640 px) auch für „Neu“ und die Hersteller-Tabellen (Klasse `tw-k`, Zellen mit `data-l`, ohne Spaltenfilter). Termine ist keine Tabelle (Zeilen-Liste), unverändert. Tests OK, Klicktest 4542/0.
-- Offen: `probe-ms`-Branch löscht Steve in GitHub; Balkenwert „1,88“ (EU-KEV) wirkt abgeschnitten (Radar unberührt, nur melden).
+
 - 27.11. erledigt: KEV wird jetzt direkt unter den Bausteinen (Teil 1) und im Intro von „Neu“ erklärt (vorher nur in Pegel-Erklärung, Glossar, FAQ). Tests OK, Klicktest 4542/0.
 - 27.11. erledigt: Patch-Level-Kasten heißt jetzt „Windows-Patch-Level: aktuelle Builds · Update vom <Datum>“, ist einklappbar (zu) und sagt „Nur Windows“. Kachel: „Windows-Patch-Level“. Tests OK, Klicktest 4546/0.
 - 27.11. erledigt: Windows-Patch-Level-Kasten steht jetzt nach Patch-Rangliste und Werkzeugzeile statt davor. Klicktest 4546/0.
@@ -293,3 +293,4 @@ Lokal mit Playwright (1280 px und 390 px, Deutsch und Englisch, alle Klappen off
 - 27.11.2026: Test test_code_siegel_unveraendert_wie_bei_dreier_labs (Prüfsumme 8075bf5c…6665) hält das Dreier-Code-Siegel gleich mit dem Repo dreierlabs. Code-Audit für dreierlabs läuft in der dreierlabs-Sitzung (Prompt von Steve übergeben); dort denselben Test mit derselben Summe einbauen.
 - 27.11.2026: Telegram-Nachtrag zu Microsoft-Monatsdokumenten neu formuliert (Monatsname, neue CVE mit Link, ausgenutzt ja/nein, ausdrücklich „kein neuer Patch Day und kein Notfall-Patch“; „Out-of-Band“ entfällt, weil nur das Dokument ergänzt wurde). notify_state merkt jetzt je Monat die CVE-Kennungen. Meldung zu 2026-Mar (CVE-2025-70873) wird einmal neu gesendet (Zustand zurückgesetzt).
 - 27.11.2026: Nachtrags-Meldung nennt die CVE jetzt wirklich: die Lagedatei enthält cve_liste nicht (score.py kompakt), notify liest sie aus data/patches/microsoft.json (cve_listen_ergaenzen). Die erste neu gesendete Meldung hatte deshalb noch keine CVE; März-Meldung nochmals zurückgesetzt.
+- 27.11.2026: Remote-Branch probe-ms (meine Probe-Commits) über Chrome gelöscht; quellen-probe (nicht von mir, Citrix-Probe) bleibt.
