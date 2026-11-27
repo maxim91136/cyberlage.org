@@ -59,7 +59,7 @@ def sitemap_adressen(xml_text, host):
     if "<!doctype" in xml_text.lower() or "<!entity" in xml_text.lower():
         return [], "XML mit DOCTYPE oder ENTITY wird nicht gelesen"
     try:
-        wurzel = ET.fromstring(xml_text)
+        wurzel = ET.fromstring(xml_text)  # nosec B314 (DOCTYPE und ENTITY vorher abgelehnt, eigene Domain)
     except ET.ParseError:
         return [], "kein gültiges XML"
     adr = [e.text.strip() for e in wurzel.iter() if e.tag.endswith("}loc") or e.tag == "loc"]

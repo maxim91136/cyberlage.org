@@ -3,7 +3,6 @@
 Die Zahlen kommen aus data/codeaudit/cyberlage.org.json (geschrieben von codeaudit/lauf.py), Gruppen, Gewichte, Werkzeuge und Stufen aus
 codeaudit/regeln.json; hier wird nichts gerechnet. Einzelbefunde stehen nie auf der Seite, nur Zahlen. Fertiges HTML ohne Skript."""
 import json
-from datetime import timezone
 from pathlib import Path
 
 import auditseiten as au

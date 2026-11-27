@@ -10,6 +10,7 @@ import csv
 import json
 import os
 import sys
+import tempfile
 import urllib.error
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
@@ -78,7 +79,7 @@ def erreichbar(url):
     for methode in ("HEAD", "GET"):
         try:
             req = urllib.request.Request(url, method=methode, headers={"User-Agent": UA})
-            with urllib.request.urlopen(req, timeout=20) as a:
+            with urllib.request.urlopen(req, timeout=20) as a:  # nosec B310 (Adresse beginnt oben mit https://)
                 return True, a.status
         except urllib.error.HTTPError as e:
             if methode == "GET":
@@ -146,7 +147,7 @@ def main():
         alt = None
     res = pruefen(heute, alt)
     pfad.write_text(json.dumps(res, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-    md = Path(os.environ.get("PRUEFUNG_MD", "/tmp/cyberlage_pruefung.md"))
+    md = Path(os.environ.get("PRUEFUNG_MD") or Path(tempfile.gettempdir()) / "cyberlage_pruefung.md")
     if res["offen"]:
         md.write_text("Von Hand gepflegte Angaben brauchen eine Prüfung:\n\n" + "\n".join("- " + o for o in res["offen"]) +
                       "\n\nNach der Prüfung `geprueft_am` in `data/radar/gruende.csv` bzw. `einschaetzungen.csv` auf das heutige Datum setzen "

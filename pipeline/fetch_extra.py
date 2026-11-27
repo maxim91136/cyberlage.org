@@ -36,7 +36,7 @@ class QuellFehler(Exception):
 
 def lade(url):
     req = urllib.request.Request(sicher.nur_https(url), headers={"User-Agent": UA, "Accept": "*/*"})
-    with urllib.request.urlopen(req, timeout=60) as r:
+    with urllib.request.urlopen(req, timeout=60) as r:  # nosec B310 (Adresse über sicher.nur_https geprüft)
         return r.read()
 
 

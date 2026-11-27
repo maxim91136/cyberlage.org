@@ -1,0 +1,12 @@
+# Ausnahmen für das Code-Audit (zizmor), jede mit Begründung.
+# artipacked: Die Workflows schreiben ihre Ergebnisse selbst ins Repo (git push in pipeline/speichern.sh) und brauchen dafür die Zugangsdaten
+# aus actions/checkout. Der Fund meint: Zugangsdaten könnten in hochgeladenen Artefakten landen. Kein Workflow lädt Artefakte hoch oder nutzt einen Cache,
+# der Test tests/test_workflow.py hält das fest. quellen-test und klicktest schreiben nichts ins Repo und haben nur Leserechte.
+rules:
+  artipacked:
+    ignore:
+      - audit.yml
+      - codeaudit.yml
+      - daten.yml
+      - klicktest.yml
+      - quellen-test.yml

@@ -72,7 +72,7 @@ def hole_datum(c):
     for _ in range(3):
         try:
             req = urllib.request.Request(sicher.nur_https(cve_url(c)), headers={"User-Agent": UA})
-            with urllib.request.urlopen(req, timeout=30) as r:
+            with urllib.request.urlopen(req, timeout=30) as r:  # nosec B310 (Adresse über sicher.nur_https geprüft)
                 d = json.loads(r.read())
             return c, (d.get("cveMetadata", {}).get("datePublished") or "")[:10] or None
         except urllib.error.HTTPError as ex:
@@ -214,7 +214,7 @@ def abgleich_eu(kev_eintraege, eu):
 def hole_sans():
     try:
         req = urllib.request.Request(sicher.nur_https(SANS_URL), headers={"User-Agent": UA})
-        with urllib.request.urlopen(req, timeout=30) as r:
+        with urllib.request.urlopen(req, timeout=30) as r:  # nosec B310 (Adresse über sicher.nur_https geprüft)
             status = json.loads(r.read()).get("status")
         if status in ("green", "yellow", "orange", "red"):
             return {"status": status, "abgerufen_am": datetime.now(timezone.utc).isoformat(timespec="seconds")}
@@ -250,7 +250,7 @@ def hole_ncsc(heute):
     """NCSC-NL Beveiligingsadviezen (RSS ohne Konto). None, wenn nicht erreichbar oder nicht lesbar."""
     try:
         req = urllib.request.Request(sicher.nur_https(NCSC_URL), headers={"User-Agent": UA})
-        with urllib.request.urlopen(req, timeout=30) as r:
+        with urllib.request.urlopen(req, timeout=30) as r:  # nosec B310 (Adresse über sicher.nur_https geprüft)
             return ncsc_zaehlen(r.read(), heute)
     except Exception:
         return None

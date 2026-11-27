@@ -45,7 +45,7 @@ class QuellFehler(Exception):
 
 def lade_json(url):
     req = urllib.request.Request(sicher.nur_https(url), headers={"User-Agent": UA, "Accept": "application/json"})
-    with urllib.request.urlopen(req, timeout=120) as r:
+    with urllib.request.urlopen(req, timeout=120) as r:  # nosec B310 (Adresse über sicher.nur_https geprüft)
         return json.loads(r.read().decode("utf-8"))
 
 
@@ -506,7 +506,7 @@ _MONATE_EN = {m: i + 1 for i, m in enumerate(["january", "february", "march", "a
 
 def lade_roh(url):
     req = urllib.request.Request(sicher.nur_https(url), headers={"User-Agent": UA, "Accept": "*/*"})
-    with urllib.request.urlopen(req, timeout=120) as r:
+    with urllib.request.urlopen(req, timeout=120) as r:  # nosec B310 (Adresse über sicher.nur_https geprüft)
         return r.read()
 
 

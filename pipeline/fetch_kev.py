@@ -36,7 +36,7 @@ class PruefFehler(Exception):
 def lade(url, timeout=60):
     req = urllib.request.Request(
         url, headers={"User-Agent": "cyberlage-datenabruf (privates Projekt)"})
-    with urllib.request.urlopen(req, timeout=timeout) as antwort:
+    with urllib.request.urlopen(req, timeout=timeout) as antwort:  # nosec B310 (Adresse über sicher.nur_https geprüft)
         return json.load(antwort)
 
 

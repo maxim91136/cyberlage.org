@@ -34,7 +34,7 @@ KLASSE = {"kritisch": "k", "hoch": "h", "mittel": "m", "niedrig": "n"}
 
 def lade(url, timeout=60):
     req = urllib.request.Request(sicher.nur_https(url), headers={"User-Agent": UA, "Accept": "application/json, text/csv, */*"})
-    with urllib.request.urlopen(req, timeout=timeout) as r:
+    with urllib.request.urlopen(req, timeout=timeout) as r:  # nosec B310 (Adresse über sicher.nur_https geprüft)
         return r.read()
 
 

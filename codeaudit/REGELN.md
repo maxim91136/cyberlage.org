@@ -41,3 +41,4 @@ Version **0.1 (Entwurf)**, Stand 27.11.2026. Maßgeblich ist `codeaudit/regeln.j
 - **Tests:** alle grün (bestanden/nicht bestanden); Zeilenabdeckung ab 80 % bestanden, ab 60 % Hinweis, darunter nicht bestanden.
 - **Wartbarkeit:** keine Funktion über zyklomatische Komplexität 30 (radon); Dateien über 1500 Zeilen = Hinweis.
 - Alles, was ein Werkzeug nicht liefert, ist „nicht geprüft“. Die Schwellen sind Entwurf und werden erst mit Version 1.0 festgeschrieben.
+- **Begründete Ausnahmen** stehen im Code, nicht in der Wertung: `.github/zizmor.yml` (artipacked, weil die Workflows selbst ins Repo schreiben und keine Artefakte hochladen; ein Test hält das fest) und `# nosec`-Kommentare mit Grund an den Abrufen (Adresse vorher über `pipeline/sicher.py` auf https geprüft). Jede neue Ausnahme braucht eine Begründung an der Stelle.

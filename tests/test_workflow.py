@@ -22,6 +22,13 @@ class DatenLaufTests(unittest.TestCase):
         for z in re.findall(r"uses:\s*(\S+)", text):
             self.assertRegex(z, r"@[0-9a-f]{40}$")
 
+    def test_kein_workflow_laedt_artefakte_hoch_oder_nutzt_cache(self):
+        """Begründung der zizmor-Ausnahme artipacked in .github/zizmor.yml: Zugangsdaten aus dem Checkout können so nirgends hinein."""
+        for f in WF.glob("*.yml"):
+            text = f.read_text(encoding="utf-8")
+            self.assertNotIn("upload-artifact", text, f.name)
+            self.assertNotIn("actions/cache", text, f.name)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -20,4 +20,4 @@ def xml_lesen(daten):
     kopf = roh.lower()
     if b"<!doctype" in kopf or b"<!entity" in kopf:
         raise ET.ParseError("XML mit DOCTYPE oder ENTITY wird nicht gelesen")
-    return ET.fromstring(roh)
+    return ET.fromstring(roh)  # nosec B314 (DOCTYPE und ENTITY vorher abgelehnt)

@@ -41,7 +41,7 @@ def lade_json(url, versuche=4):
     for i in range(versuche):
         try:
             req = urllib.request.Request(sicher.nur_https(url), headers={"User-Agent": UA, "Accept": "application/json"})
-            with urllib.request.urlopen(req, timeout=90) as r:
+            with urllib.request.urlopen(req, timeout=90) as r:  # nosec B310 (Adresse über sicher.nur_https geprüft)
                 return json.loads(r.read())
         except urllib.error.HTTPError as ex:
             letzter = ex

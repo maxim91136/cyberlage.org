@@ -204,7 +204,7 @@ def sende(text, token, chat):
     letzter = None
     for versuch in range(2):
         try:
-            with urllib.request.urlopen(req, timeout=45) as r:
+            with urllib.request.urlopen(req, timeout=45) as r:  # nosec B310 (feste https-Adresse)
                 if json.loads(r.read()).get("ok") is not True:
                     raise RuntimeError("Telegram hat die Nachricht nicht angenommen")
             return
@@ -228,7 +228,7 @@ def diagnose():
     # Das Protokoll ist öffentlich: nur ausgeben, ob etwas gesetzt ist, nie Nummern, Namen oder Adressen
     print(f"Token gesetzt: {bool(token)}, Chat-ID gesetzt: {bool(chat)}")
     try:
-        urllib.request.urlopen("https://api.telegram.org/bot0:fantasie/getMe", timeout=20)
+        urllib.request.urlopen("https://api.telegram.org/bot0:fantasie/getMe", timeout=20)  # nosec B310 (feste https-Adresse)
     except urllib.error.HTTPError as ex:
         print("Fantasie-Token ->", ex.code, ex.read().decode(errors="replace")[:200])
     except Exception as ex:
@@ -236,13 +236,13 @@ def diagnose():
     for name, extra in (("getMe", {}), ("getChat", {"chat_id": chat}), ("getChatMember", {"chat_id": chat})):
         if name == "getChatMember":
             try:
-                me = json.loads(urllib.request.urlopen(f"https://api.telegram.org/bot{token}/getMe", timeout=20).read())
+                me = json.loads(urllib.request.urlopen(f"https://api.telegram.org/bot{token}/getMe", timeout=20).read())  # nosec B310 (feste https-Adresse)
                 extra["user_id"] = me["result"]["id"]
             except Exception:
                 continue
         url = f"https://api.telegram.org/bot{token}/{name}?" + urllib.parse.urlencode(extra)
         try:
-            with urllib.request.urlopen(url, timeout=20) as r:
+            with urllib.request.urlopen(url, timeout=20) as r:  # nosec B310 (feste https-Adresse)
                 antwort = json.loads(r.read())
         except urllib.error.HTTPError as ex:
             antwort = {"ok": False, "http": ex.code}
