@@ -241,3 +241,4 @@ Lokal mit Playwright (1280 px und 390 px, Deutsch und Englisch, alle Klappen off
 - Offen: `probe-ms`-Branch löscht Steve in GitHub; Balkenwert „1,88“ (EU-KEV) wirkt abgeschnitten (Radar unberührt, nur melden).
 - 27.11. erledigt: KEV wird jetzt direkt unter den Bausteinen (Teil 1) und im Intro von „Neu“ erklärt (vorher nur in Pegel-Erklärung, Glossar, FAQ). Tests OK, Klicktest 4542/0.
 - 27.11. erledigt: Patch-Level-Kasten heißt jetzt „Windows-Patch-Level: aktuelle Builds · Update vom <Datum>“, ist einklappbar (zu) und sagt „Nur Windows“. Kachel: „Windows-Patch-Level“. Tests OK, Klicktest 4546/0.
+- 27.11. erledigt: Windows-Patch-Level-Kasten steht jetzt nach Patch-Rangliste und Werkzeugzeile statt davor. Klicktest 4546/0.
