@@ -148,7 +148,7 @@ def farbe(d, jetzt, regeln):
     return METALL[abz] if abz else FARBE[AMPEL.get(d["stufe"], "ausserordentlich")]
 
 
-def siegel(domain, d, jetzt, regeln):
+def siegel(domain, d, jetzt, regeln, kopf="DREIER-SIEGEL", name="Dreier-Siegel"):
     """Das Dreier-Siegel als SVG, ein Stempel mit Strichring: oben DREIER-SIEGEL, in der Mitte der Score, darunter das Abzeichen
     (GOLD, SILBER, BRONZE; darunter nur „/ 100“), unten Adresse und Datum (ISO). Ring in der Farbe des Metalls; grau bei zu altem Lauf."""
     f = farbe(d, jetzt, regeln)
@@ -157,7 +157,7 @@ def siegel(domain, d, jetzt, regeln):
         abz = abzeichen(d.get("score"), regeln)  # grau, aber das zuletzt erreichte Abzeichen bleibt lesbar
     score = "–" if d.get("score") is None else str(d["score"])
     tag = d["stand"][:10]
-    titel = "Dreier-Siegel: %s, Score %s%s, Stand %s, Regeln %s" % (domain, score, ", " + ABZ_NAME["de"][abz] if abz else "", tag, regeln["version"])
+    titel = "%s: %s, Score %s%s, Stand %s, Regeln %s" % (name, domain, score, ", " + ABZ_NAME["de"][abz] if abz else "", tag, regeln["version"])
     ticks = "".join('<line x1="100" y1="6" x2="100" y2="%d" transform="rotate(%d 100 100)"/>' % (13 if i % 5 else 16, i * 6) for i in range(60))
     gross = 52 if len(score) < 3 else 46
     mono = 'font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace"'
@@ -172,11 +172,11 @@ def siegel(domain, d, jetzt, regeln):
             '<circle cx="100" cy="100" r="92" fill="none" stroke="%s" stroke-width="3"/>'
             '<circle cx="100" cy="100" r="68" fill="none" stroke="%s" stroke-width="1.2" opacity=".55"/>'
             '<defs><path id="o" d="M 24,100 A 76,76 0 0,1 176,100"/><path id="u" d="M 16,100 A 84,84 0 0,0 184,100"/></defs>'
-            '<text %s font-size="12.5" font-weight="700" letter-spacing="3.2" fill="%s" text-anchor="middle"><textPath href="#o" startOffset="50%%">DREIER-SIEGEL</textPath></text>'
+            '<text %s font-size="12.5" font-weight="700" letter-spacing="3.2" fill="%s" text-anchor="middle"><textPath href="#o" startOffset="50%%">%s</textPath></text>'
             '<text %s font-size="10" letter-spacing="1.4" fill="#c9d4dc" text-anchor="middle"><textPath href="#u" startOffset="50%%">%s · %s</textPath></text>'
             '<text x="100" y="%d" %s font-size="%d" font-weight="700" fill="%s" text-anchor="middle">%s</text>%s'
-            '<text x="100" y="157" %s font-size="8.5" letter-spacing="1.4" fill="#8b98a3" text-anchor="middle">REGELN %s</text>'
-            '</svg>') % (_e(titel), _e(titel), f, ticks, f, f, mono, f, mono, _e(domain.upper()), tag, 108 if len(score) < 3 else 106, mono, gross, f, _e(score), unten, mono, _e(regeln["version"]))
+            '<text x="100" y="157" %s font-size="8.5" letter-spacing="1.4" fill="#8b98a3" text-anchor="middle">%s</text>'
+            '</svg>') % (_e(titel), _e(titel), f, ticks, f, f, mono, f, _e(kopf), mono, _e(domain.upper()), tag, 108 if len(score) < 3 else 106, mono, gross, f, _e(score), unten, mono, _e(("ENTWURF " + regeln["version"].split("-")[0]) if "entwurf" in regeln["version"] else "REGELN " + regeln["version"]))
 
 
 def fuss_text(d, regeln, sp, jetzt):
@@ -193,18 +193,18 @@ def _stufe(d, sp):
     return STUFE_EN.get(s, s) if sp == "en" else s
 
 
-def _karte(domain, d, regeln, sp, jetzt, weiter):
+def _karte(domain, d, regeln, sp, jetzt, weiter, svg=None, profil_text=None, kopf=None, gruppe_en=None):
     t = T[sp]
     f = farbe(d, jetzt, regeln)
     alt = f == FARBE["grau"]
     abz = abzeichen(d.get("score"), regeln)
     datum = bs._datum(d["stand"][:10], sp)
     stand = "%s %s UTC" % (datum, d["stand"][11:16])
-    profil = t["weiter"] % weiter if d.get("profil") == "weiterleitung" and weiter else t["seite"]
+    profil = profil_text or (t["weiter"] % weiter if d.get("profil") == "weiterleitung" and weiter else t["seite"])
     score = "–" if d.get("score") is None else "%d" % d["score"]
     zeilen = [(t["stand"], stand), (t["profil"], profil), (t["regeln"], _version(regeln["version"], sp)), (t["abdeckung"], "%d %%" % round(100 * d["abdeckung"])), (t["abz"], ABZ_NAME[sp][abz] if abz else t["kein_abz"])]
     bef = "%s · %s" % ("%s: %s" % (t["befunde"], d["befunde"] or t["ohne"]), "%s: %s" % (t["hinweise"], d["hinweise"] or t["ohne"]))
-    z = ['<article class="au-karte" style="--ra:%s"><div class="au-sg">%s</div><div class="au-info">' % (f, siegel(domain, d, jetzt, regeln)),
+    z = ['<article class="au-karte" style="--ra:%s"><div class="au-sg">%s</div><div class="au-info">' % (f, siegel(domain, d, jetzt, regeln, **(kopf or {}))),
          '<h2 class="au-dom">%s</h2><p class="au-sc mono"><strong>%s</strong> / 100 <span class="au-st">%s</span></p>' % (_e(domain), _e(score), _e(_stufe(d, sp) if d.get("score") is not None else t["kein_score"]))]
     z.append('<dl class="au-dl mono">%s</dl>' % "".join("<div><dt class=\"dim\">%s</dt><dd>%s</dd></div>" % (_e(a), _e(b)) for a, b in zeilen))
     z.append('<p class="au-bef mono">%s</p>' % _e(bef))
@@ -214,10 +214,10 @@ def _karte(domain, d, regeln, sp, jetzt, weiter):
         z.append('<p class="dim au-hint">%s</p>' % _e(t["offen"]))
     if alt and d.get("score") is not None:
         z.append('<p class="dim au-hint">%s</p>' % _e(t["veraltet"] % SIEGEL_TAGE))
-    z.append('<p class="au-ln mono"><a href="/audit/siegel/%s.svg">%s</a></p></div></article>\n' % (_e(domain), _e(t["svg"])))
+    z.append('<p class="au-ln mono"><a href="/audit/siegel/%s.svg">%s</a></p></div></article>\n' % (_e(svg or domain), _e(t["svg"])))
     gz = []
     for g, info in regeln["gruppen"].items():
-        name = GRUPPE_EN[g] if sp == "en" else info["name"]
+        name = (gruppe_en or GRUPPE_EN)[g] if sp == "en" else info["name"]
         w = d["gruppen"].get(g)
         if w is None:
             gz.append('<div class="au-k au-n"><b>%s</b><span class="mono dim">%s</span><div class="au-bar"><i style="width:0"></i></div></div>' % (_e(name), _e(t["entfaellt"])))
@@ -228,7 +228,7 @@ def _karte(domain, d, regeln, sp, jetzt, weiter):
     return "".join(z)
 
 
-def seite(sp, daten, regeln, jetzt):
+def seite(sp, daten, regeln, jetzt, code=None):
     t = T[sp]
     pfad_de, pfad_en = "/audit/", "/en/audit/"
     weiter = {dom: "cyberlage.org" for dom, d in daten if d.get("profil") == "weiterleitung"}
@@ -256,6 +256,9 @@ def seite(sp, daten, regeln, jetzt):
         _e(t["h_massstab"]), _e(t["gruppe"]), _e(t["gewicht"]), _e(t["quelle"]),
         "".join('<tr><td>%s</td><td class="mono">%d</td><td class="dim">%s</td></tr>' % (_e(GRUPPE_EN[g] if sp == "en" else i["name"]), i["gewicht"], _e(_quelle(i["quelle"], sp))) for g, i in regeln["gruppen"].items())))
     z.append('<h2 class="mono">%s</h2>\n<ul class="au-ul">%s</ul>\n' % (_e(t["h_siegel"]), "".join("<li>%s</li>" % _e(x) for x in t["siegel"])))
+    if code:
+        import codeauditseiten
+        z.append(codeauditseiten.abschnitt(sp, code[0], code[1], jetzt))
     andere = pfad_de if sp == "en" else pfad_en
     z.append('<p class="bs-nav mono"><a href="%s">%s</a> · <a href="%s">%s</a> · <a href="%s">%s</a> · <a href="/RULES.md">RULES</a> · <a href="%s" hreflang="%s">%s</a></p>\n'
              '<p class="mono dim fine">%s</p>\n</main></body></html>\n' % (
@@ -271,13 +274,18 @@ def schreibe(wurzel, jetzt=None):
     daten = lies(wurzel)
     if not daten:
         return []
+    import codeauditseiten
+    cd = codeauditseiten.lies(wurzel)
+    code = (cd, codeauditseiten.regeln_lesen(wurzel)) if cd else None
     regeln = json.loads((wurzel / "audit" / "regeln.json").read_text(encoding="utf-8"))
     site = wurzel / "site"
     for sp in ("de", "en"):
         ziel = site / T[sp]["pfad"].strip("/")
         ziel.mkdir(parents=True, exist_ok=True)
-        (ziel / "index.html").write_text(seite(sp, daten, regeln, jetzt), encoding="utf-8")
+        (ziel / "index.html").write_text(seite(sp, daten, regeln, jetzt, code), encoding="utf-8")
     (site / "audit" / "siegel").mkdir(parents=True, exist_ok=True)
     for dom, d in daten:
         (site / "audit" / "siegel" / ("%s.svg" % dom)).write_text(siegel(dom, d, jetzt, regeln) + "\n", encoding="utf-8")
-    return [("/audit/", "/en/audit/", max(d["stand"][:10] for _dom, d in daten))]
+    if code:
+        (site / "audit" / "siegel" / ("%s.svg" % codeauditseiten.SVG_NAME)).write_text(codeauditseiten.siegel(cd, jetzt, code[1]) + "\n", encoding="utf-8")
+    return [("/audit/", "/en/audit/", max([d["stand"][:10] for _dom, d in daten] + ([cd["stand"][:10]] if cd else [])))]

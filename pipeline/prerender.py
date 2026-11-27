@@ -54,8 +54,27 @@ def siegel_fuss(en=False):
     except (OSError, ValueError, KeyError):
         return ""
     q = lambda t: html.escape(t, quote=True)
-    return ('<a class="fuss-siegel" id="fuss-siegel" href="%s" data-de="%s" data-en="%s"><img src="/audit/siegel/cyberlage.org.svg" width="72" height="72" alt="" loading="lazy">'
-            '<span class="mono dim">%s</span></a>') % ("/en/audit/" if en else "/audit/", q(de), q(e_), q(e_ if en else de))
+    web = ('<a class="fuss-siegel" id="fuss-siegel" href="%s" data-de="%s" data-en="%s"><img src="/audit/siegel/cyberlage.org.svg" width="72" height="72" alt="" loading="lazy">'
+           '<span class="mono dim">%s</span></a>') % ("/en/audit/" if en else "/audit/", q(de), q(e_), q(e_ if en else de))
+    return web + siegel_fuss_code(en)
+
+
+def siegel_fuss_code(en=False):
+    """Zweites Siegel im Fuß: das Dreier-Code-Siegel aus data/codeaudit/cyberlage.org.json; ohne Daten oder Score leer."""
+    import auditseiten
+    import codeauditseiten
+    try:
+        d = codeauditseiten.lies(WURZEL)
+        regeln = codeauditseiten.regeln_lesen(WURZEL)
+        if d is None or d.get("score") is None:
+            return ""
+        jetzt = datetime.now(timezone.utc)
+        de, e_ = codeauditseiten.fuss_text(d, regeln, "de", jetzt), codeauditseiten.fuss_text(d, regeln, "en", jetzt)
+    except (OSError, ValueError, KeyError):
+        return ""
+    q = lambda t: html.escape(t, quote=True)
+    return ('<a class="fuss-siegel" id="fuss-siegel-code" href="%s#code-audit" data-de="%s" data-en="%s"><img src="/audit/siegel/%s.svg" width="72" height="72" alt="" loading="lazy">'
+            '<span class="mono dim">%s</span></a>') % ("/en/audit/" if en else "/audit/", q(de), q(e_), auditseiten.html.escape(codeauditseiten.SVG_NAME), q(e_ if en else de))
 
 
 def vorbelegen(s, lage):

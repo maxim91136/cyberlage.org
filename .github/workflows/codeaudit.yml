@@ -55,5 +55,7 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_AUDIT_CHAT_ID: ${{ secrets.TELEGRAM_AUDIT_CHAT_ID }}
         run: python codeaudit/lauf.py --zusammenfassung data/codeaudit/cyberlage.org.json --telegram ${{ inputs.testmeldung && '--immer' || '' }}
+      - name: Audit-Seite neu schreiben
+        run: python pipeline/prerender.py
       - name: Ergebnis speichern
         run: bash pipeline/speichern.sh

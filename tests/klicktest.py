@@ -240,6 +240,13 @@ def pruefe_auditseite(pg, wurzel, sprache, p):
     if fs:
         p.ok(fs["href"] == pfad and fs["geladen"], "Siegel im Fuß: Link %s, Bild geladen: %s" % (fs["href"], fs["geladen"]))
         p.ok(fs["text"].startswith(("Web-Audit:", "Web audit:")) and (" %d / 100" % org["score"] in fs["text"] or "last run" in fs["text"] or "letzter Lauf" in fs["text"]), "Siegel im Fuß: Text %s" % fs["text"])
+    cs = pg.evaluate("""() => { const a = document.getElementById('fuss-siegel-code'); if (!a) return null; const i = a.querySelector('img');
+        return { href: a.getAttribute('href'), text: a.querySelector('span').textContent, geladen: i.complete && i.naturalWidth > 0, sichtbar: a.offsetHeight > 0 }; }""")
+    p.ok(cs is not None and cs["sichtbar"], "Code-Siegel im Fuß der Startseite fehlt")
+    if cs:
+        p.ok(cs["href"] == pfad + "#code-audit" and cs["geladen"], "Code-Siegel im Fuß: Link %s, Bild geladen: %s" % (cs["href"], cs["geladen"]))
+        p.ok(cs["text"].startswith(("Code-Audit:", "Code audit:")), "Code-Siegel im Fuß: Text %s" % cs["text"])
+    p.ok(rand(pg) <= 1, "Fuß mit zwei Siegeln: %d px über dem Rand" % rand(pg))
     pg.click("#n-audit")
     pg.wait_for_load_state()
     p.ok(pg.evaluate("location.pathname") == pfad, "Menüpunkt /audit führt nach %s" % pg.evaluate("location.pathname"))
@@ -248,11 +255,16 @@ def pruefe_auditseite(pg, wurzel, sprache, p):
         d = json.loads(f.read_text(encoding="utf-8"))
         daten[d["domain"]] = d
     seite = pg.evaluate("""() => ({ karten: [...document.querySelectorAll('.au-karte')].map(k => ({ dom: k.querySelector('.au-dom').textContent, score: k.querySelector('.au-sc strong').textContent,
-            svg: k.querySelectorAll('svg').length, svgtext: k.querySelector('svg').textContent, kacheln: k.nextElementSibling.querySelectorAll('.au-k').length })),
+            code: k.querySelector('svg').textContent.includes('DREIER-CODE-SIEGEL'), svg: k.querySelectorAll('svg').length, svgtext: k.querySelector('svg').textContent, kacheln: k.nextElementSibling.querySelectorAll('.au-k').length })),
         skripte: document.querySelectorAll('script:not([type="application/ld+json"]):not([src="/matrix.js"])').length, lang: document.documentElement.lang, alt: document.querySelectorAll('link[hreflang]').length,
         kanon: document.querySelector('link[rel=canonical]').href, text: document.body.innerText })""")
-    p.ok(len(seite["karten"]) == len(daten) and len(daten) >= 2, "Audit-Seite zeigt %d Karten für %d Domains" % (len(seite["karten"]), len(daten)))
-    for k in seite["karten"]:
+    web = [k for k in seite["karten"] if not k["code"]]
+    code = [k for k in seite["karten"] if k["code"]]
+    p.ok(len(web) == len(daten) and len(daten) >= 2, "Audit-Seite zeigt %d Karten für %d Domains" % (len(web), len(daten)))
+    cd = json.loads((SITE.parent / "data" / "codeaudit" / "cyberlage.org.json").read_text(encoding="utf-8"))
+    p.ok(len(code) == 1 and code[0]["score"] == str(cd["score"]) and code[0]["svg"] == 1 and code[0]["kacheln"] == len(cd["gruppen"]), "Code-Audit auf der Audit-Seite: %s" % code)
+    p.ok(pg.locator("#code-audit").count() == 1, "Code-Audit: Abschnitt mit Anker #code-audit fehlt")
+    for k in web:
         d = daten.get(k["dom"])
         p.ok(d is not None and k["score"] == str(d["score"]), "Audit-Seite %s: Score %s statt %s" % (k["dom"], k["score"], d and d["score"]))
         p.ok(k["svg"] == 1 and "DREIER-SIEGEL" in k["svgtext"] and k["kacheln"] == 12, "Audit-Seite %s: Siegel oder Kacheln fehlen (%s)" % (k["dom"], {x: k[x] for x in ("svg", "kacheln")}))
