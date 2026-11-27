@@ -23,6 +23,7 @@ from email.utils import parsedate_to_datetime
 from datetime import datetime, timezone
 from pathlib import Path
 from statistics import median
+import sicher
 
 WURZEL = Path(__file__).resolve().parent.parent
 UA = "cyberlage.org (privates Projekt von Dreier Labs, https://cyberlage.org)"
@@ -43,7 +44,7 @@ class QuellFehler(Exception):
 
 
 def lade_json(url):
-    req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/json"})
+    req = urllib.request.Request(sicher.nur_https(url), headers={"User-Agent": UA, "Accept": "application/json"})
     with urllib.request.urlopen(req, timeout=120) as r:
         return json.loads(r.read().decode("utf-8"))
 
@@ -502,7 +503,7 @@ _MONATE_EN = {m: i + 1 for i, m in enumerate(["january", "february", "march", "a
 
 
 def lade_roh(url):
-    req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "*/*"})
+    req = urllib.request.Request(sicher.nur_https(url), headers={"User-Agent": UA, "Accept": "*/*"})
     with urllib.request.urlopen(req, timeout=120) as r:
         return r.read()
 
@@ -591,7 +592,7 @@ def parse_redhat_csv(text):
 
 def parse_debian(xml_bytes):
     try:
-        wurzel = ET.fromstring(xml_bytes)
+        wurzel = sicher.xml_lesen(xml_bytes)
     except ET.ParseError as e:
         raise QuellFehler("Debian-Feed kein gültiges XML: %s" % e)
     out = []
@@ -609,7 +610,7 @@ def parse_debian(xml_bytes):
 
 def parse_cisco(xml_bytes):
     try:
-        wurzel = ET.fromstring(xml_bytes)
+        wurzel = sicher.xml_lesen(xml_bytes)
     except ET.ParseError as e:
         raise QuellFehler("Cisco-Feed kein gültiges XML: %s" % e)
     out = []
@@ -683,7 +684,7 @@ def parse_suse(text):
 
 def _rss_items(xml_bytes, name):
     try:
-        wurzel = ET.fromstring(xml_bytes)
+        wurzel = sicher.xml_lesen(xml_bytes)
     except ET.ParseError as e:
         raise QuellFehler("%s-Feed kein gültiges XML: %s" % (name, e))
     return [it for it in wurzel.iter() if _tag(it) == "item"]
@@ -741,7 +742,7 @@ _SEV_FEED = {"critical": "kritisch", "high": "hoch", "important": "hoch", "mediu
 def parse_feed(xml_bytes, name, id_muster=None):
     """RSS (item) oder Atom (entry). Schweregrad nur, wenn der Feed ihn ausdrücklich nennt ('Severity: …'); sonst None."""
     try:
-        wurzel = ET.fromstring(xml_bytes)
+        wurzel = sicher.xml_lesen(xml_bytes)
     except ET.ParseError as e:
         raise QuellFehler("%s-Feed kein gültiges XML: %s" % (name, e))
     out = []

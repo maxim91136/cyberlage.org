@@ -56,6 +56,8 @@ def sitemap_adressen(xml_text, host):
     """Gibt (adressen, fehler) zurück. Nur Adressen des eigenen Hosts über https zählen."""
     if not xml_text or len(xml_text) > 5_000_000:
         return [], "leer oder zu groß"
+    if "<!doctype" in xml_text.lower() or "<!entity" in xml_text.lower():
+        return [], "XML mit DOCTYPE oder ENTITY wird nicht gelesen"
     try:
         wurzel = ET.fromstring(xml_text)
     except ET.ParseError:

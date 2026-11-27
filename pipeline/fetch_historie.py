@@ -20,6 +20,7 @@ import time
 import urllib.request
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+import sicher
 
 WURZEL = Path(__file__).resolve().parent.parent
 ZIEL = WURZEL / "data" / "radar" / "historie"
@@ -32,7 +33,7 @@ KLASSE = {"kritisch": "k", "hoch": "h", "mittel": "m", "niedrig": "n"}
 
 
 def lade(url, timeout=60):
-    req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/json, text/csv, */*"})
+    req = urllib.request.Request(sicher.nur_https(url), headers={"User-Agent": UA, "Accept": "application/json, text/csv, */*"})
     with urllib.request.urlopen(req, timeout=timeout) as r:
         return r.read()
 

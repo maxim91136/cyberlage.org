@@ -23,6 +23,7 @@ import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
+import sicher
 
 WURZEL = Path(__file__).resolve().parent.parent
 RADAR = WURZEL / "data" / "radar"
@@ -70,7 +71,7 @@ def hole_datum(c):
         return c, None  # keine gültige Kennung: nicht abrufen, nicht erneut versuchen
     for _ in range(3):
         try:
-            req = urllib.request.Request(cve_url(c), headers={"User-Agent": UA})
+            req = urllib.request.Request(sicher.nur_https(cve_url(c)), headers={"User-Agent": UA})
             with urllib.request.urlopen(req, timeout=30) as r:
                 d = json.loads(r.read())
             return c, (d.get("cveMetadata", {}).get("datePublished") or "")[:10] or None
@@ -212,7 +213,7 @@ def abgleich_eu(kev_eintraege, eu):
 
 def hole_sans():
     try:
-        req = urllib.request.Request(SANS_URL, headers={"User-Agent": UA})
+        req = urllib.request.Request(sicher.nur_https(SANS_URL), headers={"User-Agent": UA})
         with urllib.request.urlopen(req, timeout=30) as r:
             status = json.loads(r.read()).get("status")
         if status in ("green", "yellow", "orange", "red"):
@@ -225,9 +226,8 @@ def hole_sans():
 def ncsc_zaehlen(xml_text, heute):
     """Zählt Advisories des niederländischen NCSC der letzten 30 Tage und davon die mit Kans und Schade je 'high'."""
     import re
-    import xml.etree.ElementTree as ET
     from email.utils import parsedate_to_datetime
-    wurzel = ET.fromstring(xml_text)
+    wurzel = sicher.xml_lesen(xml_text)
     gesamt = hoch = 0
     for it in wurzel.iter("item"):
         d = it.findtext("pubDate")
@@ -249,7 +249,7 @@ def ncsc_zaehlen(xml_text, heute):
 def hole_ncsc(heute):
     """NCSC-NL Beveiligingsadviezen (RSS ohne Konto). None, wenn nicht erreichbar oder nicht lesbar."""
     try:
-        req = urllib.request.Request(NCSC_URL, headers={"User-Agent": UA})
+        req = urllib.request.Request(sicher.nur_https(NCSC_URL), headers={"User-Agent": UA})
         with urllib.request.urlopen(req, timeout=30) as r:
             return ncsc_zaehlen(r.read(), heute)
     except Exception:

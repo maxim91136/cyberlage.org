@@ -18,6 +18,7 @@ import urllib.parse
 import urllib.request
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+import sicher
 
 WURZEL = Path(__file__).resolve().parent.parent
 UA = "cyberlage.org (privates Projekt von Dreier Labs, https://cyberlage.org)"
@@ -39,7 +40,7 @@ def lade_json(url, versuche=4):
     letzter = None
     for i in range(versuche):
         try:
-            req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/json"})
+            req = urllib.request.Request(sicher.nur_https(url), headers={"User-Agent": UA, "Accept": "application/json"})
             with urllib.request.urlopen(req, timeout=90) as r:
                 return json.loads(r.read())
         except urllib.error.HTTPError as ex:

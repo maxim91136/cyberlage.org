@@ -4,7 +4,6 @@ Fertiges HTML ohne Skript aus data/links.json (von Hand gepflegt, je Eintrag mit
 Die Sammlung hat keinen Einfluss auf Pegel oder Regeln. Nichts davon ist bezahlt oder vermittelt."""
 import html
 import json
-from datetime import date
 from pathlib import Path
 
 import berichtseiten as bs

@@ -5,7 +5,6 @@ Der Regen liegt nur dort, wo das Ausgangsbild leer ist, Logo, Titel und Rahmen b
 Schrift: Noto Sans CJK (Katakana), nur zum Erzeugen des Bildes nötig, nicht für die Seite."""
 import random
 import sys
-from pathlib import Path
 
 from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageFont
 

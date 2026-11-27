@@ -229,7 +229,7 @@
 
     var sw = d.schwellen || {};
     if (typeof sw.erhoeht_ab === "number" && typeof sw.hoch_ab === "number" && typeof sw.ransomware_aufschlag_ab === "number") {
-      $("rechnung").innerHTML = txt("rechnung", d.fenster_tage || 30, sw.erhoeht_ab, sw.hoch_ab, sw.ransomware_aufschlag_ab, sw.basis_monate || 12, sw.median);
+      $("rechnung").innerHTML = txt("rechnung", d.fenster_tage || 30, sw.erhoeht_ab, sw.hoch_ab, sw.ransomware_aufschlag_ab, Number(sw.basis_monate) || 12, Number(sw.median));
     } else {
       $("rechnung").textContent = txt("keine");
     }

@@ -15,6 +15,7 @@ import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 from pathlib import Path
+import sicher
 
 WURZEL = Path(__file__).resolve().parent.parent
 UA = "cyberlage.org (privates Projekt von Dreier Labs, https://cyberlage.org)"
@@ -34,7 +35,7 @@ class QuellFehler(Exception):
 
 
 def lade(url):
-    req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "*/*"})
+    req = urllib.request.Request(sicher.nur_https(url), headers={"User-Agent": UA, "Accept": "*/*"})
     with urllib.request.urlopen(req, timeout=60) as r:
         return r.read()
 
@@ -42,7 +43,7 @@ def lade(url):
 # ---------- CERT-Bund / BSI ----------
 def parse_bsi(xml_bytes):
     try:
-        wurzel = ET.fromstring(xml_bytes)
+        wurzel = sicher.xml_lesen(xml_bytes)
     except ET.ParseError as e:
         raise QuellFehler(f"BSI-Feed kein gültiges XML: {e}")
     items = wurzel.findall("./channel/item")

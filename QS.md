@@ -242,3 +242,9 @@ Lokal mit Playwright (1280 px und 390 px, Deutsch und Englisch, alle Klappen off
 - 27.11. erledigt: KEV wird jetzt direkt unter den Bausteinen (Teil 1) und im Intro von „Neu“ erklärt (vorher nur in Pegel-Erklärung, Glossar, FAQ). Tests OK, Klicktest 4542/0.
 - 27.11. erledigt: Patch-Level-Kasten heißt jetzt „Windows-Patch-Level: aktuelle Builds · Update vom <Datum>“, ist einklappbar (zu) und sagt „Nur Windows“. Kachel: „Windows-Patch-Level“. Tests OK, Klicktest 4546/0.
 - 27.11. erledigt: Windows-Patch-Level-Kasten steht jetzt nach Patch-Rangliste und Werkzeugzeile statt davor. Klicktest 4546/0.
+
+### Code-Durchsicht 27.11. (Härtung, erste Runde)
+- Geprüft mit ruff (F,B,S,BLE), bandit, eslint auf pipeline/, audit/, site/*.js; Workflows (Berechtigungen, gepinnte Actions), CSP/_headers gelesen. Keine Funde hoch, keine Geheimnisse im Code.
+- Erledigt: neues `pipeline/sicher.py` (`nur_https` für alle Abrufe, `xml_lesen` lehnt DOCTYPE/ENTITY ab) in alle sechs Abruf-Module und für die Audit-Sitemap; Tests `tests/test_sicher.py`; `innerHTML` für die Pegel-Rechnung nur mit Zahlen; zwei ungenutzte Importe entfernt. 172 Tests, Klicktest 4546/0.
+- Bewusst nicht geändert (kein Gewinn, Risiko): leere `catch` bei localStorage (gewollt), breite `except Exception` im Datenabruf (Quelle fällt aus, Lauf geht weiter, so gewollt), `/tmp` als Vorgabe in pruefen.py (nur CI), `zip` ohne `strict`.
+- Offen für Runde 2: `fetch_patches.py` (1183 Zeilen) und `app.js` (1709 Zeilen) in Module teilen (nur schrittweise, mit Tests davor); ungenutzte Variablen in app.js (`grenze`, `m`) und matrix.js (`sichtbar`).
