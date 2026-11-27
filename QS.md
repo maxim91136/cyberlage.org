@@ -295,3 +295,4 @@ Lokal mit Playwright (1280 px und 390 px, Deutsch und Englisch, alle Klappen off
 - 27.11.2026: Nachtrags-Meldung nennt die CVE jetzt wirklich: die Lagedatei enthält cve_liste nicht (score.py kompakt), notify liest sie aus data/patches/microsoft.json (cve_listen_ergaenzen). Die erste neu gesendete Meldung hatte deshalb noch keine CVE; März-Meldung nochmals zurückgesetzt.
 - 27.11.2026: Remote-Branch probe-ms (meine Probe-Commits) über Chrome gelöscht; quellen-probe (nicht von mir, Citrix-Probe) bleibt.
 - 27.11.2026: Auch quellen-probe auf Steves Wunsch gelöscht; am Remote nur noch main.
+- 27.11.2026: Patch-Bereich: Windows-Patch-Level jetzt als gleichartige Zeile in der Liste (kein eigener Kasten mehr), Liste bündig mit den Kästen, mehr Abstand zu /termine. Desktop und Handy angesehen.

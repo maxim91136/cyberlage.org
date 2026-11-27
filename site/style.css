@@ -882,3 +882,9 @@ main .p-rang .p-det>summary{padding:2px 0}
   .leiste.menue-offen .menue-knopf::after{content:"▴"}
 }
 @media (max-width:899px){.menue-knopf{min-height:42px;font-size:19px;font-weight:600}.menue-knopf::after{font-size:15px}}
+
+/* Patch-Bereich: Windows-Patch-Level als gleichartige Zeile in der Liste (kein eigener Kasten), Liste bündig mit den Kästen und mit Abstand zu den folgenden Abschnitten */
+#patches .sek.sub{margin-left:0}
+#patches .sek.sub:last-of-type{margin-bottom:22px}
+#p-pl{margin-top:0}
+#p-pl>.dim,#p-pl>p{margin-bottom:14px}#p-pl .p-pl-s{margin-top:10px}
