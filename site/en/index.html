@@ -66,7 +66,6 @@
     </div>
     </div>
     <div class="nav-row nav-u">
-    <a href="#guide" data-offen="guide" class="hilfe" id="hilfe" title="So liest du die Seite" aria-label="Hilfe: So liest du die Seite">?</a>
     <details class="dd" id="abo"><summary data-t="n_abo">/abo</summary><div class="dd-box dd-l dd-abo">
       <span id="telegram" class="abo-z" hidden><a id="telegram-link" href="#" rel="noopener" data-t="tg_btn">Telegram-Kanal abonnieren</a><small class="dim" data-t="tg_txt">einmal täglich die Tageslage, sofort nur bei Stufenwechsel und Ransomware-Alarm.</small></span>
       <span class="abo-z"><button type="button" id="rss-kopieren" data-feed="https://cyberlage.org/feed.xml"><span id="rss-btn" data-t="rss_btn">RSS-Feed-Adresse kopieren</span></button><small class="dim"><span data-t="rss_txt">in deinen Feed-Reader einfügen (Feedly, Inoreader, NetNewsWire), ohne Konto.</span> <a href="/feed.xml" data-t="rss_roh">Rohdatei</a></small></span>
@@ -107,12 +106,6 @@
           <li><a href="#patches"><span data-t="ez_q2">Was zuerst zu patchen ist, und bis wann</span><small class="dim" data-t="ez_a2">Patches und Termine</small></a></li>
           <li><a href="#neu"><span data-t="ez_q3">Was in den letzten Tagen neu bekannt wurde</span><small class="dim" data-t="ez_a3">Neu und Rückblick</small></a></li>
           <li><a href="#signale"><span data-t="ez_q4">Wie belastbar die Zahl ist</span><small class="dim" data-t="ez_a4">Signale, Quellen, Methode</small></a></li>
-        </ul>
-        <h4 class="guide-h mono" data-t="ez_h3">Menü im Überblick</h4>
-        <ul class="guide-m mono">
-          <li><span class="guide-gr" data-t="g_lage">LAGE</span><a href="#lage">/lage</a> <a href="#radar" data-t="n_radar">/radar</a> <a href="#signale" data-t="n_signale">/signale</a> <a href="#rueckblick" data-t="n_rueck">/rückblick</a></li>
-          <li><span class="guide-gr" data-t="g_handeln">HANDELN</span><a href="#patches" data-t="n_patches">/patches</a> <a href="#termine" data-t="n_termine">/termine</a> <a href="#lebenszyklen" data-t="n_leben">/lebenszyklen</a> <a href="#neu" data-t="n_neu">/neu</a></li>
-          <li><span class="guide-gr" data-t="g_belege">BELEGE</span><a href="#logbuch" data-t="n_logbuch">/logbuch</a> <a href="#berichte" data-t="n_berichte">/berichte</a> <a href="/en/audit/">/audit</a></li>
         </ul>
         <p class="guide-g" data-t="ez_geraet">Auf dem Handy ist die Seite eine Schnellansicht. Für Details und Vergleiche eignen sich Tablet oder Desktop besser.</p>
         <p class="mono fine"><a href="#info" data-offen="i-faq" data-t="g_faq">▸ Weitere Fragen und Antworten (FAQ)</a></p>
@@ -364,13 +357,35 @@
     </details>
     <details class="akk" id="i-begriffe"><summary class="mono" data-t="i_begriffe">begriffe</summary>
       <dl class="begriffe" data-t="i_dl">
-        <dt>CISA</dt><dd>Cybersecurity and Infrastructure Security Agency, die Cybersicherheitsbehörde der USA. Führt die KEV-Liste.</dd>
-        <dt>KEV</dt><dd>Known Exploited Vulnerabilities: Schwachstellen, die nachweislich in Angriffen ausgenutzt werden.</dd>
+        <dt>Dreier-Pegel</dt><dd>Unser eigener Score von 0 bis 100 in fünf Stufen, gebildet aus zehn Bausteinen. Er zeigt die Lage, er sagt nichts voraus.</dd>
+        <dt>Baustein</dt><dd>Ein einzelnes Signal hinter dem Pegel, zum Beispiel die Zahl neuer KEV-Einträge. Jeder Baustein hat eine feste Regel, eine Quelle und einen Stand.</dd>
+        <dt>Schwelle</dt><dd>Der Wert, ab dem ein Baustein als erhöht gilt. Bei uns das obere Viertel seiner eigenen Historie.</dd>
+        <dt>Perzentil</dt><dd>Der Wert, unter dem ein bestimmter Anteil aller Messwerte liegt. Das 75. Perzentil trennt das obere Viertel ab.</dd>
+        <dt>Median</dt><dd>Der mittlere Wert: Die Hälfte der Messwerte liegt darunter, die Hälfte darüber.</dd>
+        <dt>Tempo bis KEV</dt><dd>Wie viele Tage zwischen der Veröffentlichung einer Lücke und ihrer Aufnahme in die KEV-Liste liegen. Je kürzer, desto schneller werden Lücken ausgenutzt.</dd>
+        <dt>Schwachstelle</dt><dd>Ein Fehler in Software oder Hardware, über den Angreifer Zugriff erlangen oder Schaden anrichten können.</dd>
+        <dt>Exploit</dt><dd>Code oder Vorgehen, das eine Schwachstelle tatsächlich ausnutzt. „Ausgenutzt“ heißt: Der Angriff ist belegt, nicht nur möglich.</dd>
         <dt>CVE</dt><dd>Die weltweit einheitliche Kennung einer Schwachstelle, zum Beispiel CVE-2026-12345.</dd>
+        <dt>CVSS</dt><dd>Der Schweregrad einer Schwachstelle auf einer Skala von 0 bis 10. Er sagt, wie schlimm eine Lücke sein kann, nicht, ob sie ausgenutzt wird.</dd>
+        <dt>KEV</dt><dd>Known Exploited Vulnerabilities: Schwachstellen, die nachweislich in Angriffen ausgenutzt werden.</dd>
+        <dt>EPSS</dt><dd>Exploit Prediction Scoring System: eine Schätzung, wie wahrscheinlich eine Schwachstelle in den nächsten 30 Tagen ausgenutzt wird. Eine Wahrscheinlichkeit, kein Beleg.</dd>
+        <dt>FIRST</dt><dd>Forum of Incident Response and Security Teams, der internationale Zusammenschluss von Sicherheitsteams. Pflegt CVSS und EPSS.</dd>
+        <dt>CISA</dt><dd>Cybersecurity and Infrastructure Security Agency, die Cybersicherheitsbehörde der USA. Führt die KEV-Liste.</dd>
         <dt>BSI / CERT-Bund</dt><dd>Das Bundesamt für Sicherheit in der Informationstechnik und sein Computer-Notfallteam. Sie warnen vor Schwachstellen in Deutschland.</dd>
+        <dt>BSI Cyber Index</dt><dd>Eine Einschätzung des BSI zur Cyber-Lage. Wir übernehmen sie als externen Baustein und bewerten sie nicht selbst.</dd>
+        <dt>NCSC-NL</dt><dd>Das Nationale Zentrum für Cybersicherheit der Niederlande. Veröffentlicht Warnungen zu Schwachstellen.</dd>
         <dt>ENISA / EUVD</dt><dd>Die EU-Agentur für Cybersicherheit und ihre Schwachstellendatenbank (European Union Vulnerability Database).</dd>
         <dt>NVD</dt><dd>National Vulnerability Database des US-Instituts NIST, Anlaufstelle für Details zu einer CVE.</dd>
+        <dt>MSRC</dt><dd>Microsoft Security Response Center. Veröffentlicht die Sicherheitsupdates von Microsoft und kennzeichnet, welche Lücken bereits ausgenutzt werden.</dd>
+        <dt>SANS ISC / Infocon</dt><dd>Das Internet Storm Center des SANS Institute. Der Infocon ist seine Warnstufe für das Internet in vier Farben: grün, gelb, orange, rot.</dd>
+        <dt>DShield</dt><dd>Das Sensornetz des SANS ISC. Es sammelt Scan- und Angriffsaktivität aus dem Internet.</dd>
+        <dt>RansomLook</dt><dd>Ein Dienst, der zählt, was Ransomware-Gruppen auf ihren Leak-Seiten veröffentlichen. Das sind Behauptungen der Täter, keine bestätigten Fälle.</dd>
         <dt>Ransomware</dt><dd>Schadsoftware, die Daten verschlüsselt, um Lösegeld zu erpressen.</dd>
+        <dt>Patch</dt><dd>Ein Update des Herstellers, das eine Schwachstelle schließt.</dd>
+        <dt>Patch Day</dt><dd>Der feste monatliche Termin, an dem große Hersteller wie Microsoft, Adobe und SAP ihre Sicherheitsupdates veröffentlichen, meist der zweite Dienstag.</dd>
+        <dt>Out-of-band</dt><dd>Ein Update außerhalb des regulären Patch Days. Es ist nicht planbar und meist dringend.</dd>
+        <dt>Support-Ende (End of Support)</dt><dd>Der Zeitpunkt, ab dem ein Hersteller keine Sicherheitsupdates mehr liefert. Danach bleiben Lücken offen, außer in bezahltem Zusatzsupport.</dd>
+        <dt>LTSC</dt><dd>Long-Term Servicing Channel: eine Windows-Ausgabe mit besonders langem Support, gedacht für feste Einsatzzwecke.</dd>
       </dl>
     </details>
     <details class="akk" id="i-faq"><summary class="mono" data-t="i_faq">faq</summary>

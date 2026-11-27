@@ -18,7 +18,7 @@
     ez_q2: "What to patch first, and by when", ez_a2: "Patches and dates",
     ez_q3: "What became known in the last days", ez_a3: "New and history",
     ez_q4: "How reliable the figure is", ez_a4: "Signals, sources, method",
-    ez_h3: "The menu at a glance",
+   
     ez_geraet: "On a phone the page is a quick view. For detail and comparison, a tablet or desktop works better.",
     g_faq: "▸ More questions and answers (FAQ)",
     n_termine: "/dates", n_leben: "/lifecycles", lz_h: "## lifecycles: end of support", lz_intro: "Until when vendors still supply a system with security updates. After end of support there are no more patches (except in paid extended support). Colour by time left: already ended, under 6 months, under 12 months, longer.", t_h: "## dates: patch calendar", t_intro: "The next patch dates of the big vendors, calculated from their published rules. So you know in advance when to plan maintenance windows and time.",
@@ -92,13 +92,35 @@
     n_q3: "Source: EU Vulnerability Database (EUVD) of <strong>ENISA</strong>, the EU Agency for Cybersecurity. The licence is not explicitly clarified, so only ID, CVE, vendor and link are shown.",
     n_q4: 'Forecast, not part of the level: the probability comes from <strong>EPSS</strong> (Exploit Prediction Scoring System, FIRST) and estimates whether a new flaw will be exploited in the next 30 days. An estimate, not a finding. Listed are new CVEs of the last days that are not yet in the KEV. See EPSS at <a href="https://www.first.org/epss">first.org/epss</a>. Publication date and CVSS score from the NVD. This product uses data from the NVD API but is not endorsed or certified by the NVD.',
     i_qtxt: "From CERT-Bund (BSI) we show only title, severity, date and link, always with the source. The texts are at the BSI.",
-    i_dl: "<dt>CISA</dt><dd>Cybersecurity and Infrastructure Security Agency, the US cybersecurity agency. Maintains the KEV list.</dd>" +
-      "<dt>KEV</dt><dd>Known Exploited Vulnerabilities: flaws that are proven to be exploited in attacks.</dd>" +
+    i_dl: "<dt>Dreier-Pegel</dt><dd>Our own score from 0 to 100 in five levels, built from ten components. It shows the situation, it predicts nothing.</dd>" +
+      "<dt>Component</dt><dd>A single signal behind the level, for example the number of new KEV entries. Every component has a fixed rule, a source and a date.</dd>" +
+      "<dt>Threshold</dt><dd>The value from which a component counts as elevated. For us the upper quarter of its own history.</dd>" +
+      "<dt>Percentile</dt><dd>The value below which a given share of all measurements lies. The 75th percentile marks off the upper quarter.</dd>" +
+      "<dt>Median</dt><dd>The middle value: half of the measurements lie below it, half above.</dd>" +
+      "<dt>Pace to KEV</dt><dd>How many days pass between a flaw being published and its entry in the KEV list. The shorter, the faster flaws are exploited.</dd>" +
+      "<dt>Vulnerability</dt><dd>A flaw in software or hardware through which attackers can gain access or cause damage.</dd>" +
+      "<dt>Exploit</dt><dd>Code or a method that actually uses a vulnerability. “Exploited” means the attack is proven, not just possible.</dd>" +
       "<dt>CVE</dt><dd>The worldwide standard identifier of a vulnerability, for example CVE-2026-12345.</dd>" +
+      "<dt>CVSS</dt><dd>The severity of a vulnerability on a scale from 0 to 10. It says how bad a flaw can be, not whether it is exploited.</dd>" +
+      "<dt>KEV</dt><dd>Known Exploited Vulnerabilities: flaws that are proven to be exploited in attacks.</dd>" +
+      "<dt>EPSS</dt><dd>Exploit Prediction Scoring System: an estimate of how likely a vulnerability is to be exploited in the next 30 days. A probability, not proof.</dd>" +
+      "<dt>FIRST</dt><dd>Forum of Incident Response and Security Teams, the international association of security teams. Maintains CVSS and EPSS.</dd>" +
+      "<dt>CISA</dt><dd>Cybersecurity and Infrastructure Security Agency, the US cybersecurity agency. Maintains the KEV list.</dd>" +
       "<dt>BSI / CERT-Bund</dt><dd>The German Federal Office for Information Security and its computer emergency team. They warn about vulnerabilities in Germany.</dd>" +
+      "<dt>BSI Cyber Index</dt><dd>An assessment of the cyber situation by the BSI. We take it over as an external component and do not rate it ourselves.</dd>" +
+      "<dt>NCSC-NL</dt><dd>The National Cyber Security Centre of the Netherlands. Publishes warnings about vulnerabilities.</dd>" +
       "<dt>ENISA / EUVD</dt><dd>The EU Agency for Cybersecurity and its vulnerability database (European Union Vulnerability Database).</dd>" +
       "<dt>NVD</dt><dd>National Vulnerability Database of the US institute NIST, the place to find details on a CVE.</dd>" +
-      "<dt>Ransomware</dt><dd>Malware that encrypts data to extort a ransom.</dd>",
+      "<dt>MSRC</dt><dd>Microsoft Security Response Center. Publishes Microsoft's security updates and flags which flaws are already exploited.</dd>" +
+      "<dt>SANS ISC / Infocon</dt><dd>The Internet Storm Center of the SANS Institute. The Infocon is its warning level for the internet in four colours: green, yellow, orange, red.</dd>" +
+      "<dt>DShield</dt><dd>The sensor network of the SANS ISC. It collects scanning and attack activity from the internet.</dd>" +
+      "<dt>RansomLook</dt><dd>A service that counts what ransomware groups publish on their leak sites. These are claims by the attackers, not confirmed cases.</dd>" +
+      "<dt>Ransomware</dt><dd>Malware that encrypts data to extort a ransom.</dd>" +
+      "<dt>Patch</dt><dd>A vendor update that closes a vulnerability.</dd>" +
+      "<dt>Patch Day</dt><dd>The fixed monthly date on which big vendors such as Microsoft, Adobe and SAP publish their security updates, usually the second Tuesday.</dd>" +
+      "<dt>Out-of-band</dt><dd>An update outside the regular Patch Day. It cannot be planned and is usually urgent.</dd>" +
+      "<dt>End of support</dt><dd>The point from which a vendor no longer supplies security updates. After that, flaws stay open, except in paid extended support.</dd>" +
+      "<dt>LTSC</dt><dd>Long-Term Servicing Channel: a Windows edition with especially long support, meant for fixed-purpose systems.</dd>",
     i_grid: '<div class="panel pad"><strong>Published data only</strong><p class="dim">We do not know what is in use where, and we do not claim to.</p></div>' +
       '<div class="panel pad"><strong>No data instead of guesses</strong><p class="dim">If a sourced value is missing, it says “no data”.</p></div>' +
       '<div class="panel pad"><strong>Open rules</strong><p class="dim">Window, thresholds and derivation are in <a href="/RULES.md">RULES.md</a>.</p></div>',
