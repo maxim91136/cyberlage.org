@@ -220,3 +220,7 @@ Für jeden abgeschlossenen Monat, jedes abgeschlossene Quartal und Jahr rechnet 
 - **Bausteine.** Je Baustein das Mittel des Ausschlags (Messwert im Verhältnis zur Schwelle, wie im Pegel höchstens 2,0), der Anteil der Tage an oder über der Schwelle und die Veränderung zum vorangehenden Zeitraum. Ein Baustein erscheint nur, wenn er für mindestens 90 % der Tage einen Wert hat.
 - **Text.** Der Satz zum Kopieren wird nach festem Muster aus diesen Zahlen gebildet, ohne Wertung.
 - **Stand der Schwellen.** Berichte werden bei jedem Lauf mit dem heutigen Modell neu gerechnet. Ändern sich Schwellen oder Bausteine, ändern sich auch die Zahlen früherer Zeiträume; die Änderung steht dann als Modell-Eintrag im Logbuch.
+
+## Code-Audit (Entwurf 0.1, seit 27.11.2026)
+
+Eigenes Siegel („Dreier-Code-Siegel“), eigener Score, getrennt vom Web-Audit. Regeln: `codeaudit/regeln.json`, Erklärung: `codeaudit/REGELN.md`. Sieben Gruppen, Gewichte 20/18/12/14/12/14/10, Skala, Stufen und Mindestabdeckung wie beim Web-Audit, Deckel 59 bei Mängeln in Geheimnisse oder Workflows. Noch nichts gemessen, nichts auf der Seite; Werkzeuge und Prüfpunkte sind vor Version 1.0 zu belegen (Stand, Lizenz). Einzelbefunde nur privat.

@@ -1,0 +1,20 @@
+{
+  "version": "0.1-entwurf",
+  "stand": "2026-11-27",
+  "richtung": "hoch = gut (Prüfwert); der Dreier-Pegel ist ein Gefahrenwert (hoch = schlecht)",
+  "siegel": "Dreier-Code-Siegel (eigenes Siegel, getrennt vom Dreier-Siegel des Web-Audits)",
+  "wertung": {"bestanden": 1.0, "hinweis": 0.5, "nicht_bestanden": 0.0},
+  "deckel": {"gruppen": ["geheimnisse", "workflows"], "max_score": 59},
+  "mindest_abdeckung": 0.9,
+  "stufen": [[95, "ohne Befund"], [80, "kleine Mängel"], [60, "Mängel"], [0, "erhebliche Mängel"]],
+  "abzeichen": [[95, "gold"], [80, "silber"], [60, "bronze"]],
+  "gruppen": {
+    "geheimnisse": {"name": "Geheimnisse im Code und Verlauf", "gewicht": 20, "werkzeug": "gitleaks (MIT)", "quelle": "OWASP Secrets Management Cheat Sheet; CWE-798"},
+    "workflows": {"name": "Workflows und Berechtigungen", "gewicht": 18, "werkzeug": "zizmor (MIT), OpenSSF Scorecard (Apache-2.0)", "quelle": "GitHub Docs: Security hardening for GitHub Actions; OpenSSF Scorecard Checks"},
+    "abhaengigkeiten": {"name": "Abhängigkeiten", "gewicht": 12, "werkzeug": "osv-scanner (Apache-2.0)", "quelle": "OSV.dev; OpenSSF Scorecard (Pinned-Dependencies, Vulnerabilities)"},
+    "python": {"name": "Python: Sicherheit und Fehlermuster", "gewicht": 14, "werkzeug": "bandit (Apache-2.0), ruff Regeln F, B, S (MIT)", "quelle": "OWASP ASVS; CWE Top 25; Bandit-Dokumentation"},
+    "javascript": {"name": "JavaScript: Sicherheit und Fehlermuster", "gewicht": 12, "werkzeug": "eslint (MIT)", "quelle": "OWASP DOM based XSS Prevention Cheat Sheet; ESLint-Regeln no-eval, no-implied-eval, no-new-func, no-undef"},
+    "tests": {"name": "Tests", "gewicht": 14, "werkzeug": "unittest, coverage.py (Apache-2.0)", "quelle": "eigene Testläufe; Abdeckung der Zeilen"},
+    "wartbarkeit": {"name": "Wartbarkeit", "gewicht": 10, "werkzeug": "radon (MIT)", "quelle": "zyklomatische Komplexität (McCabe 1976); Richtwerte, kein Sicherheitsbefund"}
+  }
+}

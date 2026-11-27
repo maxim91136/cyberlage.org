@@ -248,3 +248,7 @@ Lokal mit Playwright (1280 px und 390 px, Deutsch und Englisch, alle Klappen off
 - Erledigt: neues `pipeline/sicher.py` (`nur_https` für alle Abrufe, `xml_lesen` lehnt DOCTYPE/ENTITY ab) in alle sechs Abruf-Module und für die Audit-Sitemap; Tests `tests/test_sicher.py`; `innerHTML` für die Pegel-Rechnung nur mit Zahlen; zwei ungenutzte Importe entfernt. 172 Tests, Klicktest 4546/0.
 - Bewusst nicht geändert (kein Gewinn, Risiko): leere `catch` bei localStorage (gewollt), breite `except Exception` im Datenabruf (Quelle fällt aus, Lauf geht weiter, so gewollt), `/tmp` als Vorgabe in pruefen.py (nur CI), `zip` ohne `strict`.
 - Offen für Runde 2: `fetch_patches.py` (1183 Zeilen) und `app.js` (1709 Zeilen) in Module teilen (nur schrittweise, mit Tests davor); ungenutzte Variablen in app.js (`grenze`, `m`) und matrix.js (`sichtbar`).
+
+### Code-Audit (27.11.2026)
+- Steve will ein Code-Audit mit **eigenem Score und eigenem Siegel** (Dreier-Code-Siegel). Schritt 1 erledigt: Entwurf `codeaudit/regeln.json` + `codeaudit/REGELN.md` (0.1, 7 Gruppen, Gewichte Summe 100, Skala wie Web-Audit), Test `tests/test_codeaudit.py`, Eintrag in `RULES.md`.
+- Offen: Steve liest den Entwurf (Gruppen, Gewichte); Prüfpunkte und Schwellen je Gruppe festlegen; Stand und Lizenz der Werkzeuge belegen. Danach Schritt 2 (Workflow `codeaudit.yml`, speichert nur Score und Gruppenwerte), Schritt 3 (Karte unter `/audit` mit eigenem Siegel).
