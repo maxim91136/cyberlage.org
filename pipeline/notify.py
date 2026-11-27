@@ -305,6 +305,14 @@ def test_senden():
     return 0
 
 
+def cve_listen_ergaenzen(lage, ms_voll):
+    """Die Lagedatei enthält die CVE-Listen der Monate nicht (zu groß); für Nachtrags-Meldungen kommen sie aus den vollen Patch-Daten."""
+    monate = (((lage or {}).get("patches") or {}).get("microsoft") or {}).get("monate") or {}
+    for k, m in ((ms_voll or {}).get("monate") or {}).items():
+        if k in monate and m.get("cve_liste"):
+            monate[k]["cve_liste"] = m["cve_liste"]
+
+
 def main():
     if "--diagnose" in sys.argv[1:]:
         return diagnose()
@@ -316,6 +324,7 @@ def main():
     if not kev or not lage:
         print("FEHLER: Daten fehlen", file=sys.stderr)
         return 1
+    cve_listen_ergaenzen(lage, lese(WURZEL / "data" / "patches" / "microsoft.json", None))
     bsi = lese(WURZEL / "data" / "bsi" / "warnungen.json", None)
     eu = lese(WURZEL / "data" / "eu" / "kev.json", None)
     zustand = lese(ZUSTAND, None)

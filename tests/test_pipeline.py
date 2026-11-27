@@ -914,6 +914,13 @@ class PatchMeldeTests(unittest.TestCase):
         self.assertIn("keine.", n[0])
         self.assertIn("1 Lücke:", n[0])
 
+    def test_cve_listen_kommen_aus_den_vollen_patchdaten(self):
+        lage = {"patches": {"microsoft": {"monate": {"2026-Mar": {"cves": 2}, "2026-Apr": {"cves": 1}}}}}
+        notify.cve_listen_ergaenzen(lage, {"monate": {"2026-Mar": {"cve_liste": ["CVE-1", "CVE-2"]}, "2025-Jan": {"cve_liste": ["X"]}}})
+        self.assertEqual(lage["patches"]["microsoft"]["monate"]["2026-Mar"]["cve_liste"], ["CVE-1", "CVE-2"])
+        self.assertNotIn("cve_liste", lage["patches"]["microsoft"]["monate"]["2026-Apr"])
+        notify.cve_listen_ergaenzen(None, None)  # ohne Daten kein Absturz
+
     def test_monatsname(self):
         self.assertEqual(notify.monatsname("2026-Mar"), "März 2026")
         self.assertEqual(notify.monatsname("2026-Dec"), "Dezember 2026")
