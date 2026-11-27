@@ -264,3 +264,6 @@ Keine Regel der Berechnung ändert sich, nur die Anzeige (Entscheidung Steve): A
 ## Nachtrag: Modellversion in den Berichten, Balken eingeklappt (27.11.2026)
 
 Berichte (Übersicht und je Bericht, Startseite und eigene Seiten, Deutsch und Englisch) nennen jetzt die Modellversion, mit der sie gerechnet sind („Modell Version 1.0“; Quelle `site/data/berichte.json`, Feld `modell`). Ändert sich das Modell, werden die Berichte mit dem neuen Modell neu gerechnet und tragen die neue Version (siehe Abschnitt Berichte, „Stand der Schwellen“). Auf der Startseite stehen die Balken „Bausteine im Vergleich“ unter „Gruppen und Einzelwerte“ (eingeklappt), und ein Link führt von dort zu den Rohwerten, Regeln und Quellen unter „signale“. Die Berechnung bleibt unverändert.
+
+## Nachtrag: Einstieg „So liest du die Seite“ (27.11.2026)
+Der Block unter dem Hero erklärt nur die Bedienung (Zahl, Fazit, Belege, Menügruppen). Er enthält keine Zahlen und keine Schwellen und ändert das Modell nicht.

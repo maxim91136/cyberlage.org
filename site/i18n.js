@@ -10,6 +10,14 @@
   // Englische Texte für Elemente mit data-t (Deutsch steht im HTML). Nur eigene, feste Texte.
   var EN = {
     skip: "Skip to content",
+    g_sum: "New here? How to read this page",
+    g_1: "<b>The number:</b> The Dreier-Pegel from 0 to 100 shows whether more is going on than usual: calm, inconspicuous, tense, high or extraordinary. For a quick look, that is enough.",
+    g_2: "<b>The conclusion:</b> Below it, a few sentences say why the level is where it is and what to patch first.",
+    g_3: "<b>The evidence:</b> Only if you want the detail, open the components. Every figure has a source, a date and a rule.",
+    g_wo: "<b>Where do I find what?</b> <b>LAGE:</b> number, radar, signals, history. <b>HANDELN:</b> patches, dates, life cycles, new. <b>BELEGE:</b> log, reports, audit. It is all in the menu.",
+    g_start: "Start by task:", g_chef: "Overview (manager, decision maker)", g_adm: "Patching and dates (admin)", g_ana: "Signals and method (analyst)",
+    g_geraet: "<b>Device note:</b> The phone is the quick view. For detail and comparison, a tablet or desktop works better.",
+    g_faq: "▸ More questions and answers (FAQ)",
     n_termine: "/dates", n_leben: "/lifecycles", lz_h: "## lifecycles: end of support", lz_intro: "Until when vendors still supply a system with security updates. After end of support there are no more patches (except in paid extended support). Colour by time left: already ended, under 6 months, under 12 months, longer.", t_h: "## dates: patch calendar", t_intro: "The next patch dates of the big vendors, calculated from their published rules. So you know in advance when to plan maintenance windows and time.",
     t_quelle: "Rules: Microsoft, Adobe and SAP usually publish on the second Tuesday of the month (Microsoft usually at 18:00 UTC). Oracle: Critical Patch Update on the third Tuesday of January, April, July and October, in the other months a Critical Security Patch Update on the third Tuesday; Oracle announces each date on the Thursday before. Out-of-band updates cannot be predicted and appear in the ticker. Dates without guarantee, the vendor's page is authoritative.",
     g_lage: "SITUATION", g_handeln: "ACT", g_belege: "EVIDENCE",

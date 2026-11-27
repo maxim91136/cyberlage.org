@@ -934,3 +934,17 @@ main .p-rang .p-det>summary{padding:2px 0}
 .fz-mehr .fz-dl{min-width:0}
 .fz-mehr dd,.fz-mehr dd a{min-width:0;overflow-wrap:anywhere}
 .fz-mehr .fz-top a{white-space:normal}
+
+/* Einstieg „So liest du die Seite“ (unter dem Hero, eingeklappt) + „?“ im Menü */
+.guide{margin:14px auto 0;max-width:640px;text-align:left;border:1px solid var(--line,#26323b);border-radius:var(--r2);background:rgba(255,255,255,.02)}
+.guide>summary{cursor:pointer;padding:9px 14px;font-size:13px;color:var(--green);list-style:none}
+.guide>summary::-webkit-details-marker{display:none}
+.guide>summary::before{content:"▸ ";}
+.guide[open]>summary::before{content:"▾ ";}
+.guide-body{padding:2px 14px 12px;font-size:14px;line-height:1.5}
+.guide-s{margin:6px 0 10px;padding-left:20px}.guide-s li{margin:0 0 6px}
+.guide-w{margin:8px 0 0}.guide-w a{color:var(--green)}
+.guide-g{display:none;color:var(--dim)}
+@media (max-width:899px){.guide-g{display:block}}
+a.hilfe{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border:1px solid var(--line,#26323b);border-radius:50%;color:var(--green);text-decoration:none;font-size:13px}
+a.hilfe:hover,a.hilfe:focus-visible{border-color:var(--green)}
