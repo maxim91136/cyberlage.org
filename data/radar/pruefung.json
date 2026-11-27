@@ -19,7 +19,7 @@
    "status": 200,
    "fehler_in_folge": 0,
    "erster_fehler_um": null,
-   "link_geprueft_um": "2026-11-26T12:27:53+00:00",
+   "link_geprueft_um": "2026-11-27T12:30:34+00:00",
    "faellig_am": "2027-02-22",
    "faellig": false,
    "link_tot": false
@@ -34,7 +34,7 @@
    "status": 200,
    "fehler_in_folge": 0,
    "erster_fehler_um": null,
-   "link_geprueft_um": "2026-11-26T12:27:53+00:00",
+   "link_geprueft_um": "2026-11-27T12:30:34+00:00",
    "faellig_am": "2027-02-22",
    "faellig": false,
    "link_tot": false
@@ -46,10 +46,10 @@
    "link": "https://www.darkreading.com/threat-intelligence/ai-assisted-exploit-development-scanner-detection",
    "geprueft_am": "2026-11-24",
    "erreichbar": true,
-   "status": 200,
+   "status": 403,
    "fehler_in_folge": 0,
    "erster_fehler_um": null,
-   "link_geprueft_um": "2026-11-26T12:27:53+00:00",
+   "link_geprueft_um": "2026-11-27T12:30:34+00:00",
    "faellig_am": "2027-02-22",
    "faellig": false,
    "link_tot": false
@@ -64,7 +64,7 @@
    "status": 200,
    "fehler_in_folge": 0,
    "erster_fehler_um": null,
-   "link_geprueft_um": "2026-11-26T12:27:53+00:00",
+   "link_geprueft_um": "2026-11-27T12:30:34+00:00",
    "faellig_am": "2027-02-22",
    "faellig": false,
    "link_tot": false
@@ -79,7 +79,7 @@
    "status": 200,
    "fehler_in_folge": 0,
    "erster_fehler_um": null,
-   "link_geprueft_um": "2026-11-26T12:27:53+00:00",
+   "link_geprueft_um": "2026-11-27T12:30:34+00:00",
    "faellig_am": "2027-10-21",
    "faellig": false,
    "link_tot": false
@@ -94,7 +94,7 @@
    "status": 200,
    "fehler_in_folge": 0,
    "erster_fehler_um": null,
-   "link_geprueft_um": "2026-11-26T12:27:53+00:00",
+   "link_geprueft_um": "2026-11-27T12:30:34+00:00",
    "faellig_am": "2027-10-20",
    "faellig": false,
    "link_tot": false
@@ -169,7 +169,7 @@
    "status": 200,
    "fehler_in_folge": 0,
    "erster_fehler_um": null,
-   "link_geprueft_um": "2026-11-26T12:27:53+00:00",
+   "link_geprueft_um": "2026-11-27T12:30:34+00:00",
    "faellig_am": "2027-05-25",
    "faellig": false,
    "link_tot": false
@@ -184,7 +184,7 @@
    "status": 200,
    "fehler_in_folge": 0,
    "erster_fehler_um": null,
-   "link_geprueft_um": "2026-11-26T12:27:53+00:00",
+   "link_geprueft_um": "2026-11-27T12:30:34+00:00",
    "faellig_am": "2027-05-25",
    "faellig": false,
    "link_tot": false
@@ -199,7 +199,7 @@
    "status": 200,
    "fehler_in_folge": 0,
    "erster_fehler_um": null,
-   "link_geprueft_um": "2026-11-26T12:27:53+00:00",
+   "link_geprueft_um": "2026-11-27T12:30:34+00:00",
    "faellig_am": "2027-05-25",
    "faellig": false,
    "link_tot": false
@@ -214,7 +214,7 @@
    "status": 200,
    "fehler_in_folge": 0,
    "erster_fehler_um": null,
-   "link_geprueft_um": "2026-11-26T12:27:53+00:00",
+   "link_geprueft_um": "2026-11-27T12:30:34+00:00",
    "faellig_am": "2027-05-25",
    "faellig": false,
    "link_tot": false
@@ -229,7 +229,7 @@
    "status": 200,
    "fehler_in_folge": 0,
    "erster_fehler_um": null,
-   "link_geprueft_um": "2026-11-26T12:27:53+00:00",
+   "link_geprueft_um": "2026-11-27T12:30:34+00:00",
    "faellig_am": "2027-05-25",
    "faellig": false,
    "link_tot": false
@@ -244,7 +244,7 @@
    "status": 200,
    "fehler_in_folge": 0,
    "erster_fehler_um": null,
-   "link_geprueft_um": "2026-11-26T12:27:53+00:00",
+   "link_geprueft_um": "2026-11-27T12:30:34+00:00",
    "faellig_am": "2027-05-25",
    "faellig": false,
    "link_tot": false
@@ -259,7 +259,7 @@
    "status": 200,
    "fehler_in_folge": 0,
    "erster_fehler_um": null,
-   "link_geprueft_um": "2026-11-26T12:27:53+00:00",
+   "link_geprueft_um": "2026-11-27T12:30:34+00:00",
    "faellig_am": "2027-05-25",
    "faellig": false,
    "link_tot": false
@@ -272,12 +272,12 @@
    "geprueft_am": "2026-11-26",
    "erreichbar": false,
    "status": "URLError",
-   "fehler_in_folge": 22,
+   "fehler_in_folge": 23,
    "erster_fehler_um": "2026-11-26T12:27:53+00:00",
-   "link_geprueft_um": "2026-11-27T10:35:05+00:00",
+   "link_geprueft_um": "2026-11-27T12:30:34+00:00",
    "faellig_am": "2027-05-25",
    "faellig": false,
-   "link_tot": false
+   "link_tot": true
   },
   {
    "id": "link:cloudflare-radar",
@@ -289,7 +289,7 @@
    "status": 403,
    "fehler_in_folge": 0,
    "erster_fehler_um": null,
-   "link_geprueft_um": "2026-11-26T12:27:53+00:00",
+   "link_geprueft_um": "2026-11-27T12:30:34+00:00",
    "faellig_am": "2027-05-25",
    "faellig": false,
    "link_tot": false
@@ -304,7 +304,7 @@
    "status": 200,
    "fehler_in_folge": 0,
    "erster_fehler_um": null,
-   "link_geprueft_um": "2026-11-26T12:27:53+00:00",
+   "link_geprueft_um": "2026-11-27T12:30:34+00:00",
    "faellig_am": "2027-05-25",
    "faellig": false,
    "link_tot": false
@@ -319,7 +319,7 @@
    "status": 200,
    "fehler_in_folge": 0,
    "erster_fehler_um": null,
-   "link_geprueft_um": "2026-11-26T12:27:53+00:00",
+   "link_geprueft_um": "2026-11-27T12:30:34+00:00",
    "faellig_am": "2027-05-25",
    "faellig": false,
    "link_tot": false
@@ -334,7 +334,7 @@
    "status": 200,
    "fehler_in_folge": 0,
    "erster_fehler_um": null,
-   "link_geprueft_um": "2026-11-26T12:27:53+00:00",
+   "link_geprueft_um": "2026-11-27T12:30:34+00:00",
    "faellig_am": "2027-05-25",
    "faellig": false,
    "link_tot": false
@@ -349,7 +349,7 @@
    "status": 200,
    "fehler_in_folge": 0,
    "erster_fehler_um": null,
-   "link_geprueft_um": "2026-11-26T12:27:53+00:00",
+   "link_geprueft_um": "2026-11-27T12:30:34+00:00",
    "faellig_am": "2027-05-25",
    "faellig": false,
    "link_tot": false
@@ -364,7 +364,7 @@
    "status": 200,
    "fehler_in_folge": 0,
    "erster_fehler_um": null,
-   "link_geprueft_um": "2026-11-26T12:27:53+00:00",
+   "link_geprueft_um": "2026-11-27T12:30:34+00:00",
    "faellig_am": "2027-05-25",
    "faellig": false,
    "link_tot": false
@@ -379,11 +379,13 @@
    "status": 200,
    "fehler_in_folge": 0,
    "erster_fehler_um": null,
-   "link_geprueft_um": "2026-11-26T12:27:53+00:00",
+   "link_geprueft_um": "2026-11-27T12:30:34+00:00",
    "faellig_am": "2027-05-25",
    "faellig": false,
    "link_tot": false
   }
  ],
- "offen": []
+ "offen": [
+  "Linkseite: Shadowserver Dashboard: Link nicht erreichbar (URLError), https://dashboard.shadowserver.org/"
+ ]
 }
