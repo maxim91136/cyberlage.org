@@ -79,7 +79,9 @@
   }
   function zeichne(o) {
     if (!o.sicht || document.hidden) return;
-    var h = o.cv.height, cx = o.cx, farbe = getComputedStyle(R).getPropertyValue("--green").trim() || "#6fe0a0";
+    var h = o.cv.height, cx = o.cx, jetzt = Date.now();
+    if (!o.farbeBis || jetzt > o.farbeBis) { o.farbe = getComputedStyle(R).getPropertyValue("--green").trim() || "#6fe0a0"; o.farbeBis = jetzt + 1500; }  // Farbe nur gelegentlich lesen: getComputedStyle bei jedem Bild erzwingt eine Stilberechnung
+    var farbe = o.farbe;
     cx.globalCompositeOperation = "destination-out"; cx.fillStyle = o.fest ? "rgba(0,0,0,.1)" : "rgba(0,0,0,.16)"; cx.fillRect(0, 0, o.cv.width, h);
     cx.globalCompositeOperation = "source-over"; cx.fillStyle = farbe;
     for (var i = 0; i < o.sp.length; i++) {

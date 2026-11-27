@@ -902,3 +902,10 @@ main .p-rang .p-det>summary{padding:2px 0}
 .fz-mehr{margin:6px 0 0}
 .fz-mehr>summary{cursor:pointer;color:var(--green);padding:6px 0;font-size:13px}
 .fz-mehr[open]>summary{margin-bottom:4px}
+
+/* Ruhiges Scrollen auf dem Handy (iOS Safari): kein Unschärfe-Glas hinter den fest stehenden Leisten, keine laufende Radar-Animation */
+@media (max-width:899px){
+  .kopf,.leiste{background:rgba(7,10,13,.97);-webkit-backdrop-filter:none;backdrop-filter:none}
+  .totop{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(12,16,20,.96)}
+  .sc-sweep{animation:none}
+}

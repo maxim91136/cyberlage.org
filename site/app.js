@@ -89,16 +89,19 @@
     knopf.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: weich ? "smooth" : "auto" }); });
     var navLinks = Array.prototype.slice.call(document.querySelectorAll(".navin a[data-sec], .navin summary[data-sec]"));
     var abschnitte = navLinks.map(function (a) { return document.getElementById(a.getAttribute("data-sec")); });
-    var ticks = false;
+    var ticks = false, letzterAktiv = -2, knopfAn = null;
     var pruefen = function () {
       ticks = false;
-      knopf.classList.toggle("on", window.scrollY > window.innerHeight * 1.2);
+      var an = window.scrollY > window.innerHeight * 1.2;
+      if (an !== knopfAn) { knopfAn = an; knopf.classList.toggle("on", an); }
       var aktiv = -1, grenze = window.scrollY + 120;
       abschnitte.forEach(function (sec, i) { if (!sec || sec.offsetParent === null) return; var r = sec.getBoundingClientRect(); if (r.top <= 120 && r.bottom > 120) aktiv = i; });
       if (aktiv < 0) [["teil1", "lage"], ["teil2", "patches"], ["teilb", "logbuch"], ["teil3", "info"]].forEach(function (p) {
         var t = document.getElementById(p[0]); if (!t) return; var r = t.getBoundingClientRect();
         if (r.top <= 120 && r.bottom > 120) navLinks.forEach(function (l, i) { if (l.getAttribute("data-sec") === p[1]) aktiv = i; });
       });
+      if (aktiv === letzterAktiv) return;  // nur bei Wechsel in die Leiste schreiben: ein Schreibzugriff je Scroll-Bild lässt unter dem Glas der Leiste (iOS) alles neu zeichnen
+      letzterAktiv = aktiv;
       navLinks.forEach(function (a, i) { if (i === aktiv) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current"); a.classList.toggle("aktiv", i === aktiv); });
     };
     window.addEventListener("scroll", function () { if (!ticks) { ticks = true; requestAnimationFrame(pruefen); } }, { passive: true });
