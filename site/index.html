@@ -105,17 +105,8 @@
       <div class="rd-skala" id="rd-skala" hidden></div>
       <div class="rd-score" id="rd-score" hidden></div>
     </div>
-    <div class="verknuepf mono" id="fazit-verk" aria-hidden="true" hidden><span data-t="l_verk2">Daraus das Fazit</span></div>
-    <div class="fazit" id="fazit" hidden></div>
-    </div>
-    <p class="mono dim klein">
-      <span><span data-t="l_7">KEV neu · 7 Tage</span> <b id="k7">15</b></span>
-      <span><span data-t="l_30">KEV neu · 30 Tage</span> <b id="k30">43</b></span>
-      <span><span data-t="l_ges">KEV-Katalog gesamt</span> <b id="kall">1.805</b></span>
-      <span><span data-t="l_rw">KEV mit Ransomware-Bezug</span> <b id="kr">1</b></span>
-    </p>
-    <div id="radar" class="panel pad rd radar-box">
-      <h3 class="mono rd-t" data-t="rd_kon_h">Bausteine des Dreier-Pegels</h3>
+    <details id="radar" class="panel pad rd radar-box rd-klapp">
+      <summary class="mono rd-sum"><h3 class="mono rd-t" data-t="rd_kon_h">Bausteine des Dreier-Pegels</h3><span class="dim rd-kurz" id="rd-kurz"></span></summary>
       <p class="rd-kon" id="rd-kon"></p>
       <div class="rd-scopewrap">
         <svg id="rd-scope" class="rd-scope" role="img" aria-labelledby="rd-scope-t" viewBox="-70 30 540 340" width="100%"><title id="rd-scope-t">Radar</title></svg>
@@ -127,7 +118,16 @@
       </details>
       <p class="mono dim fine" data-t="rd_kon_n">Jeder Baustein folgt einer festen Regel (RULES.md). Der gestrichelte Ring ist die Schwelle: je weiter außen ein Punkt liegt, desto stärker der Ausschlag. Der Pegel oben ist der Mittelwert daraus.</p>
       <p class="mono dim fine" data-t="kev_kurz"><strong>KEV</strong> = <em>Known Exploited Vulnerabilities</em>: die Liste der US-Behörde CISA mit Schwachstellen, die nachweislich schon in Angriffen ausgenutzt werden. Ein Eintrag heißt: nicht nur möglich, sondern real. Mehr unter „so entsteht der pegel“ und im Glossar.</p>
+    </details>
+    <div class="verknuepf mono" id="fazit-verk" aria-hidden="true" hidden><span data-t="l_verk2">Daraus das Fazit</span></div>
+    <div class="fazit" id="fazit" hidden></div>
     </div>
+    <p class="mono dim klein">
+      <span><span data-t="l_7">KEV neu · 7 Tage</span> <b id="k7">15</b></span>
+      <span><span data-t="l_30">KEV neu · 30 Tage</span> <b id="k30">43</b></span>
+      <span><span data-t="l_ges">KEV-Katalog gesamt</span> <b id="kall">1.805</b></span>
+      <span><span data-t="l_rw">KEV mit Ransomware-Bezug</span> <b id="kr">1</b></span>
+    </p>
     <noscript><!--ssr-start--><p class="panel pad"><b>Die globale Cyberlage, Stand 2026-11-27, Dreier-Pegel: hoch.</b> Gesamtscore 65 von 100 aus 10 von 10 Bausteinen. Neu im CISA-Katalog ausgenutzter Schwachstellen: 15 in 7 Tagen, 43 in 30 Tagen. Regelbasiert und offen belegt. Ein privates Projekt von Dreier Labs, keine amtliche Stelle.</p><p class="panel pad"><b>Lage:</b> Die Bausteine liegen im Schnitt deutlich über ihren Regelschwellen. <b>Treiber:</b> 8 von 10 Bausteinen liegen an oder über ihrer Schwelle, am stärksten: CERT-Bund (2,6-fach), EU-KEV (1,8-fach), KEV-Menge (1,7-fach). <b>Empfehlung:</b> Die KEV-Liste täglich abgleichen, aus dem Internet erreichbare Systeme zuerst patchen und Patchfristen verkürzen. Die Warndienste melden deutlich mehr als üblich: neue Warnungen für die eigenen Produkte täglich sichten.</p><p class="panel pad"><b>Bausteine des Dreier-Pegels</b> (Messwert im Verhältnis zur Schwelle, 1,0 = Schwelle erreicht): KEV-Menge 1,72; Tempo bis KEV 1; EU-KEV 1,81; Microsoft 0,33; CERT-Bund 2,65; NCSC-NL 1,56; DShield 1,07; Ransomware 1,58; BSI Cyber Index 1,42; SANS Infocon 0,4. Stufen: unter 35 ruhig, 35 bis 49 unauffällig, 50 bis 63 angespannt, 64 bis 79 hoch, ab 80 außergewöhnlich.</p><p class="panel pad">Die Zahlen stehen als Rohdaten unter <a href="data/lage.json">data/lage.json</a>, die Regeln unter <a href="RULES.md">RULES.md</a>. Für die Ansicht mit Verlauf und Listen wird JavaScript benötigt.</p><!--ssr-end--></noscript>
   </section>
 

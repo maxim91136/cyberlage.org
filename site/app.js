@@ -123,26 +123,33 @@
     if (fz && f) {
       fz.textContent = "";
       var fk = el("b", "mono", pick("Fazit", "Conclusion")); fz.appendChild(fk);
-      if (f.status === "vorlaeufig") fz.appendChild(el("span", "mono dim", pick(" · Stufengrenzen noch vorläufig", " · level limits still provisional")));
       if (f.treiber && f.stufe_satz) {
+        // Sichtbar nur das Wichtigste: Lage in einem Satz und der erste Satz der Empfehlung. Der Rest steht unter „Mehr zum Fazit“.
+        var hinw = pick(f.hinweis, f.hinweis_en) || "", cut = hinw.search(/[.!?]\s+[A-ZÄÖÜ]/), kurz = cut > 0 ? hinw.slice(0, cut + 1) : hinw, rest = cut > 0 ? hinw.slice(cut + 1).trim() : "";
         var dl = el("dl", "fz-dl");
-        [[pick("Lage", "Situation"), pick(f.stufe_satz, f.stufe_satz_en), ""], [pick("Treiber", "Drivers"), pick(f.treiber, f.treiber_en), ""], [pick("Empfehlung", "Advice"), pick(f.hinweis, f.hinweis_en), "fh"]].forEach(function (z) {
+        [[pick("Lage", "Situation"), pick(f.stufe_satz, f.stufe_satz_en), ""], [pick("Empfehlung", "Advice"), kurz, "fh"]].forEach(function (z) {
           dl.appendChild(el("dt", "mono", z[0])); dl.appendChild(el("dd", z[2], z[1]));
         });
+        fz.appendChild(dl);
+        var mehr = el("details", "fz-mehr"); mehr.appendChild(el("summary", "mono", pick("Mehr zum Fazit", "More on the conclusion")));
+        var dl2 = el("dl", "fz-dl");
+        dl2.appendChild(el("dt", "mono", pick("Treiber", "Drivers"))); dl2.appendChild(el("dd", "", pick(f.treiber, f.treiber_en)));
+        if (rest) { dl2.appendChild(el("dt", "mono", pick("Dazu", "Also"))); dl2.appendChild(el("dd", "", rest)); }
         var tp = d.tempo || {}, zj = ((d.radar || {}).zeit_bis_kev || {}).jetzt || {};
         if (typeof tp.wert === "number") {
-          dl.appendChild(el("dt", "mono", pick("Zeitfenster", "Time window")));
+          dl2.appendChild(el("dt", "mono", pick("Tempo bis KEV", "Pace to KEV")));
           var dz = el("dd", "fz-zeit"), tg = tp.wert.toLocaleString(window.I18N.locale, { maximumFractionDigits: 1 });
+          dz.appendChild(document.createTextNode(pick("Neue Lücken stehen im Median ", "New flaws are on the KEV list a median ")));
           dz.appendChild(el("strong", "mono", tg + " " + (tp.wert === 1 ? pick("Tag", "day") : pick("Tage", "days"))));
-          dz.appendChild(document.createTextNode(pick(" im Median: Wird eine neue Lücke angegriffen, steht sie so schnell nach ihrer Veröffentlichung auf der KEV-Liste", " median: when a new flaw is attacked, this is how soon after publication it is on the KEV list")
-            + (typeof zj.anteil_30 === "number" ? pick(", ", ", ") + Math.round(zj.anteil_30 * 100) + pick(" % innerhalb von 30 Tagen", "% within 30 days") : "")
-            + (tp.fenster_tage ? pick(" (KEV-Aufnahmen der letzten " + tp.fenster_tage + " Tage)", " (KEV additions of the last " + tp.fenster_tage + " days)") : "") + ". "));
+          dz.appendChild(document.createTextNode(pick(" nach ihrer Veröffentlichung auf der KEV-Liste", " after publication")
+            + (typeof zj.anteil_30 === "number" ? ", " + Math.round(zj.anteil_30 * 100) + pick(" % innerhalb von 30 Tagen", "% within 30 days") : "")
+            + (tp.fenster_tage ? pick(" (Aufnahmen der letzten " + tp.fenster_tage + " Tage)", " (additions of the last " + tp.fenster_tage + " days)") : "") + ". "));
           var zl = el("a", "", pick("Verlauf", "History")); zl.href = "#rueckblick"; zl.setAttribute("data-offen", "k-r-tempo"); dz.appendChild(zl);
-          dl.appendChild(dz);
+          dl2.appendChild(dz);
         }
         var top = ((((d.patches || {}).prioritaet || {}).liste) || []).slice(0, 3);
         if (top.length) {
-          dl.appendChild(el("dt", "mono", pick("Zuerst patchen", "Patch first")));
+          dl2.appendChild(el("dt", "mono", pick("Zuerst patchen", "Patch first")));
           var dd = el("dd", "fz-top");
           top.forEach(function (p, i) {
             if (i) dd.appendChild(document.createTextNode(" · "));
@@ -152,16 +159,17 @@
             var lk = el("a", "", (p.cves && p.cves[0] ? p.cves[0] : nm) + (p.cves && p.cves[0] && nm ? " (" + nm + ")" : "")); lk.href = "#patches"; lk.title = pick(p.grund, p.grund_en) || ""; dd.appendChild(lk);
             if (mk) { dd.appendChild(document.createTextNode(" ")); dd.appendChild(el("span", "fz-mk mono", mk)); }
           });
-          dl.appendChild(dd);
+          dl2.appendChild(dd);
         }
-        fz.appendChild(dl);
+        mehr.appendChild(dl2);
+        var bg = el("p", "mono dim fine", pick("KEV: Liste nachweislich ausgenutzter Lücken der US-Behörde CISA · CERT-Bund: Warndienst des BSI · „2,6-fach“: Messwert im Verhältnis zur Schwelle des Bausteins (1,0 = Schwelle erreicht) · ", "KEV: list of flaws proven to be exploited, kept by the US agency CISA · CERT-Bund: warning service of the BSI · “2.6x”: measured value relative to the component’s threshold (1.0 = threshold reached) · "));
+        var bl = el("a", "", pick("alle Begriffe", "all terms")); bl.href = "#info"; bl.setAttribute("data-offen", "i-begriffe"); bg.appendChild(bl); mehr.appendChild(bg);
+        mehr.appendChild(el("p", "mono dim fine", pick("Feste Sätze nach Regeln, keine Vorhersage. Stufen des Dreier-Pegels geprüft am ", "Fixed sentences by rule, no forecast. Dreier Gauge levels checked on ") + datum(f.stand) + (f.status === "vorlaeufig" ? pick(", Stufengrenzen noch vorläufig.", ", level limits still provisional.") : ".")));
+        fz.appendChild(mehr);
       } else {
         fz.appendChild(el("p", "ft", pick(f.text, f.text_en)));
         fz.appendChild(el("p", "fh", pick("Für Verteidiger: ", "For defenders: ") + pick(f.hinweis, f.hinweis_en)));
       }
-      var bg = el("p", "mono dim fine", pick("KEV: Liste nachweislich ausgenutzter Lücken der US-Behörde CISA · CERT-Bund: Warndienst des BSI · „2,6-fach“: Messwert im Verhältnis zur Schwelle des Bausteins (1,0 = Schwelle erreicht) · ", "KEV: list of flaws proven to be exploited, kept by the US agency CISA · CERT-Bund: warning service of the German BSI · “2.6x”: reading relative to the component's threshold (1.0 = threshold reached) · "));
-      var bl = el("a", "", pick("alle Begriffe", "all terms")); bl.href = "#info"; bl.setAttribute("data-offen", "i-begriffe"); bg.appendChild(bl); fz.appendChild(bg);
-      fz.appendChild(el("p", "mono dim fine", pick("Feste Sätze nach Regeln, keine Vorhersage. Stufen des Dreier-Pegels geprüft am ", "Fixed sentences by rule, no forecast. Dreier Gauge levels checked on ") + datum(f.stand) + "."));
       fz.hidden = false; var fv = $("fazit-verk"); if (fv) fv.hidden = false;
     }
     var kqz = $("kern-quelle"); if (kqz) kqz.textContent = pick("Quelle aller Zahlen in diesem Kasten: CISA-KEV-Katalog, abgerufen ", "Source of all figures in this box: CISA KEV catalog, retrieved ") + datum(kq0.abgerufen_am || d.stand) + pick(" (Katalog veröffentlicht ", " (catalog published ") + datum(kq0.veroeffentlicht_am) + ")";

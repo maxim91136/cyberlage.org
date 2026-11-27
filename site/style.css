@@ -888,3 +888,19 @@ main .p-rang .p-det>summary{padding:2px 0}
 #patches .sek.sub:last-of-type{margin-bottom:22px}
 #p-pl{margin-top:0}
 #p-pl>.dim,#p-pl>p{margin-bottom:14px}#p-pl .p-pl-s{margin-top:10px}
+
+/* Bausteine unter dem Pegel einklappbar, Fazit kurz mit „Mehr zum Fazit“ */
+.verbund .rd-klapp{margin-top:12px;padding:0}
+.rd-klapp>summary{display:block;cursor:pointer;padding:14px 16px;list-style:none;position:relative;padding-right:40px}
+.rd-klapp>summary::-webkit-details-marker{display:none}
+.rd-klapp>summary::after{content:"▸";position:absolute;right:16px;top:14px;color:var(--green)}
+.rd-klapp[open]>summary::after{content:"▾"}
+.rd-klapp>summary h3{display:block;margin:0 0 4px;font-size:15px}
+.rd-klapp>summary .rd-kurz{display:block;font-size:14px;line-height:1.4}
+.rd-klapp[open]>summary .rd-kurz{display:none}
+.rd-klapp>:not(summary){margin-left:16px;margin-right:16px}
+.rd-klapp>.rd-det{margin-bottom:6px}
+.rd-klapp>p:last-child{margin-bottom:14px}
+.fz-mehr{margin:6px 0 0}
+.fz-mehr>summary{cursor:pointer;color:var(--green);padding:6px 0;font-size:13px}
+.fz-mehr[open]>summary{margin-bottom:4px}

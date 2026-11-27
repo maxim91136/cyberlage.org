@@ -18,6 +18,7 @@
     var alleS = (k.signale || []).filter(function (x) { return typeof x.ausschlag === "number"; }), ueberS = alleS.filter(function (x) { return x.ausschlag >= 1; }).length;
     var satz = pick(ueberS + " von " + alleS.length + " Bausteinen liegen an oder über ihrer Schwelle.", ueberS + " of " + alleS.length + " components are at or above their threshold.");
     $("rd-kon").textContent = satz + " " + pick("Stand ", "As of ") + datum(r.abgerufen_am) + ".";
+    if ($("rd-kurz")) $("rd-kurz").textContent = satz;
     var sc = k.score, sb = $("rd-score"); sb.textContent = "";
     var ampel = (sc.stufe && sc.stufe.ampel) || "", rb = $("radar"), fzb = $("fazit");
     ["ruhig", "unauffaellig", "angespannt", "hoch", "ausserordentlich"].forEach(function (a) { [sb, rb, fzb].forEach(function (n) { if (n) n.classList.remove("ra-" + a); }); });

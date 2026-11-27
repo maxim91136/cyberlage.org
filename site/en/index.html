@@ -105,17 +105,8 @@
       <div class="rd-skala" id="rd-skala" hidden></div>
       <div class="rd-score" id="rd-score" hidden></div>
     </div>
-    <div class="verknuepf mono" id="fazit-verk" aria-hidden="true" hidden><span data-t="l_verk2">Daraus das Fazit</span></div>
-    <div class="fazit" id="fazit" hidden></div>
-    </div>
-    <p class="mono dim klein">
-      <span><span data-t="l_7">KEV neu · 7 Tage</span> <b id="k7">15</b></span>
-      <span><span data-t="l_30">KEV neu · 30 Tage</span> <b id="k30">43</b></span>
-      <span><span data-t="l_ges">KEV-Katalog gesamt</span> <b id="kall">1.805</b></span>
-      <span><span data-t="l_rw">KEV mit Ransomware-Bezug</span> <b id="kr">1</b></span>
-    </p>
-    <div id="radar" class="panel pad rd radar-box">
-      <h3 class="mono rd-t" data-t="rd_kon_h">Bausteine des Dreier-Pegels</h3>
+    <details id="radar" class="panel pad rd radar-box rd-klapp">
+      <summary class="mono rd-sum"><h3 class="mono rd-t" data-t="rd_kon_h">Bausteine des Dreier-Pegels</h3><span class="dim rd-kurz" id="rd-kurz"></span></summary>
       <p class="rd-kon" id="rd-kon"></p>
       <div class="rd-scopewrap">
         <svg id="rd-scope" class="rd-scope" role="img" aria-labelledby="rd-scope-t" viewBox="-70 30 540 340" width="100%"><title id="rd-scope-t">Radar</title></svg>
@@ -127,7 +118,16 @@
       </details>
       <p class="mono dim fine" data-t="rd_kon_n">Jeder Baustein folgt einer festen Regel (RULES.md). Der gestrichelte Ring ist die Schwelle: je weiter außen ein Punkt liegt, desto stärker der Ausschlag. Der Pegel oben ist der Mittelwert daraus.</p>
       <p class="mono dim fine" data-t="kev_kurz"><strong>KEV</strong> = <em>Known Exploited Vulnerabilities</em>: die Liste der US-Behörde CISA mit Schwachstellen, die nachweislich schon in Angriffen ausgenutzt werden. Ein Eintrag heißt: nicht nur möglich, sondern real. Mehr unter „so entsteht der pegel“ und im Glossar.</p>
+    </details>
+    <div class="verknuepf mono" id="fazit-verk" aria-hidden="true" hidden><span data-t="l_verk2">Daraus das Fazit</span></div>
+    <div class="fazit" id="fazit" hidden></div>
     </div>
+    <p class="mono dim klein">
+      <span><span data-t="l_7">KEV neu · 7 Tage</span> <b id="k7">15</b></span>
+      <span><span data-t="l_30">KEV neu · 30 Tage</span> <b id="k30">43</b></span>
+      <span><span data-t="l_ges">KEV-Katalog gesamt</span> <b id="kall">1.805</b></span>
+      <span><span data-t="l_rw">KEV mit Ransomware-Bezug</span> <b id="kr">1</b></span>
+    </p>
     <noscript><!--ssr-start--><p class="panel pad"><b>The global cyber situation, as of 2026-11-27. Dreier Gauge on 2026-11-27: high, 65 out of 100 (from 10 of 10 components).</b> Newly added to the CISA catalogue of exploited vulnerabilities: 15 in 7 days, 43 in 30 days. Rule-based and openly sourced. A private project by Dreier Labs, not an official body. Data: <a href="/data/lage.json">data/lage.json</a>, rules: <a href="/RULES.md">RULES.md</a>. German version: <a href="/">cyberlage.org</a>.</p><!--ssr-end--></noscript>
   </section>
 
