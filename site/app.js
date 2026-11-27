@@ -181,7 +181,9 @@
         "Score " + d.pegel.wert + " out of 100, from " + d.pegel.signale + " of " + d.pegel.von + " components. Newly added to the CISA catalogue of exploited vulnerabilities: " + d.kev.neu_7_tage + " in 7 days, " + d.kev.neu_30_tage + " in 30 days.");
     }
     var hp = $("hero-pegel");
-    if (hp) { hp.hidden = !hatStufe; if (hatStufe) { hp.className = "hero-pegel mono st-" + d.stufe; hp.textContent = pick("Dreier-Pegel heute: ", "Dreier Gauge today: ") + name.toUpperCase() + (d.pegel && typeof d.pegel.wert === "number" ? " · " + d.pegel.wert + "\u00a0/\u00a0100" : "") + pick("  · Details", "  · details"); } }
+    if (hp) { hp.hidden = !hatStufe; if (hatStufe) { hp.className = "hero-pegel mono st-" + d.stufe; hp.textContent = pick("Dreier-Pegel", "Dreier Gauge") + (d.pegel && d.pegel.modell ? " " + d.pegel.modell : "") + pick(" heute: ", " today: ") + name.toUpperCase() + (d.pegel && typeof d.pegel.wert === "number" ? " · " + d.pegel.wert + "\u00a0/\u00a0100" : "") + pick("  · Details", "  · details"); } }
+    var ls = document.querySelector('[data-t="l_stufe"]');
+    if (ls && d.pegel && d.pegel.modell) ls.textContent = pick("dreier-pegel " + d.pegel.modell + " · von dreier labs · weltweit", "dreier gauge " + d.pegel.modell + " · by dreier labs · worldwide");
     window.DP = hatStufe ? name + (d.pegel && typeof d.pegel.wert === "number" ? " " + d.pegel.wert : "") : "";
     if (hatStufe) $("lage-box").classList.add("st-" + d.stufe);
     $("stufe-text").textContent = hatStufe ? "" : txt("keine_bew");

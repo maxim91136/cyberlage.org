@@ -93,7 +93,7 @@ def vorbelegen(s, lage):
         s = re.sub(r'(<meta name="description" content=")[^"]*(">)', lambda m: m.group(1) + e(kurz + fest) + m.group(2), s, count=1)
         s = re.sub(r'(<meta property="og:description" content=")[^"]*(">)', lambda m: m.group(1) + e(kurz + " Regelbasiert aus offenen Quellen.") + m.group(2), s, count=1)
         pg = lage["pegel"]
-        s = re.sub(r'<a id="hero-pegel"[^>]*>[^<]*</a>', lambda m: '<a id="hero-pegel" class="hero-pegel mono st-%s" href="#lage">Dreier-Pegel heute: %s · %d / 100  · Details</a>' % (e(lage["stufe"]), e(NAME[lage["stufe"]].upper()), pg["wert"]), s, count=1)
+        s = re.sub(r'<a id="hero-pegel"[^>]*>[^<]*</a>', lambda m: '<a id="hero-pegel" class="hero-pegel mono st-%s" href="#lage">Dreier-Pegel%s heute: %s · %d / 100  · Details</a>' % (e(lage["stufe"]), e(" " + str(pg["modell"]) if pg.get("modell") else ""), e(NAME[lage["stufe"]].upper()), pg["wert"]), s, count=1)
     s = re.sub(r"<!--kt-start-->.*?<!--kt-end-->", lambda m: "<!--kt-start-->" + e(kurztext(lage)) + "<!--kt-end-->", s, count=1, flags=re.S)
     s = re.sub(r"<!--sg-start-->.*?<!--sg-end-->", lambda m: "<!--sg-start-->" + siegel_fuss() + "<!--sg-end-->", s, count=1, flags=re.S)
     li = "".join(f"<li>{e(t)}</li>" for t in lage.get("hinweise") or [])
@@ -181,7 +181,7 @@ def englisch(s, lage):
     s = re.sub(r"<!--sg-start-->.*?<!--sg-end-->", lambda m: "<!--sg-start-->" + siegel_fuss(True) + "<!--sg-end-->", s, count=1, flags=re.S)
     name = stufe_en(lage)
     if name and isinstance((lage.get("pegel") or {}).get("wert"), int):
-        s = re.sub(r'(<a id="hero-pegel"[^>]*>)[^<]*(</a>)', lambda m: m.group(1) + "Dreier Gauge today: %s · %d / 100  · Details" % (e(name.upper()), lage["pegel"]["wert"]) + m.group(2), s, count=1)
+        s = re.sub(r'(<a id="hero-pegel"[^>]*>)[^<]*(</a>)', lambda m: m.group(1) + "Dreier Gauge%s today: %s · %d / 100  · Details" % (e(" " + str(lage["pegel"]["modell"]) if lage["pegel"].get("modell") else ""), e(name.upper()), lage["pegel"]["wert"]) + m.group(2), s, count=1)
         s = re.sub(r'(<div class="stufe mono" id="stufe-wert">)[^<]*(</div>)', lambda m: m.group(1) + e(name) + m.group(2), s, count=1)
     s = re.sub(r"<!--kt-start-->.*?<!--kt-end-->", lambda m: "<!--kt-start-->" + e(kurztext(lage, True)) + "<!--kt-end-->", s, count=1, flags=re.S)
     text = ('<p class="panel pad"><b>The global cyber situation, as of %s. %s</b> Newly added to the CISA catalogue of exploited vulnerabilities: %s in 7 days, %s in 30 days. '
