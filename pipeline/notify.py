@@ -105,7 +105,7 @@ def _nachtrag_text(k, m, frueher):
 
 
 def patch_nachrichten(lage, alt, jetzt):
-    """Meldungen zu Microsoft-Patch-Days und späteren Nachträgen (Out-of-Band). alt = {"ms": {id: {"aktuell", "nachtraege"}}} oder None.
+    """Meldungen zu Microsoft-Patch-Days und späteren Nachträgen (Microsoft ergänzt ein älteres Monatsdokument; kein Notfall-Patch). alt = {"ms": {id: {"aktuell", "nachtraege"}}} oder None.
     Gibt (nachrichten, neuer_stand) zurück. Ohne früheren Stand wird nur gemerkt (kein Rückblick-Spam), neue Monate nur bis 10 Tage nach Veröffentlichung gemeldet."""
     monate = ((((lage or {}).get("patches") or {}).get("microsoft") or {}).get("monate")) or {}
     # "cves": die Kennungen des Monatsdokuments in einer Zeile, damit ein Nachtrag mit Namen gemeldet werden kann
