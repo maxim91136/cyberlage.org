@@ -79,11 +79,37 @@ def zahl(n):
     return f"{n:,}".replace(",", ".") if isinstance(n, int) else "–"
 
 
+MONAT_DE = {"Jan": "Januar", "Feb": "Februar", "Mar": "März", "Apr": "April", "May": "Mai", "Jun": "Juni", "Jul": "Juli", "Aug": "August", "Sep": "September", "Oct": "Oktober", "Nov": "November", "Dec": "Dezember"}
+
+
+def monatsname(kennung):
+    """„2026-Mar“ -> „März 2026“; Unbekanntes bleibt unverändert."""
+    jahr, _, mon = str(kennung).partition("-")
+    return "%s %s" % (MONAT_DE[mon], jahr) if mon in MONAT_DE and jahr.isdigit() else str(kennung)
+
+
+def _nachtrag_text(k, m, frueher):
+    """Meldung, wenn Microsoft ein älteres Monatsdokument nachträglich ergänzt hat. Das ist weder ein neuer Patch Day noch ein Notfall-Patch (Out-of-Band)."""
+    x = m["nachtraege"][-1]
+    n = x.get("neue_cves")
+    bekannt = set((frueher.get("cves") or "").split())
+    neue = [c for c in (m.get("cve_liste") or []) if str(c) not in bekannt] if bekannt else []
+    ausg = x.get("ausgenutzt_neu")
+    zeilen = [f"<b>Microsoft Patch Day {e(monatsname(k))}: nachträglich ergänzt</b>",
+              f"Microsoft hat das Dokument zu diesem Patch Day später geändert. Neu dazugekommen: {zahl(n)} {'Lücke' if n == 1 else 'Lücken'}"
+              + (": " + ", ".join(verweis("https://msrc.microsoft.com/update-guide/vulnerability/" + str(c), c) for c in neue[:6]) + (f" und {len(neue) - 6} weitere" if len(neue) > 6 else "") if neue else "") + ".",
+              (f"Davon als ausgenutzt gekennzeichnet: <b>{zahl(ausg)}</b>." if ausg else "Davon als ausgenutzt gekennzeichnet: keine."),
+              "Das ist kein neuer Patch Day und kein außerplanmäßiger Notfall-Patch.",
+              f"{SEITE}/#patches"]
+    return "\n".join(zeilen)
+
+
 def patch_nachrichten(lage, alt, jetzt):
     """Meldungen zu Microsoft-Patch-Days und späteren Nachträgen (Out-of-Band). alt = {"ms": {id: {"aktuell", "nachtraege"}}} oder None.
     Gibt (nachrichten, neuer_stand) zurück. Ohne früheren Stand wird nur gemerkt (kein Rückblick-Spam), neue Monate nur bis 10 Tage nach Veröffentlichung gemeldet."""
     monate = ((((lage or {}).get("patches") or {}).get("microsoft") or {}).get("monate")) or {}
-    neu = {"ms": {k: {"aktuell": m.get("aktuell"), "nachtraege": len(m.get("nachtraege") or [])} for k, m in monate.items()}}
+    # "cves": die Kennungen des Monatsdokuments in einer Zeile, damit ein Nachtrag mit Namen gemeldet werden kann
+    neu = {"ms": {k: {"aktuell": m.get("aktuell"), "nachtraege": len(m.get("nachtraege") or []), "cves": " ".join(sorted(str(c) for c in (m.get("cve_liste") or [])))} for k, m in monate.items()}}
     if alt is None or "ms" not in alt:
         return [], neu
     nachrichten = []
@@ -103,8 +129,7 @@ def patch_nachrichten(lage, alt, jetzt):
                 zeilen.append("Ausgenutzt: " + ", ".join(verweis("https://msrc.microsoft.com/update-guide/vulnerability/" + str(c), c) for c in m["ausgenutzt_cves"][:6]))
             nachrichten.append(f"<b>Microsoft Patch Day {e(k)}</b>\n" + "\n".join(zeilen) + f"\nNicht mitgezählt: Chromium (Edge) und Azure-Linux-Paketlücken.\n{SEITE}/#patches")
         elif frueher is not None and len(m.get("nachtraege") or []) > frueher.get("nachtraege", 0):
-            x = m["nachtraege"][-1]
-            nachrichten.append(f"<b>Microsoft {e(k)}: Nachtrag (Out-of-Band)</b>\n{zahl(x.get('neue_cves'))} {'neue Lücke' if x.get('neue_cves') == 1 else 'neue Lücken'}, davon {zahl(x.get('ausgenutzt_neu'))} ausgenutzt\n{SEITE}/#patches")
+            nachrichten.append(_nachtrag_text(k, m, frueher))
     return nachrichten, neu
 
 

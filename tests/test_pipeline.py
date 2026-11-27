@@ -893,8 +893,31 @@ class PatchMeldeTests(unittest.TestCase):
         self.lage["patches"]["microsoft"]["monate"]["2026-Nov"]["nachtraege"] = [{"am": "2026-11-18", "neue_cves": 3, "ausgenutzt_neu": 1}]
         n2, _ = notify.patch_nachrichten(self.lage, z, self.jetzt)
         self.assertEqual(len(n2), 1)
-        self.assertIn("Nachtrag", n2[0])
-        self.assertIn("3 neue", n2[0])
+        self.assertIn("Nov", notify.monatsname("2026-Nov") or "Nov")
+        self.assertIn("November 2026: nachträglich ergänzt", n2[0])
+        self.assertIn("3 Lücken", n2[0])
+        self.assertIn("ausgenutzt gekennzeichnet: <b>1</b>", n2[0])
+        self.assertNotIn("Out-of-Band</b>", n2[0])
+        self.assertIn("kein außerplanmäßiger Notfall-Patch", n2[0])
+
+    def test_nachtrag_nennt_die_neue_cve(self):
+        m = self.lage["patches"]["microsoft"]["monate"]["2026-Nov"]
+        m["cve_liste"] = ["CVE-2026-0001", "CVE-2026-0002"]
+        _, z = notify.patch_nachrichten(self.lage, {"ms": {}}, self.jetzt)
+        self.assertEqual(z["ms"]["2026-Nov"]["cves"], "CVE-2026-0001 CVE-2026-0002")
+        m["cve_liste"] = ["CVE-2026-0001", "CVE-2026-0002", "CVE-2026-0003"]
+        m["nachtraege"] = [{"am": "2026-11-18", "neue_cves": 1, "ausgenutzt_neu": 0}]
+        n, _ = notify.patch_nachrichten(self.lage, z, self.jetzt)
+        self.assertEqual(len(n), 1)
+        self.assertIn("CVE-2026-0003", n[0])
+        self.assertNotIn("CVE-2026-0001", n[0])
+        self.assertIn("keine.", n[0])
+        self.assertIn("1 Lücke:", n[0])
+
+    def test_monatsname(self):
+        self.assertEqual(notify.monatsname("2026-Mar"), "März 2026")
+        self.assertEqual(notify.monatsname("2026-Dec"), "Dezember 2026")
+        self.assertEqual(notify.monatsname("seltsam"), "seltsam")
 
     def test_alter_monat_nicht_nachtraeglich_melden(self):
         self.lage["patches"]["microsoft"]["monate"]["2026-Nov"]["erste_veroeffentlichung"] = "2026-09-10T08:00:00Z"
