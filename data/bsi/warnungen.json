@@ -3,10 +3,42 @@
   "quelle": "CERT-Bund / BSI Warn- und Informationsdienst",
   "quelle_url": "https://wid.cert-bund.de/",
   "hinweis": "Nur Kennung, Schweregrad, Titel, Datum und Link. Beschreibungstexte werden nicht übernommen.",
-  "abgerufen_am": "2026-11-27T09:38:20+00:00",
-  "anzahl": 685
+  "abgerufen_am": "2026-11-27T09:57:34+00:00",
+  "anzahl": 689
  },
  "eintraege": [
+  {
+   "id": "WID-SEC-2026-4835",
+   "schwere": "hoch",
+   "status": "neu",
+   "titel": "Camunda: Schwachstelle ermöglicht Ausführen von beliebigem Programmcode mit den Rechten des Dienstes",
+   "datum": "2026-11-27",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4835"
+  },
+  {
+   "id": "WID-SEC-2026-4834",
+   "schwere": "mittel",
+   "status": "neu",
+   "titel": "FreeRDP: Schwachstelle ermöglicht Denial of Service",
+   "datum": "2026-11-27",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4834"
+  },
+  {
+   "id": "WID-SEC-2026-4833",
+   "schwere": "mittel",
+   "status": "neu",
+   "titel": "Samba: Schwachstelle ermöglicht Denial of Service",
+   "datum": "2026-11-27",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4833"
+  },
+  {
+   "id": "WID-SEC-2026-4832",
+   "schwere": "hoch",
+   "status": "neu",
+   "titel": "SEPPmail Secure E-Mail Gateway: Mehrere Schwachstellen",
+   "datum": "2026-11-27",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4832"
+  },
   {
    "id": "WID-SEC-2026-4831",
    "schwere": "mittel",
