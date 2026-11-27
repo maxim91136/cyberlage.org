@@ -3,8 +3,8 @@
   "quelle": "CERT-Bund / BSI Warn- und Informationsdienst",
   "quelle_url": "https://wid.cert-bund.de/",
   "hinweis": "Nur Kennung, Schweregrad, Titel, Datum und Link. Beschreibungstexte werden nicht übernommen.",
-  "abgerufen_am": "2026-11-27T12:12:33+00:00",
-  "anzahl": 703
+  "abgerufen_am": "2026-11-27T13:59:30+00:00",
+  "anzahl": 704
  },
  "eintraege": [
   {
@@ -318,6 +318,14 @@
    "titel": "Oracle Java und GraalVM: Mehrere Schwachstellen",
    "datum": "2026-11-27",
    "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4624"
+  },
+  {
+   "id": "WID-SEC-2026-4623",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Oracle MySQL: Mehrere Schwachstellen",
+   "datum": "2026-11-27",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4623"
   },
   {
    "id": "WID-SEC-2026-4616",
