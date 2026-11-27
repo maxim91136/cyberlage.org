@@ -67,7 +67,7 @@ def vorbelegen(s, lage):
         s = re.sub(r'<div class="stufe-text" id="stufe-text"[^>]*>[^<]*</div>', '<div class="stufe-text" id="stufe-text" hidden></div>', s, count=1)
     for kennung, wert in (("k7", k.get("neu_7_tage")), ("k30", k.get("neu_30_tage")), ("kall", k.get("gesamt")), ("kr", k.get("ransomware_bekannt_30_tage"))):
         if isinstance(wert, int):
-            s = re.sub(r'(<b id="%s">)[^<]*(</b>)' % kennung, lambda m: m.group(1) + f"{wert:,}".replace(",", ".") + m.group(2), s, count=1)
+            s = re.sub(r'(<b id="%s">)[^<]*(</b>)' % kennung, lambda m: m.group(1) + f"{wert:,}".replace(",", ".") + m.group(2), s, count=1)  # noqa: B023 (Lambda läuft sofort in re.sub)
     kurz = kurzlage(lage)
     if kurz:
         fest = " Seismograph der Cyber-Bedrohungslage aus zehn offenen Bausteinen, regelbasiert und nachprüfbar. Ein Werkzeug für alle, die Systeme verteidigen. Ein Projekt von Dreier Labs."

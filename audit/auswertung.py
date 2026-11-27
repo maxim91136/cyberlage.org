@@ -18,6 +18,7 @@ def rechne(ergebnisse, regeln=REGELN):
     gruppen = {}
     nicht_geprueft = []
     zutreffend_nicht = set()
+    durchgefallen = set()  # Gruppen mit mindestens einer nicht bestandenen Prüfung
     for g, pid, erg, _text in ergebnisse:
         if erg == "nicht_geprueft":  # zählt weder als bestanden noch als nicht bestanden und senkt die Abdeckung
             nicht_geprueft.append(pid)
@@ -26,6 +27,8 @@ def rechne(ergebnisse, regeln=REGELN):
             zutreffend_nicht.add(g)
             continue
         gruppen.setdefault(g, []).append(wert[erg])
+        if erg == "nicht_bestanden":
+            durchgefallen.add(g)
     gesamt = sum(x["gewicht"] for x in regeln["gruppen"].values())
     geprueft = sum(regeln["gruppen"][g]["gewicht"] for g in set(gruppen) | zutreffend_nicht)
     abdeckung = geprueft / gesamt
@@ -33,7 +36,11 @@ def rechne(ergebnisse, regeln=REGELN):
     gewertet = sum(regeln["gruppen"][g]["gewicht"] for g in werte)
     summe = sum(werte[g] * regeln["gruppen"][g]["gewicht"] for g in werte) / gewertet * 100 if gewertet else 0
     score = round(summe)
-    if any(werte.get(g, 1) == 0 for g in regeln["deckel"]["gruppen"]):
+    if regeln["deckel"].get("schon_ein_fund"):  # Code-Audit: ein einziger Fund in einer Deckelgruppe deckelt den Score
+        gedeckelt = any(g in durchgefallen for g in regeln["deckel"]["gruppen"])
+    else:  # Web-Audit: nur wenn die ganze Gruppe 0 erreicht
+        gedeckelt = any(werte.get(g, 1) == 0 for g in regeln["deckel"]["gruppen"])
+    if gedeckelt:
         score = min(score, regeln["deckel"]["max_score"])
     voll = abdeckung >= regeln["mindest_abdeckung"]
     return {"score": score if voll else None, "teilwert": score, "abdeckung": round(abdeckung, 2),

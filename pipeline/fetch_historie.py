@@ -120,7 +120,6 @@ def hole_eu(jetzt, lade=lade, max_seiten=40, pause=0.5):
     import fetch_extra
     alt = lese("eu_kev.json")
     eintraege = dict(alt.get("eintraege", {}))
-    grenze = (jetzt - timedelta(days=TAGE)).date().isoformat()
     seiten = 0
     for p in range(max_seiten):
         try:

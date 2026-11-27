@@ -45,7 +45,7 @@ def parse_bsi(xml_bytes):
     try:
         wurzel = sicher.xml_lesen(xml_bytes)
     except ET.ParseError as e:
-        raise QuellFehler(f"BSI-Feed kein gültiges XML: {e}")
+        raise QuellFehler(f"BSI-Feed kein gültiges XML: {e}") from None
     items = wurzel.findall("./channel/item")
     if not items:
         raise QuellFehler("BSI-Feed ohne Einträge")

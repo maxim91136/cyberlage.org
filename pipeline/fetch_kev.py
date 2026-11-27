@@ -58,7 +58,7 @@ def pruefe_und_verdichte(roh):
         try:
             date.fromisoformat(v["dateAdded"])
         except ValueError:
-            raise PruefFehler(f"Ungültiges Datum in {v['cveID']}: {v['dateAdded']}")
+            raise PruefFehler(f"Ungültiges Datum in {v['cveID']}: {v['dateAdded']}") from None
         if v["cveID"] in gesehen:
             raise PruefFehler(f"Doppelter Eintrag: {v['cveID']}")
         gesehen.add(v["cveID"])

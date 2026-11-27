@@ -223,4 +223,5 @@ Für jeden abgeschlossenen Monat, jedes abgeschlossene Quartal und Jahr rechnet 
 
 ## Code-Audit (Entwurf 0.1, seit 27.11.2026)
 
-Eigenes Siegel („Dreier-Code-Siegel“), eigener Score, getrennt vom Web-Audit. Regeln: `codeaudit/regeln.json`, Erklärung: `codeaudit/REGELN.md`. Sieben Gruppen, Gewichte 20/18/12/14/12/14/10, Skala, Stufen und Mindestabdeckung wie beim Web-Audit, Deckel 59 bei Mängeln in Geheimnisse oder Workflows. Noch nichts gemessen, nichts auf der Seite; Werkzeuge und Prüfpunkte sind vor Version 1.0 zu belegen (Stand, Lizenz). Einzelbefunde nur privat.
+Eigenes Siegel („Dreier-Code-Siegel“), eigener Score, getrennt vom Web-Audit. Regeln: `codeaudit/regeln.json`, Erklärung: `codeaudit/REGELN.md`. Sieben Gruppen, Gewichte 20/18/12/14/12/14/10, Skala, Stufen und Mindestabdeckung wie beim Web-Audit, Deckel 59 schon bei einer nicht bestandenen Prüfung in Geheimnisse oder Workflows. Noch nichts gemessen, nichts auf der Seite; Werkzeuge und Prüfpunkte sind vor Version 1.0 zu belegen (Stand, Lizenz). Einzelbefunde nur privat.
+Schwellen Entwurf 0.1 (27.11.2026): Testabdeckung ab 80 % bestanden, ab 60 % Hinweis; Funktionen bis Komplexität 30; Dateien bis 1500 Zeilen ohne Hinweis. Einzelheiten: `codeaudit/REGELN.md`.

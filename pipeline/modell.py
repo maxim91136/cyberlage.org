@@ -196,7 +196,7 @@ def logbuch_stufenwechsel(logbuch, live_reihe, stufe_von, namen):
     live_reihe: [{stand, wert}] aufsteigend; stufe_von: Funktion Wert -> Stufenschlüssel; namen: {Schlüssel: (deutsch, englisch)}."""
     vorhanden = {(e["datum"], e.get("schluessel")) for e in logbuch.get("eintraege", [])}
     neu = []
-    for a, b in zip(live_reihe, live_reihe[1:]):
+    for a, b in zip(live_reihe, live_reihe[1:], strict=False):
         sa, sb = stufe_von(a["wert"]), stufe_von(b["wert"])
         if sa == sb or (b["stand"], "stufe:" + sb) in vorhanden:
             continue
@@ -297,7 +297,7 @@ def berichte(tage, bausteine, logbuch, stufen, stand, mindest_anteil=0.9, obergr
         for d in da:
             a = stufe(wert[d])["ampel"]
             je[a] = je.get(a, 0) + 1
-        wechsel = sum(1 for a, b in zip(da, da[1:]) if stufe(wert[a])["ampel"] != stufe(wert[b])["ampel"])
+        wechsel = sum(1 for a, b in zip(da, da[1:], strict=False) if stufe(wert[a])["ampel"] != stufe(wert[b])["ampel"])
         bs = []
         for b in bausteine:
             v = [min(b["aus"][d], obergrenze) for d in alle if b["aus"].get(d) is not None]

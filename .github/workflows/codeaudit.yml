@@ -1,0 +1,59 @@
+name: codeaudit
+
+# Code-Audit: prüft den Code dieses Repos (Geheimnisse, Workflows, Python, JavaScript, Tests, Wartbarkeit) mit codeaudit/lauf.py.
+# Regeln: codeaudit/regeln.json (Entwurf 0.1). Das Protokoll ist öffentlich: es zeigt nur Score und Zahlen, Einzelbefunde gehen privat per Telegram.
+# Fehlt ein Werkzeug, heißt die Prüfung "nicht geprüft" (kein Fehlalarm, kein Gratispunkt). Läuft in derselben Gruppe wie der Datenlauf.
+on:
+  schedule:
+    - cron: "40 5 * * *"
+  workflow_dispatch:
+    inputs:
+      testmeldung:
+        description: "Telegram-Meldung auch ohne Änderung senden (Test)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daten
+  cancel-in-progress: false
+
+env:
+  GITLEAKS_VERSION: "8.28.0"
+
+jobs:
+  pruefen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.12"
+      - name: Python-Werkzeuge (feste Versionen)
+        run: pip install bandit==1.9.4 ruff==0.17.6 radon==6.0.1 coverage==7.17.5 zizmor==1.33.1
+      - name: eslint (feste Version)
+        run: npm install --no-save --no-audit --no-fund eslint@10.15.0 && echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
+      - name: gitleaks (Prüfsumme gegen die Datei des Releases)
+        continue-on-error: true
+        run: |
+          set -eu
+          cd "$RUNNER_TEMP"
+          base="https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}"
+          curl -fsSL -O "$base/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" -O "$base/gitleaks_${GITLEAKS_VERSION}_checksums.txt"
+          grep " gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz\$" "gitleaks_${GITLEAKS_VERSION}_checksums.txt" | sha256sum -c -
+          tar -xzf "gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" gitleaks
+          sudo install -m 0755 gitleaks /usr/local/bin/gitleaks
+      - name: Code prüfen
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_AUDIT_CHAT_ID: ${{ secrets.TELEGRAM_AUDIT_CHAT_ID }}
+        run: python codeaudit/lauf.py --zusammenfassung data/codeaudit/cyberlage.org.json --telegram ${{ inputs.testmeldung && '--immer' || '' }}
+      - name: Ergebnis speichern
+        run: bash pipeline/speichern.sh

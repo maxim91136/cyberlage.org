@@ -4,7 +4,7 @@
   "richtung": "hoch = gut (Prüfwert); der Dreier-Pegel ist ein Gefahrenwert (hoch = schlecht)",
   "siegel": "Dreier-Code-Siegel (eigenes Siegel, getrennt vom Dreier-Siegel des Web-Audits)",
   "wertung": {"bestanden": 1.0, "hinweis": 0.5, "nicht_bestanden": 0.0},
-  "deckel": {"gruppen": ["geheimnisse", "workflows"], "max_score": 59},
+  "deckel": {"gruppen": ["geheimnisse", "workflows"], "max_score": 59, "schon_ein_fund": true},
   "mindest_abdeckung": 0.9,
   "stufen": [[95, "ohne Befund"], [80, "kleine Mängel"], [60, "Mängel"], [0, "erhebliche Mängel"]],
   "abzeichen": [[95, "gold"], [80, "silber"], [60, "bronze"]],

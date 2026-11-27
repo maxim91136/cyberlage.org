@@ -404,7 +404,7 @@ def aktualisiere(alt, liste_json, hole_dok, kev_cves, jetzt):
 
     with ThreadPoolExecutor(max_workers=4) as pool:  # die Monatsdokumente sind groß, vier gleichzeitig
         ergebnisse = list(pool.map(hole, zu_holen))
-    for (e, vorher), (doc, fehl) in zip(zu_holen, ergebnisse):
+    for (e, vorher), (doc, fehl) in zip(zu_holen, ergebnisse, strict=False):
         mid = e["ID"]
         if fehl:
             fehler.append(fehl)
@@ -594,7 +594,7 @@ def parse_debian(xml_bytes):
     try:
         wurzel = sicher.xml_lesen(xml_bytes)
     except ET.ParseError as e:
-        raise QuellFehler("Debian-Feed kein gültiges XML: %s" % e)
+        raise QuellFehler("Debian-Feed kein gültiges XML: %s" % e) from None
     out = []
     for it in wurzel.iter():
         if _tag(it) != "item":
@@ -612,7 +612,7 @@ def parse_cisco(xml_bytes):
     try:
         wurzel = sicher.xml_lesen(xml_bytes)
     except ET.ParseError as e:
-        raise QuellFehler("Cisco-Feed kein gültiges XML: %s" % e)
+        raise QuellFehler("Cisco-Feed kein gültiges XML: %s" % e) from None
     out = []
     for it in wurzel.iter("item"):
         titel, link = _kind(it, "title"), _kind(it, "link").split("?")[0]
@@ -686,7 +686,7 @@ def _rss_items(xml_bytes, name):
     try:
         wurzel = sicher.xml_lesen(xml_bytes)
     except ET.ParseError as e:
-        raise QuellFehler("%s-Feed kein gültiges XML: %s" % (name, e))
+        raise QuellFehler("%s-Feed kein gültiges XML: %s" % (name, e)) from None
     return [it for it in wurzel.iter() if _tag(it) == "item"]
 
 
@@ -744,7 +744,7 @@ def parse_feed(xml_bytes, name, id_muster=None):
     try:
         wurzel = sicher.xml_lesen(xml_bytes)
     except ET.ParseError as e:
-        raise QuellFehler("%s-Feed kein gültiges XML: %s" % (name, e))
+        raise QuellFehler("%s-Feed kein gültiges XML: %s" % (name, e)) from None
     out = []
     for it in wurzel.iter():
         if _tag(it) not in ("item", "entry"):

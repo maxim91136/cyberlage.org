@@ -246,7 +246,7 @@ def seite(sp, daten, regeln, jetzt):
         ausn = (t["ausn"][0] % (doms, ziele), t["ausn"][1] % fehlt, t["ausn"][2], t["ausn"][3], t["ausn"][4] % ziele)
         z.append('<h2 class="mono" id="ausnahmen">%s</h2>\n<ul class="au-ul">%s</ul>\n' % (_e(t["h_ausn"]), "".join("<li>%s</li>" % _e(x) for x in ausn)))
     z.append('<h2 class="mono">%s</h2>\n<ul class="au-ul">%s</ul>\n' % (_e(t["h_rechnen"]), "".join("<li>%s</li>" % _e(x % v if "%" in x else x) for x, v in zip(
-        t["rechnen"], (None, None, regeln["deckel"]["max_score"], round(100 * regeln["mindest_abdeckung"]))))))
+        t["rechnen"], (None, None, regeln["deckel"]["max_score"], round(100 * regeln["mindest_abdeckung"])), strict=False))))
     def _abz_text(g):
         a = abzeichen(g, regeln)
         return ABZ_NAME[sp][a] if a else t["kein_abz"]

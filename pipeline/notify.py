@@ -216,7 +216,7 @@ def sende(text, token, chat):
                     warte = 30
                 time.sleep(min(warte, 60) + 2 + versuch)
                 continue
-            raise RuntimeError(f"Telegram antwortet mit {ex.code}: {ex.read().decode(errors='replace')[:200]}")
+            raise RuntimeError(f"Telegram antwortet mit {ex.code}: {ex.read().decode(errors='replace')[:200]}") from None
         except (TimeoutError, OSError) as ex:
             letzter = ex
             time.sleep(5)
