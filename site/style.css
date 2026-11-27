@@ -467,8 +467,6 @@ html[lang=en] .sek>summary::after{content:"\25B8  show"}html[lang=en] .sek[open]
 .fr-over{color:#ff8a7a}.fr-bald{color:#e3b341}
 .umbau{color:#e3b341;border:1px dashed #e3b341;padding:6px 10px;font-size:13px;margin:8px 0;display:inline-block}
 .rd-balken{max-width:680px;display:block}
-.hero-pegel{display:inline-block;margin:10px 0 2px;padding:7px 12px;border:1px solid var(--st,#e3b341);color:var(--st,#e3b341);text-decoration:none;font-weight:700;font-size:15px;letter-spacing:.02em}
-.hero-pegel.st-ruhig{--st:#3ddc84}.hero-pegel.st-unauffaellig{--st:#8fd3a8}.hero-pegel.st-angespannt{--st:#e3b341}.hero-pegel.st-hoch{--st:#ff8a7a}.hero-pegel.st-ausserordentlich{--st:#ff4d5e}
 .fz-dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:8px 0 6px}.fz-dl dt{color:var(--dim);font-size:12px;text-transform:uppercase;letter-spacing:.06em;padding-top:3px}.fz-dl dd{margin:0}.fz-dl dd.fh{color:var(--green)}
 @media (max-width:520px){.fz-dl{grid-template-columns:1fr;gap:2px}.fz-dl dd{margin-bottom:8px}}
 
@@ -493,7 +491,7 @@ html{scrollbar-color:#24303a transparent;scrollbar-width:thin}
 .lbl{letter-spacing:.14em}
 h1{letter-spacing:-.025em}
 .panel{border-radius:var(--r);background-image:linear-gradient(180deg,rgba(255,255,255,.028),rgba(255,255,255,0) 64px)}
-.fazit,.kc,.dd-box,.p-emp,.hero-pegel,.umbau{border-radius:var(--r2)}
+.fazit,.kc,.dd-box,.p-emp,.umbau{border-radius:var(--r2)}
 .subnav a,button,input,select{border-radius:var(--r2)}
 .subnav a{transition:border-color .15s,color .15s,background .15s}.subnav a:hover{background:rgba(111,224,160,.06)}
 /* Lagekasten als HUD: Eckmarken rechts, feine Zeilen */
@@ -502,7 +500,7 @@ h1{letter-spacing:-.025em}
   background-size:18px 1px,1px 18px,18px 1px,1px 18px,auto;
   background-position:right 12px top 12px,right 12px top 12px,right 12px bottom 12px,right 12px bottom 12px,0 0}
 .lage .stufe{text-shadow:0 0 32px color-mix(in srgb,currentColor 38%,transparent);letter-spacing:.01em}
-.hero-pegel{box-shadow:0 0 26px -10px var(--st,#e3b341);transition:background .15s}.hero-pegel:hover{background:color-mix(in srgb,var(--st,#e3b341) 10%,transparent)}
+
 /* Klappen der ersten Ebene: breite Leisten */
 .teil{border-top:0;margin-top:16px}
 .teil>summary.wrap{max-width:1096px;width:calc(100% - 64px);padding:16px 18px;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:var(--r);
@@ -575,7 +573,7 @@ html[lang=en] #teil3 .akk>summary::after{content:"OPEN +"}html[lang=en] #teil3 .
 #fazit-verk{display:none!important}.verbund .fazit{margin-top:14px}
 
 /* Hero zentriert: Pegel-Kasten, darunter das Blue-Team-Abzeichen */
-.hero{text-align:center}.hero h1{margin-left:auto;margin-right:auto}.hero-pegel{margin:12px 0 0}.hero .blau{display:flex;width:fit-content;margin:12px auto 0}
+.hero{text-align:center}.hero h1{margin-left:auto;margin-right:auto}.hero .blau{display:flex;width:fit-content;margin:12px auto 0}
 
 /* /abo-Menü: unter dem Knopf statt links am Rand (Spezifität von .dd-box.dd-l überschrieb right:0) */
 .dd-box.dd-l.dd-abo{left:auto;right:0;transform:none}

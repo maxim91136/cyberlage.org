@@ -1303,7 +1303,7 @@ class SuchmaschinenTests(unittest.TestCase):
             "radar_skala": {"stufen": [{"ampel": "hoch", "name": "hoch", "name_en": "high"}]}}
     KOPF = ('<html lang="de"><title>x</title><meta name="description" content="a"><meta property="og:description" content="a"><meta property="og:title" content="a">'
             '<meta property="og:url" content="https://cyberlage.org/"><link rel="canonical" href="https://cyberlage.org/"><!--ld-start--><!--ld-end-->'
-            '<a id="hero-pegel" class="x">alt</a><div class="stufe mono" id="stufe-wert">hoch</div><!--ssr-start-->de<!--ssr-end-->')
+            '<div class="stufe mono" id="stufe-wert">hoch</div><!--ssr-start-->de<!--ssr-end-->')
 
     def test_titel_mit_tagesstand_vorn(self):
         import prerender

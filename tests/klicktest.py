@@ -176,10 +176,10 @@ def pruefe_direktlinks(pg, basis, p):
 
 def pruefe_menue_und_kurztext(pg, basis, p):
     lade(pg, basis, p)
-    kt = pg.evaluate("(() => { const k = document.getElementById('hero-kurz'); const h = document.getElementById('hero-pegel'); "
+    kt = pg.evaluate("(() => { const k = document.getElementById('hero-kurz'); const h = document.getElementById('stufe-zahl'); "
                      "return {text: k.textContent.trim(), sichtbar: k.offsetHeight > 0, pegel: ((h.textContent.match(/(\\d+)\\s*\\/\\s*100/) || [])[1] || '')} })()")
     p.ok(kt["sichtbar"] and len(kt["text"]) > 40, "Kurztext unter dem Pegel fehlt oder ist leer: %s" % kt)
-    p.ok(kt["pegel"] and (" " + kt["pegel"] + " ") in kt["text"], "Kurztext nennt nicht den Wert des Pegel-Knopfs (%s): %s" % (kt["pegel"], kt["text"]))
+    p.ok(kt["pegel"] and (" " + kt["pegel"] + " ") in kt["text"], "Kurztext nennt nicht den Wert der Pegel-Karte (%s): %s" % (kt["pegel"], kt["text"]))
     for abschnitt, knopf in (("logbuch", "k-logbuch"), ("berichte", "k-berichte")):
         lade(pg, basis, p)
         menue_auf(pg)
