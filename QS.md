@@ -282,3 +282,4 @@ Lokal mit Playwright (1280 px und 390 px, Deutsch und Englisch, alle Klappen off
 - 27.11.2026 (später): Handy-Menü nochmal neu: Knopf „Menü“ klappt ein Panel mit allen Punkten in zwei Spalten auf (Gruppen als Überschriften, abo/info/Alarm/Matrix/Sprache darunter), nichts mehr zum Wischen. Schließt per Knopf, Escape und Klick auf einen Punkt. Kalenderblätter bleiben unverändert (Steve gefällt es). Klicktest um Menüknopf-Test erweitert: 5240/0.
 - 27.11.2026: Menü-Knopf auf dem Handy schlanker (38 px, Pfeil rechts). Steve: bisher beste Lösung, nicht perfekt.
 - 27.11.2026: Menü-Knopf Schrift größer (19 px, halbfett), Höhe 42 px.
+- 27.11.2026: Code-Audit-Regeln auf Version 1.0 festgeschrieben (Siegel „REGELN 1.0“); neuer Lauf gestartet. Offen: Score 89 hebt sich nur mit Testabdeckung ≥80 %, Komplexität, app.js-Größe.

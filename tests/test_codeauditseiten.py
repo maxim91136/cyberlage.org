@@ -17,7 +17,7 @@ JETZT = datetime(2026, 11, 27, 12, 0, tzinfo=timezone.utc)
 
 
 def zus(score=82, stufe="kleine Mängel", stand="2026-11-27T00:28Z", befunde=1):
-    return {"repo": "maxim91136/cyberlage.org", "stand": stand, "regeln": "0.1-entwurf", "score": score, "teilwert": score or 80, "stufe": stufe, "abdeckung": 1.0,
+    return {"repo": "maxim91136/cyberlage.org", "stand": stand, "regeln": "1.0", "score": score, "teilwert": score or 80, "stufe": stufe, "abdeckung": 1.0,
             "gruppen": {g: 1.0 for g in REGELN["gruppen"]}, "befunde": befunde, "hinweise": 2, "nicht_geprueft": 0}
 
 
@@ -47,7 +47,7 @@ class CodeauditseitenTests(unittest.TestCase):
             self.assertIn("/audit/siegel/code-cyberlage.org.svg", t)
         svg = (w / "site" / "audit" / "siegel" / "code-cyberlage.org.svg").read_text(encoding="utf-8")
         self.assertIn("DREIER-CODE-SIEGEL", svg)
-        self.assertIn("ENTWURF 0.1", svg)
+        self.assertIn("REGELN 1.0", svg)
         self.assertIn("SILBER", svg)
         self.assertIn("DREIER-SIEGEL", (w / "site" / "audit" / "siegel" / "cyberlage.org.svg").read_text(encoding="utf-8"))
 
@@ -72,7 +72,7 @@ class CodeauditseitenTests(unittest.TestCase):
         self.assertIn("letzter Lauf", codeauditseiten.fuss_text(d, REGELN, "de", JETZT))
 
     def test_fusstext(self):
-        self.assertEqual(codeauditseiten.fuss_text(zus(), REGELN, "de", JETZT), "Code-Audit: 82 / 100 · Silber · 27.11.2026 · Regeln 0.1-entwurf")
+        self.assertEqual(codeauditseiten.fuss_text(zus(), REGELN, "de", JETZT), "Code-Audit: 82 / 100 · Silber · 27.11.2026 · Regeln 1.0")
         self.assertTrue(codeauditseiten.fuss_text(zus(), REGELN, "en", JETZT).startswith("Code audit: 82 / 100 · Silver"))
 
     def test_alle_gruppen_haben_englischen_namen(self):

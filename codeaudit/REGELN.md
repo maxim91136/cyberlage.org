@@ -1,6 +1,6 @@
-# Code-Audit mit Dreier-Code-Siegel: Entwurf der Regeln
+# Code-Audit mit Dreier-Code-Siegel: Regeln
 
-Version **0.1 (Entwurf)**, Stand 27.11.2026. Maßgeblich ist `codeaudit/regeln.json`. Noch nichts gemessen, nichts auf der Seite.
+Version **1.0**, Stand 27.11.2026. Maßgeblich ist `codeaudit/regeln.json`. Seit Version 1.0 sind Gruppen, Gewichte, Schwellen und Prüfpunkte festgeschrieben; Änderungen gibt es nur mit neuer Version und Eintrag in `RULES.md`.
 
 ## Grundsätze
 
@@ -31,7 +31,7 @@ Version **0.1 (Entwurf)**, Stand 27.11.2026. Maßgeblich ist `codeaudit/regeln.j
 3. Die Werkzeuge laufen nur in GitHub Actions (hier nicht installierbar); Ablauf und Sperrgruppe wie `audit.yml`.
 4. Dieselbe Regelpflege wie beim Web-Audit (Vorlauf 60 Tage, Version in Stein) erst ab 1.0.
 
-## Prüfpunkte und Schwellen (Entwurf 0.1, gebaut 27.11.2026)
+## Prüfpunkte und Schwellen (Version 1.0, 27.11.2026)
 
 - **Geheimnisse:** gitleaks im Arbeitsbaum und im Verlauf; jeder Fund = nicht bestanden.
 - **Workflows:** eigene Prüfung ohne Werkzeug (jede Action auf einen 40-stelligen Commit gepinnt, jeder Workflow setzt `permissions:`), dazu zizmor (hohe Funde nicht bestanden, mittlere Hinweis).
@@ -40,5 +40,5 @@ Version **0.1 (Entwurf)**, Stand 27.11.2026. Maßgeblich ist `codeaudit/regeln.j
 - **JavaScript:** eslint mit `no-undef`, `no-eval`, `no-implied-eval`, `no-new-func`; nur Fehler zählen (`codeaudit/eslint.config.js`).
 - **Tests:** alle grün (bestanden/nicht bestanden); Zeilenabdeckung ab 80 % bestanden, ab 60 % Hinweis, darunter nicht bestanden.
 - **Wartbarkeit:** keine Funktion über zyklomatische Komplexität 30 (radon); Dateien über 1500 Zeilen = Hinweis.
-- Alles, was ein Werkzeug nicht liefert, ist „nicht geprüft“. Die Schwellen sind Entwurf und werden erst mit Version 1.0 festgeschrieben.
+- Alles, was ein Werkzeug nicht liefert, ist „nicht geprüft“. Die Schwellen sind mit Version 1.0 festgeschrieben.
 - **Begründete Ausnahmen** stehen im Code, nicht in der Wertung: `.github/zizmor.yml` (artipacked, weil die Workflows selbst ins Repo schreiben und keine Artefakte hochladen; ein Test hält das fest) und `# nosec`-Kommentare mit Grund an den Abrufen (Adresse vorher über `pipeline/sicher.py` auf https geprüft). Jede neue Ausnahme braucht eine Begründung an der Stelle.

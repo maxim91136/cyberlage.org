@@ -1,5 +1,5 @@
 {
-  "version": "0.1-entwurf",
+  "version": "1.0",
   "stand": "2026-11-27",
   "richtung": "hoch = gut (Prüfwert); der Dreier-Pegel ist ein Gefahrenwert (hoch = schlecht)",
   "siegel": "Dreier-Code-Siegel (eigenes Siegel, getrennt vom Dreier-Siegel des Web-Audits)",

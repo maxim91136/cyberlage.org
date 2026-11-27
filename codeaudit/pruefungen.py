@@ -1,7 +1,7 @@
 """Code-Audit: macht aus Werkzeugausgaben Einzelprüfungen (gruppe, id, ergebnis, text). Reine Rechnung, kein Netz, keine Werkzeugaufrufe.
 
 Ergebnis ist "bestanden", "hinweis", "nicht_bestanden" oder "nicht_geprueft" (Werkzeug fehlte oder lieferte nichts Lesbares).
-Schwellen stehen hier und in codeaudit/REGELN.md; sie sind Entwurf 0.1 und ändern sich nur mit einem Eintrag in RULES.md.
+Schwellen stehen hier und in codeaudit/REGELN.md; sie sind seit Version 1.0 festgeschrieben und ändern sich nur mit einem Eintrag in RULES.md.
 """
 import re
 from pathlib import Path
