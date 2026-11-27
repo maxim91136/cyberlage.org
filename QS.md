@@ -13,6 +13,12 @@ Steve soll nicht zwischen den Chats vermitteln müssen. Wer am Repo arbeitet, li
 
 ## Offen
 
+### Erledigt 27.11., KI- und Suchmaschinen-Zugang geprüft (nur lesend, nichts geändert)
+- `robots.txt` (live gleich wie im Repo): alles erlaubt, Sitemap genannt, keine Cloudflare-Zusätze. `llms.txt`, Sitemap, Feed, canonical, hreflang DE/EN, Open Graph und JSON-LD sind vorhanden.
+- Cloudflare „AI Crawl Control“ (Stand 27.11., letzte 7 Tage, Quelle: Cloudflare-Dashboard cyberlage.org): kein Crawler blockiert. Anfragen erlaubt: Googlebot 226, GPTBot 132, Applebot 58, Claude-User 19, ClaudeBot 18, Meta-ExternalAgent 7, ChatGPT-User 6, Google-CloudVertexBot 4, PerplexityBot 3, OAI-SearchBot 2, CCBot 2. Bing und Claude-SearchBot 0.
+- Auffällig: ChatGPT-User 10 erfolglose gegen 6 erlaubte Anfragen. Ungeklärt, welche Adressen das waren (Logs fehlen). Möglich: Adressen, die es nicht gibt.
+- Offen (Steve/QS): Bingbot hat in 7 Tagen nicht vorbeigeschaut. Prüfen, ob die Seite bei Bing Webmaster Tools (Konto nötig, nur Steve) angemeldet ist.
+
 ### Erledigt 27.11., Kontaktadresse
 - Impressum (DE/EN) und `security.txt` nennen jetzt `kontakt@dreierlabs.com` (Weiterleitung über Cloudflare Email Routing bei Dreier Labs) statt einer privaten Adresse. Tests 226 OK.
 - Offen (Steve): Mail-Zustellung einmal von außen testen. Die Postanschrift im Impressum bleibt, bis es eine ladungsfähige Alternative gibt.
