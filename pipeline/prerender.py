@@ -233,7 +233,7 @@ def main():
         bs = []
     import auditseiten
     try:
-        bs += auditseiten.schreibe(WURZEL)  # Audit-Seite mit Dreier-Siegel aus data/audit/*.json
+        bs += auditseiten.schreibe(WURZEL)  # Audit-Seite mit Dreier-Web-Siegel aus data/audit/*.json
     except (OSError, ValueError, KeyError) as err:
         print("Hinweis: Audit-Seite nicht geschrieben:", err)
     import linkseiten

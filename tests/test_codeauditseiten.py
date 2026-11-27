@@ -49,7 +49,7 @@ class CodeauditseitenTests(unittest.TestCase):
         self.assertIn("DREIER-CODE-SIEGEL", svg)
         self.assertIn("REGELN 1.0", svg)
         self.assertIn("SILBER", svg)
-        self.assertIn("DREIER-SIEGEL", (w / "site" / "audit" / "siegel" / "cyberlage.org.svg").read_text(encoding="utf-8"))
+        self.assertIn("DREIER-WEB-SIEGEL", (w / "site" / "audit" / "siegel" / "cyberlage.org.svg").read_text(encoding="utf-8"))
 
     def test_ohne_code_daten_keine_code_seite(self):
         w = self.werk(code=False)
@@ -88,7 +88,7 @@ class CodeauditseitenTests(unittest.TestCase):
         regeln = json.loads((WURZEL / "audit" / "regeln.json").read_text(encoding="utf-8"))
         d = {"stand": "2026-11-27T05:20Z", "score": 100}
         svg = auditseiten.siegel("cyberlage.org", d, JETZT, regeln)
-        self.assertIn("DREIER-SIEGEL", svg)
+        self.assertIn("DREIER-WEB-SIEGEL", svg)
         self.assertIn("REGELN 1.0", svg)
         self.assertNotIn("ENTWURF", svg)
 

@@ -286,7 +286,7 @@ def _pruefe_audit_karten(pg, sprache, pfad, p):
     for k in web:
         d = daten.get(k["dom"])
         p.ok(d is not None and k["score"] == str(d["score"]), "Audit-Seite %s: Score %s statt %s" % (k["dom"], k["score"], d and d["score"]))
-        p.ok(k["svg"] == 1 and "DREIER-SIEGEL" in k["svgtext"] and k["kacheln"] == 12, "Audit-Seite %s: Siegel oder Kacheln fehlen (%s)" % (k["dom"], {x: k[x] for x in ("svg", "kacheln")}))
+        p.ok(k["svg"] == 1 and "DREIER-WEB-SIEGEL" in k["svgtext"] and k["kacheln"] == 12, "Audit-Seite %s: Siegel oder Kacheln fehlen (%s)" % (k["dom"], {x: k[x] for x in ("svg", "kacheln")}))
     p.ok(seite["skripte"] == 0 and seite["lang"] == sprache and seite["alt"] == 3 and seite["kanon"].endswith(pfad), "Audit-Seite: Kopf %s" % {x: seite[x] for x in ("skripte", "lang", "alt", "kanon")})
     p.ok(not MUELL.search(seite["text"]), "Audit-Seite: Platzhalter im Text")
     zur = pg.locator(".bs-zurueck a")

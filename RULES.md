@@ -234,3 +234,7 @@ Neunter Bereich bei „Angegriffenes nach Zuständigkeit“, geprüft vor Netzwe
 ## Nachtrag: Code-Audit Version 1.0 (27.11.2026)
 
 Die Regeln des Code-Audits sind von „0.1-entwurf“ auf **1.0** festgeschrieben: sieben Gruppen, Gewichte 20/18/12/14/12/14/10, Stufen 95/80/60, Mindestabdeckung 90 %, Deckel 59 bei einem Fund in Geheimnisse oder Workflows, Schwellen unverändert (Testabdeckung 80 %/60 %, Komplexität bis 30, Dateien bis 1500 Zeilen). Das Dreier-Code-Siegel trägt damit „REGELN 1.0“ statt „ENTWURF 0.1“, der Entwurfshinweis auf `/audit` entfällt. Ab jetzt ändern sich Schwellen, Gruppen und Gewichte nur mit neuer Version und eigenem Eintrag hier.
+
+## Nachtrag: Namen der Siegel (27.11.2026)
+
+Das Siegel des Web-Audits heißt jetzt **Dreier-Web-Siegel** (bisher „Dreier-Siegel“), das des Code-Audits **Dreier-Code-Siegel**. „Dreier-Siegel“ ist der Familienname beider. Geändert wurden nur Name und Stempeltext (oben im Siegel: DREIER-WEB-SIEGEL); Prüfpunkte, Gewichte, Schwellen, Stufen und Regelversion bleiben unverändert (Web-Audit 1.0, Code-Audit 1.0). Ältere Einträge in dieser Datei sprechen noch vom „Dreier-Siegel“ und meinen das Web-Siegel.

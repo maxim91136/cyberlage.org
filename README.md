@@ -44,7 +44,7 @@ Jeder Baustein folgt einer festen Regel mit Schwelle (abgeleitet aus 36 Monaten 
 
 Die Seite prüft sich selbst und zeigt das Ergebnis mit jeweils eigenem Siegel unter [/audit](https://cyberlage.org/audit/):
 
-- **Web-Audit (Dreier-Siegel):** prüft cyberlage.org und cyberlage.com täglich von außen (Kopfzeilen, TLS, DNS, Mail-Schutz, Weiterleitung). Code in `audit/`, Regeln in [audit/REGELN.md](audit/REGELN.md).
+- **Web-Audit (Dreier-Web-Siegel):** prüft cyberlage.org und cyberlage.com täglich von außen (Kopfzeilen, TLS, DNS, Mail-Schutz, Weiterleitung). Code in `audit/`, Regeln in [audit/REGELN.md](audit/REGELN.md).
 - **Code-Audit (Dreier-Code-Siegel):** prüft den Code dieses Repos täglich (Geheimnisse, Workflows, Abhängigkeiten, Python, JavaScript, Tests, Wartbarkeit). Code in `codeaudit/`, Regeln als Entwurf in [codeaudit/REGELN.md](codeaudit/REGELN.md).
 
 Beide Siegel sind der Stand eines automatischen Laufs mit offenen Regeln, kein Zertifikat einer Prüfstelle.

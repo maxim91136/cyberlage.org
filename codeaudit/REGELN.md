@@ -4,7 +4,7 @@ Version **1.0**, Stand 27.11.2026. Maßgeblich ist `codeaudit/regeln.json`. Seit
 
 ## Grundsätze
 
-- **Eigenes Siegel**, eigener Score, getrennt vom Dreier-Siegel des Web-Audits. Beide dürfen sich unterscheiden.
+- **Eigenes Siegel**, eigener Score, getrennt vom Dreier-Web-Siegel. Beide dürfen sich unterscheiden.
 - **Hoch = gut**, Wertung wie beim Web-Audit: bestanden 1, Hinweis 0,5, nicht bestanden 0. Stufen und Abzeichen wie dort (95, 80, 60), damit die Siegel gleich zu lesen sind.
 - **Kein Score ohne Abdeckung:** unter 90 % geprüftem Gewicht nur ein Teilwert. Was ein Werkzeug nicht prüfen konnte, heißt „nicht geprüft“ und zählt weder gut noch schlecht.
 - **Deckel 59** schon bei **einer** nicht bestandenen Prüfung in „Geheimnisse“ oder „Workflows“ (beim Web-Audit erst, wenn die ganze Gruppe 0 erreicht): ein Fund dort wiegt mehr als jede Menge guter Punkte anderswo.

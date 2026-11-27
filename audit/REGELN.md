@@ -1,4 +1,4 @@
-# Web-Audit mit Dreier-Siegel: Regeln und Regelpflege
+# Web-Audit mit Dreier-Web-Siegel: Regeln und Regelpflege
 
 Version **1.0**, Stand 26.11.2026. Maßgeblich ist `audit/regeln.json`, dieses Dokument erklärt sie und regelt, wie sie sich ändert. Dasselbe Regelwerk gilt in Cyberlage und in Dreier Labs (beide Repos tragen dieselbe `regeln.json`; die Prüfsumme der Siegel-Test in beiden Repos fällt auf, wenn die Siegelerzeugung auseinanderläuft).
 
