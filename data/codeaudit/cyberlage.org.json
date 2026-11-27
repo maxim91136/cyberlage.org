@@ -1,9 +1,9 @@
 {
  "repo": "maxim91136/cyberlage.org",
- "stand": "2026-11-27T00:55Z",
- "regeln": "0.1-entwurf",
- "score": 89,
- "teilwert": 89,
+ "stand": "2026-11-27T08:50Z",
+ "regeln": "1.0",
+ "score": 94,
+ "teilwert": 94,
  "stufe": "kleine Mängel",
  "abdeckung": 1.0,
  "gruppen": {
@@ -13,9 +13,9 @@
   "python": 1.0,
   "javascript": 1.0,
   "tests": 0.75,
-  "wartbarkeit": 0.25
+  "wartbarkeit": 0.75
  },
- "befunde": 1,
+ "befunde": 0,
  "hinweise": 2,
  "nicht_geprueft": 0
 }
