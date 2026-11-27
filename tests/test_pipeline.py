@@ -1190,10 +1190,38 @@ class LogbuchTests(unittest.TestCase):
         wer hier die Prüfsumme anpasst, muss config/modell.json (version, aenderungen) und RULES.md im selben Commit mitführen."""
         from pathlib import Path
         wurzel = Path(__file__).resolve().parents[1]
-        self.assertEqual(modell.pruefsumme(wurzel / "config"), "c5ffa209be6333a19287724fe9a6688e7a8c3ba9b90be95ab1024824fa5314f3")
+        self.assertEqual(modell.pruefsumme(wurzel / "config"), "db1358fb882c97ff7ef8106e2ddc40de540ee4c4ebf0d262159d2c008a94fa46")
         cfg = json.loads((wurzel / "config" / "modell.json").read_text(encoding="utf-8"))
         self.assertEqual(cfg["aenderungen"][-1]["version"], cfg["version"])  # jede Version hat ihren Protokolleintrag
         self.assertIn("Modell " + cfg["version"], (wurzel / "RULES.md").read_text(encoding="utf-8"))
+
+    def test_pruefdatum_aendert_die_pruefsumme_nicht(self):
+        import shutil
+        wurzel = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory() as t:
+            for n in modell.PRUEFSUMME_DATEIEN:
+                shutil.copy(wurzel / "config" / n, t)
+            f = Path(t) / "regeln.json"
+            f.write_text(f.read_text(encoding="utf-8").replace("2026-11-23", "2027-05-20"), encoding="utf-8")
+            self.assertEqual(modell.pruefsumme(t), modell.pruefsumme(wurzel / "config"))
+
+    def test_schwellen_entscheidung_nach_20_prozent(self):
+        gueltig = {"kev_menge": 25, "tempo": 5}
+        self.assertEqual(modell.schwellen_entscheidung(gueltig, {"kev_menge": 29, "tempo": 5})[0], "bestätigt")  # 16 %
+        e, abw = modell.schwellen_entscheidung(gueltig, {"kev_menge": 31, "tempo": 5})  # 24 %
+        self.assertEqual((e, abw["kev_menge"]), ("neu setzen", 24.0))
+
+    def test_pruefprotokoll_gehoert_zur_version(self):
+        from pathlib import Path
+        wurzel = Path(__file__).resolve().parents[1]
+        cfg = json.loads((wurzel / "config" / "modell.json").read_text(encoding="utf-8"))
+        pr = json.loads((wurzel / "config" / "modell_pruefungen.json").read_text(encoding="utf-8"))["pruefungen"]
+        self.assertEqual(pr[-1]["version"], cfg["version"])
+        versionen = {a["version"] for a in cfg["aenderungen"]}
+        for x in pr:
+            self.assertIn(x["ergebnis"], ("Erstableitung", "bestätigt", "neu gesetzt"))
+            if x["ergebnis"] != "bestätigt":
+                self.assertIn(x["version"], versionen)  # jede Neusetzung hat ihren Änderungseintrag
 
     def test_modell_ins_logbuch_einmal(self):
         lb = {"eintraege": []}

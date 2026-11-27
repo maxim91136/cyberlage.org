@@ -252,6 +252,25 @@ def logbuch_hoechststand(logbuch, live_reihe, mindest=30):
 PRUEFSUMME_DATEIEN = ("modell.json", "radar_stufen.json", "regeln.json")  # alles, was den Pegel und seine Stufe bestimmt
 
 
+def _ohne_datum(x):
+    """Prüfdaten (geprueft_am) sind keine Regeln: eine Halbjahresprüfung ohne Änderung ändert die Prüfsumme nicht."""
+    if isinstance(x, dict):
+        return {k: _ohne_datum(v) for k, v in x.items() if k != "geprueft_am"}
+    if isinstance(x, list):
+        return [_ohne_datum(v) for v in x]
+    return x
+
+
+SCHWELLEN_ABWEICHUNG = 0.20  # Halbjahresprüfung: Schwellen nur neu setzen, wenn ein Wert um mehr als 20 % von der Neuableitung abweicht
+
+
+def schwellen_entscheidung(gueltig, neu, grenze=SCHWELLEN_ABWEICHUNG):
+    """Vergleicht die gültigen Schwellen mit der Neuableitung aus der 36-Monats-Historie (beide {Baustein: Wert}).
+    Liefert ("bestätigt" | "neu setzen", {Baustein: Abweichung in Prozent}); Version und Schwellen bleiben bei "bestätigt" unverändert."""
+    abw = {k: round(100 * abs(neu[k] - v) / v, 1) for k, v in gueltig.items() if k in neu and v}
+    return ("neu setzen" if any(a > 100 * grenze for a in abw.values()) else "bestätigt"), abw
+
+
 def pruefsumme(verzeichnis):
     """SHA-256 über die Regeldateien des Pegels (kanonisches JSON, ohne Formatierung). Ein Test hält sie fest:
     wer Schwellen, Bausteine oder Stufen ändert, muss Version, Änderungsprotokoll und RULES.md mitführen."""
@@ -259,7 +278,7 @@ def pruefsumme(verzeichnis):
     h = hashlib.sha256()
     for n in PRUEFSUMME_DATEIEN:
         h.update(n.encode() + b"\0")
-        h.update(json.dumps(json.loads((Path(verzeichnis) / n).read_text(encoding="utf-8")), sort_keys=True, ensure_ascii=False, separators=(",", ":")).encode("utf-8"))
+        h.update(json.dumps(_ohne_datum(json.loads((Path(verzeichnis) / n).read_text(encoding="utf-8"))), sort_keys=True, ensure_ascii=False, separators=(",", ":")).encode("utf-8"))
     return h.hexdigest()
 
 
