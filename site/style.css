@@ -913,3 +913,24 @@ main .p-rang .p-det>summary{padding:2px 0}
 .verbund .lage,.verbund .radar-box,.verbund .fazit{border-radius:var(--r)}
 
 .rd-klapp>.rd-kon{margin:0 16px 10px!important}
+
+/* Desktop: Bausteine-Block zentriert (Titel, Satz, Radar, Link, Erklärtext); die aufgeklappten Gruppen bleiben linksbündig */
+@media (min-width:900px){
+  .rd-klapp>summary h3,.rd-klapp>summary .rd-kurz{text-align:center}
+  .rd-klapp>:not(summary){text-align:center}
+  .rd-klapp>.rd-kon{max-width:760px;margin:0 auto 10px!important}
+  .rd-klapp>summary{padding-left:40px}
+  .rd-klapp .rd-scopewrap{display:block;max-width:470px;margin-left:auto;margin-right:auto}
+  .rd-klapp .rd-scope{display:block;margin:0 auto}
+  .rd-klapp>.rd-det{max-width:820px;margin-left:auto;margin-right:auto}
+  .rd-klapp>.rd-det>summary{display:list-item;list-style-position:inside;text-align:center}
+  .rd-klapp>.rd-det>:not(summary){text-align:left}
+  .rd-klapp>p.fine{max-width:760px;margin-left:auto;margin-right:auto}
+  .rd-klapp .rd-det>#rd-balken,.rd-klapp .rd-det>#rd-balken *{text-align:center}
+  .rd-klapp .rd-ver>summary{display:list-item;list-style-position:inside;text-align:center}
+}
+
+/* „Mehr zum Fazit“: lange Titel (zuerst patchen) umbrechen statt die Seite zu verbreitern */
+.fz-mehr .fz-dl{min-width:0}
+.fz-mehr dd,.fz-mehr dd a{min-width:0;overflow-wrap:anywhere}
+.fz-mehr .fz-top a{white-space:normal}
