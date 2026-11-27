@@ -249,12 +249,8 @@ def pruefe_berichtseiten(pg, wurzel, sprache, p):
         p.ok(pg.evaluate("location.pathname") == ziel and pg.locator("article.br").count() == 1, "Nachbar-Link führt nicht nach %s" % ziel)
 
 
-def pruefe_auditseite(pg, wurzel, sprache, p):
-    """Menüpunkt /audit führt auf die Audit-Seite in der Sprache; Siegel, Kacheln und Zahlen stimmen mit data/audit überein."""
-    pfad = "/en/audit/" if sprache == "en" else "/audit/"
-    lade(pg, wurzel + ("/en/" if sprache == "en" else "/"), p)
-    p.ok(pg.locator("#n-audit").get_attribute("href") == pfad, "Menüpunkt /audit zeigt auf %s" % pg.locator("#n-audit").get_attribute("href"))
-    p.ok(rand(pg) <= 1, "Menü mit /audit: %d px über dem Rand" % rand(pg))
+def _pruefe_fuss_siegel(pg, pfad, p):
+    """Web- und Code-Siegel im Fuß der Startseite: da, geladen, richtig verlinkt und beschriftet."""
     fs = pg.evaluate("""() => { const a = document.getElementById('fuss-siegel'); if (!a) return null; const i = a.querySelector('img');
         return { href: a.getAttribute('href'), text: a.querySelector('span').textContent, geladen: i.complete && i.naturalWidth > 0, sichtbar: a.offsetHeight > 0 }; }""")
     org = json.loads((SITE.parent / "data" / "audit" / "cyberlage.org.json").read_text(encoding="utf-8"))
@@ -269,10 +265,10 @@ def pruefe_auditseite(pg, wurzel, sprache, p):
         p.ok(cs["href"] == pfad + "#code-audit" and cs["geladen"], "Code-Siegel im Fuß: Link %s, Bild geladen: %s" % (cs["href"], cs["geladen"]))
         p.ok(cs["text"].startswith(("Code-Audit:", "Code audit:")), "Code-Siegel im Fuß: Text %s" % cs["text"])
     p.ok(rand(pg) <= 1, "Fuß mit zwei Siegeln: %d px über dem Rand" % rand(pg))
-    menue_auf(pg)
-    pg.click("#n-audit")
-    pg.wait_for_load_state()
-    p.ok(pg.evaluate("location.pathname") == pfad, "Menüpunkt /audit führt nach %s" % pg.evaluate("location.pathname"))
+
+
+def _pruefe_audit_karten(pg, sprache, pfad, p):
+    """Karten, Kacheln, Zahlen und Kopf der Audit-Seite gegen data/audit und data/codeaudit."""
     daten = {}
     for f in sorted((SITE.parent / "data" / "audit").glob("*.json")):
         d = json.loads(f.read_text(encoding="utf-8"))
@@ -296,6 +292,20 @@ def pruefe_auditseite(pg, wurzel, sprache, p):
     zur = pg.locator(".bs-zurueck a")
     p.ok(zur.count() == 1 and zur.get_attribute("href") == ("/en/" if sprache == "en" else "/"), "Audit-Seite: Zurück-Link zum Dreier-Pegel fehlt")
     p.ok(rand(pg) <= 1, "Audit-Seite: %d px über dem Rand" % rand(pg))
+
+
+def pruefe_auditseite(pg, wurzel, sprache, p):
+    """Menüpunkt /audit führt auf die Audit-Seite in der Sprache; Siegel, Kacheln und Zahlen stimmen mit data/audit überein."""
+    pfad = "/en/audit/" if sprache == "en" else "/audit/"
+    lade(pg, wurzel + ("/en/" if sprache == "en" else "/"), p)
+    p.ok(pg.locator("#n-audit").get_attribute("href") == pfad, "Menüpunkt /audit zeigt auf %s" % pg.locator("#n-audit").get_attribute("href"))
+    p.ok(rand(pg) <= 1, "Menü mit /audit: %d px über dem Rand" % rand(pg))
+    _pruefe_fuss_siegel(pg, pfad, p)
+    menue_auf(pg)
+    pg.click("#n-audit")
+    pg.wait_for_load_state()
+    p.ok(pg.evaluate("location.pathname") == pfad, "Menüpunkt /audit führt nach %s" % pg.evaluate("location.pathname"))
+    _pruefe_audit_karten(pg, sprache, pfad, p)
     r = pg.request.get(wurzel + "/audit/siegel/cyberlage.org.svg")
     p.ok(r.status == 200 and "svg" in r.headers.get("content-type", ""), "Siegel-Datei: Status %s, Typ %s" % (r.status, r.headers.get("content-type")))
 

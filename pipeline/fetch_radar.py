@@ -278,40 +278,52 @@ def radar_score(signale, obergrenze=2.0):
     return {"wert": round(sum(werte) / len(werte) / obergrenze * 100), "signale": len(werte), "von": len(signale)}
 
 
+def _signal(name, name_en, wert, grund, grund_en, art="extern", ausschlag=None):
+    """ausschlag: Messwert im Verhältnis zur Regelschwelle (1,0 = Schwelle erreicht), nur für die Radar-Grafik."""
+    return {"name": name, "name_en": name_en, "erhoeht": wert, "grund": grund, "grund_en": grund_en, "art": art,
+            "ausschlag": None if ausschlag is None else round(ausschlag, 2)}
+
+
+def _signal_kev(lage_stufe, neu30, erhoeht_ab):
+    return _signal("KEV-Menge", "KEV count", None if lage_stufe is None else lage_stufe in ("erhoeht", "hoch"),
+                   f"Stufe {lage_stufe}" if lage_stufe else "keine Bewertung", f"level {_STUFE_EN.get(lage_stufe, lage_stufe)}" if lage_stufe else "no rating", "eigen",
+                   (neu30 / erhoeht_ab) if neu30 is not None and erhoeht_ab else {"niedrig": 0.5, "erhoeht": 1.0, "hoch": 1.5}.get(lage_stufe))
+
+
+def _signal_tempo(j, v, tempo_cfg):
+    if tempo_cfg:
+        med, n = j.get("median_frisch"), j.get("n_frisch", 0)
+        st = tempo_stufe(med, n, tempo_cfg)
+        return _signal("Tempo bis KEV", "KEV pace", None if st is None else st in ("erhoeht", "hoch"),
+                       "Median höchstens %s Tage bis zur KEV-Aufnahme (schnellstes Viertel der letzten 36 Monate)" % tempo_cfg["erhoeht_bis"],
+                       "median at most %s days to KEV listing (fastest quarter of the last 36 months)" % tempo_cfg["erhoeht_bis"], "eigen",
+                       None if st is None else tempo_cfg["erhoeht_bis"] / max(med, 1.0))
+    t = None
+    if j.get("n_frisch", 0) >= 10 and v.get("n_frisch", 0) >= 10 and j.get("median_frisch") is not None and v.get("median_frisch") is not None:
+        t = v["median_frisch"] / max(j["median_frisch"], 0.5) >= 1.5
+    return _signal("Tempo bis KEV", "Speed to KEV", t, "Median mindestens 1,5-mal schneller als vor 12 Monaten", "median at least 1.5x faster than 12 months ago", "eigen",
+                   None if t is None else v["median_frisch"] / max(j["median_frisch"], 0.5) / 1.5)
+
+
+def _signal_bsi(einschaetzungen):
+    bsi = next((e for e in einschaetzungen if e.get("wert") and e.get("basis")), None)
+    return _signal("BSI Cyber Index", "BSI Cyber Index", None if not bsi else float(bsi["wert"]) >= 1.2 * float(bsi["basis"]),
+                   "mindestens 20 % über dem Basisjahr 2024", "at least 20% above the 2024 base year",
+                   ausschlag=None if not bsi else float(bsi["wert"]) / (1.2 * float(bsi["basis"])))
+
+
+def _signal_sans(sans):
+    return _signal("SANS Infocon", "SANS Infocon", None if not sans else sans["status"] != "green", "nicht grün", "not green",
+                   ausschlag=None if not sans else {"green": 0.4, "yellow": 1.1, "orange": 1.5, "red": 2.0}.get(sans["status"]))
+
+
 def konsens(lage_stufe, zeit, einschaetzungen, sans, neu30=None, erhoeht_ab=None, tempo_cfg=None):
     """Signale: jedes steht für sich auf erhöht (True), normal (False) oder keine Aussage (None).
     Eigene Signale (Stufe und Tempo, beide aus dem KEV) zählen nicht als Bestätigung, nur externe.
     Regeln stehen in RULES.md. Es wird nichts gemittelt."""
-    signale = []
-
-    def add(name, name_en, wert, grund, grund_en, art="extern", ausschlag=None):
-        """ausschlag: Messwert im Verhältnis zur Regelschwelle (1,0 = Schwelle erreicht), nur für die Radar-Grafik."""
-        signale.append({"name": name, "name_en": name_en, "erhoeht": wert, "grund": grund, "grund_en": grund_en, "art": art,
-                        "ausschlag": None if ausschlag is None else round(ausschlag, 2)})
-
-    add("KEV-Menge", "KEV count", None if lage_stufe is None else lage_stufe in ("erhoeht", "hoch"),
-        f"Stufe {lage_stufe}" if lage_stufe else "keine Bewertung", f"level {_STUFE_EN.get(lage_stufe, lage_stufe)}" if lage_stufe else "no rating", "eigen",
-        (neu30 / erhoeht_ab) if neu30 is not None and erhoeht_ab else {"niedrig": 0.5, "erhoeht": 1.0, "hoch": 1.5}.get(lage_stufe))
     j, v = (zeit or {}).get("jetzt") or {}, (zeit or {}).get("vor_12_monaten") or {}
-    t = None
-    if j.get("n_frisch", 0) >= 10 and v.get("n_frisch", 0) >= 10 and j.get("median_frisch") is not None and v.get("median_frisch") is not None:
-        t = v["median_frisch"] / max(j["median_frisch"], 0.5) >= 1.5
-    if tempo_cfg:
-        med, n = j.get("median_frisch"), j.get("n_frisch", 0)
-        st = tempo_stufe(med, n, tempo_cfg)
-        add("Tempo bis KEV", "KEV pace", None if st is None else st in ("erhoeht", "hoch"),
-            "Median höchstens %s Tage bis zur KEV-Aufnahme (schnellstes Viertel der letzten 36 Monate)" % tempo_cfg["erhoeht_bis"],
-            "median at most %s days to KEV listing (fastest quarter of the last 36 months)" % tempo_cfg["erhoeht_bis"], "eigen",
-            None if st is None else tempo_cfg["erhoeht_bis"] / max(med, 1.0))
-    else:
-        add("Tempo bis KEV", "Speed to KEV", t, "Median mindestens 1,5-mal schneller als vor 12 Monaten", "median at least 1.5x faster than 12 months ago", "eigen",
-            None if t is None else v["median_frisch"] / max(j["median_frisch"], 0.5) / 1.5)
-    bsi = next((e for e in einschaetzungen if e.get("wert") and e.get("basis")), None)
-    add("BSI Cyber Index", "BSI Cyber Index", None if not bsi else float(bsi["wert"]) >= 1.2 * float(bsi["basis"]),
-        "mindestens 20 % über dem Basisjahr 2024", "at least 20% above the 2024 base year",
-        ausschlag=None if not bsi else float(bsi["wert"]) / (1.2 * float(bsi["basis"])))
-    add("SANS Infocon", "SANS Infocon", None if not sans else sans["status"] != "green", "nicht grün", "not green",
-        ausschlag=None if not sans else {"green": 0.4, "yellow": 1.1, "orange": 1.5, "red": 2.0}.get(sans["status"]))
+    signale = [_signal_kev(lage_stufe, neu30, erhoeht_ab), _signal_tempo(j, v, tempo_cfg),
+               _signal_bsi(einschaetzungen), _signal_sans(sans)]
     for x in signale:
         x["zeitraum"], x["zeitraum_en"] = ZEITRAUM.get(x["name_en"], ("", ""))
     extern = [x for x in signale if x["art"] == "extern" and x["erhoeht"] is not None]

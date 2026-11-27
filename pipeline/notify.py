@@ -140,23 +140,7 @@ def ermittle(kev, bsi, eu, lage, zustand, jetzt):
         return [], neu_zustand
     g = zustand.get("gesehen", {})
     offen = {k: list((zustand.get("offen") or {}).get(k, [])) for k in ("kev", "bsi", "eu")}
-
-    neu_kev = [x for x in kev["eintraege"] if x["cve"] not in set(g.get("kev", []))]
-    neu_kev.sort(key=lambda x: (x["hersteller"], x["cve"]))
-    alarm = [x for x in neu_kev if x["ransomware_bekannt"]]
-    offen["kev"] += [zeile_kev(x) for x in neu_kev if not x["ransomware_bekannt"]]
-    if alarm:
-        nachrichten.append(kuerzen([zeile_kev(x) for x in alarm],
-                                   f"<b>Alarm: {len(alarm)} neu im CISA-KEV, in Ransomware-Kampagnen genutzt</b>",
-                                   "Quelle: CISA KEV (CC0)"))
-
-    alt_bsi = set(g.get("bsi", []))
-    offen["bsi"] += [f"• {verweis(x['link'], x['titel'])}" for x in (bsi or {}).get("eintraege", [])
-                     if x["id"] not in alt_bsi and x["schwere"] == "kritisch"]
-    alt_eu = set(g.get("eu", []))
-    offen["eu"] += [f"• {e(', '.join(x['hersteller']) or '–')} – {verweis(x['link'], (x['cve'] or [x['id']])[0])}"
-                    for x in (eu or {}).get("eintraege", []) if x["id"] not in alt_eu]
-
+    nachrichten += _neue_meldungen(kev, bsi, eu, g, offen)
     nachrichten += patch_msgs
     if zustand.get("stufe") != stufe:
         nachrichten.append(f"<b>Dreier-Pegel geändert:</b> {STUFENNAME.get(zustand.get('stufe'), e(zustand.get('stufe')))} → "
@@ -165,36 +149,66 @@ def ermittle(kev, bsi, eu, lage, zustand, jetzt):
     lokal = jetzt.astimezone(ZoneInfo("Europe/Berlin"))  # Tageslage ab 06:00 deutscher Zeit, damit sie vor 07:00 da ist
     heute = lokal.date().isoformat()
     if zustand.get("zusammenfassung") != heute and lokal.hour >= TAGESLAGE_AB:
-        k = lage["kev"]
-        zeilen = [f"Dreier-Pegel: <b>{STUFENNAME.get(stufe, e(stufe))}</b>" + (f" ({lage['pegel']['wert']} von 100)" if (lage.get("pegel") or {}).get("wert") is not None else ""),
-                  f"CISA-KEV: {k['neu_7_tage']} neu in 7 Tagen, {k['neu_30_tage']} in 30 Tagen"]
-        if lage.get("cert_bund"):
-            c = lage["cert_bund"]
-            zeilen.append(f"CERT-Bund: {c['kritisch_7_tage']} kritisch, {c['hoch_7_tage']} hoch in 7 Tagen")
-        if lage.get("eu_kev"):
-            zeilen.append(f"EU-KEV: {lage['eu_kev']['neu_30_tage']} neu in 30 Tagen")
-        kombi = fazit_kombi(lage)
-        if kombi and (kombi != zustand.get("fazit_gesendet") or lokal.weekday() == 0):  # bei Änderung, sonst montags als Wochenstand
-            f = lage["fazit"]
-            zeilen.append("<b>Fazit</b>" + (" (vorläufig)" if f.get("status") == "vorlaeufig" else "") + f": {e(f['text'])}\nFür Verteidiger: {e(f['hinweis'])}")
-            neu_zustand["fazit_gesendet"] = kombi
-        teile = ["<b>Cyberlage, Tageslage</b>\n" + "\n".join(zeilen)]
-        z = zuerst_zeilen(lage)
-        if z:
-            teile.append("<b>Diese Woche zuerst patchen</b>\n" + "\n".join(z) + f"\n{SEITE}/#patches")
-        for liste, kopf in ((offen["kev"], f"<b>Neu im CISA-KEV ({len(offen['kev'])})</b>"),
-                            (offen["bsi"], f"<b>CERT-Bund, neue kritische Warnungen ({len(offen['bsi'])})</b>"),
-                            (offen["eu"], f"<b>Neu im EU-KEV ({len(offen['eu'])})</b>")):
-            if liste:
-                teile.append(abschnitt(liste, kopf))
-        if not any(offen.values()):
-            teile.append("Seit der letzten Tageslage nichts Neues.")
-        text = "\n\n".join(teile) + f"\n\nQuellen: CISA KEV (CC0), CERT-Bund / BSI (Titel, Link), EUVD / ENISA\n{SEITE}"
-        nachrichten.append(text[:MAX_ZEICHEN])
+        nachrichten.append(_tageslage(lage, zustand, stufe, lokal, offen, neu_zustand))
         neu_zustand["zusammenfassung"] = heute
         offen = {"kev": [], "bsi": [], "eu": []}
     neu_zustand["offen"] = offen
     return nachrichten, neu_zustand
+
+
+def _neue_meldungen(kev, bsi, eu, g, offen):
+    """Sammelt Neues in `offen` (verändert es) und gibt die Sofort-Alarme zurück."""
+    nachrichten = []
+    neu_kev = [x for x in kev["eintraege"] if x["cve"] not in set(g.get("kev", []))]
+    neu_kev.sort(key=lambda x: (x["hersteller"], x["cve"]))
+    alarm = [x for x in neu_kev if x["ransomware_bekannt"]]
+    offen["kev"] += [zeile_kev(x) for x in neu_kev if not x["ransomware_bekannt"]]
+    if alarm:
+        nachrichten.append(kuerzen([zeile_kev(x) for x in alarm],
+                                   f"<b>Alarm: {len(alarm)} neu im CISA-KEV, in Ransomware-Kampagnen genutzt</b>",
+                                   "Quelle: CISA KEV (CC0)"))
+    alt_bsi = set(g.get("bsi", []))
+    offen["bsi"] += [f"• {verweis(x['link'], x['titel'])}" for x in (bsi or {}).get("eintraege", [])
+                     if x["id"] not in alt_bsi and x["schwere"] == "kritisch"]
+    alt_eu = set(g.get("eu", []))
+    offen["eu"] += [f"• {e(', '.join(x['hersteller']) or '–')} – {verweis(x['link'], (x['cve'] or [x['id']])[0])}"
+                    for x in (eu or {}).get("eintraege", []) if x["id"] not in alt_eu]
+    return nachrichten
+
+
+def _kopfzeilen(lage, stufe):
+    k = lage["kev"]
+    zeilen = [f"Dreier-Pegel: <b>{STUFENNAME.get(stufe, e(stufe))}</b>" + (f" ({lage['pegel']['wert']} von 100)" if (lage.get("pegel") or {}).get("wert") is not None else ""),
+              f"CISA-KEV: {k['neu_7_tage']} neu in 7 Tagen, {k['neu_30_tage']} in 30 Tagen"]
+    if lage.get("cert_bund"):
+        c = lage["cert_bund"]
+        zeilen.append(f"CERT-Bund: {c['kritisch_7_tage']} kritisch, {c['hoch_7_tage']} hoch in 7 Tagen")
+    if lage.get("eu_kev"):
+        zeilen.append(f"EU-KEV: {lage['eu_kev']['neu_30_tage']} neu in 30 Tagen")
+    return zeilen
+
+
+def _tageslage(lage, zustand, stufe, lokal, offen, neu_zustand):
+    """Baut den Text der Tageslage; setzt `fazit_gesendet` in neu_zustand, wenn das Fazit mitgeht."""
+    zeilen = _kopfzeilen(lage, stufe)
+    kombi = fazit_kombi(lage)
+    if kombi and (kombi != zustand.get("fazit_gesendet") or lokal.weekday() == 0):  # bei Änderung, sonst montags als Wochenstand
+        f = lage["fazit"]
+        zeilen.append("<b>Fazit</b>" + (" (vorläufig)" if f.get("status") == "vorlaeufig" else "") + f": {e(f['text'])}\nFür Verteidiger: {e(f['hinweis'])}")
+        neu_zustand["fazit_gesendet"] = kombi
+    teile = ["<b>Cyberlage, Tageslage</b>\n" + "\n".join(zeilen)]
+    z = zuerst_zeilen(lage)
+    if z:
+        teile.append("<b>Diese Woche zuerst patchen</b>\n" + "\n".join(z) + f"\n{SEITE}/#patches")
+    for liste, kopf in ((offen["kev"], f"<b>Neu im CISA-KEV ({len(offen['kev'])})</b>"),
+                        (offen["bsi"], f"<b>CERT-Bund, neue kritische Warnungen ({len(offen['bsi'])})</b>"),
+                        (offen["eu"], f"<b>Neu im EU-KEV ({len(offen['eu'])})</b>")):
+        if liste:
+            teile.append(abschnitt(liste, kopf))
+    if not any(offen.values()):
+        teile.append("Seit der letzten Tageslage nichts Neues.")
+    text = "\n\n".join(teile) + f"\n\nQuellen: CISA KEV (CC0), CERT-Bund / BSI (Titel, Link), EUVD / ENISA\n{SEITE}"
+    return text[:MAX_ZEICHEN]
 
 
 def sende(text, token, chat):
