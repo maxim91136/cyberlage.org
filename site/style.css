@@ -936,12 +936,17 @@ main .p-rang .p-det>summary{padding:2px 0}
 .fz-mehr .fz-top a{white-space:normal}
 
 /* Einstieg „So liest du die Seite“ (unter dem Hero, eingeklappt) + „?“ im Menü */
-.guide{margin:14px auto 0;max-width:640px;text-align:left;border:1px solid var(--line,#26323b);border-radius:var(--r2);background:rgba(255,255,255,.02)}
-.guide>summary{cursor:pointer;padding:9px 14px;font-size:13px;color:var(--green);list-style:none}
+/* zu: nur ein leiser Textlink; offen: Karte in Breite und Stil von Pegel und Fazit */
+.guide{margin:12px 0 0;text-align:center;border:1px solid transparent;border-left:4px solid transparent;border-radius:var(--r)}
+.guide>summary{cursor:pointer;display:block;padding:11px 0;min-height:20px;font-size:13px;color:var(--green);list-style:none}
 .guide>summary::-webkit-details-marker{display:none}
-.guide>summary::before{content:"▸ ";}
-.guide[open]>summary::before{content:"▾ ";}
-.guide{border-left:4px solid var(--green)}
+.guide>summary span{border-bottom:1px dashed rgba(111,224,160,.45)}
+.guide>summary:hover span,.guide>summary:focus-visible span{border-bottom-style:solid}
+.guide>summary::after{content:" ▸"}
+.guide[open]{margin-top:16px;text-align:left;border-color:var(--line);border-left-color:var(--green);background:var(--panel)}
+.guide[open]>summary{padding:14px 16px 6px}
+.guide[open]>summary span{border-bottom-color:transparent}
+.guide[open]>summary::after{content:" ▾"}
 .guide-body{padding:0 16px 14px;font-size:14px;line-height:1.5}
 .guide-h{margin:16px 0 6px;font-size:12px;font-weight:400;color:var(--dim);letter-spacing:.04em}
 .guide-h:first-child{margin-top:4px}
