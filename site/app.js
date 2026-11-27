@@ -1714,4 +1714,19 @@ b.appendChild(el("span", "g", typeof s.ausschlag === "number" ? pick("Messwert: 
     var a = ev.target && ev.target.closest ? ev.target.closest("a[href]") : null;
     if (a && /^https?:$/.test(a.protocol) && a.host !== location.host && !a.target) { a.target = "_blank"; a.rel = "noopener"; }
   }, true);
+
+  // Handy-Menü: Knopf „Menü“ klappt alle Punkte untereinander auf (bis 899 px per CSS)
+  (function () {
+    var le = document.querySelector(".leiste"), ni = le && le.querySelector(".navin"); if (!ni) return;
+    var b = document.createElement("button"); b.type = "button"; b.className = "menue-knopf mono"; b.id = "menue-knopf";
+    b.setAttribute("aria-expanded", "false"); b.setAttribute("aria-controls", "menue-panel");
+    var t = document.createElement("span"); b.appendChild(document.createTextNode("☰ ")); b.appendChild(t);
+    ni.insertBefore(b, ni.firstChild);
+    var nl = ni.querySelector(".nav-links"); if (nl) nl.id = "menue-panel";
+    function setz(o) { le.classList.toggle("menue-offen", o); b.setAttribute("aria-expanded", o ? "true" : "false"); t.textContent = o ? pick("Schließen", "Close") : pick("Menü", "Menu"); }
+    setz(false);
+    b.addEventListener("click", function () { setz(!le.classList.contains("menue-offen")); });
+    le.addEventListener("click", function (ev) { var a = ev.target.closest && ev.target.closest(".nav-links a"); if (a) setz(false); });
+    document.addEventListener("keydown", function (ev) { if (ev.key === "Escape") setz(false); });
+  })();
 })();

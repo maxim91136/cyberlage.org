@@ -862,3 +862,17 @@ main .p-rang .p-det>summary{padding:2px 0}
 @media (max-width:640px){.bd-r:nth-child(n+4){display:flex}.bd{padding:6px 12px}.bd-m{display:none}}
 @media (max-width:899px){.leiste .wrap,.navin,.nav-links{min-width:0;max-width:100%}.nav-links{width:100%;box-sizing:border-box}.navin{width:100%}.nav-u{flex-wrap:wrap;row-gap:4px}}
 .bd-r{position:relative}
+
+/* Handy-Menü v3 (bis 899 px): Knopf „Menü“, Panel mit allen Punkten in zwei Spalten, nichts zum Wischen */
+.menue-knopf{display:none}
+@media (max-width:899px){
+  .menue-knopf{display:flex;align-items:center;gap:10px;width:calc(100% - 24px);margin:6px 12px;min-height:44px;padding:0 14px;background:#0c1014;border:1px solid var(--line);border-radius:10px;color:var(--green);font-size:16px;cursor:pointer;text-align:left}
+  .leiste.menue-offen .menue-knopf{border-color:var(--green)}
+  .nav-links,.nav-u{display:none}
+  .leiste.menue-offen .nav-links{display:grid;grid-template-columns:1fr 1fr;gap:8px;overflow:visible;-webkit-mask-image:none;mask-image:none;padding:4px 12px 10px}
+  .leiste.menue-offen .nav-u{display:flex;flex-wrap:wrap;padding:6px 12px 10px;border-top:1px solid var(--line);gap:6px 10px}
+  .nav-row .nav-grp,.nav-g1 .nav-grp{grid-column:1/-1;border:0;margin:6px 0 0;padding:0;font-size:11px;letter-spacing:.16em;color:var(--dim)}
+  .nav-g1 .nav-grp{margin-top:0}
+  .nav-row>a{justify-content:flex-start;min-height:44px;padding:0 14px;border-radius:10px;font-size:16px;color:var(--green);width:auto}
+  .nav-u .spr{margin-left:auto}
+}

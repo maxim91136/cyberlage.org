@@ -49,6 +49,13 @@ def lade(pg, url, p):
     p.ok(rand(pg) <= 1, "nach dem Laden ragt etwas %d px über den Rand" % rand(pg))
 
 
+def menue_auf(pg):
+    """Auf dem Handy liegen die Menüpunkte hinter dem Knopf „Menü“: aufklappen, falls zu."""
+    if pg.locator("#menue-knopf").is_visible() and pg.get_attribute("#menue-knopf", "aria-expanded") != "true":
+        pg.click("#menue-knopf")
+        pg.wait_for_timeout(200)
+
+
 def pruefe_klappen(pg, p):
     p.ok(pg.evaluate("[...document.querySelectorAll('details.teil')].every(d => !d.open)"), "ein Teil ist beim Laden schon aufgeklappt")
     n = pg.evaluate("document.querySelectorAll('main details').length")
@@ -175,6 +182,7 @@ def pruefe_menue_und_kurztext(pg, basis, p):
     p.ok(kt["pegel"] and (" " + kt["pegel"] + " ") in kt["text"], "Kurztext nennt nicht den Wert des Pegel-Knopfs (%s): %s" % (kt["pegel"], kt["text"]))
     for abschnitt, knopf in (("logbuch", "k-logbuch"), ("berichte", "k-berichte")):
         lade(pg, basis, p)
+        menue_auf(pg)
         pg.click('.navin a[data-sec="%s"]' % abschnitt)
         pg.wait_for_timeout(1600)  # der Sprung läuft weich und ist bei langen Wegen nach 700 ms noch unterwegs
         z = pg.evaluate("({auf: document.getElementById('%s').open && document.getElementById('teilb').open, oben: Math.round(document.getElementById('%s').getBoundingClientRect().top)})" % (knopf, abschnitt))
@@ -183,10 +191,24 @@ def pruefe_menue_und_kurztext(pg, basis, p):
         p.ok(rand(pg) <= 1, "nach Menüsprung zu /%s %d px über dem Rand" % (abschnitt, rand(pg)))
 
 
+def pruefe_menueknopf(pg, basis, p):
+    lade(pg, basis, p)
+    if not pg.locator("#menue-knopf").is_visible():
+        p.ok(pg.locator("#n-audit").is_visible(), "Desktop: Menüpunkte müssen ohne Knopf sichtbar sein")
+        return
+    p.ok(not pg.locator("#n-audit").is_visible(), "Handy: Menüpunkte sind zugeklappt sichtbar")
+    pg.click("#menue-knopf")
+    p.ok(pg.locator("#n-audit").is_visible() and pg.locator('.navin a[data-sec="lage"]').is_visible(), "Handy: Menü öffnet nicht")
+    p.ok(rand(pg) <= 1, "Handy: geöffnetes Menü %d px über dem Rand" % rand(pg))
+    pg.keyboard.press("Escape")
+    p.ok(not pg.locator("#n-audit").is_visible() and pg.get_attribute("#menue-knopf", "aria-expanded") == "false", "Handy: Escape schließt das Menü nicht")
+
+
 def pruefe_sprachknopf(pg, basis, sprache, p):
     lade(pg, basis + "?bericht=2025", p)
     p.ok(pg.evaluate("document.documentElement.lang") == sprache, "Sprache ist %s statt %s" % (pg.evaluate("document.documentElement.lang"), sprache))
     andere = "en" if sprache == "de" else "de"
+    menue_auf(pg)
     pg.click("#sprache")
     pg.wait_for_function("document.documentElement.lang === '%s'" % andere, timeout=10000)
     pg.wait_for_timeout(500)
@@ -247,6 +269,7 @@ def pruefe_auditseite(pg, wurzel, sprache, p):
         p.ok(cs["href"] == pfad + "#code-audit" and cs["geladen"], "Code-Siegel im Fuß: Link %s, Bild geladen: %s" % (cs["href"], cs["geladen"]))
         p.ok(cs["text"].startswith(("Code-Audit:", "Code audit:")), "Code-Siegel im Fuß: Text %s" % cs["text"])
     p.ok(rand(pg) <= 1, "Fuß mit zwei Siegeln: %d px über dem Rand" % rand(pg))
+    menue_auf(pg)
     pg.click("#n-audit")
     pg.wait_for_load_state()
     p.ok(pg.evaluate("location.pathname") == pfad, "Menüpunkt /audit führt nach %s" % pg.evaluate("location.pathname"))
@@ -283,6 +306,7 @@ def pruefe_linkseite(pg, wurzel, sprache, p):
     lade(pg, wurzel + ("/en/" if sprache == "en" else "/"), p)
     p.ok(pg.locator("#n-links").get_attribute("href") == pfad, "Menüpunkt /links zeigt auf %s" % pg.locator("#n-links").get_attribute("href"))
     p.ok(rand(pg) <= 1, "Menü mit /links: %d px über dem Rand" % rand(pg))
+    menue_auf(pg)
     pg.click("#n-links")
     pg.wait_for_load_state()
     p.ok(pg.evaluate("location.pathname") == pfad, "Menüpunkt /links führt nach %s" % pg.evaluate("location.pathname"))
@@ -338,7 +362,7 @@ def main():
                 schritte = (("Klappen", lambda: pruefe_klappen(pg, p)), ("Bereiche", lambda: pruefe_bereiche(pg, p)), ("Berichte", lambda: pruefe_berichte(pg, p)),
                             ("Reiter", lambda: pruefe_reiter(pg, p)), ("Alles offen", lambda: pruefe_alles_offen(pg, p)),
                             ("Direktlinks", lambda: pruefe_direktlinks(pg, basis + pfad, p)), ("Sprachknopf", lambda: pruefe_sprachknopf(pg, basis + pfad, sprache, p)),
-                            ("Menü und Kurztext", lambda: pruefe_menue_und_kurztext(pg, basis + pfad, p)), ("Berichtsseiten", lambda: pruefe_berichtseiten(pg, basis, sprache, p)), ("Audit-Seite", lambda: pruefe_auditseite(pg, basis, sprache, p)), ("Linkseite", lambda: pruefe_linkseite(pg, basis, sprache, p)), ("Hinweiszeile", lambda: pruefe_en_zeile(pg, basis, sprache, p)))
+                            ("Menü und Kurztext", lambda: pruefe_menue_und_kurztext(pg, basis + pfad, p)), ("Menüknopf", lambda: pruefe_menueknopf(pg, basis + pfad, p)), ("Berichtsseiten", lambda: pruefe_berichtseiten(pg, basis, sprache, p)), ("Audit-Seite", lambda: pruefe_auditseite(pg, basis, sprache, p)), ("Linkseite", lambda: pruefe_linkseite(pg, basis, sprache, p)), ("Hinweiszeile", lambda: pruefe_en_zeile(pg, basis, sprache, p)))
                 try:
                     lade(pg, basis + pfad, p)
                     p.ok(pg.evaluate("document.documentElement.lang") == sprache, "Sprache der Seite %s ist %s" % (pfad, pg.evaluate("document.documentElement.lang")))
