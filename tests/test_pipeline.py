@@ -683,6 +683,13 @@ class HerstellerPatchTests(unittest.TestCase):
         self.assertEqual(z("Langflow", "Langflow"), "entwicklung")
         self.assertEqual(z("WordPress", "Plugin"), "linux")               # nicht Arbeitsplatz wegen "word"
         self.assertEqual(z("Apache", "Tomcat"), "linux")
+        self.assertEqual(z("Citrix", "NetScaler ADC and NetScaler Gateway"), "virtualisierung")   # vor Netzwerk
+        self.assertEqual(z("Citrix", "StoreFront Server"), "virtualisierung")
+        self.assertEqual(z("VMware", "ESXi"), "virtualisierung")                                   # vor Anwendungen
+        self.assertEqual(z("Broadcom", "VMware vCenter Server"), "virtualisierung")
+        self.assertEqual(z("Microsoft", "Remote Desktop Services"), "virtualisierung")             # Terminalserver
+        self.assertEqual(z("VMware", "Spring Framework"), "anwendungen")                           # kein Virtualisierungs-Produkt
+        self.assertEqual(z("VMware Tanzu", "Spring Cloud"), "anwendungen")
         self.assertEqual(z("Unbekannt GmbH", "Ding"), "sonstige")
         for b in cfg["bereiche"]:
             __import__("re").compile(b["muster"])

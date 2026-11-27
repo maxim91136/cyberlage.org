@@ -20,12 +20,20 @@
       "muster": "connectwise|screenconnect|simplehelp|beyondtrust|n-able|kaseya|manageengine|zoho|sysaid|solarwinds|crushftp|\\bcleo\\b|fortra|goanywhere|moveit|progress|wing ftp|gladinet|centrestack|triofox|puppet|perforce|teamviewer|anydesk|endpoint manager|\\bepmm\\b|\\bepm\\b|workspace one|omnissa|kace|\\bquest\\b|lanscope|motex|filezen|soliton|splunk|papercut|aspera|serv-u"
     },
     {
+      "id": "virtualisierung",
+      "name": "Citrix, Virtualisierung und Terminalserver",
+      "name_en": "Citrix, virtualisation and terminal servers",
+      "fuer": "Citrix (Virtual Apps and Desktops, NetScaler), VMware und Horizon, Terminalserver und Remote-Desktop",
+      "fuer_en": "Citrix (Virtual Apps and Desktops, NetScaler), VMware and Horizon, terminal servers and remote desktop",
+      "muster": "citrix|netscaler|xenserver|xenapp|xendesktop|vmware(?!.*(spring|tanzu|sd-wan))|esxi|vcenter|horizon|remote desktop|terminal services|\\brdp\\b|parallels ras"
+    },
+    {
       "id": "netzwerk",
       "name": "Netzwerk, Randgeräte und Industrie",
       "name_en": "Network, edge devices and industrial",
       "fuer": "Firewalls, VPN-Gateways, Router, Switches, NAS, Kameras und Steuerungen",
       "fuer_en": "firewalls, VPN gateways, routers, switches, NAS, cameras and controllers",
-      "muster": "fortinet|ivanti|pulse secure|citrix|netscaler|palo alto|sonicwall|cisco|juniper|\\bf5\\b|big-ip|zyxel|d-link|tp-link|netgear|sophos|check point|barracuda|mikrotik|draytek|watchguard|qnap|synology|\\bzte\\b|array networks|sangoma|digiever|edimax|geovision|four-faith|totolink|linksys|\\basus\\b|hikvision|dahua|arista|ubiquiti|aviatrix|versa|session smart|router|firewall|\\bvpn\\b|gateway|sierra wireless|lantronix|dd-wrt|openplc|rockwell|siemens|schneider|advantech|moxa|\\bknx\\b|\\bptc\\b|qualcomm"
+      "muster": "fortinet|ivanti|pulse secure|palo alto|sonicwall|cisco|juniper|\\bf5\\b|big-ip|zyxel|d-link|tp-link|netgear|sophos|check point|barracuda|mikrotik|draytek|watchguard|qnap|synology|\\bzte\\b|array networks|sangoma|digiever|edimax|geovision|four-faith|totolink|linksys|\\basus\\b|hikvision|dahua|arista|ubiquiti|aviatrix|versa|session smart|router|firewall|\\bvpn\\b|gateway|sierra wireless|lantronix|dd-wrt|openplc|rockwell|siemens|schneider|advantech|moxa|\\bknx\\b|\\bptc\\b|qualcomm"
     },
     {
       "id": "entwicklung",
@@ -55,7 +63,7 @@
       "id": "anwendungen",
       "name": "Unternehmens-Anwendungen",
       "name_en": "Business applications",
-      "fuer": "ERP, Datenbanken, Virtualisierung, Backup und Schutzsoftware",
+      "fuer": "ERP, Datenbanken, Backup und Schutzsoftware",
       "fuer_en": "ERP, databases, virtualisation, backup and protection software",
       "muster": "\\bsap\\b|oracle|vmware|broadcom|veeam|commvault|nakivo|sitecore|kentico|dassault|\\bibm\\b|\\bhpe\\b|hewlett|\\bdell\\b|advantive|telerik|trimble|ahsay|kaspersky|symantec|mcafee|trellix|crowdstrike|trend micro|teamt5|mongodb|optimizely|geoserver|osgeo|redcap|vanderbilt|adobe commerce|magento|mirasvit|coldfusion|experience manager|adobe|acronis|wso2"
     },

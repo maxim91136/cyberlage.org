@@ -448,9 +448,11 @@ LIFE_PRODUKTE = (
     ("amazon-linux", "Amazon Linux", "os", False), ("macos", "Apple macOS", "os", False),
     ("cisco-ios-xe", "Cisco IOS XE", "netz", False), ("fortios", "Fortinet FortiOS", "netz", False), ("panos", "Palo Alto PAN-OS", "netz", False),
     ("firefox", "Mozilla Firefox ESR", "browser", True),
+    ("citrix-vad", "Citrix Virtual Apps and Desktops", "virt", False), ("esxi", "VMware ESXi", "virt", False),
+    ("horizon", "VMware Horizon", "virt", False), ("vcenter", "VMware vCenter Server", "virt", False),
 )
 # Ohne Quelle bei endoflife.date (Stand 26.11.2026): wird auf der Seite offen so genannt, nichts geschätzt.
-LIFE_OHNE_QUELLE = ("Ivanti", "SAP", "Microsoft Edge")
+LIFE_OHNE_QUELLE = ("Ivanti", "SAP", "Microsoft Edge", "Citrix NetScaler")
 LIFE_RUECK_TAGE = 400  # Einträge, deren Support vor mehr als gut einem Jahr endete, bleiben draußen
 
 

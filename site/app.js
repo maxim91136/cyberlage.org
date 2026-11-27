@@ -697,12 +697,13 @@
     var hq = ((d.patches || {}).hersteller || {}).quellen || {}, hbox = el("div", "b-hs"); box.insertBefore(hbox, zbox.nextSibling);
     /* Hersteller je Bereich: q = Quelle mit Zahlen, t = Patch-Tag nach Regel des Herstellers, a = Sprung zu einem Abschnitt, ohne = noch keine offene Quelle angebunden */
     var KAT = {
-      netzwerk: [{ n: "Cisco", q: "cisco" }, { n: "Fortinet", q: "fortinet", t: "fortinet" }, { n: "Palo Alto Networks", q: "paloalto" }, { n: "Ivanti", q: "ivanti", t: "ivanti" }, { n: "Citrix", t: "citrix", l: "https://support.citrix.com/securitybulletins" }],
+      netzwerk: [{ n: "Cisco", q: "cisco" }, { n: "Fortinet", q: "fortinet", t: "fortinet" }, { n: "Palo Alto Networks", q: "paloalto" }, { n: "Ivanti", q: "ivanti", t: "ivanti" }],
       fernwartung: [{ n: "Ivanti", q: "ivanti", t: "ivanti" }, { n: "ConnectWise", ohne: 1 }, { n: "SolarWinds", ohne: 1 }],
       arbeitsplatz: [{ n: "Edge und Chrome", n_en: "Edge and Chrome", a: "k-edge" }, { n: "Firefox und Thunderbird", n_en: "Firefox and Thunderbird", q: "mozilla" }, { n: "Adobe", t: "adobe", l: "https://helpx.adobe.com/security.html" }, { n: "Apple", q: "apple" }],
+      virtualisierung: [{ n: "Citrix (Cloud Software Group)", t: "citrix", l: "https://support.citrix.com/securitybulletins" }, { n: "Terminalserver und Remote-Desktop (Microsoft)", n_en: "Terminal servers and Remote Desktop (Microsoft)", t: "ms", a: "k-ms" }, { n: "VMware (Broadcom)", ohne: 1 }],
       windows: [{ n: "Microsoft Patch Day", t: "ms", a: "k-ms" }],
       zusammenarbeit: [{ n: "Microsoft (Exchange, SharePoint, Teams)", t: "ms", a: "k-ms" }, { n: "Atlassian", ohne: 1 }, { n: "Zimbra", ohne: 1 }],
-      anwendungen: [{ n: "SAP", q: "sap", t: "sap" }, { n: "Oracle", t: "oracle", l: "https://www.oracle.com/security-alerts/" }, { n: "VMware (Broadcom)", ohne: 1 }],
+      anwendungen: [{ n: "SAP", q: "sap", t: "sap" }, { n: "Oracle", t: "oracle", l: "https://www.oracle.com/security-alerts/" }],
       linux: [{ n: "Ubuntu", q: "ubuntu" }, { n: "Debian", q: "debian" }, { n: "Red Hat", q: "redhat" }, { n: "SUSE", q: "suse" }, { n: "AlmaLinux", q: "alma" }, { n: "Rocky Linux", q: "rocky" }, { n: "Amazon Linux", q: "amazon" }]
     };
     function naechster(art) {
@@ -1000,7 +1001,7 @@
     if (!slugs.length) { host.appendChild(el("p", "dim", pick("Keine Lebenszyklus-Daten verfügbar.", "No lifecycle data available."))); return; }
     var heute = new Date(), t0 = Date.UTC(heute.getUTCFullYear(), heute.getUTCMonth(), heute.getUTCDate());
     function tage(dt) { return dt ? Math.round((Date.parse(dt + "T00:00:00Z") - t0) / TAG_MS) : null; }
-    var gr = [["os", pick("Betriebssysteme", "Operating systems")], ["netz", pick("Netzwerk und Sicherheit", "Network and security")], ["browser", pick("Browser", "Browsers")]];
+    var gr = [["os", pick("Betriebssysteme", "Operating systems")], ["netz", pick("Netzwerk und Sicherheit", "Network and security")], ["browser", pick("Browser", "Browsers")], ["virt", pick("Virtualisierung und Terminalserver", "Virtualisation and terminal servers")]];
     gr.forEach(function (g) {
       var liste = slugs.filter(function (s) { return prod[s].gruppe === g[0]; }); if (!liste.length) return;
       host.appendChild(el("h3", "mono lz-g", g[1]));
