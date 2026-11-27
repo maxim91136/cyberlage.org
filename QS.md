@@ -13,6 +13,10 @@ Steve soll nicht zwischen den Chats vermitteln müssen. Wer am Repo arbeitet, li
 
 ## Offen
 
+### Erledigt 27.11., Kontaktadresse
+- Impressum (DE/EN) und `security.txt` nennen jetzt `kontakt@dreierlabs.com` (Weiterleitung über Cloudflare Email Routing bei Dreier Labs) statt einer privaten Adresse. Tests 226 OK.
+- Offen (Steve): Mail-Zustellung einmal von außen testen. Die Postanschrift im Impressum bleibt, bis es eine ladungsfähige Alternative gibt.
+
 ### Erledigt 27.11., Code-Audit Wartbarkeit Schritt 4: `site/app.js` geteilt
 - `site/app.js` 1732 → 1373 Zeilen (Hinweis ab 1500 weg). Ausgelagert nur durch Verschieben: `site/termine.js` (Patch-Termine, .ics), `site/radar.js` (Konsens, Radar, Ausblick), `site/tabellen.js` (Sortieren/Filtern). Gemeinsame Helfer über `window.CL` (setzt app.js, die Teile lesen sie erst beim Aufruf); Ladereihenfolge in beiden `index.html`: termine.js, radar.js, app.js, tabellen.js. ESLint-Liste in `codeaudit/lauf.py` um die drei Dateien erweitert.
 - Gegenprobe: gerenderte Seite (alles aufgeklappt) alt gegen neu, DE/EN, 390 und 1280 px: identisch, keine Skriptfehler. Tests 192 OK, Klicktest 5240/0, eslint sauber.
