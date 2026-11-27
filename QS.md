@@ -13,10 +13,14 @@ Steve soll nicht zwischen den Chats vermitteln müssen. Wer am Repo arbeitet, li
 
 ## Offen
 
+### Erledigt 27.11., Code-Audit Wartbarkeit Schritt 4: `site/app.js` geteilt
+- `site/app.js` 1732 → 1373 Zeilen (Hinweis ab 1500 weg). Ausgelagert nur durch Verschieben: `site/termine.js` (Patch-Termine, .ics), `site/radar.js` (Konsens, Radar, Ausblick), `site/tabellen.js` (Sortieren/Filtern). Gemeinsame Helfer über `window.CL` (setzt app.js, die Teile lesen sie erst beim Aufruf); Ladereihenfolge in beiden `index.html`: termine.js, radar.js, app.js, tabellen.js. ESLint-Liste in `codeaudit/lauf.py` um die drei Dateien erweitert.
+- Gegenprobe: gerenderte Seite (alles aufgeklappt) alt gegen neu, DE/EN, 390 und 1280 px: identisch, keine Skriptfehler. Tests 192 OK, Klicktest 5240/0, eslint sauber.
+
 ### Erledigt 27.11., Code-Audit Wartbarkeit Schritt 3: vier weitere Funktionen
 - `notify.py` `ermittle` 44→15 (`_neue_meldungen`, `_kopfzeilen`, `_tageslage`), `modell.py` `berichte` 39→21 (`_baustein_mittel`, `_stufenverteilung`, `_berichtssaetze`), `fetch_radar.py` `konsens` 31→11 (je ein `_signal_*`), `tests/klicktest.py` `pruefe_auditseite` 34→ unter 30 (`_pruefe_fuss_siegel`, `_pruefe_audit_karten`, gleiche Prüfungen in gleicher Reihenfolge). Nur Verschieben, keine Logik geändert.
 - Gegenprobe: alte und neue Funktion mit Zufallsdaten verglichen (3000 Läufe `ermittle`, 1500 `berichte`, 5000 `konsens`), 0 Abweichungen. Tests 192 OK, Klicktest 5240/0.
-- Noch offen unter Wartbarkeit: nur `site/app.js` mit 1732 Zeilen (Hinweis ab 1500, Client-Code, nur nach Steves Ja und mit Klicktest plus Sicht auf Handy und Desktop).
+- Wartbarkeit: nichts mehr offen.
 
 ### Erledigt 27.11., Code-Audit Wartbarkeit Schritt 2: `pipeline/fetch_patches.py`
 - `verdichte_dokument` (79), `priorisiere` (67) und `hole_quelle` (44) in kleine Funktionen zerlegt, nur Verschieben, keine Logik geändert. Neue Höchstwerte: 28 (`fix_liste`), 29 vermieden durch `_cvss_max`; alle unter 30. Gegenprobe: alte und neue Funktion mit Zufallsdaten verglichen (400 Dokumente, 600 Priorisierungen, 45 Quellaufrufe mit künstlichen Fehlern und leeren Antworten), 0 Abweichungen, Zweige Chromium, Azure Linux, ohne Patch, KEV nachweislich abgedeckt; 192 Tests grün.
