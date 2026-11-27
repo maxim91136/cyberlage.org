@@ -1341,7 +1341,7 @@
     var pg = window.__pegel;
     if (pg && pg.modell) {
       var mv = el("details", "rd-det rd-ver");
-      mv.appendChild(el("summary", "mono", pick("Modell ", "Model ") + pg.modell + (pg.status === "vorlaeufig" ? pick(" (vorläufig)", " (provisional)") : "") + (pg.modell_pruefsumme ? " · " + pick("Prüfsumme ", "checksum ") + pg.modell_pruefsumme : "")));
+      mv.appendChild(el("summary", "mono", pick("Modell Version ", "Model version ") + pg.modell + (pg.modell_pruefsumme ? " · " + pick("Prüfsumme ", "checksum ") + pg.modell_pruefsumme : "")));
       var ml = el("ul", "p-liste");
       (pg.modell_aenderungen || []).slice().reverse().forEach(function (x) { ml.appendChild(el("li", "mono fine", x.version + " (" + x.datum + "): " + pick(x.text, x.text_en))); });
       mv.appendChild(ml);

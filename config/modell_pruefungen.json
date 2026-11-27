@@ -7,6 +7,13 @@
       "ergebnis": "Erstableitung",
       "text": "Schwellen aus der 36-Monats-Historie abgeleitet (75. Perzentil je Baustein), Modell v1 gesetzt. Nächste Halbjahresprüfung: bis 25.05.2027.",
       "text_en": "Thresholds derived from the 36-month history (75th percentile per component), model v1 set. Next half-year review: by 25 May 2027."
+    },
+    {
+      "datum": "2026-11-27",
+      "version": "1.0",
+      "ergebnis": "Festschreibung",
+      "text": "Modell als Version 1.0 festgeschrieben, Schwellen unverändert. Nächste Halbjahresprüfung: bis 25.05.2027.",
+      "text_en": "Model frozen as version 1.0, thresholds unchanged. Next half-year review: by 25 May 2027."
     }
   ]
 }

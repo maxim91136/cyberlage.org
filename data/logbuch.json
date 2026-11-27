@@ -51,6 +51,17 @@
    "text_en": "First model: ten components in four groups, thresholds = 75th percentile of each component's own history, level limits 35/50/64/80. Live since 25 Nov 2026, provisional.",
    "belege": [],
    "belege_en": []
+  },
+  {
+   "datum": "2026-11-27",
+   "art": "modell",
+   "schluessel": "modell:1.0",
+   "titel": "Modell des Dreier-Pegels: 1.0",
+   "titel_en": "Dreier Gauge model: 1.0",
+   "text": "Festgeschrieben als Version 1.0: gleiche Bausteine, Rechenweg und Schwellen wie v1, der Pegel ändert sich dadurch nicht. Die Stufengrenzen 35/50/64/80 bleiben bis zur Bestätigung nach zwei Wochen Live-Betrieb (um den 9.12.2026) vorläufig.",
+   "text_en": "Frozen as version 1.0: same components, calculation and thresholds as v1, so the gauge does not change. The level limits 35/50/64/80 stay provisional until confirmed after two weeks live (around 9 Dec 2026).",
+   "belege": [],
+   "belege_en": []
   }
  ]
 }

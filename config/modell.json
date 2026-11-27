@@ -1,7 +1,7 @@
 {
-  "version": "v1",
-  "status": "vorlaeufig",
-  "geprueft_am": "2026-11-25",
+  "version": "1.0",
+  "status": "fest",
+  "geprueft_am": "2026-11-27",
   "obergrenze": 2.0,
   "regel": "Pegel = Mittelwert der Gruppenwerte; Gruppenwert = Mittelwert der Ausschläge der aktiven Bausteine der Gruppe (je höchstens obergrenze), umgerechnet auf 0 bis 100. Ausschlag = Messwert im Verhältnis zur Schwelle. Die Schwelle jedes zählenden Bausteins ist das 75. Perzentil seiner eigenen Historie (oberes Viertel). Gruppen ohne Messwert zählen nicht mit.",
   "gruppen": [
@@ -168,6 +168,12 @@
       "datum": "2026-11-25",
       "text": "Erstes Modell: zehn Bausteine in vier Gruppen, Schwellen = 75. Perzentil der eigenen Historie, Stufengrenzen 35/50/64/80. Live seit 25.11.2026, vorläufig.",
       "text_en": "First model: ten components in four groups, thresholds = 75th percentile of each component's own history, level limits 35/50/64/80. Live since 25 Nov 2026, provisional."
+    },
+    {
+      "version": "1.0",
+      "datum": "2026-11-27",
+      "text": "Festgeschrieben als Version 1.0: gleiche Bausteine, Rechenweg und Schwellen wie v1, der Pegel ändert sich dadurch nicht. Die Stufengrenzen 35/50/64/80 bleiben bis zur Bestätigung nach zwei Wochen Live-Betrieb (um den 9.12.2026) vorläufig.",
+      "text_en": "Frozen as version 1.0: same components, calculation and thresholds as v1, so the gauge does not change. The level limits 35/50/64/80 stay provisional until confirmed after two weeks live (around 9 Dec 2026)."
     }
   ]
 }
