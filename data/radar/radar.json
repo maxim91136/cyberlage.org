@@ -1,5 +1,5 @@
 {
- "abgerufen_am": "2026-11-27T16:14:27+00:00",
+ "abgerufen_am": "2026-11-27T18:14:27+00:00",
  "zeit_bis_kev": {
   "verlauf": [
    {
@@ -410,18 +410,18 @@
    },
    {
     "monat": "2026-11",
-    "n": 38,
-    "n_frisch": 32,
-    "median_frisch": 5.5,
-    "anteil_30": 0.763
+    "n": 39,
+    "n_frisch": 33,
+    "median_frisch": 5,
+    "anteil_30": 0.769
    }
   ],
   "jetzt": {
    "bis": "2026-11-27",
-   "n": 119,
-   "n_frisch": 107,
-   "median_frisch": 5,
-   "anteil_30": 0.731
+   "n": 120,
+   "n_frisch": 108,
+   "median_frisch": 5.0,
+   "anteil_30": 0.733
   },
   "vor_12_monaten": {
    "bis": "2025-11-27",
@@ -438,7 +438,7 @@
    "anteil_30": 0.438
   },
   "frisch_tage": 365,
-  "ohne_datum": 1,
+  "ohne_datum": 3,
   "tempo_reihe": [
    {
     "stand": "2023-11-23",
@@ -5942,8 +5942,8 @@
    },
    {
     "stand": "2026-11-27",
-    "wert": 5,
-    "n": 107
+    "wert": 5.0,
+    "n": 108
    }
   ]
  },
@@ -5968,7 +5968,7 @@
  },
  "sans": {
   "status": "green",
-  "abgerufen_am": "2026-11-27T16:14:26+00:00"
+  "abgerufen_am": "2026-11-27T18:14:26+00:00"
  },
  "ncsc": {
   "advisories_30": 25,

@@ -1805,7 +1805,10 @@
    "CVE-2026-133311",
    "CVE-2026-133323",
    "CVE-2026-133324",
-   "CVE-2026-133469"
+   "CVE-2026-133469",
+   "CVE-2026-120705",
+   "CVE-2026-129243",
+   "CVE-2026-136716"
   ],
   "bsi": [
    "WID-SEC-2026-4846",
@@ -2609,7 +2612,11 @@
  "stufe": "hoch",
  "zusammenfassung": "2026-11-27",
  "offen": {
-  "kev": [],
+  "kev": [
+   "• Drupal Core – <a href=\"https://nvd.nist.gov/vuln/detail/CVE-2026-136716\">CVE-2026-136716</a>",
+   "• OSGeo GeoServer – <a href=\"https://nvd.nist.gov/vuln/detail/CVE-2026-120705\">CVE-2026-120705</a>",
+   "• OSGeo GeoServer – <a href=\"https://nvd.nist.gov/vuln/detail/CVE-2026-129243\">CVE-2026-129243</a>"
+  ],
   "bsi": [
    "• <a href=\"https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4845\">Cacti: Schwachstelle ermöglicht Codeausführung</a>"
   ],
