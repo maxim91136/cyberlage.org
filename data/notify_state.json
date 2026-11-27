@@ -2613,7 +2613,8 @@
   "bsi": [
    "• <a href=\"https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4845\">Cacti: Schwachstelle ermöglicht Codeausführung</a>"
   ],
-  "eu": []
+  "eu": [],
+  "ms": []
  },
  "patches": {
   "ms": {
@@ -2684,5 +2685,6 @@
    }
   }
  },
- "fazit_gesendet": "hoch|hoch|erhoeht"
+ "fazit_gesendet": "hoch|hoch|erhoeht",
+ "stufe_kandidat": null
 }

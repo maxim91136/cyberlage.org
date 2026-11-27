@@ -1,5 +1,5 @@
 {
- "abgerufen_am": "2026-11-27T14:26:35+00:00",
+ "abgerufen_am": "2026-11-27T15:17:39+00:00",
  "zeit_bis_kev": {
   "verlauf": [
    {
@@ -5948,9 +5948,9 @@
   ]
  },
  "trefferquote": {
-  "prognosen": 18,
+  "prognosen": 19,
   "eingetreten": 0,
-  "offen": 18,
+  "offen": 19,
   "reif": 0,
   "reif_eingetreten": 0,
   "quote_reif": null,
@@ -5968,7 +5968,7 @@
  },
  "sans": {
   "status": "green",
-  "abgerufen_am": "2026-11-27T14:26:34+00:00"
+  "abgerufen_am": "2026-11-27T15:17:38+00:00"
  },
  "ncsc": {
   "advisories_30": 25,
