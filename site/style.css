@@ -881,3 +881,4 @@ main .p-rang .p-det>summary{padding:2px 0}
   .menue-knopf::after{content:"▾";margin-left:auto;font-size:13px;color:var(--dim)}
   .leiste.menue-offen .menue-knopf::after{content:"▴"}
 }
+@media (max-width:899px){.menue-knopf{min-height:42px;font-size:19px;font-weight:600}.menue-knopf::after{font-size:15px}}
