@@ -13,6 +13,9 @@ Steve soll nicht zwischen den Chats vermitteln müssen. Wer am Repo arbeitet, li
 
 ## Offen
 
+### Erledigt 27.11., Code-Audit Wartbarkeit Schritt 1: `pipeline/score.py`
+- `main()` (Komplexität 170) in elf kleine Funktionen zerlegt, nur Verschieben von Code, keine Logik geändert. Höchste Komplexität jetzt 27 (Grenze 30). Gegenprobe: `score.py` auf Kopien des Repos mit zwei Stichtagen (26.11., 20.11.) vor und nach dem Umbau, alle Ausgabedateien identisch; 192 Tests grün. Einzige bewusste Abweichung: `modell` wird im Logbuch-Teil immer importiert (vorher nur, wenn der Radar-Teil lief). Noch offen unter Wartbarkeit: `fetch_patches.py` (verdichte_dokument 79, priorisiere 67, hole_quelle 44), `notify.py` ermittle 44, `modell.py` berichte 39, `klicktest.py` pruefe_auditseite 34, `fetch_radar.py` konsens 31, dazu `site/app.js` mit 1732 Zeilen (Hinweis ab 1500).
+
 ### Erledigt 26.11., Audit-Messfehler TLS
 - Die Prüfung „TLS 1.0/1.1 aus“ konnte fälschlich bestehen (jeder Fehler zählte als Absage des Servers). Behoben in `audit/abruf.py` (hier und in der Dreier-Labs-Kopie), Gegenprobe mit lokalem Server. Bis zum nächsten Lauf waren Siegel an dieser Stelle möglicherweise zu optimistisch (nosinglepoint.com hatte TLS-Minimum 1.0, jetzt 1.2). Offen: Ergebnis des nächsten Laufs gegenlesen, bei Cyberlage selbst ebenso.
 

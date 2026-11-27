@@ -340,6 +340,254 @@ def werte_aus(kev, regeln, enisa, stand, bsi=None, eu=None, telegram_link=None, 
     return ergebnis
 
 
+def _archiv_signale(ergebnis, mcfg, stand):
+    """Archiv-Bausteine einrechnen und Signale ordnen; liefert Einzelwerte und Archiv-Ausschläge."""
+    import modell
+    aus = {x["name_en"]: x.get("ausschlag") for x in ergebnis["radar"]["konsens"]["signale"]}
+    einzel = {b["id"]: aus.get(b.get("signal")) for b in mcfg["bausteine"] if b["status"] == "aktiv" and b.get("signal")}
+    # Archiv-Bausteine: Tageswerte aus echten Meldungen (data/radar/historie), Ausschlag = Wert / Schwelle
+    hd = WURZEL / "data" / "radar" / "historie"
+    archiv = modell.archiv_reihen({k: lese_optional(hd / (k + ".json")) for k in ("cert_bund", "ncsc_nl", "eu_kev", "microsoft", "dshield", "ransomware")}, stand.isoformat())
+    arch_aus = {}
+    kon = ergebnis["radar"]["konsens"]
+    for bst in mcfg["bausteine"]:
+        if bst["status"] != "aktiv" or not bst.get("schwelle") or bst["id"] not in archiv:
+            continue
+        reihe_b = [x for x in archiv[bst["id"]] if x["wert"] is not None]
+        arch_aus[bst["id"]] = {x["stand"]: x["wert"] / bst["schwelle"] for x in reihe_b}
+        heute_w = reihe_b[-1]["wert"] if reihe_b and reihe_b[-1]["stand"] == stand.isoformat() else None
+        einzel[bst["id"]] = None if heute_w is None else heute_w / bst["schwelle"]
+        kon["signale"].append({"name": bst["kurz"], "name_en": bst["kurz"], "erhoeht": None if heute_w is None else heute_w >= bst["schwelle"],
+                               "grund": bst["regel"], "grund_en": bst["regel_en"], "art": "extern", "baustein": bst["id"],
+                               "ausschlag": None if heute_w is None else round(heute_w / bst["schwelle"], 2),
+                               "wert": heute_w, "schwelle": bst["schwelle"], "misst": bst["name"], "misst_en": bst["name_en"],
+                               "zeitraum": bst["zeitraum"], "zeitraum_en": bst["zeitraum_en"], "daten_seit": reihe_b[0]["stand"] if reihe_b else None})
+    folge = {}
+    for nr, bst in enumerate(mcfg["bausteine"]):
+        folge[bst.get("signal") or bst["id"]] = nr
+    kon["signale"].sort(key=lambda x: folge.get(x.get("baustein") or x["name_en"], 99))
+    ext = [x for x in kon["signale"] if x["art"] == "extern" and x["erhoeht"] is not None]
+    kon["erhoeht"], kon["bewertet"] = sum(1 for x in ext if x["erhoeht"]), len(ext)
+    return einzel, arch_aus
+
+
+def _modell_gruppen(ergebnis, mcfg, stand, einzel):
+    """Modell-Score, Beobachtungs-Bausteine und Gruppen in den Radar-Score eintragen."""
+    import modell
+    rs = ergebnis["radar"]["konsens"]["score"]
+    ms = modell.score(einzel, mcfg)
+    if ms:
+        rs.update(wert=ms["wert"], signale=ms["signale"], von=ms["von"], gruppen=ms["gruppen"], modell=mcfg["version"])
+    beob = modell.beobachtung_heute(stand, lese_optional(WURZEL / "data" / "bsi" / "warnungen.json"), lese_optional(WURZEL / "data" / "eu" / "kev.json"),
+                                    lese_optional(WURZEL / "data" / "patches" / "microsoft.json"), ergebnis["radar"].get("ncsc"))
+    beob = {b["id"]: beob.get(b["id"]) for b in mcfg["bausteine"] if b["status"] == "beobachtung"}
+    bp = WURZEL / "data" / "radar" / "bausteine.json"
+    bp.write_text(json.dumps(modell.speichern(lese_optional(bp), stand, mcfg["version"], einzel, beob), ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+    rs["beobachtung"] = [dict(b, wert=beob.get(b["id"])) for b in mcfg["bausteine"] if b["status"] == "beobachtung"]
+    rs["modell_gruppen"] = [dict(g, bausteine=[{"id": b["id"], "signal": b.get("signal") or b.get("kurz"), "name": b.get("kurz") or b["name"], "name_en": b.get("kurz") or b["name_en"], "status": b["status"], "historie": b.get("historie"),
+                                                "ausschlag": None if einzel.get(b["id"]) is None else round(einzel[b["id"]], 2)}
+                                               for b in mcfg["bausteine"] if b["gruppe"] == g["id"] and b["status"] == "aktiv"]) for g in mcfg["gruppen"]]
+
+
+def _live_reihe(ergebnis, mcfg, stand, arch_aus):
+    """Live-Reihe des Pegels fortschreiben und mit dem heutigen Modell neu rechnen; liefert sie."""
+    import modell
+    sp = WURZEL / "data" / "radar" / "score.json"
+    bp = WURZEL / "data" / "radar" / "bausteine.json"
+    rs = ergebnis["radar"]["konsens"]["score"]
+    sr = [p for p in (lese_optional(sp) or {}).get("reihe", []) if p["stand"] != stand.isoformat()]
+    # Ein Modell: frühere Live-Tage werden aus den gespeicherten Einzelwerten und den Archivdaten mit dem heutigen Modell neu gerechnet.
+    gesp = {x["stand"]: x.get("aktiv") or {} for x in (lese_optional(bp) or {}).get("reihe", [])}
+    sr = [x for x in sr if x["stand"] in gesp]  # Tage ohne gespeicherte Einzelwerte lassen sich nicht nach dem heutigen Modell rechnen
+    for x in sr:
+        if x["stand"] in gesp:
+            e_d = dict(gesp[x["stand"]])
+            e_d.update({k: v[x["stand"]] for k, v in arch_aus.items() if x["stand"] in v})
+            neu_sc = modell.score(e_d, mcfg)
+            if neu_sc:
+                x.update(wert=neu_sc["wert"], signale=neu_sc["signale"], von=neu_sc["von"], modell=mcfg["version"])
+    sr.append({"stand": stand.isoformat(), "wert": rs["wert"], "signale": rs["signale"], "von": rs["von"], "modell": rs.get("modell")})
+    sp.write_text(json.dumps({"meta": {"name": "Dreier-Pegel (Gesamtscore)", "hinweis": "Tagesstand des vollen Pegels, live gespeichert; die Rückrechnung aus den Archivdaten steht in lage.json"},
+                              "reihe": sr}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+    rs["live_seit"] = sr[0]["stand"]
+    rs["reihe"] = sr[-90:]
+    return sr
+
+
+def _rueckrechnung(ergebnis, regeln, mcfg, stand, reihe, arch_aus, sr):
+    """Rückrechnung, Berichte je Monat/Quartal/Jahr und volle Reihe."""
+    import modell
+    rs = ergebnis["radar"]["konsens"]["score"]
+    rtempo = (ergebnis["radar"].get("zeit_bis_kev") or {}).get("tempo_reihe") or []
+    ar = dict(arch_aus)
+    if regeln.get("erhoeht_ab"):
+        ar["kev_menge"] = {x["stand"]: x["wert"] / regeln["erhoeht_ab"] for x in reihe}
+    tb = (regeln.get("tempo") or {}).get("erhoeht_bis")
+    if tb:
+        ar["tempo"] = {x["stand"]: tb / max(x["wert"], 1.0) for x in rtempo}
+    kev_tage = {x["stand"] for x in reihe}
+    alt = [x for x in modell.rueck_reihe(ar, mcfg) if x["stand"] in kev_tage]
+    live = {x["stand"]: x for x in sr}
+    # Berichte je Monat, Quartal und Jahr: Tagesreihe aus der Rückrechnung, an Live-Tagen der gespeicherte volle Pegel
+    scfg = lese_optional(WURZEL / "config" / "radar_stufen.json") or {}
+    if scfg.get("stufen"):
+        namen_b = {b["id"]: (b.get("kurz") or b["name"], b.get("kurz") or b["name_en"]) for b in mcfg["bausteine"]}
+        ber = modell.berichte([{"stand": x["stand"], "wert": live[x["stand"]]["wert"] if x["stand"] in live else x["ausnutzung"]} for x in alt],
+                              [{"id": b["id"], "name": namen_b[b["id"]][0], "name_en": namen_b[b["id"]][1], "aus": ar[b["id"]]} for b in mcfg["bausteine"] if b["id"] in ar],
+                              lese_optional(WURZEL / "data" / "logbuch.json") or {}, scfg["stufen"], stand.isoformat(), obergrenze=mcfg.get("obergrenze", 2.0))
+        (WURZEL / "site" / "data").mkdir(parents=True, exist_ok=True)
+        (WURZEL / "site" / "data" / "berichte.json").write_text(json.dumps({
+            "hinweis": "Berichte je abgeschlossenem Monat, Quartal und Jahr. Vor dem %s aus den Archivdaten zurückgerechnet (acht Bausteine, ohne die Gruppe Externe Einschätzungen), ab dann der gespeicherte Tagesstand aller Bausteine. Regeln: RULES.md, Abschnitt Berichte." % sr[0]["stand"],
+            "stand": stand.isoformat(), "daten_seit": alt[0]["stand"] if alt else None, "live_seit": sr[0]["stand"], "berichte": ber}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+    rs["reihe_voll"] = [{"stand": x["stand"], "ausnutzung": x["ausnutzung"], "n": x["n"],
+                         "wert": live[x["stand"]]["wert"] if x["stand"] in live else None,
+                         "signale": live[x["stand"]]["signale"] if x["stand"] in live else None} for x in alt]
+
+
+def _radar_score(ergebnis, regeln, stand, reihe):
+    """Radar-Score samt Modell, Live-Reihe und Berichten bestimmen."""
+    mcfg = lese_optional(WURZEL / "config" / "modell.json")
+    einzel, arch_aus = _archiv_signale(ergebnis, mcfg, stand)
+    _modell_gruppen(ergebnis, mcfg, stand, einzel)
+    sr = _live_reihe(ergebnis, mcfg, stand, arch_aus)
+    _rueckrechnung(ergebnis, regeln, mcfg, stand, reihe, arch_aus, sr)
+
+
+def _tempo(ergebnis, regeln, stand):
+    """Tempo bis KEV in das Ergebnis übernehmen."""
+    import fetch_radar
+    tcfg = regeln.get("tempo")
+    zk = (ergebnis.get("radar") or {}).get("zeit_bis_kev") or {}
+    tj = zk.get("jetzt") or {}
+    if tcfg and tj:
+        ergebnis["tempo"] = {"wert": tj.get("median_frisch"), "n": tj.get("n_frisch"), "fenster_tage": tcfg.get("fenster_tage", 90),
+                             "stufe": fetch_radar.tempo_stufe(tj.get("median_frisch"), tj.get("n_frisch"), tcfg),
+                             "marken": {"erhoeht_bis": tcfg["erhoeht_bis"], "hoch_bis": tcfg["hoch_bis"]},
+                             "stand": stand.isoformat(), "reihe": zk.get("tempo_reihe", [])[-90:]}
+        zk.pop("tempo_reihe", None)  # steht gekürzt unter tempo.reihe, vollständig in data/radar/radar.json
+
+
+def _treiber(ergebnis, rsc, stufen_cfg):
+    """Treiber-Satz und Hinweis zum Fazit ergänzen."""
+    sig = [x for x in ergebnis["radar"]["konsens"]["signale"] if isinstance(x.get("ausschlag"), (int, float))]
+    ueber = sorted([x for x in sig if x["ausschlag"] >= 1], key=lambda x: -x["ausschlag"])
+    if ergebnis.get("fazit") and sig:
+        de = lambda v: ("%.1f" % v).replace(".", ",")
+        top = ueber[:3]
+        ergebnis["fazit"]["treiber"] = ("%d von %d Bausteinen liegen an oder über ihrer Schwelle" % (len(ueber), len(sig))) + (
+            ", am stärksten: " + ", ".join("%s (%s-fach)" % (x["name"], de(x["ausschlag"])) for x in top) + "." if top else ".")
+        ergebnis["fazit"]["treiber_en"] = ("%d of %d components are at or above their threshold" % (len(ueber), len(sig))) + (
+            ", strongest: " + ", ".join("%s (%.1fx)" % (x["name_en"], x["ausschlag"]) for x in top) + "." if top else ".")
+        ergebnis["fazit"]["stufe_satz"], ergebnis["fazit"]["stufe_satz_en"] = rsc["stufe"]["satz"], rsc["stufe"]["satz_en"]
+        th = (stufen_cfg.get("treiber_hinweise") or {}).get((top[0].get("baustein") or top[0]["name_en"]) if top else "")
+        if th:
+            ergebnis["fazit"]["hinweis"] += " " + th["de"]
+            ergebnis["fazit"]["hinweis_en"] += " " + th["en"]
+        ergebnis["fazit"]["text"] += " " + ergebnis["fazit"]["treiber"]
+        ergebnis["fazit"]["text_en"] += " " + ergebnis["fazit"]["treiber_en"]
+
+
+def _stufe_und_fazit(ergebnis):
+    """Radar-Stufe und Fazit setzen; liefert Stufen-Konfiguration und Radar-Score."""
+    stufen_cfg = lese_optional(WURZEL / "config" / "radar_stufen.json")
+    rsc = ((ergebnis.get("radar") or {}).get("konsens") or {}).get("score")
+    if rsc and stufen_cfg:
+        st = radar_stufe(rsc["wert"], stufen_cfg)
+        if st:
+            rsc["stufe"] = {"name": st["name"], "name_en": st["name_en"], "ampel": st.get("ampel"), "satz": st["satz"], "satz_en": st["satz_en"], "status": stufen_cfg.get("status")}
+        ergebnis["fazit"] = fazit(rsc, ergebnis["stufe"], stufen_cfg, (ergebnis.get("tempo") or {}).get("stufe"))
+        _treiber(ergebnis, rsc, stufen_cfg)
+        ergebnis["radar_skala"] = {"status": stufen_cfg.get("status"),
+                                   "stufen": [{"bis": x["bis"], "name": x["name"], "name_en": x["name_en"], "ampel": x.get("ampel")} for x in stufen_cfg["stufen"]]}
+    return stufen_cfg, rsc
+
+
+def _patches(ergebnis):
+    """Patch-Daten (Microsoft, Priorität, Lifecycle, Hersteller) ins Ergebnis übernehmen."""
+    ms = lese_optional(WURZEL / "data" / "patches" / "microsoft.json")
+    if ms and ms.get("monate"):
+        kompakt = {k: {f: w for f, w in m.items() if f != "cve_liste"} for k, m in ms["monate"].items()}
+        ergebnis["patches"] = {"microsoft": {"meta": ms.get("meta"), "monate": kompakt}}
+    prio = lese_optional(WURZEL / "data" / "patches" / "prioritaet.json")
+    if prio and prio.get("liste") is not None:
+        bcfg = lese_optional(WURZEL / "config" / "bereiche.json")
+        if bcfg and isinstance(prio.get("liste"), list):  # Bereich je Eintrag: Quelle entscheidet, bei Microsoft der Titel der Lücke
+            import bereiche
+            import fetch_patches
+            nach_quelle = {q["name"]: q.get("bereich") for q in fetch_patches.QUELLEN}
+            for e in prio["liste"]:
+                e["bereich"] = nach_quelle.get(e.get("quelle")) or bereiche.zuordnen("Microsoft", e.get("titel", ""), bcfg)
+        ergebnis.setdefault("patches", {})["prioritaet"] = prio
+    life = lese_optional(WURZEL / "data" / "patches" / "lifecycle.json")
+    if life and life.get("produkte"):
+        ergebnis.setdefault("patches", {})["lifecycle"] = life
+    hers = lese_optional(WURZEL / "data" / "patches" / "hersteller.json")
+    if hers and hers.get("quellen"):
+        ergebnis.setdefault("patches", {})["hersteller"] = {"meta": hers.get("meta"), "quellen": {k: {f: w for f, w in q.items() if f != "reihe"} for k, q in hers["quellen"].items()}}
+
+
+def _gesamtscore(ergebnis, regeln, reihe, rsc, stufen_cfg):
+    """KEV-Menge und Dreier-Pegel als Gesamtscore ins Ergebnis schreiben."""
+    ergebnis["kev_menge"] = {"wert": reihe[-1]["wert"], "stufe": ergebnis["stufe"], "marken": {"erhoeht_ab": regeln.get("erhoeht_ab"), "hoch_ab": regeln.get("hoch_ab")},
+                             "live_seit": next((p["stand"] for p in reihe if p["quelle"] == "live"), None), "reihe": reihe[-90:]}
+    # Der Dreier-Pegel ist der Gesamtscore aus allen Bausteinen (KEV-Menge, Tempo bis KEV, externe Signale).
+    ergebnis["kev_stufe"] = ergebnis["stufe"]
+    if rsc and rsc.get("stufe"):
+        ergebnis["stufe"] = next((x["ampel"] for x in stufen_cfg["stufen"] if x["name"] == rsc["stufe"]["name"]), None)
+        ergebnis["stufe_begruendung"] = "Gesamtscore %s von 100 aus %s von %s Bausteinen." % (rsc["wert"], rsc["signale"], rsc["von"])
+        ergebnis["stufe_begruendung_en"] = "Overall score %s of 100 from %s of %s components." % (rsc["wert"], rsc["signale"], rsc["von"])
+        ergebnis["pegel"] = {"wert": rsc["wert"], "signale": rsc["signale"], "von": rsc["von"], "stufe": rsc["stufe"], "status": stufen_cfg.get("status"),
+                             "live_seit": rsc.get("live_seit"), "modell": rsc.get("modell"), "von_bausteine": rsc.get("von"), "reihe": rsc.pop("reihe_voll", rsc.get("reihe", []))}
+    else:
+        ergebnis["stufe"], ergebnis["stufe_begruendung"], ergebnis["stufe_begruendung_en"], ergebnis["pegel"] = None, "Der Gesamtscore ist noch nicht berechenbar.", "The overall score cannot be computed yet.", None
+
+
+def _logbuch(ergebnis):
+    """Logbuch: Stufenwechsel eintragen und die neuesten Einträge ausgeben."""
+    import modell
+    # Logbuch: Stufenwechsel der Live-Reihe eintragen, die neuesten Einträge mit ausgeben
+    lbp = WURZEL / "data" / "logbuch.json"
+    lb = lese_optional(lbp) or {"eintraege": []}
+    try:
+        skala = (ergebnis.get("radar_skala") or {}).get("stufen") or []
+        if skala:
+            def _stufe(w):
+                return next((x["ampel"] for x in skala if w < x["bis"]), skala[-1]["ampel"])
+            namen = {x["ampel"]: (x["name"], x["name_en"]) for x in skala}
+            live = [x for x in (lese_optional(WURZEL / "data" / "radar" / "score.json") or {}).get("reihe", []) if isinstance(x.get("wert"), (int, float))]
+            live = sorted(live, key=lambda x: x["stand"])
+            ohne = [x["name"] for x in ((ergebnis.get("radar") or {}).get("konsens") or {}).get("signale", []) if not isinstance(x.get("ausschlag"), (int, float))]
+            neu = modell.logbuch_stufenwechsel(lb, live, _stufe, namen) + modell.logbuch_hoechststand(lb, live)
+            if ergebnis.get("stand") and (ergebnis.get("pegel") or {}).get("von"):
+                neu += modell.logbuch_ausfall(lb, ergebnis["stand"], ohne)
+            if neu:
+                lbp.write_text(json.dumps(lb, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    except Exception as e:  # das Logbuch darf den Lauf nicht aufhalten
+        print("Hinweis: Logbuch nicht fortgeschrieben:", e)
+    ergebnis["logbuch"] = sorted(lb.get("eintraege", []), key=lambda e: e["datum"], reverse=True)[:40]
+
+
+def _schmale_pegelreihe(ergebnis):
+    """Lange Tagesreihe des Pegels spaltenweise ablegen."""
+    pg = ergebnis.get("pegel") or {}
+    lang = pg.get("reihe") or []
+    if len(lang) > 1 and all(date.fromisoformat(lang[i + 1]["stand"]) - date.fromisoformat(lang[i]["stand"]) == timedelta(days=1) for i in range(len(lang) - 1)):
+        pg["reihe_k"] = {"start": lang[0]["stand"], "a": [x["ausnutzung"] for x in lang], "n": [x["n"] for x in lang],
+                         "live": {x["stand"]: [x["wert"], x["signale"]] for x in lang if x.get("wert") is not None}}
+        del pg["reihe"]
+
+
+def _status_schreiben(ergebnis):
+    """Kleine Statusdatei für die Überwachung schreiben."""
+    sig = [x for x in ((ergebnis.get("radar") or {}).get("konsens") or {}).get("signale", [])]
+    fehlend = [x["name"] for x in sig if not isinstance(x.get("ausschlag"), (int, float))]
+    pgs = ergebnis.get("pegel") or {}
+    status = {"stand": ergebnis.get("stand"), "abgerufen_am": (ergebnis.get("radar") or {}).get("abgerufen_am"), "stufe": ergebnis.get("stufe"),
+              "pegel": pgs.get("wert"), "bausteine": pgs.get("signale"), "von": pgs.get("von"), "fehlend": fehlend,
+              "vollstaendig": bool(pgs.get("von")) and pgs.get("signale") == pgs.get("von") and not fehlend}
+    (WURZEL / "site" / "data" / "status.json").write_text(json.dumps(status, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+
+
 def main(argv):
     stand = datetime.now(timezone.utc).date()
     if "--stand" in argv:
@@ -364,192 +612,17 @@ def main(argv):
     (WURZEL / "site" / "data").mkdir(parents=True, exist_ok=True)
     (WURZEL / "site" / "data" / "pegel.json").write_text(pfad.read_text(encoding="utf-8"), encoding="utf-8")  # auch unter cyberlage.org/data/pegel.json abrufbar
     if ergebnis.get("radar") and (ergebnis["radar"].get("konsens") or {}).get("score"):
-        sp = WURZEL / "data" / "radar" / "score.json"
-        rs = ergebnis["radar"]["konsens"]["score"]
-        import modell
-        mcfg = lese_optional(WURZEL / "config" / "modell.json")
-        aus = {x["name_en"]: x.get("ausschlag") for x in ergebnis["radar"]["konsens"]["signale"]}
-        einzel = {b["id"]: aus.get(b.get("signal")) for b in mcfg["bausteine"] if b["status"] == "aktiv" and b.get("signal")}
-        # Archiv-Bausteine: Tageswerte aus echten Meldungen (data/radar/historie), Ausschlag = Wert / Schwelle
-        hd = WURZEL / "data" / "radar" / "historie"
-        archiv = modell.archiv_reihen({k: lese_optional(hd / (k + ".json")) for k in ("cert_bund", "ncsc_nl", "eu_kev", "microsoft", "dshield", "ransomware")}, stand.isoformat())
-        arch_aus = {}
-        kon = ergebnis["radar"]["konsens"]
-        for bst in mcfg["bausteine"]:
-            if bst["status"] != "aktiv" or not bst.get("schwelle") or bst["id"] not in archiv:
-                continue
-            reihe_b = [x for x in archiv[bst["id"]] if x["wert"] is not None]
-            arch_aus[bst["id"]] = {x["stand"]: x["wert"] / bst["schwelle"] for x in reihe_b}
-            heute_w = reihe_b[-1]["wert"] if reihe_b and reihe_b[-1]["stand"] == stand.isoformat() else None
-            einzel[bst["id"]] = None if heute_w is None else heute_w / bst["schwelle"]
-            kon["signale"].append({"name": bst["kurz"], "name_en": bst["kurz"], "erhoeht": None if heute_w is None else heute_w >= bst["schwelle"],
-                                   "grund": bst["regel"], "grund_en": bst["regel_en"], "art": "extern", "baustein": bst["id"],
-                                   "ausschlag": None if heute_w is None else round(heute_w / bst["schwelle"], 2),
-                                   "wert": heute_w, "schwelle": bst["schwelle"], "misst": bst["name"], "misst_en": bst["name_en"],
-                                   "zeitraum": bst["zeitraum"], "zeitraum_en": bst["zeitraum_en"], "daten_seit": reihe_b[0]["stand"] if reihe_b else None})
-        folge = {}
-        for nr, bst in enumerate(mcfg["bausteine"]):
-            folge[bst.get("signal") or bst["id"]] = nr
-        kon["signale"].sort(key=lambda x: folge.get(x.get("baustein") or x["name_en"], 99))
-        ext = [x for x in kon["signale"] if x["art"] == "extern" and x["erhoeht"] is not None]
-        kon["erhoeht"], kon["bewertet"] = sum(1 for x in ext if x["erhoeht"]), len(ext)
-        ms = modell.score(einzel, mcfg)
-        if ms:
-            rs.update(wert=ms["wert"], signale=ms["signale"], von=ms["von"], gruppen=ms["gruppen"], modell=mcfg["version"])
-        beob = modell.beobachtung_heute(stand, lese_optional(WURZEL / "data" / "bsi" / "warnungen.json"), lese_optional(WURZEL / "data" / "eu" / "kev.json"),
-                                        lese_optional(WURZEL / "data" / "patches" / "microsoft.json"), ergebnis["radar"].get("ncsc"))
-        beob = {b["id"]: beob.get(b["id"]) for b in mcfg["bausteine"] if b["status"] == "beobachtung"}
-        bp = WURZEL / "data" / "radar" / "bausteine.json"
-        bp.write_text(json.dumps(modell.speichern(lese_optional(bp), stand, mcfg["version"], einzel, beob), ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
-        rs["beobachtung"] = [dict(b, wert=beob.get(b["id"])) for b in mcfg["bausteine"] if b["status"] == "beobachtung"]
-        rs["modell_gruppen"] = [dict(g, bausteine=[{"id": b["id"], "signal": b.get("signal") or b.get("kurz"), "name": b.get("kurz") or b["name"], "name_en": b.get("kurz") or b["name_en"], "status": b["status"], "historie": b.get("historie"),
-                                                    "ausschlag": None if einzel.get(b["id"]) is None else round(einzel[b["id"]], 2)}
-                                                   for b in mcfg["bausteine"] if b["gruppe"] == g["id"] and b["status"] == "aktiv"]) for g in mcfg["gruppen"]]
-        sr = [p for p in (lese_optional(sp) or {}).get("reihe", []) if p["stand"] != stand.isoformat()]
-        # Ein Modell: frühere Live-Tage werden aus den gespeicherten Einzelwerten und den Archivdaten mit dem heutigen Modell neu gerechnet.
-        gesp = {x["stand"]: x.get("aktiv") or {} for x in (lese_optional(bp) or {}).get("reihe", [])}
-        sr = [x for x in sr if x["stand"] in gesp]  # Tage ohne gespeicherte Einzelwerte lassen sich nicht nach dem heutigen Modell rechnen
-        for x in sr:
-            if x["stand"] in gesp:
-                e_d = dict(gesp[x["stand"]])
-                e_d.update({k: v[x["stand"]] for k, v in arch_aus.items() if x["stand"] in v})
-                neu_sc = modell.score(e_d, mcfg)
-                if neu_sc:
-                    x.update(wert=neu_sc["wert"], signale=neu_sc["signale"], von=neu_sc["von"], modell=mcfg["version"])
-        sr.append({"stand": stand.isoformat(), "wert": rs["wert"], "signale": rs["signale"], "von": rs["von"], "modell": rs.get("modell")})
-        sp.write_text(json.dumps({"meta": {"name": "Dreier-Pegel (Gesamtscore)", "hinweis": "Tagesstand des vollen Pegels, live gespeichert; die Rückrechnung aus den Archivdaten steht in lage.json"},
-                                  "reihe": sr}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
-        rs["live_seit"] = sr[0]["stand"]
-        rs["reihe"] = sr[-90:]
-        rtempo = (ergebnis["radar"].get("zeit_bis_kev") or {}).get("tempo_reihe") or []
-        ar = dict(arch_aus)
-        if regeln.get("erhoeht_ab"):
-            ar["kev_menge"] = {x["stand"]: x["wert"] / regeln["erhoeht_ab"] for x in reihe}
-        tb = (regeln.get("tempo") or {}).get("erhoeht_bis")
-        if tb:
-            ar["tempo"] = {x["stand"]: tb / max(x["wert"], 1.0) for x in rtempo}
-        kev_tage = {x["stand"] for x in reihe}
-        alt = [x for x in modell.rueck_reihe(ar, mcfg) if x["stand"] in kev_tage]
-        live = {x["stand"]: x for x in sr}
-        # Berichte je Monat, Quartal und Jahr: Tagesreihe aus der Rückrechnung, an Live-Tagen der gespeicherte volle Pegel
-        scfg = lese_optional(WURZEL / "config" / "radar_stufen.json") or {}
-        if scfg.get("stufen"):
-            namen_b = {b["id"]: (b.get("kurz") or b["name"], b.get("kurz") or b["name_en"]) for b in mcfg["bausteine"]}
-            ber = modell.berichte([{"stand": x["stand"], "wert": live[x["stand"]]["wert"] if x["stand"] in live else x["ausnutzung"]} for x in alt],
-                                  [{"id": b["id"], "name": namen_b[b["id"]][0], "name_en": namen_b[b["id"]][1], "aus": ar[b["id"]]} for b in mcfg["bausteine"] if b["id"] in ar],
-                                  lese_optional(WURZEL / "data" / "logbuch.json") or {}, scfg["stufen"], stand.isoformat(), obergrenze=mcfg.get("obergrenze", 2.0))
-            (WURZEL / "site" / "data").mkdir(parents=True, exist_ok=True)
-            (WURZEL / "site" / "data" / "berichte.json").write_text(json.dumps({
-                "hinweis": "Berichte je abgeschlossenem Monat, Quartal und Jahr. Vor dem %s aus den Archivdaten zurückgerechnet (acht Bausteine, ohne die Gruppe Externe Einschätzungen), ab dann der gespeicherte Tagesstand aller Bausteine. Regeln: RULES.md, Abschnitt Berichte." % sr[0]["stand"],
-                "stand": stand.isoformat(), "daten_seit": alt[0]["stand"] if alt else None, "live_seit": sr[0]["stand"], "berichte": ber}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
-        rs["reihe_voll"] = [{"stand": x["stand"], "ausnutzung": x["ausnutzung"], "n": x["n"],
-                             "wert": live[x["stand"]]["wert"] if x["stand"] in live else None,
-                             "signale": live[x["stand"]]["signale"] if x["stand"] in live else None} for x in alt]
-    import fetch_radar
-    tcfg = regeln.get("tempo")
-    zk = (ergebnis.get("radar") or {}).get("zeit_bis_kev") or {}
-    tj = zk.get("jetzt") or {}
-    if tcfg and tj:
-        ergebnis["tempo"] = {"wert": tj.get("median_frisch"), "n": tj.get("n_frisch"), "fenster_tage": tcfg.get("fenster_tage", 90),
-                             "stufe": fetch_radar.tempo_stufe(tj.get("median_frisch"), tj.get("n_frisch"), tcfg),
-                             "marken": {"erhoeht_bis": tcfg["erhoeht_bis"], "hoch_bis": tcfg["hoch_bis"]},
-                             "stand": stand.isoformat(), "reihe": zk.get("tempo_reihe", [])[-90:]}
-        zk.pop("tempo_reihe", None)  # steht gekürzt unter tempo.reihe, vollständig in data/radar/radar.json
-    stufen_cfg = lese_optional(WURZEL / "config" / "radar_stufen.json")
-    rsc = ((ergebnis.get("radar") or {}).get("konsens") or {}).get("score")
-    if rsc and stufen_cfg:
-        st = radar_stufe(rsc["wert"], stufen_cfg)
-        if st:
-            rsc["stufe"] = {"name": st["name"], "name_en": st["name_en"], "ampel": st.get("ampel"), "satz": st["satz"], "satz_en": st["satz_en"], "status": stufen_cfg.get("status")}
-        ergebnis["fazit"] = fazit(rsc, ergebnis["stufe"], stufen_cfg, (ergebnis.get("tempo") or {}).get("stufe"))
-        sig = [x for x in ergebnis["radar"]["konsens"]["signale"] if isinstance(x.get("ausschlag"), (int, float))]
-        ueber = sorted([x for x in sig if x["ausschlag"] >= 1], key=lambda x: -x["ausschlag"])
-        if ergebnis.get("fazit") and sig:
-            de = lambda v: ("%.1f" % v).replace(".", ",")
-            top = ueber[:3]
-            ergebnis["fazit"]["treiber"] = ("%d von %d Bausteinen liegen an oder über ihrer Schwelle" % (len(ueber), len(sig))) + (
-                ", am stärksten: " + ", ".join("%s (%s-fach)" % (x["name"], de(x["ausschlag"])) for x in top) + "." if top else ".")
-            ergebnis["fazit"]["treiber_en"] = ("%d of %d components are at or above their threshold" % (len(ueber), len(sig))) + (
-                ", strongest: " + ", ".join("%s (%.1fx)" % (x["name_en"], x["ausschlag"]) for x in top) + "." if top else ".")
-            ergebnis["fazit"]["stufe_satz"], ergebnis["fazit"]["stufe_satz_en"] = rsc["stufe"]["satz"], rsc["stufe"]["satz_en"]
-            th = (stufen_cfg.get("treiber_hinweise") or {}).get((top[0].get("baustein") or top[0]["name_en"]) if top else "")
-            if th:
-                ergebnis["fazit"]["hinweis"] += " " + th["de"]
-                ergebnis["fazit"]["hinweis_en"] += " " + th["en"]
-            ergebnis["fazit"]["text"] += " " + ergebnis["fazit"]["treiber"]
-            ergebnis["fazit"]["text_en"] += " " + ergebnis["fazit"]["treiber_en"]
-        ergebnis["radar_skala"] = {"status": stufen_cfg.get("status"),
-                                   "stufen": [{"bis": x["bis"], "name": x["name"], "name_en": x["name_en"], "ampel": x.get("ampel")} for x in stufen_cfg["stufen"]]}
-    ms = lese_optional(WURZEL / "data" / "patches" / "microsoft.json")
-    if ms and ms.get("monate"):
-        kompakt = {k: {f: w for f, w in m.items() if f != "cve_liste"} for k, m in ms["monate"].items()}
-        ergebnis["patches"] = {"microsoft": {"meta": ms.get("meta"), "monate": kompakt}}
-    prio = lese_optional(WURZEL / "data" / "patches" / "prioritaet.json")
-    if prio and prio.get("liste") is not None:
-        bcfg = lese_optional(WURZEL / "config" / "bereiche.json")
-        if bcfg and isinstance(prio.get("liste"), list):  # Bereich je Eintrag: Quelle entscheidet, bei Microsoft der Titel der Lücke
-            import bereiche
-            import fetch_patches
-            nach_quelle = {q["name"]: q.get("bereich") for q in fetch_patches.QUELLEN}
-            for e in prio["liste"]:
-                e["bereich"] = nach_quelle.get(e.get("quelle")) or bereiche.zuordnen("Microsoft", e.get("titel", ""), bcfg)
-        ergebnis.setdefault("patches", {})["prioritaet"] = prio
-    life = lese_optional(WURZEL / "data" / "patches" / "lifecycle.json")
-    if life and life.get("produkte"):
-        ergebnis.setdefault("patches", {})["lifecycle"] = life
-    hers = lese_optional(WURZEL / "data" / "patches" / "hersteller.json")
-    if hers and hers.get("quellen"):
-        ergebnis.setdefault("patches", {})["hersteller"] = {"meta": hers.get("meta"), "quellen": {k: {f: w for f, w in q.items() if f != "reihe"} for k, q in hers["quellen"].items()}}
-    ergebnis["kev_menge"] = {"wert": reihe[-1]["wert"], "stufe": ergebnis["stufe"], "marken": {"erhoeht_ab": regeln.get("erhoeht_ab"), "hoch_ab": regeln.get("hoch_ab")},
-                             "live_seit": next((p["stand"] for p in reihe if p["quelle"] == "live"), None), "reihe": reihe[-90:]}
-    # Der Dreier-Pegel ist der Gesamtscore aus allen Bausteinen (KEV-Menge, Tempo bis KEV, externe Signale).
-    ergebnis["kev_stufe"] = ergebnis["stufe"]
-    if rsc and rsc.get("stufe"):
-        ergebnis["stufe"] = next((x["ampel"] for x in stufen_cfg["stufen"] if x["name"] == rsc["stufe"]["name"]), None)
-        ergebnis["stufe_begruendung"] = "Gesamtscore %s von 100 aus %s von %s Bausteinen." % (rsc["wert"], rsc["signale"], rsc["von"])
-        ergebnis["stufe_begruendung_en"] = "Overall score %s of 100 from %s of %s components." % (rsc["wert"], rsc["signale"], rsc["von"])
-        ergebnis["pegel"] = {"wert": rsc["wert"], "signale": rsc["signale"], "von": rsc["von"], "stufe": rsc["stufe"], "status": stufen_cfg.get("status"),
-                             "live_seit": rsc.get("live_seit"), "modell": rsc.get("modell"), "von_bausteine": rsc.get("von"), "reihe": rsc.pop("reihe_voll", rsc.get("reihe", []))}
-    else:
-        ergebnis["stufe"], ergebnis["stufe_begruendung"], ergebnis["stufe_begruendung_en"], ergebnis["pegel"] = None, "Der Gesamtscore ist noch nicht berechenbar.", "The overall score cannot be computed yet.", None
+        _radar_score(ergebnis, regeln, stand, reihe)
+    _tempo(ergebnis, regeln, stand)
+    stufen_cfg, rsc = _stufe_und_fazit(ergebnis)
+    _patches(ergebnis)
+    _gesamtscore(ergebnis, regeln, reihe, rsc, stufen_cfg)
     ziel = WURZEL / "site" / "data" / "lage.json"
     ziel.parent.mkdir(parents=True, exist_ok=True)
-    # Logbuch: Stufenwechsel der Live-Reihe eintragen, die neuesten Einträge mit ausgeben
-    lbp = WURZEL / "data" / "logbuch.json"
-    lb = lese_optional(lbp) or {"eintraege": []}
-    try:
-        skala = (ergebnis.get("radar_skala") or {}).get("stufen") or []
-        if skala:
-            def _stufe(w):
-                return next((x["ampel"] for x in skala if w < x["bis"]), skala[-1]["ampel"])
-            namen = {x["ampel"]: (x["name"], x["name_en"]) for x in skala}
-            live = [x for x in (lese_optional(WURZEL / "data" / "radar" / "score.json") or {}).get("reihe", []) if isinstance(x.get("wert"), (int, float))]
-            live = sorted(live, key=lambda x: x["stand"])
-            ohne = [x["name"] for x in ((ergebnis.get("radar") or {}).get("konsens") or {}).get("signale", []) if not isinstance(x.get("ausschlag"), (int, float))]
-            neu = modell.logbuch_stufenwechsel(lb, live, _stufe, namen) + modell.logbuch_hoechststand(lb, live)
-            if ergebnis.get("stand") and (ergebnis.get("pegel") or {}).get("von"):
-                neu += modell.logbuch_ausfall(lb, ergebnis["stand"], ohne)
-            if neu:
-                lbp.write_text(json.dumps(lb, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-    except Exception as e:  # das Logbuch darf den Lauf nicht aufhalten
-        print("Hinweis: Logbuch nicht fortgeschrieben:", e)
-    ergebnis["logbuch"] = sorted(lb.get("eintraege", []), key=lambda e: e["datum"], reverse=True)[:40]
-    # Schlanke Ausgabe: die lange Tagesreihe des Pegels spaltenweise (ein Wert je Tag ab "start"), ohne Einrückung
-    pg = ergebnis.get("pegel") or {}
-    lang = pg.get("reihe") or []
-    if len(lang) > 1 and all(date.fromisoformat(lang[i + 1]["stand"]) - date.fromisoformat(lang[i]["stand"]) == timedelta(days=1) for i in range(len(lang) - 1)):
-        pg["reihe_k"] = {"start": lang[0]["stand"], "a": [x["ausnutzung"] for x in lang], "n": [x["n"] for x in lang],
-                         "live": {x["stand"]: [x["wert"], x["signale"]] for x in lang if x.get("wert") is not None}}
-        del pg["reihe"]
+    _logbuch(ergebnis)
+    _schmale_pegelreihe(ergebnis)
     ziel.write_text(json.dumps(ergebnis, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
-    # Kleine Statusdatei für die Überwachung: Stand, Pegel und ob alle Bausteine einen Wert haben
-    sig = [x for x in ((ergebnis.get("radar") or {}).get("konsens") or {}).get("signale", [])]
-    fehlend = [x["name"] for x in sig if not isinstance(x.get("ausschlag"), (int, float))]
-    pgs = ergebnis.get("pegel") or {}
-    status = {"stand": ergebnis.get("stand"), "abgerufen_am": (ergebnis.get("radar") or {}).get("abgerufen_am"), "stufe": ergebnis.get("stufe"),
-              "pegel": pgs.get("wert"), "bausteine": pgs.get("signale"), "von": pgs.get("von"), "fehlend": fehlend,
-              "vollstaendig": bool(pgs.get("von")) and pgs.get("signale") == pgs.get("von") and not fehlend}
-    (WURZEL / "site" / "data" / "status.json").write_text(json.dumps(status, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+    _status_schreiben(ergebnis)
     print(f"OK: {ziel.relative_to(WURZEL)} (Stand {stand}, Dreier-Pegel: {ergebnis['stufe']}, KEV-Menge: {ergebnis['kev_stufe']})")
     return 0
 
