@@ -300,3 +300,5 @@ Lokal mit Playwright (1280 px und 390 px, Deutsch und Englisch, alle Klappen off
 - 27.11.2026: Remote-Branch probe-ms (meine Probe-Commits) über Chrome gelöscht; quellen-probe (nicht von mir, Citrix-Probe) bleibt.
 - 27.11.2026: Auch quellen-probe auf Steves Wunsch gelöscht; am Remote nur noch main.
 - 27.11.2026: Patch-Bereich: Windows-Patch-Level jetzt als gleichartige Zeile in der Liste (kein eigener Kasten mehr), Liste bündig mit den Kästen, mehr Abstand zu /termine. Desktop und Handy angesehen.
+
+- Erledigt 27.11., einheitliche Kontaktadresse: `security.txt` nennt jetzt `kontakt@cyberlage.org` (Weiterleitung über Cloudflare Email Routing, gleiches Schema auf allen Domains von Dreier Labs). Das Impressum bleibt bei `kontakt@dreierlabs.com`.
