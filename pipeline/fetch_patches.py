@@ -203,6 +203,73 @@ def verdichte_systeme(zaehler, fixe):
     return res
 
 
+def _ist_chromium(titel):
+    return titel.lower().startswith("chromium") or "in google chrome prior to" in titel.lower()
+
+
+def _chromium_luecke(v, titel, cve, kev, chrom):
+    """Chromium-Lücke: höchsten Edge- und Chrome-Stand merken, ausgenutzte Einträge sammeln."""
+    for r in v.get("Remediations") or []:
+        fb = str(r.get("FixedBuild") or "").strip()
+        if r.get("Type") == 2 and _vt(fb) and (not chrom["edge"] or _vt(fb) > _vt(chrom["edge"])):
+            chrom["edge"] = fb
+    mv = re.search(r"prior to ([\d.]{5,})", titel)
+    if mv and _vt(mv.group(1)) and (not chrom["chrome"] or _vt(mv.group(1)) > _vt(chrom["chrome"])):
+        chrom["chrome"] = mv.group(1)
+    ex_c = " ".join(_wert(t.get("Description")) for t in (v.get("Threats") or []) if t.get("Type") == 1)
+    if cve in kev or re.search(r"Exploited:\s*Yes", ex_c, re.I):
+        chrom["kev"].append({"cve": cve, "titel": titel[:110]})
+
+
+def _produkt_namen(v, produkte):
+    """Produktnamen aller Statuseinträge einer Lücke."""
+    return [produkte.get(str(pid), "") for st in v.get("ProductStatuses") or [] for pid in st.get("ProductID") or []]
+
+
+def _bedrohungen(v):
+    """Schweregrad, Auswirkung und Ausnutzungstext (erster Treffer je Art)."""
+    sev, imp, ex_text = None, None, ""
+    for t in v.get("Threats") or []:
+        art = t.get("Type")
+        text = _wert(t.get("Description"))
+        if art == 3 and sev is None:
+            sev = text
+        elif art == 0 and imp is None:
+            imp = text
+        elif art == 1 and not ex_text:
+            ex_text = text
+    return sev, imp, ex_text
+
+
+def _os_zaehlen(v, produkte, sev, ist_aus, os_zaehler, os_fixe):
+    """Je Betriebssystem Lücken, kritische und ausgenutzte zählen sowie die Fix-Builds."""
+    os_da = {k for k in (os_schluessel(n) for n in _produkt_namen(v, produkte)) if k}
+    for k in os_da:
+        z = os_zaehler.setdefault(k, {"cves": 0, "kritisch": 0, "ausgenutzt": 0})
+        z["cves"] += 1
+        z["kritisch"] += 1 if sev == "Critical" else 0
+        z["ausgenutzt"] += 1 if ist_aus else 0
+    for k, bk in os_fix(v, produkte).items():
+        os_fixe.setdefault(k, Counter())[bk] += 1
+
+
+def _fix_roh(v):
+    return [{kk: (str(vv)[:160] if not isinstance(vv, (list, dict)) else (_wert(vv) if isinstance(vv, dict) else "[%d]" % len(vv))) for kk, vv in r.items() if kk != "ProductID"}
+            for r in (v.get("Remediations") or []) if r.get("Type") == 2][:4]
+
+
+def _kandidat(v, cve, titel, sev, ist_aus, ist_oeff, ist_kev, cvss, patch_angaben, fixe, betroffen):
+    patch, kbs, fix_t, fix_u = patch_angaben
+    return {"cve": cve, "titel": titel[:120], "schwere": sev, "ausgenutzt": ist_aus, "oeffentlich": ist_oeff, "kev": ist_kev, "cvss": cvss,
+            "fix_roh": _fix_roh(v) if (ist_aus or ist_kev) else [],
+            "patch": patch, "kb": kbs, "fix_text": fix_t, "fix_url": fix_u, "fixe": fixe, "familien": sorted(betroffen - {"Sonstige"})[:3]}
+
+
+def _cvss_max(v):
+    wertung = [float(x.get("BaseScore")) for x in (v.get("CVSSScoreSets") or []) if isinstance(x.get("BaseScore"), (int, float))]
+    return max(wertung) if wertung else None
+
+
 def verdichte_dokument(doc, kev_cves=()):
     """CVRF-Dokument -> Kennzahlen eines Monats. Fehlende Felder bleiben unberücksichtigt, nichts wird geraten."""
     kev = set(kev_cves)
@@ -224,73 +291,33 @@ def verdichte_dokument(doc, kev_cves=()):
             continue
         gesehen.add(cve)
         titel = _wert(v.get("Title"))
-        if titel.lower().startswith("chromium") or "in google chrome prior to" in titel.lower():
+        if _ist_chromium(titel):
             chromium += 1  # Edge übernimmt Chromium-Lücken; getrennt gezählt, damit sie die Monatszahl nicht verzerren
-            for r in v.get("Remediations") or []:
-                fb = str(r.get("FixedBuild") or "").strip()
-                if r.get("Type") == 2 and _vt(fb) and (not chrom["edge"] or _vt(fb) > _vt(chrom["edge"])):
-                    chrom["edge"] = fb
-            mv = re.search(r"prior to ([\d.]{5,})", titel)
-            if mv and _vt(mv.group(1)) and (not chrom["chrome"] or _vt(mv.group(1)) > _vt(chrom["chrome"])):
-                chrom["chrome"] = mv.group(1)
-            ex_c = " ".join(_wert(t.get("Description")) for t in (v.get("Threats") or []) if t.get("Type") == 1)
-            if cve in kev or re.search(r"Exploited:\s*Yes", ex_c, re.I):
-                chrom["kev"].append({"cve": cve, "titel": titel[:110]})
+            _chromium_luecke(v, titel, cve, kev, chrom)
             continue
-        betroffen = set()
-        for st in v.get("ProductStatuses") or []:
-            for pid in st.get("ProductID") or []:
-                betroffen.add(familie(produkte.get(str(pid), "")))
+        betroffen = {familie(n) for n in _produkt_namen(v, produkte)}
         if betroffen and betroffen <= {"Azure Linux"}:
             azure_linux += 1  # Linux-Paketlücken von Azure Linux (frühere Bezeichnung Mariner) sind kein Patch Day, getrennt gezählt
             continue
         cves.append(cve)
-        sev, imp, ex_text = None, None, ""
-        for t in v.get("Threats") or []:
-            art = t.get("Type")
-            text = _wert(t.get("Description"))
-            if art == 3 and sev is None:
-                sev = text
-            elif art == 0 and imp is None:
-                imp = text
-            elif art == 1 and not ex_text:
-                ex_text = text
+        sev, imp, ex_text = _bedrohungen(v)
         schwere[sev if sev in SCHWEREN else "unbekannt"] += 1
         patch, kbs = patch_stand(v)
-        wertung = [float(x.get("BaseScore")) for x in (v.get("CVSSScoreSets") or []) if isinstance(x.get("BaseScore"), (int, float))]
-        cvss = max(wertung) if wertung else None
+        cvss = _cvss_max(v)
         fix_t, fix_u = fix_hinweis(v)
         fixe = fix_liste(v, produkte)
         if patch == "nein":
             ohne_fix.append(cve)
         ist_aus = bool(re.search(r"Exploited:\s*Yes", ex_text, re.I))
-        os_da = set()
-        for st in v.get("ProductStatuses") or []:
-            for pid in st.get("ProductID") or []:
-                k = os_schluessel(produkte.get(str(pid), ""))
-                if k:
-                    os_da.add(k)
-        for k in os_da:
-            z = os_zaehler.setdefault(k, {"cves": 0, "kritisch": 0, "ausgenutzt": 0})
-            z["cves"] += 1
-            z["kritisch"] += 1 if sev == "Critical" else 0
-            z["ausgenutzt"] += 1 if ist_aus else 0
-        for k, bk in os_fix(v, produkte).items():
-            os_fixe.setdefault(k, Counter())[bk] += 1
         ist_oeff = bool(re.search(r"Publicly Disclosed:\s*Yes", ex_text, re.I))
+        _os_zaehlen(v, produkte, sev, ist_aus, os_zaehler, os_fixe)
         if ist_aus or ist_oeff or cve in kev or sev == "Critical":
-            fam_c = set()
-            for st in v.get("ProductStatuses") or []:
-                for pid in st.get("ProductID") or []:
-                    fam_c.add(familie(produkte.get(str(pid), "")))
-            kandidaten.append({"cve": cve, "titel": titel[:120], "schwere": sev, "ausgenutzt": ist_aus, "oeffentlich": ist_oeff, "kev": cve in kev, "cvss": cvss,
-                               "fix_roh": ([{kk: (str(vv)[:160] if not isinstance(vv, (list, dict)) else (_wert(vv) if isinstance(vv, dict) else "[%d]" % len(vv))) for kk, vv in r.items() if kk != "ProductID"} for r in (v.get("Remediations") or []) if r.get("Type") == 2][:4] if (ist_aus or cve in kev) else []),
-                               "patch": patch, "kb": kbs, "fix_text": fix_t, "fix_url": fix_u, "fixe": fixe, "familien": sorted(fam_c - {"Sonstige"})[:3]})
+            kandidaten.append(_kandidat(v, cve, titel, sev, ist_aus, ist_oeff, cve in kev, cvss, (patch, kbs, fix_t, fix_u), fixe, betroffen))
         if imp:
             auswirkung[imp] = auswirkung.get(imp, 0) + 1
-        if re.search(r"Exploited:\s*Yes", ex_text, re.I):
+        if ist_aus:
             ausgenutzt.append(cve)
-        if re.search(r"Publicly Disclosed:\s*Yes", ex_text, re.I):
+        if ist_oeff:
             oeffentlich.append(cve)
         if cve in kev:
             in_kev.append(cve)
@@ -855,91 +882,110 @@ QUELLEN = [
 ]
 
 
+def _hole_ubuntu(heute, lade):
+    alle = []
+    for seite in range(UBUNTU_SEITEN):
+        teil = parse_ubuntu(json.loads(lade(UBUNTU_URL % (seite * 20)).decode("utf-8")))
+        if not teil:
+            break
+        alle += teil
+        if min(i["datum"] for i in teil) < heute - timedelta(days=FENSTER):
+            break
+    return list({i["id"]: i for i in alle}.values())  # doppelte Kennungen (Seitenüberlappung) nur einmal
+
+
+def _hole_redhat(heute, lade):
+    ab = (heute - timedelta(days=FENSTER + 2)).isoformat()
+    letzter = None
+    for u in REDHAT_URLS:
+        try:
+            alle = []
+            for seite in range(1, 11):  # die Schnittstelle liefert höchstens 1000 je Seite
+                teil = json.loads(lade((u % ab) + "&per_page=1000&page=%d" % seite).decode("utf-8"))
+                alle.extend(teil if isinstance(teil, list) else [])
+                if not isinstance(teil, list) or len(teil) < 1000:
+                    break
+            return list({i["id"]: i for i in parse_redhat(alle)}.values())
+        except Exception as e:
+            letzter = e
+    for u in REDHAT_CSV:
+        try:
+            r = parse_redhat_csv(lade(u).decode("utf-8", "replace"))
+            if r:
+                return r
+        except Exception as e:
+            letzter = e
+    raise QuellFehler("Red Hat: %s" % letzter)
+
+
+def _hole_debian(heute, lade):
+    letzter = None
+    for u in DEBIAN_URLS:
+        try:
+            return parse_debian(lade(u))
+        except Exception as e:
+            letzter = e
+    raise QuellFehler("Debian: %s" % letzter)
+
+
+def _hole_sap(heute, lade):
+    alle, fehler = [], None
+    for rueck in (0, 1, 2):
+        j, mo = heute.year, heute.month - rueck
+        while mo < 1:
+            mo, j = mo + 12, j - 1
+        u = SAP_URL % (MONATE_EN[mo - 1], j)
+        try:
+            alle += parse_sap(lade(u).decode("utf-8", "replace"), u)
+        except Exception as e:
+            fehler = e
+    if not alle and fehler:
+        raise QuellFehler("SAP: %s" % fehler)
+    return alle
+
+
+def _hole_suse(heute, lade):
+    vor = (heute.replace(day=1) - timedelta(days=1))
+    urls = [SUSE_URL % (heute.year, MONATSNAMEN[heute.month - 1]), SUSE_URL % (vor.year, MONATSNAMEN[vor.month - 1])]
+    return _mehrere(urls, lambda b: parse_suse(b.decode("utf-8", "replace")), lade, "SUSE")
+
+
+def _hole_rocky(heute, lade):
+    alle = {}
+    for seite in range(15):
+        teil = parse_rocky(json.loads(lade(ROCKY_URL % seite).decode("utf-8")))
+        for i in teil:
+            alle.setdefault(i["id"], i)
+        if not teil or min(i["datum"] for i in teil) < heute - timedelta(days=FENSTER + 2):
+            break
+    return list(alle.values())
+
+
+def _hole_feed(qid, lade):
+    urls, muster = FEEDS[qid]
+    fehler = None
+    for u in urls:  # Ausweichadresse nur, wenn die erste nicht antwortet oder nichts liefert
+        try:
+            items = parse_feed(lade(u), qid, muster)
+            if items:
+                return items
+        except Exception as e:
+            fehler = e
+    raise QuellFehler("%s: %s" % (qid, fehler or "keine Einträge erkannt"))
+
+
 def hole_quelle(qid, heute, lade=lade_roh):
-    if qid == "ubuntu":
-        alle = []
-        for seite in range(UBUNTU_SEITEN):
-            teil = parse_ubuntu(json.loads(lade(UBUNTU_URL % (seite * 20)).decode("utf-8")))
-            if not teil:
-                break
-            alle += teil
-            if min(i["datum"] for i in teil) < heute - timedelta(days=FENSTER):
-                break
-        return list({i["id"]: i for i in alle}.values())  # doppelte Kennungen (Seitenüberlappung) nur einmal
-    if qid == "redhat":
-        ab = (heute - timedelta(days=FENSTER + 2)).isoformat()
-        letzter = None
-        for u in REDHAT_URLS:
-            try:
-                alle = []
-                for seite in range(1, 11):  # die Schnittstelle liefert höchstens 1000 je Seite
-                    teil = json.loads(lade((u % ab) + "&per_page=1000&page=%d" % seite).decode("utf-8"))
-                    alle.extend(teil if isinstance(teil, list) else [])
-                    if not isinstance(teil, list) or len(teil) < 1000:
-                        break
-                return list({i["id"]: i for i in parse_redhat(alle)}.values())
-            except Exception as e:
-                letzter = e
-        for u in REDHAT_CSV:
-            try:
-                r = parse_redhat_csv(lade(u).decode("utf-8", "replace"))
-                if r:
-                    return r
-            except Exception as e:
-                letzter = e
-        raise QuellFehler("Red Hat: %s" % letzter)
-    if qid == "debian":
-        letzter = None
-        for u in DEBIAN_URLS:
-            try:
-                return parse_debian(lade(u))
-            except Exception as e:
-                letzter = e
-        raise QuellFehler("Debian: %s" % letzter)
-    if qid == "sap":
-        alle, fehler = [], None
-        for rueck in (0, 1, 2):
-            j, mo = heute.year, heute.month - rueck
-            while mo < 1:
-                mo, j = mo + 12, j - 1
-            u = SAP_URL % (MONATE_EN[mo - 1], j)
-            try:
-                alle += parse_sap(lade(u).decode("utf-8", "replace"), u)
-            except Exception as e:
-                fehler = e
-        if not alle and fehler:
-            raise QuellFehler("SAP: %s" % fehler)
-        return alle
-    if qid == "suse":
-        vor = (heute.replace(day=1) - timedelta(days=1))
-        urls = [SUSE_URL % (heute.year, MONATSNAMEN[heute.month - 1]), SUSE_URL % (vor.year, MONATSNAMEN[vor.month - 1])]
-        return _mehrere(urls, lambda b: parse_suse(b.decode("utf-8", "replace")), lade, "SUSE")
-    if qid == "alma":
-        return _mehrere(ALMA_URLS, parse_alma, lade, "AlmaLinux")
-    if qid == "amazon":
-        return _mehrere(AMAZON_URLS, parse_amazon, lade, "Amazon Linux")
-    if qid == "rocky":
-        alle = {}
-        for seite in range(15):
-            teil = parse_rocky(json.loads(lade(ROCKY_URL % seite).decode("utf-8")))
-            for i in teil:
-                alle.setdefault(i["id"], i)
-            if not teil or min(i["datum"] for i in teil) < heute - timedelta(days=FENSTER + 2):
-                break
-        return list(alle.values())
-    if qid == "cisco":
-        return parse_cisco(lade(CISCO_URL))
+    # Reihenfolge wie bisher: erst die Einzelquellen, dann die Feeds, dann Mozilla und Apple
+    einzel = {"ubuntu": lambda: _hole_ubuntu(heute, lade), "redhat": lambda: _hole_redhat(heute, lade),
+              "debian": lambda: _hole_debian(heute, lade), "sap": lambda: _hole_sap(heute, lade),
+              "suse": lambda: _hole_suse(heute, lade),
+              "alma": lambda: _mehrere(ALMA_URLS, parse_alma, lade, "AlmaLinux"),
+              "amazon": lambda: _mehrere(AMAZON_URLS, parse_amazon, lade, "Amazon Linux"),
+              "rocky": lambda: _hole_rocky(heute, lade), "cisco": lambda: parse_cisco(lade(CISCO_URL))}
+    if qid in einzel:
+        return einzel[qid]()
     if qid in FEEDS:
-        urls, muster = FEEDS[qid]
-        fehler = None
-        for u in urls:  # Ausweichadresse nur, wenn die erste nicht antwortet oder nichts liefert
-            try:
-                items = parse_feed(lade(u), qid, muster)
-                if items:
-                    return items
-            except Exception as e:
-                fehler = e
-        raise QuellFehler("%s: %s" % (qid, fehler or "keine Einträge erkannt"))
+        return _hole_feed(qid, lade)
     if qid == "mozilla":
         return parse_mozilla(lade(MOZILLA_URL).decode("utf-8", "replace"))
     if qid == "apple":
@@ -1019,12 +1065,40 @@ def _pm(name):
     return "apt" if ("ubuntu" in n or "debian" in n) else ("zypper" if "suse" in n else ("dnf/yum" if any(x in n for x in ("red hat", "alma", "rocky", "amazon")) else "Paketverwaltung"))
 
 
-def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=24, cvss=None):
-    """Rangliste nach festen Regeln: 1 im KEV (nachweislich angegriffen), 2 vom Hersteller als ausgenutzt gemeldet,
-    3 EPSS ab 10 %, 4 vom Hersteller als kritisch eingestuft. Innerhalb einer Stufe nach EPSS, dann nach Kennung."""
-    kev = set(kev)
-    cvss = cvss or {}
-    kand, gesehen, ohne = [], set(), []
+def _stufe_und_grund(k, kev, e):
+    """Stufe und Begründung (de, en) einer Microsoft-Lücke; None, wenn sie in keine Stufe fällt."""
+    if k["cve"] in kev or k.get("kev"):
+        return 1, "Steht im CISA-KEV: Die Lücke wird nachweislich angegriffen.", "Listed in the CISA KEV: the flaw is proven to be attacked."
+    if k["ausgenutzt"]:
+        return 2, "Microsoft meldet aktive Ausnutzung.", "Microsoft reports active exploitation."
+    if e is not None and e >= EPSS_HOCH:
+        return 3, "Hohe Ausnutzungswahrscheinlichkeit (EPSS %d %%)." % round(e * 100), "High likelihood of exploitation (EPSS %d%%)." % round(e * 100)
+    if k["schwere"] == "Critical":
+        return 4, "Von Microsoft als kritisch eingestuft.", "Rated critical by Microsoft."
+    return None
+
+
+def _patch_text(k, pst):
+    """Patch-Hinweis (de, en) zu einer Microsoft-Lücke mit vorhandenem Patch oder unbekanntem Stand."""
+    if pst != "ja":
+        return "Patch-Stand bei Microsoft prüfen", "Check patch status with Microsoft"
+    kb = k.get("kb") or []
+    ft = k.get("fix_text") or ""
+    if ft.strip().lower() == "release notes":
+        ft = ""
+    if kb:
+        return "Patch liegt vor: KB" + ", KB".join(kb), "Patch available: KB" + ", KB".join(kb)
+    if any(f.get("build") for f in (k.get("fixe") or [])):
+        bl = ", ".join(sorted({f["build"] for f in k["fixe"] if f.get("build")})[:3])
+        return "Patch liegt vor: Office-Version " + bl, "Patch available: Office version " + bl
+    if ft:
+        return "Patch liegt vor: " + ft, "Patch available: " + ft
+    return ("Update liegt vor, Microsoft nennt keine KB-Nummer (Office-/Cloud-Update, Details auf der Microsoft-Seite)",
+            "Update available, Microsoft names no KB number (Office/cloud update, details on the Microsoft page)")
+
+
+def _ms_kandidaten(ms_monate, kev, epss, heute, gesehen, kand, ohne):
+    """Microsoft-Lücken der letzten Tage in Kandidaten und Liste ohne Patch einsortieren."""
     for m in ms_monate or []:
         try:
             tage = (heute - datetime.fromisoformat(str(m.get("erste_veroeffentlichung")).replace("Z", "+00:00")).date()).days
@@ -1034,46 +1108,29 @@ def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=24, cvss=None):
             continue
         for k in m.get("kandidaten", []):
             e = (epss.get(k["cve"]) or (None,))[0]
-            if k["cve"] in kev or k.get("kev"):
-                stufe, g, ge = 1, "Steht im CISA-KEV: Die Lücke wird nachweislich angegriffen.", "Listed in the CISA KEV: the flaw is proven to be attacked."
-            elif k["ausgenutzt"]:
-                stufe, g, ge = 2, "Microsoft meldet aktive Ausnutzung.", "Microsoft reports active exploitation."
-            elif e is not None and e >= EPSS_HOCH:
-                stufe, g, ge = 3, "Hohe Ausnutzungswahrscheinlichkeit (EPSS %d %%)." % round(e * 100), "High likelihood of exploitation (EPSS %d%%)." % round(e * 100)
-            elif k["schwere"] == "Critical":
-                stufe, g, ge = 4, "Von Microsoft als kritisch eingestuft.", "Rated critical by Microsoft."
-            else:
+            wertung = _stufe_und_grund(k, kev, e)
+            if wertung is None:
                 continue
+            stufe, g, ge = wertung
             if k["cve"] in gesehen:
                 continue
             gesehen.add(k["cve"])
             pst = k.get("patch", "unbekannt")
-            kb = k.get("kb") or []
+            gemeinsam = {"stufe": stufe, "quelle": "Microsoft", "titel": k["titel"], "cves": [k["cve"]], "grund": g, "grund_en": ge,
+                         "betrifft": ", ".join(k["familien"]), "datum": str(m.get("erste_veroeffentlichung"))[:10],
+                         "link": "https://msrc.microsoft.com/update-guide/vulnerability/" + k["cve"]}
             if pst == "nein":
-                ohne.append({"stufe": stufe, "quelle": "Microsoft", "titel": k["titel"], "cves": [k["cve"]], "grund": g, "grund_en": ge,
-                             "betrifft": ", ".join(k["familien"]), "datum": str(m.get("erste_veroeffentlichung"))[:10],
-                             "link": "https://msrc.microsoft.com/update-guide/vulnerability/" + k["cve"]})
+                ohne.append(gemeinsam)
                 continue
-            if pst == "ja":
-                ft = k.get("fix_text") or ""
-                if ft.strip().lower() == "release notes":
-                    ft = ""
-                if kb:
-                    pt, pt_en = "Patch liegt vor: KB" + ", KB".join(kb), "Patch available: KB" + ", KB".join(kb)
-                elif any(f.get("build") for f in (k.get("fixe") or [])):
-                    bl = ", ".join(sorted({f["build"] for f in k["fixe"] if f.get("build")})[:3])
-                    pt, pt_en = "Patch liegt vor: Office-Version " + bl, "Patch available: Office version " + bl
-                elif ft:
-                    pt, pt_en = "Patch liegt vor: " + ft, "Patch available: " + ft
-                else:
-                    pt = "Update liegt vor, Microsoft nennt keine KB-Nummer (Office-/Cloud-Update, Details auf der Microsoft-Seite)"
-                    pt_en = "Update available, Microsoft names no KB number (Office/cloud update, details on the Microsoft page)"
-            else:
-                pt, pt_en = "Patch-Stand bei Microsoft prüfen", "Check patch status with Microsoft"
+            pt, pt_en = _patch_text(k, pst)
             kand.append({"stufe": stufe, "epss": e, "quelle": "Microsoft", "titel": k["titel"], "cves": [k["cve"]], "grund": g, "grund_en": ge,
                          "cvss_ms": k.get("cvss"), "patch": pst, "patch_text": pt, "patch_text_en": pt_en, "patch_link": k.get("fix_url") or next((f["url"] for f in (k.get("fixe") or []) if f.get("url")), ""), "fixe": k.get("fixe") or [], "monat": m.get("id"),
                          "betrifft": ", ".join(k["familien"]), "datum": str(m.get("erste_veroeffentlichung"))[:10],
                          "link": "https://msrc.microsoft.com/update-guide/vulnerability/" + k["cve"]})
+
+
+def _hersteller_kandidaten(hersteller, heute, gesehen, kand):
+    """Meldungen der Hersteller: KEV-Schließungen (Stufe 1) und kritische Hersteller-Meldungen (Stufe 4)."""
     for q in (hersteller or {}).get("quellen", {}).values():
         if q.get("status") != "ok":
             continue
@@ -1102,6 +1159,10 @@ def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=24, cvss=None):
                 gesehen.add(x["id"])
                 kand.append({"stufe": 4, "epss": None, "quelle": q["name"], "titel": x["titel"], "cves": [], "grund": "Vom Hersteller als kritisch eingestuft.",
                              "grund_en": "Rated critical by the vendor.", "patch": "pruefen", "patch_text": "Fix-Stand im Advisory prüfen", "patch_text_en": "Check fix status in the advisory", "betrifft": q["name"], "datum": x["datum"], "link": x["link"]})
+
+
+def _anreichern(kand, epss, cvss):
+    """EPSS, CVSS und Stufennamen an jeden Kandidaten schreiben."""
     for k in kand:
         if k["epss"] is None:
             ev = [(epss.get(c) or (None,))[0] for c in k["cves"]]
@@ -1116,6 +1177,17 @@ def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=24, cvss=None):
         k["stufe_name"] = STUFEN_NAMEN[k["stufe"]][0]
         k["stufe_name_en"] = STUFEN_NAMEN[k["stufe"]][1]
         k.pop("cvss_ms", None)
+
+
+def priorisiere(ms_monate, hersteller, kev, epss, heute, maximum=24, cvss=None):
+    """Rangliste nach festen Regeln: 1 im KEV (nachweislich angegriffen), 2 vom Hersteller als ausgenutzt gemeldet,
+    3 EPSS ab 10 %, 4 vom Hersteller als kritisch eingestuft. Innerhalb einer Stufe nach EPSS, dann nach Kennung."""
+    kev = set(kev)
+    cvss = cvss or {}
+    kand, gesehen, ohne = [], set(), []
+    _ms_kandidaten(ms_monate, kev, epss, heute, gesehen, kand, ohne)
+    _hersteller_kandidaten(hersteller, heute, gesehen, kand)
+    _anreichern(kand, epss, cvss)
     kand.sort(key=lambda k: (k["stufe"], -(k["epss"] or 0), -(k["cvss_max"] or 0), k["cves"][0] if k["cves"] else k["titel"]))
     for i, k in enumerate(kand[:maximum], 1):
         k["rang"] = i

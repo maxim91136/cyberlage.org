@@ -13,6 +13,10 @@ Steve soll nicht zwischen den Chats vermitteln müssen. Wer am Repo arbeitet, li
 
 ## Offen
 
+### Erledigt 27.11., Code-Audit Wartbarkeit Schritt 2: `pipeline/fetch_patches.py`
+- `verdichte_dokument` (79), `priorisiere` (67) und `hole_quelle` (44) in kleine Funktionen zerlegt, nur Verschieben, keine Logik geändert. Neue Höchstwerte: 28 (`fix_liste`), 29 vermieden durch `_cvss_max`; alle unter 30. Gegenprobe: alte und neue Funktion mit Zufallsdaten verglichen (400 Dokumente, 600 Priorisierungen, 45 Quellaufrufe mit künstlichen Fehlern und leeren Antworten), 0 Abweichungen, Zweige Chromium, Azure Linux, ohne Patch, KEV nachweislich abgedeckt; 192 Tests grün.
+- Noch offen unter Wartbarkeit: `notify.py` `ermittle` 44, `modell.py` `berichte` 39, `klicktest.py` `pruefe_auditseite` 34, `fetch_radar.py` `konsens` 31, `site/app.js` 1732 Zeilen (Hinweis ab 1500).
+
 ### Erledigt 27.11., Code-Audit Wartbarkeit Schritt 1: `pipeline/score.py`
 - `main()` (Komplexität 170) in elf kleine Funktionen zerlegt, nur Verschieben von Code, keine Logik geändert. Höchste Komplexität jetzt 27 (Grenze 30). Gegenprobe: `score.py` auf Kopien des Repos mit zwei Stichtagen (26.11., 20.11.) vor und nach dem Umbau, alle Ausgabedateien identisch; 192 Tests grün. Einzige bewusste Abweichung: `modell` wird im Logbuch-Teil immer importiert (vorher nur, wenn der Radar-Teil lief). Noch offen unter Wartbarkeit: `fetch_patches.py` (verdichte_dokument 79, priorisiere 67, hole_quelle 44), `notify.py` ermittle 44, `modell.py` berichte 39, `klicktest.py` pruefe_auditseite 34, `fetch_radar.py` konsens 31, dazu `site/app.js` mit 1732 Zeilen (Hinweis ab 1500).
 
