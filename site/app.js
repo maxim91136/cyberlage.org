@@ -1338,6 +1338,16 @@
       z.appendChild(marken); tab.appendChild(z);
     });
     box.appendChild(tab);
+    var pg = window.__pegel;
+    if (pg && pg.modell) {
+      var mv = el("details", "rd-det rd-ver");
+      mv.appendChild(el("summary", "mono", pick("Modell ", "Model ") + pg.modell + (pg.status === "vorlaeufig" ? pick(" (vorläufig)", " (provisional)") : "") + (pg.modell_pruefsumme ? " · " + pick("Prüfsumme ", "checksum ") + pg.modell_pruefsumme : "")));
+      var ml = el("ul", "p-liste");
+      (pg.modell_aenderungen || []).slice().reverse().forEach(function (x) { ml.appendChild(el("li", "mono fine", x.version + " (" + x.datum + "): " + pick(x.text, x.text_en))); });
+      mv.appendChild(ml);
+      mv.appendChild(el("p", "mono dim fine", pick("Jede Änderung an Bausteinen, Schwellen oder Stufen bekommt eine neue Version und einen Eintrag hier und im Logbuch. Frühere Werte werden dabei mit dem neuen Modell neu gerechnet; die seit dem Start gespeicherten Tageswerte bleiben unverändert.", "Every change to components, thresholds or levels gets a new version and an entry here and in the logbook. Earlier values are then recomputed with the new model; the daily values stored since launch stay unchanged.")));
+      box.appendChild(mv);
+    }
     box.appendChild(el("p", "mono dim fine", pick("Zahl = Messwert im Verhältnis zur Schwelle, 1,00 heißt Schwelle erreicht (gelb: an oder über der Schwelle). Erst wird je Gruppe gemittelt, dann über die Gruppen; jeder Baustein zählt höchstens mit 2,00.", "Number = reading relative to the threshold, 1.00 means threshold reached (yellow: at or above). Averaged within each group first, then across groups; each component counts at most 2.00.")));
     if (sc.beobachtung && sc.beobachtung.length) {
       var d = el("details", "rd-det"); d.appendChild(el("summary", "mono", pick("In Beobachtung (zählt noch nicht): " + sc.beobachtung.length, "Under observation (does not count yet): " + sc.beobachtung.length)));

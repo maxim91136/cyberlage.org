@@ -161,5 +161,13 @@
       "status": "aktiv",
       "historie": "kein Archiv, live seit 25.11.2026"
     }
+  ],
+  "aenderungen": [
+    {
+      "version": "v1",
+      "datum": "2026-11-25",
+      "text": "Erstes Modell: zehn Bausteine in vier Gruppen, Schwellen = 75. Perzentil der eigenen Historie, Stufengrenzen 35/50/64/80. Live seit 25.11.2026, vorläufig.",
+      "text_en": "First model: ten components in four groups, thresholds = 75th percentile of each component's own history, level limits 35/50/64/80. Live since 25 Nov 2026, provisional."
+    }
   ]
 }

@@ -528,6 +528,7 @@ def _patches(ergebnis):
 
 def _gesamtscore(ergebnis, regeln, reihe, rsc, stufen_cfg):
     """KEV-Menge und Dreier-Pegel als Gesamtscore ins Ergebnis schreiben."""
+    import modell
     ergebnis["kev_menge"] = {"wert": reihe[-1]["wert"], "stufe": ergebnis["stufe"], "marken": {"erhoeht_ab": regeln.get("erhoeht_ab"), "hoch_ab": regeln.get("hoch_ab")},
                              "live_seit": next((p["stand"] for p in reihe if p["quelle"] == "live"), None), "reihe": reihe[-90:]}
     # Der Dreier-Pegel ist der Gesamtscore aus allen Bausteinen (KEV-Menge, Tempo bis KEV, externe Signale).
@@ -537,7 +538,8 @@ def _gesamtscore(ergebnis, regeln, reihe, rsc, stufen_cfg):
         ergebnis["stufe_begruendung"] = "Gesamtscore %s von 100 aus %s von %s Bausteinen." % (rsc["wert"], rsc["signale"], rsc["von"])
         ergebnis["stufe_begruendung_en"] = "Overall score %s of 100 from %s of %s components." % (rsc["wert"], rsc["signale"], rsc["von"])
         ergebnis["pegel"] = {"wert": rsc["wert"], "signale": rsc["signale"], "von": rsc["von"], "stufe": rsc["stufe"], "status": stufen_cfg.get("status"),
-                             "live_seit": rsc.get("live_seit"), "modell": rsc.get("modell"), "von_bausteine": rsc.get("von"), "reihe": rsc.pop("reihe_voll", rsc.get("reihe", []))}
+                             "live_seit": rsc.get("live_seit"), "modell": rsc.get("modell"), "von_bausteine": rsc.get("von"), "reihe": rsc.pop("reihe_voll", rsc.get("reihe", [])),
+                             "modell_pruefsumme": modell.pruefsumme(WURZEL / "config")[:12], "modell_aenderungen": (lese_optional(WURZEL / "config" / "modell.json") or {}).get("aenderungen", [])}
     else:
         ergebnis["stufe"], ergebnis["stufe_begruendung"], ergebnis["stufe_begruendung_en"], ergebnis["pegel"] = None, "Der Gesamtscore ist noch nicht berechenbar.", "The overall score cannot be computed yet.", None
 
@@ -557,7 +559,7 @@ def _logbuch(ergebnis):
             live = [x for x in (lese_optional(WURZEL / "data" / "radar" / "score.json") or {}).get("reihe", []) if isinstance(x.get("wert"), (int, float))]
             live = sorted(live, key=lambda x: x["stand"])
             ohne = [x["name"] for x in ((ergebnis.get("radar") or {}).get("konsens") or {}).get("signale", []) if not isinstance(x.get("ausschlag"), (int, float))]
-            neu = modell.logbuch_stufenwechsel(lb, live, _stufe, namen) + modell.logbuch_hoechststand(lb, live)
+            neu = modell.logbuch_modell(lb, lese_optional(WURZEL / "config" / "modell.json") or {}) + modell.logbuch_stufenwechsel(lb, live, _stufe, namen) + modell.logbuch_hoechststand(lb, live)
             if ergebnis.get("stand") and (ergebnis.get("pegel") or {}).get("von"):
                 neu += modell.logbuch_ausfall(lb, ergebnis["stand"], ohne)
             if neu:

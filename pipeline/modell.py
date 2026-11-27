@@ -7,6 +7,7 @@ Nur Standardbibliothek.
 """
 import json
 from datetime import timedelta
+from pathlib import Path
 
 
 def lade(pfad):
@@ -246,6 +247,36 @@ def logbuch_hoechststand(logbuch, live_reihe, mindest=30):
          "text_en": "Highest stored daily value since %s. Previous high: %d." % (live_reihe[0]["stand"], davor), "belege": [], "belege_en": []}
     logbuch.setdefault("eintraege", []).append(e)
     return [e]
+
+
+PRUEFSUMME_DATEIEN = ("modell.json", "radar_stufen.json", "regeln.json")  # alles, was den Pegel und seine Stufe bestimmt
+
+
+def pruefsumme(verzeichnis):
+    """SHA-256 über die Regeldateien des Pegels (kanonisches JSON, ohne Formatierung). Ein Test hält sie fest:
+    wer Schwellen, Bausteine oder Stufen ändert, muss Version, Änderungsprotokoll und RULES.md mitführen."""
+    import hashlib
+    h = hashlib.sha256()
+    for n in PRUEFSUMME_DATEIEN:
+        h.update(n.encode() + b"\0")
+        h.update(json.dumps(json.loads((Path(verzeichnis) / n).read_text(encoding="utf-8")), sort_keys=True, ensure_ascii=False, separators=(",", ":")).encode("utf-8"))
+    return h.hexdigest()
+
+
+def logbuch_modell(logbuch, mcfg):
+    """Trägt jede Version aus dem Änderungsprotokoll (config/modell.json) einmal als Modell-Eintrag ins Logbuch ein."""
+    vorhanden = {e.get("schluessel") for e in logbuch.get("eintraege", [])}
+    neu = []
+    for a in mcfg.get("aenderungen", []):
+        schluessel = "modell:" + a["version"]
+        if schluessel in vorhanden:
+            continue
+        neu.append({"datum": a["datum"], "art": "modell", "schluessel": schluessel,
+                    "titel": "Modell des Dreier-Pegels: %s" % a["version"], "titel_en": "Dreier Gauge model: %s" % a["version"],
+                    "text": a["text"], "text_en": a["text_en"], "belege": [], "belege_en": []})
+    if neu:
+        logbuch.setdefault("eintraege", []).extend(neu)
+    return neu
 
 
 MONATE = ("Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember")

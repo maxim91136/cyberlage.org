@@ -12,6 +12,7 @@ import bereiche  # noqa: E402
 import fetch_ausblick  # noqa: E402
 import fetch_radar  # noqa: E402
 import fetch_extra  # noqa: E402
+import modell  # noqa: E402
 import notify  # noqa: E402
 import pruefen  # noqa: E402
 import fetch_patches  # noqa: E402
@@ -1184,6 +1185,24 @@ class RansomTests(unittest.TestCase):
 
 
 class LogbuchTests(unittest.TestCase):
+    def test_modellregeln_sind_festgehalten(self):
+        """Schwellen, Bausteine oder Stufen ändern sich nur zusammen mit neuer Version, Änderungsprotokoll und RULES.md-Eintrag:
+        wer hier die Prüfsumme anpasst, muss config/modell.json (version, aenderungen) und RULES.md im selben Commit mitführen."""
+        from pathlib import Path
+        wurzel = Path(__file__).resolve().parents[1]
+        self.assertEqual(modell.pruefsumme(wurzel / "config"), "c5ffa209be6333a19287724fe9a6688e7a8c3ba9b90be95ab1024824fa5314f3")
+        cfg = json.loads((wurzel / "config" / "modell.json").read_text(encoding="utf-8"))
+        self.assertEqual(cfg["aenderungen"][-1]["version"], cfg["version"])  # jede Version hat ihren Protokolleintrag
+        self.assertIn("Modell " + cfg["version"], (wurzel / "RULES.md").read_text(encoding="utf-8"))
+
+    def test_modell_ins_logbuch_einmal(self):
+        lb = {"eintraege": []}
+        cfg = {"aenderungen": [{"version": "v1", "datum": "2026-11-25", "text": "a", "text_en": "b"}]}
+        self.assertEqual(len(modell.logbuch_modell(lb, cfg)), 1)
+        self.assertEqual(modell.logbuch_modell(lb, cfg), [])
+        cfg["aenderungen"].append({"version": "v1.1", "datum": "2026-12-01", "text": "c", "text_en": "d"})
+        self.assertEqual([e["schluessel"] for e in modell.logbuch_modell(lb, cfg)], ["modell:v1.1"])
+
     def test_stufenwechsel_wird_einmal_eingetragen(self):
         import modell
         stufe = lambda w: "hoch" if w >= 64 else "angespannt"

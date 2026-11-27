@@ -40,6 +40,17 @@
     "Limit calm/unremarkable moved from 30 to 35",
     "Rationale and checks: RULES.md"
    ]
+  },
+  {
+   "datum": "2026-11-25",
+   "art": "modell",
+   "schluessel": "modell:v1",
+   "titel": "Modell des Dreier-Pegels: v1",
+   "titel_en": "Dreier Gauge model: v1",
+   "text": "Erstes Modell: zehn Bausteine in vier Gruppen, Schwellen = 75. Perzentil der eigenen Historie, Stufengrenzen 35/50/64/80. Live seit 25.11.2026, vorläufig.",
+   "text_en": "First model: ten components in four groups, thresholds = 75th percentile of each component's own history, level limits 35/50/64/80. Live since 25 Nov 2026, provisional.",
+   "belege": [],
+   "belege_en": []
   }
  ]
 }
