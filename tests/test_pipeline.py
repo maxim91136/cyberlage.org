@@ -2,6 +2,7 @@ import json
 import sys
 import tempfile
 import unittest
+from unittest import mock
 from datetime import date
 from pathlib import Path
 
@@ -259,7 +260,7 @@ class MeldeTests(unittest.TestCase):
         n3, z4 = notify.ermittle(kev2, bsi2, None, self.lage, z3, morgen)
         self.assertEqual(len(n3), 1)  # eine Tageslage mit allem Offenen
         self.assertIn("CVE-4", n3[0]); self.assertIn("Neu", n3[0]); self.assertNotIn("Egal", n3[0]); self.assertNotIn("CVE-3", n3[0])
-        self.assertEqual(z4["offen"], {"kev": [], "bsi": [], "eu": []})
+        self.assertEqual(z4["offen"], {"kev": [], "bsi": [], "eu": [], "ms": []})
 
     def test_html_wird_maskiert(self):
         _, z = notify.ermittle(self.kev, self.bsi, None, self.lage, None, self.jetzt)
@@ -271,11 +272,44 @@ class MeldeTests(unittest.TestCase):
         _, z = notify.ermittle(self.kev, self.bsi, None, self.lage, None, self.jetzt)
         z["zusammenfassung"] = None
         lage2 = dict(self.lage, stufe="hoch")
-        n, z2 = notify.ermittle(self.kev, self.bsi, None, lage2, z, self.jetzt)
+        n0, z1 = notify.ermittle(self.kev, self.bsi, None, lage2, z, self.jetzt)
+        self.assertFalse(any("Dreier-Pegel geändert" in x for x in n0))  # erster Lauf mit neuer Stufe: noch kein Alarm (Flattern)
+        n, z2 = notify.ermittle(self.kev, self.bsi, None, lage2, z1, self.jetzt)
         self.assertTrue(any("Dreier-Pegel geändert" in x and "hoch" in x for x in n))
-        self.assertTrue(any("Tageslage" in x for x in n))
+        self.assertTrue(any("Tageslage" in x for x in n + n0))
         n2, _ = notify.ermittle(self.kev, self.bsi, None, lage2, z2, self.jetzt)
         self.assertEqual(n2, [])
+
+    def test_flattern_an_der_grenze_meldet_nichts(self):
+        _, z = notify.ermittle(self.kev, self.bsi, None, self.lage, None, self.jetzt)
+        z["zusammenfassung"] = notify.datetime(2026, 11, 23, tzinfo=notify.timezone.utc).date().isoformat()
+        hoch, alt = dict(self.lage, stufe="hoch"), self.lage["stufe"]
+        gemeldet = []
+        for l in (hoch, self.lage, hoch, self.lage, hoch):  # hoch, zurück, hoch, zurück, hoch: nie zweimal hintereinander
+            n, z = notify.ermittle(self.kev, self.bsi, None, l, z, self.jetzt)
+            gemeldet += [x for x in n if "Dreier-Pegel geändert" in x]
+        self.assertEqual(gemeldet, [])
+        self.assertEqual(z["stufe"], alt)
+
+    def test_ausserordentlich_sofort(self):
+        _, z = notify.ermittle(self.kev, self.bsi, None, self.lage, None, self.jetzt)
+        z["zusammenfassung"] = "2026-11-23"
+        n, z2 = notify.ermittle(self.kev, self.bsi, None, dict(self.lage, stufe="ausserordentlich"), z, self.jetzt)
+        self.assertTrue(any("Dreier-Pegel geändert" in x for x in n))
+        self.assertEqual(z2["stufe"], "ausserordentlich")
+
+    def test_frische(self):
+        from datetime import datetime, timedelta, timezone
+        jetzt = datetime(2026, 11, 27, 12, 0, tzinfo=timezone.utc)
+        kev = lambda t: {"meta": {"abgerufen_am": t.isoformat()}}
+        self.assertIsNone(notify.frische_pruefen(kev(jetzt - timedelta(hours=3)), jetzt))
+        self.assertIn("steht", notify.frische_pruefen(kev(jetzt - timedelta(hours=7)), jetzt))
+        self.assertIn("fehlt", notify.frische_pruefen({"meta": {}}, jetzt))
+        self.assertIn("fehlt", notify.frische_pruefen(None, jetzt))
+
+    def test_privater_kanal_ohne_einrichtung_sendet_nichts(self):
+        with mock.patch.dict(notify.os.environ, {}, clear=True), mock.patch.object(notify, "sende", side_effect=AssertionError("darf nicht senden")):
+            self.assertEqual(notify.sende_privat("x"), 0)
 
     def test_lange_liste_wird_gekuerzt(self):
         _, z = notify.ermittle({"meta": {}, "eintraege": []}, None, None, self.lage, None, self.jetzt)
@@ -913,6 +947,24 @@ class PatchMeldeTests(unittest.TestCase):
         self.assertNotIn("CVE-2026-0001", n[0])
         self.assertIn("keine.", n[0])
         self.assertIn("1 Lücke:", n[0])
+
+    def test_nachtrag_ohne_ausgenutztes_ist_nur_eine_zeile_in_der_tageslage(self):
+        m = self.lage["patches"]["microsoft"]["monate"]["2026-Nov"]
+        m["cve_liste"] = ["CVE-2026-0001"]
+        _, z = notify.patch_nachrichten(self.lage, {"ms": {}}, self.jetzt, [])
+        m["cve_liste"] = ["CVE-2026-0001", "CVE-2026-0002"]
+        m["nachtraege"] = [{"am": "2026-11-18", "neue_cves": 1, "ausgenutzt_neu": 0}]
+        leise = []
+        n, _ = notify.patch_nachrichten(self.lage, z, self.jetzt, leise)
+        self.assertEqual(n, [])
+        self.assertEqual(len(leise), 1)
+        self.assertIn("CVE-2026-0002", leise[0])
+        self.assertIn("keine als ausgenutzt", leise[0])
+        z["ms"]["2026-Nov"]["nachtraege"] = 0
+        m["nachtraege"][0]["ausgenutzt_neu"] = 1
+        leise = []
+        n, _ = notify.patch_nachrichten(self.lage, z, self.jetzt, leise)
+        self.assertEqual((len(n), leise), (1, []))  # ausgenutzt: sofort
 
     def test_cve_listen_kommen_aus_den_vollen_patchdaten(self):
         lage = {"patches": {"microsoft": {"monate": {"2026-Mar": {"cves": 2}, "2026-Apr": {"cves": 1}}}}}

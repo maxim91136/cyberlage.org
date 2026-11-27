@@ -1,0 +1,29 @@
+name: wache
+
+# Wacht darüber, dass der Datenlauf läuft: ist der letzte Datenabruf älter als 6 Stunden, kommt eine private Telegram-Meldung (Audit-Kanal).
+# Ohne diese Prüfung sähe ein ausgefallener Datenlauf aus wie ein ruhiger Tag. Liest nur, schreibt nichts ins Repo, eigene Gruppe (wartet nicht hinter einem hängenden Datenlauf).
+on:
+  schedule:
+    - cron: "47 */3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  wache:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.12"
+      - name: Datenstand prüfen
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_AUDIT_CHAT_ID: ${{ secrets.TELEGRAM_AUDIT_CHAT_ID }}
+        run: python pipeline/notify.py --frische

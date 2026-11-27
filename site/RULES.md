@@ -238,3 +238,7 @@ Die Regeln des Code-Audits sind von „0.1-entwurf“ auf **1.0** festgeschriebe
 ## Nachtrag: Namen der Siegel (27.11.2026)
 
 Das Siegel des Web-Audits heißt jetzt **Dreier-Web-Siegel** (bisher „Dreier-Siegel“), das des Code-Audits **Dreier-Code-Siegel**. „Dreier-Siegel“ ist der Familienname beider. Geändert wurden nur Name und Stempeltext (oben im Siegel: DREIER-WEB-SIEGEL); Prüfpunkte, Gewichte, Schwellen, Stufen und Regelversion bleiben unverändert (Web-Audit 1.0, Code-Audit 1.0). Ältere Einträge in dieser Datei sprechen noch vom „Dreier-Siegel“ und meinen das Web-Siegel.
+
+## Nachtrag: Meldelogik Telegram (27.11.2026)
+
+Keine Schwelle und keine Stufe der Lage ändert sich, nur wann gemeldet wird. (1) Ein **Stufenwechsel** wird erst gemeldet, wenn die neue Stufe in zwei aufeinanderfolgenden Läufen (2 Stunden Abstand) bestand; „ausserordentlich“ wird sofort gemeldet. Grund: Der Pegel flatterte an der Grenze (23.–25.11. viermal zwischen angespannt und hoch). (2) Ein **Nachtrag zu einem Microsoft-Patch-Day** kommt nur dann sofort, wenn die nachgetragene Lücke als ausgenutzt gekennzeichnet ist; sonst steht eine Zeile in der Tageslage. (3) **Wache:** ist der letzte Datenabruf älter als 6 Stunden oder scheitert der Datenlauf, geht eine technische Meldung in den privaten Audit-Kanal (nicht in den Lagekanal).

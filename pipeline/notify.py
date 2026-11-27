@@ -88,6 +88,14 @@ def monatsname(kennung):
     return "%s %s" % (MONAT_DE[mon], jahr) if mon in MONAT_DE and jahr.isdigit() else str(kennung)
 
 
+def _nachtrag_zeile(k, m, frueher):
+    """Kurzzeile für die Tageslage: Nachtrag ohne ausgenutzte Lücke."""
+    n = m["nachtraege"][-1].get("neue_cves")
+    bekannt = set((frueher.get("cves") or "").split())
+    neue = [str(c) for c in (m.get("cve_liste") or []) if str(c) not in bekannt] if bekannt else []
+    return f"• {e(monatsname(k))}: {zahl(n)} {'Lücke' if n == 1 else 'Lücken'} nachträglich ergänzt" + (" (" + ", ".join(verweis("https://msrc.microsoft.com/update-guide/vulnerability/" + c, c) for c in neue[:4]) + ")" if neue else "") + ", keine als ausgenutzt gekennzeichnet"
+
+
 def _nachtrag_text(k, m, frueher):
     """Meldung, wenn Microsoft ein älteres Monatsdokument nachträglich ergänzt hat. Das ist weder ein neuer Patch Day noch ein Notfall-Patch (Out-of-Band)."""
     x = m["nachtraege"][-1]
@@ -104,7 +112,7 @@ def _nachtrag_text(k, m, frueher):
     return "\n".join(zeilen)
 
 
-def patch_nachrichten(lage, alt, jetzt):
+def patch_nachrichten(lage, alt, jetzt, leise=None):
     """Meldungen zu Microsoft-Patch-Days und späteren Nachträgen (Microsoft ergänzt ein älteres Monatsdokument; kein Notfall-Patch). alt = {"ms": {id: {"aktuell", "nachtraege"}}} oder None.
     Gibt (nachrichten, neuer_stand) zurück. Ohne früheren Stand wird nur gemerkt (kein Rückblick-Spam), neue Monate nur bis 10 Tage nach Veröffentlichung gemeldet."""
     monate = ((((lage or {}).get("patches") or {}).get("microsoft") or {}).get("monate")) or {}
@@ -129,7 +137,10 @@ def patch_nachrichten(lage, alt, jetzt):
                 zeilen.append("Ausgenutzt: " + ", ".join(verweis("https://msrc.microsoft.com/update-guide/vulnerability/" + str(c), c) for c in m["ausgenutzt_cves"][:6]))
             nachrichten.append(f"<b>Microsoft Patch Day {e(k)}</b>\n" + "\n".join(zeilen) + f"\nNicht mitgezählt: Chromium (Edge) und Azure-Linux-Paketlücken.\n{SEITE}/#patches")
         elif frueher is not None and len(m.get("nachtraege") or []) > frueher.get("nachtraege", 0):
-            nachrichten.append(_nachtrag_text(k, m, frueher))
+            if leise is not None and not (m["nachtraege"][-1].get("ausgenutzt_neu") or 0):
+                leise.append(_nachtrag_zeile(k, m, frueher))  # nichts Ausgenutztes: kein Alarm, nur Zeile in der Tageslage
+            else:
+                nachrichten.append(_nachtrag_text(k, m, frueher))
     return nachrichten, neu
 
 
@@ -155,8 +166,9 @@ def ermittle(kev, bsi, eu, lage, zustand, jetzt):
     stufe = lage.get("stufe")
     neu_zustand = {"gesehen": {"kev": kev_ids, "bsi": bsi_ids, "eu": eu_ids}, "stufe": stufe,
                    "zusammenfassung": zustand.get("zusammenfassung") if zustand else None,
-                   "offen": {"kev": [], "bsi": [], "eu": []}}
-    patch_msgs, patch_neu = patch_nachrichten(lage, (zustand or {}).get("patches"), jetzt)
+                   "offen": {"kev": [], "bsi": [], "eu": [], "ms": []}}
+    leise = []
+    patch_msgs, patch_neu = patch_nachrichten(lage, (zustand or {}).get("patches"), jetzt, leise)
     neu_zustand["patches"] = patch_neu
     neu_zustand["fazit_gesendet"] = (zustand or {}).get("fazit_gesendet")
     nachrichten = []
@@ -164,10 +176,11 @@ def ermittle(kev, bsi, eu, lage, zustand, jetzt):
         neu_zustand["zusammenfassung"] = jetzt.date().isoformat()
         return [], neu_zustand
     g = zustand.get("gesehen", {})
-    offen = {k: list((zustand.get("offen") or {}).get(k, [])) for k in ("kev", "bsi", "eu")}
+    offen = {k: list((zustand.get("offen") or {}).get(k, [])) for k in ("kev", "bsi", "eu", "ms")}
+    offen["ms"] += leise
     nachrichten += _neue_meldungen(kev, bsi, eu, g, offen)
     nachrichten += patch_msgs
-    if zustand.get("stufe") != stufe:
+    if _stufe_melden(zustand, stufe, neu_zustand):
         nachrichten.append(f"<b>Dreier-Pegel geändert:</b> {STUFENNAME.get(zustand.get('stufe'), e(zustand.get('stufe')))} → "
                            f"<b>{STUFENNAME.get(stufe, e(stufe))}</b>\n{e(lage.get('stufe_begruendung', ''))}\n{SEITE}")
 
@@ -176,9 +189,28 @@ def ermittle(kev, bsi, eu, lage, zustand, jetzt):
     if zustand.get("zusammenfassung") != heute and lokal.hour >= TAGESLAGE_AB:
         nachrichten.append(_tageslage(lage, zustand, stufe, lokal, offen, neu_zustand))
         neu_zustand["zusammenfassung"] = heute
-        offen = {"kev": [], "bsi": [], "eu": []}
+        offen = {"kev": [], "bsi": [], "eu": [], "ms": []}
     neu_zustand["offen"] = offen
     return nachrichten, neu_zustand
+
+
+STUFE_LAEUFE = 2  # eine neue Stufe wird erst gemeldet, wenn sie in so vielen aufeinanderfolgenden Läufen (2 Stunden Abstand) bestand: gegen Flattern an der Grenze
+
+
+def _stufe_melden(zustand, stufe, neu_zustand):
+    """True, wenn der Stufenwechsel jetzt zu melden ist. Setzt in neu_zustand die gemeldete Stufe ("stufe") und den Kandidaten.
+    "außergewöhnlich" (ausserordentlich) wird sofort gemeldet, beim Hin- wie beim Zurückwechseln."""
+    alt = zustand.get("stufe")
+    if alt == stufe:
+        neu_zustand["stufe"], neu_zustand["stufe_kandidat"] = alt, None
+        return False
+    k = zustand.get("stufe_kandidat") or {}
+    n = k.get("n", 0) + 1 if k.get("wert") == stufe else 1
+    if n >= STUFE_LAEUFE or "ausserordentlich" in (alt, stufe):
+        neu_zustand["stufe"], neu_zustand["stufe_kandidat"] = stufe, None
+        return True
+    neu_zustand["stufe"], neu_zustand["stufe_kandidat"] = alt, {"wert": stufe, "n": n}
+    return False
 
 
 def _neue_meldungen(kev, bsi, eu, g, offen):
@@ -227,7 +259,8 @@ def _tageslage(lage, zustand, stufe, lokal, offen, neu_zustand):
         teile.append("<b>Diese Woche zuerst patchen</b>\n" + "\n".join(z) + f"\n{SEITE}/#patches")
     for liste, kopf in ((offen["kev"], f"<b>Neu im CISA-KEV ({len(offen['kev'])})</b>"),
                         (offen["bsi"], f"<b>CERT-Bund, neue kritische Warnungen ({len(offen['bsi'])})</b>"),
-                        (offen["eu"], f"<b>Neu im EU-KEV ({len(offen['eu'])})</b>")):
+                        (offen["eu"], f"<b>Neu im EU-KEV ({len(offen['eu'])})</b>"),
+                        (offen["ms"], f"<b>Microsoft, ältere Patch Days ergänzt ({len(offen['ms'])})</b>")):
         if liste:
             teile.append(abschnitt(liste, kopf))
     if not any(offen.values()):
@@ -313,11 +346,42 @@ def cve_listen_ergaenzen(lage, ms_voll):
             monate[k]["cve_liste"] = m["cve_liste"]
 
 
+FRISCHE_MAX_STUNDEN = 6  # so alt darf der letzte Datenabruf höchstens sein, sonst Alarm (Lauf alle 2 Stunden)
+
+
+def frische_pruefen(kev, jetzt, max_stunden=FRISCHE_MAX_STUNDEN):
+    """None, wenn die Daten frisch sind, sonst der Alarmtext. Läuft der Datenlauf nicht mehr, bleibt sonst alles still und sieht nach ruhigem Tag aus."""
+    try:
+        t = datetime.fromisoformat(str((kev or {}).get("meta", {}).get("abgerufen_am")).replace("Z", "+00:00"))
+    except ValueError:
+        return "<b>Cyberlage: Datenlauf prüfen.</b> Der Zeitpunkt des letzten Abrufs fehlt in den Daten."
+    alter = (jetzt - t).total_seconds() / 3600
+    if alter > max_stunden:
+        return f"<b>Cyberlage: Datenlauf steht.</b> Letzter Abruf vor {int(alter)} Stunden (erwartet: alle 2 Stunden). Keine Alarme und keine Tageslage, bis der Lauf wieder läuft.\nhttps://github.com/maxim91136/cyberlage.org/actions"
+    return None
+
+
+def sende_privat(text):
+    """Technische Meldungen gehen in den privaten Audit-Kanal, nicht in den Kanal der Lagemeldungen."""
+    token, chat = os.environ.get("TELEGRAM_BOT_TOKEN"), os.environ.get("TELEGRAM_AUDIT_CHAT_ID")
+    if not (token and chat):
+        print("Privater Kanal nicht eingerichtet, nichts gesendet:", text.replace("\n", " "))
+        return 0
+    sende(text, token, chat)
+    return 0
+
+
 def main():
     if "--diagnose" in sys.argv[1:]:
         return diagnose()
     if "--test" in sys.argv[1:]:
         return test_senden()
+    if "--ausfall" in sys.argv[1:]:
+        return sende_privat("<b>Cyberlage: Datenlauf fehlgeschlagen.</b> Ein Schritt im Lauf „daten“ ist abgebrochen. Bis zum nächsten erfolgreichen Lauf (alle 2 Stunden) können Meldungen ausbleiben.\nhttps://github.com/maxim91136/cyberlage.org/actions")
+    if "--frische" in sys.argv[1:]:
+        text = frische_pruefen(lese(WURZEL / "data" / "kev" / "kev.json", None), datetime.now(timezone.utc))
+        print(text.replace("\n", " ") if text else "Daten sind frisch")
+        return sende_privat(text) if text else 0
     jetzt = datetime.now(timezone.utc)
     kev = lese(WURZEL / "data" / "kev" / "kev.json", None)
     lage = lese(WURZEL / "site" / "data" / "lage.json", None)
