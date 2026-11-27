@@ -438,7 +438,7 @@ def _rueckrechnung(ergebnis, regeln, mcfg, stand, reihe, arch_aus, sr):
         (WURZEL / "site" / "data").mkdir(parents=True, exist_ok=True)
         (WURZEL / "site" / "data" / "berichte.json").write_text(json.dumps({
             "hinweis": "Berichte je abgeschlossenem Monat, Quartal und Jahr. Vor dem %s aus den Archivdaten zurückgerechnet (acht Bausteine, ohne die Gruppe Externe Einschätzungen), ab dann der gespeicherte Tagesstand aller Bausteine. Regeln: RULES.md, Abschnitt Berichte." % sr[0]["stand"],
-            "stand": stand.isoformat(), "daten_seit": alt[0]["stand"] if alt else None, "live_seit": sr[0]["stand"], "berichte": ber}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+            "stand": stand.isoformat(), "modell": mcfg["version"], "daten_seit": alt[0]["stand"] if alt else None, "live_seit": sr[0]["stand"], "berichte": ber}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     rs["reihe_voll"] = [{"stand": x["stand"], "ausnutzung": x["ausnutzung"], "n": x["n"],
                          "wert": live[x["stand"]]["wert"] if x["stand"] in live else None,
                          "signale": live[x["stand"]]["signale"] if x["stand"] in live else None} for x in alt]

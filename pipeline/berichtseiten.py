@@ -17,7 +17,7 @@ T = {
            "th": ("Baustein", "Mittel", "Tage ≥ 1", "Δ"), "vor": {"monat": "Vormonat", "quartal": "Vorquartal", "jahr": "Vorjahr"}, "zum": " zum ",
            "leg": "Mittel: Messwert im Verhältnis zur Schwelle, 1 = Schwelle erreicht, wie im Pegel höchstens 2. Tage ≥ 1: Anteil der Tage an oder über der Schwelle. Δ: Veränderung des Mittels zum %s.",
            "logbuch": "Logbuch im Zeitraum", "rueck": "zurückgerechnet aus den Archivdaten, ohne die Gruppe Externe Einschätzungen",
-           "live": "ab %s gespeicherter Tagesstand aller Bausteine, davor zurückgerechnet", "frueher": "← %s", "spaeter": "%s →", "alle": "Alle Berichte",
+           "live": "ab %s gespeicherter Tagesstand aller Bausteine, davor zurückgerechnet", "modell": "Modell Version %s", "frueher": "← %s", "spaeter": "%s →", "alle": "Alle Berichte",
            "heute": "Dreier-Pegel heute", "regeln": "Regeln", "andere": "English", "fuss": "Ein privates Projekt von Dreier Labs, keine amtliche Stelle. Feste Sätze nach Regeln, keine Vorhersage."},
     "en": {"pfad": "/en/bericht/", "start": "/en/", "h_alle": "Reports: Dreier Gauge per month, quarter and year",
            "intro": "The Dreier Gauge for every completed month, quarter and year: average, high and low, level changes and the components.",
@@ -26,7 +26,7 @@ T = {
            "th": ("Component", "Average", "Days ≥ 1", "Δ"), "vor": {"monat": "previous month", "quartal": "previous quarter", "jahr": "previous year"}, "zum": " vs. ",
            "leg": "Average: reading relative to its threshold, 1 = threshold reached, capped at 2 as in the gauge. Days ≥ 1: share of days at or above the threshold. Δ: change of the average vs. the %s.",
            "logbuch": "Logbook in this period", "rueck": "back-calculated from the archive data, without the group external assessments",
-           "live": "from %s stored daily value of all components, back-calculated before", "frueher": "← %s", "spaeter": "%s →", "alle": "All reports",
+           "live": "from %s stored daily value of all components, back-calculated before", "modell": "Model version %s", "frueher": "← %s", "spaeter": "%s →", "alle": "All reports",
            "heute": "Dreier Gauge today", "regeln": "Rules", "andere": "Deutsch", "fuss": "A private project by Dreier Labs, not an official body. Fixed sentences by rule, no forecast."},
 }
 
@@ -108,7 +108,8 @@ def seite(b, sp, daten, davor=None, danach=None):
         z.append('<p class="lbl mono">%s</p>\n<ul class="br-lb">%s</ul>\n' % (_e(t["logbuch"]), "".join(
             '<li><time class="mono dim" datetime="%s">%s</time> %s</li>' % (_e(x["datum"]), _datum(x["datum"], sp), _e(x["titel_en"] if en else x["titel"])) for x in b["logbuch"])))
     grund = t["rueck"] if b["bis"] < daten.get("live_seit", "9999") else t["live"] % _datum(daten["live_seit"], sp)
-    z.append('<p class="br-fuss mono dim">%s – %s · %s</p>\n</article>\n' % (_datum(b["von"], sp), _datum(b["bis"], sp), _e(grund)))
+    mv = (" · " + t["modell"] % daten["modell"]) if daten.get("modell") else ""
+    z.append('<p class="br-fuss mono dim">%s – %s · %s%s</p>\n</article>\n' % (_datum(b["von"], sp), _datum(b["bis"], sp), _e(grund), _e(mv)))
     nachbarn = []
     if davor:
         nachbarn.append('<a rel="prev" href="%s%s/">%s</a>' % (t["pfad"], davor["id"], _e(t["frueher"] % (davor["titel_en"] if en else davor["titel"]))))
@@ -120,10 +121,11 @@ def seite(b, sp, daten, davor=None, danach=None):
     return "".join(z)
 
 
-def uebersicht(berichte, sp):
+def uebersicht(berichte, sp, modell=None):
     t, en = T[sp], sp == "en"
+    intro = t["intro"] + (" " + t["modell"] % modell + "." if modell else "")
     z = [_kopf(sp, t["h_alle"] + " · Cyberlage", t["intro"], "/bericht/", "/en/bericht/"),
-         '<main class="wrap bs-main"><h1>%s</h1>\n<p class="dim">%s</p>\n' % (_e(t["h_alle"]), _e(t["intro"]))]
+         '<main class="wrap bs-main"><h1>%s</h1>\n<p class="dim">%s</p>\n' % (_e(t["h_alle"]), _e(intro))]
     for art in ("jahr", "quartal", "monat"):
         liste = [b for b in berichte if b["art"] == art]
         if not liste:
@@ -144,7 +146,7 @@ def schreibe(site, daten):
     for sp in ("de", "en"):
         ziel = site / T[sp]["pfad"].strip("/")
         ziel.mkdir(parents=True, exist_ok=True)
-        (ziel / "index.html").write_text(uebersicht(berichte, sp), encoding="utf-8")
+        (ziel / "index.html").write_text(uebersicht(berichte, sp, daten.get("modell")), encoding="utf-8")
         for art in ("monat", "quartal", "jahr"):
             reihe = sorted([b for b in berichte if b["art"] == art], key=lambda b: b["bis"])
             for i, b in enumerate(reihe):

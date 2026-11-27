@@ -1267,7 +1267,10 @@
     function lade(id) {
       if (daten || laedt) return; laedt = true; box.textContent = ""; box.appendChild(el("p", "dim", pick("Lädt …", "Loading …")));
       fetch("/data/berichte.json", { cache: "no-cache" }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) {
-        daten = d; var ziel = id && d.berichte.filter(function (b) { return b.id === id; })[0];
+        daten = d;
+        var bi = document.querySelector('[data-t="br_intro"]');
+        if (bi && d.modell && !bi.getAttribute("data-mv")) { bi.textContent = bi.textContent + " " + pick("Modell Version ", "Model version ") + d.modell + "."; bi.setAttribute("data-mv", "1"); }
+        var ziel = id && d.berichte.filter(function (b) { return b.id === id; })[0];
         if (ziel) setzeArt(ziel.art, ziel.id); else fuelle();
       }).catch(function () { laedt = false; box.textContent = ""; box.appendChild(el("p", "dim", pick("Die Berichte ließen sich nicht laden.", "The reports could not be loaded."))); });
     }
