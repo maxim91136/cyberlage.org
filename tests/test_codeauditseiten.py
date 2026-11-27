@@ -92,6 +92,17 @@ class CodeauditseitenTests(unittest.TestCase):
         self.assertIn("REGELN 1.0", svg)
         self.assertNotIn("ENTWURF", svg)
 
+    CODE_SIEGEL_PRUEFSUMME = "8075bf5ccec1c6879a5d62bd7a1b9677187d0f30ac929735ea63e833646c6665"  # gleich in Dreier Labs (Repo dreierlabs): dort derselbe Test mit derselben Summe
+
+    def test_code_siegel_unveraendert_wie_bei_dreier_labs(self):
+        """Das Dreier-Code-Siegel muss in Cyberlage und bei Dreier Labs gleich aussehen. Wer es ändert, ändert beide Repos und diese Prüfsumme.
+        Geprüft wird die Siegelfunktion mit festen Beispieldaten (Adresse „beispiel.de“, Regeln 1.0 des Code-Audits), nicht die Seite."""
+        import hashlib
+        z = lambda score, stufe, stand="2026-11-26T09:57Z": {"domain": "x", "stand": stand, "score": score, "stufe": stufe}
+        svgs = [auditseiten.siegel("beispiel.de", z(*a), JETZT, REGELN, **codeauditseiten.KOPF) for a in ((100, "ohne Befund"), (85, "kleine Mängel"), (65, "Mängel"), (40, "erhebliche Mängel"), (None, "nicht bewertet (zu wenig geprüft)"))]
+        svgs.append(auditseiten.siegel("beispiel.de", z(100, "ohne Befund", "2026-11-10T05:20Z"), JETZT, REGELN, **codeauditseiten.KOPF))
+        self.assertEqual(hashlib.sha256("\n".join(svgs).encode()).hexdigest(), self.CODE_SIEGEL_PRUEFSUMME)
+
 
 if __name__ == "__main__":
     unittest.main()
