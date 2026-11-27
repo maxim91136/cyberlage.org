@@ -3,10 +3,18 @@
   "quelle": "CERT-Bund / BSI Warn- und Informationsdienst",
   "quelle_url": "https://wid.cert-bund.de/",
   "hinweis": "Nur Kennung, Schweregrad, Titel, Datum und Link. Beschreibungstexte werden nicht übernommen.",
-  "abgerufen_am": "2026-11-27T05:15:27+00:00",
-  "anzahl": 631
+  "abgerufen_am": "2026-11-27T06:12:33+00:00",
+  "anzahl": 632
  },
  "eintraege": [
+  {
+   "id": "WID-SEC-2026-3590",
+   "schwere": "hoch",
+   "status": "update",
+   "titel": "Budibase: Mehrere Schwachstellen",
+   "datum": "2026-11-27",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-3590"
+  },
   {
    "id": "WID-SEC-2026-4826",
    "schwere": "mittel",
