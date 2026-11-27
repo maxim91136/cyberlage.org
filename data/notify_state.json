@@ -2517,6 +2517,7 @@
    "WID-SEC-2022-1243"
   ],
   "eu": [
+   "EUVD-2026-135954",
    "EUVD-2026-133254",
    "EUVD-2026-130384",
    "EUVD-2026-130382",
@@ -2620,7 +2621,9 @@
   "bsi": [
    "• <a href=\"https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4845\">Cacti: Schwachstelle ermöglicht Codeausführung</a>"
   ],
-  "eu": [],
+  "eu": [
+   "• Drupal – <a href=\"https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-135954\">CVE-2026-136716</a>"
+  ],
   "ms": []
  },
  "patches": {

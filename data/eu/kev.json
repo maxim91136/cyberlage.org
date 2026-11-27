@@ -3,10 +3,24 @@
   "quelle": "EU-KEV über die EU-Schwachstellendatenbank (EUVD) von ENISA",
   "quelle_url": "https://euvd.enisa.europa.eu/",
   "hinweis": "Lizenz nicht ausdrücklich geklärt. Nur Kennung, CVE, Hersteller, Werte, Datum und Link.",
-  "abgerufen_am": "2026-11-27T18:12:33+00:00",
-  "anzahl": 90
+  "abgerufen_am": "2026-11-27T20:12:34+00:00",
+  "anzahl": 91
  },
  "eintraege": [
+  {
+   "id": "EUVD-2026-135954",
+   "cve": [
+    "CVE-2026-136716"
+   ],
+   "hersteller": [
+    "Drupal"
+   ],
+   "ausgenutzt_seit": "2026-11-27",
+   "veroeffentlicht": "2026-11-26",
+   "cvss": 9.8,
+   "epss": 1.01,
+   "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-135954"
+  },
   {
    "id": "EUVD-2026-133254",
    "cve": [
