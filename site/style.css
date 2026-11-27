@@ -278,7 +278,7 @@ html.alarm .marke{animation:flackern 6s infinite}
 .verbund .lage{margin-bottom:0}
 .verknuepf{height:38px;margin-left:34px;border-left:2px dashed var(--green);display:flex;align-items:center;padding-left:14px;font-size:12px;color:var(--green)}
 .verknuepf::before{content:"▼";margin-left:-23px;margin-right:12px;background:var(--bg,#07090b);color:var(--green)}
-.verbund .radar-box{margin-top:0;border-color:var(--green)}
+.verbund .radar-box{margin-top:0;border-left:4px solid var(--green)}
 .rd-gr{margin:18px 0 8px}
 .kc.ktx{border-top-style:dashed}
 .kc-r{font-size:12px;color:var(--dim);border-top:1px dashed var(--line);padding-top:6px}
@@ -305,13 +305,13 @@ html.alarm .marke{animation:flackern 6s infinite}
 .rd-score.ra-ruhig{--ra:var(--ra-ruhig)}.rd-score.ra-unauffaellig{--ra:var(--ra-unauffaellig)}.rd-score.ra-angespannt{--ra:var(--ra-angespannt)}.rd-score.ra-hoch{--ra:var(--ra-hoch)}.rd-score.ra-ausserordentlich{--ra:var(--ra-ausserordentlich)}
 .rd-score[class*="ra-"]{border-color:var(--ra);background:color-mix(in srgb,var(--ra) 7%,transparent)}
 .rd-score[class*="ra-"] .sw,.rd-score[class*="ra-"] .sw small.sst{color:var(--ra)}
-.verbund .radar-box.ra-ruhig{border-color:var(--ra-ruhig)}.verbund .radar-box.ra-unauffaellig{border-color:var(--ra-unauffaellig)}.verbund .radar-box.ra-angespannt{border-color:var(--ra-angespannt)}.verbund .radar-box.ra-hoch{border-color:var(--ra-hoch)}.verbund .radar-box.ra-ausserordentlich{border-color:var(--ra-ausserordentlich)}
+.verbund .radar-box.ra-ruhig{border-left-color:var(--ra-ruhig)}.verbund .radar-box.ra-unauffaellig{border-left-color:var(--ra-unauffaellig)}.verbund .radar-box.ra-angespannt{border-left-color:var(--ra-angespannt)}.verbund .radar-box.ra-hoch{border-left-color:var(--ra-hoch)}.verbund .radar-box.ra-ausserordentlich{border-left-color:var(--ra-ausserordentlich)}
 .fazit.ra-ruhig{border-left-color:var(--ra-ruhig)}.fazit.ra-unauffaellig{border-left-color:var(--ra-unauffaellig)}.fazit.ra-angespannt{border-left-color:var(--ra-angespannt)}.fazit.ra-hoch{border-left-color:var(--ra-hoch)}.fazit.ra-ausserordentlich{border-left-color:var(--ra-ausserordentlich)}
 .rd-skala{margin:0 0 14px}.ska{position:relative;display:flex;height:12px;border:1px solid var(--line)}.ska .sg{display:block;height:100%;opacity:.85}
 .ska .mk{position:absolute;top:-5px;width:3px;height:20px;margin-left:-1px;background:#fff;box-shadow:0 0 0 1px #000}
 .skz{position:relative;height:16px;margin-top:4px;font-size:11px;color:var(--dim)}.skz span{position:absolute;transform:translateX(-50%)}.skz span:first-child{transform:none}.skz span:last-child{transform:translateX(-100%)}
-.verbund .fazit{margin:0;padding:16px 18px;border:1px solid var(--line);border-left:3px solid var(--green)}
-.verbund .fazit.ra-ruhig{border-color:var(--ra-ruhig)}.verbund .fazit.ra-unauffaellig{border-color:var(--ra-unauffaellig)}.verbund .fazit.ra-angespannt{border-color:var(--ra-angespannt)}.verbund .fazit.ra-hoch{border-color:var(--ra-hoch)}.verbund .fazit.ra-ausserordentlich{border-color:var(--ra-ausserordentlich)}
+.verbund .fazit{margin:0;padding:16px 18px;border:1px solid var(--line);border-left:4px solid var(--green)}
+.verbund .fazit.ra-ruhig{border-left-color:var(--ra-ruhig)}.verbund .fazit.ra-unauffaellig{border-left-color:var(--ra-unauffaellig)}.verbund .fazit.ra-angespannt{border-left-color:var(--ra-angespannt)}.verbund .fazit.ra-hoch{border-left-color:var(--ra-hoch)}.verbund .fazit.ra-ausserordentlich{border-left-color:var(--ra-ausserordentlich)}
 .verbund .fazit .ft{font-size:17px}
 .rd-score .sw{flex:0 0 auto;white-space:nowrap}@media (min-width:701px){.rd-score .sw{min-width:230px}}
 .lage #stufe-begr{margin:10px 0 0;font-weight:600}.pegeldef{margin:8px 0 0;max-width:46em}
@@ -909,3 +909,6 @@ main .p-rang .p-det>summary{padding:2px 0}
   .totop{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(12,16,20,.96)}
   .sc-sweep{animation:none}
 }
+
+/* Drei Karten der Lage einheitlich: neutraler Rahmen, links ein 4 px breiter Streifen in der Farbe der Stufe, gleiche Rundung */
+.verbund .lage,.verbund .radar-box,.verbund .fazit{border-radius:var(--r)}
