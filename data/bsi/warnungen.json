@@ -3,10 +3,34 @@
   "quelle": "CERT-Bund / BSI Warn- und Informationsdienst",
   "quelle_url": "https://wid.cert-bund.de/",
   "hinweis": "Nur Kennung, Schweregrad, Titel, Datum und Link. Beschreibungstexte werden nicht übernommen.",
-  "abgerufen_am": "2026-11-27T09:57:34+00:00",
-  "anzahl": 689
+  "abgerufen_am": "2026-11-27T10:15:53+00:00",
+  "anzahl": 692
  },
  "eintraege": [
+  {
+   "id": "WID-SEC-2026-4838",
+   "schwere": "niedrig",
+   "status": "neu",
+   "titel": "MISP: Schwachstelle ermöglicht Umgehen von Sicherheitsvorkehrungen",
+   "datum": "2026-11-27",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4838"
+  },
+  {
+   "id": "WID-SEC-2026-4837",
+   "schwere": "mittel",
+   "status": "neu",
+   "titel": "Docker Sandboxes: Schwachstelle ermöglicht Offenlegung von Informationen",
+   "datum": "2026-11-27",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4837"
+  },
+  {
+   "id": "WID-SEC-2026-4836",
+   "schwere": "mittel",
+   "status": "neu",
+   "titel": "Octopus Deploy: Schwachstelle ermöglicht Manipulation von Dateien",
+   "datum": "2026-11-27",
+   "link": "https://wid.cert-bund.de/portal/wid/securityadvisory?name=WID-SEC-2026-4836"
+  },
   {
    "id": "WID-SEC-2026-4835",
    "schwere": "hoch",
