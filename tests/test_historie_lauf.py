@@ -196,7 +196,8 @@ class LaufTest(unittest.TestCase):
 
     def test_main_schreibt_zusammenfassung_und_meldet_ohne_telegram(self):
         erg = [("geheimnisse", "a", "bestanden", ""), ("tests", "b", "nicht_bestanden", "Test rot")]
-        with tempfile.TemporaryDirectory() as d, mock.patch.object(lauf, "sammle", return_value=erg):
+        ohne = {k: v for k, v in lauf.os.environ.items() if not k.startswith("TELEGRAM_")}  # CI setzt diese Variablen: nie echt senden
+        with tempfile.TemporaryDirectory() as d, mock.patch.object(lauf, "sammle", return_value=erg), mock.patch.dict(lauf.os.environ, ohne, clear=True), mock.patch.object(lauf.notify, "sende", side_effect=AssertionError("darf nicht senden")):
             ziel = Path(d) / "u" / "z.json"
             aus = io.StringIO()
             with redirect_stdout(aus):
@@ -213,7 +214,7 @@ class LaufTest(unittest.TestCase):
         erg = [("tests", "b", "nicht_bestanden", "Test rot")]
         gesendet = []
         env = {"TELEGRAM_BOT_TOKEN": "t", "TELEGRAM_AUDIT_CHAT_ID": "c"}
-        with mock.patch.object(lauf, "sammle", return_value=erg), mock.patch.dict(lauf.os.environ, env), mock.patch.object(lauf.notify, "sende", lambda *a: gesendet.append(a)), redirect_stdout(io.StringIO()):
+        with mock.patch.object(lauf, "sammle", return_value=erg), mock.patch.dict(lauf.os.environ, env, clear=True), mock.patch.object(lauf.notify, "sende", lambda *a: gesendet.append(a)), redirect_stdout(io.StringIO()):
             lauf.main(["--telegram"])
         self.assertEqual(len(gesendet), 1)
         self.assertIn("Test rot", gesendet[0][0])
