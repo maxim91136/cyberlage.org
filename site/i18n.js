@@ -107,7 +107,7 @@
       "<dt>FIRST</dt><dd>Forum of Incident Response and Security Teams, the international association of security teams. Maintains CVSS and EPSS.</dd>" +
       "<dt>CISA</dt><dd>Cybersecurity and Infrastructure Security Agency, the US cybersecurity agency. Maintains the KEV list.</dd>" +
       "<dt>BSI / CERT-Bund</dt><dd>The German Federal Office for Information Security and its computer emergency team. They warn about vulnerabilities in Germany.</dd>" +
-      "<dt>BSI Cyber Index</dt><dd>An assessment of the cyber situation by the BSI. We take it over as an external component and do not rate it ourselves.</dd>" +
+      "<dt>BSI Cyber Index</dt><dd>A figure from the BSI situation report for Germany. It combines attack surface, threat and damage in one number, with 2024 = 100. We take the annual value over as an external component and do not rate it ourselves.</dd>" +
       "<dt>NCSC-NL</dt><dd>The National Cyber Security Centre of the Netherlands. Publishes warnings about vulnerabilities.</dd>" +
       "<dt>ENISA / EUVD</dt><dd>The EU Agency for Cybersecurity and its vulnerability database (European Union Vulnerability Database).</dd>" +
       "<dt>NVD</dt><dd>National Vulnerability Database of the US institute NIST, the place to find details on a CVE.</dd>" +
