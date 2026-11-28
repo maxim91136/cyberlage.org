@@ -392,17 +392,26 @@
       v = rk.a.map(function (a, i) { var st = new Date(t0 + i * 86400000).toISOString().slice(0, 10), lv = rk.live[st]; return { stand: st, ausnutzung: a, n: rk.n[i], wert: lv ? lv[0] : null, signale: lv ? lv[1] : null }; });
     }
     if (!v.length) { leg.textContent = txt("keine"); return; }
-    var B = Math.max(300, Math.round(svg.getBoundingClientRect().width)) || 1000, H = B < 600 ? 190 : 230, L = 30, R = 16, T = 12, U = 28;
+    var B = Math.max(300, Math.round(svg.getBoundingClientRect().width)) || 1000, H = B < 600 ? 190 : 230, L = 30, R = B < 600 ? 16 : 118, T = 12, U = 28;
     svg.setAttribute("viewBox", "0 0 " + B + " " + H);
     var mk = function (tag, a, t) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); if (t !== undefined) e.textContent = t; svg.appendChild(e); return e; };
     var y = function (n) { return T + (H - T - U) * (1 - n / 100); };
     var x = function (i) { return v.length < 2 ? (L + B - R) / 2 : L + i * (B - L - R) / (v.length - 1); };
     var mono = { "font-size": 12, "font-family": "ui-monospace,monospace", fill: "#8a99a6" };
-    [0, 50, 100].forEach(function (n) {
-      mk("line", { x1: L, x2: B - R, y1: y(n), y2: y(n), stroke: n === 50 ? "#263340" : "#1d262e", "stroke-dasharray": n === 50 ? "4 4" : "0" });
-      mk("text", Object.assign({ x: L - 6, y: y(n) + 4, "text-anchor": "end" }, mono), String(n));
-    });
-    [35, 64, 80].forEach(function (n) { mk("line", { x1: L, x2: B - R, y1: y(n), y2: y(n), stroke: "#1d262e", "stroke-dasharray": "2 4" }); });
+    var stf = d_skala && d_skala.stufen && d_skala.stufen.length > 1 ? d_skala.stufen : null;
+    var grenzen = stf ? stf.slice(0, -1).map(function (z) { return z.bis; }) : [35, 50, 64, 80];
+    [0, 100].forEach(function (n) { mk("line", { x1: L, x2: B - R, y1: y(n), y2: y(n), stroke: "#1d262e" }); });
+    [0].concat(grenzen, [100]).forEach(function (n) { mk("text", Object.assign({ x: L - 6, y: y(n) + 4, "text-anchor": "end" }, mono), String(n)); });
+    grenzen.forEach(function (n) { mk("line", { x1: L, x2: B - R, y1: y(n), y2: y(n), stroke: n === 50 ? "#263340" : "#1d262e", "stroke-dasharray": n === 50 ? "4 4" : "2 4" }); });
+    // Namen der Stufen am rechten Rand, nur wo Platz ist (Desktop); am Handy stehen die Grenzzahlen links
+    if (stf && R > 60) {
+      var unten = 0;
+      stf.forEach(function (z) {
+        var oben = Math.min(z.bis, 100);
+        mk("text", Object.assign({ x: B - R + 8, y: y((unten + oben) / 2) + 4, "text-anchor": "start" }, mono, { "font-size": 11 }), pick(z.name, z.name_en || z.name));
+        unten = oben;
+      });
+    }
     // Linie 1: alle Bausteine mit Archiv, rückgerechnet
     mk("polyline", { points: v.map(function (p, i) { return x(i) + "," + y(p.ausnutzung); }).join(" "), fill: "none", stroke: "#5a8f74", "stroke-width": 1.6 });
     // Linie 2: voller Dreier-Pegel, erst ab dem Live-Start
@@ -420,9 +429,18 @@
       var t1 = document.createElementNS(NS, "tspan"); t1.setAttribute("fill", "#6fe0a0"); t1.setAttribute("font-weight", "600"); t1.textContent = "● " + pick("voller Pegel ", "full gauge ") + lw; kopf.appendChild(t1);
       var t2 = document.createElementNS(NS, "tspan"); t2.setAttribute("fill", "#8fbfa6"); t2.textContent = pick("   ─ ohne BSI/SANS ", "   ─ without BSI/SANS ") + la; kopf.appendChild(t2);
     }
-    var pk = v.length > 120 ? [0, Math.floor(v.length / 3), Math.floor(2 * v.length / 3)] : [0];
-    pk.forEach(function (i) { mk("text", Object.assign({ x: x(i), y: H - 8, "text-anchor": "start" }, mono), datum(v[i].stand)); });
-    mk("text", Object.assign({ x: x(v.length - 1), y: H - 8, "text-anchor": "end" }, mono), datum(v[v.length - 1].stand));
+    // Zeitachse: echte Kalenderdaten (1. Januar mit Jahreszahl, 1. Juli als Strich), nicht Drittel der Datenpunkte
+    var letzt = v.length - 1, endX = x(letzt);
+    for (var yr = +v[0].stand.slice(0, 4); yr <= +v[letzt].stand.slice(0, 4); yr++) {
+      [["01-01", true], ["07-01", false]].forEach(function (m) {
+        var tag = yr + "-" + m[0], k = -1;
+        for (var q = 0; q < v.length; q++) { if (v[q].stand >= tag) { k = q; break; } }
+        if (k < 0 || v[k].stand.slice(0, 7) !== tag.slice(0, 7) || k === letzt) return;
+        mk("line", { x1: x(k), x2: x(k), y1: H - U, y2: H - U + 5, stroke: "#3a4650" });
+        if (m[1] && endX - x(k) > (R > 60 ? 96 : 60)) mk("text", Object.assign({ x: x(k), y: H - 8, "text-anchor": x(k) < L + 20 ? "start" : "middle" }, mono), String(yr));
+      });
+    }
+    mk("text", Object.assign({ x: endX, y: H - 8, "text-anchor": "end" }, mono), R > 60 ? datum(v[letzt].stand) : pick("heute", "today"));
     var t = document.createElementNS(NS, "title"); t.textContent = pick("Verlauf des Dreier-Pegels, zuletzt " + (typeof sc.wert === "number" ? sc.wert : "–") + " von 100.", "Dreier Gauge over time, latest " + (typeof sc.wert === "number" ? sc.wert : "–") + " of 100."); svg.insertBefore(t, svg.firstChild);
     var ak = v[v.length - 1].ausnutzung;
     var n0 = v[0].n, n1 = v[v.length - 1].n;
