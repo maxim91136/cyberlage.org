@@ -171,7 +171,7 @@
    "url": "https://www.first.org/epss/",
    "betreiber": "FIRST (EPSS-Arbeitsgruppe), Scores von Empirical Security",
    "pflege": "automatisch, täglich",
-   "im_pegel": true,
+   "im_pegel": false,
    "de": "Ein Modell, das die Wahrscheinlichkeit schätzt, dass eine veröffentlichte Lücke in den nächsten 30 Tagen ausgenutzt wird. Täglich neu, als CSV und per API. Eine Prognose, nicht Teil der Stufe.",
    "en": "A model estimating the probability that a published flaw will be exploited in the next 30 days. Updated daily, as CSV and via API. A forecast, not part of the level.",
    "geprueft_am": "2026-11-26"

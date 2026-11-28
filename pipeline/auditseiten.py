@@ -272,6 +272,7 @@ def seite(sp, daten, regeln, jetzt, code=None):
     z.append('<p class="bs-nav mono"><a href="%s">%s</a> · <a href="%s">%s</a> · <a href="%s">%s</a> · <a href="/RULES.md">RULES</a> · <a href="%s" hreflang="%s">%s</a></p>\n'
              '<p class="mono dim fine">%s</p>\n</main></body></html>\n' % (
                  t["start"], _e(t["heute"]), bs.T[sp]["pfad"], _e(t["alle"]), REPO_AUDIT, _e(t["quell"]), andere, "de" if sp == "en" else "en", _e(t["andere"]), _e(t["fuss"])))
+    z[-1] = z[-1].replace(">RULES<", ">Rules<" if sp == "en" else ">Regeln<")
     return "".join(z)
 
 

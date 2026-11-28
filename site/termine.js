@@ -64,7 +64,7 @@
       });
       row.appendChild(b); host.appendChild(row);
     });
-    var alle = el("button", "mono t-alle", pick("Alle vier Hersteller als wiederkehrende Einträge (.ics)", "All four vendors as recurring entries (.ics)")); alle.type = "button";
+    var alle = el("button", "mono t-alle", pick("Microsoft, Adobe, SAP und Oracle als wiederkehrende Einträge (.ics)", "Microsoft, Adobe, SAP and Oracle as recurring entries (.ics)")); alle.type = "button";
     alle.addEventListener("click", function () {
       var n = termine(new Date(), 40), liste = [];
       [["ms", "FREQ=MONTHLY;BYDAY=2TU", "Microsoft Patch Day"], ["adobe", "FREQ=MONTHLY;BYDAY=2TU", "Adobe Patch Day"], ["sap", "FREQ=MONTHLY;BYDAY=2TU", "SAP Security Patch Day"],

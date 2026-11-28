@@ -30,7 +30,7 @@ HINWEISE = [
     "Kein Ersatz für Warnungen des BSI oder eines CERT.",
     "KEV ist eine weltweite Liste ausgenutzter Schwachstellen und enthält keine Angaben zu Sektoren oder Betroffenen.",
     "Die Liste ist für den Abgleich mit dem eigenen Bestand gedacht: Wer verteidigt, weiß selbst, was im Einsatz ist.",
-    "Die Stufe zeigt, wie viele Schwachstellen neu als ausgenutzt gelten, im Vergleich zu den letzten 12 Monaten. Sie gilt allgemein, nicht für einen bestimmten Sektor, und sagt nichts über einzelne Angriffe.",
+    "Die Stufe zeigt, ob die zehn Bausteine über dem liegen, was in den letzten drei Jahren üblich war. Sie gilt allgemein, nicht für einen bestimmten Sektor, und sagt nichts über einzelne Angriffe.",
     "ENISA-Werte gelten für die EU insgesamt, nicht für Deutschland.",
     "Der Ausblick nennt eine Schätzung (EPSS) für neue Lücken. Er gehört nicht zur Stufe und ist kein Befund.",
 ]
@@ -40,7 +40,7 @@ HINWEISE_EN = [
     "No substitute for warnings from the BSI or a CERT.",
     "KEV is a worldwide list of exploited vulnerabilities and contains no information about sectors or affected parties.",
     "The list is meant for matching against your own inventory: defenders know what they run.",
-    "The level shows how many vulnerabilities newly count as exploited compared with the last 12 months. It applies in general, not to any particular sector, and says nothing about individual attacks.",
+    "The level shows whether the ten components are above what was usual over the last three years. It applies in general, not to any particular sector, and says nothing about individual attacks.",
     "ENISA figures apply to the EU as a whole, not to Germany.",
     "The outlook gives an estimate (EPSS) for new flaws. It is not part of the level and not a finding.",
 ]

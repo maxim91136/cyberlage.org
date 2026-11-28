@@ -4,6 +4,10 @@
   window.CL = window.CL || {};
   var $ = function () { return window.CL.$.apply(null, arguments); };
   var pick = function () { return window.CL.pick.apply(null, arguments); };
+  var nameEn = function (s) {
+    return pick(s, String(s).replace(/ \(?über /, function (m) { return m.replace("über", "via"); }).replace(/^Linkseite: /, "Link page: ").replace(/^Stufen des Dreier-Pegels \(vorläufig\)/, "Dreier Gauge levels (provisional)")
+      .replace(/^Modell des Dreier-Pegels ([\d.]+): Bausteine, Gruppen, Schwellen \(fest\)/, "Dreier Gauge model $1: components, groups, thresholds (fixed)").replace(/^Web-Audit: Regeln, Quellen und Prüfpunkte/, "Web audit: rules, sources and checks"));
+  };
   var el = function () { return window.CL.el.apply(null, arguments); };
   var txt = function () { return window.CL.txt.apply(null, arguments); };
   var zahl = function () { return window.CL.zahl.apply(null, arguments); };
@@ -175,7 +179,7 @@ b.appendChild(el("span", "g", typeof s.ausschlag === "number" ? pick("Messwert: 
     var ul = $("rd-gruende"); ul.textContent = "";
     (r.gruende || []).forEach(function (g) {
       var li = el("li", "", pick(g.aussage, g.aussage_en) + " ");
-      li.appendChild(link(g.link, "[" + g.quelle + "]"));
+      li.appendChild(link(g.link, "[" + nameEn(g.quelle) + "]"));
       var pe = ((r.pruefung || {}).eintraege || []).filter(function (e) { return e.id === g.id; })[0];
       var st = el("span", "pr mono" + (pe && (pe.faellig || pe.link_tot) ? " warn" : ""),
         " " + pick("geprüft ", "checked ") + datum(g.geprueft_am) + (pe && pe.faellig ? pick(" · Prüfung fällig", " · check due") : "") + (pe && pe.link_tot ? pick(" · Link prüfen", " · check link") : ""));
@@ -189,14 +193,14 @@ b.appendChild(el("span", "g", typeof s.ausschlag === "number" ? pick("Messwert: 
       var tb = el("tbody", ""); pt.appendChild(tb);
       pr.eintraege.forEach(function (e) {
         var tr = el("tr", ""); tb.appendChild(tr);
-        tr.appendChild(el("td", "", e.name)); tr.appendChild(el("td", "mono", datum(e.geprueft_am)));
+        tr.appendChild(el("td", "", nameEn(e.name))); tr.appendChild(el("td", "mono", datum(e.geprueft_am)));
         tr.appendChild(el("td", "mono" + (e.faellig ? " warn" : ""), datum(e.faellig_am) + (e.faellig ? pick(" · fällig", " · due") : "")));
         var td = el("td", "mono" + (e.link_tot ? " warn" : ""), e.link_tot ? pick("nicht erreichbar", "unreachable") : (e.erreichbar ? pick("erreichbar", "reachable") : pick("Fehlschlag, wird wiederholt", "failed, will retry")));
         tr.appendChild(td);
       });
     }
     var pz = $("rd-pruef");
-    if (pz) pz.textContent = pr ? pick("Prüfstand: ", "Check status: ") + (pr.offen.length ? pr.offen.length + pick(" Angaben brauchen eine Prüfung.", " items need a check.") : pick("alle Angaben innerhalb der Frist, alle Quellen erreichbar", "all items within their deadline, all sources reachable")) + " (" + datum(pr.stand) + ")" : "";
+    if (pz) pz.textContent = pr ? pick("Prüfstand: ", "Check status: ") + (pr.offen.length ? (pr.offen.length === 1 ? pick("1 Angabe braucht eine Prüfung.", "1 item needs a check.") : pr.offen.length + pick(" Angaben brauchen eine Prüfung.", " items need a check.")) : pick("alle Angaben innerhalb der Frist, alle Quellen erreichbar", "all items within their deadline, all sources reachable")) + " (" + datum(pr.stand) + ")" : "";
   }
 
   function zeichneRadar(v) {

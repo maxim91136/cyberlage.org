@@ -488,7 +488,7 @@
   }
   function zeigeEu(u) {
     if (!u) { $("eu-info").textContent = txt("keine"); $("eu-liste").textContent = txt("keine"); return; }
-    $("eu-info").textContent = txt("eu_info", u.neu_30_tage, u.fenster_tage, datum(u.abgerufen_am)) + luecke(u, d_stand);
+    $("eu-info").textContent = txt("eu_info", u.neu_30_tage, u.fenster_tage, datum(u.abgerufen_am)) + ((u.liste || []).length < u.neu_30_tage ? pick(" Die Liste zeigt die neuesten " + u.liste.length + ".", " The list shows the newest " + u.liste.length + ".") : "") + luecke(u, d_stand);
     liste("eu-liste", (u.liste || []).map(function (e) {
       var r = el("div", "row zeile");
       r.appendChild(el("span", "mono dim", datum(e.ausgenutzt_seit)));

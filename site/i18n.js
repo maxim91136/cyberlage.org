@@ -92,7 +92,7 @@
     n_q3: "Source: EU Vulnerability Database (EUVD) of <strong>ENISA</strong>, the EU Agency for Cybersecurity. The licence is not explicitly clarified, so only ID, CVE, vendor and link are shown.",
     n_q4: 'Forecast, not part of the level: the probability comes from <strong>EPSS</strong> (Exploit Prediction Scoring System, FIRST) and estimates whether a new flaw will be exploited in the next 30 days. An estimate, not a finding. Listed are new CVEs of the last days that are not yet in the KEV. See EPSS at <a href="https://www.first.org/epss">first.org/epss</a>. Publication date and CVSS score from the NVD. This product uses data from the NVD API but is not endorsed or certified by the NVD.',
     i_qtxt: "From CERT-Bund (BSI) we show only title, severity, date and link, always with the source. The texts are at the BSI.",
-    i_dl: "<dt>Dreier-Pegel</dt><dd>Our own score from 0 to 100 in five levels, built from ten components. It shows the situation, it predicts nothing.</dd>" +
+    i_dl: "<dt>Dreier Gauge (Dreier-Pegel)</dt><dd>Our own score from 0 to 100 in five levels, built from ten components. It shows the situation, it predicts nothing.</dd>" +
       "<dt>Component</dt><dd>A single signal behind the level, for example the number of new KEV entries. Every component has a fixed rule, a source and a date.</dd>" +
       "<dt>Threshold</dt><dd>The value from which a component counts as elevated. For us the upper quarter of its own history.</dd>" +
       "<dt>Percentile</dt><dd>The value below which a given share of all measurements lies. The 75th percentile marks off the upper quarter.</dd>" +
@@ -123,7 +123,7 @@
       "<dt>LTSC</dt><dd>Long-Term Servicing Channel: a Windows edition with especially long support, meant for fixed-purpose systems.</dd>",
     i_grid: '<div class="panel pad"><strong>Published data only</strong><p class="dim">We do not know what is in use where, and we do not claim to.</p></div>' +
       '<div class="panel pad"><strong>No data instead of guesses</strong><p class="dim">If a sourced value is missing, it says “no data”.</p></div>' +
-      '<div class="panel pad"><strong>Open rules</strong><p class="dim">Window, thresholds and derivation are in <a href="/RULES.md">RULES.md</a>.</p></div>',
+      '<div class="panel pad"><strong>Open rules</strong><p class="dim">Window, thresholds and derivation are in the <a href="/RULES.md">rules</a>.</p></div>',
     f_fuss: 'A project by <a href="https://dreierlabs.com">Dreier Labs</a>. Private project, not an official body, no connection to the BSI or any authority. No warranty.',
     f_links: '<a href="/impressum.html">legal notice</a> · <a href="/hinweise.html">notes &amp; privacy</a> · <a href="/LICENSE">licence</a>',
     top: "Back to top",
@@ -134,7 +134,7 @@
     hw_l1: "Cyberlage is a private project of Dreier Labs and not an official body. There is no connection to the BSI or any other authority.",
     hw_l2: "The content is an analysis of openly licensed sources and no substitute for warnings from the BSI or a CERT. No guarantee of accuracy or completeness.",
     hw_l3: "The operators of linked sites are responsible for them.",
-    hw_ds: 'This site sets no cookies and embeds no tracking or third-party services. When you visit, the hosting provider (Cloudflare) processes technically necessary connection data. Your browser’s local storage holds only your language choice and the alert mode setting; neither is transmitted. More: <a href="https://dreierlabs.com/datenschutz.html">privacy policy of Dreier Labs</a>.',
+    hw_ds: 'This site sets no cookies and embeds no tracking or third-party services. When you visit, the hosting provider (Cloudflare) processes technically necessary connection data. Your browser’s local storage holds only your settings (language, alert mode, background, dismissed notes) and, if you use them, your filter and check marks in the patches section. None of it is transmitted. More: <a href="https://dreierlabs.com/datenschutz.html">privacy policy of Dreier Labs</a>.',
     hw_zurueck: "Back to the start page"
   };
 
@@ -183,8 +183,8 @@
                en: function (a, b, mn, mx, z) { return "Newly added vulnerabilities per 30 days, " + a + " to " + b + ": lowest " + mn + ", highest " + mx + ", latest " + z + "."; } },
     v_tip: { de: function (d, n, st) { return d + ": " + n + " neu in 30 Tagen" + (st ? ", Stufe " + st : ""); },
              en: function (d, n, st) { return d + ": " + n + " new in 30 days" + (st ? ", level " + st : ""); } },
-    v_leg: { de: function (m) { return "Jeder Balken ist eine Woche der letzten " + m + " Monate: grün normal, gelb erhöht, rot hoch, gemessen an den heutigen Schwellen. Quelle: CISA KEV (CC0 1.0), eigene Auswertung."; },
-             en: function (m) { return "Each bar is one week of the last " + m + " months: green normal, yellow elevated, red high, measured against today’s thresholds. Source: CISA KEV (CC0 1.0), own analysis."; } }
+    v_leg: { de: function (m) { return "Jeder Balken ist eine Woche der letzten " + m + " Monate: grün niedrig, gelb erhöht, rot hoch, gemessen an den heutigen Schwellen. Quelle: CISA KEV (CC0 1.0), eigene Auswertung."; },
+             en: function (m) { return "Each bar is one week of the last " + m + " months: green low, yellow elevated, red high, measured against today’s thresholds. Source: CISA KEV (CC0 1.0), own analysis."; } }
   };
 
   var api = {
