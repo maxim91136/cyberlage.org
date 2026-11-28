@@ -1,0 +1,10 @@
+{
+  "name": "cyberlage-werkzeuge",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Werkzeuge für das Code-Audit (nur ESLint). Feste Version, Prüfsummen in package-lock.json; im Workflow mit npm ci installiert.",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "eslint": "10.15.0"
+  }
+}

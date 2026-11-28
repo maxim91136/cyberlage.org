@@ -69,7 +69,7 @@ def sammle():
     rc, aus = starte(["ruff", "check", "--select", "F,B", "--output-format", "json", "pipeline", "audit", "codeaudit", "tests"])
     ruff = json_aus(aus) if rc is not None else None
     erg += pruefungen.python_werkzeuge(bandit, ruff)
-    rc, aus = starte(["eslint", "-c", "codeaudit/eslint.config.js", "-f", "json", "site/app.js", "site/termine.js", "site/radar.js", "site/tabellen.js", "site/i18n.js", "site/matrix.js", "site/modus.js", "site/impressum.js"])
+    rc, aus = starte(["eslint", "-c", "codeaudit/eslint.config.js", "-f", "json", "site/app.js", "site/termine.js", "site/radar.js", "site/tabellen.js", "site/i18n.js", "site/matrix.js", "site/modus.js", "site/impressum.js", "site/hilfe.js"])
     erg += pruefungen.eslint(json_aus(aus) if rc is not None and aus.strip() else None)
     erg += tests()
     rc, aus = starte(["radon", "cc", "-j", "pipeline", "audit", "codeaudit"])

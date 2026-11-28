@@ -37,7 +37,7 @@ Version **1.0**, Stand 27.11.2026. Maßgeblich ist `codeaudit/regeln.json`. Seit
 - **Workflows:** eigene Prüfung ohne Werkzeug (jede Action auf einen 40-stelligen Commit gepinnt, jeder Workflow setzt `permissions:`), dazu zizmor (hohe Funde nicht bestanden, mittlere Hinweis).
 - **Abhängigkeiten:** osv-scanner, aber nur wenn es Abhängigkeitsdateien gibt; ohne sie bestanden (nur Standardbibliothek).
 - **Python:** bandit (hohe Funde nicht bestanden, mittlere Hinweis), ruff Regeln F und B (jeder Fund nicht bestanden).
-- **JavaScript:** eslint mit `no-undef`, `no-eval`, `no-implied-eval`, `no-new-func`; nur Fehler zählen (`codeaudit/eslint.config.js`).
+- **JavaScript:** eslint mit `no-undef`, `no-eval`, `no-implied-eval`, `no-new-func`; nur Fehler zählen (`codeaudit/eslint.config.js`). ESLint wird mit `npm ci` aus `werkzeuge/package-lock.json` installiert (feste Version samt aller Abhängigkeiten, mit Prüfsummen, ohne Installationsskripte).
 - **Tests:** alle grün (bestanden/nicht bestanden); Zeilenabdeckung ab 80 % bestanden, ab 60 % Hinweis, darunter nicht bestanden.
 - **Wartbarkeit:** keine Funktion über zyklomatische Komplexität 30 (radon); Dateien über 1500 Zeilen = Hinweis.
 - Alles, was ein Werkzeug nicht liefert, ist „nicht geprüft“. Die Schwellen sind mit Version 1.0 festgeschrieben.

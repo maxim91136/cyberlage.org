@@ -37,8 +37,8 @@ jobs:
           python-version: "3.12"
       - name: Python-Werkzeuge (feste Versionen)
         run: pip install bandit==1.9.4 ruff==0.17.6 radon==6.0.1 coverage==7.17.5 zizmor==1.33.1
-      - name: eslint (feste Version)
-        run: npm install --no-save --no-audit --no-fund eslint@10.15.0 && echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
+      - name: eslint (feste Version mit Lockfile, werkzeuge/package-lock.json)
+        run: npm ci --prefix werkzeuge --ignore-scripts --no-audit --no-fund && echo "$PWD/werkzeuge/node_modules/.bin" >> "$GITHUB_PATH"
       - name: gitleaks (Prüfsumme gegen die Datei des Releases)
         continue-on-error: true
         run: |
