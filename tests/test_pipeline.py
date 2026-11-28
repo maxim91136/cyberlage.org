@@ -774,13 +774,16 @@ class HerstellerPatchTests(unittest.TestCase):
     def test_chrome_kanaele_und_safari(self):
         atom = b"""<?xml version='1.0'?><feed xmlns='http://www.w3.org/2005/Atom'>
           <entry><title>Stable Channel Update for Desktop</title><published>2026-11-11T10:00:00-08:00</published><link rel='alternate' href='https://chromereleases.googleblog.com/2026/11/a.html'/>
-            <content type='html'>&lt;p&gt;The Stable channel has been updated to 157.0.8103.78/.79 for Windows and Mac.&lt;/p&gt; &lt;p&gt;The Extended Stable channel has been updated to 156.0.8078.100 for Windows and Mac.&lt;/p&gt;</content></entry>
+            <content type='html'>&lt;p&gt;The Stable channel has been updated to 157.0.8103.78/.79 for Windows and Mac.&lt;/p&gt;</content></entry>
+          <entry><title>Extended Stable Update for Desktop</title><published>2026-11-12T10:00:00-08:00</published><link rel='alternate' href='https://x/x.html'/>
+            <content type='html'>&lt;p&gt;The Extended Stable channel has been updated to 156.0.8078.100 for Windows and Mac.&lt;/p&gt;</content></entry>
           <entry><title>Early Stable Update for Desktop</title><published>2026-11-04T10:00:00-08:00</published><link rel='alternate' href='https://x/e.html'/><content type='html'>The Stable channel has been updated to 157.0.8103.5</content></entry>
           <entry><title>Stable Channel Update for Desktop</title><published>2026-10-20T10:00:00-08:00</published><link rel='alternate' href='https://x/b.html'/><content type='html'>The Stable channel has been updated to 156.0.8078.35 for Windows</content></entry></feed>"""
         r = fetch_patches.parse_chrome(atom)
         self.assertEqual(sorted(i["id"] for i in r), ["Chrome Extended Stable 156.0.8078.100", "Chrome Stable 156.0.8078.35", "Chrome Stable 157.0.8103.78"])
         k = fetch_patches.neueste_je_kanal(r)
         self.assertEqual((k["Stable"]["version"], k["Stable"]["datum"], k["Extended Stable"]["version"]), ("157.0.8103.78", "2026-11-11", "156.0.8078.100"))
+        self.assertEqual(k["Extended Stable"]["datum"], "2026-11-12")
         self.assertEqual(fetch_patches.neueste_je_kanal([i for i in r if "Extended" not in i["id"]]).get("Extended Stable"), None)
         with self.assertRaises(fetch_patches.QuellFehler):
             fetch_patches.parse_chrome(b"<html>kaputt")

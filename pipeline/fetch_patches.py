@@ -798,7 +798,7 @@ def parse_feed(xml_bytes, name, id_muster=None):
 
 
 def parse_chrome(xml_bytes):
-    """Atom-Feed des Chrome-Releases-Blogs: je Beitrag 'Stable Channel Update for Desktop' die Versionen für Stable und (falls genannt) Extended Stable.
+    """Atom-Feed des Chrome-Releases-Blogs: Beiträge 'Stable Channel Update for Desktop' und 'Extended Stable Update for Desktop' mit der Version je Kanal.
     Eintrag je Kanal: id 'Chrome Stable 157.0.8103.78', Kanal steht im Titel. Early Stable und andere Plattformen zählen nicht."""
     try:
         wurzel = sicher.xml_lesen(xml_bytes)
@@ -809,7 +809,7 @@ def parse_chrome(xml_bytes):
         if _tag(it) != "entry":
             continue
         titel = re.sub(r"\s+", " ", html.unescape(_kind(it, "title"))).strip()
-        if not re.match(r"Stable Channel Update for Desktop", titel, re.I):
+        if not re.match(r"(Extended )?Stable (Channel )?Update for Desktop", titel, re.I):  # Extended Stable hat einen eigenen Beitrag
             continue
         datum = _datum(_kind(it, "published") or _kind(it, "updated"))
         link = ""
