@@ -66,7 +66,7 @@ def sammle():
     erg += pruefungen.osv(json_aus(aus) if aus.strip() else None, hat_abh)
     rc, aus = starte(["bandit", "-r", "pipeline", "audit", "codeaudit", "-f", "json", "-q"])
     bandit = json_aus(aus) if rc is not None else None
-    rc, aus = starte(["ruff", "check", "--select", "F,B", "--output-format", "json", "pipeline", "audit", "codeaudit"])
+    rc, aus = starte(["ruff", "check", "--select", "F,B", "--output-format", "json", "pipeline", "audit", "codeaudit", "tests"])
     ruff = json_aus(aus) if rc is not None else None
     erg += pruefungen.python_werkzeuge(bandit, ruff)
     rc, aus = starte(["eslint", "-c", "codeaudit/eslint.config.js", "-f", "json", "site/app.js", "site/termine.js", "site/radar.js", "site/tabellen.js", "site/i18n.js", "site/matrix.js", "site/modus.js", "site/impressum.js"])

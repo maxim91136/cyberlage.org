@@ -15,7 +15,7 @@ Steve soll nicht zwischen den Chats vermitteln müssen. Wer am Repo arbeitet, li
 
 ### Erledigt 28.11., Gegenprobe von Dreier Labs fand Lücke im eigenen Code-Audit
 - Dreier Labs prüft cyberlage.org jetzt zusätzlich selbst (Gegenprobe, ganzes Repo) und verglich: 93 statt 100. Grund: Der eigene Lauf (`codeaudit/lauf.py`) prüft ruff nur in `pipeline audit codeaudit`, nicht in `tests/`. Dort standen 23 Fehlermuster (B023 Schleifenvariable in `klicktest.py`, B017 in `test_historie_lauf.py`). Behoben, 237 Tests und Klicktest (5252 Prüfungen) grün.
-- **Offen:** Soll der eigene Lauf `tests` mitprüfen, damit beide Ergebnisse gleich geprüft werden? Sonst bleiben solche Funde in Tests im eigenen Siegel unsichtbar. Steve entscheiden lassen.
+- **Entschieden (Steve, 28.11.):** Ja, der eigene Lauf prüft `tests` mit. Umgesetzt: ruff (Regeln F, B) läuft jetzt auch über `tests/`, bandit weiter nur über den Produktivcode. Der Wert ändert sich nicht, da die Funde schon behoben sind.
 
 ### Erledigt 27.11., KI- und Suchmaschinen-Zugang geprüft (nur lesend, nichts geändert)
 - `robots.txt` (live gleich wie im Repo): alles erlaubt, Sitemap genannt, keine Cloudflare-Zusätze. `llms.txt`, Sitemap, Feed, canonical, hreflang DE/EN, Open Graph und JSON-LD sind vorhanden.
