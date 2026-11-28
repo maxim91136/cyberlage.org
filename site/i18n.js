@@ -11,9 +11,9 @@
   var EN = {
     skip: "Skip to content",
     g_sum: "New here? How to read this page",
-    ez_h1: "What you see", ez_t1: "Level", ez_d1: "The overall situation from 0 to 100 in five stages, from calm to extraordinary. It shows whether there is more activity than usual.",
+    ez_h1: "What you see", ez_t1: "Level", ez_d1: "The overall situation from 0 to 100 in five levels, from calm to exceptional. It shows whether there is more activity than usual.",
     ez_t2: "Conclusion", ez_d2: "Why the level is where it is and what to patch first.",
-    ez_t3: "Components", ez_d3: "The ten individual signals behind the level, each with source, date and rule.",
+    ez_t3: "Components", ez_d3: "The ten individual signals behind the gauge, each with source, date and rule.",
     ez_h2: "You are looking for", ez_q1: "Today's situation", ez_a1: "Level and conclusion",
     ez_q2: "What to patch first, and by when", ez_a2: "Patches and dates",
     ez_q3: "What became known in the last days", ez_a3: "New and history",
@@ -93,7 +93,7 @@
     n_q4: 'Forecast, not part of the level: the probability comes from <strong>EPSS</strong> (Exploit Prediction Scoring System, FIRST) and estimates whether a new flaw will be exploited in the next 30 days. An estimate, not a finding. Listed are new CVEs of the last days that are not yet in the KEV. See EPSS at <a href="https://www.first.org/epss">first.org/epss</a>. Publication date and CVSS score from the NVD. This product uses data from the NVD API but is not endorsed or certified by the NVD.',
     i_qtxt: "From CERT-Bund (BSI) we show only title, severity, date and link, always with the source. The texts are at the BSI.",
     i_dl: "<dt>Dreier Gauge (Dreier-Pegel)</dt><dd>Our own score from 0 to 100 in five levels, built from ten components. It shows the situation, it predicts nothing.</dd>" +
-      "<dt>Component</dt><dd>A single signal behind the level, for example the number of new KEV entries. Every component has a fixed rule, a source and a date.</dd>" +
+      "<dt>Component</dt><dd>A single signal behind the gauge, for example the number of new KEV entries. Every component has a fixed rule, a source and a date.</dd>" +
       "<dt>Threshold</dt><dd>The value from which a component counts as elevated. For us the upper quarter of its own history.</dd>" +
       "<dt>Percentile</dt><dd>The value below which a given share of all measurements lies. The 75th percentile marks off the upper quarter.</dd>" +
       "<dt>Median</dt><dd>The middle value: half of the measurements lie below it, half above.</dd>" +

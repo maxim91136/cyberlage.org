@@ -36,9 +36,9 @@
    "url": "https://medien.bsi.bund.de/lagebericht/de/zusammenfassung-und-bewertung/",
    "betreiber": "Bundesamt für Sicherheit in der Informationstechnik",
    "pflege": "amtlich, jährlich",
-   "im_pegel": false,
-   "de": "Der jährliche Bericht der Cybersicherheitsbehörde des Bundes. Laut ZDFheute wurde die jüngste Ausgabe am 19.11.2026 vorgestellt und die Lage als „angespannt bis kritisch“ eingestuft.",
-   "en": "The annual report of Germany's federal cybersecurity agency. According to ZDFheute, the latest edition was presented on 19 November 2026 and rated the situation “tense to critical”.",
+   "im_pegel": true,
+   "de": "Der jährliche Bericht der Cybersicherheitsbehörde des Bundes. Laut ZDFheute wurde die jüngste Ausgabe am 19.11.2026 vorgestellt und die Lage als „angespannt bis kritisch“ eingestuft. Aus dem Bericht stammt der BSI Cyber Index, ein Baustein des Dreier-Pegels.",
+   "en": "The annual report of Germany's federal cybersecurity agency. According to ZDFheute, the latest edition was presented on 19 November 2026 and rated the situation “tense to critical”. The report is the source of the BSI Cyber Index, one component of the Dreier Gauge.",
    "geprueft_am": "2026-11-26",
    "bemerkung": "Link aus einer Bundestagsdrucksache übernommen, vom Prüflauf nicht abrufbar"
   },

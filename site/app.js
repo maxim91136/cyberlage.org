@@ -740,7 +740,7 @@
         if (h.t && !h.q && !h.a) k.appendChild(el("div", "dim fine", pick("Nur der Termin: Der Hersteller bietet keine offene Quelle, die sich ohne Konto abrufen lässt.", "Date only: the vendor offers no open source that can be fetched without an account.")));
         if (h.a && !h.t) k.appendChild(el("div", "dim fine", pick("Versionen und Lücken im Abschnitt weiter unten", "versions and flaws in the section further down")));
         if (h.a && h.t) k.appendChild(el("div", "dim fine", pick("Zahlen und Bewertung im Abschnitt weiter unten", "figures and rating in the section further down")));
-        if (h.ohne) k.appendChild(el("div", "dim fine", pick("Noch keine offene Quelle angebunden. Angegriffenes steht trotzdem in der Liste darunter.", "No open source connected yet. Attacked flaws still appear in the list below.")));
+        if (h.ohne) k.appendChild(el("div", "dim fine", pick("Noch keine offene Quelle angebunden. Angegriffenes steht trotzdem in der Liste darunter.", "No public data source connected yet. Attacked flaws still appear in the list below.")));
         gr.appendChild(k);
       });
     }
@@ -1226,7 +1226,7 @@
       p.appendChild(document.createTextNode(pick(". In der jeweiligen ESR-Linie sollte mindestens diese Version laufen.", ". Each ESR line should run at least this version.")));
     });
     zeile("Opera", function (p) {
-      p.appendChild(document.createTextNode(pick("Baut auf Chromium, die Chromium-Lücken oben gelten dort ebenfalls. Opera liefert die Fixes mit eigenen Versionsnummern. Keine offene Quelle angebunden: keine Daten. ", "Built on Chromium, so the Chromium flaws above apply there too. Opera ships the fixes with its own version numbers. No open source connected: no data. ")));
+      p.appendChild(document.createTextNode(pick("Baut auf Chromium, die Chromium-Lücken oben gelten dort ebenfalls. Opera liefert die Fixes mit eigenen Versionsnummern. Keine offene Quelle angebunden: keine Daten. ", "Built on Chromium, so the Chromium flaws above apply there too. Opera ships the fixes with its own version numbers. No public data source connected: no data. ")));
       p.appendChild(link("https://blogs.opera.com/desktop/", pick("Opera-Versionshinweise", "Opera release notes")));
     });
     zeile(pick("Safari (Apple)", "Safari (Apple)"), function (p) {
