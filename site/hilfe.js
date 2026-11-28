@@ -1,18 +1,9 @@
 (function () {
   "use strict";
-  /* Hilfen für Erstbesucher, ohne Cookie und ohne Tracking:
-     1. Der Einstiegslink ist deutlicher, bis er einmal geöffnet wurde (merkt sich nur localStorage "guide").
-     2. Fachwörter im Fließtext sind antippbar und zeigen die Erklärung aus der Begriffe-Liste (eine einzige Quelle, in der Seitensprache).
-        Nur wo der Browser das native popover kann; sonst bleibt der Text unverändert. */
+  /* Hilfe für Erstbesucher, ohne Cookie, ohne Tracking und ohne Speicherung:
+     Fachwörter im Fließtext sind antippbar und zeigen die Erklärung aus der Begriffe-Liste (eine einzige Quelle, in der Seitensprache).
+     Nur wo der Browser das native popover kann; sonst bleibt der Text unverändert. */
   var de = (document.documentElement.lang || "de") === "de";
-  function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
-  function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) { } }
-
-  var g = document.getElementById("guide");
-  if (g) {
-    if (!lsGet("guide")) g.classList.add("neu");
-    g.addEventListener("toggle", function () { if (g.open) { lsSet("guide", "1"); g.classList.remove("neu"); } });
-  }
 
   if (!("popover" in HTMLElement.prototype)) return;
   var ERLAUBT = ["KEV", "EPSS", "CVSS", "CVE", "CISA", "CERT-Bund", "EUVD", "ENISA", "Infocon", "DShield", "MSRC", "NCSC-NL", "NVD", "LTSC",

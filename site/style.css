@@ -935,17 +935,15 @@ main .p-rang .p-det>summary{padding:2px 0}
 .fz-mehr dd,.fz-mehr dd a{min-width:0;overflow-wrap:anywhere}
 .fz-mehr .fz-top a{white-space:normal}
 
-/* Einstieg „So liest du die Seite“ (unter dem Hero, eingeklappt) + „?“ im Menü */
-/* zu: nur ein leiser Textlink; offen: Karte in Breite und Stil von Pegel und Fazit */
-.guide{margin:12px 0 0;text-align:center;border:1px solid transparent;border-left:4px solid transparent;border-radius:var(--r)}
-.guide>summary{cursor:pointer;display:block;padding:11px 0;min-height:20px;font-size:13px;color:var(--green);list-style:none}
+/* Einstieg „So liest du die Seite“: Pille unter dem Logo, offen eine Karte in Breite und Stil von Pegel und Fazit */
+.guide-wrap{text-align:center;padding-top:2px;padding-bottom:14px}
+.guide{margin:0;text-align:center;border:1px solid transparent;border-left:4px solid transparent;border-radius:var(--r)}
+.guide>summary{cursor:pointer;display:inline-block;padding:7px 16px;font-size:13px;color:var(--green);list-style:none;border:1px solid rgba(111,224,160,.45);border-radius:999px;background:rgba(111,224,160,.07)}
 .guide>summary::-webkit-details-marker{display:none}
-.guide>summary span{border-bottom:1px dashed rgba(111,224,160,.45)}
-.guide>summary:hover span,.guide>summary:focus-visible span{border-bottom-style:solid}
+.guide>summary:hover,.guide>summary:focus-visible{border-color:var(--green)}
 .guide>summary::after{content:" ▸"}
-.guide[open]{margin-top:16px;text-align:left;border-color:var(--line);border-left-color:var(--green);background:var(--panel)}
-.guide[open]>summary{padding:14px 16px 6px}
-.guide[open]>summary span{border-bottom-color:transparent}
+.guide[open]{margin-top:6px;text-align:left;border-color:var(--line);border-left-color:var(--green);background:var(--panel)}
+.guide[open]>summary{display:block;padding:14px 16px 6px;border:0;border-radius:0;background:none}
 .guide[open]>summary::after{content:" ▾"}
 .guide-body{padding:0 16px 14px;font-size:14px;line-height:1.5}
 .guide-h{margin:16px 0 6px;font-size:12px;font-weight:400;color:var(--dim);letter-spacing:.04em}
@@ -965,8 +963,6 @@ main .p-rang .p-det>summary{padding:2px 0}
 /* Hilfen für Erstbesucher: Stufen-Satz am Pegel, Einstiegslink beim ersten Besuch, antippbare Fachwörter */
 .stufe-sinn{margin:10px 0 0;font-size:14px;line-height:1.5;color:var(--text);max-width:42em}
 .stufe-sinn a{color:var(--green);white-space:nowrap}
-.guide.neu:not([open])>summary{display:inline-block;padding:9px 18px;border:1px solid rgba(111,224,160,.55);border-radius:999px;background:rgba(111,224,160,.08)}
-.guide.neu:not([open])>summary span{border-bottom-color:transparent}
 .bg{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:0;border-bottom:1px dotted var(--green);padding:0;margin:0;cursor:help}
 .bg:hover,.bg:focus-visible{color:var(--green)}
 #bg-pop{position:fixed;inset:auto 12px 14px 12px;margin:0 auto;width:auto;max-width:440px;height:auto;padding:14px 16px;color:var(--text);background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--green);border-radius:var(--r);box-shadow:0 8px 30px rgba(0,0,0,.5)}
