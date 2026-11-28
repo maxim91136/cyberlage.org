@@ -972,3 +972,5 @@ main .p-rang .p-det>summary{padding:2px 0}
 #bg-pop .bg-m{margin:0;font-size:12px}#bg-pop a{color:var(--green)}
 
 .fix-mehr{background:none;border:0;padding:0 2px;color:var(--green);font-size:.85em;cursor:pointer;text-decoration:underline;min-height:24px}
+
+.recht h2,.recht h3,.recht p,.recht li{text-align:left}.recht p,.recht ul{max-width:760px;margin-left:auto;margin-right:auto}.recht h2,.recht h3{max-width:760px;margin-left:auto;margin-right:auto}
