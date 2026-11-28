@@ -822,7 +822,7 @@ def parse_chrome(xml_bytes):
         for kanal, muster in (("Stable", r"(?<!Extended )Stable channel has been updated to (\d+\.\d+\.\d+\.\d+)"), ("Extended Stable", r"Extended Stable channel has been updated to (\d+\.\d+\.\d+\.\d+)")):
             m = re.search(muster, text)
             if m:
-                out.append({"id": "Chrome %s %s" % (kanal, m.group(1)), "datum": datum, "titel": "Chrome %s %s" % (kanal, m.group(1)), "link": link or CHROME_URL, "schwere": None, "cves": []})
+                out.append({"id": "Chrome %s %s" % (kanal, m.group(1)), "datum": datum, "titel": "Chrome %s %s" % (kanal, m.group(1)), "link": (link or CHROME_URL).replace("http://", "https://", 1), "schwere": None, "cves": []})
     return list({i["id"]: i for i in out}.values())
 
 
