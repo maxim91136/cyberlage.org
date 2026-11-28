@@ -443,9 +443,16 @@
     mk("text", Object.assign({ x: endX, y: H - 8, "text-anchor": "end" }, mono), R > 60 ? datum(v[letzt].stand) : pick("heute", "today"));
     svg.setAttribute("role", "img"); svg.setAttribute("aria-label", pick("Verlauf des Dreier-Pegels, zuletzt " + (typeof sc.wert === "number" ? sc.wert : "–") + " von 100.", "Dreier Gauge over time, latest " + (typeof sc.wert === "number" ? sc.wert : "–") + " of 100."));
     var ak = v[v.length - 1].ausnutzung;
-    var mehr = live.length > 1, hz = typeof lw === "number" ? lw : "–", abw = typeof lw === "number" && lw !== ak;
-    leg.textContent = pick("Die Linie zeigt, wie der Pegel in den letzten 3 Jahren gewesen wäre, nach den heutigen Regeln aus echten Meldungen berechnet. " + (mehr ? "Das helle Stück am Ende" : "Der Punkt") + " ist der Pegel von heute (" + hz + ")." + (abw ? " Er weicht von der Linie (" + ak + ") ab, weil er auch die Einschätzungen von BSI und SANS enthält; die gibt es nur für heute." : ""),
-      "The line shows what the gauge would have been over the last 3 years, calculated from real advisories using today's rules. " + (mehr ? "The bright stretch at the end" : "The dot") + " is today's gauge (" + hz + ")." + (abw ? " It differs from the line (" + ak + ") because it also includes the assessments of BSI and SANS, which exist only for today." : ""));
+    // Der Text über den heutigen Pegel richtet sich nach der Zahl der gespeicherten Tage: erst ein Punkt, dann ein kurzes Stück, später eine Linie
+    var tage = live.length, hz = typeof lw === "number" ? lw : "–", abw = typeof lw === "number" && lw !== ak, seit = datum(sc.live_seit);
+    var heute_de = tage <= 1 ? "Der Punkt am Ende ist der Pegel von heute (" + hz + "). Die Daten dafür sind ganz neu: mit jedem Tag kommt ein Punkt dazu, bis daraus eine Linie wird."
+      : tage < 30 ? "Das helle Stück am Ende ist der Pegel von heute (" + hz + "), gespeichert seit dem " + seit + " (" + tage + " Tage). Mit jedem Tag wird es länger."
+      : "Die helle Linie am Ende ist der Pegel von heute (" + hz + "), gespeichert seit dem " + seit + ".";
+    var heute_en = tage <= 1 ? "The dot at the end is today's gauge (" + hz + "). The data for it is brand new: one dot is added every day until it becomes a line."
+      : tage < 30 ? "The bright stretch at the end is today's gauge (" + hz + "), stored since " + seit + " (" + tage + " days). It grows longer every day."
+      : "The bright line at the end is today's gauge (" + hz + "), stored since " + seit + ".";
+    leg.textContent = pick("Die Linie zeigt, wie der Pegel in den letzten 3 Jahren gewesen wäre, nach den heutigen Regeln aus echten Meldungen berechnet. " + heute_de + (abw ? " Der heutige Pegel weicht von der Linie (" + ak + ") ab, weil er auch die Einschätzungen von BSI und SANS enthält; die gibt es nur für heute." : ""),
+      "The line shows what the gauge would have been over the last 3 years, calculated from real advisories using today's rules. " + heute_en + (abw ? " Today's gauge differs from the line (" + ak + ") because it also includes the assessments of BSI and SANS, which exist only for today." : ""));
   }
 
   function liste(boxId, zeilen, max) {
