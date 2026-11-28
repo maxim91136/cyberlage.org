@@ -6,7 +6,25 @@ from datetime import datetime, timezone
 import fetch_patches as fp
 
 
+def chrome_roh():
+    """Diagnose: Titel, Datum und Kanalsatz jedes Eintrags im Chrome-Feed, um zu sehen, was parse_chrome nicht erkennt."""
+    import html
+    import re
+    wurzel = fp.sicher.xml_lesen(fp.lade_roh(fp.CHROME_URL))
+    n = 0
+    for it in wurzel.iter():
+        if fp._tag(it) != "entry":
+            continue
+        n += 1
+        text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html.unescape(fp._kind(it, "content"))))
+        m = re.search(r"[^.]{0,60}channel[^.]{0,30}updated to [^.]{0,60}", text)
+        print("%2d %s | %s | %s" % (n, (fp._kind(it, "published") or "")[:10], fp._kind(it, "title")[:60], m.group(0) if m else "-"))
+    return 0
+
+
 def main(ids):
+    if ids == ["chrome-roh"]:
+        return chrome_roh()
     heute = datetime.now(timezone.utc).date()
     ok = True
     for qid in ids or [q["id"] for q in fp.QUELLEN]:
