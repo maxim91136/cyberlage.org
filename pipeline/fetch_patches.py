@@ -765,6 +765,7 @@ FEEDS = {  # Hersteller mit offenem RSS- oder Atom-Feed: Adressen (erste, die an
 }
 MOZILLA_URL = "https://www.mozilla.org/en-US/security/advisories/"
 APPLE_URL = "https://support.apple.com/en-us/100100"
+CHROME_URL = "https://chromereleases.googleblog.com/feeds/posts/default?max-results=60"
 _SEV_FEED = {"critical": "kritisch", "high": "hoch", "important": "hoch", "medium": "mittel", "moderate": "mittel", "low": "niedrig"}
 
 
@@ -794,6 +795,53 @@ def parse_feed(xml_bytes, name, id_muster=None):
         out.append({"id": kid.group(0) if kid else (link.rstrip("/").rsplit("/", 1)[-1] or titel)[:80], "datum": datum, "titel": titel[:200], "link": link.strip(),
                     "schwere": _SEV_FEED.get(m.group(1).lower()) if m else None, "cves": sorted(set(CVE_RE.findall(text)))})
     return list({i["id"]: i for i in out}.values())
+
+
+def parse_chrome(xml_bytes):
+    """Atom-Feed des Chrome-Releases-Blogs: je Beitrag 'Stable Channel Update for Desktop' die Versionen für Stable und (falls genannt) Extended Stable.
+    Eintrag je Kanal: id 'Chrome Stable 157.0.8103.78', Kanal steht im Titel. Early Stable und andere Plattformen zählen nicht."""
+    try:
+        wurzel = sicher.xml_lesen(xml_bytes)
+    except ET.ParseError as e:
+        raise QuellFehler("Chrome-Feed kein gültiges XML: %s" % e) from None
+    out = []
+    for it in wurzel.iter():
+        if _tag(it) != "entry":
+            continue
+        titel = re.sub(r"\s+", " ", html.unescape(_kind(it, "title"))).strip()
+        if not re.match(r"Stable Channel Update for Desktop", titel, re.I):
+            continue
+        datum = _datum(_kind(it, "published") or _kind(it, "updated"))
+        link = ""
+        for k in it:
+            if _tag(k) == "link" and k.get("rel") == "alternate" and k.get("href"):
+                link = k.get("href")
+        text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html.unescape(_kind(it, "content"))))
+        if not datum:
+            continue
+        for kanal, muster in (("Stable", r"(?<!Extended )Stable channel has been updated to (\d+\.\d+\.\d+\.\d+)"), ("Extended Stable", r"Extended Stable channel has been updated to (\d+\.\d+\.\d+\.\d+)")):
+            m = re.search(muster, text)
+            if m:
+                out.append({"id": "Chrome %s %s" % (kanal, m.group(1)), "datum": datum, "titel": "Chrome %s %s" % (kanal, m.group(1)), "link": link or CHROME_URL, "schwere": None, "cves": []})
+    return list({i["id"]: i for i in out}.values())
+
+
+def neueste_je_kanal(items):
+    """Neueste Version je Chrome-Kanal, unabhängig vom 30-Tage-Fenster; sonst gäbe es für selten aktualisierte Kanäle 'keine Daten'."""
+    out = {}
+    for i in sorted(items, key=lambda i: (i["datum"], i["id"]), reverse=True):
+        m = re.match(r"Chrome (Extended Stable|Stable) (\S+)$", i["id"])
+        if m and m.group(1) not in out:
+            out[m.group(1)] = {"version": m.group(2), "datum": i["datum"].isoformat(), "link": i["link"]}
+    return out
+
+
+def neueste_safari(items):
+    """Neuester Safari-Eintrag der Apple-Liste, unabhängig vom 30-Tage-Fenster (Safari erscheint nur alle paar Wochen)."""
+    for i in sorted(items, key=lambda i: (i["datum"], i["id"]), reverse=True):
+        if re.match(r"Safari\b", i["titel"]):
+            return {"titel": i["titel"], "datum": i["datum"].isoformat(), "link": i["link"]}
+    return None
 
 
 def parse_mozilla(html_text):
@@ -878,6 +926,7 @@ QUELLEN = [
     {"id": "paloalto", "bereich": "netzwerk", "name": "Palo Alto Networks Security Advisories", "typ": "hersteller", "url": "https://security.paloaltonetworks.com/", "lizenz": "Öffentlicher Feed des Herstellers, Nutzungsbedingungen nicht ausdrücklich geklärt; nur Zählung, Kennung, Titel, Datum, Link"},
     {"id": "ivanti", "bereich": "fernwartung", "name": "Ivanti Security Advisories", "typ": "hersteller", "url": "https://www.ivanti.com/blog/topics/security-advisory", "lizenz": "Öffentlicher Feed des Herstellers, Nutzungsbedingungen nicht ausdrücklich geklärt; nur Zählung, Titel, Datum, Link"},
     {"id": "apple", "bereich": "arbeitsplatz", "name": "Apple Security Releases", "typ": "hersteller", "url": "https://support.apple.com/en-us/100100", "lizenz": "Öffentliche Übersichtsseite, Nutzungsbedingungen nicht ausdrücklich geklärt; nur Zählung, Name, Datum, Link"},
+    {"id": "chrome", "bereich": "arbeitsplatz", "name": "Chrome Releases (Stable, Extended Stable)", "typ": "hersteller", "url": "https://chromereleases.googleblog.com/", "lizenz": "Öffentlicher Atom-Feed des Herstellers, nur Versionsnummer, Kanal, Datum und Verweis"},
     {"id": "mozilla", "bereich": "arbeitsplatz", "name": "Mozilla Security Advisories (Firefox, Thunderbird)", "typ": "hersteller", "url": "https://www.mozilla.org/en-US/security/advisories/", "lizenz": "Öffentliche Übersichtsseite (Inhalte unter CC BY-SA); nur Zählung, Kennung, Titel, Datum, Link"},
 ]
 
@@ -986,6 +1035,8 @@ def hole_quelle(qid, heute, lade=lade_roh):
         return einzel[qid]()
     if qid in FEEDS:
         return _hole_feed(qid, lade)
+    if qid == "chrome":
+        return parse_chrome(lade(CHROME_URL))
     if qid == "mozilla":
         return parse_mozilla(lade(MOZILLA_URL).decode("utf-8", "replace"))
     if qid == "apple":
@@ -1003,6 +1054,10 @@ def aktualisiere_hersteller(alt, heute, jetzt, lade=lade_roh, kev=()):
             if not items:
                 raise QuellFehler("keine Einträge erkannt")
             z = verdichte_quelle(items, heute, kev)
+            if q["id"] == "chrome":
+                z["kanaele"] = neueste_je_kanal(items)
+            elif q["id"] == "apple":
+                z["safari"] = neueste_safari(items)
             reihe = [p for p in vorher.get("reihe", []) if p["stand"] != heute.isoformat()]
             reihe.append({"stand": heute.isoformat(), "neu_30": z["neu_30"]})
             quellen[q["id"]] = dict(q, **z, abgerufen_am=jetzt.isoformat(timespec="seconds"), status="ok", reihe=reihe[-400:])

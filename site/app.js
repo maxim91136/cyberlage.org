@@ -924,8 +924,7 @@
       c.kev.forEach(function (x, i) { if (i) ex.appendChild(document.createTextNode(", ")); ex.appendChild(link("https://msrc.microsoft.com/update-guide/vulnerability/" + x.cve, x.cve)); });
       box.appendChild(ex);
     } else if (c.edge || c.chrome) box.appendChild(el("p", "mono dim fine", pick("Keine davon als ausgenutzt gemeldet.", "None of them reported as exploited.")));
-    var es = el("p", "mono dim fine", pick("Chrome im Unternehmen: Der Kanal Extended Stable bekommt laut Google dieselben Sicherheitsfixes, wo technisch möglich, aber mit eigenen Versionsnummern. Die Chrome-Version oben gilt für den Kanal Stable. Für Extended Stable haben wir keine offene Quelle angebunden: keine Daten. ", "Chrome in organisations: according to Google the Extended Stable channel gets the same security fixes where technically possible, but with its own version numbers. The Chrome version above applies to the Stable channel. We have no open source connected for Extended Stable: no data. "));
-    es.appendChild(link("https://support.google.com/chrome/a/answer/16942104", pick("Google: Extended Stable", "Google: Extended Stable"))); box.appendChild(es);
+    box.appendChild(el("p", "mono dim fine", pick("Die Chrome-Version in der Lösung ist die höchste Mindestversion aus den Meldungen dieses Monats, nicht die neueste Ausgabe. Die neuesten Versionen stehen darunter.", "The Chrome version in the fix is the highest minimum version from this month's notices, not the newest release. The newest versions are listed below.")));
     var q = el("p", "mono dim fine", pick("Quellen: Microsoft (Edge-Fixversion je CVE), Titel der Chromium-Meldungen (Chrome-Version). Mehr: ", "Sources: Microsoft (Edge fix version per CVE), titles of the Chromium notices (Chrome version). More: "));
     q.appendChild(link("https://learn.microsoft.com/deployedge/microsoft-edge-relnotes-security", pick("Edge-Sicherheitsupdates", "Edge security updates"))); q.appendChild(document.createTextNode(" · ")); q.appendChild(link("https://chromereleases.googleblog.com/", "Chrome Releases"));
     box.appendChild(q); box.hidden = false;
@@ -1172,10 +1171,18 @@
   /* Weitere Browser neben Chromium: nur Firmenversionen (Firefox ESR); wo keine offene Quelle angebunden ist, steht „keine Daten“ */
   function zeigeBrowser(hs) {
     var box = $("p-browser"); if (!box) return;
-    var qs = hs && hs.quellen ? hs.quellen : {}, moz = qs.mozilla && qs.mozilla.letzte ? qs.mozilla.letzte : [], app = qs.apple && qs.apple.letzte ? qs.apple.letzte : [];
+    var qs = hs && hs.quellen ? hs.quellen : {}, chr = qs.chrome && qs.chrome.kanaele ? qs.chrome.kanaele : {}, saf = qs.apple && qs.apple.safari ? qs.apple.safari : null, moz = qs.mozilla && qs.mozilla.letzte ? qs.mozilla.letzte : [], app = qs.apple && qs.apple.letzte ? qs.apple.letzte : [];
     box.textContent = "";
-    box.appendChild(el("h3", "mono rd-t", pick("Weitere Browser", "Other browsers")));
+    box.appendChild(el("h3", "mono rd-t", pick("Neueste Version je Browser", "Newest version per browser")));
     function zeile(name, fn) { var p = el("p", "", ""); p.appendChild(el("b", "mono", name + ": ")); fn(p); box.appendChild(p); }
+    function kanal(name, k, zusatz) {
+      zeile(name, function (p) {
+        if (!k) { p.appendChild(document.createTextNode(pick("keine Daten (Chrome-Releases-Blog nicht abrufbar). ", "no data (Chrome Releases blog not reachable). "))); return; }
+        p.appendChild(link(k.link, k.version)); p.appendChild(document.createTextNode(" (" + datum(k.datum) + ")" + zusatz));
+      });
+    }
+    kanal(pick("Chrome Stable", "Chrome Stable"), chr.Stable, pick(". Windows, Mac und Linux; Chromium-Lücken siehe oben.", ". Windows, Mac and Linux; Chromium flaws see above."));
+    kanal(pick("Chrome Extended Stable (Firmen)", "Chrome Extended Stable (organisations)"), chr["Extended Stable"], pick(". Nur verwaltetes Chrome auf Windows und Mac, per Richtlinie. Laut Google dieselben Sicherheitsfixes wie Stable, wo technisch möglich, aber mit älterem Versionsstand.", ". Managed Chrome on Windows and Mac only, enabled by policy. According to Google the same security fixes as Stable where technically possible, but on an older version."));
     zeile(pick("Firefox ESR (Mozilla)", "Firefox ESR (Mozilla)"), function (p) {
       var linien = {}, reihe = [];
       moz.forEach(function (x) { var m = /Firefox ESR (\d+)(\.\d+)*/.exec(x.titel || ""); if (!m || linien[m[1]]) return; linien[m[1]] = 1; reihe.push({ v: /Firefox ESR (\d+(?:\.\d+)*)/.exec(x.titel)[1], x: x }); });
@@ -1189,18 +1196,17 @@
       p.appendChild(link("https://blogs.opera.com/desktop/", pick("Opera-Versionshinweise", "Opera release notes")));
     });
     zeile(pick("Safari (Apple)", "Safari (Apple)"), function (p) {
-      var s = app.filter(function (x) { return /Safari/.test(x.titel || ""); })[0];
-      if (s) { p.appendChild(document.createTextNode(pick("Zuletzt gemeldet: ", "Last reported: "))); p.appendChild(link(s.link, s.titel)); p.appendChild(document.createTextNode(" (" + datum(s.datum) + ")")); return; }
-      p.appendChild(document.createTextNode(pick("Kommt mit Apples System-Updates. In den letzten Apple-Meldungen, die wir führen, steht kein Safari-Eintrag: keine Daten. ", "Comes with Apple's system updates. The latest Apple notices we hold contain no Safari entry: no data. ")));
+      if (saf) { p.appendChild(link(saf.link, saf.titel)); p.appendChild(document.createTextNode(" (" + datum(saf.datum) + pick("). Kommt mit Apples System-Updates.", "). Comes with Apple's system updates."))); return; }
+      p.appendChild(document.createTextNode(pick("Kommt mit Apples System-Updates. In der Apple-Liste, die wir abrufen, steht kein Safari-Eintrag: keine Daten. ", "Comes with Apple's system updates. The Apple list we fetch holds no Safari entry: no data. ")));
       p.appendChild(link("https://support.apple.com/en-us/100100", pick("Apple Security Releases", "Apple Security Releases")));
     });
-    box.appendChild(el("p", "mono dim fine", pick("Quellen: Mozilla Security Advisories, Apple Security Releases, Google, Opera. Gezeigt werden Firmenversionen, nichts ist geschätzt.", "Sources: Mozilla Security Advisories, Apple Security Releases, Google, Opera. Enterprise versions are shown, nothing is estimated.")));
+    box.appendChild(el("p", "mono dim fine", pick("Quellen: Chrome-Releases-Blog (Google), Mozilla Security Advisories, Apple Security Releases, Opera. Nichts ist geschätzt.", "Sources: Chrome Releases blog (Google), Mozilla Security Advisories, Apple Security Releases, Opera. Nothing is estimated.")));
     box.hidden = false;
   }
   function zeigeHersteller(hs) {
     zeigeBrowser(hs);
     var alle = hs && hs.quellen ? Object.keys(hs.quellen).map(function (k) { return hs.quellen[k]; }) : [];
-    herstellerTabelle($("p-hv"), alle.filter(function (q) { return q.typ === "hersteller"; }), pick("Hersteller: Netzwerk, Anwendungen, Browser, Apple", "Vendors: network, applications, browsers, Apple"), true);
+    herstellerTabelle($("p-hv"), alle.filter(function (q) { return q.typ === "hersteller" && q.id !== "chrome"; }), pick("Hersteller: Netzwerk, Anwendungen, Browser, Apple", "Vendors: network, applications, browsers, Apple"), true);
     herstellerTabelle($("p-hs"), alle.filter(function (q) { return q.typ !== "hersteller"; }), pick("Linux-Distributionen", "Linux distributions"), false);
   }
   function herstellerTabelle(box, qs, titel, mitAdobe) {
