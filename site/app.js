@@ -402,7 +402,7 @@
       mk("line", { x1: L, x2: B - R, y1: y(n), y2: y(n), stroke: n === 50 ? "#263340" : "#1d262e", "stroke-dasharray": n === 50 ? "4 4" : "0" });
       mk("text", Object.assign({ x: L - 6, y: y(n) + 4, "text-anchor": "end" }, mono), String(n));
     });
-    [30, 64, 80].forEach(function (n) { mk("line", { x1: L, x2: B - R, y1: y(n), y2: y(n), stroke: "#1d262e", "stroke-dasharray": "2 4" }); });
+    [35, 64, 80].forEach(function (n) { mk("line", { x1: L, x2: B - R, y1: y(n), y2: y(n), stroke: "#1d262e", "stroke-dasharray": "2 4" }); });
     // Linie 1: alle Bausteine mit Archiv, rückgerechnet
     mk("polyline", { points: v.map(function (p, i) { return x(i) + "," + y(p.ausnutzung); }).join(" "), fill: "none", stroke: "#5a8f74", "stroke-width": 1.6 });
     // Linie 2: voller Dreier-Pegel, erst ab dem Live-Start
@@ -426,8 +426,9 @@
     var t = document.createElementNS(NS, "title"); t.textContent = pick("Verlauf des Dreier-Pegels, zuletzt " + (typeof sc.wert === "number" ? sc.wert : "–") + " von 100.", "Dreier Gauge over time, latest " + (typeof sc.wert === "number" ? sc.wert : "–") + " of 100."); svg.insertBefore(t, svg.firstChild);
     var ak = v[v.length - 1].ausnutzung;
     var n0 = v[0].n, n1 = v[v.length - 1].n;
-    leg.textContent = pick("Dunkle Linie: Pegel aus allen Bausteinen mit Archiv, aus echten Meldungen rückgerechnet (anfangs " + n0 + ", zuletzt " + n1 + " Bausteine, je nachdem wie weit jede Quelle zurückreicht); die heutigen Schwellen werden rückwirkend angewendet, zuletzt " + ak + ". Helle Linie: voller Dreier-Pegel einschließlich der externen Einschätzungen (BSI, SANS), die kein Archiv haben, live gespeichert seit " + datum(sc.live_seit) + ". Nichts ist geschätzt.",
-      "Dark line: gauge from all components with an archive, back-calculated from real advisories (" + n0 + " components at first, " + n1 + " latest, depending on how far each source goes back); today's thresholds are applied retroactively, latest " + ak + ". Bright line: full Dreier Gauge including the external assessments (BSI, SANS), which have no archive, stored live since " + datum(sc.live_seit) + ". Nothing is estimated.");
+    var N = sc.von_bausteine || 10, nx = N - n1;
+    leg.textContent = pick("Der Dreier-Pegel hat " + N + " Bausteine. Dunkle Linie: " + n1 + " von " + N + " Bausteinen, aus echten Meldungen rückgerechnet; die übrigen " + nx + " (BSI und SANS, externe Einschätzungen) haben kein Archiv. Anfangs waren es " + n0 + ", weil nicht jede Quelle gleich weit zurückreicht. Die heutigen Schwellen gelten rückwirkend, zuletzt " + ak + ". Helle Linie: voller Pegel mit allen " + N + " Bausteinen, live gespeichert seit " + datum(sc.live_seit) + ". Nichts ist geschätzt.",
+      "The Dreier Gauge has " + N + " components. Dark line: " + n1 + " of " + N + " components, back-calculated from real advisories; the other " + nx + " (BSI and SANS, external assessments) have no archive. It started with " + n0 + " because not every source reaches back equally far. Today's thresholds apply retroactively, latest " + ak + ". Bright line: full gauge with all " + N + " components, stored live since " + datum(sc.live_seit) + ". Nothing is estimated.");
   }
 
   function liste(boxId, zeilen, max) {
