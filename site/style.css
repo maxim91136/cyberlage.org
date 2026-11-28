@@ -970,3 +970,5 @@ main .p-rang .p-det>summary{padding:2px 0}
 #bg-pop .bg-t{display:block;margin-bottom:4px;color:var(--green);font-family:ui-monospace,Menlo,Consolas,monospace}
 #bg-pop .bg-d{margin:0 0 8px;font-size:14px;line-height:1.5}
 #bg-pop .bg-m{margin:0;font-size:12px}#bg-pop a{color:var(--green)}
+
+.fix-mehr{background:none;border:0;padding:0 2px;color:var(--green);font-size:.85em;cursor:pointer;text-decoration:underline;min-height:24px}

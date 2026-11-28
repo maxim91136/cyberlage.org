@@ -475,7 +475,9 @@
   var d_stand = null, d_skala = null;
   function zeigeBsi(b) {
     if (!b) { $("bsi-info").textContent = txt("keine"); $("bsi-liste").textContent = txt("keine"); return; }
-    $("bsi-info").textContent = txt("bsi_info", b.fenster_tage, b.kritisch_30_tage, b.hoch_30_tage, b.kritisch_7_tage, b.hoch_7_tage, datum(b.abgerufen_am)) + luecke(b, d_stand);
+    // Solange noch keine 7 Tage gesammelt sind, wäre die 7-Tage-Zahl dieselbe wie die 30-Tage-Zahl: dann nur eine Zahl zeigen
+    var jung = b.daten_seit && d_stand && (Date.parse(d_stand) - Date.parse(b.daten_seit)) < 7 * 86400000;
+    $("bsi-info").textContent = txt("bsi_info", b.fenster_tage, b.kritisch_30_tage, b.hoch_30_tage, jung ? null : b.kritisch_7_tage, b.hoch_7_tage, datum(b.abgerufen_am)) + luecke(b, d_stand);
     liste("bsi-liste", (b.liste || []).map(function (e) {
       var r = el("div", "row zeile");
       r.appendChild(el("span", "mono dim", datum(e.datum)));
@@ -688,8 +690,8 @@
     var info = el("p", "mono dim fine"), ul = el("ul", "b-liste"); box.appendChild(info);
     var zbox = el("div", "b-zu"); box.appendChild(zbox);
     box.appendChild(el("h4", "mono b-h4", pick("Gerade angegriffen (CISA-KEV, 30 Tage)", "Under attack now (CISA KEV, 30 days)"))); box.appendChild(ul);
-    box.appendChild(el("p", "mono dim fine", pick("Reine Zuordnung nach Namen, feste Regeln in RULES.md. Was bei dir im Einsatz ist, weiß die Seite nicht: eigenes Inventar prüfen. Frist = Frist der CISA für US-Behörden, als Anhalt. Die Auswahl bleibt nur in diesem Browser.",
-      "Assignment by name only, fixed rules in RULES.md. The site does not know what you run: check your own inventory. Deadline = CISA deadline for US agencies, as a guide. Your choice stays in this browser only.")));
+    box.appendChild(el("p", "mono dim fine", pick("Reine Zuordnung nach Namen, nach festen Regeln. Was bei dir im Einsatz ist, weiß die Seite nicht: eigenes Inventar prüfen. Frist = Frist der CISA für US-Behörden, als Anhalt. Die Auswahl bleibt nur in diesem Browser.",
+      "Assignment by name only, under fixed rules. The site does not know what you run: check your own inventory. Deadline = CISA deadline for US agencies, as a guide. Your choice stays in this browser only.")));
     var hq = ((d.patches || {}).hersteller || {}).quellen || {}, hbox = el("div", "b-hs"); box.insertBefore(hbox, zbox.nextSibling);
     /* Hersteller je Bereich: q = Quelle mit Zahlen, t = Patch-Tag nach Regel des Herstellers, a = Sprung zu einem Abschnitt, ohne = noch keine offene Quelle angebunden */
     var KAT = {
@@ -826,7 +828,7 @@
         var fx = el("div", "p-fix"); fx.appendChild(el("b", "mono", pick("Lösung: ", "Fix: ")));
         var teile = [];
         teile = fixTeile(k.fixe);
-        fx.appendChild(document.createTextNode(teile.length ? teile.join(", ") : pick(k.patch_text, k.patch_text_en)));
+        if (teile.length > 2) fixKurz(fx, teile); else fx.appendChild(document.createTextNode(teile.length ? teile.join(", ") : pick(k.patch_text, k.patch_text_en)));
         if (k.patch_link && /^https:\/\//.test(k.patch_link)) { fx.appendChild(document.createTextNode(" · ")); fx.appendChild(link(k.patch_link, /OfficeSecurityReleases/.test(k.patch_link) ? pick("Office-Release-Notes", "Office release notes") : pick("Fix-Seite", "fix page"))); }
         li.appendChild(fx);
         if (k.monat) det.appendChild(el("div", "p-w mono dim", pick("Enthalten im Microsoft Patch Day ", "Included in the Microsoft Patch Day ") + monatName(k.monat) + pick(" (Sammelupdate des Monats; Nachträge sind Out-of-Band-Updates)", " (the month's cumulative update; later additions are out-of-band updates)")));
@@ -866,6 +868,13 @@
   function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) { } }
   function pzKey(k) { return ((k.cves && k.cves[0]) || k.titel) + "|" + k.quelle; }
+  /* Lange Versionslisten (vor allem Office) kürzen: zwei zeigen, der Rest erscheint auf Tipp */
+  function fixKurz(ziel, teile) {
+    var kurzT = document.createTextNode(teile.slice(0, 2).join(", ") + " "), mehrB = el("button", "fix-mehr mono", pick("+ " + (teile.length - 2) + " weitere", "+ " + (teile.length - 2) + " more"));
+    mehrB.type = "button";
+    mehrB.addEventListener("click", function () { kurzT.nodeValue = teile.join(", "); mehrB.remove(); });
+    ziel.appendChild(kurzT); ziel.appendChild(mehrB);
+  }
   function pzLoesung(k) { var t = fixTeile(k.fixe); return t.length ? t.join(", ") : (pick(k.patch_text, k.patch_text_en) || ""); }
   function pzScore(k) { return (k.cvss || []).map(function (c) { return c.score; }).join("/"); }
   function werkzeuge(pr) {
@@ -1164,7 +1173,7 @@
         li.appendChild(document.createTextNode(" · " + dx(x.titel) + (x.betrifft ? " · " + pick("betrifft ", "affects ") + dx(x.betrifft) : "")));
         var ft = fixTeile(x.fixe);
         var d = el("div", "p-fix"); d.appendChild(el("b", "mono", pick("Lösung: ", "Fix: ")));
-        d.appendChild(document.createTextNode(ft.length ? ft.join(", ") : (x.patch === "nein" ? pick("noch kein Patch, nur Umgehung oder Abmilderung (Microsoft-Seite)", "no patch yet, only a workaround or mitigation (Microsoft page)") : pick("Details auf der Microsoft-Seite", "details on the Microsoft page"))));
+        if (ft.length > 2) fixKurz(d, ft); else d.appendChild(document.createTextNode(ft.length ? ft.join(", ") : (x.patch === "nein" ? pick("noch kein Patch, nur Umgehung oder Abmilderung (Microsoft-Seite)", "no patch yet, only a workaround or mitigation (Microsoft page)") : pick("Details auf der Microsoft-Seite", "details on the Microsoft page"))));
         if (ft.some(function (z) { return /Version|version/.test(z); })) { d.appendChild(document.createTextNode(" · ")); d.appendChild(link("https://aka.ms/OfficeSecurityReleases", pick("Office-Release-Notes", "Office release notes"))); }
         li.appendChild(d); al.appendChild(li);
       });
