@@ -200,6 +200,21 @@
     $("stufe-text").textContent = hatStufe ? "" : txt("keine_bew");
     $("stufe-text").hidden = hatStufe;
     $("stufe-begr").textContent = pick(d.stufe_begruendung, d.stufe_begruendung_en) || "";
+    /* Was die Stufe in einem Satz heißt (Orientierung für Neulinge, siehe RULES.md „Einstieg“) */
+    var sinn = $("stufe-sinn"), SINN = {
+      ruhig: ["Weniger Aktivität als üblich.", "Less activity than usual."],
+      unauffaellig: ["Aktivität im üblichen Rahmen.", "Activity within the usual range."],
+      angespannt: ["Etwas mehr Aktivität als üblich.", "Somewhat more activity than usual."],
+      hoch: ["Deutlich mehr Aktivität als üblich.", "Clearly more activity than usual."],
+      ausserordentlich: ["Außergewöhnlich viel Aktivität.", "Exceptionally high activity."]
+    };
+    if (sinn) {
+      var sz = hatStufe && SINN[d.stufe]; sinn.hidden = !sz;
+      if (sz) {
+        sinn.textContent = pick(sz[0] + " Das beschreibt die Lage weltweit, keine Warnung für dich persönlich. ", sz[1] + " This describes the global situation, not a warning for you personally. ");
+        var sa = document.createElement("a"); sa.href = "#info"; sa.setAttribute("data-offen", "i-faq"); sa.textContent = pick("Was heißt das? ▸", "What does this mean? ▸"); sinn.appendChild(sa);
+      }
+    }
 
     var k = d.kev || {};
     $("k7").textContent = zahl(k.neu_7_tage);

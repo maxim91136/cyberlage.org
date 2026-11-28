@@ -267,3 +267,6 @@ Berichte (Übersicht und je Bericht, Startseite und eigene Seiten, Deutsch und E
 
 ## Nachtrag: Einstieg „So liest du die Seite“ (27.11.2026)
 Der Block unter dem Hero erklärt nur die Bedienung (Zahl, Fazit, Belege, Menügruppen). Er enthält keine Zahlen und keine Schwellen und ändert das Modell nicht.
+
+## Nachtrag: Hilfen für Erstbesucher (28.11.2026)
+Reine Orientierung, ohne Einfluss auf Modell, Schwellen oder Stufen. (1) Am Pegel steht ein Satz, was die Stufe in der Alltagssprache heißt: ruhig = weniger Aktivität als üblich, unauffällig = Aktivität im üblichen Rahmen, angespannt = etwas mehr, hoch = deutlich mehr, außergewöhnlich = außergewöhnlich viel. Dazu immer: Das beschreibt die Lage weltweit, keine Warnung für dich persönlich. (2) Fachwörter im Fließtext zeigen auf Antippen die Erklärung aus der Begriffe-Liste (eine Quelle), je Absatz nur das erste Vorkommen. (3) Der Einstiegslink ist beim ersten Besuch deutlicher, bis er einmal geöffnet wurde; gemerkt wird nur lokal im Browser (`localStorage`), nichts wird gesendet.

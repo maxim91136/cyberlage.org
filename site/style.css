@@ -961,3 +961,16 @@ main .p-rang .p-det>summary{padding:2px 0}
 @media (max-width:899px){.guide-g{display:block}}
 @media (max-width:520px){.guide-dl{grid-template-columns:1fr;gap:0}.guide-dl dd{margin-bottom:8px}.guide-q a{flex-direction:column}.guide-q small{text-align:left;max-width:none}}
 
+
+/* Hilfen für Erstbesucher: Stufen-Satz am Pegel, Einstiegslink beim ersten Besuch, antippbare Fachwörter */
+.stufe-sinn{margin:10px 0 0;font-size:14px;line-height:1.5;color:var(--text);max-width:42em}
+.stufe-sinn a{color:var(--green);white-space:nowrap}
+.guide.neu:not([open])>summary{display:inline-block;padding:9px 18px;border:1px solid rgba(111,224,160,.55);border-radius:999px;background:rgba(111,224,160,.08)}
+.guide.neu:not([open])>summary span{border-bottom-color:transparent}
+.bg{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:0;border-bottom:1px dotted var(--green);padding:0;margin:0;cursor:help}
+.bg:hover,.bg:focus-visible{color:var(--green)}
+#bg-pop{position:fixed;inset:auto 12px 14px 12px;margin:0 auto;width:auto;max-width:440px;height:auto;padding:14px 16px;color:var(--text);background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--green);border-radius:var(--r);box-shadow:0 8px 30px rgba(0,0,0,.5)}
+#bg-pop::backdrop{background:rgba(0,0,0,.25)}
+#bg-pop .bg-t{display:block;margin-bottom:4px;color:var(--green);font-family:ui-monospace,Menlo,Consolas,monospace}
+#bg-pop .bg-d{margin:0 0 8px;font-size:14px;line-height:1.5}
+#bg-pop .bg-m{margin:0;font-size:12px}#bg-pop a{color:var(--green)}
