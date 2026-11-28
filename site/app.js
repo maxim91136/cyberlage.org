@@ -670,7 +670,7 @@
     var KAT = {
       netzwerk: [{ n: "Cisco", q: "cisco" }, { n: "Fortinet", q: "fortinet", t: "fortinet" }, { n: "Palo Alto Networks", q: "paloalto" }, { n: "Ivanti", q: "ivanti", t: "ivanti" }],
       fernwartung: [{ n: "Ivanti", q: "ivanti", t: "ivanti" }, { n: "ConnectWise", ohne: 1 }, { n: "SolarWinds", ohne: 1 }],
-      arbeitsplatz: [{ n: "Edge und Chrome", n_en: "Edge and Chrome", a: "k-edge" }, { n: "Mozilla (Firefox, Thunderbird)", q: "mozilla" }, { n: "Adobe", t: "adobe", l: "https://helpx.adobe.com/security.html" }, { n: "Apple", q: "apple" }],
+      arbeitsplatz: [{ n: "Browser: Chrome, Edge, Firefox, Opera, Safari", n_en: "Browsers: Chrome, Edge, Firefox, Opera, Safari", a: "k-edge" }, { n: "Mozilla (Firefox, Thunderbird)", q: "mozilla" }, { n: "Adobe", t: "adobe", l: "https://helpx.adobe.com/security.html" }, { n: "Apple", q: "apple" }],
       virtualisierung: [{ n: "Citrix (Cloud Software Group)", t: "citrix", l: "https://support.citrix.com/securitybulletins" }, { n: "Terminalserver und Remote-Desktop (Microsoft)", n_en: "Terminal servers and Remote Desktop (Microsoft)", t: "ms", a: "k-ms" }, { n: "VMware (Broadcom)", ohne: 1 }],
       windows: [{ n: "Microsoft Patch Day", t: "ms", a: "k-ms" }],
       zusammenarbeit: [{ n: "Microsoft (Exchange, SharePoint, Teams)", t: "ms", a: "k-ms" }, { n: "Atlassian", ohne: 1 }, { n: "Zimbra", ohne: 1 }],
@@ -912,7 +912,7 @@
     var c = m.chromium || { anzahl: m.davon_chromium_ausgenommen };
     if (!c.anzahl) { box.hidden = true; return; }
     box.textContent = "";
-    box.appendChild(el("h3", "mono rd-t", pick("Edge und Chrome (Chromium)", "Edge and Chrome (Chromium)")));
+    box.appendChild(el("h3", "mono rd-t", pick("Chrome und Edge (Chromium)", "Chrome and Edge (Chromium)")));
     box.appendChild(el("p", "", pick(zahl(c.anzahl) + " Chromium-Lücken im " + monatName(m.id) + ". Sie kommen laufend mit den Browser-Updates, nicht nur am Patch Day, und stehen deshalb nicht in der Zahl oben.", zahl(c.anzahl) + " Chromium flaws in " + monatName(m.id) + ". They arrive continuously with browser updates, not only on patch day, and are therefore not in the figure above.")));
     if (c.edge || c.chrome) {
       var fx = el("div", "p-fix"); fx.appendChild(el("b", "mono", pick("Lösung: ", "Fix: ")));
@@ -924,6 +924,8 @@
       c.kev.forEach(function (x, i) { if (i) ex.appendChild(document.createTextNode(", ")); ex.appendChild(link("https://msrc.microsoft.com/update-guide/vulnerability/" + x.cve, x.cve)); });
       box.appendChild(ex);
     } else if (c.edge || c.chrome) box.appendChild(el("p", "mono dim fine", pick("Keine davon als ausgenutzt gemeldet.", "None of them reported as exploited.")));
+    var es = el("p", "mono dim fine", pick("Chrome im Unternehmen: Der Kanal Extended Stable bekommt laut Google dieselben Sicherheitsfixes, wo technisch möglich, aber mit eigenen Versionsnummern. Die Chrome-Version oben gilt für den Kanal Stable. Für Extended Stable haben wir keine offene Quelle angebunden: keine Daten. ", "Chrome in organisations: according to Google the Extended Stable channel gets the same security fixes where technically possible, but with its own version numbers. The Chrome version above applies to the Stable channel. We have no open source connected for Extended Stable: no data. "));
+    es.appendChild(link("https://support.google.com/chrome/a/answer/16942104", pick("Google: Extended Stable", "Google: Extended Stable"))); box.appendChild(es);
     var q = el("p", "mono dim fine", pick("Quellen: Microsoft (Edge-Fixversion je CVE), Titel der Chromium-Meldungen (Chrome-Version). Mehr: ", "Sources: Microsoft (Edge fix version per CVE), titles of the Chromium notices (Chrome version). More: "));
     q.appendChild(link("https://learn.microsoft.com/deployedge/microsoft-edge-relnotes-security", pick("Edge-Sicherheitsupdates", "Edge security updates"))); q.appendChild(document.createTextNode(" · ")); q.appendChild(link("https://chromereleases.googleblog.com/", "Chrome Releases"));
     box.appendChild(q); box.hidden = false;
@@ -1167,7 +1169,36 @@
     box.appendChild(det);
     box.hidden = false;
   }
+  /* Weitere Browser neben Chromium: nur Firmenversionen (Firefox ESR); wo keine offene Quelle angebunden ist, steht „keine Daten“ */
+  function zeigeBrowser(hs) {
+    var box = $("p-browser"); if (!box) return;
+    var qs = hs && hs.quellen ? hs.quellen : {}, moz = qs.mozilla && qs.mozilla.letzte ? qs.mozilla.letzte : [], app = qs.apple && qs.apple.letzte ? qs.apple.letzte : [];
+    box.textContent = "";
+    box.appendChild(el("h3", "mono rd-t", pick("Weitere Browser", "Other browsers")));
+    function zeile(name, fn) { var p = el("p", "", ""); p.appendChild(el("b", "mono", name + ": ")); fn(p); box.appendChild(p); }
+    zeile(pick("Firefox ESR (Mozilla)", "Firefox ESR (Mozilla)"), function (p) {
+      var linien = {}, reihe = [];
+      moz.forEach(function (x) { var m = /Firefox ESR (\d+)(\.\d+)*/.exec(x.titel || ""); if (!m || linien[m[1]]) return; linien[m[1]] = 1; reihe.push({ v: /Firefox ESR (\d+(?:\.\d+)*)/.exec(x.titel)[1], x: x }); });
+      if (!reihe.length) { p.appendChild(document.createTextNode(pick("keine Daten.", "no data."))); return; }
+      p.appendChild(document.createTextNode(pick("Die ESR-Ausgabe ist für Organisationen gedacht. Aktueller Stand laut Mozilla: ", "The ESR edition is meant for organisations. Current level according to Mozilla: ")));
+      reihe.forEach(function (r, i) { if (i) p.appendChild(document.createTextNode(", ")); p.appendChild(link(r.x.link, "ESR " + r.v)); p.appendChild(document.createTextNode(" (" + datum(r.x.datum) + ")")); });
+      p.appendChild(document.createTextNode(pick(". In der jeweiligen ESR-Linie sollte mindestens diese Version laufen.", ". Each ESR line should run at least this version.")));
+    });
+    zeile("Opera", function (p) {
+      p.appendChild(document.createTextNode(pick("Baut auf Chromium, die Chromium-Lücken oben gelten dort ebenfalls. Opera liefert die Fixes mit eigenen Versionsnummern. Keine offene Quelle angebunden: keine Daten. ", "Built on Chromium, so the Chromium flaws above apply there too. Opera ships the fixes with its own version numbers. No open source connected: no data. ")));
+      p.appendChild(link("https://blogs.opera.com/desktop/", pick("Opera-Versionshinweise", "Opera release notes")));
+    });
+    zeile(pick("Safari (Apple)", "Safari (Apple)"), function (p) {
+      var s = app.filter(function (x) { return /Safari/.test(x.titel || ""); })[0];
+      if (s) { p.appendChild(document.createTextNode(pick("Zuletzt gemeldet: ", "Last reported: "))); p.appendChild(link(s.link, s.titel)); p.appendChild(document.createTextNode(" (" + datum(s.datum) + ")")); return; }
+      p.appendChild(document.createTextNode(pick("Kommt mit Apples System-Updates. In den letzten Apple-Meldungen, die wir führen, steht kein Safari-Eintrag: keine Daten. ", "Comes with Apple's system updates. The latest Apple notices we hold contain no Safari entry: no data. ")));
+      p.appendChild(link("https://support.apple.com/en-us/100100", pick("Apple Security Releases", "Apple Security Releases")));
+    });
+    box.appendChild(el("p", "mono dim fine", pick("Quellen: Mozilla Security Advisories, Apple Security Releases, Google, Opera. Gezeigt werden Firmenversionen, nichts ist geschätzt.", "Sources: Mozilla Security Advisories, Apple Security Releases, Google, Opera. Enterprise versions are shown, nothing is estimated.")));
+    box.hidden = false;
+  }
   function zeigeHersteller(hs) {
+    zeigeBrowser(hs);
     var alle = hs && hs.quellen ? Object.keys(hs.quellen).map(function (k) { return hs.quellen[k]; }) : [];
     herstellerTabelle($("p-hv"), alle.filter(function (q) { return q.typ === "hersteller"; }), pick("Hersteller: Netzwerk, Anwendungen, Browser, Apple", "Vendors: network, applications, browsers, Apple"), true);
     herstellerTabelle($("p-hs"), alle.filter(function (q) { return q.typ !== "hersteller"; }), pick("Linux-Distributionen", "Linux distributions"), false);

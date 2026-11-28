@@ -46,7 +46,7 @@
     f1q: "What is the Dreier Gauge?", f1a: "Our own score, not a standard or norm. It combines several components into one number from 0 to 100 and derives a level from it: calm, unremarkable, tense, high or exceptional. 50 means the rule thresholds of the components are reached on average. It measures activity and signals, not the number of attacks, and predicts nothing.",
     l_umbau: "⚠ Work in progress: the Dreier Gauge is being reworked. Components and value may still change.",
     rd_einzel: "Groups and individual values", rd_roh: "Raw values, rules and sources of the ten components",
-    k_bau: "## components", k_wie: "## how the gauge arises", k_ms: "Microsoft patch day", k_edge: "Edge and Chrome", k_hs: "Linux distributions", k_hv: "Vendors: Cisco, Fortinet, Palo Alto, Ivanti, SAP, Mozilla, Apple", s_wie: "How the gauge arises",
+    k_bau: "## components", k_wie: "## how the gauge arises", k_ms: "Microsoft patch day", k_edge: "Browsers", k_hs: "Linux distributions", k_hv: "Vendors: Cisco, Fortinet, Palo Alto, Ivanti, SAP, Mozilla, Apple", s_wie: "How the gauge arises",
     k_zuerst: "This week first", k_bereich: "Under attack, by area",
     f_dank: "Thanks to everyone whose open data makes this site possible: CISA, ENISA, BSI and CERT-Bund, NCSC-NL, SANS ISC, FIRST (EPSS), NIST (NVD), RansomLook, Microsoft, Red Hat, SUSE, Canonical, Debian, AlmaLinux, Rocky Linux, Amazon, Cisco and SAP.",
     i_andere: "other situation pictures", i_andere_n: "Other situation pictures",

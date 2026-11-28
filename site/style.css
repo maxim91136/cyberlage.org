@@ -481,7 +481,7 @@ html[lang=en] .teil>summary::after{content:"\25B8  open"}html[lang=en] .teil[ope
 .sek.psub{margin-top:12px}.sek.psub>summary h3{margin:0;font-size:15px;color:var(--green)}
 .sek.psub:has(>.panel[hidden]){display:none}
 @media print{.teil>summary::after{display:none}}
-#k-edge .panel>h3:first-child,#k-hs .panel>h3:first-child{display:none}
+#k-hs .panel>h3:first-child{display:none}
 
 /* ===== Designschicht: taktisches HUD, ruhig und aufgeräumt (ein Commit, rückholbar) ===== */
 :root{--r:10px;--r2:8px;--glas:rgba(8,12,15,.72)}
