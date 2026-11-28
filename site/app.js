@@ -426,8 +426,8 @@
       });
       var il = live[live.length - 1], lw = v[il].wert, la = v[il].ausnutzung;
       var kopf = mk("text", Object.assign({ x: B - R - 8, y: T + 10, "text-anchor": "end" }, mono, { stroke: "#0d1117", "stroke-width": 4, "paint-order": "stroke" }));
-      var t1 = document.createElementNS(NS, "tspan"); t1.setAttribute("fill", "#6fe0a0"); t1.setAttribute("font-weight", "600"); t1.textContent = "● " + pick("voller Pegel ", "full gauge ") + lw; kopf.appendChild(t1);
-      var t2 = document.createElementNS(NS, "tspan"); t2.setAttribute("fill", "#8fbfa6"); t2.textContent = pick("   ─ ohne BSI/SANS ", "   ─ without BSI/SANS ") + la; kopf.appendChild(t2);
+      var t1 = document.createElementNS(NS, "tspan"); t1.setAttribute("fill", "#6fe0a0"); t1.setAttribute("font-weight", "600"); t1.textContent = "● " + pick("heute ", "today ") + lw; kopf.appendChild(t1);
+      var t2 = document.createElementNS(NS, "tspan"); t2.setAttribute("fill", "#8fbfa6"); t2.textContent = pick("  ·  Linie ", "  ·  line ") + la; kopf.appendChild(t2);
     }
     // Zeitachse: echte Kalenderdaten (1. Januar mit Jahreszahl, 1. Juli als Strich), nicht Drittel der Datenpunkte
     var letzt = v.length - 1, endX = x(letzt);
@@ -441,12 +441,13 @@
       });
     }
     mk("text", Object.assign({ x: endX, y: H - 8, "text-anchor": "end" }, mono), R > 60 ? datum(v[letzt].stand) : pick("heute", "today"));
-    var t = document.createElementNS(NS, "title"); t.textContent = pick("Verlauf des Dreier-Pegels, zuletzt " + (typeof sc.wert === "number" ? sc.wert : "–") + " von 100.", "Dreier Gauge over time, latest " + (typeof sc.wert === "number" ? sc.wert : "–") + " of 100."); svg.insertBefore(t, svg.firstChild);
+    svg.setAttribute("role", "img"); svg.setAttribute("aria-label", pick("Verlauf des Dreier-Pegels, zuletzt " + (typeof sc.wert === "number" ? sc.wert : "–") + " von 100.", "Dreier Gauge over time, latest " + (typeof sc.wert === "number" ? sc.wert : "–") + " of 100."));
     var ak = v[v.length - 1].ausnutzung;
     var n0 = v[0].n, n1 = v[v.length - 1].n;
-    var N = sc.von_bausteine || 10, nx = N - n1;
-    leg.textContent = pick("Der Dreier-Pegel hat " + N + " Bausteine. Dunkle Linie: " + n1 + " von " + N + " Bausteinen, aus echten Meldungen rückgerechnet; die übrigen " + nx + " (BSI und SANS, externe Einschätzungen) haben kein Archiv. Anfangs waren es " + n0 + ", weil nicht jede Quelle gleich weit zurückreicht. Die heutigen Schwellen gelten rückwirkend, zuletzt " + ak + ". Helle Linie: voller Pegel mit allen " + N + " Bausteinen, live gespeichert seit " + datum(sc.live_seit) + ". Nichts ist geschätzt.",
-      "The Dreier Gauge has " + N + " components. Dark line: " + n1 + " of " + N + " components, back-calculated from real advisories; the other " + nx + " (BSI and SANS, external assessments) have no archive. It started with " + n0 + " because not every source reaches back equally far. Today's thresholds apply retroactively, latest " + ak + ". Bright line: full gauge with all " + N + " components, stored live since " + datum(sc.live_seit) + ". Nothing is estimated.");
+    var N = sc.von_bausteine || 10, nx = N - n1, mehr = live.length > 1;
+    var hz = typeof lw === "number" ? lw : "–";
+    leg.textContent = pick("Die Linie zeigt den Pegel der letzten 3 Jahre, rückgerechnet aus " + n1 + " der " + N + " Bausteine (BSI und SANS haben kein Archiv; anfangs waren es " + n0 + ", weil nicht jede Quelle gleich weit zurückreicht). " + (mehr ? "Das helle Stück am Ende" : "Der Punkt am Ende") + " ist der Pegel mit allen " + N + " Bausteinen, gespeichert seit " + datum(sc.live_seit) + ": heute " + hz + ", die Linie endet bei " + ak + ". Mit BSI und SANS liegt der Pegel also niedriger. Die heutigen Schwellen gelten rückwirkend. Nichts ist geschätzt.",
+      "The line shows the gauge over the last 3 years, back-calculated from " + n1 + " of the " + N + " components (BSI and SANS have no archive; it started with " + n0 + " because not every source reaches back equally far). " + (mehr ? "The bright stretch at the end" : "The dot at the end") + " is the gauge with all " + N + " components, stored since " + datum(sc.live_seit) + ": " + hz + " today, the line ends at " + ak + ". With BSI and SANS the gauge is therefore lower. Today's thresholds apply retroactively. Nothing is estimated.");
   }
 
   function liste(boxId, zeilen, max) {
