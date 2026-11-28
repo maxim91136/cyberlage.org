@@ -670,7 +670,7 @@
     var KAT = {
       netzwerk: [{ n: "Cisco", q: "cisco" }, { n: "Fortinet", q: "fortinet", t: "fortinet" }, { n: "Palo Alto Networks", q: "paloalto" }, { n: "Ivanti", q: "ivanti", t: "ivanti" }],
       fernwartung: [{ n: "Ivanti", q: "ivanti", t: "ivanti" }, { n: "ConnectWise", ohne: 1 }, { n: "SolarWinds", ohne: 1 }],
-      arbeitsplatz: [{ n: "Edge und Chrome", n_en: "Edge and Chrome", a: "k-edge" }, { n: "Firefox und Thunderbird", n_en: "Firefox and Thunderbird", q: "mozilla" }, { n: "Adobe", t: "adobe", l: "https://helpx.adobe.com/security.html" }, { n: "Apple", q: "apple" }],
+      arbeitsplatz: [{ n: "Edge und Chrome", n_en: "Edge and Chrome", a: "k-edge" }, { n: "Mozilla (Firefox, Thunderbird)", q: "mozilla" }, { n: "Adobe", t: "adobe", l: "https://helpx.adobe.com/security.html" }, { n: "Apple", q: "apple" }],
       virtualisierung: [{ n: "Citrix (Cloud Software Group)", t: "citrix", l: "https://support.citrix.com/securitybulletins" }, { n: "Terminalserver und Remote-Desktop (Microsoft)", n_en: "Terminal servers and Remote Desktop (Microsoft)", t: "ms", a: "k-ms" }, { n: "VMware (Broadcom)", ohne: 1 }],
       windows: [{ n: "Microsoft Patch Day", t: "ms", a: "k-ms" }],
       zusammenarbeit: [{ n: "Microsoft (Exchange, SharePoint, Teams)", t: "ms", a: "k-ms" }, { n: "Atlassian", ohne: 1 }, { n: "Zimbra", ohne: 1 }],
@@ -848,12 +848,13 @@
     if (!pr || !pr.liste || !pr.liste.length) { host.hidden = true; return; }
     host.hidden = false; host.textContent = "";
     var erledigt = {}; try { erledigt = JSON.parse(lsGet("cl_erledigt") || "{}") || {}; } catch (e) { erledigt = {}; }
-    host.appendChild(el("label", "lbl", pick("Betrifft mich? Produkte oder Hersteller, durch Komma getrennt", "Affects me? Products or vendors, separated by commas"))).setAttribute("for", "p-filter");
+    host.appendChild(el("label", "lbl", pick("Nur meine Produkte anzeigen", "Show only my products"))).setAttribute("for", "p-filter");
     var inp = el("input", "filter mono"); inp.id = "p-filter"; inp.type = "search"; inp.autocomplete = "off"; inp.placeholder = pick("z. B. windows 11, outlook, ubuntu, cisco", "e.g. windows 11, outlook, ubuntu, cisco"); inp.value = lsGet("cl_filter") || "";
     host.appendChild(inp);
+    host.appendChild(el("p", "dim fine", pick("Produkte oder Hersteller eintippen, getrennt durch Komma, zum Beispiel windows 11, cisco. Die Liste darunter zeigt dann nur Passendes. Mit dem Kästchen vor einem Eintrag hakst du Erledigtes ab. Die sichtbare Liste kannst du kopieren oder exportieren.", "Type products or vendors, separated by commas, for example windows 11, cisco. The list below then shows only matches. Use the box in front of an entry to tick off what is done. You can copy or export the visible list.")));
     var info = el("p", "mono dim fine"); info.setAttribute("aria-live", "polite"); host.appendChild(info);
     var bt = el("div", "p-btns mono"); host.appendChild(bt);
-    host.appendChild(el("p", "mono dim fine", pick("Filter und Haken bleiben nur in diesem Browser gespeichert, nichts wird übertragen.", "Filter and ticks are stored only in this browser, nothing is sent.")));
+    host.appendChild(el("p", "mono dim fine", pick("Dein Filter und deine Haken werden nur in diesem Browser gespeichert, nichts wird gesendet.", "Your filter and ticks are stored only in this browser, nothing is sent.")));
     function lis() { return Array.prototype.slice.call(document.querySelectorAll("#p-zuerst li[data-t]")); }
     function sichtbar() { return lis().filter(function (li) { return !li.hidden && li.hasAttribute("data-i"); }).map(function (li) { return pr.liste[+li.getAttribute("data-i")]; }); }
     function anwenden() {
@@ -866,7 +867,7 @@
         if (treffer && ts.length && li.closest(".p-mehr")) rest = true;
       });
       var dt = document.querySelector("#p-zuerst .p-mehr"); if (dt && rest) dt.open = true;
-      info.textContent = (ts.length ? pick("Treffer: ", "Matches: ") + n + pick(" von ", " of ") + alle.length + " · " : "") + erl + pick(" erledigt", " done");
+      info.textContent = (ts.length ? pick("Treffer: ", "Matches: ") + n + pick(" von ", " of ") + alle.length : alle.length + pick(" Einträge", " entries")) + " · " + erl + pick(" erledigt", " done");
       lsSet("cl_filter", inp.value);
     }
     inp.addEventListener("input", anwenden);
