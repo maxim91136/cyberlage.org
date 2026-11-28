@@ -443,11 +443,9 @@
     mk("text", Object.assign({ x: endX, y: H - 8, "text-anchor": "end" }, mono), R > 60 ? datum(v[letzt].stand) : pick("heute", "today"));
     svg.setAttribute("role", "img"); svg.setAttribute("aria-label", pick("Verlauf des Dreier-Pegels, zuletzt " + (typeof sc.wert === "number" ? sc.wert : "–") + " von 100.", "Dreier Gauge over time, latest " + (typeof sc.wert === "number" ? sc.wert : "–") + " of 100."));
     var ak = v[v.length - 1].ausnutzung;
-    var n0 = v[0].n, n1 = v[v.length - 1].n;
-    var N = sc.von_bausteine || 10, nx = N - n1, mehr = live.length > 1;
-    var hz = typeof lw === "number" ? lw : "–";
-    leg.textContent = pick("Die Linie zeigt den Pegel der letzten 3 Jahre, rückgerechnet aus " + n1 + " der " + N + " Bausteine (BSI und SANS haben kein Archiv; anfangs waren es " + n0 + ", weil nicht jede Quelle gleich weit zurückreicht). " + (mehr ? "Das helle Stück am Ende" : "Der Punkt am Ende") + " ist der Pegel mit allen " + N + " Bausteinen, gespeichert seit " + datum(sc.live_seit) + ": heute " + hz + ", die Linie endet bei " + ak + ". Mit BSI und SANS liegt der Pegel also niedriger. Die heutigen Schwellen gelten rückwirkend. Nichts ist geschätzt.",
-      "The line shows the gauge over the last 3 years, back-calculated from " + n1 + " of the " + N + " components (BSI and SANS have no archive; it started with " + n0 + " because not every source reaches back equally far). " + (mehr ? "The bright stretch at the end" : "The dot at the end") + " is the gauge with all " + N + " components, stored since " + datum(sc.live_seit) + ": " + hz + " today, the line ends at " + ak + ". With BSI and SANS the gauge is therefore lower. Today's thresholds apply retroactively. Nothing is estimated.");
+    var mehr = live.length > 1, hz = typeof lw === "number" ? lw : "–", abw = typeof lw === "number" && lw !== ak;
+    leg.textContent = pick("Die Linie zeigt, wie der Pegel in den letzten 3 Jahren gewesen wäre, nach den heutigen Regeln aus echten Meldungen berechnet. " + (mehr ? "Das helle Stück am Ende" : "Der Punkt") + " ist der Pegel von heute (" + hz + ")." + (abw ? " Er weicht von der Linie (" + ak + ") ab, weil er auch die Einschätzungen von BSI und SANS enthält; die gibt es nur für heute." : ""),
+      "The line shows what the gauge would have been over the last 3 years, calculated from real advisories using today's rules. " + (mehr ? "The bright stretch at the end" : "The dot") + " is today's gauge (" + hz + ")." + (abw ? " It differs from the line (" + ak + ") because it also includes the assessments of BSI and SANS, which exist only for today." : ""));
   }
 
   function liste(boxId, zeilen, max) {
