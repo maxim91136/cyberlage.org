@@ -38,7 +38,7 @@ class DateienTest(HistorieBasis):
         self.assertEqual(fh.lese("kaputt.json"), {})
 
     def test_lade_lehnt_http_ab(self):
-        with self.assertRaises(Exception):
+        with self.assertRaises(ValueError):
             fh.lade("http://example.org/x")
 
 

@@ -369,10 +369,10 @@ def main():
                 skript = []
                 pg.on("pageerror", lambda e, s=skript: s.append(str(e)[:200]))
                 pg.on("console", lambda m, s=skript: s.append(m.text[:200]) if m.type == "error" and "favicon" not in m.text else None)
-                schritte = (("Klappen", lambda: pruefe_klappen(pg, p)), ("Bereiche", lambda: pruefe_bereiche(pg, p)), ("Berichte", lambda: pruefe_berichte(pg, p)),
-                            ("Reiter", lambda: pruefe_reiter(pg, p)), ("Alles offen", lambda: pruefe_alles_offen(pg, p)),
-                            ("Direktlinks", lambda: pruefe_direktlinks(pg, basis + pfad, p)), ("Sprachknopf", lambda: pruefe_sprachknopf(pg, basis + pfad, sprache, p)),
-                            ("Menü und Kurztext", lambda: pruefe_menue_und_kurztext(pg, basis + pfad, p)), ("Menüknopf", lambda: pruefe_menueknopf(pg, basis + pfad, p)), ("Berichtsseiten", lambda: pruefe_berichtseiten(pg, basis, sprache, p)), ("Audit-Seite", lambda: pruefe_auditseite(pg, basis, sprache, p)), ("Linkseite", lambda: pruefe_linkseite(pg, basis, sprache, p)), ("Hinweiszeile", lambda: pruefe_en_zeile(pg, basis, sprache, p)))
+                schritte = (("Klappen", lambda pg=pg, pfad=pfad, sprache=sprache: pruefe_klappen(pg, p)), ("Bereiche", lambda pg=pg, pfad=pfad, sprache=sprache: pruefe_bereiche(pg, p)), ("Berichte", lambda pg=pg, pfad=pfad, sprache=sprache: pruefe_berichte(pg, p)),
+                            ("Reiter", lambda pg=pg, pfad=pfad, sprache=sprache: pruefe_reiter(pg, p)), ("Alles offen", lambda pg=pg, pfad=pfad, sprache=sprache: pruefe_alles_offen(pg, p)),
+                            ("Direktlinks", lambda pg=pg, pfad=pfad, sprache=sprache: pruefe_direktlinks(pg, basis + pfad, p)), ("Sprachknopf", lambda pg=pg, pfad=pfad, sprache=sprache: pruefe_sprachknopf(pg, basis + pfad, sprache, p)),
+                            ("Menü und Kurztext", lambda pg=pg, pfad=pfad, sprache=sprache: pruefe_menue_und_kurztext(pg, basis + pfad, p)), ("Menüknopf", lambda pg=pg, pfad=pfad, sprache=sprache: pruefe_menueknopf(pg, basis + pfad, p)), ("Berichtsseiten", lambda pg=pg, pfad=pfad, sprache=sprache: pruefe_berichtseiten(pg, basis, sprache, p)), ("Audit-Seite", lambda pg=pg, pfad=pfad, sprache=sprache: pruefe_auditseite(pg, basis, sprache, p)), ("Linkseite", lambda pg=pg, pfad=pfad, sprache=sprache: pruefe_linkseite(pg, basis, sprache, p)), ("Hinweiszeile", lambda pg=pg, pfad=pfad, sprache=sprache: pruefe_en_zeile(pg, basis, sprache, p)))
                 try:
                     lade(pg, basis + pfad, p)
                     p.ok(pg.evaluate("document.documentElement.lang") == sprache, "Sprache der Seite %s ist %s" % (pfad, pg.evaluate("document.documentElement.lang")))

@@ -13,6 +13,10 @@ Steve soll nicht zwischen den Chats vermitteln müssen. Wer am Repo arbeitet, li
 
 ## Offen
 
+### Erledigt 28.11., Gegenprobe von Dreier Labs fand Lücke im eigenen Code-Audit
+- Dreier Labs prüft cyberlage.org jetzt zusätzlich selbst (Gegenprobe, ganzes Repo) und verglich: 93 statt 100. Grund: Der eigene Lauf (`codeaudit/lauf.py`) prüft ruff nur in `pipeline audit codeaudit`, nicht in `tests/`. Dort standen 23 Fehlermuster (B023 Schleifenvariable in `klicktest.py`, B017 in `test_historie_lauf.py`). Behoben, 237 Tests und Klicktest (5252 Prüfungen) grün.
+- **Offen:** Soll der eigene Lauf `tests` mitprüfen, damit beide Ergebnisse gleich geprüft werden? Sonst bleiben solche Funde in Tests im eigenen Siegel unsichtbar. Steve entscheiden lassen.
+
 ### Erledigt 27.11., KI- und Suchmaschinen-Zugang geprüft (nur lesend, nichts geändert)
 - `robots.txt` (live gleich wie im Repo): alles erlaubt, Sitemap genannt, keine Cloudflare-Zusätze. `llms.txt`, Sitemap, Feed, canonical, hreflang DE/EN, Open Graph und JSON-LD sind vorhanden.
 - Cloudflare „AI Crawl Control“ (Stand 27.11., letzte 7 Tage, Quelle: Cloudflare-Dashboard cyberlage.org): kein Crawler blockiert. Anfragen erlaubt: Googlebot 226, GPTBot 132, Applebot 58, Claude-User 19, ClaudeBot 18, Meta-ExternalAgent 7, ChatGPT-User 6, Google-CloudVertexBot 4, PerplexityBot 3, OAI-SearchBot 2, CCBot 2. Bing und Claude-SearchBot 0.
