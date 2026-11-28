@@ -1265,7 +1265,7 @@
     });
     var ad = el("p", "mono dim fine", pick("Adobe: keine maschinenlesbare Quelle ohne Konto, daher nur Verweis auf die ", "Adobe: no machine-readable source without an account, so a link only to the "));
     ad.appendChild(link("https://www.adobe.com/trust/security/bulletins-and-advisories.html", pick("Adobe-Sicherheitshinweise", "Adobe security bulletins")));
-    ad.appendChild(document.createTextNode(pick(" (Patch Day: zweiter Dienstag, siehe Patch-Kalender). SAP-Hinweise erreichen Sie nur mit SAP-for-Me-Konto, hier steht die Nummer.", " (patch day: second Tuesday, see patch calendar). SAP notes need an SAP for Me account, only the number is shown here.")));
+    ad.appendChild(document.createTextNode(pick(" (Patch Day: zweiter Dienstag, siehe Patch-Kalender). SAP-Hinweise erreichst du nur mit SAP-for-Me-Konto, hier steht die Nummer.", " (patch day: second Tuesday, see patch calendar). SAP notes need an SAP for Me account, only the number is shown here.")));
     if (mitAdobe) box.appendChild(ad);
     box.appendChild(el("p", "mono dim fine", pick("Nur Zählung und Verweise auf die Meldungen der Hersteller, keine Texte. Schweregrade stammen von den Herstellern und fehlen, wo sie nicht geliefert werden (zum Beispiel bei Ubuntu und Debian).", "Counts and links to the vendors' advisories only, no texts. Severity comes from the vendors and is missing where they do not provide it (for example Ubuntu and Debian).")));
     box.hidden = false;
