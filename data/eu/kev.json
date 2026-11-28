@@ -3,7 +3,7 @@
   "quelle": "EU-KEV über die EU-Schwachstellendatenbank (EUVD) von ENISA",
   "quelle_url": "https://euvd.enisa.europa.eu/",
   "hinweis": "Lizenz nicht ausdrücklich geklärt. Nur Kennung, CVE, Hersteller, Werte, Datum und Link.",
-  "abgerufen_am": "2026-11-28T05:15:20+00:00",
+  "abgerufen_am": "2026-11-28T06:12:33+00:00",
   "anzahl": 91
  },
  "eintraege": [
@@ -18,7 +18,7 @@
    "ausgenutzt_seit": "2026-11-27",
    "veroeffentlicht": "2026-11-26",
    "cvss": 9.8,
-   "epss": 1.01,
+   "epss": 1.21,
    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-135954"
   },
   {
@@ -187,7 +187,7 @@
    "ausgenutzt_seit": "2026-11-24",
    "veroeffentlicht": "2026-11-26",
    "cvss": 8.1,
-   "epss": 11.05,
+   "epss": 8.38,
    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-135952"
   },
   {
@@ -201,7 +201,7 @@
    "ausgenutzt_seit": "2026-11-24",
    "veroeffentlicht": "2026-11-19",
    "cvss": 9.3,
-   "epss": 4.29,
+   "epss": 4.24,
    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-129432"
   },
   {
@@ -341,7 +341,7 @@
    "ausgenutzt_seit": "2026-11-18",
    "veroeffentlicht": "2026-04-10",
    "cvss": 8.8,
-   "epss": 20.22,
+   "epss": 20.63,
    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-21376"
   },
   {
@@ -537,7 +537,7 @@
    "ausgenutzt_seit": "2026-11-09",
    "veroeffentlicht": "2026-11-05",
    "cvss": 8.1,
-   "epss": 14.21,
+   "epss": 89.63,
    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-117552"
   },
   {
@@ -705,7 +705,7 @@
    "ausgenutzt_seit": "2026-10-27",
    "veroeffentlicht": "2026-10-22",
    "cvss": 9.2,
-   "epss": 32.98,
+   "epss": 99.99,
    "link": "https://euvd.enisa.europa.eu/vulnerability/EUVD-2026-108169"
   },
   {
